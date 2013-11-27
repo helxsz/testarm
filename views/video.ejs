@@ -1,0 +1,70 @@
+<style>
+.video-section {
+background-color: #EBEBED;
+padding: 60px 0 60px 0;
+margin: 0 auto;
+max-width: 100%;
+border-bottom: 1px solid #e4e4e4;
+}
+
+.description .section-title {
+font-size: 30px;
+font-weight: 600;
+text-transform: uppercase;
+margin: 0 0 30px;
+}
+
+.description p {
+font-family: "open-sans","Open Sans","Helvetica Neue","Helvetica",Helvetica,Arial,sans-serif;
+font-size: 20px;
+line-height: 30px;
+color: #5b6064;
+}
+
+
+.get-started {
+background: #58cb8e;
+color: #3D390E;
+text-shadow: none;
+font-size: 18px;
+padding: 8px 15px;
+box-shadow: 0 1px 0 #158EB0;
+text-shadow: 0 1px 1px rgba(91, 102, 122, 0.5);
+-moz-border-radius: 4px;
+-webkit-border-radius: 4px;
+-o-border-radius: 4px;
+border-radius: 4px;
+cursor: pointer;
+width: auto;
+outline: 0;
+border: 0;
+font-family: Museo-700, serif;
+}
+
+.video-section a{
+  color: rgb(26, 27, 29);
+}
+
+
+</style>
+<section class="video-section row">    
+      <div class="description span4 offset2">
+        <h3 class="section-title">
+          Prototyping &amp; Collaboration For Design Teams
+        </h3>
+        <p>Whether you need to quickly share a single mockup or demo a complex mobile app, InVision gives you the tools to show off your designs like never before.</p>
+        <a href="#" class="get-started">Get started <i>for</i> <b>FREE</b></a>
+	  </div>
+
+      <div class=" span7">
+        <iframe src="http://player.vimeo.com/video/63215902" width="618" height="347" frameborder="0" webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen=""></iframe>
+      </div>	  
+</section>
+<script src="/assets/js/jquery.fitvids.js"></script> 
+
+<script>
+  $(document).ready(function(){
+    // Target your .container, .wrapper, .post, etc.
+    $(".video-section").fitVids();
+  });
+</script>

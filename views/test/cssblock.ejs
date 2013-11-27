@@ -1,0 +1,170 @@
+<style>
+
+
+.container {
+  -webkit-perspective: 1000;
+  margin-top: -70px;
+  position: absolute;
+  top: 50%;
+}
+
+.cube {
+  -webkit-animation: spin 6s 0 infinite;
+  -moz-animation: spin 6s 0 infinite;
+  animation: spin 6s 0 infinite;
+  position: relative;
+  -webkit-transform-style: preserve-3d;
+  -moz-transform-style: preserve-3d;
+  -ms-transform-style: preserve-3d;
+  -o-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+}
+
+.container, .face {
+  height: 140px;
+  width: 100%;
+}
+
+.face {
+  -webkit-backface-visibility: hidden;
+  -moz-backface-visibility: hidden;
+  -ms-backface-visibility: hidden;
+  -o-backface-visibility: hidden;
+  backface-visibility: hidden;
+  left: 0;
+  line-height: 140px;
+  overflow: hidden;
+  position: absolute;
+  text-align: center;
+  -webkit-transition: color 0.1s;
+  -moz-transition: color 0.1s;
+  -o-transition: color 0.1s;
+  transition: color 0.1s;
+  top: 0;
+}
+
+.front {
+  color: #a2c5bf;
+  font-size: 40px;
+  line-height: 90px;
+  z-index: 2;
+}
+.front iframe {
+  display: block;
+  margin: 0 auto;
+}
+
+.top {
+  color: #e8846b;
+  -webkit-transform: rotateX(90deg) translateY(-70px) translateZ(70px);
+  -moz-transform: rotateX(90deg) translateY(-70px) translateZ(70px);
+  -ms-transform: rotateX(90deg) translateY(-70px) translateZ(70px);
+  -o-transform: rotateX(90deg) translateY(-70px) translateZ(70px);
+  transform: rotateX(90deg) translateY(-70px) translateZ(70px);
+}
+
+.back {
+  color: #16528e;
+  -webkit-transform: rotateX(180deg) translateY(0px) translateZ(140px);
+  -moz-transform: rotateX(180deg) translateY(0px) translateZ(140px);
+  -ms-transform: rotateX(180deg) translateY(0px) translateZ(140px);
+  -o-transform: rotateX(180deg) translateY(0px) translateZ(140px);
+  transform: rotateX(180deg) translateY(0px) translateZ(140px);
+}
+
+.bottom {
+  color: #e54b4b;
+  -webkit-transform: rotateX(270deg) translateY(70px) translateZ(70px);
+  -moz-transform: rotateX(270deg) translateY(70px) translateZ(70px);
+  -ms-transform: rotateX(270deg) translateY(70px) translateZ(70px);
+  -o-transform: rotateX(270deg) translateY(70px) translateZ(70px);
+  transform: rotateX(270deg) translateY(70px) translateZ(70px);
+}
+
+@-webkit-keyframes spin {
+  0% {
+    -webkit-transform: rotateX(-360deg) translateZ(0px) translateY(0px);
+    -moz-transform: rotateX(-360deg) translateZ(0px) translateY(0px);
+    -ms-transform: rotateX(-360deg) translateZ(0px) translateY(0px);
+    -o-transform: rotateX(-360deg) translateZ(0px) translateY(0px);
+    transform: rotateX(-360deg) translateZ(0px) translateY(0px);
+  }
+
+  26% {
+    -webkit-transform: rotateX(-360deg) translateZ(0px) translateY(0px);
+    -moz-transform: rotateX(-360deg) translateZ(0px) translateY(0px);
+    -ms-transform: rotateX(-360deg) translateZ(0px) translateY(0px);
+    -o-transform: rotateX(-360deg) translateZ(0px) translateY(0px);
+    transform: rotateX(-360deg) translateZ(0px) translateY(0px);
+  }
+
+  34% {
+    -webkit-transform: rotateX(-90deg) translateZ(140px);
+    -moz-transform: rotateX(-90deg) translateZ(140px);
+    -ms-transform: rotateX(-90deg) translateZ(140px);
+    -o-transform: rotateX(-90deg) translateZ(140px);
+    transform: rotateX(-90deg) translateZ(140px);
+  }
+
+  48% {
+    -webkit-transform: rotateX(-90deg) translateZ(140px);
+    -moz-transform: rotateX(-90deg) translateZ(140px);
+    -ms-transform: rotateX(-90deg) translateZ(140px);
+    -o-transform: rotateX(-90deg) translateZ(140px);
+    transform: rotateX(-90deg) translateZ(140px);
+  }
+
+  56% {
+    -webkit-transform: rotateX(-180deg) translateZ(140px) translateY(-140px);
+    -moz-transform: rotateX(-180deg) translateZ(140px) translateY(-140px);
+    -ms-transform: rotateX(-180deg) translateZ(140px) translateY(-140px);
+    -o-transform: rotateX(-180deg) translateZ(140px) translateY(-140px);
+    transform: rotateX(-180deg) translateZ(140px) translateY(-140px);
+  }
+
+  70% {
+    -webkit-transform: rotateX(-180deg) translateZ(140px) translateY(-140px);
+    -moz-transform: rotateX(-180deg) translateZ(140px) translateY(-140px);
+    -ms-transform: rotateX(-180deg) translateZ(140px) translateY(-140px);
+    -o-transform: rotateX(-180deg) translateZ(140px) translateY(-140px);
+    transform: rotateX(-180deg) translateZ(140px) translateY(-140px);
+  }
+
+  78% {
+    -webkit-transform: rotateX(-270deg) translateZ(0px) translateY(-140px);
+    -moz-transform: rotateX(-270deg) translateZ(0px) translateY(-140px);
+    -ms-transform: rotateX(-270deg) translateZ(0px) translateY(-140px);
+    -o-transform: rotateX(-270deg) translateZ(0px) translateY(-140px);
+    transform: rotateX(-270deg) translateZ(0px) translateY(-140px);
+  }
+
+  92% {
+    -webkit-transform: rotateX(-270deg) translateZ(0px) translateY(-140px);
+    -moz-transform: rotateX(-270deg) translateZ(0px) translateY(-140px);
+    -ms-transform: rotateX(-270deg) translateZ(0px) translateY(-140px);
+    -o-transform: rotateX(-270deg) translateZ(0px) translateY(-140px);
+    transform: rotateX(-270deg) translateZ(0px) translateY(-140px);
+  }
+
+  100% {
+    -webkit-transform: rotateX(-360deg) translateZ(0px) translateY(0px);
+    -moz-transform: rotateX(-360deg) translateZ(0px) translateY(0px);
+    -ms-transform: rotateX(-360deg) translateZ(0px) translateY(0px);
+    -o-transform: rotateX(-360deg) translateZ(0px) translateY(0px);
+    transform: rotateX(-360deg) translateZ(0px) translateY(0px);
+  }
+}
+
+</style>
+<div class="container">
+  <div class="cube">
+    <div class="face front">
+      @minimalmonkey
+      <a href="https://twitter.com/minimalmonkey" class="twitter-follow-button" data-show-count="false">Follow @minimalmonkey</a>
+      <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+    </div>
+    <div class="face top">CSS3</div>
+    <div class="face back">NO JS</div>
+    <div class="face bottom">YEAH!</div>
+  </div>
+</div>

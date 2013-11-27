@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= locals.title %></title>
+	
+    <link href="/assets/css/bootstrap.css" rel="stylesheet">
+    <link href="/assets/css/bootstrap-responsive.css" rel="stylesheet">  
+	
+   <script src="/assets/js/jquery-1.9.1.min.js"></script>    
+   <script src="/assets/js/underscore.js"></script> 
+   <script src="/assets/js/backbone/backbone-min.js"></script> 
+   <script src="/assets/js/socket.io.js"></script> 
+ 
+<script src="/assets/js/bootstrap/js/bootstrap-tooltip.js"></script>  
+<script src="/assets/js/bootstrap/js/bootstrap-popover.js"></script>   
+<script src="/assets/js/bootstrap/js/bootstrap-alert.js"></script>  
+<script src="/assets/js/bootstrap/js/bootstrap-modal.js"></script>  
+<script src="/assets/js/bootstrap/js/bootstrap-dropdown.js"></script> 
+
+    <!-- Fav and touch icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="../assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="../assets/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../assets/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="../assets/ico/apple-touch-icon-57-precomposed.png">
+	
+  </head>
+<style>
+body {
+  text-align: center;
+  background-image: -webkit-radial-gradient(center top, circle farthest-corner, #FFFFFF 0%, #D8DFE9 100%);
+  background-image: radial-gradient(circle farthest-corner at center top, #FFFFFF 0%, #D8DFE9 100%);
+}
+.container{
+position: relative;
+display: block;
+   padding-top: 92px;
+   
+margin: 0 auto !important;
+ float: none !important;
+ text-align: center;
+ width: 960px;
+}
+
+#sidebar{
+margin-bottom: 20px;
+padding: 20px;
+background: #fff;
+border: 1px solid #DEDEDE;
+border-radius: 4px;
+box-shadow: 0 2px 2px -1px rgba(0,0,0,.055);
+}
+
+#sidebar ul li {
+border-bottom: 1px solid #eee;
+line-height: 28px;
+width: 160px;
+}
+
+.portlet-decoration {
+border-bottom: 1px solid #CCC;
+margin-bottom: 15px;
+padding-bottom: 5px;
+}
+
+</style>  
+
+  <body>
+    <div class="wrapper">
+	    <div class="inner-wrapper"> 
+        <% include ../header %>
+
+	
+	<div class="row-fluid container">
+	
+	    <div id="sidebar" class="span3">
+		    <div class="portlet-decoration">
+                 <h4>Settings</h4>
+            </div>
+		
+	        <ul class="nav">
+                <li><a href="/settings/account" >Account</a></li>
+                <li><a href="/settings/profile" >Profile</a></li>
+				<!--
+                <li><a href="/settings/social" class="active">Social</a></li>				
+                <li><a href="/settings/notification" >Notifications</a></li>
+				-->
+            </ul>
+	    </div>	  
+	
+		 <% if(locals.setting=="account"){ %>
+            <% include account %>  
+		<% } %>
+				
+		<% if(locals.setting=="profile"){ %>
+            <% include profile %>  
+ 
+        <% } %>
+		<% if(locals.setting=="social"){ %>
+            <% include social %>  
+
+        <% } %>
+		<% if(locals.setting=="notification"){ %>
+            <% include notification %>  		
+         <% } %>  
+	</div>  
+            <% include ../footer %>
+		</div>
+	</div>	
+ </body>	
+
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>DashBoard</title>
+	
+    <link href="/assets/css/bootstrap.css" rel="stylesheet">
+    <link href="/assets/css/bootstrap-responsive.css" rel="stylesheet">  
+	
+   <script src="/assets/js/jquery-1.9.1.min.js"></script>    
+   <script src="/assets/js/underscore.js"></script> 
+   <script src="/assets/js/backbone/backbone-min.js"></script> 
+   <script src="/assets/js/socket.io.js"></script> 
+ 
+<script src="/assets/js/bootstrap/js/bootstrap-tooltip.js"></script>  
+<script src="/assets/js/bootstrap/js/bootstrap-popover.js"></script>   
+<script src="/assets/js/bootstrap/js/bootstrap-alert.js"></script>  
+<script src="/assets/js/bootstrap/js/bootstrap-modal.js"></script>  
+<script src="/assets/js/bootstrap/js/bootstrap-dropdown.js"></script> 
+
+
+    <!-- Fav and touch icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="../assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="../assets/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../assets/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="../assets/ico/apple-touch-icon-57-precomposed.png">
+                                   <link rel="shortcut icon" href="../assets/ico/favicon.png">		
+
+
+								   
+  </head>
+<style>
+body {
+  text-align: center;
+  background-image: -webkit-radial-gradient(center top, circle farthest-corner, #FFFFFF 0%, #D8DFE9 100%);
+  background-image: radial-gradient(circle farthest-corner at center top, #FFFFFF 0%, #D8DFE9 100%);
+}
+
+
+</style>
+
+ <style>
+ .content{
+     position: relative;
+	margin-top:140px;	 
+ }
+ </style>
+  <body>
+    <div class="wrapper">
+	    <div class="inner-wrapper">
+
+            <% include header %>	
+    	 	<div class="content"> </div>	
+            <div class='row container-fluid'>
+			    <% include user/user_comment %>
+			    <% include user/user_profile %>
+            </div>
+
+            <div class='row container-fluid'>
+                <!-- include user/user_progress -->
+                <!-- include user/user_honor -->
+            </div>
+
+			<!-- include user/user_message -->
+
+
+
+
+			
+
+            <% include footer %>
+			
+		</div>
+	</div>				
+  </body>
+
+</html>

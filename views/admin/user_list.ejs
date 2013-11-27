@@ -1,0 +1,273 @@
+<!-- http://bootsnipp.com/snipps/e-mail-interface-like-gmail    moment().format("MMM Do YY");   -->
+<input type="hidden" id='csrf' name="_csrf" value="<%= token %>"/>
+
+	<input class="typeahead" name="city" type="text"  style="width:400px" placeholder="Search cities..." >			
+
+
+<table class="table table-condensed table-hover">
+  <thead>
+    <tr>
+      <th class="span1"><input type="checkbox"></th>
+      <th class="span2">Name</th>
+      <th class="span2">Email</th>
+      <th class="span9">Time</th>
+      <th class="span2"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><input type="checkbox"> <a href="#"><i class="icon-star-empty"></i></a></td>
+      <td><strong>John Doe</strong></td>
+      <td><span class="label pull-right">Notifications</span></td>
+      <td><strong>Message body goes here</strong></td>
+      <td><strong>11:23 PM</strong></td>
+    </tr>
+	
+	
+	<% if(locals.users.length>0){ %>
+	  <% for(var i=0; i<locals.users.length; i++) {%>
+	    <tr>
+		    <td><input type="checkbox"> <a href="#"><i class="icon-star-empty"></i></a></td>
+			
+		    <td style="padding: 10px;">
+			    <a href="/profile/<%= locals.users[i].username %>" > <strong><%= locals.users[i].username %></strong>  </a>
+				<% if(locals.users[i].img) {%> 
+				    <img src="/images/<%= locals.users[i].img %>" width="32" height="32" class="img-polaroid" >
+                <% } %>				 
+		    </td>
+			
+            <td><span class="label pull-right"><%= locals.users[i].email %></span></td>
+			<td><strong><%= locals.users[i].cdate %>  </strong></td>
+			<% if(locals.users[i].about) {%>
+			    <td><strong><%= locals.users[i].about %></strong></td>
+			<% } %>	
+			
+			<% if(locals.users[i].admin) {%>
+				<td><span class="label label-success"><%= locals.users[i].admin %></span></td>           
+			<% } %>
+			<% if(!locals.users[i].admin) {%>
+				<td><span class="label label"> User Only </span></td>           
+			<% } %>	
+			
+            <td>
+               <a href="#editModal" class='edit-modal' data-toggle="modal" data-id="<%= locals.users[i]._id %>"><i class="icon-pencil"></i></a>
+               <a href="#deleteModal" class='delete-modal' role="button" data-toggle="modal" data-id="<%= locals.users[i]._id %>"><i class="icon-remove"></i></a>
+            </td>				
+		</tr>	
+      <% } %>
+	<% } %>
+	
+	
+  </tbody>
+</table>
+
+<div class="pagination">
+    <ul>
+        <li><a href="#">Prev</a></li>
+        <li><a href="#">1</a></li>
+        <li><a href="#">2</a></li>
+        <li><a href="#">3</a></li>
+        <li><a href="#">4</a></li>
+        <li><a href="#">Next</a></li>
+    </ul>
+</div>
+
+
+<div class="modal small hide fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
+        <h3 id="myModalLabel">Delete Confirmation</h3>
+    </div>
+    <div class="modal-body">
+        <p class="error-text">Are you sure you want to delete the user?</p>
+		<div id="userID"> </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
+        <button class="btn btn-danger" data-dismiss="modal" id="deleteUser">Delete</button>
+    </div>
+</div>
+
+
+<div class="modal small hide fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
+        <h3 id="myModalLabel">Edit Box</h3>
+    </div>
+    <div class="modal-body">
+      <div class="row-fluid">
+        <div class="span12">
+            <div class="span6">
+            <div class="logowrapper">
+                <img class="logoicon" src="http://placehold.it/300x300/bbb/&text=Your%20Logo" alt="App Logo"/>
+            </div>
+            </div>
+            <div class="span6">
+			    <form id="admin-form">
+					<select id="role" name="role" >
+                        <option value="admin">admin</option>
+                        <option value="none">none</option>
+                    </select>
+				</form>	
+            </div>
+			<input id="userID" type="hidden"> </input>
+        </div>
+      </div>    
+	</div>
+    <div class="modal-footer">
+        <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
+        <button class="btn btn-danger" data-dismiss="modal" id="updateUser">Edit</button>
+    </div>
+</div>
+
+
+<!--   http://bootsnipp.com/snipps/user-profile-in-tabs?DropDownTimezone=-8.0  
+http://wrapbootstrap.com/preview/WB0LRK4D0
+http://wrapbootstrap.com/preview/WB0246423
+http://wrapbootstrap.com/preview/WB0G8N116
+http://wrapbootstrap.com/preview/WB00K9L2R
+http://wrapbootstrap.com/preview/WB059X072
+--> 
+
+<a data-toggle="modal" class="btn" href="#loginModal">Log in</a>
+ 
+<div class="modal hide" id="loginModal">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">?</button>
+        <h3>Login to Website</h3>
+    </div>
+        <div class="modal-body" style="text-align:center;">
+        <div class="row-fluid">
+            <div class="span10 offset1">
+                <div id="modalTab">
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="login">
+                            <form method="post" action='' name="login_form">
+                                <p><input type="text" class="span12" name="eid" id="email" placeholder="Email"></p>
+                                <p><input type="password" class="span12" name="passwd" placeholder="Password"></p>
+                                <p><button type="submit" class="btn btn-primary">Sign in</button>
+                                <a href="#forgotpassword" data-toggle="tab">Forgot Password?</a>
+                                </p>
+                            </form>
+                        </div>
+                        <div class="tab-pane fade" id="forgotpassword">
+                            <form method="post" action='' name="forgot_password">
+                                <p>Hey this stuff happens, send us your email and we'll reset it for you!</p>
+                                <input type="text" class="span12" name="eid" id="email" placeholder="Email">
+                                <p><button type="submit" class="btn btn-primary">Submit</button>
+                                <a href="#login" data-toggle="tab">Wait, I remember it now!</a>
+                                </p>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+
+initWebsocket();
+function initWebsocket(){
+            console.log('init train socket');
+            var socket =  io.connect(':8082/');
+						
+            socket.on('connect', function(message) {
+                console.log('on connect',message);
+            });
+            socket.on('news', function(message){
+			   console.log(message);			   
+            });
+}
+	// Validate the second password field
+$('#search_input').on('keydown input',function(){	
+		// Make sure its value equals the first's
+	console.log($(this).val());
+
+});	
+ 
+$('#search_form').on('submit',function(e){
+    console.log('click');		
+    e.preventDefault();
+	var name = $('#search_input').val();
+	if( $('#search_input').val().length>0 )
+    $.ajax({
+           type: "get",
+           url: "/admin/users?n="+name,
+           success: function(data)
+           {
+               console.log(data.length);
+           }
+    });
+	
+});
+
+$(document).on("click", ".edit-modal", function () {
+     var id = $(this).data('id');
+     $(".modal-body #userID").text( id );
+});
+
+$(document).on("click", ".delete-modal", function () {
+     var id = $(this).data('id');
+     $(".modal-body #userID").text( id );
+});
+
+$("#deleteUser").on("click", function () {
+     var id = $('#userID').text();
+     console.log('deleteUser ',id);
+    $.ajax({
+           type: "delete",
+           url: "/admin/users/"+id,
+		   beforeSend: function(xhr){xhr.setRequestHeader('x-csrf-token', $('#csrf').val());},
+           success: function(data)
+           {
+               console.log(data.length);
+           }
+    });	 
+});
+
+$("#updateUser").on("click", function () {
+    var id = $('#userID').text();
+   	
+	var str = $("#admin-form").serialize();
+    console.log('updateUser  ',id,str); 
+	/*    */
+    $.ajax({
+           type: "put",
+           url: "/admin/users/"+id,
+		   data: str,
+		   beforeSend: function(xhr){xhr.setRequestHeader('x-csrf-token', $('#csrf').val());},
+           success: function(data)
+           {
+               console.log(data.length);
+           }
+    });
+	
+});
+
+ $('.typeahead').typeahead({
+   remote:{
+        url:'/admin/users?n='
+        ,timeout: 2000
+        ,cache:84000
+		,rateLimitWait:1000 
+        ,filter: function(parsedResponse) {
+            console.log('typeahead',parsedResponse.length);
+            var dataset = [];
+			/*
+            for(i = 0; i < parsedResponse.data.length; i++) {
+                dataset.push({
+                    name: parsedResponse.data[i].name,
+                    start_time: parsedResponse.data[i].start_time,
+                    id: parsedResponse.data[i].id,
+                    value: parsedResponse.data[i].name,
+                    tokens: [parsedResponse.data[i].id, parsedResponse.data[i].name]
+                });
+            }
+			*/
+            return dataset;
+        }
+     }	
+  });
+</script> 

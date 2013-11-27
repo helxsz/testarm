@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title><%= locals.title %></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!-- Le styles -->
+    <link href="../assets/css/bootstrap.css" rel="stylesheet">
+    <link href="../assets/css/bootstrap-responsive.css" rel="stylesheet">
+
+	
+	<style type="text/css">
+body {
+
+font-family: 'proxima-nova',Proxima Nova,'Helvetica Neue',Helvetica,sans-serif;
+
+  margin: 0;
+  padding: 0;
+  height: 100%;
+background: #F3F5F8;
+}
+
+body, .content{
+       -webkit-transition:background 1s;
+	   -moz-transition:background 1s;
+	   -o-transition:background 1s;
+	   -ms-transition:background 1s;
+	   transition:background 1s;
+	   
+}
+body.dim, .content.dim{
+        background:#D9DFE9
+}
+
+
+#login-container label {
+  margin: 15px 0 5px 5px;
+}
+#login-container button {
+  width: 150px;
+  padding: 6px 40px 6px 40px;
+  float: left;
+  margin-top: 15px;
+}
+#login-container .checkbox {
+  margin: 23px 0 0 180px;
+}
+#login-container .btm-links {
+  text-align: center;
+  margin-top: 10px;
+}
+#login-container #create-account {
+  float: right;
+  margin-right: 13px;
+}
+#login-container #forgot-password {
+  float: left;
+  margin-left: 10px;
+}	  
+
+#login-container input {
+border-radius: 0;
+border: 0;
+padding: .8em 14px;
+box-shadow: none;
+border: 0;
+margin-bottom: 20px;
+width: 343px;
+background: white;	border: none;
+	border-radius: 3px;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;text-transform: uppercase;
+}
+
+#login-container input:hover {
+background-color: #e5e5e5;	font-family: 'Open Sans', Arial, Helvetica, sans-serif;
+
+}
+
+#login-container .btn {
+	background-color: #008dde;
+	border: none;
+	border-radius: 3px;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	color: #f4f4f4;
+	cursor: pointer;
+	font-family: 'Open Sans', Arial, Helvetica, sans-serif;
+	height: 50px;
+	width: 300px;
+}
+
+#btn-login{
+	background-color: #008dde;
+	border: none;
+	border-radius: 3px;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	color: #f4f4f4;
+	cursor: pointer;
+	font-family: 'Open Sans', Arial, Helvetica, sans-serif;
+	height: 50px;
+	width: 300px;
+}
+
+
+#auth-form .btn {
+background: #D63C23;
+color: white;
+width: auto;
+padding: 1em 2.8em;
+margin-right: 0;
+	padding: 0px 10px;
+	width: 280px;height: 50px;
+letter-spacing: 0;
+font-size: 14px;
+}
+#auth-form input {
+border-radius: 0;
+border: 0;
+padding: .8em 14px;
+box-shadow: none;
+border: 0;
+margin-bottom: 20px;
+width: 343px;
+background: white;	border: none;
+	border-radius: 3px;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+}
+#auth-form input:hover:not(.btn) {
+background-color: #e5e5e5;	font-family: 'Open Sans', Arial, Helvetica, sans-serif;
+}
+
+.content h3{
+font-size: 28px;
+font-weight: 200;
+width: 400px;
+
+}
+
+.twitter-before {
+	background-color: #189bcb;
+	border-radius: 3px 0px 0px 3px;
+	-moz-border-radius: 3px 0px 0px 3px;
+	-webkit-border-radius: 3px 0px 0px 3px;
+	color: #f4f4f4;
+	display: block;
+	float: left;
+	height: 50px;
+	line-height: 50px;
+	text-align: center;
+	width: 50px;
+}
+
+
+.twitter {
+	background-color: #1bb2e9;
+	border: none;
+	border-radius: 0px 3px 3px 0px;
+	-moz-border-radius: 0px 3px 3px 0px;
+	-webkit-border-radius: 0px 3px 3px 0px;
+	color: #f4f4f4;
+	cursor: pointer;
+	height: 50px;
+	text-transform: uppercase;
+	width: 250px;
+}
+
+
+.facebook-before {
+	background-color: #0064ab;
+	border-radius: 3px 0px 0px 3px;
+	-moz-border-radius: 3px 0px 0px 3px;
+	-webkit-border-radius: 3px 0px 0px 3px;
+	color: #f4f4f4;
+	display: block;
+	float: left;
+	height: 50px;
+	line-height: 50px;
+	text-align: center;
+	width: 50px;
+}
+
+.facebook {
+	background-color: #0079ce;
+	border: none;
+	border-radius: 0px 3px 3px 0px;
+	-moz-border-radius: 0px 3px 3px 0px;
+	-webkit-border-radius: 0px 3px 3px 0px;
+	color: #f4f4f4;
+	cursor: pointer;
+	height: 50px;
+	text-transform: uppercase;
+	width: 250px;
+}
+
+.github-before {
+	background-color: #6D7772;;
+	border-radius: 3px 0px 0px 3px;
+	-moz-border-radius: 3px 0px 0px 3px;
+	-webkit-border-radius: 3px 0px 0px 3px;
+	color: #f4f4f4;
+	display: block;
+	float: left;
+	height: 50px;
+	line-height: 50px;
+	text-align: center;
+	width: 50px;
+}
+
+.github {
+	background-color: #A4AAA7;
+	border: none;
+	border-radius: 0px 3px 3px 0px;
+	-moz-border-radius: 0px 3px 3px 0px;
+	-webkit-border-radius: 0px 3px 3px 0px;
+	color: #f4f4f4;
+	cursor: pointer;
+	height: 50px;
+	text-transform: uppercase;
+	width: 250px;
+}
+    </style>	
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]
+    -->   
+   <script src="../assets/js/jquery-1.8.1.min.js"></script>   
+   <script src="../assets/js/underscore.js"></script>
+   <script src="../assets/js/backbone-min.js"></script>
+   <script src="../assets/js/jquery.tmpl.min.js"></script>  
+
+    <!-- Fav and touch icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="../assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="../assets/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../assets/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="../assets/ico/apple-touch-icon-57-precomposed.png">
+    <link rel="shortcut icon" href="../assets/ico/favicon.png">
+  </head>
+
+ <style>
+ .content{
+    position: relative;
+	margin-top:140px;
+ }
+ 
+ #signup{
+   margin-top:140px;
+} 
+ </style>
+    
+  <body>
+	<div class="wrapper">
+	  <div class="inner-wrapper">	
+	    <% include header %>
+
+<!---->
+		
+        <div class="container-fluid content">	
+            <div id="signup" class="accounts-form row-fluid">	
+
+                <div class="span4 social offset2">
+				  <div >
+                    <h3>Sign up</h3>
+                    <p class="note"><small>By creating your account you agree to our 
+                    <a href="/terms/" target="blank">Terms of Use</a> and <a href="/privacy/" target="blank">Privacy Policy</a>.</small></p>        
+                  </div>
+				
+                  <div>
+                    <form class="connect-button" name="login" method="get" action="/auth/twitter" id="twitter-connect-form">
+                        <input type="hidden" name="_csrf" value="<%= token %>"/>        
+                        <input type="hidden" name="next" value="/welcome/" />
+        	            <a class="twitter-before"><span class="fontawesome-twitter"></span></a>
+			            <button class="twitter">Login Using Twitter</button>
+		            </form>
+                    <form class="connect-button" name="login" method="get" action="/auth/facebook" id="facebook-connect-form">
+                        <input type="hidden" name="_csrf" value="<%= token %>"/>       
+                        <input type="hidden" name="next" value="/welcome/" />        
+			            <a class="facebook-before"><span class="fontawesome-facebook"></span></a>
+			            <button class="facebook">Login Using Facbook</button>        
+		            </form>
+                    <form class="connect-button" name="login" method="get" action="/auth/github" id="github-connect-form">
+                        <input type="hidden" name="_csrf" value="<%= token %>"/>       
+                        <input type="hidden" name="next" value="/welcome/" />        
+			            <a class="github-before"><span class="fontawesome-facebook"></span></a>
+			            <button class="github">Login Using Github</button>        
+		            </form>					
+                    <p><small>Already have an account? <a href="/login/">Log in</a></small></p>
+                   </div>
+                </div>
+
+                <div class="span5 offset1">   
+                    <form action="/signup" method="POST" autocomplete="off" class="clearfix" id="auth-form" enctype="application/x-www-form-urlencoded">
+		                <input type="hidden" name="_csrf" value="<%= token %>"/>
+                            <h3>Sign up with email</h3>
+                            <div class="all-errors">               </div>
+                        <div class="input">
+                            <input id="id_username" type="text" placeholder="Username" name="username" maxlength="30" />               
+                        </div>
+                        <div class="input">
+                            <input id="id_email" type="text" placeholder="Email" name="email" maxlength="75" />               
+                        </div>
+                        <div class="input">
+                            <input type="password" placeholder="Password" name="password1" id="id_password" />               
+                        </div>
+                        <div class="input">
+                            <input type="password" placeholder="Password" name="password" id="id_password2" />               
+                        </div>						
+                        <div class="action">              
+                            <input type="hidden" name="next" value="/welcome/" />               
+                            <input type="submit" id="form_btn" value="Create account" class="btn"/>
+                        </div>
+                    </form>
+                </div>
+             </div> 
+        </div> 
+		
+	    <% include footer %>
+	  </div>
+	</div>		
+</body>
+
+<style>
+form .input.error:after,
+form .input.success:after{
+	content:'';	
+	position:absolute;
+	right: 200px;
+	width:32px;
+	height:32px;
+	background:url('/assets/img/indicator.png') no-repeat;
+}
+    
+ form .input.error:after{
+	background-position: 0 -79px;
+} 
+ </style>
+ 
+ <script src="/assets/js/jquery.complexify.js"></script>
+ <script>
+ $( "input" ).focus(function() {
+    $( "body" ).addClass('dim');
+}).focusout(function() {
+    $( "body" ).removeClass('dim');
+});
+ 
+ 
+ var pass1 = $('#id_password'),
+		pass2 = $('#id_password2'),
+		email = $('#id_email'),
+		form = $('#auth-form'),
+		btn = $('#form_btn');
+		
+pass2.attr('disabled','true');
+btn.attr('disabled','true');
+var email_good = false;
+var pass_good = false;
+// Validate the email field
+email.on('blur',function(){		
+		// Very simple validation
+	if (!/^\S+@\S+\.\S+$/.test(email.val())){
+		email.parent().addClass('error').removeClass('success');		
+	}
+	else{
+		email.parent().removeClass('error').addClass('success');
+		email_good = true;
+		console.log('true email');
+		if(email_good && pass_good){
+		    console.log('btn all good');
+		    btn.removeAttr("disabled");  
+		}		
+	}		
+});
+
+// Use the complexify plugin on the first password field
+pass1.complexify({minimumChars:6, strengthScaleFactor:0.2}, function(valid, complexity){
+		if(valid){
+			pass2.removeAttr('disabled');			
+			pass1.parent()
+					.removeClass('error')
+					.addClass('success');
+			
+		}
+		else{
+			pass2.attr('disabled','true');			
+			pass1.parent()
+					.removeClass('success')
+					.addClass('error');
+		}		
+		var calculated = (complexity/100)*268 - 134;
+		var prop = 'rotate('+(calculated)+'deg)';
+	});
+
+	// Validate the second password field
+pass2.on('keydown input',function(){	
+		// Make sure its value equals the first's
+	if(pass2.val() == pass1.val()){
+		pass2.parent()
+					.removeClass('error')
+					.addClass('success');
+		console.log('console pass right');
+		pass_good = 'true';
+		if(email_good && pass_good){
+		    console.log('btn all good');
+		    btn.removeAttr("disabled");  
+		}			
+	}
+	else{
+		pass2.parent()
+					.removeClass('success')
+					.addClass('error');
+	} 
+});	
+
+
+
+ // Handle form submissions
+/* 
+form.on('submit',function(e){
+    console.log('click');		
+    e.preventDefault();
+    $.ajax({
+           type: "POST",
+           url: "/course/new/guide",
+           data: $(this).serialize(), 
+           success: function(data)
+           {
+               console.log(data);
+           }
+         });	
+});
+*/	
+ </script>
+
+
+</html>

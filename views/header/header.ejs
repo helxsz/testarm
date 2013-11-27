@@ -1,0 +1,275 @@
+<style>
+
+.dropdown-menu > li > a {
+
+    white-space: nowrap;
+
+}
+
+@font-face {
+  font-family: 'Poiret One';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Poiret One'), local('PoiretOne-Regular'), url(http://themes.googleusercontent.com/static/fonts/poiretone/v1/HrI4ZJpJ3Fh0wa5ofYMK8RsxEYwM7FgeyaSgU71cLG0.woff) format('woff');
+}
+@font-face {
+  font-family: 'Open Sans Light';
+  font-style: normal;
+  font-weight: 300;
+  src: local('Open Sans Light'), local('OpenSans-Light'), url(http://themes.googleusercontent.com/static/fonts/opensans/v6/DXI1ORHCpsQm3Vp6mXoaTXhCUOGz7vYGh680lGh-uXM.woff) format('woff');
+}
+@font-face {
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Open Sans'), local('OpenSans'), url(http://themes.googleusercontent.com/static/fonts/opensans/v6/cJZKeOuBrn4kERxqtaUH3T8E0i7KZn-EPnyo3HZu7kw.woff) format('woff');
+}
+
+
+.brand h1 {
+
+  margin: 0;
+  font-size: 0.8em;
+  text-align: center;
+  color: #A5A6A8;
+    
+}
+
+.brand h1 span {
+  color: #5bb8ce;
+}
+
+.navbar {
+  font-family:'Open Sans', sans;
+margin-bottom: 0px;
+border-top: #5bb8ce 1px solid;
+display: block;
+z-index: 9999999;
+}
+
+.navbar .brand {
+display: block;
+float: left;
+padding: 5px 20px 5px;
+margin-left: -20px;
+font-size: 20px;
+font-weight: 200;
+color: #777777;
+text-shadow: 0 1px 0 #ffffff;
+}
+
+.container-fluid {
+width: 1008px;
+max-width: 100%;
+min-width: 768px;
+margin: 0 auto;
+}
+
+.navbar .nav > li > a {
+padding: 15px 15px 10px;
+}
+
+.userbar__account {
+  padding: 0 36px 0 22px;
+  position: relative;
+
+}
+
+.userbar__account:hover {
+  color: #9F9F9F;
+}
+
+.userbar__account:hover .b-arrow {
+  opacity: .75;
+}
+
+.userbar__account-avatar {
+  border-radius: 2px;
+  margin-right: 10px;
+  position: relative;
+  top: 1px;
+}
+
+.userbar__account-name {
+  font-weight: bold;
+}
+
+.userbar__icons-item,
+.userbar__account {
+  height: 25px;
+  padding-top: 21px;
+  padding-bottom: 21px;
+  line-height: 25px;
+  color: #8F8F8F;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.userbar-notify {
+  background: #D8232A;
+  font-size: 10px;
+  line-height: 13px;
+  font-weight: bold;
+  color: #fff;
+  padding: 0 2px;
+  border-radius: 2px;
+  position: absolute;
+  top: 30%;
+  left: 60%;
+}
+
+
+.navbar ul li a {
+color: rgb(60, 68, 63);
+transition: color .3s ease;
+font-size: 11px;
+text-align: center;
+}
+
+.navbar ul li a:hover{
+  color:#222; 
+  background:rgb(200, 216, 206);  
+}
+
+.navbar ul li a.active{
+  color: #777;
+  font-weight:bold;
+  cursor: default;
+}
+
+#btn-logout{
+display: block;
+height: 33px;
+line-height: 34px;
+padding: 0 15px;
+color: #fff;
+cursor: pointer;
+border: none;
+-webkit-border-radius: 2px;
+-moz-border-radius: 2px;
+border-radius: 2px;
+-webkit-transition: opacity 0.8s linear;
+-moz-transition: opacity 0.8s linear;
+transition: opacity 0.8 linear;
+-webkit-border-radius: 40px;
+border-radius: 40px;
+margin: 0 auto;
+background:rgb(188, 106, 85);
+}
+
+#btn-logout:hover{
+background:rgb(204, 110, 87);
+}
+
+
+h4.logo{
+
+  font-family:'Poiret One',sans;
+  text-align:center;
+  color:#666;
+  text-shadow:0px 1px 2px rgba(0,0,0,0.3);
+}
+h4.logo p:nth-of-type(1){
+  color:#0089ab;
+}
+h4.logo p:nth-of-type(2){
+  color:#d91821;
+}
+h4.logo span:nth-of-type(3){
+  color:#ffac05;
+}
+h4.logo span:nth-of-type(4){
+  color:#0089ab;
+}
+h4.logo span:nth-of-type(5){
+  color:#88c406;
+}
+h4.logo span:nth-of-type(6){
+  color:#d91821;
+}
+
+</style>
+<div class="navbar navbar-fixed-top ">
+  <div class="navbar-inner">
+    <div class="container-fluid">
+      <ul id="global-nav" class="nav pull-left">
+	    <a href="/" class="brand">
+            <h1>Feyn<span>labs<small><sup>&trade;</sup></small><span></h1>	  
+	    </a>
+		
+		<li class="">
+                <a href="/discover/course" class="menu_item">Discovery</a>
+        </li>
+		
+
+		<li class="">
+            <a href="/new/course"  class="menu_item">Start Course</a>
+        </li>
+		<!--
+		<li> 
+		    <h4 class='logo'>Google</h4>
+        </li>
+		-->
+	  </ul>
+
+	 <!--
+      <form class="pull-right" action="">
+        <input type="text" placeholder="Search">
+      </form>http://cs5700.userapi.com/v5700460/8a7/oKC_TqSgWoM.jpg
+	  -->
+	  
+	  <% if(locals.user) { %>
+	  
+       <ul class="nav pull-right row">
+	    <li>
+	        <a href="/profile/<%= locals.user.username %>" class="userbar__icons-item"> 
+                <img src="http://commondatastorage.googleapis.com/johnius/anchor.png" width="25" height="25" alt="Userbar icon">
+            </a>
+		</li>
+        <li> 
+		    <% if(locals.user.notification) { %>				
+                <span class="userbar-notify" data-id="<%= locals.user.id %>" ><%= locals.user.notification%></span> 
+		    <% } %>
+        </li>		
+	    <li class="dropdown" >
+	        <a href="#" class="userbar__account dropdown-toggle"  data-toggle="dropdown">
+		            <% if(locals.user.img) { %>
+                        <img  src="/images/<%= locals.user.img %>" width="21" height="21" alt="User avatar" class="userbar__account-avatar">
+					<% } %>
+					<% if(!locals.user.img) { %>
+                        <img  src="/default_user.jpeg" width="21" height="21" alt="User avatar" class="userbar__account-avatar">					
+					<% } %>
+            </a>
+			<input type="hidden" value="<%= locals.user.img %>" name="img" id="user_img"/>
+			<ul class="dropdown-menu" id='notify_menu'>
+
+			</ul>
+		</li> 
+        <li class="dropdown ">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" ><%= locals.user.username %></a>
+          <ul class="dropdown-menu">
+		    <li><a href="/profile/<%= locals.user.username %>">Dashboard</a></li>
+            <li><a href="/settings/profile">Edit Profile</a></li>
+            <li><a href="/settings/account">Account</a></li>
+            <li class="divider"></li>			
+		    <li>  
+		      <form method="POST" class="form-inline" action="/sessions" enctype="application/x-www-form-urlencoded">
+	             <input type="hidden" name="_csrf" value="<%= token %>"/>
+			     <input type="hidden" name="_method" value="delete" />			 
+			     <input id="btn-logout" type="submit" value="Sign Out"></input>			 
+              </form>
+		    </li>						
+          </ul>
+        </li>
+       </ul>	 
+	  <% } %>
+	  <% if(!locals.user) { %>
+	    <ul class="nav pull-right row">
+            <li><a href="/login">Login</a></li>			
+            <li><a href="/signup">Signup</a></li>
+        </ul>
+	  <% } %>
+    </div>
+  </div>
+</div>
+

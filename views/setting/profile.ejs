@@ -1,0 +1,161 @@
+<style>
+.content{
+padding: 20px;
+background: #fff;
+border: 1px solid #ccc;
+border-radius: 5px;
+box-shadow: 0 0 10px #ccc;
+overflow: hidden;
+}
+
+.content label{
+font-size: 18px;
+}
+
+.content input[type="text"] {
+border: 1px solid #e5e5e5;
+font-size: 16px;
+width: 400px;
+display: block;
+padding: 10px 5px;
+font-family: 'Open Sans Light', sans;
+color: #333;
+outline: 0;
+box-shadow: 0px 1px 0px #fff;
+}
+
+.content  select {
+border: 1px solid #e5e5e5;
+font-size: 16px;
+width: 400px;
+display: block;
+font-family: 'Open Sans Light', sans;
+color: #333;
+outline: 0;
+box-shadow: 0px 1px 0px #fff;
+}
+
+.content  select:focus{
+  border:1px solid #539fb5; 
+}
+
+.content input[type="text"]:focus{ 
+  border:1px solid #539fb5; 
+} 
+
+
+.content textarea {
+border: 1px solid #e5e5e5;
+font-size: 18px;
+width: 400px;
+height:200px;
+display: block;
+padding: 10px 5px;
+font-family: 'Open Sans Light', sans;
+color: #333;
+outline: 0;
+box-shadow: 0px 1px 0px #fff;
+}
+
+.content textarea:focus{ 
+  border:1px solid #539fb5; 
+} 
+
+.content input[type="submit"] {
+display: block;
+height: 33px;
+line-height: 34px;
+padding: 0 15px;
+background-color: #55bc75;
+color: #fff;
+cursor: pointer;
+border: none;
+-webkit-border-radius: 2px;
+-moz-border-radius: 2px;
+border-radius: 2px;
+-webkit-transition: opacity 0.2s linear;
+-moz-transition: opacity 0.2s linear;
+transition: opacity 0.2s linear;
+-webkit-border-radius: 40px;
+border-radius: 40px;
+margin: 0 auto;
+} 
+
+.content input[type="submit"]:hover{ 
+background-color: #409f89; 
+} 
+</style>
+
+      <div class="span9  content">
+         <form method="post" action="/settings/profile" id="account-form" class="form-horizontal " >
+            <input type="hidden" name="_csrf" value="<%= token %>"/>
+	        <input type="hidden" name="_method" value="put" />
+            <h1>Profile</h1>
+            <p  class="subheading">Please tell us a little about yourself</p>
+            <hr>
+            <fieldset>
+                <div id="user-cg" class="control-group">
+                   <label for="user-tf" class="control-label">Username</label>
+                   <div class="controls">
+                      <input id="user-tf" type="text" name="username" value="<%= user.username %>" class="input-xlarge disabled">
+                    </div>
+                </div>
+                <div id="email-cg" class="control-group">
+                    <label for="email-tf" class="control-label">Email</label>
+                    <div class="controls">
+                       <input id="email-tf" type="text" name="email" value="<%= user.email %>" class="input-xlarge">
+                    </div>
+                </div>
+                <hr>
+                <p id="sub2" class="subheading"></p>
+                <div id="fullname-cg" class="control-group">
+                    <label for="fullname-tf" class="control-label">Fullname</label>
+                    <div class="controls">
+                       <input id="fullname-tf" type="text" name="fullname" value="<%= user.fullname %>" class="input-xlarge">
+                    </div>
+                </div>
+                <div id="location-cg" class="control-group">
+                    <label for="location-tf" class="control-label">Location</label>
+                    <div class="controls">
+                       <input id="location-tf" type="text" name="location" value="<%= user.location %>" class="input-xlarge">
+                    </div>
+                </div>
+                <div id="about-cg" class="control-group">
+                    <label for="about-tf" class="control-label">About</label>
+                    <div class="controls">
+                         <textarea id="about-tf" type="text" name="about" value="<%= user.about %>" class="input-xlarge" > </textarea>
+                    </div>
+                </div>	
+
+                <div id="language-cg" class="control-group ">
+                    <label for="category-tf" class="control-label"><strong>Lanuage</strong></label>
+                    <div class="controls"  tabindex="1">				
+                        <select class="required select" id="project_category_id" name="category">
+						        <option name="category" value="0">English</option>
+							    <option name="category" value="1">Dutch</option>
+                                <option name="category" value="2">Spanish</option>
+                                <option name="category" value="3">Chinese</option>								
+						</select>				
+					</div>
+      		    </div>				
+				
+                <div class="control-group">
+                     <input type="submit" id="profile_btn" value="Update Setting"></input>
+                </div>
+            </fieldset>
+        </form>
+		    <hr>
+            <p id="sub2" class="subheading" style="margin-bottom: 70px;"></p>		        
+        <form method="post" action="/settings/profile/image" id="photo-form" class="form-horizontal" enctype="multipart/form-data">	
+		
+		     <div id="photo-cg" class="control-group">
+                    <label for="photo-tf" class="control-label">Photo</label>
+                    <div class="controls">
+					    <img src="/images/<%= user.img %>" style="margin-right: 100px;"/>
+                        <input type="hidden" name="_csrf" value="<%= token %>"/>		
+                        <input type="file" name="image" class="input-xlarge" id="photo-tf">		                
+                    </div>
+					<input type="submit" id="image-form-btn" value="Update Profile Image" style="margin-top:20px;"></input>
+            </div>					
+		</form>
+      </div>

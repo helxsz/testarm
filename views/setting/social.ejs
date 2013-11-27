@@ -1,0 +1,207 @@
+<style>
+.content{
+padding: 20px;
+background: #fff;
+border: 1px solid #ccc;
+border-radius: 5px;
+box-shadow: 0 0 10px #ccc;
+overflow: hidden;
+}
+
+
+.content label{
+font-size: 18px;
+}
+
+.content input[type="text"] {
+border: 1px solid #e5e5e5;
+font-size: 16px;
+width: 400px;
+display: block;
+padding: 10px 5px;
+font-family: 'Open Sans Light', sans;
+color: #333;
+outline: 0;
+box-shadow: 0px 1px 0px #fff;
+}
+
+.content  select {
+border: 1px solid #e5e5e5;
+font-size: 16px;
+width: 400px;
+display: block;
+font-family: 'Open Sans Light', sans;
+color: #333;
+outline: 0;
+box-shadow: 0px 1px 0px #fff;
+}
+
+.content  select:focus{
+  border:1px solid #539fb5; 
+}
+
+.content input[type="text"]:focus{ 
+  border:1px solid #539fb5; 
+} 
+
+
+.content textarea {
+border: 1px solid #e5e5e5;
+font-size: 18px;
+width: 400px;
+height:200px;
+display: block;
+padding: 10px 5px;
+font-family: 'Open Sans Light', sans;
+color: #333;
+outline: 0;
+box-shadow: 0px 1px 0px #fff;
+}
+
+.content textarea:focus{ 
+  border:1px solid #539fb5; 
+} 
+
+.content input[type="submit"] {
+display: block;
+height: 33px;
+line-height: 34px;
+padding: 0 15px;
+background-color: #55bc75;
+color: #fff;
+cursor: pointer;
+border: none;
+-webkit-border-radius: 2px;
+-moz-border-radius: 2px;
+border-radius: 2px;
+-webkit-transition: opacity 0.2s linear;
+-moz-transition: opacity 0.2s linear;
+transition: opacity 0.2s linear;
+-webkit-border-radius: 40px;
+border-radius: 40px;
+margin: 0 auto;
+} 
+
+.content input[type="submit"]:hover{ 
+background-color: #409f89; 
+} 
+</style>  
+
+<style>
+
+.slider-v3 {
+  position: relative; display: block;
+  width: 7em; height: 3em;
+  cursor: pointer;
+  border-radius: 1.5em;
+  transition: 350ms;
+  background: #ddd;
+}
+
+
+.slider-v3::after {
+  position: absolute; content:'';
+  width: 2em; height: 2em;
+  top: 0.5em; left: 0.5em;
+  border-radius: 1.5em;
+  transition:
+    width 200ms ease-out,
+    height 300ms 50ms ease-in,
+    top 300ms 50ms ease-in,
+    left 250ms 50ms ease-in,
+    box-shadow 300ms ease-in;
+  background: #4c6;
+  box-shadow: 0 0 0 1.5em #f2f2f2 inset;
+}
+
+input:checked + .slider-v3::after {
+  width: 4em; height: 3em;
+	top: 0; left: 3em;
+  box-shadow: 0 0 0 0 #f2f2f2 inset;
+}
+
+
+
+.slider-v3 {
+position: relative;
+display: block;
+width: 4em;
+height: 2em;
+cursor: pointer;
+border-radius: 1em;
+transition: 350ms;
+background: #ddd;
+}
+
+label {
+margin: 1.5em auto;
+}
+
+input:checked + .slider-v3::after {
+width: 2em;
+height: 2em;
+top: 0;
+left: 2em;
+box-shadow: 0 0 0 0 #f2f2f2 inset;
+}
+
+.slider-v3::after {
+position: absolute;
+content: '';
+width: 1em;
+height: 1em;
+top: 0.5em;
+left: 0.5em;
+border-radius: 1.5em;
+transition: width 200ms ease-out, height 300ms 50ms ease-in, top 300ms 50ms ease-in, left 250ms 50ms ease-in, box-shadow 300ms ease-in;
+background: #4c6;
+box-shadow: 0 0 0 1em #f2f2f2 inset;
+}
+
+
+input { position:absolute; left:-9999px }
+label { margin:1.5em auto }
+
+</style>
+
+        <div class="span9  content">
+            <h2 class="content-heading"> Social Connection</h2>
+			
+            <div  id="settings-social-form"  class="form-horizontal ">
+			    <input type="hidden" name="_csrf" value="<%= token %>"/>
+	            <input type="hidden" name="_method" value="put" />
+                <p  class="subheading">Connect yourself to social networks</p>
+                <hr>
+                <!---->				
+                 <fieldset>
+                    <div class=" row">
+                         <label class="span4" style="float: left;width: 160px;padding-top: 5px;text-align: right;">Twitter</label>
+                         <div class="span4">						 
+						     <input type="checkbox" id="s1" />
+                             <label id="twitter" class="slider-v3" for="s1"></label> 
+							 <span style="margin-left:100px"> Use your Twitter account to log in </span>
+                         </div>						 
+					</div>
+					<p  class="subheading"></p>
+                    <hr>
+                    <div class="row">
+    		            <label class="span4" style="float: left;width: 160px;padding-top: 5px;text-align: right;">Facebook</label> 
+                         <div class=" span4">						 
+						     <input type="checkbox" id="s2" />
+                             <label id="facebook" class="slider-v3" for="s2"></label> 
+							 <p> Use your Facebook account to log in </p>
+                         </div>							
+					</div>
+					<p  class="subheading"></p>
+                    <hr>
+		            <div class="row">
+    		            <label class="span4" style="float: left;width: 160px;padding-top: 5px;text-align: right;">Github</label>
+                         <div class=" span4">						 
+						     <input type="checkbox" id="s3" />
+                             <label id="github" class="slider-v3" for="s3"></label> 
+							 <p> Use your Github account to log in </p>
+                         </div>						
+					</div>
+		        </fieldset>
+            </div>
+        </div>

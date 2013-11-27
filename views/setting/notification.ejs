@@ -1,0 +1,239 @@
+<style>
+.content{
+padding: 20px;
+background: #fff;
+border: 1px solid #ccc;
+border-radius: 5px;
+box-shadow: 0 0 10px #ccc;
+overflow: hidden;
+}
+
+.content label{
+font-size: 18px;
+}
+
+.content input[type="text"],input[type="password"] {
+border: 1px solid #e5e5e5;
+font-size: 18px;
+width: 400px;
+display: block;
+padding: 10px 5px;
+font-family: 'Open Sans Light', sans;
+color: #333;
+outline: 0;
+box-shadow: 0px 1px 0px #fff;
+}
+
+.content input[type="text"]:focus{ 
+  border:1px solid #539fb5; 
+}
+
+.content input[type="submit"]:not(.del_btn) {
+display: block;
+height: 33px;
+line-height: 34px;
+padding: 0 15px;
+background-color: #55bc75;
+color: #fff;
+cursor: pointer;
+border: none;
+-webkit-border-radius: 2px;
+-moz-border-radius: 2px;
+border-radius: 2px;
+-webkit-transition: opacity 0.8s linear;
+-moz-transition: opacity 0.8s linear;
+transition: opacity 0.8s linear;
+-webkit-border-radius: 40px;
+border-radius: 40px;
+margin: 0 auto;
+} 
+
+.content input[type="submit"]:hover:not(.del_btn){ 
+background-color: #409f89; 
+} 
+
+.content .del_btn{
+display: block;
+height: 33px;
+line-height: 34px;
+padding: 0 15px;
+color: #fff;
+cursor: pointer;
+border: none;
+-webkit-border-radius: 2px;
+-moz-border-radius: 2px;
+border-radius: 2px;
+-webkit-transition: opacity 0.8s linear;
+-moz-transition: opacity 0.8s linear;
+transition: opacity 0.8 linear;
+-webkit-border-radius: 40px;
+border-radius: 40px;
+margin: 0 auto;
+background:rgb(188, 106, 85);
+}
+
+.content .del_btn:hover{
+background:rgb(204, 110, 87);
+}
+
+</style>
+<style>
+
+.slider-v3 {
+  position: relative; display: block;
+  width: 7em; height: 3em;
+  cursor: pointer;
+  border-radius: 1.5em;
+  transition: 350ms;
+  background: #ddd;
+}
+
+
+.slider-v3::after {
+  position: absolute; content:'';
+  width: 2em; height: 2em;
+  top: 0.5em; left: 0.5em;
+  border-radius: 1.5em;
+  transition:
+    width 200ms ease-out,
+    height 300ms 50ms ease-in,
+    top 300ms 50ms ease-in,
+    left 250ms 50ms ease-in,
+    box-shadow 300ms ease-in;
+  background: #4c6;
+  box-shadow: 0 0 0 1.5em #f2f2f2 inset;
+}
+
+input:checked + .slider-v3::after {
+  width: 4em; height: 3em;
+	top: 0; left: 3em;
+  box-shadow: 0 0 0 0 #f2f2f2 inset;
+}
+
+
+
+.slider-v3 {
+position: relative;
+display: block;
+width: 4em;
+height: 2em;
+cursor: pointer;
+border-radius: 1em;
+transition: 350ms;
+background: #ddd;
+}
+
+label {
+margin: 1.5em auto;
+}
+
+input:checked + .slider-v3::after {
+width: 2em;
+height: 2em;
+top: 0;
+left: 2em;
+box-shadow: 0 0 0 0 #f2f2f2 inset;
+}
+
+.slider-v3::after {
+position: absolute;
+content: '';
+width: 1em;
+height: 1em;
+top: 0.5em;
+left: 0.5em;
+border-radius: 1.5em;
+transition: width 200ms ease-out, height 300ms 50ms ease-in, top 300ms 50ms ease-in, left 250ms 50ms ease-in, box-shadow 300ms ease-in;
+background: #4c6;
+box-shadow: 0 0 0 1em #f2f2f2 inset;
+}
+
+
+input { position:absolute; left:-9999px }
+label { margin:1.5em auto }
+
+</style>
+
+      <div class="span9  content">
+            <h2 class="content-heading"> Email Notifications</h2>
+			
+            <form autocomplete="off" id="settings-notifications-form" action="/settings/8390645/notifications" method="post">
+			     <input type="hidden" name="_csrf" value="<%= token %>"/>
+	             <input type="hidden" name="_method" value="put" />
+                 <fieldset>
+                    <label>General Notifications</label>
+                    <p>Email me when:</p>
+                    <div class=" row">
+                         <label class="span4" for="NotificationSetting_follow">Someone follows me</label>
+                         <div class="offset3 span4">						 
+						     <input type="checkbox" id="s1" />
+                             <label class="slider-v3" for="s1"></label> 
+                         </div>						 
+					</div>
+                    <div class="row">
+    		            <label class="span4" for="NotificationSetting_watchlist-teacher">Someone adds my class to their watchlist</label> 
+                         <div class="offset3 span4">						 
+						     <input type="checkbox" id="s2" />
+                             <label class="slider-v3" for="s2"></label> 
+                         </div>							
+					</div>
+		            <div class="row">
+    		            <label class="span4" for="NotificationSetting_class-order-teacher">Someone orders a ticket to my class</label>
+                         <div class="offset3 span4">						 
+						     <input type="checkbox" id="s3" />
+                             <label class="slider-v3" for="s3"></label> 
+                         </div>						
+					</div>
+		            <div class="row">
+    		            <label class="span4" for="NotificationSetting_recommendations">Skillshare recommends me classes (weekly)</label>
+                         <div class="offset3 span4">						 
+						     <input type="checkbox" id="s4" />
+                             <label class="slider-v3" for="s4"></label> 
+                         </div>						
+					</div>
+		        </fieldset>
+                <fieldset>
+                    <label>Classroom Notifications</label>
+                    <p>Email me about:</p>
+                    <div class="row">
+    		            <label class="span4" for="NotificationSetting_comment_reply">Replies to my comments</label>
+                         <div class="offset3 span4">						 
+						     <input type="checkbox" id="s5" />
+                             <label class="slider-v3" for="s5"></label> 
+                         </div>						
+					</div>
+		            <div class="row">
+    		            <label class="span4" for="NotificationSetting_past_class_discussion">New discussions in my past classes</label>
+                         <div class="offset3 span4">						 
+						     <input type="checkbox" id="s6" />
+                             <label class="slider-v3" for="s6"></label> 
+                         </div>						
+					</div>
+		            <div class="row">
+    		            <label class="span4" for="NotificationSetting_class_discussion">New discussions in my upcoming classes</label>
+                         <div class="offset3 span4">						 
+						     <input type="checkbox" id="s7" />
+                             <label class="slider-v3" for="s7"></label> 
+                         </div>						
+					</div>
+		            <div class="row">
+                        <label class="span4" for="NotificationSetting_workshop_created">New workshops posted in my groups</label>
+                         <div class="offset3 span4">						 
+						     <input type="checkbox" id="s8" />
+                             <label class="slider-v3" for="s8"></label> 
+                         </div>						
+					</div>
+                    <div class="row">
+                         <label class="span4" for="NotificationSetting_project_replies">Replies to my projects</label>
+                         <div class="offset3 span4">						 
+						     <input type="checkbox" id="s9" />
+                             <label class="slider-v3" for="s9"></label> 
+                         </div>						 
+					</div>
+                </fieldset>
+                <fieldset>
+		                <input class="btn small orange left" type="submit" name="yt0" value="Save Changes">	</fieldset>	
+						
+						<div class="follow" type="submit">  Save Changes </div>
+            </form>
+      </div>

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>EasyUp</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- Le styles -->
+    <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+
+	  
+body {
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+  color: #00B7FF;
+}
+#upload-progress-bar {
+	width: 500px;
+}	  
+    </style>
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le fav and touch icons -->
+    <link rel="shortcut icon" href="images/favicon.ico">
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+  </head>
+
+  <body>
+	<div class="container">
+    <div class="content row">
+	
+	
+<div class="hero-unit">
+	<h1>Welcome!</h1>
+	<p>Simply drag your file here and copy the link provided</p>
+	<p>  
+	   <input type="hidden" name="_csrf" value="<%= token %>"/> <!--  -->
+	   <input type="hidden" id="csrf" name="_csrf" value="<%= csrf_token %>"/>
+	   <input action="/file/upload" id="fileupload" name="image" type="file" /> 
+	</p>	 
+	<div class="progress progress-striped active" id="upload-progress-bar">
+		<div class="bar"></div>
+	</div>
+	<div id="download-link"></div>
+</div>
+
+
+
+    </div> <!-- /content -->
+	</div><!-- /container -->
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
+	<script src="/assets/js/bootstrap.min.js"></script>
+	<script src="/assets/js/jquery.ui.widget.js"></script>
+	<script src="/assets/js/upload/jquery.iframe-transport.js"></script>
+	<script src="/assets/js/upload/jquery.fileupload.js"></script>
+	<script>
+	       //req.headers['x-csrf-token']
+		   
+		   $(function() {
+		      console.log($('#csrf').val());
+		      $('#fileupload').fileupload({
+		            dataType: 'json',
+				    beforeSend: function(xhr){xhr.setRequestHeader('x-csrf-token', $('#csrf').val() );},
+					url: '/file/upload',
+					start: function(e) {
+						$('#upload-progress-bar .bar').css('width', '100%');
+						$('#upload-progress-bar').addClass('active');
+					},
+		         done: function(e, data) {
+		            $.each(data.result, function(index, file) {
+							$('#upload-progress-bar .bar').css('width', '100%');
+							$('#upload-progress-bar').removeClass('active');
+							$('#download-link').html('<a href="' + file.url + '">' + file.url + '</a>');
+		               console.log(file);
+		            });
+					},
+					progress: function (e, data) {
+						var progress = parseInt(data.loaded / data.total * 100, 10);
+						$('#upload-progress-bar .bar').css('width', progress + '%');
+					}
+		      });
+		   });
+	</script>
+  </body>
+</html>

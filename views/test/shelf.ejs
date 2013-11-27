@@ -1,0 +1,59 @@
+<style>
+.books {
+  padding: 30px 0;
+  text-align: center;
+  img {
+    display: inline-block;
+    position: relative;
+    z-index: 1;
+    width: 100px;
+    margin: 0 10px;
+    @include transform(
+      perspective(500px) rotateY(-22deg) translateZ(20px)
+    );
+    @include transition(all 0.2s ease);
+    
+    box-shadow:
+      2px 0 -1px #ddd,
+      4px 0 -2px white,
+      6px 0 -3px #ddd,
+      8px 0 -4px white,
+      10px 0 -5px #ddd,
+      12px 0 -6px white;
+    
+    &:hover {
+      @include transform(
+        perspective(500px) rotateY(0deg) translateZ(20px)
+      );
+      box-shadow: none;
+    }
+  }
+}
+
+.shelf {
+  height: 100px;
+  margin: -50px auto 0;
+  @include transform(
+    perspective(10px) rotateX(20deg)
+  );
+  @include background(
+linear-gradient(rgba(black, 0.2), rgba(black, 0)),     url(http://subtlepatterns.subtlepatterns.netdna-cdn.com/patterns/retina_wood_@2X.png));
+  background-size: 100%, 512px;
+}
+
+
+</style>
+
+<div class="books">
+
+   <img src="http://graphics8.nytimes.com/images/2012/12/19/books/20favorite-book-covers-slide-ORTM/20favorite-book-covers-slide-ORTM-slide.jpg">
+  
+  <img src="http://graphics8.nytimes.com/images/2012/12/19/books/20favorite-book-covers-slide-DQPY/20favorite-book-covers-slide-DQPY-slide.jpg">
+  
+  <img src="http://graphics8.nytimes.com/images/2012/12/19/books/20favorite-book-covers-slide-QNUF/20favorite-book-covers-slide-QNUF-slide.jpg">
+  
+  <img src="http://graphics8.nytimes.com/images/2012/12/19/books/20favorite-book-covers-slide-U60O/20favorite-book-covers-slide-U60O-slide.jpg">
+  
+  <div class="shelf"></div>
+  
+</div>

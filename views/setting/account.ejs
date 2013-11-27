@@ -1,0 +1,128 @@
+<style>
+.content{
+padding: 20px;
+background: #fff;
+border: 1px solid #ccc;
+border-radius: 5px;
+box-shadow: 0 0 10px #ccc;
+overflow: hidden;
+}
+
+.content label{
+font-size: 18px;
+}
+
+.content input[type="text"],input[type="password"] {
+border: 1px solid #e5e5e5;
+font-size: 18px;
+width: 400px;
+display: block;
+padding: 10px 5px;
+font-family: 'Open Sans Light', sans;
+color: #333;
+outline: 0;
+box-shadow: 0px 1px 0px #fff;
+}
+
+.content input[type="text"]:focus{ 
+  border:1px solid #539fb5; 
+}
+
+.content input[type="submit"]:not(.del_btn) {
+display: block;
+height: 33px;
+line-height: 34px;
+padding: 0 15px;
+background-color: #55bc75;
+color: #fff;
+cursor: pointer;
+border: none;
+-webkit-border-radius: 2px;
+-moz-border-radius: 2px;
+border-radius: 2px;
+-webkit-transition: opacity 0.8s linear;
+-moz-transition: opacity 0.8s linear;
+transition: opacity 0.8s linear;
+-webkit-border-radius: 40px;
+border-radius: 40px;
+margin: 0 auto;
+} 
+
+.content input[type="submit"]:hover:not(.del_btn){ 
+background-color: #409f89; 
+} 
+
+.content .del_btn{
+display: block;
+height: 33px;
+line-height: 34px;
+padding: 0 15px;
+color: #fff;
+cursor: pointer;
+border: none;
+-webkit-border-radius: 2px;
+-moz-border-radius: 2px;
+border-radius: 2px;
+-webkit-transition: opacity 0.8s linear;
+-moz-transition: opacity 0.8s linear;
+transition: opacity 0.8 linear;
+-webkit-border-radius: 40px;
+border-radius: 40px;
+margin: 0 auto;
+background:rgb(188, 106, 85);
+}
+
+.content .del_btn:hover{
+background:rgb(204, 110, 87);
+}
+
+</style>
+
+      <div class="span9  content">
+        <form method="post" action="/settings/account" id="account-form" class="form-horizontal" >
+            <input type="hidden" name="_csrf" value="<%= token %>"/>
+	        <input type="hidden" name="_method" value="put" />
+            <h3>Account</h3>
+			<h4 >Update your Email or Password</h4>
+            <hr>
+            <fieldset>
+                <div id="email-cg" class="control-group">
+                    <label for="email-tf" class="control-label">Email</label>
+                    <div class="controls email">
+                        <input id="email-tf" type="text" name="email" value="<%= user.email %>" class="input-xlarge">
+                    </div>
+                </div>
+                <hr>
+                <p id="sub2" class="subheading"></p>
+                <div id="old_password-cg" class="control-group">
+                    <label for="old_password-tf" class="control-label">old password</label>
+                    <div class="controls pass">
+                        <input id="old_password-tf" type="password" name="old_password" value="" class="input-xlarge">
+                    </div>
+                </div>
+                <div id="password-cg" class="control-group">
+                    <label for="password-tf" class="control-label">new password</label>
+                    <div class="controls  pass">
+                        <input id="password-tf" type="password" name="password" value="" class="input-xlarge">
+                    </div>
+                </div>
+                <div id="new_password-cg" class="control-group">
+                    <label for="new_password-tf" class="control-label">repeate password</label>
+                    <div class="controls pass">
+                        <input id="new_password-tf" type="password" name="new_password" value="" class="input-xlarge">
+                    </div>
+                </div>	  
+                 <div >
+                      <input type="submit" id="account-form-btn2"  value="Update Setting"></input>
+                </div>
+             </fieldset>
+        </form>
+        <hr>
+        <form method="post" action="/settings/account" id="account-form" class="form-horizontalspan6" >
+            <input type="hidden" name="_csrf" value="<%= token %>"/>
+	        <input type="hidden" name="_method" value="delete" />  
+			
+            <h3>Delete Account</p>
+	        <input type="submit"  value="Delete Account" class="del_btn"></input>	
+        </form>	
+      </div>

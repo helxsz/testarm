@@ -1,0 +1,141 @@
+<script src="http://mbostock.github.com/d3/d3.v2.js"></script>
+<script src="/assets/js/d3.v2.js"></script>
+
+<style>
+
+#xenius-infographics{
+/*transform-style*/
+-webkit-transform-style:preserve-3d;
+   -moz-transform-style:preserve-3d;
+    -ms-transform-style:preserve-3d;
+     -o-transform-style:preserve-3d;
+        transform-style:preserve-3d;
+/*animation*/
+-webkit-animation:load 5s linear;
+   -moz-animation:load 5s linear;
+    -ms-animation:load 5s linear;
+     -o-animation:load 5s linear;
+        animation:load 5s linear;
+opacity:1;
+
+}
+#gylkogen, #adrenalin, #serotonin, #cortisol{
+position:absolute;
+/*animation*/
+-webkit-animation:build 7s linear;
+   -moz-animation:build 7s linear;
+    -ms-animation:build 7s linear;
+     -o-animation:build 7s linear;
+        animation:build 7s linear;
+}
+#gylkogen{
+/*transform*/
+-webkit-transform:rotateY(27deg) rotateX(-2deg) rotate(-5deg) translate3d(0px,0px,0px);
+   -moz-transform:rotateY(27deg) rotateX(-2deg) rotate(-5deg) translate3d(0px,0px,0px);
+    -ms-transform:rotateY(27deg) rotateX(-2deg) rotate(-5deg) translate3d(0px,0px,0px);
+     -o-transform:rotateY(27deg) rotateX(-2deg) rotate(-5deg) translate3d(0px,0px,0px);
+        transform:rotateY(27deg) rotateX(-2deg) rotate(-5deg) translate3d(0px,0px,0px);
+}
+#adrenalin{
+/*transform*/
+-webkit-transform:rotateY(27deg) rotateX(-2deg) rotate(-5deg) translate3d(40px,40px,40px);
+   -moz-transform:rotateY(27deg) rotateX(-2deg) rotate(-5deg) translate3d(40px,40px,40px);
+    -ms-transform:rotateY(27deg) rotateX(-2deg) rotate(-5deg) translate3d(40px,40px,40px);
+     -o-transform:rotateY(27deg) rotateX(-2deg) rotate(-5deg) translate3d(40px,40px,40px);
+        transform:rotateY(27deg) rotateX(-2deg) rotate(-5deg) translate3d(40px,40px,40px);
+}
+#serotonin{
+/*transform*/
+-webkit-transform:rotateY(27deg) rotateX(-2deg) rotate(-5deg) translate3d(80px,80px,80px);
+   -moz-transform:rotateY(27deg) rotateX(-2deg) rotate(-5deg) translate3d(80px,80px,80px);
+    -ms-transform:rotateY(27deg) rotateX(-2deg) rotate(-5deg) translate3d(80px,80px,80px);
+     -o-transform:rotateY(27deg) rotateX(-2deg) rotate(-5deg) translate3d(80px,80px,80px);
+        transform:rotateY(27deg) rotateX(-2deg) rotate(-5deg) translate3d(80px,80px,80px);
+}
+#cortisol{
+/*transform*/
+-webkit-transform:rotateY(27deg) rotateX(-2deg) rotate(-5deg) translate3d(120px,120px,120px);
+   -moz-transform:rotateY(27deg) rotateX(-2deg) rotate(-5deg) translate3d(120px,120px,120px);
+    -ms-transform:rotateY(27deg) rotateX(-2deg) rotate(-5deg) translate3d(120px,120px,120px);
+     -o-transform:rotateY(27deg) rotateX(-2deg) rotate(-5deg) translate3d(120px,120px,120px);
+        transform:rotateY(27deg) rotateX(-2deg) rotate(-5deg) translate3d(120px,120px,120px);
+}
+@-webkit-keyframes build{
+0% { -webkit-transform:rotateY(0deg) rotateX(0deg) rotate(0deg) translate3d(0px,0px,0px); }
+  30% { -webkit-transform:rotateY(0deg) rotateX(0deg) rotate(0deg) translate3d(0px,0px,0px); }
+}
+@-webkit-keyframes load{
+0%  { width:100px; opacity:0; }
+}
+
+</style>				
+<div id="xenius-infographics span6">
+  <svg id="gylkogen">
+    <polygon points="
+      100,300 
+      125,260 
+      150,255 
+      180,235 
+      220,260 
+      300,230 
+      325,180 
+      355,210 
+      390,215 
+      450,180
+      480,175
+      525,190
+      640,300
+     " style="fill:#8EA485;" />
+    </svg>
+  <svg id="adrenalin">
+    <polygon points="
+      100,300 
+      135,250 
+      145,275 
+      180,255 
+      220,250 
+      300,190 
+      325,200 
+      355,240 
+      390,175 
+      450,150
+      480,155
+      525,170
+      640,300
+     " style="fill:#24262C;" />
+  </svg>
+  <svg id="serotonin">
+    <polygon points="
+      100,300 
+      135,280 
+      145,255 
+      180,235 
+      220,210 
+      300,250 
+      325,270 
+      355,280 
+      390,205 
+      450,190
+      480,165
+      525,190
+      640,300    
+    " style="fill:#676161" />
+  </svg>
+  <svg id="cortisol">
+    <polygon points="
+      100,300 
+      135,230 
+      145,235 
+      180,225 
+      220,205 
+      300,250 
+      325,270 
+      355,280 
+      390,275 
+      450,290
+      480,265
+      525,270
+      640,300  
+     " style="fill:#D15D52;" />
+  </svg>
+</div>

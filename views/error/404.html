@@ -1,0 +1,133 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Page Not Found :(</title>
+    <link href="../assets/css/bootstrap.css" rel="stylesheet">
+    <link href="../assets/css/bootstrap-responsive.css" rel="stylesheet">  
+  <style>
+
+
+.background {
+background-size: cover;
+background-position: 50% 50%;
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+}
+
+#content{
+       -webkit-transition:background 1s;
+	   -moz-transition:background 1s;
+	   -o-transition:background 1s;
+	   -ms-transition:background 1s;
+	   transition:background 1s;
+	   background:rgba(0,0,0,0)
+}
+#content.dim{
+        background:rgba(0,0,0,.4)
+}
+
+
+hgroup {
+position: relative;
+margin: 0 auto 28px;
+margin-top: 160px;
+}
+
+hgroup h1 {
+background-image: url('https://pathakacdn-a.akamaihd.net/web/assets/f5c8dcb8b0e835dccae89e7f0e4676d6.png');
+-webkit-background-size: 86px 85px;
+-moz-background-size: 86px 85px;
+background-size: 86px 85px;
+background-repeat: no-repeat;
+background-position: top center;
+padding-top: 96px;
+width: 500px;
+margin: auto;
+color: white;
+
+-webkit-animation: hallo 1s ease both 0.5s;
+-moz-animation: hallo 1s ease both 0.5s;
+-ms-animation: hallo 1s ease both 0.5s;
+-o-animation: hallo 1s ease both 0.5s;
+animation: hallo 1s ease both 0.5s;
+}
+
+hgroup p {
+margin: 0 auto;
+-webkit-font-smoothing: antialiased;
+color: rgba(255,255,255,.9);
+text-align: center;
+margin-top: 20px;
+
+-webkit-animation: hallo 1s ease both 0.7s;
+-moz-animation: hallo 1s ease both 0.7s;
+-ms-animation: hallo 1s ease both 0.7s;
+-o-animation: hallo 1s ease both 0.7s;
+animation: hallo 1s ease both 0.7s;
+}
+
+hgroup a {
+text-shadow: 0 1px 1px rgba(0,0,0,.2);
+}
+
+@-moz-keyframes hallo{from{opacity:0;-moz-transform:translate3d(0, 30px, 0);transform:translate3d(0, 30px, 0)}}@-webkit-keyframes hallo{from{opacity:0;-webkit-transform:translate3d(0, 30px, 0);transform:translate3d(0, 30px, 0)}}@-o-keyframes hallo{from{opacity:0;-o-transform:translate3d(0, 30px, 0);transform:translate3d(0, 30px, 0)}}@-ms-keyframes hallo{from{opacity:0;-ms-transform:translate3d(0, 30px, 0);transform:translate3d(0, 30px, 0)}}@keyframes hallo{from{opacity:0;-webkit-transform:translate3d(0, 30px, 0);-moz-transform:translate3d(0, 30px, 0);-ms-transform:translate3d(0, 30px, 0);-o-transform:translate3d(0, 30px, 0);transform:translate3d(0, 30px, 0)}}
+
+
+footer.main {
+position: fixed;
+left: 0;
+bottom: 0;
+width: 100%;
+background: 0 0;
+}
+nav.sitemap{
+margin: auto 0;
+text-align: center;
+}
+nav.sitemap ul li {
+display: inline-block;
+margin-left: 25px;
+height: 47px;
+line-height: 47px;
+}
+
+nav.sitemap ul li a, nav.sitemap ul li span {
+color: #fff;
+-webkit-font-smoothing: antialiased;
+font-size: 11px;
+text-decoration: none;
+}
+  </style>
+</head>
+
+<style>
+  .center {text-align: center; margin-left: auto; margin-right: auto; margin-bottom: auto; margin-top: auto;}
+</style>
+<title>Error 404</title>
+<body  >
+	<div class="wrapper">
+	    <div class="inner-wrapper">
+	         <% include ../header/header_error %> 
+			 <div class="background" style="background-image: url('https://cdn.path.com/photos2/4eac4ae8-5613-498e-aaf4-4da1b846bd99/web.jpg')"></div>
+			 
+			 <hgroup>
+                <h1>Oh no! Page not found.</h1>
+                <p><a href="/">Go Back</a></p>
+             </hgroup>
+			 <!-- include ../footer/footer_no -->
+             <footer class="main">
+                <nav class="sitemap">
+                    <ul>
+                        <li><span><%= locals.year %> Electrical Engineering & Electronics - University of Liverpool.</span></li>
+                    </ul>
+                </nav>
+            </footer>			 
+		</div>
+	</div>		  
+</body>
+
+</html>
