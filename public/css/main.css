@@ -77,7 +77,10 @@
     .meeting-room #container {min-height:100%; width:100%; background: #141414 url('../img/hexagon_BG.png') repeat 100% 0% scroll;}
         .svg .meeting-room #container {background: #141414 url('../img/svg/hexagon_BG.svg') repeat 100% 0% scroll;}
 
-        #banner {padding:1.625em 0 1.625em 0; margin-top: 3.25em; display:block;}
+        #banner {
+            padding:0 0 1.625em 0; margin-top: 3.25em; display:block;
+            border-top: 4px #670F38 solid;
+        }
             #navbar {background-color: #2F3B52}
 
         #main {clear:both; z-index:0;}
@@ -136,8 +139,11 @@
 
         h1 {font-size: 4.5em; line-height: 1.0833em; margin-bottom:0.26em;} 
             #banner h1 {
-                border-top:4px #CE1D6F solid; border-bottom:4px #CE1D6F solid;
-                padding-top:0.27083em; padding-bottom:0.27083em;
+                display: inline;
+                border-bottom: 4px #670F38 solid;
+                margin-bottom: 0.27083em;
+                line-height: 1.3em;
+                clear: both;
             }
         h2 {font-size: 1.75em; line-height: 26px;}
         h3 {font-size: 1em; line-height: 26px;} 
@@ -306,10 +312,22 @@
         .unavailable {background: url('../img/hexagon_unavailable.png') no-repeat 50% 50% scroll;}
         .svg .unavailable {background: url('../img/svg/hexagon_unavailable.svg') no-repeat 50% 50% scroll;}
 
+        /* BRAND LOGOS */
+
+        #app-brand {
+            position: absolute;
+            top: 7em;
+            right: 4.5em;
+        }
+            .meetings {background: url('../img/hexagon_meetings.png') no-repeat 50% 50% scroll;}
+            .svg .meetings {background: url('../img/svg/hexagon_meetings.svg') no-repeat 50% 50% scroll;}
+
         /* TYPOGRAPHY */
 
         .hexagon h1 {font-size: 4.5em; padding-top:1em;}
         .ch-info-back h2 {font-size:3.25em; margin-bottom:0.25em; padding-top:1.625em; }
+        .ch-info-back i {display:block; padding-top: 1.625em; margin-bottom:0.25em;}
+        .ch-info-back a {text-decoration: none; border: none;}
 
         /* FLIP ANIMATION */
         .ch-grid {
@@ -422,14 +440,12 @@
     8. Animations
     ========================================================================== */
     
-    a, .pod {
+    a {
         -webkit-transition: all 200ms ease-in-out;
         -moz-transition:all 200ms ease-in-out;
         -ms-transition:all 200ms ease-in-out;
         transition:all 200ms ease-in-out;
     } 
-        .pod:hover {bottom:-0.8125em;}
-
 
     /* Image animations  */
     body { /* Addresses a small issue in webkit: http://bit.ly/NEdoDq */
@@ -529,7 +545,7 @@
             }
 
         /*  Typography  */
-        h1 {font-size: 3.25em; line-height: 1em; margin-bottom:0.25em;} 
+        h1 {font-size: 2.75em; line-height: 1em; margin-bottom:0.25em;} 
 
     }
 
@@ -541,7 +557,7 @@
         /*  Layout  */
         .wrapper {width: 86%;}
 
-        #banner {margin-top:0;}
+        #banner {margin-top:1.6em; border-top: 2px #670F38 solid;}
             nav {width: 70%; margin-top: 2.25em;}
 
             #app-meeting {
@@ -571,6 +587,7 @@
             
 
         /*  Typography  */
+        #banner h1 {border-bottom: 2px #670F38 solid;}
         h1 {font-size: 2em; line-height: 1.047619em; }
         h4 {font-size: 1.25em; }
 
