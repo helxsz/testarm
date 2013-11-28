@@ -17,7 +17,8 @@ var async = require('async'),
 var 
     errors = require('../utils/errors'),
 	config = require('../conf/config');	
-
+// http://schema.org/Event
+// https://github.com/indexzero/node-schema-org
 /************************************************************************
 	request to 1248
 http://wiki.1248.io/doku.php?id=hypercat
