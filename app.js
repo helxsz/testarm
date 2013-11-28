@@ -1,4 +1,4 @@
-var fs = require('fs'),    
+var fs = require('fs'),      
     express = require('express'),
     http = require('http'),
     domain = require('domain'),
