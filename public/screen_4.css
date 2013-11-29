@@ -1,0 +1,895 @@
+.clear {
+  clear: both; }
+
+* {
+  box-sizing: border-box; }
+
+/**
+ * Eric Meyer's Reset CSS v2.0 (http://meyerweb.com/eric/tools/css/reset/)
+ * http://cssreset.com
+ */
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline; }
+
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+  display: block; }
+
+body {
+  line-height: 1; }
+
+ol, ul {
+  list-style: none; }
+
+blockquote, q {
+  quotes: none; }
+
+blockquote:before, blockquote:after,
+q:before, q:after {
+  content: '';
+  content: none; }
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0; }
+
+/*
+* Main
+*/
+.clearfix {
+  clear: both; }
+
+* {
+  box-sizing: border-box; }
+
+body {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; }
+
+b {
+  font-weight: bold; }
+
+a {
+  text-decoration: none;
+  font-size: 0.7em;
+  color: #FFF;
+  padding: 0;
+  margin: 0; }
+  a:hover {
+    cursor: pointer; }
+
+input[type="text"], input[type="password"] {
+  -webkit-box-shadow: inset 1px 1px 0 #F5F5F5, inset -1px 0px 0 #F5F5F5;
+  -moz-box-shadow: inset 1px 1px 0 #F5F5F5, inset -1px 0px 0 #F5F5F5;
+  box-shadow: inset 1px 1px 0 #F5F5F5, inset -1px 0px 0 #F5F5F5;
+  font-size: 1em;
+  font-weight: 500;
+  padding: 10px;
+  margin: 0;
+  border: 1px solid #C2D9FF;
+  border-radius: 3px;
+  color: #3D3D3D;
+  vertical-align: middle;
+  width: 350px; }
+  input[type="text"]:focus, input[type="password"]:focus {
+    outline: none; }
+
+button, input[type="submit"] {
+  background-image: -webkit-linear-gradient(top, #474747, #333333);
+  padding: 10px;
+  border-radius: 3px;
+  border: 1px solid #333333;
+  color: #FFF;
+  opacity: 0.9; }
+  button.mini, input[type="submit"].mini {
+    padding: 5px; }
+  button.success, input[type="submit"].success {
+    border: 1px solid #4787ed;
+    background-image: -webkit-linear-gradient(top, #4d90fe, #4787ed); }
+  button.alert, input[type="submit"].alert {
+    border: 1px solid #ef6c5e;
+    background-image: -webkit-linear-gradient(top, #ef6c5e, #ef6c5e); }
+  button:hover, input[type="submit"]:hover {
+    cursor: pointer;
+    opacity: 1; }
+
+textarea {
+  -webkit-box-shadow: inset 1px 1px 0 #F5F5F5, inset -1px 0px 0 #F5F5F5;
+  -moz-box-shadow: inset 1px 1px 0 #F5F5F5, inset -1px 0px 0 #F5F5F5;
+  box-shadow: inset 1px 1px 0 #F5F5F5, inset -1px 0px 0 #F5F5F5;
+  font-size: 0.9em;
+  padding: 10px;
+  margin: 0;
+  border: 1px solid #C2D9FF;
+  border-radius: 3px; }
+  textarea:focus {
+    outline: none; }
+
+header.main {
+  height: 48px;
+  background-color: #333;
+  padding: 0 15px; }
+  header.main .logo.medium {
+    float: left;
+    display: block;
+    width: 23px;
+    height: 20px;
+    margin-top: 12px;
+    background-size: 23px 20px;
+    background-image: url("http://s.cdpn.io/144/condensed_medium.png"); }
+  header.main nav.main {
+    float: left;
+    margin: 13px 0 0 40px; }
+    header.main nav.main ul li {
+      float: left;
+      color: #FFF;
+      text-transform: capitalize;
+      margin-right: 20px;
+      opacity: 0.8; }
+      header.main nav.main ul li i {
+        font-size: 1.2em;
+        margin-right: 5px;
+        vertical-align: baseline; }
+      header.main nav.main ul li.active, header.main nav.main ul li:hover {
+        opacity: 1; }
+    header.main nav.main ul li:first-child {
+      margin-left: 0; }
+  header.main nav.user_controls {
+    float: right; }
+    header.main nav.user_controls ul li {
+      float: left;
+      margin-top: 13px;
+      margin-right: 20px;
+      text-transform: capitalize;
+      opacity: 0.8; }
+      header.main nav.user_controls ul li i {
+        font-size: 1.2em;
+        margin-right: 5px;
+        vertical-align: baseline; }
+      header.main nav.user_controls ul li.active, header.main nav.user_controls ul li:hover {
+        opacity: 1; }
+    header.main nav.user_controls ul li.username {
+      margin-top: 9px;
+      margin-right: 10px;
+      font-size: 1.3em;
+      text-transform: none;
+      opacity: 1; }
+    header.main nav.user_controls ul li.avatar {
+      margin-top: 7px;
+      opacity: 1; }
+      header.main nav.user_controls ul li.avatar a {
+        display: block;
+        border: 1px solid #3d3d3d;
+        border-radius: 30px; }
+        header.main nav.user_controls ul li.avatar a img {
+          border-radius: 30px;
+          width: 30px;
+          height: 30px; }
+    header.main nav.user_controls ul li.sep {
+      margin-right: 0px; }
+    header.main nav.user_controls ul li:last-child {
+      margin-right: 0; }
+
+body.landing header.main .logo.large {
+  float: left;
+  display: block;
+  background-image: url("http://s.cdpn.io/144/large.png");
+  height: 20px;
+  width: 117px;
+  background-size: 117px 20px;
+  margin-top: 12px; }
+body.landing header.main button {
+  margin-top: 6px;
+  margin-left: 10px;
+  float: right; }
+body.landing section.panel {
+  height: 500px;
+  background-color: #ef6c5e;
+  border-bottom: 2px solid #FEFEFE; }
+  body.landing section.panel .container {
+    text-align: center;
+    padding-top: 150px; }
+    body.landing section.panel .container h1 {
+      font-size: 3em;
+      font-weight: bold;
+      color: #FEFEFE;
+      margin-bottom: 20px;
+      text-transform: capitalize; }
+    body.landing section.panel .container p {
+      font-size: 1.2em;
+      color: #FEFEFE; }
+    body.landing section.panel .container .buttons {
+      margin-top: 20px; }
+      body.landing section.panel .container .buttons button {
+        margin-left: 5px; }
+        body.landing section.panel .container .buttons button i {
+          margin-right: 5px;
+          font-size: 1.2em;
+          vertical-align: middle; }
+      body.landing section.panel .container .buttons button:first-child {
+        padding: 10px 10px 12px 10px; }
+body.landing .background-0,
+body.landing .background-1,
+body.landing .background-2,
+body.landing .background-3,
+body.landing .background-4,
+body.landing .background-5,
+body.landing .background-6 {
+  position: relative;
+  height: 1000px;
+  margin: 0 auto;
+  width: 100%;
+  max-width: 1920px; }
+  body.landing .background-0 article,
+  body.landing .background-1 article,
+  body.landing .background-2 article,
+  body.landing .background-3 article,
+  body.landing .background-4 article,
+  body.landing .background-5 article,
+  body.landing .background-6 article {
+    padding: 100px;
+    width: 100%;
+    background-color: #FFF;
+    z-index: 1000;
+    position: absolute;
+    text-align: left;
+    top: 100%; }
+    body.landing .background-0 article h1,
+    body.landing .background-1 article h1,
+    body.landing .background-2 article h1,
+    body.landing .background-3 article h1,
+    body.landing .background-4 article h1,
+    body.landing .background-5 article h1,
+    body.landing .background-6 article h1 {
+      color: #ef6c5e;
+      font-size: 3em;
+      font-weight: bold;
+      text-transform: capitalize;
+      margin-bottom: 20px; }
+    body.landing .background-0 article p,
+    body.landing .background-1 article p,
+    body.landing .background-2 article p,
+    body.landing .background-3 article p,
+    body.landing .background-4 article p,
+    body.landing .background-5 article p,
+    body.landing .background-6 article p {
+      color: #525252;
+      font-size: 1.2em;
+      line-height: 1.3em;
+      max-width: 980px;
+      margin: 0 auto; }
+body.landing .background-0 {
+  background: url("http://s.cdpn.io/144/parallax_image0.jpg") 50% 0 repeat fixed; }
+  body.landing .background-0 img {
+    float: left;
+    height: 200px;
+    margin-right: 20px; }
+  body.landing .background-0 article p {
+    margin: 0; }
+body.landing .background-1 {
+  background: url("http://s.cdpn.io/144/parallax_image1.jpg") 50% 0 repeat fixed; }
+  body.landing .background-1 article {
+    text-align: center; }
+    body.landing .background-1 article p {
+      text-align: center;
+      margin: 0 auto; }
+body.landing .background-2 {
+  background: url("http://s.cdpn.io/144/parallax_image2.jpg") 50% 0 repeat fixed; }
+  body.landing .background-2 article {
+    text-align: right; }
+    body.landing .background-2 article .content {
+      margin-right: 120px;
+      float: right; }
+      body.landing .background-2 article .content p {
+        margin: 0;
+        max-width: 700px; }
+    body.landing .background-2 article i {
+      position: absolute;
+      top: 100px;
+      right: 100px;
+      font-size: 7.5em;
+      opacity: 0.2;
+      margin-left: 30px; }
+body.landing .background-3 {
+  background: url("http://s.cdpn.io/144/parallax_image3.jpg") 50% 0 repeat fixed; }
+  body.landing .background-3 article {
+    text-align: center; }
+    body.landing .background-3 article p {
+      text-align: center;
+      margin: 0 auto; }
+body.landing .background-4 {
+  background: url("http://s.cdpn.io/144/parallax_image4.jpg") 50% 0 repeat fixed; }
+  body.landing .background-4 article {
+    text-align: left; }
+    body.landing .background-4 article p {
+      margin: 0;
+      max-width: 980px; }
+    body.landing .background-4 article i {
+      font-size: 7.5em;
+      opacity: 0.2;
+      float: left;
+      margin-left: 30px; }
+    body.landing .background-4 article i:nth-last-of-type(1) {
+      margin-right: 30px; }
+body.landing .background-5 {
+  background: url("http://s.cdpn.io/144/parallax_image5.jpg") 50% 0 repeat fixed; }
+  body.landing .background-5 article {
+    border-top: 2px solid #ef6c5e;
+    background-color: #333;
+    position: relative;
+    height: 545px; }
+    body.landing .background-5 article h1 {
+      color: #FEFEFE;
+      margin-bottom: 40px; }
+    body.landing .background-5 article .bubble-0, body.landing .background-5 article .bubble-1, body.landing .background-5 article .bubble-2 {
+      position: absolute; }
+      body.landing .background-5 article .bubble-0 .content, body.landing .background-5 article .bubble-1 .content, body.landing .background-5 article .bubble-2 .content {
+        position: absolute;
+        width: 300px;
+        border-radius: 4px;
+        padding: 20px;
+        background-color: #3c3c3c;
+        color: #CCC;
+        font-size: 0.9em;
+        line-height: 1.2em; }
+      body.landing .background-5 article .bubble-0 .triangle-down, body.landing .background-5 article .bubble-1 .triangle-down, body.landing .background-5 article .bubble-2 .triangle-down {
+        position: absolute;
+        width: 0;
+        height: 0;
+        border-left: 10px solid transparent;
+        border-right: 10px solid transparent;
+        border-top: 10px solid #3c3c3c; }
+      body.landing .background-5 article .bubble-0 .triangle-up, body.landing .background-5 article .bubble-1 .triangle-up, body.landing .background-5 article .bubble-2 .triangle-up {
+        position: absolute;
+        width: 0;
+        height: 0;
+        border-left: 10px solid transparent;
+        border-right: 10px solid transparent;
+        border-bottom: 10px solid #3c3c3c; }
+      body.landing .background-5 article .bubble-0 img, body.landing .background-5 article .bubble-1 img, body.landing .background-5 article .bubble-2 img {
+        position: absolute;
+        float: left;
+        opacity: 0.5; }
+    body.landing .background-5 article .bubble-0 .content {
+      width: 300px; }
+    body.landing .background-5 article .bubble-0 .triangle-down {
+      top: 74px;
+      left: 40px; }
+    body.landing .background-5 article .bubble-0 img {
+      top: 90px;
+      left: 0;
+      width: 100px;
+      height: 100px; }
+    body.landing .background-5 article .bubble-1 .content {
+      width: 500px;
+      top: 135px;
+      left: 150px; }
+    body.landing .background-5 article .bubble-1 .triangle-up {
+      top: 125px;
+      left: 385px; }
+    body.landing .background-5 article .bubble-1 img {
+      top: 35px;
+      left: 350px;
+      width: 100px; }
+    body.landing .background-5 article .bubble-2 .content {
+      width: 300px;
+      left: 550px;
+      top: 0; }
+    body.landing .background-5 article .bubble-2 .triangle-down {
+      top: 90px;
+      left: 722px; }
+    body.landing .background-5 article .bubble-2 img {
+      top: 110px;
+      left: 705px;
+      border-radius: 5px;
+      width: 60px;
+      height: 60px; }
+body.landing section.centered {
+  width: 350px;
+  margin: 0 auto;
+  padding-top: 50px; }
+  body.landing section.centered h1 {
+    font-size: 1em;
+    color: #3D3D3D;
+    font-weight: 500;
+    margin-bottom: 20px; }
+  body.landing section.centered form label {
+    font-size: 0.75em;
+    text-transform: capitalize;
+    color: #525252;
+    display: block; }
+    body.landing section.centered form label a {
+      font-size: 0.9em;
+      margin-left: 5px;
+      color: #3e90ca; }
+  body.landing section.centered form input[type="text"], body.landing section.centered form input[type="password"] {
+    margin-top: 5px; }
+  body.landing section.centered form input[type="checkbox"] {
+    display: inline; }
+  body.landing section.centered form input {
+    margin-bottom: 20px;
+    display: block; }
+  body.landing section.centered form input:nth-last-of-type(2) {
+    margin-bottom: 10px; }
+
+header.subnav, header.search_subnav {
+  height: 65px;
+  background-color: #ef6c5e; }
+  header.subnav .name, header.search_subnav .name {
+    height: 65px;
+    padding: 15px 50px 0 15px;
+    border-right: 1px solid #F2897D;
+    float: left; }
+    header.subnav .name h1, header.search_subnav .name h1 {
+      font-size: 1em;
+      font-weight: 400;
+      margin-bottom: 3px;
+      color: #FEFEFE; }
+    header.subnav .name span, header.search_subnav .name span {
+      font-size: 0.6em;
+      color: #FEFEFE;
+      opacity: 0.6; }
+  header.subnav .user, header.search_subnav .user {
+    height: 65px;
+    padding: 13px 0 0 15px;
+    border-right: 1px solid #F2897D;
+    float: left; }
+    header.subnav .user a.author, header.search_subnav .user a.author {
+      float: left;
+      margin-right: 10px;
+      border-radius: 35px; }
+      header.subnav .user a.author img, header.search_subnav .user a.author img {
+        border-radius: 35px;
+        width: 35px;
+        height: 35px; }
+    header.subnav .user .content, header.search_subnav .user .content {
+      float: left;
+      margin-right: 50px; }
+      header.subnav .user .content h1, header.search_subnav .user .content h1 {
+        font-size: 1em;
+        font-weight: 400;
+        margin-top: 3px;
+        margin-bottom: 3px;
+        color: #FEFEFE; }
+      header.subnav .user .content span, header.search_subnav .user .content span {
+        font-size: 0.6em;
+        color: #FEFEFE;
+        opacity: 0.6; }
+  header.subnav .meta, header.search_subnav .meta {
+    height: 65px;
+    padding: 15px 15px 0 50px;
+    float: left; }
+    header.subnav .meta ul li, header.search_subnav .meta ul li {
+      float: left;
+      margin-left: 30px;
+      text-align: center;
+      list-style: disc;
+      font-size: 0.9em;
+      color: #F2897D;
+      vertical-align: middle; }
+      header.subnav .meta ul li h4, header.search_subnav .meta ul li h4 {
+        font-size: 1.1em;
+        color: #FEFEFE;
+        margin-bottom: 3px; }
+      header.subnav .meta ul li span, header.search_subnav .meta ul li span {
+        font-size: 0.7em;
+        color: #FEFEFE;
+        opacity: 0.6; }
+    header.subnav .meta ul li:first-child, header.search_subnav .meta ul li:first-child {
+      margin-left: 0;
+      list-style: none; }
+  header.subnav .actions, header.search_subnav .actions {
+    float: right;
+    padding-right: 15px; }
+    header.subnav .actions i[class="icon-remove"], header.subnav .actions i[class="icon-twitter"], header.subnav .actions i[class="icon-facebook"], header.search_subnav .actions i[class="icon-remove"], header.search_subnav .actions i[class="icon-twitter"], header.search_subnav .actions i[class="icon-facebook"] {
+      float: left;
+      margin-top: 21px;
+      margin-left: 10px;
+      font-size: 1.3em;
+      color: #FEFEFE;
+      opacity: 0.6; }
+      header.subnav .actions i[class="icon-remove"]:hover, header.subnav .actions i[class="icon-twitter"]:hover, header.subnav .actions i[class="icon-facebook"]:hover, header.search_subnav .actions i[class="icon-remove"]:hover, header.search_subnav .actions i[class="icon-twitter"]:hover, header.search_subnav .actions i[class="icon-facebook"]:hover {
+        cursor: pointer;
+        opacity: 1; }
+    header.subnav .actions button, header.search_subnav .actions button {
+      margin-top: 14px;
+      margin-right: 10px;
+      float: left; }
+
+header.search_subnav {
+  height: 85px; }
+  header.search_subnav input[name="search"] {
+    -webkit-box-shadow: inset 1px 1px 0 #F5F5F5, inset -1px 0px 0 #F5F5F5;
+    -moz-box-shadow: inset 1px 1px 0 #F5F5F5, inset -1px 0px 0 #F5F5F5;
+    box-shadow: inset 1px 1px 0 #F5F5F5, inset -1px 0px 0 #F5F5F5;
+    font-size: 1em;
+    font-weight: 500;
+    padding: 10px;
+    margin: 0;
+    border: 1px solid #C2D9FF;
+    border-radius: 3px;
+    margin: 20px 0 0 15px;
+    width: 600px;
+    color: #3D3D3D;
+    vertical-align: middle; }
+    header.search_subnav input[name="search"]:focus {
+      outline: none; }
+  header.search_subnav button {
+    height: 40px;
+    vertical-align: middle;
+    margin: 20px 0 0 5px; }
+  header.search_subnav i[class="icon-share-alt"] {
+    color: #FFF;
+    font-size: 1.5em;
+    opacity: 0.8;
+    float: right;
+    margin: 28px 15px 0 0; }
+    header.search_subnav i[class="icon-share-alt"]:hover {
+      opacity: 1;
+      cursor: pointer; }
+
+section.page.course a, section.page.courses a, section.page.profile a {
+  /* alternate color */
+  color: #3e90ca;
+  font-size: 1em; }
+section.page.course section.posts, section.page.course section.files, section.page.course section.sidebar, section.page.courses section.posts, section.page.courses section.files, section.page.courses section.sidebar, section.page.profile section.posts, section.page.profile section.files, section.page.profile section.sidebar {
+  float: left;
+  min-height: 500px;
+  padding: 20px; }
+  section.page.course section.posts h1, section.page.course section.files h1, section.page.course section.sidebar h1, section.page.courses section.posts h1, section.page.courses section.files h1, section.page.courses section.sidebar h1, section.page.profile section.posts h1, section.page.profile section.files h1, section.page.profile section.sidebar h1 {
+    font-weight: 500;
+    color: #3D3D3D;
+    margin-bottom: 15px; }
+  section.page.course section.posts h1:first-child, section.page.course section.files h1:first-child, section.page.course section.sidebar h1:first-child, section.page.courses section.posts h1:first-child, section.page.courses section.files h1:first-child, section.page.courses section.sidebar h1:first-child, section.page.profile section.posts h1:first-child, section.page.profile section.files h1:first-child, section.page.profile section.sidebar h1:first-child {
+    margin-bottom: 20px; }
+section.page.course section.sidebar h1:first-child, section.page.courses section.sidebar h1:first-child, section.page.profile section.sidebar h1:first-child {
+  margin-bottom: 15px; }
+section.page.course section.posts, section.page.courses section.posts, section.page.profile section.posts {
+  width: 50%;
+  color: #222;
+  border-right: 1px solid #E0E0E0; }
+  section.page.course section.posts .add_post, section.page.courses section.posts .add_post, section.page.profile section.posts .add_post {
+    margin-bottom: 20px; }
+    section.page.course section.posts .add_post .edit_content input[type="file"], section.page.courses section.posts .add_post .edit_content input[type="file"], section.page.profile section.posts .add_post .edit_content input[type="file"] {
+      display: none; }
+    section.page.course section.posts .add_post .edit_content textarea, section.page.courses section.posts .add_post .edit_content textarea, section.page.profile section.posts .add_post .edit_content textarea {
+      width: 100%;
+      margin-bottom: 10px;
+      border-radius: 4px;
+      border: 4px solid #eff8ff; }
+    section.page.course section.posts .add_post .controls a, section.page.course section.posts .add_post .controls label, section.page.courses section.posts .add_post .controls a, section.page.courses section.posts .add_post .controls label, section.page.profile section.posts .add_post .controls a, section.page.profile section.posts .add_post .controls label {
+      margin-top: 7px;
+      font-size: 0.75em; }
+    section.page.course section.posts .add_post .controls a, section.page.courses section.posts .add_post .controls a, section.page.profile section.posts .add_post .controls a {
+      float: left; }
+    section.page.course section.posts .add_post .controls button, section.page.course section.posts .add_post .controls label, section.page.courses section.posts .add_post .controls button, section.page.courses section.posts .add_post .controls label, section.page.profile section.posts .add_post .controls button, section.page.profile section.posts .add_post .controls label {
+      float: right; }
+    section.page.course section.posts .add_post .controls label, section.page.courses section.posts .add_post .controls label, section.page.profile section.posts .add_post .controls label {
+      color: #474747; }
+    section.page.course section.posts .add_post .controls button, section.page.courses section.posts .add_post .controls button, section.page.profile section.posts .add_post .controls button {
+      margin-left: 8px; }
+section.page.course section.files, section.page.courses section.files, section.page.profile section.files {
+  width: 25%;
+  color: #333;
+  border-right: 1px solid #E0E0E0; }
+  section.page.course section.files h1, section.page.courses section.files h1, section.page.profile section.files h1 {
+    line-height: 30px; }
+    section.page.course section.files h1 button, section.page.courses section.files h1 button, section.page.profile section.files h1 button {
+      float: right;
+      vertical-align: middle; }
+section.page.course section.sidebar, section.page.courses section.sidebar, section.page.profile section.sidebar {
+  width: 25%;
+  color: #444;
+  padding: 0;
+  padding-top: 20px; }
+  section.page.course section.sidebar section.courses, section.page.course section.sidebar section.classmates, section.page.courses section.sidebar section.courses, section.page.courses section.sidebar section.classmates, section.page.profile section.sidebar section.courses, section.page.profile section.sidebar section.classmates {
+    margin-bottom: 20px;
+    font-size: 0.8em; }
+  section.page.course section.sidebar h1, section.page.courses section.sidebar h1, section.page.profile section.sidebar h1 {
+    padding-left: 20px;
+    line-height: 30px; }
+    section.page.course section.sidebar h1 button, section.page.courses section.sidebar h1 button, section.page.profile section.sidebar h1 button {
+      float: right;
+      vertical-align: middle;
+      margin-right: 20px; }
+  section.page.course section.sidebar section.courses ul li, section.page.courses section.sidebar section.courses ul li, section.page.profile section.sidebar section.courses ul li {
+    display: block;
+    margin-bottom: 5px;
+    padding: 5px 20px; }
+    section.page.course section.sidebar section.courses ul li .course, section.page.courses section.sidebar section.courses ul li .course, section.page.profile section.sidebar section.courses ul li .course {
+      margin-bottom: 3px; }
+      section.page.course section.sidebar section.courses ul li .course a, section.page.courses section.sidebar section.courses ul li .course a, section.page.profile section.sidebar section.courses ul li .course a {
+        font-size: 1.1em; }
+      section.page.course section.sidebar section.courses ul li .course button, section.page.courses section.sidebar section.courses ul li .course button, section.page.profile section.sidebar section.courses ul li .course button {
+        position: relative;
+        top: -10px;
+        right: 5px;
+        display: inline;
+        padding: 0;
+        font-size: 0.6em;
+        height: 13px;
+        width: 13px;
+        border-radius: 13px; }
+    section.page.course section.sidebar section.courses ul li i:hover, section.page.courses section.sidebar section.courses ul li i:hover, section.page.profile section.sidebar section.courses ul li i:hover {
+      cursor: pointer; }
+    section.page.course section.sidebar section.courses ul li i, section.page.course section.sidebar section.courses ul li button, section.page.courses section.sidebar section.courses ul li i, section.page.courses section.sidebar section.courses ul li button, section.page.profile section.sidebar section.courses ul li i, section.page.profile section.sidebar section.courses ul li button {
+      margin-right: 5px; }
+    section.page.course section.sidebar section.courses ul li i.icon-remove, section.page.courses section.sidebar section.courses ul li i.icon-remove, section.page.profile section.sidebar section.courses ul li i.icon-remove {
+      opacity: 0.8;
+      float: right; }
+      section.page.course section.sidebar section.courses ul li i.icon-remove:hover, section.page.courses section.sidebar section.courses ul li i.icon-remove:hover, section.page.profile section.sidebar section.courses ul li i.icon-remove:hover {
+        opacity: 1; }
+  section.page.course section.sidebar section.courses ul li.active, section.page.courses section.sidebar section.courses ul li.active, section.page.profile section.sidebar section.courses ul li.active {
+    background-color: #f6fbff;
+    padding: 10px 20px; }
+  section.page.course section.sidebar section.classmates, section.page.courses section.sidebar section.classmates, section.page.profile section.sidebar section.classmates {
+    padding-left: 20px; }
+    section.page.course section.sidebar section.classmates ul li, section.page.courses section.sidebar section.classmates ul li, section.page.profile section.sidebar section.classmates ul li {
+      display: block;
+      margin-bottom: 7px; }
+      section.page.course section.sidebar section.classmates ul li .avatar, section.page.courses section.sidebar section.classmates ul li .avatar, section.page.profile section.sidebar section.classmates ul li .avatar {
+        float: left;
+        border-radius: 35px;
+        margin-right: 15px; }
+        section.page.course section.sidebar section.classmates ul li .avatar img, section.page.courses section.sidebar section.classmates ul li .avatar img, section.page.profile section.sidebar section.classmates ul li .avatar img {
+          border-radius: 35px;
+          width: 35px;
+          height: 35px; }
+      section.page.course section.sidebar section.classmates ul li small, section.page.courses section.sidebar section.classmates ul li small, section.page.profile section.sidebar section.classmates ul li small {
+        display: block;
+        margin-top: 3px;
+        font-size: 0.85em;
+        color: #CCCCCC; }
+
+section.page.courses a {
+  /* alternate color */
+  color: #3e90ca;
+  font-size: 1em; }
+section.page.courses .container > section.courses, section.page.courses .container section.sidebar {
+  float: left;
+  min-height: 500px;
+  padding: 20px; }
+  section.page.courses .container > section.courses h1, section.page.courses .container section.sidebar h1 {
+    font-weight: 500;
+    color: #3D3D3D;
+    margin-bottom: 20px; }
+  section.page.courses .container > section.courses h1:first-child, section.page.courses .container section.sidebar h1:first-child {
+    margin-bottom: 15px; }
+section.page.courses .container > section.courses {
+  width: 70%;
+  color: #222;
+  border-right: 1px solid #E0E0E0; }
+  section.page.courses .container > section.courses ul li {
+    padding: 5px 0;
+    margin-bottom: 10px; }
+    section.page.courses .container > section.courses ul li .name {
+      margin-bottom: 1px;
+      line-height: 27px; }
+      section.page.courses .container > section.courses ul li .name button {
+        float: right;
+        margin-left: 10px; }
+    section.page.courses .container > section.courses ul li ul.meta {
+      font-size: 0.7em;
+      float: left; }
+      section.page.courses .container > section.courses ul li ul.meta li {
+        float: left;
+        margin-right: 25px;
+        list-style-type: disc;
+        color: #CCCCCC; }
+        section.page.courses .container > section.courses ul li ul.meta li span {
+          float: left; }
+      section.page.courses .container > section.courses ul li ul.meta li:first-child {
+        list-style-type: none; }
+      section.page.courses .container > section.courses ul li ul.meta li:last-child {
+        margin-right: 0; }
+    section.page.courses .container > section.courses ul li .avatars {
+      float: left;
+      display: inline;
+      margin-left: 10px; }
+      section.page.courses .container > section.courses ul li .avatars .avatar {
+        float: right;
+        border-radius: 25px;
+        margin-left: 5px; }
+        section.page.courses .container > section.courses ul li .avatars .avatar img {
+          border-radius: 25px;
+          width: 25px;
+          height: 25px; }
+section.page.courses .container section.sidebar {
+  width: 30%;
+  color: #444;
+  padding: 0;
+  padding-top: 20px; }
+  section.page.courses .container section.sidebar h1 {
+    line-height: 1em; }
+  section.page.courses .container section.sidebar section.courses ul li a {
+    display: block;
+    margin-bottom: 5px; }
+  section.page.courses .container section.sidebar section.courses ul li small {
+    color: #CCCCCC;
+    font-size: 0.85em;
+    display: block; }
+
+header.meta {
+  height: 30px;
+  background-color: #df5c4f; }
+  header.meta ul {
+    line-height: 30px;
+    width: 250px;
+    margin: 0 auto; }
+    header.meta ul li {
+      font-size: 0.7em;
+      float: left;
+      margin-left: 20px;
+      color: #FEFEFE; }
+      header.meta ul li span {
+        opacity: 0.6; }
+      header.meta ul li i {
+        color: #333;
+        margin-right: 5px; }
+    header.meta ul li:first-child {
+      margin-left: 0; }
+
+section.page.profile section.actions {
+  float: left;
+  min-height: 500px;
+  padding: 20px; }
+  section.page.profile section.actions h1 {
+    font-weight: 500;
+    color: #3D3D3D;
+    margin-bottom: 20px; }
+  section.page.profile section.actions h1:first-child {
+    margin-bottom: 15px; }
+section.page.profile section.actions {
+  width: 75%; }
+  section.page.profile section.actions .activities .activity {
+    margin-bottom: 20px; }
+    section.page.profile section.actions .activities .activity .timestamp {
+      padding-left: 25px;
+      font-size: 0.75em;
+      color: #CCCCCC;
+      margin-bottom: 5px; }
+    section.page.profile section.actions .activities .activity header {
+      font-size: 0.8em;
+      color: #3D3D3D; }
+      section.page.profile section.actions .activities .activity header i {
+        margin-right: 10px; }
+section.page.profile section.sidebar h1 {
+  line-height: 1em; }
+
+article.post {
+  font-size: 0.8em;
+  margin-bottom: 30px; }
+  article.post .author a {
+    float: left;
+    display: block;
+    border-radius: 50px; }
+    article.post .author a img {
+      border-radius: 50px;
+      width: 50px;
+      height: 50px; }
+  article.post .post_revision {
+    padding-left: 65px; }
+  article.post .comments {
+    margin-left: 66px;
+    margin-top: 30px; }
+    article.post .comments article.comment {
+      margin-bottom: 30px; }
+      article.post .comments article.comment .comment_revision {
+        padding-left: 50px; }
+  article.post .comments .author a {
+    border-radius: 35px; }
+    article.post .comments .author a img {
+      border-radius: 35px;
+      width: 35px;
+      height: 35px; }
+  article.post .post_revision a.handle, article.post .comment_revision a.handle {
+    font-weight: 400; }
+  article.post .post_revision .body, article.post .comment_revision .body {
+    color: #474747;
+    margin: 5px 0; }
+  article.post .post_revision ul.attached-files, article.post .post_revision ul.actions, article.post .comment_revision ul.attached-files, article.post .comment_revision ul.actions {
+    font-size: 0.85em;
+    display: block;
+    color: #474747;
+    margin-bottom: 5px; }
+    article.post .post_revision ul.attached-files li, article.post .post_revision ul.actions li, article.post .comment_revision ul.attached-files li, article.post .comment_revision ul.actions li {
+      float: left;
+      margin-right: 25px;
+      list-style-type: disc;
+      color: #CCCCCC; }
+      article.post .post_revision ul.attached-files li a, article.post .post_revision ul.actions li a, article.post .comment_revision ul.attached-files li a, article.post .comment_revision ul.actions li a {
+        opacity: 1; }
+        article.post .post_revision ul.attached-files li a i, article.post .post_revision ul.actions li a i, article.post .comment_revision ul.attached-files li a i, article.post .comment_revision ul.actions li a i {
+          margin-right: 1px; }
+    article.post .post_revision ul.attached-files li:first-child, article.post .post_revision ul.actions li:first-child, article.post .comment_revision ul.attached-files li:first-child, article.post .comment_revision ul.actions li:first-child {
+      list-style-type: none; }
+  article.post .post_revision ul.attached-files li, article.post .comment_revision ul.attached-files li {
+    list-style-type: none;
+    margin-right: 15px; }
+    article.post .post_revision ul.attached-files li a i, article.post .comment_revision ul.attached-files li a i {
+      margin-right: 5px; }
+  article.post .post_revision ul.actions li:not(:first-child), article.post .comment_revision ul.actions li:not(:first-child) {
+    visibility: hidden; }
+  article.post .post_revision:hover ul.actions li, article.post .comment_revision:hover ul.actions li {
+    visibility: visible; }
+  article.post .add_comment .edit_content {
+    padding-left: 50px; }
+    article.post .add_comment .edit_content input[type="file"] {
+      display: none; }
+    article.post .add_comment .edit_content textarea {
+      width: 100%;
+      margin-bottom: 10px; }
+  article.post .add_comment .controls a, article.post .add_comment .controls label {
+    margin-top: 7px;
+    font-size: 0.9em; }
+  article.post .add_comment .controls a {
+    float: left; }
+  article.post .add_comment .controls button, article.post .add_comment .controls label {
+    float: right; }
+  article.post .add_comment .controls label {
+    color: #474747; }
+  article.post .add_comment .controls button {
+    margin-left: 8px; }
+
+article.file {
+  font-size: 0.8em;
+  margin-bottom: 20px; }
+  article.file .author a {
+    float: left;
+    display: block;
+    border-radius: 35px; }
+    article.file .author a img {
+      border-radius: 35px;
+      width: 35px;
+      height: 35px; }
+  article.file .content {
+    padding-left: 50px;
+    color: #474747; }
+    article.file .content p.body {
+      margin-bottom: 5px; }
+      article.file .content p.body .filename {
+        margin-right: 10px; }
+        article.file .content p.body .filename i {
+          margin-right: 6px; }
+        article.file .content p.body .filename span {
+          background-image: url("https://dt8kf6553cww8.cloudfront.net/static/images/sprites/web_2x_sprites-vflyrjfCE.png");
+          background-size: 20px 885px;
+          vertical-align: middle;
+          width: 20px;
+          height: 20px;
+          display: inline-block;
+          margin-right: 6px; }
+        article.file .content p.body .filename span.ico-xls {
+          background-position: 0 478px; }
+        article.file .content p.body .filename span.ico-pdf {
+          background-position: 0 662px; }
+        article.file .content p.body .filename span.ico-word {
+          background-position: 0 113px; }
+    article.file .content ul.actions {
+      font-size: 0.85em;
+      color: #CCCCCC; }
+
+footer.main {
+  position: relative;
+  height: 100px;
+  margin: 0 auto;
+  width: 100%;
+  max-width: 1920px;
+  background-color: #1f1f1f; }

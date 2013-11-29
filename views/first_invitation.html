@@ -1,0 +1,1020 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= locals.title %></title>
+    <link rel="stylesheet" href="/assets/css/loading.css">
+    <link href="/assets/css/animate.min.css" rel="stylesheet"> 	
+    <link href="/assets/css/bootstrap.css" rel="stylesheet">
+    <link href="/assets/css/bootstrap-responsive.css" rel="stylesheet">  
+	
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
+     <script src="http://fineuploader.com/source/all.fineuploader-3.8.2.min.js"></script>
+<script src="http://code.jquery.com/jquery-latest.js"></script>
+	-->
+	<script src="/assets/js/bootstrap/js/bootstrap.min.js"></script>
+	<script src="/assets/js/jquery/jquery-1.8.1.min.js"></script>
+	<script src="/assets/js/all.fineuploader-3.8.2.min.js"></script>
+	
+
+  </head>
+<style>
+body {
+ <!--  
+  background-image: -webkit-radial-gradient(center top, circle farthest-corner, #FFFFFF 0%, #D8DFE9 100%);
+  background-image: radial-gradient(circle farthest-corner at center top, #FFFFFF 0%, #D8DFE9 100%);
+ -->
+  font-family:'Open Sans', sans;
+  background:#f1f1f1;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+ 
+::-webkit-scrollbar-track {
+  border-radius: 0;
+}
+ 
+::-webkit-scrollbar-thumb {
+  margin: 2px;
+  border-radius: 0;
+  background: rgba(0,0,0,0.2);
+}
+
+@import url(http://fonts.googleapis.com/css?family=Roboto:400,100,300,300italic,400italic,500,500italic,700,700italic,900,900italic,100italic);
+
+#errorMsg {
+position: absolute;
+
+z-index: 99999999999999999999;
+-webkit-transition: top 1000ms ease-out;
+-moz-transition: top 1000ms ease-out;
+-ms-transition: top 1000ms ease-out;
+-o-transition: top 1000ms ease-out;
+transition: top 1000ms ease-out;
+}
+</style>
+
+<style>
+@import url(http://fonts.googleapis.com/css?family=Droid+Sans:400,700);
+@import url(http://fonts.googleapis.com/css?family=Cabin:700);
+@import "//netdna.bootstrapcdn.com/font-awesome/3.0/css/font-awesome.css";
+
+
+
+#wrapper-board {
+    -webkit-perspective: 800px;
+    -moz-perspective: 800px;
+    -o-perspective: 800px;
+    perspective: 800px;
+    -webkit-transition: -webkit-transform 1s;
+    -moz-transition: -moz-transform 1s;
+    -o-transition: -o-transform 1s;
+    transition: transform 1s;
+    -webkit-transform-style: preserve-3d;
+    -moz-transform-style: preserve-3d;
+    -o-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+    margin: 40px auto;
+    width: 300px;
+    position: relative;
+
+
+border-radius: 5px;
+box-shadow: 0 0 10px #ccc;	
+}
+
+.box {
+    background: #fff;
+	  -webkit-box-sizing: border-box;
+	  -moz-box-sizing: border-box;
+	  box-sizing: border-box;
+    -webkit-transform-style: preserve-3d;
+    -webkit-backface-visibility: hidden;
+    padding: 25px;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    border-radius: 5px;
+    box-shadow: 0 2px 1px #e9e9e9;
+}
+
+#sign_in_form input[type="text"], #sign_in_form input[type="password"], #sign_in_form button, .back button {
+    outline: none;
+    -webkit-transition: all 0.3s ease-in-out;
+    -moz-transition: all 0.3s ease-in-out;
+    -ms-transition: all 0.3s ease-in-out;
+    -o-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+    background: #ecf2f4;
+    color: #bbc0c2;
+    border: none;
+    -webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+    width: 100%;
+    padding: 20px 25px;
+    font-size: 16px;
+    margin: 0 0 15px;
+    font-family: droid sans;
+    border-radius: 5px;
+}
+
+#sign_in_form button, .back button {
+    background: #8eb5e2;
+    color: white;
+    margin: 0;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+#sign_in_form button:hover {
+    background: #9dc2ed;
+}
+
+#sign_in_form button:active {
+    background: #719bcc;
+}
+
+[placeholder]:focus::-webkit-input-placeholder {
+    -webkit-transition: all 0.2s ease-in-out;
+    -moz-transition: all 0.2s ease-in-out;
+    -ms-transition: all 0.2s ease-in-out;
+    -o-transition: all 0.2s ease-in-out;
+    transition: all 0.2s ease-in-out;
+    -webkit-transform: translate(120px, 0);
+    -moz-transform: translate(120px, 0);
+    -ms-transform: translate(120px, 0);
+    -o-transform: translate(120px, 0);
+    transform: translate(120px, 0);
+    opacity: 0;
+}
+.flip .front {
+    -webkit-transform: rotateY(180deg);
+    -moz-transform: rotateY(180deg);
+    right: 250px;
+    top: 50px;
+}
+.flip .back {
+    -webkit-transform: rotateX(0deg) rotateY(0deg);
+    -moz-transform: rotateX(0deg) rotateY(0deg);
+    z-index: 10;
+    right: 0;
+    top: 20px;
+}
+.front {
+    -webkit-transform: rotateX(0deg) rotateY(0deg);
+    -webkit-transform-style: preserve-3d;
+    -webkit-backface-visibility: hidden;
+    -moz-transform: rotateX(0deg) rotateY(0deg);
+    -moz-transform-style: preserve-3d;
+    -moz-backface-visibility: hidden;
+    -o-transition: all .4s ease-in-out;
+    -ms-transition: all .4s ease-in-out;
+    -moz-transition: all .4s ease-in-out;
+    -webkit-transition: all .4s ease-in-out;
+    transition: all .4s ease-in-out;
+  right:0;
+}
+.default {
+    text-align: center;
+    margin: 25px 0;
+}
+.default i {
+    color: #f96145;
+    font-size: 100px;
+    margin: 0 0 10px;
+    display: block;
+}
+.default h1 {
+    font-family: Cabin;
+    font-weight: 700;
+    margin: 0;
+    color: #aaaaaa;
+}
+.back {
+    -webkit-transform: rotateY(-180deg);
+    -webkit-transform-style: preserve-3d;
+    -webkit-backface-visibility: hidden;
+    -moz-transform: rotateY(-180deg);
+    -moz-transform-style: preserve-3d;
+    -moz-backface-visibility: hidden;
+    -o-transition: all .4s ease-in-out;
+    -ms-transition: all .4s ease-in-out;
+    -moz-transition: all .4s ease-in-out;
+    -webkit-transition: all .4s ease-in-out;
+    transition: all .4s ease-in-out;
+    right: 250px;
+}
+.back h2 {
+    font-family: droid sans;
+    color: #aaa;
+    margin: 0;
+}
+.back img {
+    border-radius: 5px;
+    margin: 0 0 15px;
+}
+.back button {
+    background: #f96145;
+}
+.back button:hover {
+    background: #ff7a61;
+}
+.back button:active {
+    background: #e7593f;
+}
+.back ul {
+    color: #aaaaaa;
+    padding: 0;
+    margin: 0 0 15px;
+}
+.back ul li {
+    cursor: pointer;
+    border-bottom: 1px solid #ececec;
+    list-style-type: none;
+    font-family: Droid Sans;
+    margin: 0 0 15px;
+    font-size: 13px;
+    padding: 0 0 15px;
+}
+.back ul li i {
+    margin-right: 5px;
+    color: #ccc;
+}
+.back ul li span {
+    -o-transition: all .2s ease-in-out;
+    -ms-transition: all .2s ease-in-out;
+    -moz-transition: all .2s ease-in-out;
+    -webkit-transition: all .2s ease-in-out;
+    transition: all .2s ease-in-out;
+    padding: 2px 5px;
+    display: block;
+    font-size: 12px;
+    float: right;
+    border: 1px solid #ececec;
+    border-radius: 10px;
+}
+.back ul li:hover span {
+    color: white;
+    border-color: #444;
+    background: #444;
+}
+
+.qq-drop-processing{
+visibility:hidden;
+display:none;
+}
+
+.qq-upload-list{
+display:none;
+visibility:hidden;
+}
+
+.profile-img{
+  position:relative;
+}
+
+#jquery-wrapped-fine-uploader{
+position: absolute;
+right: 30px;
+top: 30px;
+
+}
+
+</style>
+
+<style>
+/* Actual content */
+.course-item{
+   margin-top:20px;
+}
+
+.item{
+	width:320px;
+	height:260px;
+	background-image: url(http://webstudios.dk/resources/img/ipath-shoes.jpg);
+	-webkit-background-size: 100%;
+	     -o-background-size: 100%;
+	        background-size: 100%;
+	position: relative;
+	top:0;
+	left:0;
+	z-index:5;
+	overflow: hidden;
+	-webkit-border-radius: 3px;
+	        border-radius: 3px;
+	-webkit-box-shadow: 0 1px 5px rgba(0,0,0,0.3);
+	        box-shadow: 0 1px 5px rgba(0,0,0,0.3);
+}
+
+.item-overlay{
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	/* IE9 SVG, needs conditional override of 'filter' to 'none' 
+	background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzAwMDAwMCIgc3RvcC1vcGFjaXR5PSIwIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjI4JSIgc3RvcC1jb2xvcj0iIzAwMDAwMCIgc3RvcC1vcGFjaXR5PSIwIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiMwMDAwMDAiIHN0b3Atb3BhY2l0eT0iMC40MiIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);*/
+	
+	background: -moz-linear-gradient(top,  rgba(0,0,0,0) 0%, rgba(0,0,0,0) 28%, rgba(0,0,0,0.42) 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(0,0,0,0)), color-stop(28%,rgba(0,0,0,0)), color-stop(100%,rgba(0,0,0,0.42))); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top,  rgba(0,0,0,0) 0%,rgba(0,0,0,0) 28%,rgba(0,0,0,0.42) 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top,  rgba(0,0,0,0) 0%,rgba(0,0,0,0) 28%,rgba(0,0,0,0.42) 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top,  rgba(0,0,0,0) 0%,rgba(0,0,0,0) 28%,rgba(0,0,0,0.42) 100%); /* IE10+ */
+	background: linear-gradient(to bottom,  rgba(0,0,0,0) 0%,rgba(0,0,0,0) 28%,rgba(0,0,0,0.42) 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00000000', endColorstr='#6b000000',GradientType=0 ); /* IE6-8 */
+
+	-webkit-transition: background-color 0.3s ease-in-out;
+	   -moz-transition: background-color 0.3s ease-in-out;
+	    -ms-transition: background-color 0.3s ease-in-out;
+	     -o-transition: background-color 0.3s ease-in-out;
+	        transition: background-color 0.3s ease-in-out;
+}
+.item:hover .item-overlay{
+	/* IE9 SVG, needs conditional override of 'filter' to 'none' */
+	background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzAwMDAwMCIgc3RvcC1vcGFjaXR5PSIwIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjI4JSIgc3RvcC1jb2xvcj0iIzAwMDAwMCIgc3RvcC1vcGFjaXR5PSIwIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiMwMDAwMDAiIHN0b3Atb3BhY2l0eT0iMC40MiIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
+	background: -moz-linear-gradient(top,  rgba(0,0,0,0) 0%, rgba(0,0,0,0) 28%, rgba(0,0,0,0.42) 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(0,0,0,0)), color-stop(28%,rgba(0,0,0,0)), color-stop(100%,rgba(0,0,0,0.42))); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top,  rgba(0,0,0,0) 0%,rgba(0,0,0,0) 28%,rgba(0,0,0,0.42) 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top,  rgba(0,0,0,0) 0%,rgba(0,0,0,0) 28%,rgba(0,0,0,0.42) 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top,  rgba(0,0,0,0) 0%,rgba(0,0,0,0) 28%,rgba(0,0,0,0.42) 100%); /* IE10+ */
+	background: linear-gradient(to bottom,  rgba(0,0,0,0) 0%,rgba(0,0,0,0) 28%,rgba(0,0,0,0.42) 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00000000', endColorstr='#6b000000',GradientType=0 ); /* IE6-8 */
+	background-color: rgba(0,0,0,0.4);
+}
+.item-content{
+	position: absolute;
+	width:100%;
+	bottom: 0;
+	-webkit-transform: translate(0,100%);
+	   -moz-transform: translate(0,100%);
+	    -ms-transform: translate(0,100%);
+	     -o-transform: translate(0,100%);
+	        transform: translate(0,100%);
+	
+	-webkit-transition: all 0.3s ease-in-out;
+	   -moz-transition: all 0.3s ease-in-out;
+	    -ms-transition: all 0.3s ease-in-out;
+	     -o-transition: all 0.3s ease-in-out;
+	        transition: all 0.3s ease-in-out;
+	
+}
+.item:hover .item-content{
+	-webkit-transform: translate(0,0);
+	   -moz-transform: translate(0,0);
+	    -ms-transform: translate(0,0);
+	     -o-transform: translate(0,0);
+	        transform: translate(0,0);
+	    
+	-webkit-transition: all 0.3s ease-in-out;
+	   -moz-transition: all 0.3s ease-in-out;
+	    -ms-transition: all 0.3s ease-in-out;
+	     -o-transition: all 0.3s ease-in-out;
+	        transition: all 0.3s ease-in-out;
+}
+
+.item-top-content{
+	position: relative;
+}
+.item-top-content-inner{
+	position: absolute;
+	bottom: 0;
+	padding:10px 15px 10px 15px;
+	background: rgba(255,255,255,.85);
+	width:100%;
+}
+.item-add-content{
+	padding:0 15px 15px 15px;
+	opacity:0;
+	-webkit-transition: all 0.3s ease-in-out;
+	   -moz-transition: all 0.3s ease-in-out;
+	    -ms-transition: all 0.3s ease-in-out;
+	     -o-transition: all 0.3s ease-in-out;
+	        transition: all 0.3s ease-in-out;
+}
+.item:hover .item-add-content{
+	opacity:1
+}
+.item-add-content-inner{
+	border:0px solid #dadada;
+	border-top-width:1px;
+	padding-top:10px;
+}
+
+
+
+/* Buttons */
+.item-button{
+	border-radius:3px;
+	width:30px;
+	height:30px;
+}
+.item-button.play{
+	background-color:#40c781;
+	position: absolute;
+	top: 15px;
+	left: 15px;
+	opacity:0;
+	background-image: url(http://webstudios.dk/resources/img/play-img.png);
+}
+.item-button.play:hover{
+	background-color:#34a46c;
+	}
+.course-item:hover .item-button.play{
+	opacity:1;
+}
+
+.item-button.share{
+	background-color:#4f4f4f;
+	position: absolute;
+	top: 50px;
+	left: 15px;
+	opacity:0;
+	background-image: url(http://webstudios.dk/resources/img/share-img.png);
+}
+.item-button.share:hover{
+	background-color:#333333;
+	}
+.course-item:hover .item-button.share{
+	opacity:1;
+}
+.registerBtn.buy{
+	background-color: #40c781;
+	text-align:center;
+	line-height:42px;
+	font-weight:700;
+	color:#fff;
+	border-radius:3px;
+	text-decoration:none;
+	opacity:1;
+	border:0px solid #35a76e;
+	border-bottom-width:2px;
+	-webkit-transition: all 0.2s ease-in-out;
+	   -moz-transition: all 0.2s ease-in-out;
+	    -ms-transition: all 0.2s ease-in-out;
+	     -o-transition: all 0.2s ease-in-out;
+	        transition: all 0.2s ease-in-out;
+}
+.registerBtn.buy:hover{
+	background-color:#34a46c;
+}
+.expand{
+	display:block;
+}
+
+/* Tags */
+.course-tag{
+	width: 50px;
+	height: 100px;
+	background: #40c781;
+	position: absolute;
+	top:-45px;
+	right:-10px;
+	-webkit-transform: rotate(-45deg);
+	   -moz-transform: rotate(-45deg);
+	    -ms-transform: rotate(-45deg);
+	     -o-transform: rotate(-45deg);
+	        transform: rotate(-45deg);
+}
+.course-tag span{
+	position:absolute;
+	top:48px;
+	left:2px;
+	-webkit-transform: rotate(45deg);
+	   -moz-transform: rotate(45deg);
+	    -ms-transform: rotate(45deg);
+	     -o-transform: rotate(45deg);
+	        transform: rotate(45deg);
+	font-size:11px;
+	color:#fff;
+}
+
+/* content */
+
+.item-product{
+	width:70%;
+	float:left;
+}
+.item-product-price{
+	width:30%;
+	float:right;
+	text-align: right;
+}
+
+
+/*Prduct title*/
+
+
+.subdescription{
+	font-family: 'helvetica neue';
+	font-size:0.8em;
+	font-weight:400;
+	color:#7d7d7d;
+}
+
+/*product price*/
+.item-product-price{
+	color:#40c781;
+	font-size:1em;
+	font-weight:700;
+	position:relative;
+	font-family:'helvetica neue'
+}
+.item-product-price .subdescription{
+	color:#7d7d7d;
+}
+.old-price{
+	border:0 solid #7d7d7d;
+	border-bottom-width:1px;
+	margin-top:-11px;
+	width:30px;
+	position:absolute;
+	right:-2px;
+	bottom:10px;
+	-webkit-transform: rotate(-30deg);
+	   -moz-transform: rotate(-30deg);
+	    -ms-transform: rotate(-30deg);
+	     -o-transform: rotate(-30deg);
+	        transform: rotate(-30deg);
+}
+
+.item-content{
+	background: rgba(255,255,255,.85);
+}
+.item-add-content{
+	font-family: 'Lato', sans-serif;
+	font-weight:400;
+	color:#7d7d7d;
+}
+.item-add-content .section{
+	margin-bottom:10px;
+}
+.item-add-content .section:last-of-type{
+	margin-bottom:0;
+}
+.item-add-content h4{
+	font-weight:600;
+	color:#222;
+	font-size:0.8em;
+}
+.item-add-content p{
+	font-size:0.8em;
+}
+
+
+/* Item menu */
+.item-menu{
+	position: absolute;
+	top:3px;
+	left:0px;
+	height:254px;
+	width:260px;
+	border-radius:3px 0 0 3px;
+	background:#4f4f4f;
+	-webkit-border-radius: 3px;
+	        border-radius: 3px;
+	-webkit-box-shadow: 0 1px 5px rgba(0,0,0,0.3);
+	        box-shadow: 0 1px 5px rgba(0,0,0,0.3);
+	-webkit-transform: translate(0,0);
+	   -moz-transform: translate(0,0);
+	    -ms-transform: translate(0,0);
+	     -o-transform: translate(0,0);
+	        transform: translate(0,0);
+	-webkit-transition: all 0.3s ease-in-out;
+	   -moz-transition: all 0.3s ease-in-out;
+	    -ms-transition: all 0.3s ease-in-out;
+	     -o-transition: all 0.3s ease-in-out;
+	        transition: all 0.3s ease-in-out;
+}
+.item-menu.visible{
+	-webkit-transform: translate(-70px,0);
+	   -moz-transform: translate(-70px,0);
+	    -ms-transform: translate(-70px,0);
+	     -o-transform: translate(-70px,0);
+	        transform: translate(-70px,0);
+	-webkit-transition: all 0.3s ease-in-out;
+	   -moz-transition: all 0.3s ease-in-out;
+	    -ms-transition: all 0.3s ease-in-out;
+	     -o-transition: all 0.3s ease-in-out;
+	        transition: all 0.3s ease-in-out;
+}
+.item-menu:hover{
+	-webkit-transform: translate(-70px,0);
+	   -moz-transform: translate(-70px,0);
+	    -ms-transform: translate(-70px,0);
+	     -o-transform: translate(-70px,0);
+	        transform: translate(-70px,0);
+	-webkit-transition: all 0.3s ease-in-out;
+	   -moz-transition: all 0.3s ease-in-out;
+	    -ms-transition: all 0.3s ease-in-out;
+	     -o-transition: all 0.3s ease-in-out;
+	        transition: all 0.3s ease-in-out;
+}
+/*List*/
+.popout-menu ul{
+	list-style-type:none;
+}
+.popout-menu ul li{
+	-webkit-box-shadow: inset 0px 1px rgba(255,255,255,0.1);
+	        box-shadow: inset 0px 1px rgba(255,255,255,0.1);
+	border-bottom:1px solid #434343;
+}
+.popout-menu ul li:first-of-type{
+	-webkit-border-radius: 3px 0;
+	        border-radius: 3px 0;
+}
+.popout-menu ul li:last-of-type{
+	border-bottom-width:0px;
+}
+.popout-menu ul li:hover{
+	background:#434343;
+}
+.popout-menu ul li a{
+	color:#eaeaea;
+	font-weight:600;
+	font-size:0.8em;
+	text-decoration:none;
+	line-height: 36px;
+	padding:0 15px;
+	display:block;
+	text-shadow: 1px 1px 1px rgba(0,0,0,0.2);
+}
+
+
+.slogan {
+  position: relative;
+  display: block;
+  overflow: hidden; 
+  width: 0em;
+  height: 1.25em;
+  margin: 1em auto;
+  font-size: 2em;
+  line-height: 1.5em;
+  border-right: .125em solid #39F;
+  box-sizing: content-box;
+  animation-name: blink-start, typing, blink-end;
+  animation-duration: 1s, 1s, 1s;
+  animation-timing-function: linear, steps(13, end), linear;
+  animation-delay: 0s, 1s, 2s;
+  animation-iteration-count: 1, 1, infinite;
+  animation-direction: normal;
+  animation-fill-mode: forwards;
+}
+
+.slogan span {
+  display: block;
+  width: 8em;
+}
+
+@keyframes typing {
+  from { width: 0em; }
+  to   { width: 8em; }
+}
+
+@keyframes blink-start {
+  from, to { border-color: #39F; }
+  50% { border-color: transparent; }
+}
+
+@keyframes blink-end {
+  from, to { border-color: #39F; }
+  50% { border-color: transparent; }
+}
+
+</style>
+
+  <body>
+    <div class="wrapper">
+	    <div class="inner-wrapper">                
+		    <span id="loading" class="folding">Loading...</span> 
+            <% include header/header_student %>
+			<div style="height:90px;">  </div>
+            <div class="row">
+			  <div id="page_title" style="font: inherit;padding-bottom: 25px;border-bottom: 1px dotted #AAB2BD; margin-top: 100px;margin: 0 auto; font-weight: 200;font-size: 3em;color: #656D78;text-align: center;">	
+	            Feanlabs Beta Sign Up
+				<!--<p class="slogan"><span>I code stuff.</span></p>-->	
+              </div> 
+			</div>
+            <div class="row courses" style="display:none;">
+			   <div class="course-item offset1"  >
+				 <div class="item">
+					<div class="item-overlay">
+					    <img src="/images/52346d6d34ca36c019000002" style="height:100%;width:100%"/>
+						<a href="#" class="item-button play"><i class="play"></i></a>
+						<a href="#" class="item-button share share-btn"><i class="play"></i></a>
+						<div class="course-tag"><span>NEW</span></div>
+					</div>
+					<div class="item-content">
+
+						<div class="item-top-content">
+							<div class="item-top-content-inner">
+								<div class="item-product">
+									<div class="item-top-title">
+										<div style="font-size:1em;font-weight:400;color:#222;">Ipath lowrunner</div>	
+										<p class="subdescription">
+											Low skateshoes - Grey
+										</p>
+									</div>
+								</div>
+								<div class="item-product-price">
+
+								</div>
+							</div>	
+						</div>
+					
+						<div class="item-add-content">
+							<div class="item-add-content-inner">
+									
+									<form method="post" id="sign_in_course_form" " enctype="application/x-www-form-urlencoded">
+                                        <input type="hidden" name="_csrf" value="<%= token %>" />
+                                        <a  href="#" class="registerBtn buy expand">Sign In Course</a>
+                                    </form>
+									
+							</div>
+						</div>
+					
+					
+					</div>
+				 </div>
+				</div>			
+			</div>			
+			<div class="row invite">
+              <div id="wrapper-board">
+                <form id="sign_in_form" class="front box" method="post">
+				    <input type="hidden" name="_csrf" value="<%= token %>"/>
+                    <div class="default"><i class="icon-briefcase"></i><h1>Sign Up</h1></div>
+                    <input type="text" placeholder="username" name="username"/>
+                    <input type="password" placeholder="password" name="password"/>
+					<input type="text" placeholder="email" name="email" value="helxsz@gmail.com"  />  </input>
+                    <button type="submit" class="login"><i class="icon-ok"></i></button>
+                </form>
+
+                <div class="back box">
+		<!--
+		<form method="post" action="/settings/profile/image" id="image-form" class="form-horizontal" enctype="multipart/form-data">
+            <input type="hidden" name="_csrf" value="<%= token %>"/>		
+            <input  type="file" name="image" class="input-xlarge">
+		    <input type="submit" id="image-form-btn" value="Update Profile Image" ></input>			
+		</form>
+		
+		src="http://i.imgur.com/sdDkYt1.png"
+        -->		
+					<img class = "profile-img" >
+					   <div id="jquery-wrapped-fine-uploader" >                        
+					   </div>
+                    </img>					
+                    <ul>
+					    <!--
+                        <li><i class="icon-file"></i> New <span>32</span></li>
+                        <li><i class="icon-flag"></i> Priority <span>12</span></li>
+                        <li><i class="icon-user"></i> Assigned <span>5/17</span></li>
+                        <li><i class="icon-trash"></i> Deleted <span>14</span></li>  
+						-->
+						<form id="profile_form" method="post">
+						    <input type="hidden" name="_csrf" value="<%= token %>"/>
+						    <input type="text" placeholder="location" name="location"/>
+                            <input type="text" placeholder="about" name="about"/>
+						</form>	
+                    </ul>					
+					<!--   
+					       http://stackoverflow.com/questions/1263852/prevent-form-redirect-or-refresh-on-submit 
+					       <textarea name="goal" placeholder="Enter your goal"></textarea>
+					-->					
+                    <button class="update"><i class="icon-off"></i></button>
+                </div>
+              </div>
+			</div>				        			
+		</div>
+	</div>
+	
+
+	
+
+				<!--
+				<div class="item-menu popout-menu">
+					<ul>
+						<li><a href="#" class="popout-menu-item">Share</a></li>
+						<li><a href="#" class="popout-menu-item">Info</a></li>
+						<li><a href="#" class="popout-menu-item">Seller</a></li>
+					</ul>
+				</div>
+				
+				-->
+			</div>
+	
+  <div id="errorMsg" class="alert" style="display:none;width:960px;margin:0px auto;top:140px;position:absolute; margin-left:auto;margin-right:auto;">
+                    <a class="close" data-dismiss="alert"><i class="icon-remove"></i></a>
+                    <strong></strong> 
+  </div>
+
+  </body>
+
+
+<script>
+
+		
+        var pathname = window.location.pathname;
+		console.log(pathname);
+		console.log(pathname.split('/')[3]);
+		var token = pathname.split('/')[3];
+
+		$(".share-btn").mouseenter(function() {
+			setTimeout(function() {
+			$(".item-menu").addClass("visible")
+			}, 500);
+		});
+		$(".share-btn").mouseleave(function() {
+			setTimeout(function() {
+			$(".item-menu").removeClass("visible")
+			}, 500);
+		});
+		$(".item-menu").hover(function() {
+			$(".item-menu").addClass("visible")
+		});
+		$(".item-menu").mouseleave(function() {
+			setTimeout(function() {
+			$(".item-menu").removeClass("visible")
+			}, 500);
+		});
+		$(".course-item").hover(function() {
+			setTimeout(function() {
+			$(".course-item").css("z-index","1000")
+			}, 500);
+		});
+		
+		$('.registerBtn').click(function (e) {
+		   
+		    console.log('register for the course ');
+			
+			e.preventDefault();
+			// 'course/:id/invitation/:token/reply?action=accept&extra=afad'
+            // "/course/520db60a8932d7700f000001/join"			
+            $.ajax({
+               type: "POST",
+               url: "/course/520e20c875a9daa416000001/invitation/"+token+"/reply",
+               dataType:"json",		   
+               data: $('#sign_in_course_form').serialize(), 
+               success: function(data)
+               {
+                  console.log("signup success",data);
+			   
+			      $("#page_title").text("Congrates, you have joined in the course");
+               },
+		       fail: function(e){
+		          console.log('signup failure',e);
+		       },
+		       error: function(e){
+		          console.log('signup failure',e.status, e.responseText);
+			      $("#errorMsg strong").text("sign up not successfully");
+			      $("#errorMsg").show().delay(5000).queue(function(n) {
+                    $(this).hide(); n();
+                  });
+		       }
+          });		 
+		});
+</script>  
+  
+ <script>
+ /**/ 
+$('#loading')
+    .hide()  // hide it initially
+    .ajaxStart(function() {
+        $(this).show();
+    })
+    .ajaxStop(function() {
+        $(this).hide();
+    })
+	.ajaxError(
+        function(e, x, settings, exception) {
+            var message;
+            var statusErrorMap = {
+                '400' : "Server understood the request but request content was invalid.",
+                '401' : "Unauthorised access.",
+                '403' : "Forbidden resouce can't be accessed",
+                '500' : "Internal Server Error.",
+                '503' : "Service Unavailable"
+            };
+            if (x.status) {
+                message =statusErrorMap[x.status];
+                                if(!message){
+                                      message="Unknow Error \n.";
+                                  }
+            }else if(exception=='parsererror'){
+                message="Error.\nParsing JSON Request failed.";
+            }else if(exception=='timeout'){
+                message="Request Time out.";
+            }else if(exception=='abort'){
+                message="Request was aborted by the server";
+            }else {
+                message="Unknow Error \n.";
+            }
+            $(this).css("display","inline");
+            $(this).html(message);
+                 });
+; 
+
+
+$(".login").click(function(e){
+    console.log('sign in submit',$('#sign_in_form').serialize());
+    e.preventDefault();
+	/*    */
+    $.ajax({
+           type: "POST",
+           url: "/signup",
+           dataType:"json",		   
+           data: $('#sign_in_form').serialize(), 
+           success: function(data)
+           {
+               console.log("signup success",data);
+			   console.log(data.user.username,data.user.id,data.user.profile_picture);
+			   $('.profile-img').attr("src", data.user.profile_picture);
+			   $("#wrapper-board").addClass('flip');
+			   
+			   $("#page_title").text("Welcome you  ",data.user.username);
+           },
+		   fail: function(e){
+		       console.log('signup failure',e);
+		   },
+		   error: function(e){
+		       console.log('signup failure',e.status, e.responseText);
+			   $("#errorMsg strong").text("field existd in the database");
+			   $("#errorMsg").show().delay(5000).queue(function(n) {
+                    $(this).hide(); n();
+               });
+		   }
+         });	
+
+})
+
+
+
+$(".update").click(function(e) {
+    //$("#wrapper-board").removeClass('flip');
+  
+    console.log('profile update submit',$('#profile_form').serialize());
+    e.preventDefault();
+    $.ajax({
+           type: "PUT",
+           url: "/settings/profile",
+           dataType:"json",		   
+           data: $('#profile_form').serialize(), 
+           success: function(data)
+           {
+               console.log("UPDATE success",data);
+			   //console.log(data.user.username,data.user.id,data.user.profile_picture);
+			   $('.courses').slideDown('fast');
+			   $('.invite').fadeOut();
+			   
+			   
+			   
+           },
+		   fail: function(e){
+		       console.log('UPDATE failure',e);
+		   },
+		   error: function(e){
+		       console.log('UPDATE failure',e.status, e.responseText);
+		   }
+         });   
+});  
+
+
+$('.img-upload').fineUploader({
+          request: {
+            endpoint: 'server/handleUploads'
+          }
+});
+
+$(document).ready(function () {
+
+        //http://codepen.io/hinducows/pen/jbErL
+        
+		
+
+
+
+        $('#jquery-wrapped-fine-uploader').fineUploader({
+          request: {
+            endpoint: '/sessions/pictures/'
+          },deleteFile: {
+                enabled: false,
+           },retry: {
+               enableAuto: false
+          }
+        }).on('complete', function(event, id, fileName, responseJSON) {
+				$('.qq-drop-processing').hide();
+				$('.qq-upload-list').hide();              
+                if (responseJSON.success) {
+                  //$('#files-upload').append('<img src="img/success.jpg" alt="' + fileName + '">');
+                   console.log('upload success');
+				   //$('.profile-img').attr("src", 'http://i.imgur.com/sdDkYt1.png');
+				   
+				   $('.profile-img').attr("src", '/images/'+responseJSON.img);
+                }
+         });   
+});
+
+</script>
+
+  
+</html>

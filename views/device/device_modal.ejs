@@ -1,0 +1,134 @@
+    <div id="add" class="modal hide fade" tabindex="-1">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4>Add Thingsquare Mist device</h4>
+      </div>
+      <div class="modal-body">
+
+        <form class="form-horizontal"  id="register-form">
+		  <input type="hidden" id='csrf' name="_csrf" value="<%= token %>"/>
+          <fieldset>
+            <div class="control-group">
+
+              <label class="control-label" for="input01">Serial number</label>
+              <div class="controls">
+                <input type="text" id="add-device-id" placeholder="" class="input-xlarge">
+                <p class="help-block"></p>
+              </div>
+            </div>
+
+            <div class="control-group">
+
+              <label class="control-label" for="input01">PIN code</label>
+              <div class="controls">
+                <input type="text" id="add-device-pin" placeholder="" class="input-xlarge">
+                <p class="help-block">Found on the back of your device</p>
+              </div>
+            </div>
+
+          </fieldset>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-primary"
+                id="add-device" data-dismiss="modal">Add device</button>
+      </div>
+    </div>
+
+   <div id="upgradefirmware" class="modal hide fade" tabindex="-1">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4>Upgrade Thingsquare Mist firmware</h4>
+      </div>
+      <div class="modal-body">
+        <form class="form-horizontal" id="upgrade-form" enctype="multipart/form-data">
+		  <input type="hidden" id='csrf' name="_csrf" value="<%= token %>"/>
+          <fieldset>
+            <div class="control-group">
+              <select class="span6" style="margin-left: 20px;" id="upgrade-device-select" ></select>
+            </div>
+
+			<div class="span6 fileupload fileupload-new" data-provides="fileupload">
+			  <div class="input-append">
+			    <div class="uneditable-input span3">
+			    <i class="icon-file fileupload-exists"></i>
+			    <span class="fileupload-preview"></span>
+			    </div>
+			    <span class="btn btn-file">
+			    <span class="fileupload-new">Select file</span><span class="fileupload-exists">Change</span>
+			    <input name="upgrade-device-file" id="upgrade-device-file" type="file" /></span><a href="#" class="btn fileupload-exists" data-dismiss="fileupload">Remove</a>
+			  </div>
+			</div>
+          </fieldset>
+
+          <div class="modal-footer">
+            <button class="btn btn-danger" data-dismiss="modal" id="upgrade-device">Start firmware upgrade</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div id="new" class="modal hide fade" tabindex="-1">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4>New app</h4>
+      </div>
+      <div class="modal-body">
+        <form class="form-horizontal" id="new-form">
+          <fieldset>
+		    <input type="hidden" id='csrf' name="_csrf" value="<%= token %>"/>
+            <div class="control-group">
+              <label class="control-label" for="input01">App Name</label>
+              <div class="controls">
+                <input type="text" placeholder="" id="appNameInput" class="input-xlarge" name="app">                      
+              </div>
+            </div>
+          </fieldset>
+		  
+
+        </form>
+      </div>
+      <div class="modal-footer">
+	    <button class="btn btn-primary" id="create-app" data-dismiss="modal">Create app</button>                
+      </div>
+    </div>
+
+    <div id="delete" class="modal hide fade" tabindex="-1">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4>Delete app</h4>
+      </div>
+      <div class="modal-body">
+
+        <div style="text-align: center">
+          <p>
+            Do you want to delete
+            <span class="editor-filename">
+            </span>?
+          </p>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn" data-dismiss="modal">Keep</button>
+        <button class="btn btn-primary" data-dismiss="modal"
+                id="delete-app">Delete</button>
+      </div>
+    </div>
+	
+<script>
+
+$("#create-app").click(function() {
+
+	var name = $('#appNameInput').val();
+	if( $('#appNameInput').val().length>0 )
+    $.ajax({
+           type: "post",
+           url: "/app",
+		   data:$('#new-form').serialize(),
+           success: function(data)
+           {
+               console.log(data.length);
+           }
+    });
+});
+</script>	

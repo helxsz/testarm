@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Fablab</title>
+
+    <link href="/assets/css/bootstrap.css" rel="stylesheet">
+    <link href="/assets/css/bootstrap-responsive.css" rel="stylesheet">  
+	
+   <script src="/assets/js/jquery-1.9.1.min.js"></script>   
+   <script src="/assets/js/underscore.js"></script>
+   <script src="/assets/js/backbone/backbone-min.js"></script>
+   <script src="/assets/js/socket.io.js"></script>
+   <script src="/assets/js/moment.js"></script>   
+
+<script src="/assets/js/bootstrap/js/bootstrap-tooltip.js"></script> 
+<script src="/assets/js/bootstrap/js/bootstrap-popover.js"></script>  
+<script src="/assets/js/bootstrap/js/bootstrap-alert.js"></script> 
+<script src="/assets/js/bootstrap/js/bootstrap-modal.js"></script> 
+<script src="/assets/js/bootstrap/js/bootstrap-dropdown.js"></script>
+<script src="/assets/js/typeahead.js"></script>   
+   
+    <!-- Fav and touch icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="../assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="../assets/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../assets/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="../assets/ico/apple-touch-icon-57-precomposed.png">
+    <link rel="shortcut icon" href="/assets/ico/favicon.png">		
+
+
+
+
+
+	
+  
+  </head>
+<style>
+body {
+  text-align: center;
+  background-image: -webkit-radial-gradient(center top, circle farthest-corner, #FFFFFF 0%, #D8DFE9 100%);
+  background-image: radial-gradient(circle farthest-corner at center top, #FFFFFF 0%, #D8DFE9 100%);
+}
+
+ <style>
+ .content{
+     position: relative;
+	margin-top:140px;	 
+ }
+#search_form {
+margin-bottom: 20px;
+height: 70px;
+width: 550px;
+margin-top: 10px;
+}
+
+#search_form input {
+font-size: 18px;
+width: 380px;
+float: left;
+border: none;
+height: 70px;
+padding: 0 0 0 20px;
+margin-bottom: 10px;
+}
+
+
+#search_form .submit {
+font-size: 24px;
+width: 140px;
+padding: 0;
+color: #fff;
+text-transform: uppercase;
+font-weight: 300;
+line-height: 70px;
+float: right;
+cursor: pointer;
+letter-spacing: 1px;
+background-color: #58cb8e;
+}
+
+#comment_form .submit:hover { opacity: .8; } 
+
+ </style>
+  <body>
+    <div class="wrapper">
+	    <div class="inner-wrapper" style="margin:0px auto; ">
+		    <div>
+			    <form id="search_form" class=" row offset4">
+	               <input type="hidden" id='csrf' name="_csrf" value="<%= token %>"/>        
+                   <input id="search_input" maxlength="100" type="text" placeholder="Search" value="" name="msg">
+                   <input id="search_btn" class="submit" type="submit" value="Submit">
+                </form>
+			    
+		    </div>
+            <div class='row span7 offset4' >
+			   <% if(locals.page == 'users'){ %>
+			     <% include user_list %>
+			   <% } %>
+            </div>			
+		</div>
+	</div>				
+  </body>
+
+  
+ 
+ <!--  passcode 10273  memory lijialian  -> 
+</html>

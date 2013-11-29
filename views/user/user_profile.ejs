@@ -1,0 +1,414 @@
+<style>
+.banner {
+position: relative;
+margin-left: 21px;
+}
+
+.banner .rand {
+width: 98px;
+height: 98px;
+}
+
+.banner .info {
+background-color: #58cb8e;
+position: absolute;
+top: 26px;
+left: 28px;
+z-index: 999;
+font-size: 18px;
+padding: 20px;
+width: 280px;
+text-align: right;
+color: white;
+}
+
+.banner .rand img {
+border-radius: 50%;
+box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.3);
+position: relative;
+z-index: 1000;
+margin-left: -31px;
+border-color: rgb(213, 77, 43);
+}
+
+.banner .info {
+background-color: #58cb8e;
+position: absolute;
+top: 16px;
+left: 28px;
+z-index: 999;
+font-size: 18px;
+padding: 20px;
+width: 280px;
+text-align: right;
+color: white;
+}
+
+.banner .info .name {
+top: -6px;
+font-size: 18px;
+text-align: right;
+color: white;
+}
+
+.banner .info .seomoz-logo {
+position: relative;
+text-indent: -9999em;
+width: 102px;
+height: 16px;
+display: inline-block;
+color: transparent;
+border-left: solid 1px white;
+padding: 6px;
+margin-left: 15px;
+}
+
+.quote {
+font-weight: 400;
+font-style: italic;
+line-height: 21px;
+font-size: 13px;
+font-family: "Chronicle SSm A", "Chronicle SSm B", Georgia, serif;
+-webkit-font-smoothing: antialiased;
+position: relative;
+width: 330px;
+}
+
+</style>
+
+
+<style>
+
+.widget {
+border-radius: 5px;
+width: 320px;
+border-left: 5px solid #eeeeee;
+padding-left: 20px;
+margin-left: 10px;
+margin: 0 auto;
+
+}
+
+.section:first-child {
+  border-radius: 5px 5px 0 0;
+}
+
+
+.section-graph {
+  position: relative;
+
+  color: #fff;
+  background: #55bc75;
+  background-image: linear-gradient(color-stops(#55bc75, #55bc75 50%, #4daf7c 50%));
+}
+
+.graph-info {
+    z-index: 99;
+    position: absolute;
+    font-weight: bold;
+    margin-top: 18px;
+    margin-left: 21px;
+    width: 100px;
+}
+
+.graph-arrow {
+      width: 0; 
+	    height: 0;
+      margin-top: 18px;
+	    border-left: 4px solid transparent;
+	    border-right: 4px solid transparent;
+	    border-bottom: 4px solid white;
+      float: left;
+}
+  
+.graph-info-big {
+      font-size: 24px;
+      float: left;
+      margin-left: 3px;
+}
+  
+.graph-info-small {
+      margin-left: 3px;
+      font-size: 12px;
+      font-weight: normal;
+      color: rgba(255, 255, 255, .5);
+      clear: left;
+      margin-left: 8px;
+}
+
+/*
+ * Info Section
+ */
+
+.section-info {
+  padding: 21px 21px 41px;
+  color: #8a786a;
+  overflow: hidden;
+background: white;  
+}
+
+.info-time {
+  font-size: 12px;
+}
+
+.info-block {
+  background-color: #f5f0ec;
+  text-align: center;
+  width: 120px;
+  border-radius: 3px;
+  float: left;
+  padding: 4px 0;
+}
+
+.info-aapl {
+  float: left;
+}
+
+  
+.info-aapl  ul {
+    margin: 0;
+    padding: 0;
+}
+  
+.info-aapl  li {
+    margin: 0;
+    display: block;
+    width: 9px;
+    height: 40px;
+    margin-right: 6px;
+    background-color: #f5f0ec;
+    float: left;
+    position: relative;
+
+	}   
+.info-aapl span {
+      display: block;
+      width: 9px;
+      height: 40px;
+      position: absolute;
+      bottom: 0;
+}
+    
+.info-aapl span.orange {
+      background-color: #e75e3a;
+}
+    
+.info-aapl span.green {
+      background-color: #4eaf7c;
+    }
+
+.yearly-change {
+  width: 94px;
+  float: right;
+}
+
+
+
+
+#heart {
+height: 50px;
+width: 50px;
+position: relative;
+}
+
+.outline {
+   background: grey;
+}
+
+#heart .outline:before, #heart .outline:after {
+position: absolute;
+content: "";
+left: 28px;
+top: 1px;
+width: 15px;
+height: 27px;
+background: inherit;
+-moz-border-radius: 50px 50px 0 0;
+border-radius: 85px 60px 0 0;
+-webkit-transform: rotate(-45deg);
+-moz-transform: rotate(-45deg);
+-ms-transform: rotate(-45deg);
+-o-transform: rotate(-45deg);
+transform: rotate(-45deg);
+-webkit-transform-origin: 0 100%;
+-moz-transform-origin: 0 100%;
+-ms-transform-origin: 0 100%;
+-o-transform-origin: 0 100%;
+transform-origin: 0 100%;
+}
+#heart .outline:after {
+left: 13px;
+-webkit-transform: rotate(45deg);
+border-radius: 45px 60px 0 0;
+-moz-transform: rotate(45deg);
+-ms-transform: rotate(45deg);
+-o-transform: rotate(45deg);
+transform: rotate(45deg);
+-webkit-transform-origin: 100% 100%;
+-moz-transform-origin: 100% 100%;
+-ms-transform-origin: 100% 100%;
+-o-transform-origin: 100% 100%;
+transform-origin: 100% 100%;
+}
+
+img.profile{
+position: absolute;
+top: 20px;
+right: 30px;
+padding: 5px;
+background: white;
+box-shadow: 0px 0px 0px 7px #F3F3F3;
+border: 1px solid #CCC;
+}
+</style>
+
+<div class="banner span3 animated flipInX ">
+    <div class="rand" style="height: 120px;width:120px;">
+	    <% if(locals.user.img) {%> 
+			<img src="/images/<%= locals.user.img %>"   >
+        <% } %>
+        <% if(!locals.user.img){%> 		
+           <img src="https://static.squarespace.com/static/ta/5134cbefe4b0c6fb04df8065/6291/assets/tour/rand-fishkin.jpg?format=100w">
+		<% } %>
+    </div>
+	
+    <div class="info">
+        <span class="name"><%= locals.user.username %>, CEO</span>
+		<span ><%= locals.user.cdate %></span>
+    </div>
+			  
+	<blockquote class="quote">
+	    <% if(locals.user.about) {%> 
+			locals.user.about
+        <% } %>
+		 <% if(!locals.user.about) {%>
+           The Squarespace team has put together a remarkable platform. Every aspect of the product - user experience, featureset, SEO friendliness, design and more - all work together to create one of the few content management systems I'm proud to recommend.
+        <% } %>
+	</blockquote>
+
+
+
+<div class="widget span3 animated flipInX ">
+    
+    <div class=" section-graph">
+      <div class="graph-info">
+        <i class="graph-arrow"></i>
+        <span class="graph-info-big">634.39</span>
+        <span class="graph-info-small">+2.18 (3.71%)</span>
+		
+		<form id="heart" >
+		   	<input type="hidden" id='csrf' name="_csrf" value="<%= token %>"/>
+			<input type="hidden" id='like' name="like" value="0"/>           
+			<button id="like_btn" class="outline" type="submit" ></button>
+        </form>	
+
+
+		<form id="follow" >
+		    <input type="hidden" id='csrf' name="_csrf" value="<%= token %>"/>
+            <input type="hidden" id="tutor_id" value="<%= locals.user.id %>">			
+			<% if(locals.user.follow) {%> 
+			    <button id="follow_btn" class="outline" type="submit" >  unfollow </button>
+			    <input type="hidden" id='follow_input' name="follow" value="1"/> 				     
+            <% } %>
+	        <% if(!locals.user.follow) {%> 
+			    <button id="follow_btn" class="outline" type="submit" >  follow </button>
+			    <input type="hidden" id='follow_input' name="follow" value="0"/> 				     				    
+            <% } %>						
+        </form>		
+        
+      </div>
+      <div class="highcharts-container" id="highcharts-0" style="position: relative; overflow: hidden; width: 283px; height: 151px; text-align: left; line-height: normal; z-index: 0; font-family: 'Lucida Grande', 'Lucida Sans Unicode', Verdana, Arial, Helvetica, sans-serif; font-size: 12px;">
+	  </div>
+    </div>
+    
+    <div class=" section-info">
+      <span class="info-time">Today 2:25 PM</span>
+      <h3 class="info-title">Salt Lake City, Utah</h3>
+      
+      <div class="info-block">
+        <dl>
+          <dt>13.5 M</dt>
+          <dd>Shares Traded</dd>
+        </dl>			
+      </div>
+      
+      <div class="info-block last">
+        <dl>
+          <dt>28.44</dt>
+          <dd>Market Cap</dd>
+        </dl>
+      </div>
+      
+      <div class="info-aapl">
+        <h4>AAPL</h4>
+        <ul>
+          <li><span class="orange" style="height: 37.5%"></span></li>
+          <li><span class="orange" style="height: 47.5%"></span></li>
+          <li><span class="orange" style="height: 70%"></span></li>
+          <li><span class="orange" style="height: 85%"></span></li>
+          <li><span class="orange" style="height: 40%"></span></li>
+          <li><span class="green" style="height: 75%"></span></li>
+          <li><span class="green" style="height: 50%"></span></li>
+          <li><span class="green" style="height: 15%"></span></li>
+          <li><span class="green" style="height: 25%"></span></li>
+        </ul>
+      </div>
+      
+      <div class="yearly-change">
+        <h4>Yearly Change</h4>
+        <span><em>+</em> 127.01</span>
+      </div>
+    </div>
+</div>
+	
+</div>
+
+<script>
+$("#heart").on('submit',function(e){
+    console.log('click heart support');		
+    e.preventDefault();
+    $.ajax({
+           type: "POST",
+           url: "/course/"+$('#course_id').val()+"/like",
+           data: $(this).serialize(), 
+           success: function(data){
+               console.log('like data',data,data.like);
+               if(data.like == 0){
+				   $('#heart .outline').css('background','grey');
+				   $('#like').val(0);
+			   }
+			   else if(data.like ==1){
+				   $('#heart .outline').css('background','#d53423');
+				   $('#like').val(1);
+			   }
+           },
+		   error: function(jqXHR, textStatus, errorThrown){
+               console.log('error',jqXHR.status,jqXHR.responseText);
+           }
+         });	
+});
+
+$("#follow").on('submit',function(e){
+    console.log('click follow support',$('#user_id').val());		
+    e.preventDefault();
+    $.ajax({
+           type: "POST",
+           url: "/follow/"+$('#user_id').val(),
+           data: $(this).serialize(), 
+           success: function(data){
+               console.log('follow data',data,data.follow);
+               if(data.follow == 0){
+				   $('#follow_input').val(0);
+				   $('#follow_btn').text('follow');
+			   }
+			   else if(data.follow ==1){
+				   $('#follow_input').val(1);
+				   $('#follow_btn').text('unfollow');
+			   }
+           },
+		   error: function(jqXHR, textStatus, errorThrown){
+               console.log('error',jqXHR.status,jqXHR.responseText);
+           }
+         });	
+});
+</script>

@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Smart car parking project</title>
+
+    <link href="/assets/css/bootstrap.css" rel="stylesheet">
+    <link href="/assets/css/bootstrap-responsive.css" rel="stylesheet">  
+	
+   <script src="http://maps.google.com/maps/api/js?sensor=false"></script>
+   
+   <script src="/assets/js/jquery-1.9.1.min.js"></script>   
+
+<script src="/assets/js/bootstrap/js/bootstrap-tooltip.js"></script> 
+<script src="/assets/js/bootstrap/js/bootstrap-popover.js"></script>  
+<script src="/assets/js/bootstrap/js/bootstrap-alert.js"></script> 
+<script src="/assets/js/bootstrap/js/bootstrap-modal.js"></script> 
+<script src="/assets/js/bootstrap/js/bootstrap-dropdown.js"></script>
+	
+
+    <link rel="shortcut icon" href="../assets/ico/favicon.png">		 
+  </head>
+<style>
+body {
+  text-align: center;
+  background-image: -webkit-radial-gradient(center top, circle farthest-corner, #FFFFFF 0%, #D8DFE9 100%);
+  background-image: radial-gradient(circle farthest-corner at center top, #FFFFFF 0%, #D8DFE9 100%);
+}
+
+
+ .content{
+     position: relative;
+	margin-top:140px;	 
+ }
+
+.page-title:after {
+content: 'beta';
+font-size: 0.17em;
+font-weight: 400;
+background: #62c98f;
+letter-spacing: 1px;
+border-radius: 100%;
+width: 44px;
+height: 44px;
+display: inline-block;
+line-height: 47px;
+position: relative;
+top: -45px;
+color:#ffffff;
+}
+
+ </style>
+  <body>
+    <div class="wrapper">
+	    <div class="inner-wrapper">
+
+			
+            <% include header %>	
+
+        <style>
+.content {
+width: 1024px;
+margin: 0 auto;
+}
+.important-dates {
+position: relative;
+z-index: 1;
+padding: 0 32px;
+list-style: none;
+}
+
+.important-dates:before {
+position: absolute;
+z-index: 1;
+display: block;
+top: 55px;
+left: 0;
+width: 100%;
+height: 2px;
+content: "";
+background-color: #bfbfbf;
+background-image: -webkit-gradient(linear, 0% 50%, 100% 50%, color-stop(0%, #ffffff), color-stop(10%, rgba(255,255,255,0)), color-stop(90%, rgba(255,255,255,0)), color-stop(100%, #ffffff));
+background-image: -webkit-linear-gradient(left, #ffffff 0%,rgba(255,255,255,0) 10%,rgba(255,255,255,0) 90%,#ffffff 100%);
+background-image: -moz-linear-gradient(left, #ffffff 0%,rgba(255,255,255,0) 10%,rgba(255,255,255,0) 90%,#ffffff 100%);
+background-image: -o-linear-gradient(left, #ffffff 0%,rgba(255,255,255,0) 10%,rgba(255,255,255,0) 90%,#ffffff 100%);
+background-image: linear-gradient(left, #ffffff 0%,rgba(255,255,255,0) 10%,rgba(255,255,255,0) 90%,#ffffff 100%);
+}
+
+.cols-3>* {
+width: 33.33333%;
+float: left;
+}
+
+.important-dates li:first-child {
+margin-left: -20px;
+}
+
+.important-dates li {
+position: relative;
+z-index: 1;
+text-align: center;
+height: 180px;
+}
+
+.important-dates li h3 {
+position: relative;
+z-index: 1;
+margin-bottom: 90px;
+font-size: 18px;
+color: gray;
+height: 18px;
+}
+
+.important-dates li time {
+display: block;
+position: relative;
+z-index: 1;
+text-transform: uppercase;
+font-size: 11px;
+}
+
+.important-dates li time b {
+font-size: 45px;
+font-weight: 300;
+margin-bottom: 10px;
+}	
+
+.video-js {
+background-color: #000;
+position: relative;
+padding: 0;
+font-size: 10px;
+vertical-align: middle;
+font-weight: 400;
+font-style: normal;
+font-family: Arial,sans-serif;
+-webkit-user-select: none;
+-moz-user-select: none;
+-ms-user-select: none;
+user-select: none;
+}	
+
+.modal{
+   background-color:transparent; 
+}
+
+.modal-body {
+    max-height: 800px;
+	max-width: 1000px;
+	width:900px;
+    max-height: none;
+    text-align: center;
+    margin-left: -175px;	
+}
+
+
+
+ #map-canvas {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+		z-index:1000000;
+      }		
+		</style>
+
+			
+
+	        <div class="container-fluid content" style="margin-top:140px;margin-bottom:40px; border-bottom: 1px solid #ccc;padding-bottom:30px;">	
+
+			    <div class="span5">
+				    <h2>It is a project to improve the car parking in liverpool campus with existing use of cameras.</h2>
+			    </div>
+			    <div class="span4" style="margin-top:20px;">
+				    <a  class="watch-video-link" data-video-id="A9Nn_koZDNg" data-toggle="modal" href="#video-modal">
+					<img src="http://www.castlepoint.gov.uk/Images/Parking%20logo.jpg" 
+					    alt="Watch How It Works" 
+						style="width:230px;height:140px;-webkit-border-radius: 3px; -moz-border-radius: 3px; border-radius: 3px;">				</a>
+			    </div>     
+	        </div>
+			
+     
+            <% include footer %>
+			
+		</div>
+	
+	</div>				
+  </body>
+
+  
+  
+  
+</html>

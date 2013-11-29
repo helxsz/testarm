@@ -1,0 +1,105 @@
+<style>
+
+.b-divider__base {
+  overflow: hidden;
+  display: block; 
+}
+
+.b-userbar {
+  width: 410px;
+  background: #fff;
+  border: 1px solid #DEDEDE;
+  border-radius: 4px;
+  box-shadow: 0 2px 2px -1px rgba(0,0,0,.055);
+}
+
+.b-userbar__icons-item {
+  width: 69px;
+  background: url(http://commondatastorage.googleapis.com/johnius/userbar_item-background.gif) no-repeat right center;
+  text-align: center;
+  display: block;
+  float: left;
+  position: relative;
+}
+
+.b-userbar__icons-item:hover,
+.b-userbar__account:hover .b-userbar__account-avatar {
+  opacity: .85;
+}
+
+.b-userbar__icons-item-notify {
+  background: #D8232A;
+  font-size: 10px;
+  line-height: 13px;
+  font-weight: bold;
+  color: #fff;
+  padding: 0 2px;
+  border-radius: 2px;
+  position: absolute;
+  top: 30%;
+  left: 60%;
+}
+
+.b-userbar__account {
+  padding: 0 36px 0 22px;
+  position: relative;
+}
+
+.b-userbar__account:hover {
+  color: #9F9F9F;
+}
+
+.b-userbar__account:hover .b-arrow {
+  opacity: .75;
+}
+
+.b-userbar__account-avatar {
+  border-radius: 2px;
+  margin-right: 10px;
+  position: relative;
+  top: 1px;
+}
+
+.b-userbar__account-name {
+  font-weight: bold;
+}
+
+.b-userbar__icons-item,
+.b-userbar__account {
+  height: 25px;
+  padding-top: 21px;
+  padding-bottom: 21px;
+  line-height: 25px;
+  color: #8F8F8F;
+  text-decoration: none;
+  cursor: pointer;
+}
+//http://codepen.io/Johnius/pen/qxoDp
+</style>
+
+<div class="b-userbar">
+  <div class="b-divider__side b-userbar__icons">    
+    <a href="#" class="b-userbar__icons-item">
+      <img src="http://commondatastorage.googleapis.com/johnius/anchor.png" width="25" height="25" alt="Userbar icon" />
+      <span class="b-userbar__icons-item-notify">5</span>
+    </a>
+    <a href="#" class="b-userbar__icons-item">
+      <img src="http://commondatastorage.googleapis.com/johnius/activity.png" width="25" height="25" alt="Userbar icon" />
+    </a>
+    <a href="#" class="b-userbar__icons-item">
+      <img src="http://commondatastorage.googleapis.com/johnius/badge.png" width="25" height="25" alt="Userbar icon" />
+      <span class="b-userbar__icons-item-notify">1</span>
+    </a>    
+  </div>
+
+	<% if(locals.user) { %>  
+        <a href="#" class="b-divider__base b-userbar__account">
+            <span class="b-divider">
+                 <span class="b-divider__side">
+                      <img src="http://cs5700.userapi.com/v5700460/8a7/oKC_TqSgWoM.jpg" width="21" height="21" alt="User avatar" class="b-userbar__account-avatar">
+                 </span>		
+                <span class=""><%= user.username %></span>	  
+            </span>
+         </a>
+	<% } %>
+</div>

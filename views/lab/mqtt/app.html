@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="A web interface for MQTT">
+    <meta name="author" content="Fabian Affolter">
+
+    <title>Home conditions</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="/assets/css/animate.min.css" rel="stylesheet"> 	
+    <link href="/assets/css/bootstrap.css" rel="stylesheet">
+    <link href="/assets/css/bootstrap-responsive.css" rel="stylesheet">
+    <!-- jQuery -->
+	<script src="/assets/js/jquery/jquery-1.8.1.min.js"></script>
+
+    <!-- socket.io for communication -->
+    <script src="/assets/js/socket.io.js"></script>
+	<script src="/assets/js/d3.v3.min.js"></script>
+	
+<style>
+.chart rect {
+   fill: steelblue;
+   stroke: white;
+}
+</style>            
+
+<style>
+.graph-wrapper {
+	width: 320px;
+	margin: 20px auto;
+	border-left: 1px solid #0d2b53;
+  border-right: 1px solid #0d2b53;
+}
+#graph1,
+#graph2 {
+	height: 100px;
+	width:100%;
+	margin: 0 auto;
+
+}
+#graph1 path {
+   stroke: #1b70e0;
+   stroke-width: 1;
+   fill: none;
+}
+
+#graph2 path {
+	stroke: #2ecc71;
+  stroke-width: 1;
+  fill: none;
+}
+</style>	
+	
+    <script type="text/javascript">
+        var livingTemp = new Array();
+        var basementTemp = new Array();
+        var socket = io.connect('http://localhost:3000');
+            socket.on('connect', function () {
+                socket.on('mqtt', function (msg) {
+                    var message = msg.topic.split('/');
+                    var area = message[1];
+                    var state = message[2];
+                    console.log(msg.topic, msg.payload);
+                    var timestamp = Math.round((new Date()).getTime() / 1000);
+
+                    $('#topic').html(msg.topic);
+                    $('#message').html(msg.topic + ', ' + msg.payload);
+					if(msg.topic=='meeting/1'){
+					    $('#livingTempSensor').html('(Sensor value: ' + msg.payload + ')');
+                        $('#livingTempLabel').text(msg.payload + '°„C');	
+                        pushData(msg.payload );						
+					}
+                    switch (area) {
+                        case 'front': 
+                            $('#value1').html('(Switch value: ' + msg.payload + ')');
+                            if (msg.payload == 'true') {
+                                $('#label1').text('Closed');
+                                $('#label1').removeClass('label-danger').addClass('label-success');
+                            } else {
+                                $('#label1').text('Open');
+                                $('#label1').removeClass('label-success').addClass('label-danger');
+                            }
+                            break;
+                        case 'back':
+                            $('#value2').html('(Switch value: ' + msg.payload + ')');
+                            if (msg.payload == 'true') {
+                                $('#label2').text('Closed');
+                                $('#label2').removeClass('label-danger').addClass('label-success');
+                            } else {
+                                $('#label2').text('Open');
+                                $('#label2').removeClass('label-success').addClass('label-danger');
+                            }
+                            break;
+                        case 'living':
+                            $('#livingTempSensor').html('(Sensor value: ' + msg.payload + ')');
+                            $('#livingTempLabel').text(msg.payload + '°„C');
+                            $('#livingTempLabel').removeClass('').addClass('label-default');
+
+                            var entry = new Array();
+                            entry.push(timestamp);
+                            entry.push(parseInt(msg.payload));
+                            livingTemp.push(entry);
+                            // Show only 20 values
+                            if (livingTemp.length >= 20) {
+                                livingTemp.shift()
+                            }
+                            /*
+                            var livingTempPlot = $.jqplot ('livingTempChart', [livingTemp], {
+                                axesDefaults: {
+                                    labelRenderer: $.jqplot.CanvasAxisLabelRenderer,
+                                    tickOptions: {
+                                        showMark: false,
+                                        showGridline: false,
+                                        show: false,
+                                        showLabel: false,
+                                    }
+                                  },
+                                grid: {
+                                    gridLineColor: '#FFFFFF',
+                                    borderWidth: 0,
+                                    shadow: false,
+                                },
+                                seriesDefaults: {
+                                    rendererOptions: {
+                                        smooth: true
+                                    },
+                                    showMarker: false,
+                                    lineWidth: 2,
+                                  },
+                                  axes: {
+                                    xaxis: {
+                                      renderer:$.jqplot.DateAxisRenderer,
+                                      tickOptions:{
+                                        formatString:'%T'
+                                      },
+                                      pad: 0
+                                    },
+                                    yaxis: {
+                                    }
+                                }
+                            });
+                            */
+                            break;
+                        case 'basement':
+                            $('#basementTempSensor').html('(Sensor value: ' + msg.payload + ')');
+
+                            if (msg.payload >= 25) {
+                                    $('#basementTempLabel').text(msg.payload + '°„C - too hot');
+                                    $('#basementTempLabel').removeClass('label-warning label-success label-info label-primary').addClass('label-danger');
+                            } else if (msg.payload >= 21) {
+                                    $('#basementTempLabel').text(msg.payload + '°„C - hot');
+                                    $('#basementTempLabel').removeClass('label-danger label-success label-info label-primary').addClass('label-warning');
+                            } else if (msg.payload >= 18) {
+                                    $('#basementTempLabel').text(msg.payload + '°„C - normal');
+                                    $('#basementTempLabel').removeClass('label-danger label-warning label-info label-primary').addClass('label-success');
+                            } else if (msg.payload >= 15) {
+                                    $('#basementTempLabel').text(msg.payload + '°„C - low');
+                                    $('#basementTempLabel').removeClass('label-danger label-warning label-success label-primary').addClass('label-info');
+                            } else if (msg.payload <= 12) {
+                                    $('#basementTempLabel').text(msg.payload + '°„C - too low');
+                                    $('#basementTempLabel').removeClass('label-danger label-warning label-success label-info').addClass('label-primary');
+                            basementTemp.push(parseInt(msg.payload));
+                            if (basementTemp.length >= 20) {
+                                basementTemp.shift()
+                            }
+
+                            $('.basementTempSparkline').sparkline(basementTemp, {
+                                type: 'line',
+                                width: '160',
+                                height: '40'});
+                            }
+                            break;
+                        default: console.log('Error: Data do not match the MQTT topic.'); break;
+                    }
+         });
+         socket.emit('subscribe', {topic : 'home/#'});
+        });
+    </script>
+
+  </head>
+
+  <body>
+    <div id="wrap">
+      <div class="container">
+        <div class="page-header"><h1><b>Home conditions</b></h1></div>
+	 
+
+
+
+<div class="graph-wrapper">	
+		<p>
+		    <div id="graph1"></div>
+	    </p>
+	    <p>
+		    <div id="graph2"></div>
+	    </p>
+	</div>
+			
+            <div class="panel panel-default">
+              <div class="panel-body">
+                    <table class="table table-striped">
+                        <!-- Entrace door -->
+                        <tr>
+                        <td width="40%" style="vertical-align:middle;"><h3>Entrance</h3><small id="value1">(no value recieved)</small></td>
+                        <td style="vertical-align:middle;"></td>
+                        <td width="30%" style="vertical-align:middle;"><h4>&nbsp;<span id="label1" class="label">Unknown</span></h4></td>
+                        </tr>
+                        <!-- Back door -->
+                        <tr>
+                        <td width="40%" style="vertical-align:middle;"><h3>Back door</h3><small id="value2">(no value recieved)</small></td>
+                        <td style="vertical-align:middle;"></td>
+                        <td width="30%" style="vertical-align:middle;"><h4>&nbsp;<span id="label2" class="label">Unknown</span></h4></td>
+                        </tr>
+                        <!-- Living room temperature -->
+                        <tr>
+                        <td width="40%" style="vertical-align:middle;"><h3>Living room temperature</h3><small id="livingTempSensor">(no value recieved)</small></td>
+                        <td style="vertical-align:middle;"><div id="livingTempChart" style="height:80px; width:180px;"></div></td>
+                        <td width="30%" style="vertical-align:middle;"><h4>&nbsp;<span id="livingTempLabel" class="label">Unknown</span></h4></td>
+                        </tr>
+                        <!-- Basement temperature -->
+                        <tr>
+                        <td width="40%" style="vertical-align:middle;"><h3>Basement temperature</h3><small id="basementTempSensor">(no value recieved)</small></td>
+                        <td style="vertical-align:middle;"><span class="basementTempSparkline"></span></td>
+                        <td width="30%" style="vertical-align:middle;"><h4>&nbsp;<span id="basementTempLabel" class="label">Unknown</span></h4></td>
+                        </tr>
+                    </table>
+              </div>
+            </div>
+          <div class="panel panel-default">
+            <div class="panel-body">
+                    <b>Latest MQTT message:  </b> <small id="message">no message recieved</small>
+            </div>
+          </div>
+
+        <div class="footer">
+        <small><p class="text-center">&copy; <a href="http://affolter-engineering.ch">Affolter Engineering</a> 2013</p></small>
+    </div>
+	
+	
+	<script>
+    var dataOne = [68, 16, 59, 38, 39, 50, 71, 22, 88, 31, 24, 3, 93, 2, 82, 6, 73, 96, 94, 68, 43, 20, 82, 62, 20, 51, 80, 18, 10, 94, 2, 66, 13, 47, 53, 65, 1, 15, 22, 30, 53, 64, 58, 34, 42, 93, 27, 77, 2, 88, 89, 81, 48, 95, 91, 64, 73, 38, 76, 79, 90, 94, 56, 37, 35, 99, 81, 19, 14, 14, 97, 74, 49, 81, 38, 5, 84, 19, 50, 72, 47, 2, 58, 8, 93, 85, 34, 38, 75, 54, 51, 39, 2, 38, 54, 13, 48, 58, 5, 90, 67, 40, 46, 67, 3, 96, 7, 11, 69, 42, 15, 52, 15, 40, 11, 70, 99, 87, 16, 23, 77, 18, 47, 7, 79, 69, 14, 60, 54, 15, 27, 93, 57, 56, 22, 88, 10, 24, 55, 77, 76, 94, 61, 84, 77, 89, 51, 99, 6, 99, 100, 35, 72, 13, 55, 80, 65, 18, 49, 33, 53, 31, 51, 52, 39, 71, 63, 80, 14, 39, 29, 3, 17, 86, 75, 42, 43, 5, 50, 40, 9, 82, 90, 85, 62, 5, 25, 34, 17, 76, 68, 27, 49, 13, 62, 34, 3, 4, 26, 21];
+	
+	function displayGraphExampleOne(id, width, height, interpolation, animate, updateDelay, transitionDelay) {
+		var graph = d3.select(id).append("svg:svg").attr("width", "100%").attr("height", "100%");
+		
+		//http://alignedleft.com/tutorials/d3/scales
+		var x = d3.scale.linear().domain([0, 48]).range([-5, width]);
+		var y = d3.scale.linear().domain([0, 100]).range([0, height]);
+		var line = d3.svg.line()
+			.x(function(d,i) { 
+				return x(i); 
+			})
+			.y(function(d) { 
+				return y(d); 
+			})
+			.interpolate(interpolation)
+            
+			graph.append("svg:path").attr("d", line(dataOne));
+			
+			function redrawWithAnimation() {
+				graph.selectAll("path")
+					.data([dataOne])
+					.attr("transform", "translate(" + x(1) + ")")
+					.attr("d", line)
+					.transition()
+					.ease("linear")
+					.duration(transitionDelay)
+					.attr("transform", "translate(" + x(0) + ")");
+			}
+			
+			setInterval(function() {
+			   var v = dataOne.shift();
+			   dataOne.push(v);
+			   if(animate) {
+				   redrawWithAnimation();
+			   } else {
+			   }
+			}, updateDelay);
+		}
+		
+		
+    var dataTwo = [0,0,0,0,0,-25,0,0,0,0,0,0,0,0,0,0,0,0,0,5,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+    var graph;
+	var line;
+	var x ,y;
+	function displayGraphExampleTwo(id, width, height, interpolation, animate, updateDelay, transitionDelay) {
+		graph = d3.select(id).append("svg:svg").attr("width", "100%").attr("height", "100%");
+		
+		 x = d3.scale.linear().domain([0, 52]).range([-5, width]);
+		 y = d3.scale.linear().domain([-50, 50]).range([-30, 100]);
+		line = d3.svg.line()
+			.x(function(d,i) { 
+				return x(i); 
+			})
+			.y(function(d) { 
+				return y(d); 
+			})
+			.interpolate(interpolation);
+            
+		graph.append("svg:path").attr("d", line(dataTwo));	
+			function redrawWithAnimation() {
+				graph.selectAll("path")
+					.data([dataTwo])
+					.attr("transform", "translate(" + x(1) + ")")
+					.attr("d", line)
+					.transition()
+					.ease("linear")
+					.duration(transitionDelay)
+					.attr("transform", "translate(" + x(0) + ")");
+			}
+			/*
+
+            */
+			
+	}
+	/*
+			setInterval(function() {
+			   console.log("blabla");
+			   var v = dataTwo.shift();
+			   dataTwo.push(v);
+				graph.selectAll("path")
+					.data([dataTwo])
+					.attr("transform", "translate(" + x(1) + ")")
+					.attr("d", line)
+					.transition()
+					.ease("linear")
+					.duration(280)
+					.attr("transform", "translate(" + x(0) + ")");
+			}, 280);	
+	*/
+				
+	function pushData(data){
+	        //var v = dataTwo.shift();
+			//dataTwo.push(v);
+			/**/
+			data = Number(data); 
+			dataTwo.push(data+30);
+			console.log('push data:',data+30,":", dataTwo.length);
+			if(dataTwo.length>40) dataTwo.shift();			
+			graph.selectAll("path")
+					.data([dataTwo])
+					.attr("transform", "translate(" + x(1) + ")")
+					.attr("d", line)
+					.transition()
+					.ease("linear")
+					.duration(280)
+					.attr("transform", "translate(" + x(0) + ")");
+            	
+					
+	}
+		
+
+	</script>
+	
+	<script>
+//http://blog.visual.ly/creating-animations-and-transitions-with-d3-js/
+var t = 1297110663, // start time (seconds since epoch)
+     v = 70, // start value (subscribers)
+     data = d3.range(33).map(next); // starting dataset
+ 
+function next() {
+  return {
+      time: ++t,
+      value: v = ~~Math.max(10, Math.min(90, v + 10 * (Math.random() - .5)))
+    };
+}
+
+for(var i=0;i<data.length;i++){
+   console.log(data[i].time,data[i].value);
+}
+
+
+// http://alignedleft.com/tutorials/d3/making-a-bar-chart
+var chart;
+function redraw() {
+  var rect = chart.selectAll("rect")
+       .data(data, function(d) { return d.time; });
+   rect.enter().insert("rect", "line")
+       .attr("x", function(d, i) { return x(i + 1) - .5; })
+       .attr("y", function(d) { return h - y(d.value) - .5; })
+       .attr("width", w)
+       .attr("height", function(d) { return y(d.value); })
+     .transition()
+       .duration(1000)
+       .attr("x", function(d, i) { return x(i) - .5; });
+   rect.transition()
+       .duration(1000)
+       .attr("x", function(d, i) { return x(i) - .5; });
+   rect.exit().transition()
+       .duration(1000)
+       .attr("x", function(d, i) { return x(i - 1) - .5; })
+       .remove();
+}
+
+
+    var w = 20,h = 80;
+    var x = d3.scale.linear().domain([0, 1]).range([0, w]);    
+    var y = d3.scale.linear().domain([0, 100]).rangeRound([0, h]);
+     	 
+    chart = d3.select("body").append("svg")
+       .attr("class", "chart")
+       .attr("width", w * data.length - 1)
+       .attr("height", h);
+
+    chart.selectAll("rect")
+       .data(data)
+       .enter().append("rect")
+          .attr("x", function(d, i) { return x(i) - .5; })
+          .attr("y", function(d) { return h - y(d.value) - .5; })
+          .attr("width", w)
+          .attr("height", function(d) { return y(d.value); });
+		  
+	setInterval(function() {
+        data.shift();
+        data.push(next());
+        redraw();
+    }, 1500);	  
+
+
+	
+	 
+    </script>	
+	
+	
+<script>
+
+$(document).ready(function(){
+
+	//dataTwo = [];
+    displayGraphExampleTwo("#graph2", 400, 100, "basis", true, 280, 280);
+	
+    displayGraphExampleOne("#graph1", 400, 100, "basis", true, 280, 280);	
+})
+
+
+</script>	
+	
+	
+  </body>
+</html>

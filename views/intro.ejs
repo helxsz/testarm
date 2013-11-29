@@ -1,0 +1,141 @@
+<style>
+.intro-section {
+position: relative;
+display: block;
+   padding-top: 92px;
+   height: 279px;
+   border-bottom: #ddd 4px solid;
+   background: white url("/images/homepage/bg-intro.png") 50% 100% no-repeat;
+}
+
+.intro-section h2 {
+font-size: 52px;
+font-weight: 200;
+width: 400px;
+
+margin-bottom: 18px;
+}
+
+.intro-section h3 {
+font-size: 18px;
+color: #777;
+font-weight: normal;
+width: 400px;
+line-height: 26px;
+margin-bottom: 23px;
+}
+
+.intro-section .videos{
+margin-left: 0px;
+
+}
+
+.intro-section .watch-video-link {
+position: relative;
+display: block;
+margin: 0 20px 0 0;
+}
+
+a, a:link, a:visited {
+text-decoration: none;
+}
+
+.rounded-image-wrapper {
+display: block;
+overflow: hidden;
+}
+
+.intro-section .watch-video-link img {
+width: 135px;
+-moz-border-radius: 3px;
+-webkit-border-radius: 3px;
+-khtml-border-radius: 3px;
+border-radius: 3px;
+}
+
+.intro-section .watch-video-link .caption {
+color: #777;
+font-size: 11px;
+font-weight: bold;
+margin-top: 5px;
+text-align: center;
+}
+
+
+.signin-button {
+-webkit-border-radius: 10px;
+-moz-border-radius: 10px;
+border-radius: 10px;
+font-family: "Open Sans",Arial,Helvetica,sans-serif;
+background-color: #3a5898;
+background-position: 12px center;
+background-repeat: no-repeat;
+color: white;
+cursor: ;
+display: block;
+font-size: 18px;
+font-weight: 300;
+line-height: 56px;
+padding-left: 24px;
+text-align: center;
+width: 180px;
+}
+
+
+.signin-button {
+border-radius: 0;
+border: 0;
+box-shadow: none;
+border: 0;
+background:  #D63C23; 
+border: none;
+	border-radius: 3px;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;text-transform: uppercase;
+
+}
+.signin-button a {
+color:white;
+}
+.signin-button:hover  a{
+background-color: #D63C23;	font-family: 'Open Sans', Arial, Helvetica, sans-serif;
+}
+</style>
+
+<div class="intro-section row">
+
+	  <div class="offset2 span5">
+        <h2>Learn differently.</h2>
+        <h3>Skillshare is a global community centered around creativity, collaboration and learning by doing.</h3>
+        <div class="row videos">
+            <a href="javascript:;" class="span2 watch-video-link">
+                <div class="rounded-image-wrapper">
+                    <img src="http://www.skillshare.com/images/what-is-skillshare.jpg" alt="What is Skillshare?">
+                </div>
+                <p class="caption">What is Skillshare?</p>
+            </a>
+            <a href="javascript:;" class="span2 watch-video-link">
+                <div class="rounded-image-wrapper">
+                    <img src="http://www.skillshare.com/images/manifesto.png" alt="Our Manifesto">
+                </div>
+                <p class="caption">Our Manifesto</p>
+            </a>
+        </div>
+	  </div>
+	  
+	  <div class=" span5">
+        <h2>Learn differently.</h2>
+        <h3>Skillshare is a global community centered around creativity, collaboration and learning by doing.</h3>
+		
+	    <% if(!locals.user) { %>
+		    <div class="fb-continue" style="visibility: visible;">
+                    <a href="/login" class="signin-button">
+                        Sign in
+                    </a> 
+                    <div class="fb-continue-subtext">Or <a href="/signup">sign up</a> with your email.</div>
+            </div>		
+		<% } %>
+	  </div>	  
+	  
+
+</div>

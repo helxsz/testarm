@@ -1,0 +1,123 @@
+<div class="span6">    
+	<div class="row-fluid">
+              <div class="editor-container">
+                <ul class="nav nav-pills" id="app-tabs">
+				<!--
+				    <li class="active"><a href="#" data-action="app" data-filename="hello-world.c">hello-world.c</a></li>
+				    <li><a href="#" data-action="app" data-filename="blink.c">blink.c</a></li>
+					
+					<li class="dropdown pull-right">
+					    <a class="dropdown-toggle" data-toggle="dropdown" href="#">All apps <b class="caret"></b></a>
+						<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+						    <li><a href="#" data-action="app" data-filename="hello-world.c">hello-world.c</a></li>
+                            <li><a href="#" data-action="app" data-filename="blink.c">blink.c</a></li>
+                        </ul>
+					</li>
+				-->
+                </ul>
+				
+                <div id="editor" class="editor">
+				
+				</div>
+				<input type="hidden" id='csrf' name="_csrf" value="<%= token %>"/>
+				<button id="save"> save </button>
+              </div>
+    </div>
+</div>	  
+
+<script>
+var editor = ace.edit("editor");
+$("#save").click(function(e) {
+    console.log("Handler for .click() called.",$('#csrf').val(),editor.getValue());
+	e.preventDefault();
+	$.ajax({
+           type: "POST",
+		   data: 'code='+ editor.getValue()+'&name=abc',
+           url: 'app/aaa/code',
+           beforeSend: function(xhr){xhr.setRequestHeader('x-csrf-token', $('#csrf').val() );},
+		   error: function(jqXHR, textStatus, errorThrown){
+               console.log('error',jqXHR.status,jqXHR.responseText);
+           },		   
+           success: function(data)
+           {		        
+                console.log('success',data);				
+           }
+    });	
+});
+
+
+
+	$.ajax({
+           type: "GET",
+           url: '/app/aaa/code',
+		   error: function(jqXHR, textStatus, errorThrown){
+               console.log('error',jqXHR.status,jqXHR.responseText);
+           },		   
+           success: function(data)
+           {		        
+                console.log('success',data);
+                for(var i=0;i<data.codes.length;i++){
+				    console.log(data.codes[i].name,data.codes[i].body);	
+                    $('#app-tabs').append(" <li><a href='#' data-id='"+  data.codes[i]._id  +"' data-body='"+ data.codes[i].body  +"'>"+  data.codes[i].name +"</a></li> " );					
+				    if(i==0){
+					    editor.setValue(data.codes[i].body);
+					}
+				}
+                $('#app-tabs li:first-child').addClass('active'); 		
+
+                $('#app-tabs li').click(function(e){
+				    $('#app-tabs li').removeClass('active');
+				    $(this).addClass('active'); 
+					editor.setValue($(this).children().attr('data-body'));
+					console.log( $(this).children().attr('data-body') );
+				})				
+           }
+    });	
+
+	/**/
+setInterval(function(){
+    var id = $('#app-tabs  .active').children().attr('data-id');
+    console.log(    id   );
+
+	$.ajax({
+           type: "PUT",
+           url: '/app/aaa/code/'+id,
+		   data: 'code='+ editor.getValue(),
+		   beforeSend: function(xhr){xhr.setRequestHeader('x-csrf-token', $('#csrf').val() );},
+		   error: function(jqXHR, textStatus, errorThrown){
+               console.log('error',jqXHR.status,jqXHR.responseText);
+           },		   
+           success: function(data)
+           {		        
+                console.log('success',data);
+			
+           }
+    });	
+},4000);
+
+
+</script>
+
+ <script>
+    var editor = ace.edit("editor");
+    editor.setTheme("ace/theme/monokai");
+    editor.getSession().setMode("ace/mode/javascript");
+	
+    editor.getSession().on('change', function(e) {
+	    console.log(e.type);
+    });
+	
+	editor.getSession().selection.on('changeSelection', function(e) {
+	
+	    console.log(e);
+    });
+	
+	editor.setReadOnly(false); 
+	editor.getSession().setUseWrapMode(true);
+	editor.session.getLength();
+	editor.insert("Something cool");
+	
+	//editor.setValue("the new text here"); // or session.setValue
+    console.log( editor.getValue() ); // or session.getValue
+
+</script> 

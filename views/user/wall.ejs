@@ -1,0 +1,56 @@
+<style>
+.wall { display: block; }
+
+.wall ul {
+   width:400px;
+   margin: 0 auto;
+   box-shadow: 0 2px 15px black;
+   overflow: hidden;
+   border-radius:3px;
+    background: #222;
+}
+
+.wall ul li {
+   float:left;
+}
+
+.wall a{
+ transition: all 0.3s; 
+}
+.wall ul:hover > li a {
+ -webkit-filter: grayscale(1) blur(1px);
+  opacity:0.4;  
+}
+
+.wall ul:hover > li a:hover {
+ -webkit-filter: none; 
+  opacity:1;
+}
+
+.wall:after {
+     visibility: hidden;
+     display: block;
+     font-size: 0;
+     content: " ";
+     clear: both;
+     height: 0;
+}
+
+
+</style>
+<div class="wall">
+ <ul>
+  <li><a href="#"><img src="http://lorempixel.com/100/100/sports/1" alt=""></a></li>
+  <li><a href="#"><img src="http://lorempixel.com/100/100/sports/2" alt=""></a></li>
+  <li><a href="#"><img src="http://lorempixel.com/100/100/sports/3" alt=""></a></li>
+  <li><a href="#"><img src="http://lorempixel.com/100/100/sports/4" alt=""></a></li>
+  <li><a href="#"><img src="http://lorempixel.com/100/100/sports/5" alt=""></a></li>
+  <li><a href="#"><img src="http://lorempixel.com/100/100/sports/6" alt=""></a></li>
+  <li><a href="#"><img src="http://lorempixel.com/100/100/sports/7" alt=""></a></li>
+  <li><a href="#"><img src="http://lorempixel.com/100/100/sports/8" alt=""></a></li>
+  <li><a href="#"><img src="http://lorempixel.com/100/100/sports/9" alt=""></a></li>
+  <li><a href="#"><img src="http://lorempixel.com/100/100/sports/10" alt=""></a></li>
+  <li><a href="#"><img src="http://lorempixel.com/100/100/people/1" alt=""></a></li>
+  <li><a href="#"><img src="http://lorempixel.com/100/100/people/2" alt=""></a></li>
+ </ul>
+</div>

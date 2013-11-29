@@ -1,0 +1,95 @@
+<div class="span4">
+          <ul class="nav nav-pills" id="devices-tabs">
+          </ul>
+          <div class="tab-content">
+            <div class="tab-pane active" id="home">
+              <div style="text-align: center; margin-bottom: 8px; ">
+                  <button class="btn compile" href="#"
+                          id="compile"><i class="icon-cog"></i>
+                    Compile</button>
+                  <button class="btn upload" href="#upload"
+                          id="upload"><i class="icon-upload"></i>
+                    Upload</button>
+                  <button class="btn run"
+                          id="run"><i class="icon-play"></i>
+                    </button>
+                  <button class="btn stop"
+                          id="stop"><i class="icon-stop"></i>
+                    </button>
+                  <button class="btn reboot"
+                          id="reboot"><i class="icon-refresh"></i>
+                    Reboot</button>
+                  <button class="btn blink"
+                          id="blink"><i class="icon-eye-open"></i>
+                    Blink</button>
+              </div>
+
+              <div style="font-size: 8pt; text-align: center;">
+                <div class="row-fluid">
+                  <div class="span4">
+                    ID:
+                    <span class="device-id">
+                      --
+                    </span>
+                  </div>
+                  <div class="span4">
+                    App:
+                    <span id="device-app">
+                      --
+                    </span>
+                  </div>
+                  <div class="span4">
+                    Firmware:
+                    <span id="device-version">
+                      firmware-version
+                    </span>
+                  </div>
+                </div>
+                <div class="row-fluid">
+                  <div class="span4">
+                    Ping time:
+                    <span id="device-rtt">
+                      --
+                    </span>
+                  </div>
+                  <div class="span4">
+                    CPU load:
+                    <span id="device-cpu">
+                      --
+                    </span>
+                  </div>
+                  <div class="span4">
+                    Radio usage:
+                    <span id="device-rf">
+                      --
+                    </span>
+                  </div>
+                </div>
+                <div class="row-fluid">
+                  <div class="span4">
+                    <span id="pingline"></span>
+                  </div>
+                  <div class="span4">
+                    <span id="cpuline"></span>
+                  </div>
+                  <div class="span4">
+                    <span id="rfline"></span>
+                  </div>
+                </div>
+              </div>
+              <div class="event-log well" style="height: 486px;" id="devicelog-outer">
+                <div id="devicespin">
+                  <div class="row">
+                    <div class="span2 offset6">
+                      <div id="devicespin-spinner">
+                      </div>
+                    </div>
+                  </div>
+                  <hr>
+                </div>
+                <div id="devicelog">
+                </div>
+              </div>
+            </div>
+          </div>
+</div>

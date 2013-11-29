@@ -1,0 +1,50 @@
+<div class="span2">
+    <ul class="nav nav-pills nav-stacked">
+            <li class="disabled"><a href="#home">Team</a></li>
+    </ul>
+    <div class="tab-content">
+            <div class="tab-pane active" id="team">
+              <div style="text-align: center; margin-bottom: -2px; ">
+                <input type="text" placeholder="Team message"
+                       class="input-large" id="team-message">
+              </div>
+              <div id="teamlog" class="event-log well"
+                     style="height: 582px;">
+					<% if(locals.motes) { %>
+                        <% motes.forEach( function( mote ){ %>
+						    <a class='mote' href="/motes/<%= mote._id %>/data" ><%= mote._id %></a>
+						<% }); %>
+                    <% }; %>					
+              </div>
+            </div>
+    </div>
+</div>
+
+<script>
+	
+$(".mote").click(function(e) {
+    console.log("Handler for .click() called.",$(this).attr('href'));
+	e.preventDefault();
+	$.ajax({
+           type: "GET",
+           url: '/code',
+           beforeSend: function(xhr){xhr.setRequestHeader('x-csrf-token', $('#crsf').val() );},
+		   error: function(jqXHR, textStatus, errorThrown){
+               console.log('error',jqXHR.status,jqXHR.responseText);
+           },		   
+           success: function(data)
+           {		        
+                console.log('success',data.notifications.length,data.notifications);
+				/*
+				var data = data.notifications;
+				for(var i=0;i<data.length;i++)
+                { 
+				   console.log(data[i]);
+				   var msg = JSON.parse(data[i]);
+				   $('#notify_menu').append('<li>'+ msg.u +'  '+ msg.v +'   '+ msg.m +' </li>');
+                } 
+                */				
+           }
+    });	
+});
+</script>

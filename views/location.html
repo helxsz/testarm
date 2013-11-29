@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Fablab</title>
+
+    <link href="/assets/css/bootstrap.css" rel="stylesheet">
+    <link href="/assets/css/bootstrap-responsive.css" rel="stylesheet">  
+	
+   <script src="/assets/js/jquery-1.9.1.min.js"></script>   
+   <script src="/assets/js/underscore.js"></script>
+   <script src="/assets/js/backbone/backbone-min.js"></script>
+   <script src="/assets/js/socket.io.js"></script>
+
+<script src="/assets/js/bootstrap/js/bootstrap-tooltip.js"></script> 
+<script src="/assets/js/bootstrap/js/bootstrap-popover.js"></script>  
+<script src="/assets/js/bootstrap/js/bootstrap-alert.js"></script> 
+<script src="/assets/js/bootstrap/js/bootstrap-modal.js"></script> 
+<script src="/assets/js/bootstrap/js/bootstrap-dropdown.js"></script>
+    <script src="/assets/js/popcorn/popcorn-complete.min.js"></script>   
+   
+    <!-- Fav and touch icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="../assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="../assets/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../assets/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="../assets/ico/apple-touch-icon-57-precomposed.png">
+    <link rel="shortcut icon" href="../assets/ico/favicon.png">		
+
+
+
+
+
+	
+  
+  </head>
+<style>
+body {
+  text-align: center;
+  background-image: -webkit-radial-gradient(center top, circle farthest-corner, #FFFFFF 0%, #D8DFE9 100%);
+  background-image: radial-gradient(circle farthest-corner at center top, #FFFFFF 0%, #D8DFE9 100%);
+}
+
+ <style>
+ .content{
+     position: relative;
+	margin-top:140px;	 
+ }
+ 
+.alert {
+background-color: #eee;
+color: #555;
+text-shadow: 0 1px rgba(255,255,255,0.3);
+width: 568px;
+max-width: 100%;
+min-width: 568px;
+margin: 0 auto;
+padding: 0 18px;
+margin-top: 30px;
+margin-bottom: 30px;
+padding: 10px 10px 10px 10px;
+text-align: left;
+border: 1px solid #ccc;
+border-radius: 5px;
+box-shadow: 0 0 10px #ccc;
+}
+
+.alert .close {
+top: -2px;
+right: 0px;
+line-height: 20px;
+}
+
+
+
+.page-title:after {
+content: 'beta';
+font-size: 0.17em;
+font-weight: 400;
+background: #62c98f;
+letter-spacing: 1px;
+border-radius: 100%;
+width: 44px;
+height: 44px;
+display: inline-block;
+line-height: 47px;
+position: relative;
+top: -45px;
+color:#ffffff;
+}
+
+
+.notify {
+background-color: #fff;
+color: #444444;
+font-weight: bold;
+left: 0;
+padding: 0;
+position: fixed;
+text-align: center;
+top: 0;
+width: 100%;
+z-index: 100;
+}
+
+#close-notify {
+cursor: pointer;
+font-size: 14px;
+line-height: 22px;
+padding: 0 3px;
+position: absolute;
+right: 5px;
+text-decoration: none;
+top: 5px;
+}
+
+
+
+ </style>
+  <body>
+    <div class="wrapper">
+	    <div class="inner-wrapper">
+
+			
+            <% include header %>	
+    	 		
+	        
+
+<!--	-->		
+			<div class="alert">
+			    <a href="#" class="close icon notranslate">X</a>
+				<span class="msg">Welcome to the new Lifehacker. 
+				    <a href="http://lifehacker.com/welcome-to-the-new-lifehacker-472650381" class="nowrap">Learn More v </a>
+				</span>
+			</div>
+			
+			
+
+        <style>
+.content {
+width: 1024px;
+margin: 0 auto;
+}
+
+		</style>
+
+	        <div class="container-fluid content">	
+                	
+            </div>
+
+	        
+            <% include footer %>
+			
+		</div>
+	</div>				
+  </body>
+
+  
+<script>
+//  include press   	 include intro 	 include user/wall   include video      include widget/flip    	
+			// http://www.kickstarter.com/projects/ajitjaokar/computer-science-for-your-child?ref=card
+initWebsocket();
+function initWebsocket(){
+            console.log('init train socket');
+            var socket =  io.connect(':8082/');
+						
+            socket.on('connect', function(message) {
+                console.log('on connect',message);
+            });
+            socket.on('news', function(message){
+			   console.log(message);			   
+            });
+}
+
+</script>  
+  
+</html>
