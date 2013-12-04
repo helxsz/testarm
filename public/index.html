@@ -16,7 +16,8 @@
     <!--[if lte IE 8]><link rel="stylesheet" href="./css/gridset-ie-lte8.css" /><![endif]-->
     <link rel="stylesheet" href="css/mfglabs_iconset.css">
     <link rel="stylesheet" href="css/main.css">
-
+    <script src="/assets/js/socket.io.js"></script>
+	<script src="/assets/js/d3.v3.min.js"></script>
     <script src="js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
 </head>
 <body class="meeting-room">
@@ -247,5 +248,28 @@
         g.src='//www.google-analytics.com/ga.js';
         s.parentNode.insertBefore(g,s)}(document,'script'));
     </script> -->
+	
+	
+<script>
+   
+        if (!window.location.origin)
+        window.location.origin = window.location.protocol+"//"+window.location.host;
+        var socket = io.connect(window.location.origin+":3000");
+		console.log(window.location.origin+":3000");
+        socket.on('connect', function () {
+            //socket.emit('subscribe', {topic : 'home/#'});
+        });
+		
+		socket.on('mqtt', function (msg) {
+            
+
+            console.log(msg);
+
+                    //$('#topic').html(msg.topic);
+                    //$('#message').html(msg.topic + ', ' + msg.payload);
+        });
+    
+
+</script>	
 </body>
 </html>
