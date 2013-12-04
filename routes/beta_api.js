@@ -14,9 +14,11 @@ var async = require('async'),
 	redis= require('redis'),
 	request = require('request');	
 	
-var 
-    errors = require('../utils/errors'),
-	config = require('../conf/config');	
+var errors = require('../utils/errors'),
+	config = require('../conf/config'),
+	winston = require('../utils/logging.js');
+
+	
 // http://schema.org/Event
 // https://github.com/indexzero/node-schema-org
 /************************************************************************
@@ -357,29 +359,14 @@ function EventDetailHandler(err,obj){
 
 f99864c3e8bf55b2de28d76fca76d10e
 ***************************************************************************/	
-//subscribe();
-
-function subscribe(){
-    // mqtt://1bfc8d081f5b1eed8359a7517fdb054a:@geras.1248.io//enlight/Ballast0000291B/dolFinTemperature
-    var mqttclient = mqtt.createClient(1883, "geras.1248.io",{username:'1bfc8d081f5b1eed8359a7517fdb054a' ,password: "" });
-  
-    mqttclient.on('connect', function(){
-        console.log('MQTT Connected'.green, config.key, config.pattern);
-	    mqttclient.subscribe('/enlight/Ballast0000291B/light');
-    });
-
-    mqttclient.on('message', function (topic, message) {
-        console.log('mqtt message'.green,  message, "    ",new Date());
-    });
-
-}	
+	
 	
 	
 
-//subscribeToMQTT(armhome);
-subscribeToMQTT(armmeeting);
-subscribeToMQTT(enlight,'/Ballast0000291B/light');
-function subscribeToMQTT(config,name){
+//subscribeToMQTT(armhome,handleHomeData);
+subscribeToMQTT(armmeeting,handleMeetingMotionData);
+//subscribeToMQTT(enlight,handleLightingData,'/Ballast0000291B/light');
+function subscribeToMQTT(config,handleCallback,name){
     name = name || '/#';
     var mqttclient = mqtt.createClient(1883, "geras.1248.io",{username:config.key ,password: "" });
   
@@ -388,12 +375,7 @@ function subscribeToMQTT(config,name){
 	    mqttclient.subscribe('/'+config.pattern+name);
     });
 
-    mqttclient.on('message', function (topic, message) {
-        console.log('mqtt message'.green,  message, "    ",new Date());
-		/**/
-		 io.sockets.emit('mqtt',{'payload' : message});
-		
-    });
+    mqttclient.on('message', handleCallback);
 	
 	mqttclient.on('disconnect', function(packet) {
         console.log('disconnect!',packet);
@@ -406,8 +388,47 @@ function subscribeToMQTT(config,name){
     mqttclient.on('error', function(err) {
         console.log('error!',err);
     });
-	
-	
+}
+
+function handleHomeData(topic, message) {
+        //console.log('mqtt message'.green,  message, "    " );
+		var data = JSON.parse(message);
+		var msg = data.e[0];  
+		var url = msg.n, value = msg.v, time = msg.t;
+		console.log(url,value);
+		// stream to interoperbility layer
+		
+		// stream directly to app
+		io.sockets.emit('mqtt',{'payload' : data});		
+}
+
+function handleLightingData(topic, message) {
+        //console.log('mqtt message'.green,  message, "    " );
+		var data = JSON.parse(message);
+		var msg = data.e[0];  
+		var url = msg.n, value = msg.v, time = msg.t;
+		console.log(url,value);
+		// stream to interoperbility layer
+		
+		// stream directly to app
+		io.sockets.emit('mqtt',{'payload' : data});		
+}
+
+
+function handleMeetingMotionData(topic, message) {
+        //console.log('mqtt message'.green,  message, "    " );
+		var raw = JSON.parse(message);
+		var msg = raw.e[0];  
+		var url = msg.n, value = msg.v, time = msg.t;
+		//console.log(url,value);
+		// stream to interoperbility layer
+		var array = url.split('/');
+		//console.log(array[0],array[1],array[2],array[3],array[4],array[5]);
+		var roomID = array[2], sensorID = array[4], sensorType = array[5];
+		console.log(roomID, sensorID, sensorType, value);
+		// stream directly to app
+		io.sockets.emit('info',{room:roomID,sensor:sensorID,type:sensorType, value:value});
+		//io.sockets.emit('raw',{'payload' : raw});		
 }
 
 

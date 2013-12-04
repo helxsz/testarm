@@ -79,11 +79,11 @@
 
                     <ul class="ch-grid">
 
-                        <li id="FM1">
+                        <li id="FM11" data-room="11" class="room">
                             <div class="ch-item">              
                                 <div class="ch-info-wrap">
                                     <div class="ch-info">
-                                        <div class="ch-info-front hexagon unavailable"><h1>FM1</h1></div>
+                                        <div class="ch-info-front hexagon unavailable"><h1>FM11</h1></div>
                                         <div class="ch-info-back hexagon">
                                             <h2>00:43</h2>
                                             <h3>Minutes Remaining</h3>
@@ -93,11 +93,11 @@
                             </div>
                         </li>
 
-                        <li id="FM2">
+                        <li id="FM15" data-room="15" class="room">
                             <div class="ch-item">              
                                 <div class="ch-info-wrap">
                                     <div class="ch-info">
-                                        <div class="ch-info-front hexagon unavailable"><h1>FM2</h1></div>
+                                        <div class="ch-info-front hexagon unavailable"><h1>FM15</h1></div>
                                         <div class="ch-info-back hexagon">
                                             <h2>00:43</h2>
                                             <h3>Minutes Remaining</h3>
@@ -107,11 +107,11 @@
                             </div>
                         </li>
 
-                        <li id="FM3">
+                        <li id="FM16" data-room="16" class="room">
                             <div class="ch-item">              
                                 <div class="ch-info-wrap">
                                     <div class="ch-info">
-                                        <div class="ch-info-front hexagon unavailable"><h1>FM3</h1></div>
+                                        <div class="ch-info-front hexagon unavailable"><h1>FM16</h1></div>
                                         <div class="ch-info-back hexagon">
                                             <h2>00:43</h2>
                                             <h3>Minutes Remaining</h3>
@@ -121,11 +121,11 @@
                             </div>
                         </li>
 
-                        <li id="FM4">
+                        <li id="FM17" data-room="17" class="room">
                             <div class="ch-item">              
                                 <div class="ch-info-wrap">
                                     <div class="ch-info">
-                                        <div class="ch-info-front hexagon available"><h1>FM4</h1></div>
+                                        <div class="ch-info-front hexagon available"><h1>FM17</h1></div>
                                         <div class="ch-info-back hexagon">
                                             <h2>00:43</h2>
                                             <h3>Minutes Remaining</h3>
@@ -135,11 +135,11 @@
                             </div>
                         </li>
 
-                        <li id="FM5">
+                        <li id="FM19" data-room="19" class="room">
                             <div class="ch-item">              
                                 <div class="ch-info-wrap">
                                     <div class="ch-info">
-                                        <div class="ch-info-front hexagon unavailable"><h1>FM5</h1></div>
+                                        <div class="ch-info-front hexagon unavailable"><h1>FM19</h1></div>
                                         <div class="ch-info-back hexagon">
                                             <h2>00:43</h2>
                                             <h3>Minutes Remaining</h3>
@@ -149,7 +149,7 @@
                             </div>
                         </li>
 
-                        <li id="FM6">
+                        <li id="FM6" class="room">
                             <div class="ch-item">              
                                 <div class="ch-info-wrap">
                                     <div class="ch-info">
@@ -163,7 +163,7 @@
                             </div>
                         </li>
 
-                        <li id="FM7">
+                        <li id="FM7" class="room">
                             <div class="ch-item">              
                                 <div class="ch-info-wrap">
                                     <div class="ch-info">
@@ -260,14 +260,43 @@
             //socket.emit('subscribe', {topic : 'home/#'});
         });
 		
-		socket.on('mqtt', function (msg) {
+		$('.ch-info-front').removeClass('unavailable').addClass('available');
+		
+		socket.on('info', function (msg) {
             
-
             console.log(msg);
-
+            console.log(msg.room,msg.sensor,msg.value,msg.type)
+            if(msg.type=='motion'){
+			    
+			   var s = $('*[data-room="'+msg.room+'"]');
+			   s.attr('data-time',new Date());
+			   s.attr('data-available',0);
+			   s.find('.ch-info-front').removeClass('available').addClass('unavailable');	
+			   //console.log(s.html());
+			}
                     //$('#topic').html(msg.topic);
                     //$('#message').html(msg.topic + ', ' + msg.payload);
         });
+		
+		setInterval(function(){			
+			$('#app-meeting').find('.room').each(function(e){
+			    var id = $(this).attr('data-room');
+			    var time = $(this).attr('data-time');
+				var avail = $(this).attr('data-available');
+				if(time !=null && avail == 0){
+				
+				    var last = new Date(time);
+				    var now = new Date();
+				    diffMs = now - last;
+				    var diffMins = Math.round(((diffMs % 86400000) % 3600000) / 60000); 				
+				    console.log(id+   "    "+diffMins);
+					if(diffMins >5){
+					     $(this).attr('data-available',1);
+					     $(this).find('.ch-info-front').removeClass('unavailable').addClass('available');
+					}
+				}
+			})
+		},6000);
     
 
 </script>	
