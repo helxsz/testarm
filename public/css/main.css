@@ -126,7 +126,7 @@
     13px = 0.8125em {13/16 = 0.8125} // 16px = 1em {16/16 = 1} // 28px = 1.75em {28/16 = 1.75} // 44px = 3.25em {44/16 = 2.75} // 72px = 4.5em {72/16 = 4.5} // 116px = 7.25em {116/16 = 7.25}
     
     FONT-SIZE-SPECIAL;    
-    100px = 6.25em {100/16 = 6.25}
+    68px = 4.25em {68/16 = 4.25} // 100px = 6.25em {100/16 = 6.25}
 
 
     LINE-HEIGHT;         
@@ -332,7 +332,7 @@
 
         /* TYPOGRAPHY */
 
-        .hexagon h1 {font-size: 4.5em; padding-top:1em;}
+        .hexagon h1 {font-size: 4.25em; padding-top:1em;}
         .ch-info-back h2 {font-size:3.25em; margin-bottom:0.25em; padding-top:1.625em; }
         .ch-info-back i {display:block; padding-top: 1.625em; margin-bottom:0.25em;}
         .ch-info-back a {text-decoration: none; border: none;}
@@ -535,12 +535,20 @@
     
     /*  DESKTOP - DEFAULT  */
 
-    @media only screen and (min-width:988px) and (max-width:1920px) {
+    @media only screen and (min-width:1057px) and (max-width:1920px) {
 
     }
 
 
-    /*  TABLET  */
+    /*  TABLETS  */
+
+    @media only screen and (min-width:988px) and (max-width:1056px)  {
+
+        #app-meeting {
+                top: 336px;
+            }
+
+    }
 
     @media only screen and (min-width:768px) and (max-width:987px)  {
         .wrapper {width: 100%;}
