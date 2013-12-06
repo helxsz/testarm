@@ -560,8 +560,14 @@
                 top: 336px;
             }
 
-        #footer {margin-top: 20em;}
-        #footer div {position: relative;}
+        #footer {
+            margin-top: 20em; 
+            width: auto;
+        }
+            #footer div {
+                position: relative;
+                left: 3.25em;
+            }
 
         /*  Typography  */
         h1 {font-size: 2.75em; line-height: 1em; margin-bottom:0.25em;} 
