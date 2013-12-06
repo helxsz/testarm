@@ -340,6 +340,7 @@
             margin-bottom: 0;
             padding-top: 3.25em;
         }
+            #app-brand h3 {padding-top: 0;}
         .ch-info-back i {display:block; padding-top: 1.625em; margin-bottom:0.25em;}
         .ch-info-back a {text-decoration: none; border: none;}
 
