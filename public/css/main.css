@@ -548,16 +548,14 @@
 
 
     /*  TABLETS  */
-
-    @media only screen and (min-width:988px) and (max-width:1056px)  {
-
+    @media only screen and (min-device-width : 768px) and (max-device-width : 1024px) and (orientation : landscape) { 
         #app-meeting {
             top: 336px;
         }
-
     }
 
-    @media only screen and (min-width:768px) and (max-width:987px)  {
+    @media only screen and (min-device-width : 768px) and (max-device-width : 1024px) and (orientation : portrait) {
+
         .wrapper {width: 100%;}
 
         #banner,
