@@ -334,6 +334,12 @@
 
         .hexagon h1 {font-size: 4.25em; padding-top:1em;}
         .ch-info-back h2 {font-size:3.25em; margin-bottom:0.25em; padding-top:1.625em; }
+        .ch-info-back h3 {
+            font-size: 1.625em;
+            line-height: 26px;
+            margin-bottom: 0;
+            padding-top: 3.25em;
+        }
         .ch-info-back i {display:block; padding-top: 1.625em; margin-bottom:0.25em;}
         .ch-info-back a {text-decoration: none; border: none;}
 
