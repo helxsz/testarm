@@ -303,9 +303,13 @@
 
         #app-meeting li div.ch-item {}
         #app-meeting li:nth-child(even) div.ch-item {/*margin-top: 7em;*/ margin-top: 112px;}
-        #app-meeting .hover {
+        .hover {
+            -webkit-touch-callout: none;
             -webkit-user-select: none;
-            -webkit-touch-callout: none;        
+            -khtml-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
         }
 
         /* COLOUR STATES */
