@@ -78,11 +78,11 @@
 
                     <ul class="ch-grid">
 
-                        <li id="Room.UKCMaple" data-room="Room.UKCMaple" class="room" ontouchstart>
+                        <li id="Room.UKCElm" data-room="Room.UKCElm" class="room" ontouchstart>
                             <div class="ch-item" ontouchstart >              
                                 <div class="ch-info-wrap">
                                     <div class="ch-info">
-                                        <div class="ch-info-front hexagon unavailable"><h1>FM6</h1></div>
+                                        <div class="ch-info-front hexagon unavailable"><h1>Elm</h1></div>
                                         <div class="ch-info-back hexagon">
                                             <h3>13:00 > 14:00</h3>
                                             <h4>Joe Bloggs</h4>
@@ -92,11 +92,11 @@
                             </div>
                         </li>
 
-                        <li id="Room.UKCBeech" data-room="Room.UKCBeech" class="room" ontouchstart>
+                        <li id="Room.UKCSF8" data-room="Room.UKCSF8" class="room" ontouchstart>
                             <div class="ch-item" ontouchstart >              
                                 <div class="ch-info-wrap">
                                     <div class="ch-info">
-                                        <div class="ch-info-front hexagon unavailable"><h1>FM1</h1></div>
+                                        <div class="ch-info-front hexagon unavailable"><h1>SF8</h1></div>
                                         <div class="ch-info-back hexagon">
                                             <h3>13:00 > 14:00</h3>
                                             <h4>Joe Bloggs</h4>
@@ -106,11 +106,11 @@
                             </div>
                         </li>
 
-                        <li id="Room.UKCWillowA" data-room="Room.UKCWillowA" class="room" ontouchstart>
+                        <li id="RoomUKCPatentBox" data-room="RoomUKCPatentBox" class="room" ontouchstart>
                             <div class="ch-item" ontouchstart >              
                                 <div class="ch-info-wrap">
                                     <div class="ch-info">
-                                        <div class="ch-info-front hexagon unavailable"><h1>FM3</h1></div>
+                                        <div class="ch-info-front hexagon unavailable"><h1>BOX</h1></div>
                                         <div class="ch-info-back hexagon">
                                             <h3>13:00 > 14:00</h3>
                                             <h4>Joe Bloggs</h4>
@@ -148,11 +148,11 @@
                             </div>
                         </li>
 
-                        <li id="Room.UKCFM7" data-room="Room.UKCFM7" class="room" ontouchstart>
+                        <li id="Room.UKCARM66MR4" data-room="Room.UKCARM66MR4" class="room" ontouchstart>
                             <div class="ch-item" ontouchstart >              
                                 <div class="ch-info-wrap">
                                     <div class="ch-info">
-                                        <div class="ch-info-front hexagon available"><h1>FM7</h1></div>
+                                        <div class="ch-info-front hexagon available"><h1>MR4</h1></div>
                                         <div class="ch-info-back hexagon">
                                             <h3>13:00 > 14:00</h3>
                                             <h4>Joe Bloggs</h4>
@@ -162,11 +162,11 @@
                             </div>
                         </li>
 
-                        <li id="Room.UKCFM9" data-room="Room.UKCFM9" class="room" ontouchstart>
+                        <li id="Room.UKCARM66MR5" data-room="Room.UKCARM66MR5" class="room" ontouchstart>
                             <div class="ch-item" ontouchstart >              
                                 <div class="ch-info-wrap">
                                     <div class="ch-info">
-                                        <div class="ch-info-front hexagon unavailable"><h1>FM9</h1></div>
+                                        <div class="ch-info-front hexagon unavailable"><h1>MR5</h1></div>
                                         <div class="ch-info-back hexagon">
                                             <h3>13:00 > 14:00</h3>
                                             <h4>Joe Bloggs</h4>
@@ -219,6 +219,8 @@
 	
     <script>
        
+
+	   
             if (!window.location.origin)
             window.location.origin = window.location.protocol+"//"+window.location.host;
             var socket = io.connect(window.location.origin+":3000");
@@ -228,6 +230,13 @@
             });
     		
     		$('.ch-info-front').removeClass('unavailable').addClass('available');
+
+    			   var s = $('*[data-room="Room.UKCFM9"]');
+    			   s.attr('data-time',new Date());
+    			   s.attr('data-available',0);
+    			   s.find('.ch-info-front').removeClass('available').addClass('unavailable');	        
+	               console.log(s.find('.ch-info-front').html());
+
     		
 			requestAll();
 			
@@ -241,10 +250,9 @@
     			   s.attr('data-time',new Date());
     			   s.attr('data-available',0);
     			   s.find('.ch-info-front').removeClass('available').addClass('unavailable');	
-    			   //console.log(s.html());
+    			   console.log(s.html());
     			}
-                        //$('#topic').html(msg.topic);
-                        //$('#message').html(msg.topic + ', ' + msg.payload);
+
             });
     		
     		setInterval(function(){			
@@ -279,7 +287,7 @@
                success: function(data)
                {		  
                     var s = $('*[data-room="'+id+'"]');			   
-                    console.log(data.found,data.start,data.end, s.find('h3').text());	
+                    //console.log(data.found,data.start,data.end, s.find('h3').text());	
                    	s.find('h3').text(data.start +" > "+data.end);			   
                }
             });

@@ -73,18 +73,20 @@ var Logging = function(level){
         return logger_info_old.call(this, fileAndLine + ":" + msg);
     }
 	
+    var logger_debug_old = logger.debug;
+    logger.debug = function(msg) {
+        var fileAndLine = traceCaller(1);
+        return logger_debug_old.call(this, new Date()+":"+fileAndLine + ":" + msg);
+    }	
+*/	
     var logger_error_old = logger.error;
     logger.error = function(msg) {
         var fileAndLine = traceCaller(1);
         return logger_error_old.call(this, new Date()+":"+fileAndLine + ":" + msg);
     }
 	
-    var logger_debug_old = logger.debug;
-    logger.debug = function(msg) {
-        var fileAndLine = traceCaller(1);
-        return logger_debug_old.call(this, new Date()+":"+fileAndLine + ":" + msg);
-    }
-*/    
+
+    
     function traceCaller(n) {
         if( isNaN(n) || n<0) n=1;
         n+=1;

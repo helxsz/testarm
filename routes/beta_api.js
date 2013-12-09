@@ -36,7 +36,7 @@ https://github.com/tobyjaffey/coap-cat-proxy/blob/master/coap-cat-proxy.js
 http://wiki.1248.io/doku.php?id=senml
 http://wiki.1248.io/doku.php?id=hypercat
 http://wiki.1248.io/doku.php?id=pathfinderpermissionsapi
-https://alertmeadaptor.appspot.com/traverse?traverseURI=https%3A//dev.1248.io%3A8002/cats/ARMAlertMe&traverseKey=ADMINSECRET
+https://alertmeadaptor.appspot.com/traverse
 **************************************************************/
 
 /****   experiment 1 ********/
@@ -130,7 +130,23 @@ var rooms = {
    "Room.UKCWillowB": "https://protected-sands-2667.herokuapp.com/rooms/Room.UKCWillowB",
    "Room.UKCFM10": "https://protected-sands-2667.herokuapp.com/rooms/Room.UKCFM10",
    "Room.UKCFM7": "https://protected-sands-2667.herokuapp.com/rooms/Room.UKCFM7",
-   "Room.UKCFM9": "https://protected-sands-2667.herokuapp.com/rooms/Room.UKCFM9"
+   "Room.UKCFM9": "https://protected-sands-2667.herokuapp.com/rooms/Room.UKCFM9",
+   "Room.UKCGM4": "https://protected-sands-2667.herokuapp.com/rooms/Room.UKCGM4",
+   "Room.UKCGM5": "https://protected-sands-2667.herokuapp.com/rooms/Room.UKCGM5",
+   "Room.UKCSF8": "https://protected-sands-2667.herokuapp.com/rooms/Room.UKCSF8",
+   "Room.UKCBirch": "https://protected-sands-2667.herokuapp.com/rooms/Room.UKCBirch",
+   "Room.UKCSycamore": "https://protected-sands-2667.herokuapp.com/rooms/Room.UKCSycamore",
+   "Room.UKCOak": "https://protected-sands-2667.herokuapp.com/rooms/Room.UKCOak",
+   "Room.UKCAsh": "https://protected-sands-2667.herokuapp.com/rooms/Room.UKCAsh",
+   "Room.UKCAlder": "https://protected-sands-2667.herokuapp.com/rooms/Room.UKCAlder",
+   "Room.UKCHazel": "https://protected-sands-2667.herokuapp.com/rooms/Room.UKCHazel",
+   
+   "Room.UKCElm":"https://protected-sands-2667.herokuapp.com/rooms/Room.UKCElm",
+   "Room.UKCLectureTheatre":"https://protected-sands-2667.herokuapp.com/rooms/Room.UKCLectureTheatre",
+   "RoomUKCPatentBox":"https://protected-sands-2667.herokuapp.com/rooms/RoomUKCPatentBox",
+   "Room.UKCARM66MR4":"https://protected-sands-2667.herokuapp.com/rooms/Room.UKCARM66MR4",
+   "Room.UKCARM66MR5":"https://protected-sands-2667.herokuapp.com/rooms/Room.UKCARM66MR5",
+   "RoomUKCPatentBox":"https://protected-sands-2667.herokuapp.com/rooms/RoomUKCPatentBox"
 }
 	
 
@@ -138,10 +154,38 @@ var serviceCatalog = new ServiceCatalog();
 var serviceBuilder = new ServiceBuilder(serviceCatalog);
 serviceBuilder.build([enlight,armhome,armmeeting,armbuilding]);
 
+
+
 /****   experiment 2 ********/
+var meetingService = serviceCatalog.findByName('armmeeting1');  // enlight
+try{
+	 meetingService.getResourceList(function(err,obj){
+        if(err){
+	        winston.error('error ');
+	    }else{
+            getArmMeetingResource(obj);	
+	    }	 	 
+	 });
+}catch(e){  winston.error('service not found') }
+
+var buildingService = serviceCatalog.findByName('armbuilding');  // enlight
+try{
+	 buildingService.getResourceList(function(err,obj){
+        if(err){
+	        winston.error('error ');
+	    }else{
+            getLocationResource(obj);			
+	    }	 	 
+	 });
+}catch(e){  winston.error('service not found') }
+
+
+/****   experiment 3 ********/
 /*********** *************/
 serviceBus.startService();
 serviceBuilder.buildRTService('armmeeting', SensMLHandler);
+
+
 var appBuilder = new AppBuilder();
 appBuilder.createApp('blabla',new MeetingRoomMQTTHandler().handleMessage, function(err,app){
     if(err) winston.error('error in create app');
@@ -169,21 +213,18 @@ function MeetingRoomMQTTHandler(){
 		    // stream to interoperbility layer
 		    var array = url.split('/');
 		    //console.log(array[0],array[1],array[2],array[3],array[4],array[5]);
-			//findResource(url, 'loc',function(data,err){});
+			findResource(url, 'loc',function(data,err){});
 			var room = mapping[url];
 			if(room){
 			    //console.log("room  is  "+room);
 				var array = room.split('/');
-				console.log(array[4]);
+				//console.log("io send message  "+array[4]);
 				io.sockets.emit('info',{room:array[4],type:'motion', value:100});
 			}
 			
 		    var roomID = array[2], sensorID = array[4], sensorType = array[5];
 			url = array[0]+"/"+array[1]+"/"+array[2]+"/"+array[3]+"/"+array[4];
-		    //winston.debug('MeetingRoomMQTTHandler  '.green+url+"  "+sensorType+"  "+ value);
-			// stream directly to app
-		    //io.sockets.emit('info',{room:roomID,sensor:sensorID,type:sensorType, value:value});
-			   
+		    //winston.debug('MeetingRoomMQTTHandler  '.green+url+"  "+sensorType+"  "+ value);			   
 		}catch(e){
 			   
 		}
@@ -198,7 +239,7 @@ app.get('/room/event',function(req,res){
 	url = rooms[url];
 	buildingService.getResourceDetail(url+"/events",function(err,obj){
         if(err){
-	        winston.error('error ');
+	        winston.error('error    '+url+"/events");
 			res.send(404);
 	    }else{
 		    var currentDate = new Date();
@@ -213,7 +254,6 @@ app.get('/room/event',function(req,res){
 					next = i;
 					break
 				}
-				//console.log(startDate.getTime() );
 	        }
 			
 			var start, end,event ;
@@ -242,83 +282,11 @@ app.get('/room/event',function(req,res){
 })
 
 
-/****   experiment 3 ********/
-var enlightService = serviceCatalog.findByName('armmeeting1');  // enlight
-try{
-     //enlightService.getResourceList(new DeviceHandler().onReceiveDeviceList);
-	 enlightService.getResourceList(function(err,obj){
-        if(err){
-	        winston.error('error ');
-	    }else{
-            getArmMeetingResource(obj);	
-	    }	 	 
-	 });
-}catch(e){  winston.error('service not found') }
 
-var buildingService = serviceCatalog.findByName('armbuilding');  // enlight
-try{
-     //enlightService.getResourceList(new DeviceHandler().onReceiveDeviceList);
-	 buildingService.getResourceList(function(err,obj){
-        if(err){
-	        winston.error('error ');
-	    }else{
-            //getArmMeetingResource(obj);	
-	    }	 	 
-	 });
-}catch(e){  winston.error('service not found') }
 
-	/*
-function DeviceHandler(){
-
-    this.onReceiveDeviceList = onReceiveDeviceList;
-	this.onReceiveDeviceDetail = onReceiveDeviceDetail;
-
-    function onReceiveDeviceList(err,obj){
-        if(err){
-	        winston.error('error ');
-	    }else{
-            parseHyperCat(obj);	
-	    }	
-	}
-	
-    function onReceiveDeviceDetail(err,obj){
-        if(err){
-	        winston.error('error ');
-	    }else{
-            parseHyperCat(obj);	
-        }		
-	}
-}
-
-function parseHyperCat(obj){
-
- 	for(var i=0;i<obj['item-metadata'].length;i++){
-		var item  = obj['item-metadata'][i], rel = item.rel, val= item.val;
-		console.log('item-metadata'.green, rel, val);              				
-    }
-	console.log('item-metadata  length'.green,obj.items.length );
-	
-	
-	for(var i=0;i<obj.items.length;i++){
-		var item  = obj.items[i], href = item.href, metadata= item['i-object-metadata'];
-		console.log("href".yellow, href, metadata.length); //		
-		saveResourceList(obj.service,href,function(err,data){
-		    if(err){  winston.error('save resource list error'+err);}
-			else winston.info(data);
-		});				
-	}
-	
-   
-	saveResourceList2(obj.service,obj.items,function(err,data){
-		if(err){  winston.error('save resource list error'+err);}
-		else winston.info(data);
-	});	
 
 	
-	getResourceList(obj.service,function(err,data){});
-
-}
-	*/
+	
 	
 function LocationHandler(){
 
@@ -334,7 +302,7 @@ function LocationHandler(){
 	}
 
     function onReceiveLocationDetail(err,obj){
-        console.log("LocationDetailHandler".green,obj);
+        winston.debug("LocationDetailHandler".green+obj);
 	    var url = obj.url, name = obj.name, address = obj.address,capacity = obj.capacity;		
 	}	
 }
@@ -349,10 +317,47 @@ function EventDetailHandler(){
 	    } 
 	}
 }	
+
+function getLocationResource(obj){
+  	for(var i=0;i<obj['item-metadata'].length;i++){
+		var item  = obj['item-metadata'][i], rel = item.rel, val= item.val;
+		winston.debug('item-metadata'.green+ rel+ val);              				
+    }
+	winston.debug('parseHyperCat1  item-metadata  length'.green+obj.items.length );  
+	for(var i=0;i<obj.items.length;i++){
+		var item  = obj.items[i], href = item.href, metadata= item['i-object-metadata'];
+		winston.debug("parseHyperCat1  href".yellow+ href + metadata.length); //
+		enlightService.getResourceDetail(href,function(err,data){
+            if(err){
+	            winston.error('error ');
+	        }else{
+			    for(var i=0;i<data.items.length;i++){
+		            var item  = data.items[i], href = item.href, metadata= item['i-object-metadata'];
+		            winston.debug("location url".yellow + href + metadata.length); //
+				}
+
+ 	            for(var i=0;i<data['item-metadata'].length;i++){
+		            var item  = data['item-metadata'][i], rel = item.rel, val= item.val;
+		            console.log('item-metadata'.green, rel, val); 
+                    if(rel == 'urn:X-tsbiot:rels:isContentType'){
+					    if(val == 'application/json; profile=http://schema.org/Place/Room'){
+						    winston.debug('this is a room');
+						}
+					}else if(rel == 'http://schema.org/event'){
+					    winston.debug('event url '+val);
+					}else if(rel == 'http://schema.org/addressLocality'){
+					    winston.debug('address '+address);					
+					}					
+                }				
+		    }
+        })		
+	}	
+
+}
+
+
 function getArmMeetingResource(obj){
-    
-	var devices = {};
-	
+    	
  	for(var i=0;i<obj['item-metadata'].length;i++){
 		var item  = obj['item-metadata'][i], rel = item.rel, val= item.val;
 		console.log('item-metadata'.green, rel, val);              				
@@ -362,14 +367,14 @@ function getArmMeetingResource(obj){
 	for(var i=0;i<obj.items.length;i++){
 		var item  = obj.items[i], href = item.href, metadata= item['i-object-metadata'];
 		console.log("parseHyperCat1  href".yellow, href, metadata.length); //
-	    enlightService.getResourceDetail(href,function(err,data){
+	    meetingService.getResourceDetail(href,function(err,data){
             if(err){
 	            winston.error('error ');
 	       }else{
                 for(var i=0;i<data.items.length;i++){
 		            var item  = data.items[i], href = item.href, metadata= item['i-object-metadata'];
                     console.log("getResourceDetail  href".yellow, href, metadata.length);
-					enlightService.getResourceDetail(href,function(err,data1){
+					meetingService.getResourceDetail(href,function(err,data1){
 					    if(err){
                                 winston.error('error ');
 						}else{
@@ -377,19 +382,33 @@ function getArmMeetingResource(obj){
 		                        var item  = data1.items[i], href = item.href, metadata= item['i-object-metadata'];
                                 console.log("getResourceDetail 2  href".yellow, href, metadata.length);
 								 
-								enlightService.getResourceDetail(href,function(err,data2){ 
+								meetingService.getResourceDetail(href,function(err,data2){ 
                                     if(err){
 								        winston.error('error ');
 								    }else{
 									  try{
+									    for(var i=0;i<data2['item-metadata'].length;i++){
+		                                    var item  = data2['item-metadata'][i], rel = item.rel, val= item.val;
+		                                    //console.log('item-metadata'.green, rel, val); 
+                                            if(rel == 'urn:X-tsbiot:rels:isContentType'){
+						                            winston.debug('this is a sensor');						                       
+					                        }else if(rel == 'http://www.w3.org/2002/07/owl#sameAs'){
+					                            
+												var res = href.replace("https://geras.1248.io/cat","");
+												winston.debug('location :'+res+"   "+val);
+                                                saveResource(res, {loc:val}, function(err,data){} );													
+					                        }					
+                                        }
+										  
+										  
+									    /*
 									    for(var i=0;i<data2.items.length;i++){
 		                                    var item  = data2.items[i], href = item.href, metadata= item['i-object-metadata'];
                                             console.log("getResourceDetail 3  href".yellow, href, metadata.length);
 											
 											if(metadata.length > 2){
 											    for(var j=0;j<metadata.length;j++){
-												    //console.log(metadata[j].rel);
-													
+												    //console.log(metadata[j].rel);													
 												    if(metadata[j].rel == 'http://www.w3.org/2002/07/owl#sameAs'){
 													    console.log("getResourceDetail 3  sameas".yellow, href +"  : "+ metadata[j].val );
 														saveResource(href, {loc:metadata[j].val}, function(err,data){} );
@@ -398,15 +417,14 @@ function getArmMeetingResource(obj){
 													}else if(metadata[j].rel == 'urn:X-tsbiot:rels:supports:query'){
 													
 													}
-                                                   /**/													
 												}											
 											}
 								        }
+										*/
                                       }catch(e){winston.error(e.name+"    "+data2.toString());} 										
 									}
 								})
-						    }
-							
+						    }							
                             saveResourceList2(obj.service,data1.items,function(err,data){
 		                        if(err){  winston.error('save resource list error'+err);}
 		                        else winston.info(data);
@@ -530,13 +548,18 @@ function findResource(url ,item ,callback){
 		return callback(error,null);
     }	
 	
+	console.log('url :'+url.substring(0,url.lastIndexOf("/")));
+	url = url.substring(0,url.lastIndexOf("/"));
 	redisClient.hmget("device:"+url, item,function(err, data){
-		console.log('reply '+data);		
+	    if(err) winston.error('hmget  '+err);
+		else if(data) winston.info('hmget find location:'.green+"  "+url+"  " +data);	
+        else winston.error('hmget find no    location')		
 	});
+	/*
 	client.hgetall("device:"+url, function (err, data) {
-        console.log('reply 2'+data);	
+        console.log('hgetall  reply 2'+data);	
     });
-    
+    */
 	redisClient.quit();
 	return callback(null,1);
 }
@@ -641,3 +664,55 @@ app.get('/catalog/tag',function(req,res,next){
 
 
 /****   experiment 5 ********/
+	/*
+function DeviceHandler(){
+
+    this.onReceiveDeviceList = onReceiveDeviceList;
+	this.onReceiveDeviceDetail = onReceiveDeviceDetail;
+
+    function onReceiveDeviceList(err,obj){
+        if(err){
+	        winston.error('error ');
+	    }else{
+            parseHyperCat(obj);	
+	    }	
+	}
+	
+    function onReceiveDeviceDetail(err,obj){
+        if(err){
+	        winston.error('error ');
+	    }else{
+            parseHyperCat(obj);	
+        }		
+	}
+}
+
+function parseHyperCat(obj){
+
+ 	for(var i=0;i<obj['item-metadata'].length;i++){
+		var item  = obj['item-metadata'][i], rel = item.rel, val= item.val;
+		console.log('item-metadata'.green, rel, val);              				
+    }
+	console.log('item-metadata  length'.green,obj.items.length );
+	
+	
+	for(var i=0;i<obj.items.length;i++){
+		var item  = obj.items[i], href = item.href, metadata= item['i-object-metadata'];
+		console.log("href".yellow, href, metadata.length); //		
+		saveResourceList(obj.service,href,function(err,data){
+		    if(err){  winston.error('save resource list error'+err);}
+			else winston.info(data);
+		});				
+	}
+	
+   
+	saveResourceList2(obj.service,obj.items,function(err,data){
+		if(err){  winston.error('save resource list error'+err);}
+		else winston.info(data);
+	});	
+
+	
+	getResourceList(obj.service,function(err,data){});
+
+}
+	*/
