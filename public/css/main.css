@@ -126,7 +126,7 @@
     13px = 0.8125em {13/16 = 0.8125} // 16px = 1em {16/16 = 1} // 28px = 1.75em {28/16 = 1.75} // 44px = 3.25em {44/16 = 2.75} // 72px = 4.5em {72/16 = 4.5} // 116px = 7.25em {116/16 = 7.25}
     
     FONT-SIZE-SPECIAL;    
-    68px = 4.25em {68/16 = 4.25} // 100px = 6.25em {100/16 = 6.25}
+    100px = 6.25em {100/16 = 6.25}
 
 
     LINE-HEIGHT;         
@@ -147,7 +147,7 @@
             }
         h2 {font-size: 1.75em; line-height: 26px;}
         h3 {font-size: 1em; line-height: 26px;} 
-        h4 {font-size: 1em; line-height: 26px;} 
+        h4 {font-size: 1.75em; line-height: 26px;} 
         h5 {font-size: 1em; line-height: 26px;} 
 
     p, ul, blockquote, pre, td, th, label, time {color:#FFFFFF; font-size: 1em; line-height: 1.625em; margin: 0 0 1.625em 0; } 
@@ -303,14 +303,6 @@
 
         #app-meeting li div.ch-item {}
         #app-meeting li:nth-child(even) div.ch-item {/*margin-top: 7em;*/ margin-top: 112px;}
-        .hover {
-            -webkit-touch-callout: none;
-            -webkit-user-select: none;
-            -khtml-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-            user-select: none;
-        }
 
         /* COLOUR STATES */
 
@@ -332,15 +324,8 @@
 
         /* TYPOGRAPHY */
 
-        .hexagon h1 {font-size: 4.25em; padding-top:1em;}
+        .hexagon h1 {font-size: 4.5em; padding-top:1em;}
         .ch-info-back h2 {font-size:3.25em; margin-bottom:0.25em; padding-top:1.625em; }
-        .ch-info-back h3 {
-            font-size: 1.625em;
-            line-height: 26px;
-            margin-bottom: 0;
-            padding-top: 3.25em;
-        }
-            #app-brand h3 {padding-top: 0;}
         .ch-info-back i {display:block; padding-top: 1.625em; margin-bottom:0.25em;}
         .ch-info-back a {text-decoration: none; border: none;}
 
@@ -542,20 +527,14 @@
     
     /*  DESKTOP - DEFAULT  */
 
-    @media only screen and (min-width:1057px) and (max-width:1920px) {
+    @media only screen and (min-width:988px) and (max-width:1920px) {
 
     }
 
 
-    /*  TABLETS  */
-    @media only screen and (min-device-width : 768px) and (max-device-width : 1024px) and (orientation : landscape) { 
-        #app-meeting {
-            top: 336px;
-        }
-    }
+    /*  TABLET  */
 
-    @media only screen and (min-device-width : 768px) and (max-device-width : 1024px) and (orientation : portrait) {
-
+    @media only screen and (min-width:768px) and (max-width:987px)  {
         .wrapper {width: 100%;}
 
         #banner,
@@ -563,15 +542,6 @@
 
             #app-meeting {
                 top: 336px;
-            }
-
-        #footer {
-            margin-top: 20em; 
-            width: auto;
-        }
-            #footer div {
-                position: relative;
-                left: 3.25em;
             }
 
         /*  Typography  */

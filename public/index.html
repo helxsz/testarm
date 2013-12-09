@@ -78,11 +78,11 @@
 
                     <ul class="ch-grid">
 
-                        <li id="FM11" data-room="11" class="room" ontouchstart>
+                        <li id="Room.UKCMaple" data-room="Room.UKCMaple" class="room" ontouchstart>
                             <div class="ch-item" ontouchstart >              
                                 <div class="ch-info-wrap">
                                     <div class="ch-info">
-                                        <div class="ch-info-front hexagon unavailable"><h1>FM11</h1></div>
+                                        <div class="ch-info-front hexagon unavailable"><h1>FM6</h1></div>
                                         <div class="ch-info-back hexagon">
                                             <h3>13:00 > 14:00</h3>
                                             <h4>Joe Bloggs</h4>
@@ -92,11 +92,11 @@
                             </div>
                         </li>
 
-                        <li id="FM15" data-room="15" class="room" ontouchstart>
+                        <li id="Room.UKCBeech" data-room="Room.UKCBeech" class="room" ontouchstart>
                             <div class="ch-item" ontouchstart >              
                                 <div class="ch-info-wrap">
                                     <div class="ch-info">
-                                        <div class="ch-info-front hexagon unavailable"><h1>FM15</h1></div>
+                                        <div class="ch-info-front hexagon unavailable"><h1>FM1</h1></div>
                                         <div class="ch-info-back hexagon">
                                             <h3>13:00 > 14:00</h3>
                                             <h4>Joe Bloggs</h4>
@@ -106,11 +106,11 @@
                             </div>
                         </li>
 
-                        <li id="FM16" data-room="16" class="room" ontouchstart>
+                        <li id="Room.UKCWillowA" data-room="Room.UKCWillowA" class="room" ontouchstart>
                             <div class="ch-item" ontouchstart >              
                                 <div class="ch-info-wrap">
                                     <div class="ch-info">
-                                        <div class="ch-info-front hexagon unavailable"><h1>FM16</h1></div>
+                                        <div class="ch-info-front hexagon unavailable"><h1>FM3</h1></div>
                                         <div class="ch-info-back hexagon">
                                             <h3>13:00 > 14:00</h3>
                                             <h4>Joe Bloggs</h4>
@@ -120,11 +120,11 @@
                             </div>
                         </li>
 
-                        <li id="FM17" data-room="17" class="room" ontouchstart>
+                        <li id="Room.UKCWillowB" data-room="Room.UKCWillowB" class="room" ontouchstart>
                             <div class="ch-item" ontouchstart >              
                                 <div class="ch-info-wrap">
                                     <div class="ch-info">
-                                        <div class="ch-info-front hexagon available"><h1>FM17</h1></div>
+                                        <div class="ch-info-front hexagon available"><h1>FM11</h1></div>
                                         <div class="ch-info-back hexagon">
                                             <h3>13:00 > 14:00</h3>
                                             <h4>Joe Bloggs</h4>
@@ -134,11 +134,11 @@
                             </div>
                         </li>
 
-                        <li id="FM19" data-room="19" class="room" ontouchstart>
+                        <li id="Room.UKCFM10" data-room="Room.UKCFM10" class="room" ontouchstart>
                             <div class="ch-item" ontouchstart >              
                                 <div class="ch-info-wrap">
                                     <div class="ch-info">
-                                        <div class="ch-info-front hexagon unavailable"><h1>FM19</h1></div>
+                                        <div class="ch-info-front hexagon unavailable"><h1>FM10</h1></div>
                                         <div class="ch-info-back hexagon">
                                             <h3>13:00 > 14:00</h3>
                                             <h4>Joe Bloggs</h4>
@@ -148,11 +148,11 @@
                             </div>
                         </li>
 
-                        <li id="FM6" class="room" ontouchstart>
+                        <li id="Room.UKCFM7" data-room="Room.UKCFM7" class="room" ontouchstart>
                             <div class="ch-item" ontouchstart >              
                                 <div class="ch-info-wrap">
                                     <div class="ch-info">
-                                        <div class="ch-info-front hexagon available"><h1>FM6</h1></div>
+                                        <div class="ch-info-front hexagon available"><h1>FM7</h1></div>
                                         <div class="ch-info-back hexagon">
                                             <h3>13:00 > 14:00</h3>
                                             <h4>Joe Bloggs</h4>
@@ -162,11 +162,11 @@
                             </div>
                         </li>
 
-                        <li id="FM7" class="room" ontouchstart>
+                        <li id="Room.UKCFM9" data-room="Room.UKCFM9" class="room" ontouchstart>
                             <div class="ch-item" ontouchstart >              
                                 <div class="ch-info-wrap">
                                     <div class="ch-info">
-                                        <div class="ch-info-front hexagon unavailable"><h1>FM7</h1></div>
+                                        <div class="ch-info-front hexagon unavailable"><h1>FM9</h1></div>
                                         <div class="ch-info-back hexagon">
                                             <h3>13:00 > 14:00</h3>
                                             <h4>Joe Bloggs</h4>
@@ -229,6 +229,8 @@
     		
     		$('.ch-info-front').removeClass('unavailable').addClass('available');
     		
+			requestAll();
+			
     		socket.on('info', function (msg) {
                 
                 console.log(msg);
@@ -263,7 +265,27 @@
     					}
     				}
     			})
-    		},6000);
+    		},60000);
+			
+            setInterval(function(){ requestAll() },72000);		
+
+	function requestAll(){		
+        $('#app-meeting').find('.room').each(function(e){
+    	    var id = $(this).attr('data-room');
+ 
+            $.ajax({
+               type: "GET",
+               url: "/room/event?url="+id,
+               success: function(data)
+               {		  
+                    var s = $('*[data-room="'+id+'"]');			   
+                    console.log(data.found,data.start,data.end, s.find('h3').text());	
+                   	s.find('h3').text(data.start +" > "+data.end);			   
+               }
+            });
+	
+        })
+    }				
 
     </script>
 </body>
