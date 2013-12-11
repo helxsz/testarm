@@ -643,7 +643,7 @@
             }
 
         /* MENU */
-        #showLeft {position: relative;}
+        #showLeft {}
 
         #footer {
             margin-top: 20em; 
