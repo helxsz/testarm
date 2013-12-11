@@ -306,8 +306,8 @@
     /* General styles for all menus */
     .cbp-spmenu {
         background: #092630;
-        position: fixed; left: -20%; top: 0; z-index: 1000;
-        width: 20%; min-width: 14em; height: 100%;
+        position: fixed; left: -16em; top: 0; z-index: 1000;
+        width: 16em; height: 100%;
     }
         .cbp-spmenu.cbp-spmenu-open {
             left: 0px;
