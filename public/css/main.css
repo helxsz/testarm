@@ -39,12 +39,13 @@
     3. Typograhy
     4. Buttons
     5. Images
-    6. Hexagons
-    7. Forms
-    8. Animations (CSS3)
-    9. Media Queries (Responsive)
-    10. Helper Classes
-    11. Print
+    6. Menu
+    7. Hexagons
+    8. Forms
+    9. Animations (CSS3)
+    10. Media Queries (Responsive)
+    11. Helper Classes
+    12. Print
 
 
     ========================================================================== */
@@ -87,10 +88,18 @@
             #app-description {z-index:99;}
             .app-meeting {z-index: 10}
 
-        footer {}
-            footer div {position: absolute; bottom: 3.25em;}
-                footer div:first-child {left: 3.25em;}
-                footer div:last-child {right: 3.25em;}
+        #footer {
+            padding-top:96%;
+            /*width:auto;
+            height:100px;
+            background:#d21f27;
+            margin-top:5px;
+            clear:both;
+            bottom:0; */ 
+        }
+            footer div {}
+                footer div:first-child {}
+                footer div:last-child {text-align: right}
           
             small {display:block; padding:1.625em 0 1.625em 0;}
 
@@ -160,6 +169,8 @@
 
         footer ul li a {text-decoration: none;}
 
+    button {background:none; border:none;}
+
 
     /*  Bullet lists  */
 
@@ -182,10 +193,10 @@
     
     /*  Navigation  */
     
-    nav {margin-top:3.25em; margin-bottom:1.625em; float:right}
+    nav {/*margin-top:3.25em;*/ margin-bottom:1.625em; float:right}
         nav ul, nav div ul {list-style-type:none; margin: 0 0 1.625em 0; padding:0; margin:0;}
             nav ul li, nav div ul li {
-                display: inline-block; margin: 0 0 0 0.9em; border-right: 1px #FFF solid; padding-right: 0.9em; padding-top: 1.625em; padding-bottom: 1.625em;font-size:0.8125em;
+                
             }
             
             nav ul li.last {
@@ -289,7 +300,78 @@
 
 
 /*  ==========================================================================
-    6. Hexagons
+    6. Menu
+    ========================================================================== */
+
+    /* General styles for all menus */
+    .cbp-spmenu {
+        background: #092630;
+        position: fixed;
+        width: 20%;
+        height: 100%;
+        top: 0;
+        z-index: 1000;
+        left: -20%;
+    }
+        .cbp-spmenu.cbp-spmenu-open {
+            left: 0px;
+        }
+
+    .cbp-spmenu h3 {
+        color: white;
+        font-size: 1.75em;
+        padding: 1em;
+        margin: 0;
+        font-weight: 700;
+        background: #2599C1;
+    }
+
+    .cbp-spmenu a {
+        display: block; text-decoration: none;
+        color: #fff; font-size: 1em; font-weight: 300;
+        border-bottom: 1px solid #141414; 
+        padding: 1.625em;
+    }
+
+        .cbp-spmenu a:hover {
+            background: #141414;
+        }
+
+        .cbp-spmenu a:active {
+            background: #2599C1; color: #47a3da;
+        }
+
+    #showLeft {
+        font-family: 'Roboto Condensed', sans-serif; font-weight: 700;
+        position: absolute; top:3.25em; left:3.25em; 
+        color:white;
+        } #showLeft:hover {color: #CE1D6F;}
+
+    .cbp-spmenu button {float:right; color:white;}
+        .cbp-spmenu button:hover {color:#141414;}
+
+    /* Transitions */
+
+    .cbp-spmenu {
+        -webkit-transition: all 0.3s ease;
+        -moz-transition: all 0.3s ease;
+        transition: all 0.3s ease;
+    }
+
+    /* Example media queries */
+
+    @media screen and (max-height: 26.375em){
+
+        .cbp-spmenu {
+            font-size: 90%;
+            width: 190px;
+            left: -190px;
+        }
+
+    }
+
+/*  ==========================================================================
+    7. Hexagons
     ========================================================================== */
 
     div.hexagon {
@@ -447,12 +529,12 @@
 
 
 /*  ==========================================================================
-    7. Forms
+    8. Forms
     ========================================================================== */
 
 
 /*  ==========================================================================
-    8. Animations
+    9. Animations
     ========================================================================== */
     
     a {
@@ -523,7 +605,7 @@
 
 
 /*  ==========================================================================
-    Media Queries
+    10. Media Queries
     ========================================================================== */
 
     /*  LARGE SCREEN  */
@@ -548,13 +630,8 @@
 
 
     /*  TABLETS  */
-    @media only screen and (min-device-width : 768px) and (max-device-width : 1024px) and (orientation : landscape) { 
-        #app-meeting {
-            top: 336px;
-        }
-    }
 
-    @media only screen and (min-device-width : 768px) and (max-device-width : 1024px) and (orientation : portrait) {
+    @media only screen and (min-device-width : 768px) and (max-device-width : 1024px){
 
         .wrapper {width: 100%;}
 
@@ -564,6 +641,9 @@
             #app-meeting {
                 top: 336px;
             }
+
+        /* MENU */
+        #showLeft {position: relative;}
 
         #footer {
             margin-top: 20em; 
@@ -766,14 +846,14 @@
 
 
 /*  ==========================================================================
-    Helper classes
+    11. Helper classes
     ========================================================================== */
 
     .ir {background-color: transparent; border: 0; overflow: hidden; *text-indent: -9999px; } .ir:before {content: ""; display: block; width: 0; height: 150%; } .hidden {display: none !important; visibility: hidden; } .visuallyhidden {border: 0; clip: rect(0 0 0 0); height: 1px; margin: -1px; overflow: hidden; padding: 0; position: absolute; width: 1px; } .visuallyhidden.focusable:active, .visuallyhidden.focusable:focus {clip: auto; height: auto; margin: 0; overflow: visible; position: static; width: auto; } .invisible {visibility: hidden; } .clearfix:before, .clearfix:after {content: " "; display: table; } .clearfix:after {clear: both; } .clearfix {*zoom: 1; }
 
 
 /*  ==========================================================================
-    Print styles
+    12. Print styles
     ========================================================================== */
     @media print {* {background: transparent !important; color: #000 !important; /* Black prints faster: h5bp.com/s */ box-shadow: none !important; text-shadow: none !important; } a, a:visited {text-decoration: underline; } a[href]:after {content: " (" attr(href) ")"; } abbr[title]:after {content: " (" attr(title) ")"; } /* * Don't show links for images, or javascript/internal links */ .ir a:after, a[href^="javascript:"]:after, a[href^="#"]:after {content: ""; } pre, blockquote {border: 1px solid #999; page-break-inside: avoid; } thead {display: table-header-group; /* h5bp.com/t */ } tr, img {page-break-inside: avoid; } img {max-width: 100% !important; } @page {margin: 0.5cm; } p, h2, h3 {orphans: 3; widows: 3; } h2, h3 {page-break-after: avoid; } 
     }

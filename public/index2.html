@@ -21,7 +21,7 @@
 	<script src="/assets/js/d3.v3.min.js"></script>
     <script src="js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
 </head>
-<body class="meeting-room cbp-spmenu-push">
+<body class="meeting-room">
     <!--[if lt IE 7]>
         <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
     <![endif]-->
@@ -311,30 +311,30 @@
     </script>
 
     <!-- Classie - class helper functions by @desandro https://github.com/desandro/classie -->
-        <script src="js/vendor/classie2.js"></script>
-        <script>
-            var menuLeft = document.getElementById( 'cbp-spmenu-s1' ),
-                showLeft = document.getElementById( 'showLeft' ),
-                body = document.body;
+    <script>
+        var menuLeft = document.getElementById( 'cbp-spmenu-s1' ),
+            showLeft = document.getElementById( 'showLeft' ),
+            body = document.body;
 
-            showLeft.onclick = function() {
-                classie.toggle( this, 'active' );
-                classie.toggle( menuLeft, 'cbp-spmenu-open' );
-                disableOther( 'showLeft' );
-            };
+        showLeft.onclick = function() {
+            classie.toggle( this, 'active' );
+            classie.toggle( menuLeft, 'cbp-spmenu-open' );
+            disableOther( 'showLeft' );
+        };
 
-            closeLeft.onclick = function() {
-                classie.toggle( this, 'active' );
-                classie.toggle( menuLeft, 'cbp-spmenu-open' );
-                disableOther( 'showLeft' );
-            };
+        closeLeft.onclick = function() {
+            classie.toggle( this, 'active' );
+            classie.toggle( menuLeft, 'cbp-spmenu-open' );
+            disableOther( 'showLeft' );
+        };
 
-            function disableOther( button ) {
-                if( button !== 'showLeft' ) {
-                    classie.toggle( showLeft, 'disabled' );
-                }
-
+        function disableOther( button ) {
+            if( button !== 'showLeft' ) {
+                classie.toggle( showLeft, 'disabled' );
             }
-        </script>
+
+        }
+    </script>
+
 </body>
 </html>
