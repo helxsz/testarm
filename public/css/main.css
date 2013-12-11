@@ -528,34 +528,17 @@
             transform: rotate3d(0,1,0,-180deg);
         }
 
-        /*.ch-item:focus {outline:none;}
-
-        .ch-item:focus .ch-info-wrap {
+        /*.ch-item:active .ch-info-wrap {
             margin-left: -44px;
         }
 
-        .ch-item:focus .ch-info {
-            -webkit-transform: rotate3d(0,1,0,-180deg);
-            -moz-transform: rotate3d(0,1,0,-180deg);
-            -o-transform: rotate3d(0,1,0,-180deg);
-            -ms-transform: rotate3d(0,1,0,-180deg);
-            transform: rotate3d(0,1,0,-180deg);
-        }
-
-        :focus {outline:none;}
-
-        .li:focus .ch-item .ch-info-wrap {
-            margin-left: -44px;
-        }
-
-        .li:focus .ch-item .ch-info {
+        .ch-item:active .ch-info {
             -webkit-transform: rotate3d(0,1,0,-180deg);
             -moz-transform: rotate3d(0,1,0,-180deg);
             -o-transform: rotate3d(0,1,0,-180deg);
             -ms-transform: rotate3d(0,1,0,-180deg);
             transform: rotate3d(0,1,0,-180deg);
         }*/
-
 
 /*  ==========================================================================
     8. Forms
