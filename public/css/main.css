@@ -111,9 +111,8 @@
 
         #app-meeting {
             height: 100%;
-            padding-top: 35em;
-            margin-right: 4.5em;
-            margin-bottom: 13.25em;
+            padding-top: 35em; padding-left: 3em;
+            margin-right: 4.5em; margin-bottom: 13.25em;
         }
 
         #app-social {}
@@ -670,13 +669,26 @@
         /*  Layout  */
         .wrapper {width: 86%;}
 
-        #banner {margin-top:1.6em; border-top: 2px #670F38 solid;}
+        #banner {border: none;}
             nav {width: 70%; margin-top: 2.25em;}
 
-            #app-meeting {
-                top: 336px;
+            #showLeft {
+                position: relative;
+                display: block;
+                margin-top: -1.625em;
+                top: 0;
+                left: 0;
             }
+
+            /*#app-meeting {
+                top: 336px;
+            }*/
         
+            #app-meeting {
+                height: 100%;
+                padding-top: 35em; padding-left: 3em;
+                margin-right: 4.5em; margin-bottom: 13.25em;
+            }
 
         footer {}
            
