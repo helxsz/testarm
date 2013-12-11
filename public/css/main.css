@@ -516,11 +516,11 @@
 
         /* HOVER INTERACTIVITY */
 
-        .ch-item:hover .ch-info-wrap {
+        .flipped .ch-info-wrap {
             margin-left: -44px;
         }
 
-        .ch-item:hover .ch-info {
+        .flipped .ch-info {
             -webkit-transform: rotate3d(0,1,0,-180deg);
             -moz-transform: rotate3d(0,1,0,-180deg);
             -o-transform: rotate3d(0,1,0,-180deg);

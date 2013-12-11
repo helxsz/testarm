@@ -1,11 +1,6 @@
 
-(function($) {
-    $(document).ready(function() {
-        // Emulate hover on tablets and smartphones
-        if ((navigator.userAgent.match(/iPhone/i)) || (navigator.userAgent.match(/iPod/i)) || (navigator.userAgent.match(/iPad/i))) {
-            $(".ch-grid li .ch-item").click(function() {
-                return false;
-            });
-        }
-    });
+// Emulate hover on tablets and smartphones
+$( ".ch-item" ).click(function(e) {
+ 	$(this).toggleClass( "flipped" );
+ 	e.preventDefault();
 });
