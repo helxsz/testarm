@@ -658,7 +658,7 @@
             }
 
         /* MENU */
-        #showLeft {}
+        #showLeft {left: 1.625em;}
 
         #footer {
             width: auto;
