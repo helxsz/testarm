@@ -16,8 +16,9 @@
     <!--[if lte IE 8]><link rel="stylesheet" href="./css/gridset-ie-lte8.css" /><![endif]-->
     <link rel="stylesheet" href="css/mfglabs_iconset.css">
     <link rel="stylesheet" href="css/main.css">
+
     <script src="/assets/js/socket.io.js"></script>
-	<script src="/assets/js/d3.v3.min.js"></script>
+    <script src="/assets/js/d3.v3.min.js"></script>
     <script src="js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
 </head>
 <body class="meeting-room">
@@ -25,56 +26,71 @@
         <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
     <![endif]-->
 
-    <div id="container" class="clearfix">
+    <div id="container" class="container" class="clearfix">
     <!-- START #container -->
 
-        <section class="wrapper">
-        <!-- START .wrapper -->
+        <section>
 
-            <header id="banner" class="d1-d9 t1-t4 m-all clearfix">
-            <!-- START #banner -->
+            <div class="wrapper">
+            <!-- START .wrapper -->
 
-                <h1>ARM 1 <span class="blue">FIRST FLOOR</span> <span class="pink">MEETING ROOM</span> AVAILABILITY</h1>
+                <header id="banner" class="d1-d9 t1-t4 m-all clearfix">
+                <!-- START #banner -->
 
-                <div class="d-hide t-hide m-hide">
-                    <nav role="navigation">
-                        <button class="nav-button"><i class="icon-reorder icon2x"></i></button>
+                    <button id="showLeft"><i class="icon-reorder icon2x"></i></button>
+
+                    <h1>ARM 1 <span class="blue">FIRST FLOOR</span> <span class="pink">MEETING ROOM</span> AVAILABILITY</h1>
+
+                    <nav id="cbp-spmenu-s1" class="cbp-spmenu" role="navigation">
+                        <h3>Menu <button id="closeLeft"><i class="icon-cross_mark"></i></button></h3>
                         <ul id="menu-header-menu">
-                            <li><a href="#">ARM Facility Wide Energy Use</a></li>
-                            <li><a href="#">ARM Meeting Room Availability</a></li>
+                            <li><a href="#">ARM 1 Floor 1</a></li>
+                            <li><a href="#">ARM 1 Floor 2</a></li>
+                            <li><a href="#">ARM 2 Floor 1</a></li>
+                            <li><a href="#">ARM 2 Floor 2</a></li>
+                            <li><a href="#">ARM 3 Floor 1</a></li>
+                            <li><a href="#">ARM 3 Floor 2</a></li>
+                            <li><a href="#">ARM 6 Floor 1</a></li>
+                            <li><a href="#">ARM 6 Floor 2</a></li>
                         </ul>
                     </nav>
-                </div>
 
-            <!-- END #banner -->
-            </header>
+                <!-- END #banner -->
+                </header>
 
-            <section id="main" class="d1-d4 t1-t3 m-all clearfix">
-            <!-- START #main -->
+                <article id="main" class="d1-d4 t1-t3 m-all clearfix">
+                <!-- START #main -->
 
-                <div id="app-brand" class="m-hide" ontouchstart>
-                    <div class="ch-item" ontouchstart >              
-                        <div class="ch-info-wrap">
-                            <div class="ch-info">
-                                <div class="ch-info-front hexagon meetings"></div>
-                                <div class="ch-info-back hexagon">
-                                    <a href="#" title="Return to the Home">
-                                        <i class="icon-home icon3x" aria-hidden="true"></i>
-                                        <h3>Home</h3>
-                                    </a>
-                                </div>  
+                    <div id="app-brand" class="m-hide" ontouchstart>
+                        <div class="ch-item" ontouchstart >              
+                            <div class="ch-info-wrap">
+                                <div class="ch-info">
+                                    <div class="ch-info-front hexagon meetings"></div>
+                                    <div class="ch-info-back hexagon">
+                                        <a href="#" title="Return to the Home">
+                                            <i class="icon-home icon3x" aria-hidden="true"></i>
+                                            <h3>Home</h3>
+                                        </a>
+                                    </div>  
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <article id="app-description" class="t-hide" role="article">
+                    <article id="app-description" class="t-hide" role="article">
 
-                    <p>Visit <a href="http://dashboard.arm.com" title="ARM Sensor Dashboard">http://dashboard.arm.com</a> to view more information about energy use across the ARM Campus.</p>
+                        <p>Visit <a href="http://dashboard.arm.com" title="ARM Sensor Dashboard">http://dashboard.arm.com</a> to view more information about energy use across the ARM Campus.</p>
 
+                    </article>
+                
+                <!-- END #main -->
                 </article>
 
-                <article id="app-meeting" class="app-content">
+            <!-- END .wrapper -->
+            </div>
+
+            <section id="app-meeting" class="app-content">
+            <!-- START #app-meeting -->
 
                     <ul class="ch-grid">
 
@@ -178,23 +194,24 @@
 
                     </ul>
 
-                </article>
-            
-            <!-- END #main -->
-            </section>
+                <!-- END #app-meeting -->
+                </section>
 
-            <footer id="footer" class="d-all t-hide m-hide clearfix">
-            <!-- START #footer -->
-
-                <div><small>v0.50 Design &amp; Coded by <a href="http://www.redninja.co.uk" title="Design and Coded by Red Ninja Studios">Red Ninja Studios</a></small></div>
-                
-                <div><a href="http://arm.com" class="logo-arm" title="ARM - Architecture for the digital world"><img src="img/ARM-RGB.png" alt="ARM - Architecture for the digital world" class="logo" /></a></div>
-            
-            <!-- END #footer -->
-            </footer>
-
-        <!-- END .wrapper -->
         </section>
+
+        <footer id="footer" class="clearfix">
+        <!-- START #footer -->
+
+            <div>
+                <small>v0.50 Design &amp; Coded by <a href="http://www.redninja.co.uk" title="Design and Coded by Red Ninja Studios">Red Ninja Studios</a></small>
+            </div>
+
+            <div>
+                <a href="http://arm.com" class="logo-arm" title="ARM - Architecture for the digital world"><img src="img/ARM-RGB.png" alt="ARM - Architecture for the digital world" class="logo" /></a>
+            </div>
+        
+        <!-- END #footer -->
+        </footer>
 
     <!-- END #container -->
     </div>
@@ -215,86 +232,113 @@
         g.src='//www.google-analytics.com/ga.js';
         s.parentNode.insertBefore(g,s)}(document,'script'));
     </script> -->
-	
-	
+    
+    
     <script>
        
 
-	   
+       
             if (!window.location.origin)
             window.location.origin = window.location.protocol+"//"+window.location.host;
             var socket = io.connect(window.location.origin+":3000");
-    		console.log(window.location.origin+":3000");
+            console.log(window.location.origin+":3000");
             socket.on('connect', function () {
                 //socket.emit('subscribe', {topic : 'home/#'});
             });
-    		
-    		$('.ch-info-front').removeClass('unavailable').addClass('available');
+            
+            $('.ch-info-front').removeClass('unavailable').addClass('available');
 
-    			   var s = $('*[data-room="Room.UKCFM9"]');
-    			   s.attr('data-time',new Date());
-    			   s.attr('data-available',0);
-    			   s.find('.ch-info-front').removeClass('available').addClass('unavailable');	        
-	               console.log(s.find('.ch-info-front').html());
+                   var s = $('*[data-room="Room.UKCFM9"]');
+                   s.attr('data-time',new Date());
+                   s.attr('data-available',0);
+                   s.find('.ch-info-front').removeClass('available').addClass('unavailable');           
+                   console.log(s.find('.ch-info-front').html());
 
-    		
-			requestAll();
-			
-    		socket.on('info', function (msg) {
+            
+            requestAll();
+            
+            socket.on('info', function (msg) {
                 
                 console.log(msg);
                 console.log(msg.room,msg.sensor,msg.value,msg.type)
                 if(msg.type=='motion'){
-    			    
-    			   var s = $('*[data-room="'+msg.room+'"]');
-    			   s.attr('data-time',new Date());
-    			   s.attr('data-available',0);
-    			   s.find('.ch-info-front').removeClass('available').addClass('unavailable');	
-    			   console.log(s.html());
-    			}
+                    
+                   var s = $('*[data-room="'+msg.room+'"]');
+                   s.attr('data-time',new Date());
+                   s.attr('data-available',0);
+                   s.find('.ch-info-front').removeClass('available').addClass('unavailable');   
+                   console.log(s.html());
+                }
 
             });
-    		
-    		setInterval(function(){			
-    			$('#app-meeting').find('.room').each(function(e){
-    			    var id = $(this).attr('data-room');
-    			    var time = $(this).attr('data-time');
-    				var avail = $(this).attr('data-available');
-    				if(time !=null && avail == 0){
-    				
-    				    var last = new Date(time);
-    				    var now = new Date();
-    				    diffMs = now - last;
-    				    var diffMins = Math.round(((diffMs % 86400000) % 3600000) / 60000); 				
-    				    console.log(id+   "    "+diffMins);
-    					if(diffMins >5){
-    					     $(this).attr('data-available',1);
-    					     $(this).find('.ch-info-front').removeClass('unavailable').addClass('available');
-    					}
-    				}
-    			})
-    		},60000);
-			
-            setInterval(function(){ requestAll() },72000);		
+            
+            setInterval(function(){         
+                $('#app-meeting').find('.room').each(function(e){
+                    var id = $(this).attr('data-room');
+                    var time = $(this).attr('data-time');
+                    var avail = $(this).attr('data-available');
+                    if(time !=null && avail == 0){
+                    
+                        var last = new Date(time);
+                        var now = new Date();
+                        diffMs = now - last;
+                        var diffMins = Math.round(((diffMs % 86400000) % 3600000) / 60000);                 
+                        console.log(id+   "    "+diffMins);
+                        if(diffMins >5){
+                             $(this).attr('data-available',1);
+                             $(this).find('.ch-info-front').removeClass('unavailable').addClass('available');
+                        }
+                    }
+                })
+            },60000);
+            
+            setInterval(function(){ requestAll() },72000);      
 
-	function requestAll(){		
+    function requestAll(){      
         $('#app-meeting').find('.room').each(function(e){
-    	    var id = $(this).attr('data-room');
+            var id = $(this).attr('data-room');
  
             $.ajax({
                type: "GET",
                url: "/room/event?url="+id,
                success: function(data)
-               {		  
-                    var s = $('*[data-room="'+id+'"]');			   
-                    //console.log(data.found,data.start,data.end, s.find('h3').text());	
-                   	s.find('h3').text(data.start +" > "+data.end);			   
+               {          
+                    var s = $('*[data-room="'+id+'"]');            
+                    //console.log(data.found,data.start,data.end, s.find('h3').text()); 
+                    s.find('h3').text(data.start +" > "+data.end);             
                }
             });
-	
+    
         })
-    }				
+    }               
 
     </script>
+
+    <!-- Classie - class helper functions by @desandro https://github.com/desandro/classie -->
+    <script>
+        var menuLeft = document.getElementById( 'cbp-spmenu-s1' ),
+            showLeft = document.getElementById( 'showLeft' ),
+            body = document.body;
+
+        showLeft.onclick = function() {
+            classie.toggle( this, 'active' );
+            classie.toggle( menuLeft, 'cbp-spmenu-open' );
+            disableOther( 'showLeft' );
+        };
+
+        closeLeft.onclick = function() {
+            classie.toggle( this, 'active' );
+            classie.toggle( menuLeft, 'cbp-spmenu-open' );
+            disableOther( 'showLeft' );
+        };
+
+        function disableOther( button ) {
+            if( button !== 'showLeft' ) {
+                classie.toggle( showLeft, 'disabled' );
+            }
+
+        }
+    </script>
+
 </body>
 </html>
