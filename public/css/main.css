@@ -89,27 +89,32 @@
             .app-meeting {z-index: 10}
 
         #footer {
-            padding-top:96%;
-            /*width:auto;
-            height:100px;
-            background:#d21f27;
-            margin-top:5px;
+            margin-bottom:3.25em;
+            width:100%;
             clear:both;
-            bottom:0; */ 
+            bottom:0;
         }
             footer div {}
-                footer div:first-child {}
-                footer div:last-child {text-align: right}
+                footer div:first-child {margin-left:3.25em;}
+                footer div:last-child {text-align: right; margin-right:3.25em;}
           
             small {display:block; padding:1.625em 0 1.625em 0;}
 
 
         /* APPS */
 
-        #app-meeting {
+        /*#app-meeting {
             width:90%; position:absolute; 
             right: 72px;
             top: 560px;
+        }*/
+
+        #app-meeting {
+            height: 100%;
+            width: 100%;
+            padding-top: 35em;
+            margin-left: -4.5em;
+            margin-bottom: 13.25em;
         }
 
         #app-social {}
