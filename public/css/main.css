@@ -111,9 +111,8 @@
 
         #app-meeting {
             height: 100%;
-            width: 100%;
             padding-top: 35em;
-            margin-left: -4.5em;
+            margin-right: 4.5em;
             margin-bottom: 13.25em;
         }
 
