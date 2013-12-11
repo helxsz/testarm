@@ -639,8 +639,11 @@
         #banner,
         #app-description {margin-left:4.875em;}
 
-            #app-meeting {
+            /* #app-meeting {
                 top: 336px;
+            }*/
+            #app-meeting {
+                padding-top: 21em;
             }
 
         /* MENU */
