@@ -66,12 +66,12 @@ var Service = function(obj) {
 		}
 		
 	    //////////////////////////////////
-        this.getResourceList = getResourceList;
-		this.getResourceDetail = getResourceDetail;
+        this.fetchResourceList = fetchResourceList;
+		this.fetchResourceDetail = fetchResourceDetail;
 		this.getResourceData = getResourceData;
         this.getResourceTag = getResourceTag;
 		
-        function getResourceList( callback){
+        function fetchResourceList( callback){
             var service = this.serviceObj;
             request.get({  
                 url: this.serviceObj.url,	
@@ -95,6 +95,7 @@ var Service = function(obj) {
                         //winston.debug('getResourceList'+body);					
 		                obj = JSON.parse(body);
 						obj.service = service.name;
+						obj.host = service.host;
                     }catch(e){
 					    return callback(e,null);
 					}					
@@ -103,7 +104,7 @@ var Service = function(obj) {
             }); 
         }
 
-        function getResourceDetail(url, callback){
+        function fetchResourceDetail(url, callback){
 		    var service = this.serviceObj;
             request.get({  
                 url: url,	
@@ -122,12 +123,14 @@ var Service = function(obj) {
 	            else
 	            { 		
                     //winston.debug('getResourceDetail'+body);				
-                    var obj ;				
+                    var obj ;		
+                    					
                     try{				
 		                obj = JSON.parse(body);
                     }catch(e){
 					    return callback(e,null);
-					}					
+					}	
+                    obj.url = url;					
 			        callback(null,obj);
 		        } 
             }); 

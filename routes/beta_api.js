@@ -36,7 +36,8 @@ https://github.com/tobyjaffey/coap-cat-proxy/blob/master/coap-cat-proxy.js
 http://wiki.1248.io/doku.php?id=senml
 http://wiki.1248.io/doku.php?id=hypercat
 http://wiki.1248.io/doku.php?id=pathfinderpermissionsapi
-https://alertmeadaptor.appspot.com/traverse
+https://alertmeadaptor.appspot.com
+
 **************************************************************/
 
 /****   experiment 1 ********/
@@ -159,7 +160,7 @@ serviceBuilder.build([enlight,armhome,armmeeting,armbuilding]);
 /****   experiment 2 ********/
 var meetingService = serviceCatalog.findByName('armmeeting1');  // enlight
 try{
-	 meetingService.getResourceList(function(err,obj){
+	 meetingService.fetchResourceList(function(err,obj){
         if(err){
 	        winston.error('error ');
 	    }else{
@@ -170,7 +171,7 @@ try{
 
 var buildingService = serviceCatalog.findByName('armbuilding');  // enlight
 try{
-	 buildingService.getResourceList(function(err,obj){
+	 buildingService.fetchResourceList(function(err,obj){
         if(err){
 	        winston.error('error ');
 	    }else{
@@ -213,7 +214,11 @@ function MeetingRoomMQTTHandler(){
 		    // stream to interoperbility layer
 		    var array = url.split('/');
 		    //console.log(array[0],array[1],array[2],array[3],array[4],array[5]);
-			findResource(url, 'loc',function(data,err){});
+			findResource("device:",url, 'loc',function(err,data){ 
+			    if(err) winston.error('hmget 11 '+err);
+				else if(data) winston.info('hmget find location 11:'.green+"  "+data.url+"  " +data);	  
+			    else winston.error('hmget find no location11');
+			});
 			var room = mapping[url];
 			if(room){
 			    //console.log("room  is  "+room);
@@ -237,7 +242,7 @@ app.get('/room/event',function(req,res){
     var url = req.query.url;
 	
 	url = rooms[url];
-	buildingService.getResourceDetail(url+"/events",function(err,obj){
+	buildingService.fetchResourceDetail(url+"/events",function(err,obj){
         if(err){
 	        winston.error('error    '+url+"/events");
 			res.send(404);
@@ -318,43 +323,111 @@ function EventDetailHandler(){
 	}
 }	
 
+function isAbsoluteURL(s) {
+    return s.charAt(0) != "#"
+      && s.charAt(0) != "/"
+      && ( s.indexOf("//") == -1 
+        || s.indexOf("//") > s.indexOf("#")
+        || s.indexOf("//") > s.indexOf("?")
+    );
+}
+
+function extractRelativeURL(href,host){
+
+   return href.replace("https://"+host,"");
+}
+
+
+/******    catalog  crawler   ********/
+
 function getLocationResource(obj){
   	for(var i=0;i<obj['item-metadata'].length;i++){
 		var item  = obj['item-metadata'][i], rel = item.rel, val= item.val;
 		winston.debug('item-metadata'.green+ rel+ val);              				
     }
-	winston.debug('parseHyperCat1  item-metadata  length'.green+obj.items.length );  
+	winston.debug('parseHyperCat1  item-metadata  length'.green+obj.items.length );
+    /**/
+	saveResourceListInBulk('cat:',obj.service,obj.items,function(err,data){
+		                        if(err){  winston.error('save resource list error'+err);}
+		                        else winston.info(data);
+	});
+	
+	
 	for(var i=0;i<obj.items.length;i++){
 		var item  = obj.items[i], href = item.href, metadata= item['i-object-metadata'];
-		winston.debug("parseHyperCat1  href".yellow+ href + metadata.length); //
-		enlightService.getResourceDetail(href,function(err,data){
+		winston.debug("parseHyperCat1  href".yellow+ href +"  "+ metadata.length+"   "+isAbsoluteURL(href)+"   "+isAbsoluteURL("https://"+obj.host+href) ); //
+		
+		//////////////////////////////////////////////////////////////////////////////////
+		var relativeURL, absoluteURL ;
+		if(!isAbsoluteURL(href)){
+		    relativeURL = href;
+			absoluteURL = "https://"+obj.host+href;
+		    href = "https://"+obj.host+href;
+
+		}
+		winston.debug("parseHyperCat2  href".yellow+ href ); //
+		// get the location
+		buildingService.fetchResourceDetail(href,function(err,obj){
             if(err){
-	            winston.error('error ');
-	        }else{
-			    for(var i=0;i<data.items.length;i++){
-		            var item  = data.items[i], href = item.href, metadata= item['i-object-metadata'];
-		            winston.debug("location url".yellow + href + metadata.length); //
-				}
-
- 	            for(var i=0;i<data['item-metadata'].length;i++){
-		            var item  = data['item-metadata'][i], rel = item.rel, val= item.val;
-		            console.log('item-metadata'.green, rel, val); 
-                    if(rel == 'urn:X-tsbiot:rels:isContentType'){
-					    if(val == 'application/json; profile=http://schema.org/Place/Room'){
-						    winston.debug('this is a room');
-						}
-					}else if(rel == 'http://schema.org/event'){
-					    winston.debug('event url '+val);
-					}else if(rel == 'http://schema.org/addressLocality'){
-					    winston.debug('address '+address);					
-					}					
-                }				
+	            winston.error('error ',err);
+	        }else{               
+	            var url = obj.url, name = obj.name, address = obj.address,capacity = obj.capacity, email = obj.email, event = obj.event;  
+                var relativeURL = extractRelativeURL(url,buildingService.getHost());				
+				winston.debug("LocationDetailHandler  ".green+relativeURL);
+                saveResourceInBulk("location:",relativeURL, obj, function(err,data){} );
+				// add into attribute groups
+                if(obj.building){
+				    savePropertyGroup("location:"+"building:"+obj.building, "location:"+relativeURL, function(err,data){} );				
+				}				
 		    }
-        })		
+        })
+       					
+		//////////////////////////////////////////////////////////////////////////////////
+		var hash = {};
+		for(var j=0;j<metadata.length;j++){
+		    var item  = metadata[j], rel = item.rel, val= item.val;
+			//console.log(rel+"  "+val);
+			
+            if(rel == 'urn:X-tsbiot:rels:isContentType'){
+				winston.debug('this is a room');						                       
+			}else if(rel == 'http://www.w3.org/2002/07/owl#sameAs'){				                            
+				
+				winston.debug('email link :'+"   "+val);
+                hash.sameAs = val;													
+			}else if(rel == 'http://schema.org/event'){
+			    winston.debug('event :'+"   "+val);
+				hash.event = val;
+				if(!isAbsoluteURL(val)){
+		            val = "https://"+obj.host+val;
+		        }
+		        winston.debug("parseHyperCat3  event href".yellow+ val ); //
+		        // get the event of a location
+		        /*
+				buildingService.fetchResourceDetail(val,function(err,events){
+				    
+                        if(err){
+	                     winston.error('error ',err);
+	                    }else{
+						    var relativeURL = extractRelativeURL(events.url, buildingService.getHost());
+							console.log( "relative:".green,  relativeURL );
+                            for(var i=0;i<events.length;i++){
+	                            var event = events[i];								
+				                winston.debug("event handler  ".green+event.location+event.startDate+ event.endDate+ event.url);                               								
+		                    }
+							
+							pushToListInBulk( 'events:',relativeURL ,events,function(err,data){});
+						}
+                })
+				*/		
+			}else if(rel=='http://schema.org/addressLocality'){
+			    winston.debug('addressLocality :'+"   "+val);
+				hash.addressLocality = val;
+				savePropertyGroup("location:"+"addressLocality:"+hash.addressLocality, "location:"+relativeURL, function(err,data){} );
+			}				
+        }
+		saveResourceInBulk("location:",href, hash, function(err,data){} );	
 	}	
-
 }
-
 
 function getArmMeetingResource(obj){
     	
@@ -367,22 +440,22 @@ function getArmMeetingResource(obj){
 	for(var i=0;i<obj.items.length;i++){
 		var item  = obj.items[i], href = item.href, metadata= item['i-object-metadata'];
 		console.log("parseHyperCat1  href".yellow, href, metadata.length); //
-	    meetingService.getResourceDetail(href,function(err,data){
+	    meetingService.fetchResourceDetail(href,function(err,data){
             if(err){
 	            winston.error('error ');
 	       }else{
                 for(var i=0;i<data.items.length;i++){
 		            var item  = data.items[i], href = item.href, metadata= item['i-object-metadata'];
-                    console.log("getResourceDetail  href".yellow, href, metadata.length);
-					meetingService.getResourceDetail(href,function(err,data1){
+                    console.log("fetchResourceDetail  href".yellow, href, metadata.length);
+					meetingService.fetchResourceDetail(href,function(err,data1){
 					    if(err){
                                 winston.error('error ');
 						}else{
 						    for(var i=0;i<data1.items.length;i++){
 		                        var item  = data1.items[i], href = item.href, metadata= item['i-object-metadata'];
-                                console.log("getResourceDetail 2  href".yellow, href, metadata.length);
+                                console.log("fetchResourceDetail 2  href".yellow, href, metadata.length);
 								 
-								meetingService.getResourceDetail(href,function(err,data2){ 
+								meetingService.fetchResourceDetail(href,function(err,data2){ 
                                     if(err){
 								        winston.error('error ');
 								    }else{
@@ -395,37 +468,20 @@ function getArmMeetingResource(obj){
 					                        }else if(rel == 'http://www.w3.org/2002/07/owl#sameAs'){
 					                            
 												var res = href.replace("https://geras.1248.io/cat","");
-												winston.debug('location :'+res+"   "+val);
-                                                saveResource(res, {loc:val}, function(err,data){} );													
-					                        }					
+												winston.debug('location :'+res+"   "+val+"  "+meetingService.getName());
+                                                saveResourceInBulk("device:",res, {loc:val}, function(err,data){} );													
+					                        }else if(rel == 'urn:X-tsbiot:rels:supports:observe:mqtt:senml:v1'){
+													
+											}else if(rel == 'urn:X-tsbiot:rels:supports:query'){
+													
+											}					
                                         }
-										  
-										  
-									    /*
-									    for(var i=0;i<data2.items.length;i++){
-		                                    var item  = data2.items[i], href = item.href, metadata= item['i-object-metadata'];
-                                            console.log("getResourceDetail 3  href".yellow, href, metadata.length);
-											
-											if(metadata.length > 2){
-											    for(var j=0;j<metadata.length;j++){
-												    //console.log(metadata[j].rel);													
-												    if(metadata[j].rel == 'http://www.w3.org/2002/07/owl#sameAs'){
-													    console.log("getResourceDetail 3  sameas".yellow, href +"  : "+ metadata[j].val );
-														saveResource(href, {loc:metadata[j].val}, function(err,data){} );
-													}else if(metadata[j].rel == 'urn:X-tsbiot:rels:supports:observe:mqtt:senml:v1'){
-													
-													}else if(metadata[j].rel == 'urn:X-tsbiot:rels:supports:query'){
-													
-													}
-												}											
-											}
-								        }
-										*/
+
                                       }catch(e){winston.error(e.name+"    "+data2.toString());} 										
 									}
 								})
 						    }							
-                            saveResourceList2(obj.service,data1.items,function(err,data){
+                            saveResourceListInBulk('cat:',obj.service,data1.items,function(err,data){
 		                        if(err){  winston.error('save resource list error'+err);}
 		                        else winston.info(data);
 	                        });													
@@ -435,9 +491,10 @@ function getArmMeetingResource(obj){
 	       }	 	 
 	    });							
 	}	
-	getResourceList(obj.service,function(err,data){});
+	getResourceList('cat:',obj.service,function(err,data){});
 }
 
+/******    catalog  crawler   ********/
 
 
 function clearResourceList(service,callback){
@@ -448,7 +505,7 @@ function clearResourceList(service,callback){
         redisClient = redis.createClient(redis_port,redis_ip);
 	}
     catch (error){
-        console.log('saveResourceIntoCatalog  error' + error);
+        console.log('save ResourceIntoCatalog  error' + error);
 		redisClient.quit();
 		return callback(error,null);
     }
@@ -459,7 +516,7 @@ function clearResourceList(service,callback){
 	return callback(null,1);
 }
 
-function getResourceList(service,callback){
+function getResourceList(context,service,callback){
     var redisClient;
     var redis_ip= config.redis.host;  
     var redis_port= config.redis.port; 	
@@ -467,23 +524,21 @@ function getResourceList(service,callback){
         redisClient = redis.createClient(redis_port,redis_ip);
 	}
     catch (error){
-        console.log('saveResourceIntoCatalog  error' + error);
+        console.log('get ResourceList Catalog  error' + error);
 		redisClient.quit();
 		return callback(error,null);
     }
-    redisClient.multi().smembers('cat:'+service).exec(function (err, replies) {
+    redisClient.multi().smembers(context+service).exec(function (err, replies) {
 		console.log('services     '.green +  replies.length+"  ");
 		replies.forEach(function (reply, index) {
              console.log("Reply " + index + ": " + reply.toString() +"\n" );
         });
 		return callback(null,replies);
     });
-	redisClient.quit();  
-	
+	redisClient.quit();  	
 }
 
-
-function saveResourceList(service ,item ,callback){
+function saveResourceList(context,service ,item ,callback){
     var redisClient;
     var redis_ip= config.redis.host;  
     var redis_port= config.redis.port; 	
@@ -491,19 +546,19 @@ function saveResourceList(service ,item ,callback){
         redisClient = redis.createClient(redis_port,redis_ip);
 	}
     catch (error){
-        console.log('saveResourceIntoCatalog  error' + error);
+        console.log('save Resource IntoCatalog  error' + error);
 		redisClient.quit();
 		return callback(error,null);
     }	
 	var time = new Date().getTime();
     //redisClient.zadd('imgs:'+service,time,JSON.stringify({'img':img_id,'time':time}));
-	redisClient.sadd('cat:'+service,JSON.stringify({'item':item}));
-	redisClient.incrby('cat:'+service+':count',1);
+	redisClient.sadd(context+service,JSON.stringify({'item':item}));
+	redisClient.incrby(context+service+':count',1);
 	redisClient.quit();
 	return callback(null,1);
 }
 
-function saveResourceList2(service ,items ,callback){
+function saveResourceListInBulk(context,service ,items ,callback){
     var redisClient;
     var redis_ip= config.redis.host;  
     var redis_port= config.redis.port; 	
@@ -511,20 +566,17 @@ function saveResourceList2(service ,items ,callback){
         redisClient = redis.createClient(redis_port,redis_ip);
 	}
     catch (error){
-        console.log('saveResourceIntoCatalog  error' + error);
+        console.log('save ResourceInto Catalog  error' + error);
 		redisClient.quit();
 		return callback(error,null);
-    }	
-	var time = new Date().getTime();
-
-	
+    }		
     var mul = redisClient.multi();
     for(var i=0;i<items.length;i++){
-	   mul.sadd('cat:'+service,JSON.stringify({'item':items[i].href}))
-		 .incrby('cat:'+service+':count',1);
+	   mul.sadd(context+service,JSON.stringify({'item':items[i].href}))
+		 .incrby(context+service+':count',1);
 	}
 	mul.exec(function (err, replies) {
-            console.log("saveResourceList2 " + replies.length + " replies");
+            console.log("save Resource List2 " + replies.length + " replies");
             replies.forEach(function (reply, index) {
                 //console.log("Reply " + index + ": " + reply.toString());
             });
@@ -533,9 +585,9 @@ function saveResourceList2(service ,items ,callback){
 	return callback(null,1);
 }
 
-/*******                                            ***********/
 
-function findResource(url ,item ,callback){
+/****  attributes = entity+reference+value   for example, room:building:BOX *****/
+function savePropertyGroup(attribute ,entity_key ,callback){
     var redisClient;
     var redis_ip= config.redis.host;  
     var redis_port= config.redis.port; 	
@@ -543,29 +595,105 @@ function findResource(url ,item ,callback){
         redisClient = redis.createClient(redis_port,redis_ip);
 	}
     catch (error){
-        console.log('saveResourceIntoCatalog  error' + error);
+        console.log('save ResourceInto Catalog  error' + error);
+		redisClient.quit();
+		return callback(error,null);
+    }		
+	redisClient.sadd(attribute,entity_key);
+	redisClient.incrby(attribute+':count',1);	
+	redisClient.quit();
+	return callback(null,1);
+}
+
+/***  only for the events ***/
+
+function pushToListInBulk(context,url,items ,callback){
+    var redisClient;
+    var redis_ip= config.redis.host;  
+    var redis_port= config.redis.port; 	
+    try{ 
+        redisClient = redis.createClient(redis_port,redis_ip);
+	}
+    catch (error){
+        console.log('save ResourceInto Catalog  error' + error);
+		redisClient.quit();
+		return callback(error,null);
+    }	
+
+	// use the zadd
+    var mul = redisClient.multi();
+    for(var i=0;i<items.length;i++){
+	   mul.lpush(context+url,JSON.stringify({'item':items[i]}))
+	}
+	mul.exec(function (err, replies) {
+            console.log("pushToListInBulk  " + replies.length + " replies");
+            replies.forEach(function (reply, index) {
+                //console.log("Reply " + index + ": " + reply.toString());
+            });
+    });		
+	redisClient.quit();
+	return callback(null,1);
+}
+
+function getListInBulk(context,url ,callback){
+    var redisClient;
+    var redis_ip= config.redis.host;  
+    var redis_port= config.redis.port; 	
+    try{ 
+        redisClient = redis.createClient(redis_port,redis_ip);
+	}
+    catch (error){
+        console.log('save ResourceInto Catalog  error' + error);
+		redisClient.quit();
+		return callback(error,null);
+    }	
+
+	
+	redisClient.lrange(context+url, 0,-1,function(err, data){
+	    redisClient.quit();
+	    if(err) {return callback(err,null);}
+		else if(data) { return callback(null,data);}
+        else { return callback(null,null);}	
+	});	
+	redisClient.quit();
+	return callback(null,1);
+}
+
+/*******                                            ***********/
+	/*
+	client.hgetall("device:"+url, function (err, data) {
+        console.log('hgetall  reply 2'+data);	
+    });
+    */
+function findResource(context,url ,item ,callback){
+    var redisClient;
+    var redis_ip= config.redis.host;  
+    var redis_port= config.redis.port; 	
+    try{ 
+        redisClient = redis.createClient(redis_port,redis_ip);
+	}
+    catch (error){
+        console.log('find Resource eInto Catalog  error' + error);
 		redisClient.quit();
 		return callback(error,null);
     }	
 	
 	console.log('url :'+url.substring(0,url.lastIndexOf("/")));
 	url = url.substring(0,url.lastIndexOf("/"));
-	redisClient.hmget("device:"+url, item,function(err, data){
-	    if(err) winston.error('hmget  '+err);
-		else if(data) winston.info('hmget find location:'.green+"  "+url+"  " +data);	
-        else winston.error('hmget find no    location')		
+	redisClient.hmget(context+url, item,function(err, data){
+	    redisClient.quit();
+		data.url = url;
+	    if(err) {return callback(err,null);}
+		else if(data) { return callback(null,data);}
+        else { return callback(null,null);}	
 	});
-	/*
-	client.hgetall("device:"+url, function (err, data) {
-        console.log('hgetall  reply 2'+data);	
-    });
-    */
+
 	redisClient.quit();
 	return callback(null,1);
 }
 
 
-function saveResource(url ,item ,callback){
+function saveResourceInBulk(context, url ,item ,callback){
     var redisClient;
     var redis_ip= config.redis.host;  
     var redis_port= config.redis.port;	
@@ -573,7 +701,7 @@ function saveResource(url ,item ,callback){
         redisClient = redis.createClient(redis_port,redis_ip);
 	}
     catch (error){
-        console.log('saveResourceIntoCatalog  error' + error);
+        console.log('save Resource IntoCatalog  error' + error);
 		redisClient.quit();
 		return callback(error,null);
     }	
@@ -581,10 +709,10 @@ function saveResource(url ,item ,callback){
 		
 	var mul = redisClient.multi();
     for(var index in item) {
-		mul.hmset("device:"+url,index,item[index],function(){})
+		mul.hmset(context+url,index,item[index],function(){})
     }		
 	mul.exec(function (err, replies) {
-        console.log("saveResource ".green + replies.length + " replies");
+        console.log("save Resource ".green + replies.length + " replies");
     });
 	redisClient.quit();
 	return callback(null,1);
@@ -623,7 +751,7 @@ app.get('/clear',function(req,res,next){
 // http://localhost/all/meeting
 app.get('/all/meeting',function(req,res,next){
 
-    getResourceList('armmeeting',function(err,data){
+    getResourceList('cat:','armmeeting',function(err,data){
 	    res.send(200,data);
 	
 	});
@@ -634,7 +762,7 @@ app.get('/catalog',function(req,res,next){
     var type = req.query.type;
     var enlightService = serviceCatalog.findByName(type);
     try{
-        enlightService.getResourceList(function(err,data){
+        enlightService.fetchResourceList(function(err,data){
 	            if(err) {  winston.error(err.name + ": " + err.message);  res.send(404,err);}
 	            else res.json(200,data);			
 		});		
@@ -706,7 +834,7 @@ function parseHyperCat(obj){
 	}
 	
    
-	saveResourceList2(obj.service,obj.items,function(err,data){
+	saveResourceListInBulk(obj.service,obj.items,function(err,data){
 		if(err){  winston.error('save resource list error'+err);}
 		else winston.info(data);
 	});	
