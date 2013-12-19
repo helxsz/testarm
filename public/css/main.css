@@ -395,11 +395,17 @@
 
         /* COLOUR STATES */
 
-        .available {background: url('../img/hexagon_available.png') no-repeat 50% 50% scroll;}
-        .svg .available {background: url('../img/svg/hexagon_available.svg') no-repeat 50% 50% scroll;}
+        .available .ch-info-front {background: url('../img/hexagon_available.png') no-repeat 50% 50% scroll;}
+        .svg .available .ch-info-front {background: url('../img/svg/hexagon_available.svg') no-repeat 50% 50% scroll;}
 
-        .unavailable {background: url('../img/hexagon_unavailable.png') no-repeat 50% 50% scroll;}
-        .svg .unavailable {background: url('../img/svg/hexagon_unavailable.svg') no-repeat 50% 50% scroll;}
+        .available .ch-info-back {background: url('../img/hexagon_available.png') no-repeat 50% 50% scroll;}
+        .svg .available .ch-info-back {background: url('../img/svg/hexagon_available.svg') no-repeat 50% 50% scroll;}
+
+        .unavailable .ch-info-front {background: url('../img/hexagon_unavailable.png') no-repeat 50% 50% scroll;}
+        .svg .unavailable .ch-info-front {background: url('../img/svg/hexagon_unavailable.svg') no-repeat 50% 50% scroll;}
+
+        .unavailable .ch-info-back {background: url('../img/hexagon_unavailable.png') no-repeat 50% 50% scroll;}
+        .svg .unavailable .ch-info-back {background: url('../img/svg/hexagon_unavailable.svg') no-repeat 50% 50% scroll;}
 
         /* BRAND LOGOS */
 

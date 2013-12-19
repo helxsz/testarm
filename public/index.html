@@ -97,8 +97,8 @@
                         <li id="Room.UKCElm" data-room="Room.UKCElm" class="room">
                             <div class="ch-item">              
                                 <div class="ch-info-wrap">
-                                    <div class="ch-info">
-                                        <div class="ch-info-front hexagon unavailable"><h1>Elm</h1></div>
+                                    <div class="ch-info unavailable">
+                                        <div class="ch-info-front hexagon"><h1>Elm</h1></div>
                                         <div class="ch-info-back hexagon">
                                             <h3>13:00 > 14:00</h3>
                                             <h4>Joe Bloggs</h4>
@@ -111,8 +111,8 @@
                         <li id="Room.UKCSF8" data-room="Room.UKCSF8" class="room">
                             <div class="ch-item" ontouchstart="" >              
                                 <div class="ch-info-wrap">
-                                    <div class="ch-info">
-                                        <div class="ch-info-front hexagon unavailable"><h1>SF8</h1></div>
+                                    <div class="ch-info unavailable">
+                                        <div class="ch-info-front hexagon"><h1>SF8</h1></div>
                                         <div class="ch-info-back hexagon">
                                             <h3>13:00 > 14:00</h3>
                                             <h4>Joe Bloggs</h4>
@@ -125,8 +125,8 @@
                         <li id="RoomUKCPatentBox" data-room="RoomUKCPatentBox" class="room">
                             <div class="ch-item" ontouchstart="" >              
                                 <div class="ch-info-wrap">
-                                    <div class="ch-info">
-                                        <div class="ch-info-front hexagon unavailable"><h1>BOX</h1></div>
+                                    <div class="ch-info unavailable">
+                                        <div class="ch-info-front hexagon"><h1>BOX</h1></div>
                                         <div class="ch-info-back hexagon">
                                             <h3>13:00 > 14:00</h3>
                                             <h4>Joe Bloggs</h4>
@@ -139,8 +139,8 @@
                         <li id="Room.UKCWillowB" data-room="Room.UKCWillowB" class="room">
                             <div class="ch-item" ontouchstart="" >              
                                 <div class="ch-info-wrap">
-                                    <div class="ch-info">
-                                        <div class="ch-info-front hexagon available"><h1>FM11</h1></div>
+                                    <div class="ch-info available">
+                                        <div class="ch-info-front hexagon"><h1>FM11</h1></div>
                                         <div class="ch-info-back hexagon">
                                             <h3>13:00 > 14:00</h3>
                                             <h4>Joe Bloggs</h4>
@@ -153,8 +153,8 @@
                         <li id="Room.UKCFM10" data-room="Room.UKCFM10" class="room">
                             <div class="ch-item" ontouchstart="" >              
                                 <div class="ch-info-wrap">
-                                    <div class="ch-info">
-                                        <div class="ch-info-front hexagon unavailable"><h1>FM10</h1></div>
+                                    <div class="ch-info unavailable">
+                                        <div class="ch-info-front hexagon"><h1>FM10</h1></div>
                                         <div class="ch-info-back hexagon">
                                             <h3>13:00 > 14:00</h3>
                                             <h4>Joe Bloggs</h4>
@@ -167,8 +167,8 @@
                         <li id="Room.UKCARM66MR4" data-room="Room.UKCARM66MR4" class="room">
                             <div class="ch-item" ontouchstart="" >              
                                 <div class="ch-info-wrap">
-                                    <div class="ch-info">
-                                        <div class="ch-info-front hexagon available"><h1>MR4</h1></div>
+                                    <div class="ch-info available">
+                                        <div class="ch-info-front hexagon"><h1>MR4</h1></div>
                                         <div class="ch-info-back hexagon">
                                             <h3>13:00 > 14:00</h3>
                                             <h4>Joe Bloggs</h4>
@@ -181,8 +181,8 @@
                         <li id="Room.UKCARM66MR5" data-room="Room.UKCARM66MR5" class="room">
                             <div class="ch-item" ontouchstart="" >              
                                 <div class="ch-info-wrap">
-                                    <div class="ch-info">
-                                        <div class="ch-info-front hexagon unavailable"><h1>MR5</h1></div>
+                                    <div class="ch-info unavailable">
+                                        <div class="ch-info-front hexagon"><h1>MR5</h1></div>
                                         <div class="ch-info-back hexagon">
                                             <h3>13:00 > 14:00</h3>
                                             <h4>Joe Bloggs</h4>
@@ -246,13 +246,13 @@
                 //socket.emit('subscribe', {topic : 'home/#'});
             });
             
-            $('.ch-info-front').removeClass('unavailable').addClass('available');
+            $('.ch-info').removeClass('unavailable').addClass('available');
 
                    var s = $('*[data-room="Room.UKCFM9"]');
                    s.attr('data-time',new Date());
                    s.attr('data-available',0);
-                   s.find('.ch-info-front').removeClass('available').addClass('unavailable');           
-                   console.log(s.find('.ch-info-front').html());
+                   s.find('.ch-info').removeClass('available').addClass('unavailable');           
+                   console.log(s.find('.ch-info').html());
 
             
             requestAll();
@@ -266,7 +266,7 @@
                    var s = $('*[data-room="'+msg.room+'"]');
                    s.attr('data-time',new Date());
                    s.attr('data-available',0);
-                   s.find('.ch-info-front').removeClass('available').addClass('unavailable');   
+                   s.find('.ch-info').removeClass('available').addClass('unavailable');   
                    console.log(s.html());
                 }
 
@@ -286,7 +286,7 @@
                         console.log(id+   "    "+diffMins);
                         if(diffMins >5){
                              $(this).attr('data-available',1);
-                             $(this).find('.ch-info-front').removeClass('unavailable').addClass('available');
+                             $(this).find('.ch-info').removeClass('unavailable').addClass('available');
                         }
                     }
                 })
