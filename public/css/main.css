@@ -398,14 +398,14 @@
         .available .ch-info-front {background: url('../img/hexagon_available.png') no-repeat 50% 50% scroll;}
         .svg .available .ch-info-front {background: url('../img/svg/hexagon_available.svg') no-repeat 50% 50% scroll;}
 
-        .available .ch-info-back {background: url('../img/hexagon_available.png') no-repeat 50% 50% scroll;}
-        .svg .available .ch-info-back {background: url('../img/svg/hexagon_available.svg') no-repeat 50% 50% scroll;}
+        .available .ch-info-back {background: url('../img/hexagon_available-rear.png') no-repeat 50% 50% scroll;}
+        .svg .available .ch-info-back {background: url('../img/svg/hexagon_available-rear.svg') no-repeat 50% 50% scroll;}
 
         .unavailable .ch-info-front {background: url('../img/hexagon_unavailable.png') no-repeat 50% 50% scroll;}
         .svg .unavailable .ch-info-front {background: url('../img/svg/hexagon_unavailable.svg') no-repeat 50% 50% scroll;}
 
-        .unavailable .ch-info-back {background: url('../img/hexagon_unavailable.png') no-repeat 50% 50% scroll;}
-        .svg .unavailable .ch-info-back {background: url('../img/svg/hexagon_unavailable.svg') no-repeat 50% 50% scroll;}
+        .unavailable .ch-info-back {background: url('../img/hexagon_unavailable-rear.png') no-repeat 50% 50% scroll;}
+        .svg .unavailable .ch-info-back {background: url('../img/svg/hexagon_unavailable-rear.svg') no-repeat 50% 50% scroll;}
 
         /* BRAND LOGOS */
 
@@ -414,8 +414,8 @@
             top: 7em;
             right: 4.5em;
         }
-            .meetings {background: url('../img/hexagon_meetings.png') no-repeat 50% 50% scroll;}
-            .svg .meetings {background: url('../img/svg/hexagon_meetings.svg') no-repeat 50% 50% scroll;}
+            .meetings .ch-info-front {background: url('../img/hexagon_meetings.png') no-repeat 50% 50% scroll;}
+            .svg .meetings .ch-info-front {background: url('../img/svg/hexagon_meetings.svg') no-repeat 50% 50% scroll;}
 
         /* TYPOGRAPHY */
 
