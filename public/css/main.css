@@ -586,6 +586,11 @@
                 .icon-information:hover,
                 .icon-telephone:hover {background-color: #134D61;}
 
+                .available .icon-information,
+                .available .icon-telephone {background-color: #134D61;}
+                    .available .icon-information:hover ,
+                    .available .icon-telephone:hover {background-color: #670F38;}
+
             .ch-info-back .icon-arrow_right {font-size: 0.8125em; color: #670F38;}
 
             .bookerPhoto {
@@ -593,6 +598,8 @@
                 margin:0 auto; margin-top:1.625em; overflow: hidden;
                 border: 4px #670F38 solid;
             }
+                .available .bookerPhoto {border: 4px #134D61 solid;}
+
             .bookerPhoto img {max-width: 100%}
 
 
