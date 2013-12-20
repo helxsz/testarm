@@ -173,6 +173,7 @@
         footer ul li a {text-decoration: none;}
 
     button {background:none; border:none;}
+        button span {display: none;}
 
 
     /*  Bullet lists  */
@@ -296,6 +297,12 @@
             background: url('../img/svg/ARM-RGB.svg') no-repeat 50% 50%; background-size: 100%;
         } .svg .logo-arm img {display: none;}
 
+    .maskCircle {
+        -webkit-border-radius: 50%;
+           -moz-border-radius: 50%;
+                border-radius: 50%;
+    }
+
 
     /* Icons */
 
@@ -407,30 +414,6 @@
         .unavailable .ch-info-back {background: url('../img/hexagon_unavailable-rear.png') no-repeat 50% 50% scroll;}
         .svg .unavailable .ch-info-back {background: url('../img/svg/hexagon_unavailable-rear.svg') no-repeat 50% 50% scroll;}
 
-        /* BRAND LOGOS */
-
-        #app-brand {
-            position: absolute;
-            top: 7em;
-            right: 4.5em;
-        }
-            .meetings .ch-info-front {background: url('../img/hexagon_meetings.png') no-repeat 50% 50% scroll;}
-            .svg .meetings .ch-info-front {background: url('../img/svg/hexagon_meetings.svg') no-repeat 50% 50% scroll;}
-
-        /* TYPOGRAPHY */
-
-        .hexagon h1 {font-size: 4.25em; padding-top:1em;}
-        .ch-info-back h2 {font-size:3.25em; margin-bottom:0.25em; padding-top:1.625em; }
-        .ch-info-back h3 {
-            font-size: 1.625em;
-            line-height: 26px;
-            margin-bottom: 0;
-            padding-top: 3.25em;
-        }
-            #app-brand h3 {padding-top: 0;}
-        .ch-info-back i {display:block; padding-top: 1.625em; margin-bottom:0.25em;}
-        .ch-info-back a {text-decoration: none; border: none;}
-
         /* FLIP ANIMATION */
         .ch-grid {
             margin: 0;
@@ -458,9 +441,10 @@
             width:232px; height:200px;
             position: relative;
             cursor: default;
+            z-index: 1;
         }
 
-        .ch-info-wrap{
+        .ch-info-wrap {
             position: absolute;
             width: 100%;
             height: 100%;
@@ -479,7 +463,7 @@
 
         }
 
-        .ch-info{
+        .ch-info {
             position: absolute;
             width: 100%;
             height: 100%;
@@ -545,6 +529,72 @@
             -ms-transform: rotate3d(0,1,0,-180deg);
             transform: rotate3d(0,1,0,-180deg);
         }*/
+
+
+        /* BRAND LOGOS */
+
+        #app-brand {
+            position: absolute;
+            top: 7em;
+            right: 4.5em;
+        }
+            .meetings .ch-info-front {background: url('../img/hexagon_meetings.png') no-repeat 50% 50% scroll;}
+            .svg .meetings .ch-info-front {background: url('../img/svg/hexagon_meetings.svg') no-repeat 50% 50% scroll;}
+
+        /* TYPOGRAPHY */
+
+        .hexagon h1 {font-size: 4.25em; padding-top:1em;}
+        .ch-info-back h2 {font-size:3.25em; margin-bottom:0.25em; padding-top:1.625em; }
+        .ch-info-back h3 {
+            font-size: 1.625em;
+            line-height: 26px;
+            margin-bottom: 0;
+            /* padding-top: 3.25em; */
+            padding-top: 0;
+        }
+            #app-brand h3 {padding-top: 0;}
+        .ch-info-back h4 {margin-bottom: 0;}
+
+        #app-brand .ch-info-back i {display: block; padding-top: 1.625em; margin-bottom:0.25em;}
+        .ch-info-back a {text-decoration: none; border: none; z-index: 10;}
+        
+
+        /* hex buttons */
+
+        .ch-info button {
+            height:32px; width:32px;
+        }
+
+            .icon-telephone {
+                background: #670F38 url('../img/icon_telephone.png') no-repeat 50% 50%; 
+                background-size: 100%;
+            }
+                .svg .icon-telephone {
+                background: #670F38 url('../img/svg/icon_telephone.svg') no-repeat 50% 50%; 
+                background-size: 100%;
+            }
+
+            .icon-information {
+                background: #670F38 url('../img/icon_information.png') no-repeat 50% 50%; 
+                background-size: 100%;
+            }
+                .svg .icon-information {
+                background: #670F38 url('../img/svg/icon_information.svg') no-repeat 50% 50%; 
+                background-size: 100%;
+            }
+
+                .icon-information:hover,
+                .icon-telephone:hover {background-color: #134D61;}
+
+            .ch-info-back .icon-arrow_right {font-size: 0.8125em; color: #670F38;}
+
+            .bookerPhoto {
+                height:3.25em; width:3.25em; 
+                margin:0 auto; margin-top:1.625em; overflow: hidden;
+                border: 4px #670F38 solid;
+            }
+            .bookerPhoto img {max-width: 100%}
+
 
 /*  ==========================================================================
     8. Forms

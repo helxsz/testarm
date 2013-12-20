@@ -4,3 +4,7 @@ $( ".ch-item" ).click(function(e) {
  	$(this).toggleClass( "flipped" );
  	e.preventDefault();
 });
+
+$('.noSpin').click(function(event){
+    event.stopImmediatePropagation();
+});
