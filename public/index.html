@@ -16,6 +16,7 @@
     <!--[if lte IE 8]><link rel="stylesheet" href="./css/gridset-ie-lte8.css" /><![endif]-->
     <link rel="stylesheet" href="css/mfglabs_iconset.css">
     <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/menu-component.css">
 
     <script src="/assets/js/socket.io.js"></script>
     <script src="/assets/js/d3.v3.min.js"></script>
@@ -29,18 +30,50 @@
     <div id="container" class="container" class="clearfix">
     <!-- START #container -->
 
-        <section>
+        <section class="mp-pusher" id="mp-pusher">
 
+            <!-- mp-menu -->
+                <nav id="mp-menu" class="mp-menu">
+                    <div class="mp-level">
+                        <h2 class="icon icon-world">All Categories</h2>
+                        <ul>
+                            <li>
+                                <a class="icon icon-news" href="#">ARM 1</a>
+                                <div class="mp-level">
+                                    <h2 class="icon icon-news">Magazines</h2>
+                                    <a class="mp-back" href="#">back</a>
+                                    <ul>
+                                        <li><a href="#">Floor 1</a></li>
+                                        <li><a href="#">Floor 2</a></li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <li><a class="icon icon-photo" href="#">ARM 2</a></li>
+                            <li><a class="icon icon-wallet" href="#">ARM 3</a></li>
+                            <li><a class="icon icon-wallet" href="#">ARM 6</a></li>
+                        </ul>
+                            
+                    </div>
+                </nav>
+                <!-- /mp-menu -->
+
+            <div class="scroller">
+            <div class="scroller-inner">
+            <!-- start .scroller's -->
+            
             <div class="wrapper">
             <!-- START .wrapper -->
+
 
                 <header id="banner" class="d1-d9 t1-t4 m-all clearfix">
                 <!-- START #banner -->
 
-                    <button id="showLeft"><i class="icon-reorder icon2x"></i></button>
+                    <!--<button id="showLeft"><i class="icon-reorder icon2x"></i></button>-->
+                    <button id="trigger"><i class="icon-reorder icon2x"></i></button>
 
                     <h1>ARM 1 <span class="blue">FIRST FLOOR</span> <span class="pink">MEETING ROOM</span> AVAILABILITY</h1>
 
+                    <!--
                     <nav id="cbp-spmenu-s1" class="cbp-spmenu" role="navigation">
                         <h3>Menu <button id="closeLeft"><i class="icon-cross_mark"></i></button></h3>
                         <ul id="menu-header-menu">
@@ -54,6 +87,7 @@
                             <li><a href="#">ARM 6 Floor 2</a></li>
                         </ul>
                     </nav>
+                    -->
 
                 <!-- END #banner -->
                 </header>
@@ -772,21 +806,25 @@
                 <!-- END #app-meeting -->
                 </section>
 
+                <footer id="footer" class="clearfix">
+                <!-- START #footer -->
+
+                    <div>
+                        <small>v0.60 Design &amp; Coded by <a href="http://www.redninja.co.uk" title="Design and Coded by Red Ninja Studios">Red Ninja Studios</a></small>
+                    </div>
+
+                    <div>
+                        <a href="http://arm.com" class="logo-arm" title="ARM - Architecture for the digital world"><img src="img/ARM-RGB.png" alt="ARM - Architecture for the digital world" class="logo" /></a>
+                    </div>
+                
+                <!-- END #footer -->
+                </footer>
+
+            <!-- end .scroller's -->
+            </div>
+            </div>
+
         </section>
-
-        <footer id="footer" class="clearfix">
-        <!-- START #footer -->
-
-            <div>
-                <small>v0.60 Design &amp; Coded by <a href="http://www.redninja.co.uk" title="Design and Coded by Red Ninja Studios">Red Ninja Studios</a></small>
-            </div>
-
-            <div>
-                <a href="http://arm.com" class="logo-arm" title="ARM - Architecture for the digital world"><img src="img/ARM-RGB.png" alt="ARM - Architecture for the digital world" class="logo" /></a>
-            </div>
-        
-        <!-- END #footer -->
-        </footer>
 
     <!-- END #container -->
     </div>
@@ -797,6 +835,9 @@
 
     <script src="js/plugins.js"></script>
     <script src="js/main.js"></script>
+
+    <script src="js/vendor/classie.js"></script>
+    <script src="js/vendor/mlpushmenu.js"></script>
 
     <!-- Gridset overlay script - toggles grid overlay on and off - You can remove this if you want. -->
     <script src="./js/gridset-overlay.js"></script> 
@@ -914,6 +955,11 @@
 
         }
     </script>
+
+    <!-- New Menu -->
+    <script>
+            new mlPushMenu( document.getElementById( 'mp-menu' ), document.getElementById( 'trigger' ) );
+        </script>
 
 </body>
 </html>
