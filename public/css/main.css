@@ -926,7 +926,7 @@
     ========================================================================== */
 
     .tg-table-dark {
-        width: 100%;
+        width: 100%; margin-bottom:0;
         border-collapse: collapse; border-spacing: 0; 
     }
         .tg-table-dark tr {
