@@ -55,7 +55,7 @@
     1. BASE
     ========================================================================== */
 
-    html {height: 100%; font-size: 100%; overflow-y: scroll; 
+    html {height: 100%; font-size: 100%; 
         -webkit-text-size-adjust: 100%;
         } /* Force scrollbar in non-IE and Remove iOS text size adjust without disabling user zoom */
     body {font-size: 1em; line-height: 1.625em; margin: 0; padding: 0; height:100%; min-height: 100%; 
@@ -139,7 +139,7 @@
     13px = 0.8125em {13/16 = 0.8125} // 16px = 1em {16/16 = 1} // 28px = 1.75em {28/16 = 1.75} // 44px = 3.25em {44/16 = 2.75} // 72px = 4.5em {72/16 = 4.5} // 116px = 7.25em {116/16 = 7.25}
     
     FONT-SIZE-SPECIAL;    
-    30px = 1.875em {30/16 = 1.875} // 68px = 4.25em {68/16 = 4.25} // 100px = 6.25em {100/16 = 6.25}
+    20px = 1.25em {20/16 = 1.25} // 30px = 1.875em {30/16 = 1.875} // 68px = 4.25em {68/16 = 4.25} // 100px = 6.25em {100/16 = 6.25}
 
 
     LINE-HEIGHT;         
@@ -556,6 +556,11 @@
             #app-brand h3 {padding-top: 0;}
         .ch-info-back h4 {margin-bottom: 0;}
 
+        .ch-info-front small {padding:0; line-height: 1em;}
+        .ch-info-front small p {
+            font-size: 1.875em; line-height: 1em; font-weight: bold; padding:0;
+        }
+
         #app-brand .ch-info-back i {display: block; padding-top: 1.625em; margin-bottom:0.25em;}
         .ch-info-back a {text-decoration: none; border: none; z-index: 10;}
         
@@ -616,6 +621,7 @@
                 .available .bookerPhoto {border: 4px #134D61 solid;}
 
             .bookerPhoto img {max-width: 100%}
+
 
 
 /*  ==========================================================================
@@ -738,21 +744,22 @@
     border: 0; }
 
     .mfp-close {
-    width: 44px;
-    height: 44px;
-    line-height: 44px;
-    position: absolute;
-    right: 0;
-    top: 0;
-    text-decoration: none;
-    text-align: center;
-    opacity: 0.65;
-    filter: alpha(opacity=65);
-    padding: 0 0 18px 10px;
-    color: white;
-    font-style: normal;
-    font-size: 28px;
-    font-family: Arial, Baskerville, monospace; }
+        width: 52px;
+        height: 52px;
+        line-height: 52px;
+        position: absolute;
+        right: 0;
+        top: 0;
+        text-decoration: none;
+        text-align: center;
+        opacity: 0.65;
+        filter: alpha(opacity=65);
+        padding: 0 0 18px 10px;
+        color: white;
+        font-style: normal;
+        font-size: 28px;
+        font-family: Arial, Baskerville, monospace; 
+    }
     .mfp-close:hover, .mfp-close:focus {
     opacity: 1;
     filter: alpha(opacity=100); }
@@ -760,7 +767,7 @@
     top: 1px; }
 
     .mfp-close-btn-in .mfp-close {
-    color: #333333; }
+    color: #FFFFFF; }
 
     .mfp-image-holder .mfp-close, .mfp-iframe-holder .mfp-close {
     color: white;
@@ -792,11 +799,47 @@
     .mfp-gallery .mfp-image-holder .mfp-figure {
     cursor: pointer; }
 
+    /* Animation */
+
+    /* overlay at start */
+    .mfp-fade.mfp-bg {
+      opacity: 0;
+
+      -webkit-transition: all 0.15s ease-out;
+      -moz-transition: all 0.15s ease-out;
+      transition: all 0.15s ease-out;
+    }
+    /* overlay animate in */
+    .mfp-fade.mfp-bg.mfp-ready {
+      opacity: 0.8;
+    }
+    /* overlay animate out */
+    .mfp-fade.mfp-bg.mfp-removing {
+      opacity: 0;
+    }
+
+    /* content at start */
+    .mfp-fade.mfp-wrap .mfp-content {
+      opacity: 0;
+      -webkit-transition: all 0.15s ease-out;
+      -moz-transition: all 0.15s ease-out;
+      transition: all 0.15s ease-out;
+    }
+    /* content animate it */
+    .mfp-fade.mfp-wrap.mfp-ready .mfp-content {
+      opacity: 1;
+    }
+    /* content animate out */
+    .mfp-fade.mfp-wrap.mfp-removing .mfp-content {
+      opacity: 0;
+    }
+
     /* Cutom Style */
 
     .itinerary {}
         .itinerary article {
-            width:50%; margin: 0 auto; padding:5%;
+            width: 50%; max-width: 26.875em;
+            margin: 0 auto; padding: 3.25em;
             background-color: #092630; border:10px #134D61 solid;
             -webkit-box-shadow: 0 13px 1px 0 rgba(0,0,0,20);
             box-shadow: 0 13px 1px 0 rgba(0,0,0,0.2);
@@ -888,19 +931,35 @@
     }
         .tg-table-dark tr {
             background-color: #092630; border-bottom: 1px #071D24 solid;
-            padding-top:1em; padding-bottom:1em;
+            padding-top:0.40625em; padding-bottom:0.40625em;
         }
-            .tg-table-dark tr:first-child {border: none;}
+            tr:first-child {border: none; }   
 
-        .tg-table-dark td { 
+        .tg-table-dark tr td { 
             color: #FFF; 
             font-family: sans-serif; font-size: 100%; 
-            padding: 0; padding-top: 1em; padding-bottom:1em; vertical-align: top; 
+            padding: 0; vertical-align: middle; 
         }
+            .tg-table-dark tr:first-child td {padding:0; border:none;}
+            .tg-table-dark tr td:first-child {text-align: center;}
+            .tg-table-dark tr td:last-child {text-align: center;}
+                .tg-table-dark tr:nth-child(2) td:last-child {text-align: left;}
+            
+            .itinerary td:nth-child(2) {
+                width:3em; text-align: center;
+            }  
+                .itinerary tr:nth-child(2) td:nth-child(1) {
+                    width:3em; text-align: center;
+                }  
+                .itinerary tr:nth-child(2) td:nth-child(2) {
+                    width:auto; text-align: left;
+                } 
             .itinerary td:nth-child(3) {
                 font-size: 1.875em; font-weight: 700;
             }             
-            .tg-table-dark tr:hover td { color: #FFF; background-color: #071D24; }
+            .tg-table-dark tr:hover { color: #FFF; background-color: #071D24; }
+                .tg-table-dark tr:first-child:hover,
+                .tg-table-dark tr:nth-child(2):hover { color: #FFF; background-color: transparent; }
 
     
     /* Typography */
@@ -917,8 +976,47 @@
         float:right; padding:0;
         font-size: 1.875em; font-weight: bold; color: #134D61;
     }
+
+    .itinerary p {font-weight:bold; margin-bottom: 0; }
+
+    .itinerary a {}
+        .itinerary a button {width: 1.875em; height: 1.875em}
     
-    .itinerary i {color:#134D61;}
+    .itinerary i {color:#134D61; font-size: 1.625em;}
+
+
+     /* V2 */
+
+    .wrapHexagon {
+        width: 38px; height: 32px; margin: 0 auto; margin-top: 0.8125em; margin-bottom: 0.8125em;
+        overflow: hidden; visibility: hidden;
+        -webkit-transform: rotate(120deg);
+           -moz-transform: rotate(120deg);
+             -o-transform: rotate(120deg);
+                transform: rotate(120deg);
+        cursor: pointer;
+        }
+        tr:first-child .wrapHexagon {width: 76px; height: 66px;}
+    .hexagon-in1 {
+        overflow: hidden;
+        width: 100%; height: 100%;
+        -webkit-transform: rotate(-60deg);
+           -moz-transform: rotate(-60deg);
+             -o-transform: rotate(-60deg);
+                transform: rotate(-60deg);
+        }
+    .hexagon-in2 {
+        width: 100%; height: 100%;
+        background-repeat: no-repeat;
+        background-position: 50%;
+        background-image: url(http://placekitten.com/240/240);
+        background-size: 100%;
+        visibility: visible;
+        -webkit-transform: rotate(-60deg);
+           -moz-transform: rotate(-60deg);
+             -o-transform: rotate(-60deg);
+                transform: rotate(-60deg);
+        }
 
 
 /*  ==========================================================================
@@ -1041,7 +1139,7 @@
         }
 
         /*  Typography  */
-        h1 {font-size: 2.75em; line-height: 1em; margin-bottom:0.25em;} 
+        h1 {font-size: 2.75em; line-height: 1em;} 
 
     }
 
