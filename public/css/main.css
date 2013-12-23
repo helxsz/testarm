@@ -1229,6 +1229,27 @@
             text-align:center;
         }
                 
+        /* Tables */
+
+        .itinerary article {
+            width: 90%;
+            max-width: 90%;
+            margin: 0 auto;
+            padding: 0.25em;
+        }
+
+        .tg-table-dark tr td {
+            display: block;
+            text-align: center;
+        }
+
+        .itinerary td:nth-child(2) {margin: 0 auto;}
+        .itinerary td:nth-child(3) {margin-bottom: 0;}
+
+        .itinerary i {
+            color: #134D61;
+            font-size: 0.8125em;
+        }
 
         /* Navigation Button
         -------------------------------------------------------- */
