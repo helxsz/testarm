@@ -101,9 +101,7 @@
 		var skyBoxGeometry = new THREE.CubeGeometry( 10000, 10000, 10000 );
 		var skyBoxMaterial = new THREE.MeshBasicMaterial( { color: 0x111111, side: THREE.BackSide } );
 		var skyBox = new THREE.Mesh( skyBoxGeometry, skyBoxMaterial );
-		scene.add(skyBox);
-		
-		
+		scene.add(skyBox);		
 		*/
 	
 	}
@@ -481,12 +479,6 @@
 						*/				
 					}
 				}
-				/*else
-				{
-					//no data for this cell and week
-					var opacityCube = 0;
-					world.bars[lng][lat][0][scopeKey].userData["heightCube"] = 0;
-				}*/
 			}
 		}
 	}

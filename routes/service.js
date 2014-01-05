@@ -106,6 +106,12 @@ var Service = function(obj) {
 
         function fetchResourceDetail(url, callback){
 		    var service = this.serviceObj;
+			
+			if(!isAbsoluteURL(url)){
+			    url = "https://"+this.getHost()+url;			
+			}
+			//winston.debug('fetchResourceDetail'+url);
+			
             request.get({  
                 url: url,	
                 headers: {
@@ -138,9 +144,10 @@ var Service = function(obj) {
 
 		
 		//requestDataByURL(enlight,'enlight/Ballast00002916/dolFinTemperature','?interval=1h&rollup=avg',DataHandler);
-
+        // https://geras.1248.io/series/armmeeting/1/MotionSensor/00-0D-6F-00-00-C1-2E-EF/temperature
         function getResourceData(url, time,callback)	{
 		    var service = this.serviceObj;
+			if(time == null) time='';
             request.get({  
                 url: 'http://'+service.host+'/series/'+ url +time,	
                 headers: {
@@ -200,6 +207,22 @@ var Service = function(obj) {
 		        } 
              }); 
         }		
+
+
+function isAbsoluteURL(s) {
+    return s.charAt(0) != "#"
+      && s.charAt(0) != "/"
+      && ( s.indexOf("//") == -1 
+        || s.indexOf("//") > s.indexOf("#")
+        || s.indexOf("//") > s.indexOf("?")
+    );
+}
+
+function extractRelativeURL(href,host){
+
+   return href.replace("https://"+host,"");
+}
+
 		
 };
 

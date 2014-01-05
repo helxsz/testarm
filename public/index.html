@@ -134,7 +134,7 @@
                                     <div class="ch-info unavailable">
                                         <div class="ch-info-front hexagon">
                                             <h1>Elm</h1>
-                                            <small><p>18 &#x2103;</p></small>
+                                            <small><p class='temperature'>18 &#x2103;</p></small>
                                         </div>
                                         
                                         <div class="ch-info-back hexagon">
@@ -230,7 +230,7 @@
                                     <div class="ch-info unavailable">
                                         <div class="ch-info-front hexagon">
                                             <h1>SF8</h1>
-                                            <small><p>18 &#x2103;</p></small>
+                                            <small><p class='temperature'>18 &#x2103;</p></small>
                                         </div>
                                         
                                         <div class="ch-info-back hexagon">
@@ -326,7 +326,7 @@
                                     <div class="ch-info unavailable">
                                         <div class="ch-info-front hexagon">
                                             <h1>BOX</h1>
-                                            <small><p>18 &#x2103;</p></small>
+                                            <small><p class='temperature'>18 &#x2103;</p></small>
                                         </div>
                                         
                                         <div class="ch-info-back hexagon">
@@ -422,7 +422,7 @@
                                     <div class="ch-info available">
                                         <div class="ch-info-front hexagon">
                                             <h1>FM11</h1>
-                                            <small><p>18 &#x2103;</p></small>
+                                            <small><p class='temperature'>18 &#x2103;</p></small>
                                         </div>
                                         
                                         <div class="ch-info-back hexagon">
@@ -518,7 +518,7 @@
                                     <div class="ch-info unavailable">
                                         <div class="ch-info-front hexagon">
                                             <h1>FM10</h1>
-                                            <small><p>18 &#x2103;</p></small>
+                                            <small><p class='temperature'>18 &#x2103;</p></small>
                                         </div>
                                         
                                         <div class="ch-info-back hexagon">
@@ -614,7 +614,7 @@
                                     <div class="ch-info available">
                                         <div class="ch-info-front hexagon">
                                             <h1>MR4</h1>
-                                            <small><p>18 &#x2103;</p></small>
+                                            <small><p class='temperature'>18 &#x2103;</p></small>
                                         </div>
                                         
                                         <div class="ch-info-back hexagon">
@@ -711,7 +711,7 @@
 
                                         <div class="ch-info-front hexagon">
                                             <h1>MR5</h1>
-                                            <small><p>18 &#x2103;</p></small>
+                                            <small><p class='temperature'>18 &#x2103;</p></small>
                                         </div>
 
                                         <div class="ch-info-back hexagon">
@@ -875,7 +875,7 @@
             
             socket.on('info', function (msg) {
                 
-                console.log(msg);
+                //console.log(msg);
                 console.log(msg.room,msg.sensor,msg.value,msg.type)
                 if(msg.type=='motion'){
                     
@@ -883,7 +883,7 @@
                    s.attr('data-time',new Date());
                    s.attr('data-available',0);
                    s.find('.ch-info').removeClass('available').addClass('unavailable');   
-                   console.log(s.html());
+                   //console.log(s.html());
                 }
 
             });
@@ -919,7 +919,11 @@
                url: "/room/event?url="+id,
                success: function(data)
                {          
-                    var s = $('*[data-room="'+id+'"]');            
+			        
+					
+                    var s = $('*[data-room="'+id+'"]'); 
+                    console.log(data.temperature, s.find('.temperature').text());					
+                    s.find('.temperature').text(data.temperature);					
                     //console.log(data.found,data.start,data.end, s.find('h3').text()); 
                     s.find('h3').text(data.start +" > "+data.end);             
                }

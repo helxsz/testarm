@@ -1,9 +1,6 @@
 
 $( document ).ready(function() 
 {
-	// Handler for .ready() called.
-
-	//load data
 	loadData();
 });
 
@@ -26,13 +23,7 @@ function loadFile()
 				var week = new Week(weekId, data);
 				model.weeks.push(week);
 				for(var cellKey in data)
-				{
-					//week[constants.KEY_EXPENDITURE][constants.KEY_CITY] += data[cellKey][constants.KEY_CITY][constants.KEY_EXPENDITURE];
-					//week[constants.KEY_EXPENDITURE][constants.KEY_PROVINCE] += data[cellKey][constants.KEY_PROVINCE][constants.KEY_EXPENDITURE];
-					//week[constants.KEY_EXPENDITURE][constants.KEY_OTHERS] += data[cellKey][constants.KEY_OTHERS][constants.KEY_EXPENDITURE];
-
-					
-					
+				{					
 					if(data[cellKey][constants.KEY_CITY][constants.KEY_KM] > model[constants.KEY_MAX_KM][constants.KEY_CITY])
 						model[constants.KEY_MAX_KM][constants.KEY_CITY] = data[cellKey][constants.KEY_CITY][constants.KEY_KM];
 					
@@ -51,14 +42,11 @@ function loadFile()
 				}
 				else
 				{
-
 					    console.log('log data postalcode');
-						//add postal codes data to the model
 						model.postalCodes = data;
 
 						jQuery.getJSON('data/BCN-Illes-datum-rounded.json', function(cityData, textStatus, jqXHR) 
-						{
-						
+						{						
 						    console.log('log data datum-rounded');
 							//save the geometry of the city
 							world.cityGeometry = cityData;
@@ -82,33 +70,7 @@ function loadFile()
 							world.create();
 							timelineControls.create();
 							
-							/*
-							//create menu controls
-							guiMenu.create();
-							//create the weekly slider 
-							timeline.create();		
-							//controls for the timeline
-							//create the series for the customer profiles
-							seriesChart.create();
-							
-							$("#about").show();
-							$("#about").click(function() 
-							{
-								if(model.aboutVisible == false)
-								{
-								  $("#marker-about").show();
-									model.aboutVisible = true;
-								}
-								else
-								{
-								  $("#marker-about").hide();
-									model.aboutVisible = false;
-								}
-							});
-							
-							*/
-						})
-					
+						})					
 				}
 			})
 			.fail(function() 
@@ -157,10 +119,7 @@ function showDataForCell(data, coords2D)
 	);	
 }
 
-
-
-
-	timelineControls = {
+var timelineControls = {
 		_state: 'pause',
 		intervalId : undefined,
 		state : function(newState) 

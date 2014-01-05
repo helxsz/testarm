@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>ARM Dashboard Sensor Monitoring Project</title>
+    <meta name="description" content="ARM Dashboard Project">
+    <meta name="viewport" content="width=device-width, maximum-scale=1, minimum-scale=1, user-scalable=0, initial-scale=1">
+    <link rel="stylesheet" href="css/normalize.min.css">
+    <!-- Gridset CSS -->
+    <!--[if (!IE) | (gt IE 9)]><!--><link rel="stylesheet" href="css/gridset.css"><!--<![endif]-->
+    <!--[if IE 9]><link rel="stylesheet" href="./css/gridset-ie-9.css" /><![endif]-->
+    <!--[if lte IE 8]><link rel="stylesheet" href="./css/gridset-ie-lte8.css" /><![endif]-->
+    <link rel="stylesheet" href="css/mfglabs_iconset.css">
+    <link rel="stylesheet" href="css/main.css">
+
+    <script src="/assets/js/socket.io.js"></script>
+    <script src="/assets/js/d3.v3.min.js"></script>
+    <script src="js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+</head>
+<body class="meeting-room">
+    <!--[if lt IE 7]>
+        <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+    <![endif]-->
+
+    <div id="container" class="container" class="clearfix">
+    <!-- START #container -->
+
+        <section>
+
+            <div class="wrapper">
+            <!-- START .wrapper -->
+
+                <header id="banner" class="d1-d9 t1-t4 m-all clearfix">
+                <!-- START #banner -->
+
+                    <button id="showLeft"><i class="icon-reorder icon2x"></i></button>
+
+                    <h1>ARM 1 <span class="blue">FIRST FLOOR</span> <span class="pink">MEETING ROOM</span> AVAILABILITY</h1>
+
+                    <nav id="cbp-spmenu-s1" class="cbp-spmenu" role="navigation">
+                        <h3>Menu <button id="closeLeft"><i class="icon-cross_mark"></i></button></h3>
+                        <ul id="menu-header-menu">
+                            <li><a href="#">ARM 1 Floor 1</a></li>
+                            <li><a href="#">ARM 1 Floor 2</a></li>
+                            <li><a href="#">ARM 2 Floor 1</a></li>
+                            <li><a href="#">ARM 2 Floor 2</a></li>
+                            <li><a href="#">ARM 3 Floor 1</a></li>
+                            <li><a href="#">ARM 3 Floor 2</a></li>
+                            <li><a href="#">ARM 6 Floor 1</a></li>
+                            <li><a href="#">ARM 6 Floor 2</a></li>
+                        </ul>
+                    </nav>
+
+                <!-- END #banner -->
+                </header>
+
+                <article id="main" class="d1-d4 t1-t3 m-all clearfix">
+                <!-- START #main -->
+
+                    <div id="app-brand" class="m-hide" ontouchstart="">
+                        <div class="ch-item" ontouchstart="" >              
+                            <div class="ch-info-wrap">
+                                <div class="ch-info">
+                                    <div class="ch-info-front hexagon meetings"></div>
+                                    <div class="ch-info-back hexagon">
+                                        <a href="#" title="Return to the Home">
+                                            <i class="icon-home icon3x" aria-hidden="true"></i>
+                                            <h3>Home</h3>
+                                        </a>
+                                    </div>  
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <article id="app-description" class="t-hide m-hide" role="article">
+
+                        <p>Click a hexagon to view more information about the meeting room.</p>
+
+                    </article>
+                
+                <!-- END #main -->
+                </article>
+
+            <!-- END .wrapper -->
+            </div>
+
+            <section id="app-meeting" class="app-content">
+            <!-- START #app-meeting -->
+
+                    <ul class="ch-grid">
+
+                        <li id="Room.UKCElm" data-room="Room.UKCElm" class="room">
+                            <div class="ch-item">              
+                                <div class="ch-info-wrap">
+                                    <div class="ch-info">
+                                        <div class="ch-info-front hexagon unavailable"><h1>Elm</h1></div>
+                                        <div class="ch-info-back hexagon">
+                                            <h3>13:00 > 14:00</h3>
+                                            <h4>Joe Bloggs</h4>
+                                        </div>  
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li id="Room.UKCSF8" data-room="Room.UKCSF8" class="room">
+                            <div class="ch-item" ontouchstart="" >              
+                                <div class="ch-info-wrap">
+                                    <div class="ch-info">
+                                        <div class="ch-info-front hexagon unavailable"><h1>SF8</h1></div>
+                                        <div class="ch-info-back hexagon">
+                                            <h3>13:00 > 14:00</h3>
+                                            <h4>Joe Bloggs</h4>
+                                        </div>  
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li id="RoomUKCPatentBox" data-room="RoomUKCPatentBox" class="room">
+                            <div class="ch-item" ontouchstart="" >              
+                                <div class="ch-info-wrap">
+                                    <div class="ch-info">
+                                        <div class="ch-info-front hexagon unavailable"><h1>BOX</h1></div>
+                                        <div class="ch-info-back hexagon">
+                                            <h3>13:00 > 14:00</h3>
+                                            <h4>Joe Bloggs</h4>
+                                        </div>  
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li id="Room.UKCWillowB" data-room="Room.UKCWillowB" class="room">
+                            <div class="ch-item" ontouchstart="" >              
+                                <div class="ch-info-wrap">
+                                    <div class="ch-info">
+                                        <div class="ch-info-front hexagon available"><h1>FM11</h1></div>
+                                        <div class="ch-info-back hexagon">
+                                            <h3>13:00 > 14:00</h3>
+                                            <h4>Joe Bloggs</h4>
+                                        </div>  
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li id="Room.UKCFM10" data-room="Room.UKCFM10" class="room">
+                            <div class="ch-item" ontouchstart="" >              
+                                <div class="ch-info-wrap">
+                                    <div class="ch-info">
+                                        <div class="ch-info-front hexagon unavailable"><h1>FM10</h1></div>
+                                        <div class="ch-info-back hexagon">
+                                            <h3>13:00 > 14:00</h3>
+                                            <h4>Joe Bloggs</h4>
+                                        </div>  
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li id="Room.UKCARM66MR4" data-room="Room.UKCARM66MR4" class="room">
+                            <div class="ch-item" ontouchstart="" >              
+                                <div class="ch-info-wrap">
+                                    <div class="ch-info">
+                                        <div class="ch-info-front hexagon available"><h1>MR4</h1></div>
+                                        <div class="ch-info-back hexagon">
+                                            <h3>13:00 > 14:00</h3>
+                                            <h4>Joe Bloggs</h4>
+                                        </div>  
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li id="Room.UKCARM66MR5" data-room="Room.UKCARM66MR5" class="room">
+                            <div class="ch-item" ontouchstart="" >              
+                                <div class="ch-info-wrap">
+                                    <div class="ch-info">
+                                        <div class="ch-info-front hexagon unavailable"><h1>MR5</h1></div>
+                                        <div class="ch-info-back hexagon">
+                                            <h3>13:00 > 14:00</h3>
+                                            <h4>Joe Bloggs</h4>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+
+                    </ul>
+
+                <!-- END #app-meeting -->
+                </section>
+
+        </section>
+
+        <footer id="footer" class="clearfix">
+        <!-- START #footer -->
+
+            <div>
+                <small>v0.50 Design &amp; Coded by <a href="http://www.redninja.co.uk" title="Design and Coded by Red Ninja Studios">Red Ninja Studios</a></small>
+            </div>
+
+            <div>
+                <a href="http://arm.com" class="logo-arm" title="ARM - Architecture for the digital world"><img src="img/ARM-RGB.png" alt="ARM - Architecture for the digital world" class="logo" /></a>
+            </div>
+        
+        <!-- END #footer -->
+        </footer>
+
+    <!-- END #container -->
+    </div>
+
+    <script src="js/vendor/jquery-1.10.1.min.js"></script>
+    <!-- <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.10.1.min.js"><\/script>')</script> -->
+
+    <script src="js/plugins.js"></script>
+    <script src="js/main.js"></script>
+
+    <!-- Gridset overlay script - toggles grid overlay on and off - You can remove this if you want. -->
+    <script src="./js/gridset-overlay.js"></script> 
+
+    <!-- <script>
+        var _gaq=[['_setAccount','UA-XXXXX-X'],['_trackPageview']];
+        (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+        g.src='//www.google-analytics.com/ga.js';
+        s.parentNode.insertBefore(g,s)}(document,'script'));
+    </script> -->
+    
+    
+    <script>
+            $.ajax({
+               type: "GET",
+               url: "/buildings",
+               success: function(data)
+               {                                       
+                    console.log(data,data.length);
+					 $('#menu-header-menu').html('');
+                    for(var i=0;i<data.length;i++){
+					   var a = $('<li  data-id='+data[i]+'><a href="#" data-id='+data[i]+'>'+ data[i]  +'</a></li>');
+					   $('#menu-header-menu').append(a);
+					   a.click(function(e){
+					       console.log('click', $(this).attr('data-id'));
+						   getRoom($(this).attr('data-id'));
+					   })
+					}					
+               }
+            });
+			function getRoom(id){
+              $.ajax({
+                 type: "GET",
+                 url: "/buildings/"+id,
+                 success: function(data)
+                 {                                       
+                    console.log(data,data.length);                                 
+                 }
+              });
+            }
+            if (!window.location.origin)
+            window.location.origin = window.location.protocol+"//"+window.location.host;
+            var socket = io.connect(window.location.origin+":3000");
+            console.log(window.location.origin+":3000");
+            socket.on('connect', function () {
+                //socket.emit('subscribe', {topic : 'home/#'});
+            });
+            
+            $('.ch-info-front').removeClass('unavailable').addClass('available');
+
+                   var s = $('*[data-room="Room.UKCFM9"]');
+                   s.attr('data-time',new Date());
+                   s.attr('data-available',0);
+                   s.find('.ch-info-front').removeClass('available').addClass('unavailable');           
+                   console.log(s.find('.ch-info-front').html());
+
+            
+            requestAll();
+            
+            socket.on('info', function (msg) {
+                
+                console.log(msg);
+                console.log(msg.room,msg.sensor,msg.value,msg.type)
+                if(msg.type=='motion'){
+                    
+                   var s = $('*[data-room="'+msg.room+'"]');
+                   s.attr('data-time',new Date());
+                   s.attr('data-available',0);
+                   s.find('.ch-info-front').removeClass('available').addClass('unavailable');   
+                   console.log(s.html());
+                }
+
+            });
+            
+            setInterval(function(){         
+                $('#app-meeting').find('.room').each(function(e){
+                    var id = $(this).attr('data-room');
+                    var time = $(this).attr('data-time');
+                    var avail = $(this).attr('data-available');
+                    if(time !=null && avail == 0){
+                    
+                        var last = new Date(time);
+                        var now = new Date();
+                        diffMs = now - last;
+                        var diffMins = Math.round(((diffMs % 86400000) % 3600000) / 60000);                 
+                        console.log(id+   "    "+diffMins);
+                        if(diffMins >5){
+                             $(this).attr('data-available',1);
+                             $(this).find('.ch-info-front').removeClass('unavailable').addClass('available');
+                        }
+                    }
+                })
+            },60000);
+            
+            setInterval(function(){ requestAll() },184000);      
+
+    function requestAll(){      
+        $('#app-meeting').find('.room').each(function(e){
+            var id = $(this).attr('data-room');
+ 
+            $.ajax({
+               type: "GET",
+               url: "/room/event?url="+id,
+               success: function(data)
+               {          
+                    var s = $('*[data-room="'+id+'"]');            
+                    //console.log(data.found,data.start,data.end, s.find('h3').text()); 
+                    s.find('h3').text(data.start +" > "+data.end);             
+               }
+            });
+    
+        })
+    }               
+
+    </script>
+
+    <!-- Classie - class helper functions by @desandro https://github.com/desandro/classie -->
+    <script>
+        var menuLeft = document.getElementById( 'cbp-spmenu-s1' ),
+            showLeft = document.getElementById( 'showLeft' ),
+            body = document.body;
+
+        showLeft.onclick = function() {
+            classie.toggle( this, 'active' );
+            classie.toggle( menuLeft, 'cbp-spmenu-open' );
+            disableOther( 'showLeft' );
+        };
+
+        closeLeft.onclick = function() {
+            classie.toggle( this, 'active' );
+            classie.toggle( menuLeft, 'cbp-spmenu-open' );
+            disableOther( 'showLeft' );
+        };
+
+        function disableOther( button ) {
+            if( button !== 'showLeft' ) {
+                classie.toggle( showLeft, 'disabled' );
+            }
+
+        }
+    </script>
+
+</body>
+</html>

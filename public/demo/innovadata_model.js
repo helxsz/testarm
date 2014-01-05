@@ -1,4 +1,3 @@
-
 //week object, holds dates and data for a given week
 function Week(id, data)
 {
