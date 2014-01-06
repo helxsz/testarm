@@ -2,6 +2,7 @@ var app = require('../app').app;
 
 var async = require('async'),
     fs = require('fs'),
+	util = require('util'),
     colors = require('colors'),
     crypto = require('crypto');	
      _=require('underscore'),
@@ -22,12 +23,27 @@ var serviceCatalog = new ServiceCatalog();
 /****   experiment 2 ********/
 var meetingService = serviceCatalog.findByName('armmeeting');  // enlight
 var buildingService = serviceCatalog.findByName('armbuilding');  // enlight	
-	
+
+/*
+https://alertmeadaptor.appspot.com/traverse?traverseURI=https%3A//geras.1248.io/cat/armmeeting/17/MotionSensor/00-0D-6F-00-00-C1-34-EB&traverseKey=924a7d4dbfab38c964f5545fd6186559
+https://alertmeadaptor.appspot.com/traverse?traverseURI=https%3A%2F%2Fprotected-sands-2667.herokuapp.com%2Fcat&traverseKey=0L8kgshd4Lso3P1UQX7q&Submit=Browse
+http://schema.org/Place
+*/
+
+// http://localhost/tempdata	
 app.get('/tempdata',function(req,res){
     meetingService.getResourceData('armmeeting/1/MotionSensor/00-0D-6F-00-00-C1-2E-EF/temperature','',function(err,data){
         if(err)  console.log(err);
         else {
-		    console.log('data   ------------------'.green,data);
+		    console.log('data   ------------------'.green,data.e.length);
+			
+			var dataParse = function(data){			
+			    var e = data.e;
+				e.forEach(function(data){
+				    console.log(data.n , data.t ,data.v  ,  new Date(data.v));	//,  moment(data.t ).fromNow()
+				})
+			}
+			dataParse(data);
 		    res.send(200,data);
 		}	
     })
@@ -54,6 +70,7 @@ getResourceList2("location:building:ARM6",function(err,data){
 	}
 })
 */
+
 app.get('/buildings/:name',function(req,res){
     var name = req.params.name;
     db.getResourceList2("location:building:"+name,function(err,data){ 
@@ -81,6 +98,47 @@ app.get('/buildings/:name',function(req,res){
 // http://localhost/room/event?url=https://protected-sands-2667.herokuapp.com/rooms/Room.UKCGM4
 // http://localhost/room/event?url=Room.UKCMaple   Room.UKCBeech  Room.UKCWillowA  Room.UKCWillowB  Room.UKCFM10  Room.UKCFM7  Room.UKCFM9
 // https://alertmeadaptor.appspot.com/traverse?traverseURI=https%3A//geras.1248.io/cat/armmeeting/1/MotionSensor/00-0D-6F-00-00-C1-2E-EF&traverseKey=924a7d4dbfab38c964f5545fd6186559
+
+// http://localhost/room/events?url=Room.UKCMaple,Room.UKCBeech,Room.UKCWillowA 
+app.get('/room/events',function(req,res){
+    var url = req.query.url;
+		
+	var list = url.split(',');
+	winston.debug(url);
+
+	var events = [];
+	async.forEach(list, 
+	  function(room_nmae, callback){        
+		url = rooms[room_nmae];
+		winston.debug(room_nmae,url);
+		buildingService.fetchResourceDetail(url+"/events",function(err,eventlist){
+            if(err){
+	            winston.error('error    '+url+"/events");
+	        }else{
+			    //winston.debug(obj);
+				var now = new Date();
+				var roomObj = {};
+				roomObj.name = room_nmae;
+				roomObj.temperature = 22+  (Math.floor(Math.random() * 8) + 1)/4;
+				
+				var eventlist = _.filter(eventlist, function(event){ return new Date(event.endDate).getTime() >= now.getTime() });				
+				roomObj.events = eventlist;
+				events.push(roomObj);				
+	        }
+            callback();			
+	    });		
+      },
+	  function(err){
+        //winston.debug('get all the messages ',util.inspect(events, false, null));
+		res.send(200,{rooms:events});
+	  } 
+	);    
+})
+
+
+// socket.io 
+
+
 app.get('/room/event',function(req,res){
     var url = req.query.url;
 	
@@ -450,23 +508,7 @@ function extractRelativeURL(href,host){
 
 
 
-
-
-setInterval(function(e){
-    
-    
-
-
-},300000);
-
-
-
-
-
 var agenda = new Agenda({db: { address: 'localhost:27017/agenda-example'}});
-
-
-
 
 agenda.define('request events for arm room', function(job, done) {
     getArmMeetingSchedules(done)
