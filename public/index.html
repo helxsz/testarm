@@ -22,809 +22,814 @@
     <!--<script src="/assets/js/d3.v3.min.js"></script>-->
     <script src="js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
 </head>
-<body class="meeting-room">
-    <!--[if lt IE 7]>
-        <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
-    <![endif]-->
+<body>
+<!--[if lt IE 7]>
+    <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+<![endif]-->
 
-    <div id="container" class="container" class="clearfix">
-    <!-- START #container -->
+    <div class="meeting-room">
+    <!-- START .meeting-room -->
 
-        <section class="mp-pusher" id="mp-pusher">
+        <div id="container" class="container" class="clearfix">
+        <!-- START #container -->
 
-            <!-- mp-menu -->
-                <nav id="mp-menu" class="mp-menu">
-                    <div class="mp-level">
-                        <h2 class="icon icon-world">All Categories</h2>
-                        <ul>
-                            <li>
-                                <a class="icon icon-news" href="#">ARM 1</a>
-                                <div class="mp-level">
-                                    <h2 class="icon icon-news">Magazines</h2>
-                                    <a class="mp-back" href="#">back</a>
-                                    <ul>
-                                        <li><a href="#">Floor 1</a></li>
-                                        <li><a href="#">Floor 2</a></li>
-                                    </ul>
-                                </div>
-                            </li>
-                            <li><a class="icon icon-photo" href="#">ARM 2</a></li>
-                            <li><a class="icon icon-wallet" href="#">ARM 3</a></li>
-                            <li><a class="icon icon-wallet" href="#">ARM 6</a></li>
-                        </ul>
-                            
-                    </div>
-                </nav>
-                <!-- /mp-menu -->
+            <section class="mp-pusher" id="mp-pusher">
 
-            <div class="scroller">
-            <div class="scroller-inner">
-            <!-- start .scroller's -->
-            
-            <div class="wrapper">
-            <!-- START .wrapper -->
-
-
-                <header id="banner" class="d1-d9 t1-t4 m-all clearfix">
-                <!-- START #banner -->
-
-                    <!--<button id="showLeft"><i class="icon-reorder icon2x"></i></button>-->
-                    <button id="trigger"><i class="icon-reorder icon2x"></i></button>
-
-                    <h1>ARM 1 <span class="blue">FIRST FLOOR</span> <span class="pink">MEETING ROOM</span> AVAILABILITY</h1>
-
-                    <!--
-                    <nav id="cbp-spmenu-s1" class="cbp-spmenu" role="navigation">
-                        <h3>Menu <button id="closeLeft"><i class="icon-cross_mark"></i></button></h3>
-                        <ul id="menu-header-menu">
-                            <li><a href="#">ARM 1 Floor 1</a></li>
-                            <li><a href="#">ARM 1 Floor 2</a></li>
-                            <li><a href="#">ARM 2 Floor 1</a></li>
-                            <li><a href="#">ARM 2 Floor 2</a></li>
-                            <li><a href="#">ARM 3 Floor 1</a></li>
-                            <li><a href="#">ARM 3 Floor 2</a></li>
-                            <li><a href="#">ARM 6 Floor 1</a></li>
-                            <li><a href="#">ARM 6 Floor 2</a></li>
-                        </ul>
+                <!-- mp-menu -->
+                    <nav id="mp-menu" class="mp-menu">
+                        <div class="mp-level">
+                            <h2 class="icon icon-world">All Categories</h2>
+                            <ul>
+                                <li>
+                                    <a class="icon icon-news" href="#">ARM 1</a>
+                                    <div class="mp-level">
+                                        <h2 class="icon icon-news">Magazines</h2>
+                                        <a class="mp-back" href="#">back</a>
+                                        <ul>
+                                            <li><a href="#">Floor 1</a></li>
+                                            <li><a href="#">Floor 2</a></li>
+                                        </ul>
+                                    </div>
+                                </li>
+                                <li><a class="icon icon-photo" href="#">ARM 2</a></li>
+                                <li><a class="icon icon-wallet" href="#">ARM 3</a></li>
+                                <li><a class="icon icon-wallet" href="#">ARM 6</a></li>
+                            </ul>
+                                
+                        </div>
                     </nav>
-                    -->
+                    <!-- /mp-menu -->
 
-                <!-- END #banner -->
-                </header>
+                <div class="scroller">
+                <div class="scroller-inner">
+                <!-- start .scroller's -->
+                
+                <div class="wrapper">
+                <!-- START .wrapper -->
 
-                <article id="main" class="d1-d4 t1-t3 m-all clearfix">
-                <!-- START #main -->
 
-                    <div id="app-brand" class="m-hide">
-                        <div class="ch-item" >              
-                            <div class="ch-info-wrap">
-                                <div class="ch-info meetings">
-                                    <div class="ch-info-front hexagon"></div>
-                                    <div class="ch-info-back hexagon">
-                                        <a href="#" title="Return to the Home">
-                                            <i class="icon-home icon3x" aria-hidden="true"></i>
-                                            <h3>Home</h3>
-                                        </a>
-                                    </div>  
+                    <header id="banner" class="d1-d9 t1-t4 m-all clearfix">
+                    <!-- START #banner -->
+
+                        <!--<button id="showLeft"><i class="icon-reorder icon2x"></i></button>-->
+                        <button id="trigger"><i class="icon-reorder icon2x"></i></button>
+
+                        <h1>ARM 1 <span class="blue">FIRST FLOOR</span> <span class="pink">MEETING ROOM</span> AVAILABILITY</h1>
+
+                        <!--
+                        <nav id="cbp-spmenu-s1" class="cbp-spmenu" role="navigation">
+                            <h3>Menu <button id="closeLeft"><i class="icon-cross_mark"></i></button></h3>
+                            <ul id="menu-header-menu">
+                                <li><a href="#">ARM 1 Floor 1</a></li>
+                                <li><a href="#">ARM 1 Floor 2</a></li>
+                                <li><a href="#">ARM 2 Floor 1</a></li>
+                                <li><a href="#">ARM 2 Floor 2</a></li>
+                                <li><a href="#">ARM 3 Floor 1</a></li>
+                                <li><a href="#">ARM 3 Floor 2</a></li>
+                                <li><a href="#">ARM 6 Floor 1</a></li>
+                                <li><a href="#">ARM 6 Floor 2</a></li>
+                            </ul>
+                        </nav>
+                        -->
+
+                    <!-- END #banner -->
+                    </header>
+
+                    <article id="main" class="d1-d4 t1-t3 m-all clearfix">
+                    <!-- START #main -->
+
+                        <div id="app-brand" class="m-hide">
+                            <div class="ch-item" >              
+                                <div class="ch-info-wrap">
+                                    <div class="ch-info meetings">
+                                        <div class="ch-info-front hexagon"></div>
+                                        <div class="ch-info-back hexagon">
+                                            <a href="#" title="Return to the Home">
+                                                <i class="icon-home icon3x" aria-hidden="true"></i>
+                                                <h3>Home</h3>
+                                            </a>
+                                        </div>  
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
 
-                    <article id="app-description" class="t-hide m-hide" role="article">
+                        <article id="app-description" class="t-hide m-hide" role="article">
 
-                        <p>Click a hexagon to view more information about the meeting room.</p>
+                            <p>Click a hexagon to view more information about the meeting room.</p>
 
+                        </article>
+                    
+                    <!-- END #main -->
                     </article>
-                
-                <!-- END #main -->
-                </article>
 
-            <!-- END .wrapper -->
-            </div>
+                <!-- END .wrapper -->
+                </div>
 
-            <section id="app-meeting" class="app-content">
-            <!-- START #app-meeting -->
+                <section id="app-meeting" class="app-content">
+                <!-- START #app-meeting -->
 
-                    <ul class="ch-grid">
+                        <ul class="ch-grid">
 
-                        <li id="Room.UKCElm" data-room="Room.UKCElm" class="room">
-                            <div class="ch-item">              
-                                <div class="ch-info-wrap">
-                                    <div class="ch-info unavailable">
-                                        <div class="ch-info-front hexagon">
-                                            <h1>Elm</h1>                                    
-											<small><span class='temperature'>18</span> &#x2103;</small>
-                                        </div>
-                                        
-                                        <div class="ch-info-back hexagon">
-                                            <div class="maskCircle bookerPhoto"><img src="img/photos/john-biggs.jpg" alt="Joe Bloggs"></div>
-                                            <h3>13:00 <i class="icon-arrow_right" aria-hidden="true"></i> 14:00</h3>
-                                            <h4>Joe Bloggs</h4>
-                                            <a href="tel:01517076707" title="Phone Joe" class="noSpin d-hide t-hide"><button class="maskCircle icon-telephone"><span>Telephone</span></button></a> 
-                                            <a href="mailto:info@redninja.co.uk" title="Email Joe" class="noSpin m-hide"><button class="maskCircle icon-email"><span>Email</span></button></a> 
-                                            <a href="#popup-Elm" title="View Itinerary" class="noSpin open-popup-link"><button class="maskCircle icon-information"><span>Itinerary Information</span></button></a>
-                                        </div>
-
-                                        <aside id="popup-Elm" class="itinerary mfp-hide">
-                                        <!-- START MAGINIFIC POP-UP CONTENT -->
+                            <li id="Room.UKCElm" data-room="Room.UKCElm" class="room">
+                                <div class="ch-item">              
+                                    <div class="ch-info-wrap">
+                                        <div class="ch-info unavailable">
+                                            <div class="ch-info-front hexagon">
+                                                <h1>Elm</h1>                                    
+    											<small><span class='temperature'>18</span> &#x2103;</small>
+                                            </div>
                                             
-                                            <article>
+                                            <div class="ch-info-back hexagon">
+                                                <div class="maskCircle bookerPhoto"><img src="img/photos/john-biggs.jpg" alt="Joe Bloggs"></div>
+                                                <h3>13:00 <i class="icon-arrow_right" aria-hidden="true"></i> 14:00</h3>
+                                                <h4>Joe Bloggs</h4>
+                                                <a href="tel:01517076707" title="Phone Joe" class="noSpin d-hide t-hide"><button class="maskCircle icon-telephone"><span>Telephone</span></button></a> 
+                                                <a href="mailto:info@redninja.co.uk" title="Email Joe" class="noSpin m-hide"><button class="maskCircle icon-email"><span>Email</span></button></a> 
+                                                <a href="#popup-Elm" title="View Itinerary" class="noSpin open-popup-link"><button class="maskCircle icon-information"><span>Itinerary Information</span></button></a>
+                                            </div>
 
-                                                <header class="clearfix">
-                                                    <h1>Today's Itinerary</h1>
-                                                    <h2>Elm</h2>
-                                                    <small><span class='temperature'>18</span> &#x2103;</small>
-                                                </header>
+                                            <aside id="popup-Elm" class="itinerary mfp-hide">
+                                            <!-- START MAGINIFIC POP-UP CONTENT -->
+                                                
+                                                <article>
 
-                                                <section>
-                                                    <table class="tg-table-dark">
-                                                        <tr>
-                                                            <td rowspan="2">
-                                                                <div class="wrapHexagon">
-                                                                    <div class="hexagon-in1">
-                                                                        <div class="hexagon-in2" style="background-image: url(img/photos/john-biggs.jpg);"></div>
+                                                    <header class="clearfix">
+                                                        <h1>Today's Itinerary</h1>
+                                                        <h2>Elm</h2>
+                                                        <small><span class='temperature'>18</span> &#x2103;</small>
+                                                    </header>
+
+                                                    <section>
+                                                        <table class="tg-table-dark">
+                                                            <tr>
+                                                                <td rowspan="2">
+                                                                    <div class="wrapHexagon">
+                                                                        <div class="hexagon-in1">
+                                                                            <div class="hexagon-in2" style="background-image: url(img/photos/john-biggs.jpg);"></div>
+                                                                        </div>
                                                                     </div>
-                                                                </div>
-                                                            </td>
-                                                            <td><i class="icon-clock" aria-hidden="true"></i></td>
-															<td><span>13:00</span><i class="icon-arrow_right " aria-hidden="true"></i><span>14:00</span></td>															
-                                                            <td rowspan="2"><a href="tel:01517076707" title="Phone Joe"><button class="maskCircle icon-telephone icon2x"><span>Telephone</span></button></a></td>
-                                                        </tr>
-                                                        <tr class="m-hide">
-                                                            <td><i class="icon-user" aria-hidden="true"></i></td>
-                                                            <td><p>Joe Blogs</p></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>
-                                                                <div class="wrapHexagon">
-                                                                    <div class="hexagon-in1">
-                                                                        <div class="hexagon-in2" style="background-image: url(img/photos/john-biggs.jpg);"></div>
+                                                                </td>
+                                                                <td><i class="icon-clock" aria-hidden="true"></i></td>
+    															<td><span>13:00</span><i class="icon-arrow_right " aria-hidden="true"></i><span>14:00</span></td>															
+                                                                <td rowspan="2"><a href="tel:01517076707" title="Phone Joe"><button class="maskCircle icon-telephone icon2x"><span>Telephone</span></button></a></td>
+                                                            </tr>
+                                                            <tr class="m-hide">
+                                                                <td><i class="icon-user" aria-hidden="true"></i></td>
+                                                                <td><p>Joe Blogs</p></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <div class="wrapHexagon">
+                                                                        <div class="hexagon-in1">
+                                                                            <div class="hexagon-in2" style="background-image: url(img/photos/john-biggs.jpg);"></div>
+                                                                        </div>
                                                                     </div>
-                                                                </div>
-                                                            </td>
-                                                            <td><i class="icon-clock" aria-hidden="true"></i></td>
-                                                            <td><span>13:00</span><i class="icon-arrow_right " aria-hidden="true"></i><span>14:00</span></td>
-                                                            <td><a href="tel:01517076707" title="Phone Joe"><button class="maskCircle icon-telephone"><span>Telephone</span></button></a></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>
-                                                                <div class="wrapHexagon">
-                                                                    <div class="hexagon-in1">
-                                                                        <div class="hexagon-in2" style="background-image: url(img/photos/john-biggs.jpg);"></div>
+                                                                </td>
+                                                                <td><i class="icon-clock" aria-hidden="true"></i></td>
+                                                                <td><span>13:00</span><i class="icon-arrow_right " aria-hidden="true"></i><span>14:00</span></td>
+                                                                <td><a href="tel:01517076707" title="Phone Joe"><button class="maskCircle icon-telephone"><span>Telephone</span></button></a></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <div class="wrapHexagon">
+                                                                        <div class="hexagon-in1">
+                                                                            <div class="hexagon-in2" style="background-image: url(img/photos/john-biggs.jpg);"></div>
+                                                                        </div>
                                                                     </div>
-                                                                </div>
-                                                            </td>
-                                                            <td><i class="icon-clock" aria-hidden="true"></i></td>
-                                                            <td><span>13:00</span><i class="icon-arrow_right " aria-hidden="true"></i><span>14:00</span></td>
-                                                            <td><a href="tel:01517076707" title="Phone Joe"><button class="maskCircle icon-telephone"><span>Telephone</span></button></a></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>
-                                                                <div class="wrapHexagon">
-                                                                    <div class="hexagon-in1">
-                                                                        <div class="hexagon-in2" style="background-image: url(img/photos/john-biggs.jpg);"></div>
+                                                                </td>
+                                                                <td><i class="icon-clock" aria-hidden="true"></i></td>
+                                                                <td><span>13:00</span><i class="icon-arrow_right " aria-hidden="true"></i><span>14:00</span></td>
+                                                                <td><a href="tel:01517076707" title="Phone Joe"><button class="maskCircle icon-telephone"><span>Telephone</span></button></a></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <div class="wrapHexagon">
+                                                                        <div class="hexagon-in1">
+                                                                            <div class="hexagon-in2" style="background-image: url(img/photos/john-biggs.jpg);"></div>
+                                                                        </div>
                                                                     </div>
-                                                                </div>
-                                                            </td>
-                                                            <td><i class="icon-clock" aria-hidden="true"></i></td>
-                                                            <td><span>13:00</span><i class="icon-arrow_right " aria-hidden="true"></i><span>14:00</span></td>
-                                                            <td><a href="tel:01517076707" title="Phone Joe"><button class="maskCircle icon-telephone"><span>Telephone</span></button></a></td>
-                                                        </tr>
-                                                    </table>
-                                                </section>
+                                                                </td>
+                                                                <td><i class="icon-clock" aria-hidden="true"></i></td>
+                                                                <td><span>13:00</span><i class="icon-arrow_right " aria-hidden="true"></i><span>14:00</span></td>
+                                                                <td><a href="tel:01517076707" title="Phone Joe"><button class="maskCircle icon-telephone"><span>Telephone</span></button></a></td>
+                                                            </tr>
+                                                        </table>
+                                                    </section>
 
-                                            </article>
+                                                </article>
 
-                                        <!-- END MAGINIFIC POP-UP CONTENT -->
-                                        </aside>
+                                            <!-- END MAGINIFIC POP-UP CONTENT -->
+                                            </aside>
 
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        </li>
+                            </li>
 
-                        <li id="Room.UKCSF8" data-room="Room.UKCSF8" class="room">
-                            <div class="ch-item" >              
-                                <div class="ch-info-wrap">
-                                    <div class="ch-info unavailable">
-                                        <div class="ch-info-front hexagon">
-                                            <h1>SF8</h1>
-                                            <small><span class='temperature'>18</span> &#x2103;</small>
-                                        </div>
-                                        
-                                        <div class="ch-info-back hexagon">
-                                            <div class="maskCircle bookerPhoto"><img src="img/photos/john-biggs.jpg" alt="Joe Bloggs"></div>
-                                            <h3>13:00 <i class="icon-arrow_right" aria-hidden="true"></i> 14:00</h3>
-                                            <h4>Joe Bloggs</h4>
-                                            <a href="tel:01517076707" title="Phone Joe" class="noSpin d-hide t-hide"><button class="maskCircle icon-telephone"><span>Telephone</span></button></a> 
-                                            <a href="mailto:info@redninja.co.uk" title="Email Joe" class="noSpin m-hide"><button class="maskCircle icon-email"><span>Email</span></button></a> 
-                                            <a href="#popup-SF8" title="View Itinerary" class="noSpin open-popup-link"><button class="maskCircle icon-information"><span>Itinerary Information</span></button></a>
-                                        </div>
-
-                                        <aside id="popup-SF8" class="itinerary mfp-hide">
-                                        <!-- START MAGINIFIC POP-UP CONTENT -->                                           
-                                            <article>
-                                                <header class="clearfix">
-                                                    <h1>Today's Itinerary</h1>
-                                                    <h2>SF8</h2>
-                                                    <small><span class='temperature'>18</span> &#x2103;</small>
-                                                </header>
-
-                                                <section>
-                                                    <table class="tg-table-dark">
-                                                        <tr>
-                                                            <td rowspan="2">
-                                                                <div class="wrapHexagon">
-                                                                    <div class="hexagon-in1">
-                                                                        <div class="hexagon-in2" style="background-image: url(img/photos/john-biggs.jpg);"></div>
-                                                                    </div>
-                                                                </div>
-                                                            </td>
-                                                            <td><i class="icon-clock" aria-hidden="true"></i></td>
-                                                            <td><span>13:00</span><i class="icon-arrow_right " aria-hidden="true"></i><span>14:00</span></td>
-                                                            <td rowspan="2"><a href="tel:01517076707" title="Phone Joe"><button class="maskCircle icon-telephone icon2x"><span>Telephone</span></button></a></td>
-                                                        </tr>
-                                                        <tr class="m-hide">
-                                                            <td><i class="icon-user" aria-hidden="true"></i></td>
-                                                            <td><p>Joe Blogs</p></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>
-                                                                <div class="wrapHexagon">
-                                                                    <div class="hexagon-in1">
-                                                                        <div class="hexagon-in2" style="background-image: url(img/photos/john-biggs.jpg);"></div>
-                                                                    </div>
-                                                                </div>
-                                                            </td>
-                                                            <td><i class="icon-clock" aria-hidden="true"></i></td>
-                                                            <td><span>13:00</span><i class="icon-arrow_right " aria-hidden="true"></i><span>14:00</span></td>
-                                                            <td><a href="tel:01517076707" title="Phone Joe"><button class="maskCircle icon-telephone"><span>Telephone</span></button></a></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>
-                                                                <div class="wrapHexagon">
-                                                                    <div class="hexagon-in1">
-                                                                        <div class="hexagon-in2" style="background-image: url(img/photos/john-biggs.jpg);"></div>
-                                                                    </div>
-                                                                </div>
-                                                            </td>
-                                                            <td><i class="icon-clock" aria-hidden="true"></i></td>
-                                                            <td><span>13:00</span><i class="icon-arrow_right " aria-hidden="true"></i><span>14:00</span></td>
-                                                            <td><a href="tel:01517076707" title="Phone Joe"><button class="maskCircle icon-telephone"><span>Telephone</span></button></a></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>
-                                                                <div class="wrapHexagon">
-                                                                    <div class="hexagon-in1">
-                                                                        <div class="hexagon-in2" style="background-image: url(img/photos/john-biggs.jpg);"></div>
-                                                                    </div>
-                                                                </div>
-                                                            </td>
-                                                            <td><i class="icon-clock" aria-hidden="true"></i></td>
-                                                            <td><span>13:00</span><i class="icon-arrow_right " aria-hidden="true"></i><span>14:00</span></td>
-                                                            <td><a href="tel:01517076707" title="Phone Joe"><button class="maskCircle icon-telephone"><span>Telephone</span></button></a></td>
-                                                        </tr>
-                                                    </table>
-                                                </section>
-
-                                            </article>
-
-                                        <!-- END MAGINIFIC POP-UP CONTENT -->
-                                        </aside>
-
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-
-                        <li id="RoomUKCPatentBox" data-room="RoomUKCPatentBox" class="room">
-                            <div class="ch-item" >              
-                                <div class="ch-info-wrap">
-                                    <div class="ch-info unavailable">
-                                        <div class="ch-info-front hexagon">
-                                            <h1>BOX</h1>
-                                            <small><span class='temperature'>18</span> &#x2103;</small>
-                                        </div>
-                                        
-                                        <div class="ch-info-back hexagon">
-                                            <div class="maskCircle bookerPhoto"><img src="img/photos/john-biggs.jpg" alt="Joe Bloggs"></div>
-                                            <h3>13:00 <i class="icon-arrow_right" aria-hidden="true"></i> 14:00</h3>
-                                            <h4>Joe Bloggs</h4>
-                                            <a href="tel:01517076707" title="Phone Joe" class="noSpin d-hide t-hide"><button class="maskCircle icon-telephone"><span>Telephone</span></button></a> 
-                                            <a href="mailto:info@redninja.co.uk" title="Email Joe" class="noSpin m-hide"><button class="maskCircle icon-email"><span>Email</span></button></a> 
-                                            <a href="#popup-BOX" title="View Itinerary" class="noSpin open-popup-link"><button class="maskCircle icon-information"><span>Itinerary Information</span></button></a>
-                                        </div>
-
-                                        <aside id="popup-BOX" class="itinerary mfp-hide">
-                                        <!-- START MAGINIFIC POP-UP CONTENT -->
+                            <li id="Room.UKCSF8" data-room="Room.UKCSF8" class="room">
+                                <div class="ch-item" >              
+                                    <div class="ch-info-wrap">
+                                        <div class="ch-info unavailable">
+                                            <div class="ch-info-front hexagon">
+                                                <h1>SF8</h1>
+                                                <small><span class='temperature'>18</span> &#x2103;</small>
+                                            </div>
                                             
-                                            <article>
+                                            <div class="ch-info-back hexagon">
+                                                <div class="maskCircle bookerPhoto"><img src="img/photos/john-biggs.jpg" alt="Joe Bloggs"></div>
+                                                <h3>13:00 <i class="icon-arrow_right" aria-hidden="true"></i> 14:00</h3>
+                                                <h4>Joe Bloggs</h4>
+                                                <a href="tel:01517076707" title="Phone Joe" class="noSpin d-hide t-hide"><button class="maskCircle icon-telephone"><span>Telephone</span></button></a> 
+                                                <a href="mailto:info@redninja.co.uk" title="Email Joe" class="noSpin m-hide"><button class="maskCircle icon-email"><span>Email</span></button></a> 
+                                                <a href="#popup-SF8" title="View Itinerary" class="noSpin open-popup-link"><button class="maskCircle icon-information"><span>Itinerary Information</span></button></a>
+                                            </div>
 
-                                                <header class="clearfix">
-                                                    <h1>Today's Itinerary</h1>
-                                                    <h2>BOX</h2>
-                                                    <small><span class='temperature'>18</span> &#x2103;</small>
-                                                </header>
+                                            <aside id="popup-SF8" class="itinerary mfp-hide">
+                                            <!-- START MAGINIFIC POP-UP CONTENT -->                                           
+                                                <article>
+                                                    <header class="clearfix">
+                                                        <h1>Today's Itinerary</h1>
+                                                        <h2>SF8</h2>
+                                                        <small><span class='temperature'>18</span> &#x2103;</small>
+                                                    </header>
 
-                                                <section>
-                                                    <table class="tg-table-dark">
-                                                        <tr>
-                                                            <td rowspan="2">
-                                                                <div class="wrapHexagon">
-                                                                    <div class="hexagon-in1">
-                                                                        <div class="hexagon-in2" style="background-image: url(img/photos/john-biggs.jpg);"></div>
+                                                    <section>
+                                                        <table class="tg-table-dark">
+                                                            <tr>
+                                                                <td rowspan="2">
+                                                                    <div class="wrapHexagon">
+                                                                        <div class="hexagon-in1">
+                                                                            <div class="hexagon-in2" style="background-image: url(img/photos/john-biggs.jpg);"></div>
+                                                                        </div>
                                                                     </div>
-                                                                </div>
-                                                            </td>
-                                                            <td><i class="icon-clock" aria-hidden="true"></i></td>
-                                                            <td><span>13:00</span><i class="icon-arrow_right " aria-hidden="true"></i><span>14:00</span></td>
-                                                            <td rowspan="2"><a href="tel:01517076707" title="Phone Joe"><button class="maskCircle icon-telephone icon2x"><span>Telephone</span></button></a></td>
-                                                        </tr>
-                                                        <tr class="m-hide">
-                                                            <td><i class="icon-user" aria-hidden="true"></i></td>
-                                                            <td><p>Joe Blogs</p></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>
-                                                                <div class="wrapHexagon">
-                                                                    <div class="hexagon-in1">
-                                                                        <div class="hexagon-in2" style="background-image: url(img/photos/john-biggs.jpg);"></div>
+                                                                </td>
+                                                                <td><i class="icon-clock" aria-hidden="true"></i></td>
+                                                                <td><span>13:00</span><i class="icon-arrow_right " aria-hidden="true"></i><span>14:00</span></td>
+                                                                <td rowspan="2"><a href="tel:01517076707" title="Phone Joe"><button class="maskCircle icon-telephone icon2x"><span>Telephone</span></button></a></td>
+                                                            </tr>
+                                                            <tr class="m-hide">
+                                                                <td><i class="icon-user" aria-hidden="true"></i></td>
+                                                                <td><p>Joe Blogs</p></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <div class="wrapHexagon">
+                                                                        <div class="hexagon-in1">
+                                                                            <div class="hexagon-in2" style="background-image: url(img/photos/john-biggs.jpg);"></div>
+                                                                        </div>
                                                                     </div>
-                                                                </div>
-                                                            </td>
-                                                            <td><i class="icon-clock" aria-hidden="true"></i></td>
-                                                            <td><span>13:00</span><i class="icon-arrow_right " aria-hidden="true"></i><span>14:00</span></td>
-                                                            <td><a href="tel:01517076707" title="Phone Joe"><button class="maskCircle icon-telephone"><span>Telephone</span></button></a></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>
-                                                                <div class="wrapHexagon">
-                                                                    <div class="hexagon-in1">
-                                                                        <div class="hexagon-in2" style="background-image: url(img/photos/john-biggs.jpg);"></div>
+                                                                </td>
+                                                                <td><i class="icon-clock" aria-hidden="true"></i></td>
+                                                                <td><span>13:00</span><i class="icon-arrow_right " aria-hidden="true"></i><span>14:00</span></td>
+                                                                <td><a href="tel:01517076707" title="Phone Joe"><button class="maskCircle icon-telephone"><span>Telephone</span></button></a></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <div class="wrapHexagon">
+                                                                        <div class="hexagon-in1">
+                                                                            <div class="hexagon-in2" style="background-image: url(img/photos/john-biggs.jpg);"></div>
+                                                                        </div>
                                                                     </div>
-                                                                </div>
-                                                            </td>
-                                                            <td><i class="icon-clock" aria-hidden="true"></i></td>
-                                                            <td><span>13:00</span><i class="icon-arrow_right " aria-hidden="true"></i><span>14:00</span></td>
-                                                            <td><a href="tel:01517076707" title="Phone Joe"><button class="maskCircle icon-telephone"><span>Telephone</span></button></a></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>
-                                                                <div class="wrapHexagon">
-                                                                    <div class="hexagon-in1">
-                                                                        <div class="hexagon-in2" style="background-image: url(img/photos/john-biggs.jpg);"></div>
+                                                                </td>
+                                                                <td><i class="icon-clock" aria-hidden="true"></i></td>
+                                                                <td><span>13:00</span><i class="icon-arrow_right " aria-hidden="true"></i><span>14:00</span></td>
+                                                                <td><a href="tel:01517076707" title="Phone Joe"><button class="maskCircle icon-telephone"><span>Telephone</span></button></a></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <div class="wrapHexagon">
+                                                                        <div class="hexagon-in1">
+                                                                            <div class="hexagon-in2" style="background-image: url(img/photos/john-biggs.jpg);"></div>
+                                                                        </div>
                                                                     </div>
-                                                                </div>
-                                                            </td>
-                                                            <td><i class="icon-clock" aria-hidden="true"></i></td>
-                                                            <td><span>13:00</span><i class="icon-arrow_right " aria-hidden="true"></i><span>14:00</span></td>
-                                                            <td><a href="tel:01517076707" title="Phone Joe"><button class="maskCircle icon-telephone"><span>Telephone</span></button></a></td>
-                                                        </tr>
-                                                    </table>
-                                                </section>
+                                                                </td>
+                                                                <td><i class="icon-clock" aria-hidden="true"></i></td>
+                                                                <td><span>13:00</span><i class="icon-arrow_right " aria-hidden="true"></i><span>14:00</span></td>
+                                                                <td><a href="tel:01517076707" title="Phone Joe"><button class="maskCircle icon-telephone"><span>Telephone</span></button></a></td>
+                                                            </tr>
+                                                        </table>
+                                                    </section>
 
-                                            </article>
+                                                </article>
 
-                                        <!-- END MAGINIFIC POP-UP CONTENT -->
-                                        </aside>
+                                            <!-- END MAGINIFIC POP-UP CONTENT -->
+                                            </aside>
 
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        </li>
+                            </li>
 
-                        <li id="Room.UKCWillowB" data-room="Room.UKCWillowB" class="room">
-                            <div class="ch-item" >              
-                                <div class="ch-info-wrap">
-                                    <div class="ch-info available">
-                                        <div class="ch-info-front hexagon">
-                                            <h1>FM11</h1>
-                                            <small><span class='temperature'>18</span> &#x2103;</small>
-                                        </div>
-                                        
-                                        <div class="ch-info-back hexagon">
-                                            <div class="maskCircle bookerPhoto"><img src="img/photos/john-biggs.jpg" alt="Joe Bloggs"></div>
-                                            <h3>13:00 <i class="icon-arrow_right" aria-hidden="true"></i> 14:00</h3>
-                                            <h4>Joe Bloggs</h4>
-                                            <a href="tel:01517076707" title="Phone Joe" class="noSpin d-hide t-hide"><button class="maskCircle icon-telephone"><span>Telephone</span></button></a> 
-                                            <a href="mailto:info@redninja.co.uk" title="Email Joe" class="noSpin m-hide"><button class="maskCircle icon-email"><span>Email</span></button></a> 
-                                            <a href="#popup-FM11" title="View Itinerary" class="noSpin open-popup-link"><button class="maskCircle icon-information"><span>Itinerary Information</span></button></a>
-                                        </div>
-
-                                        <aside id="popup-FM11" class="itinerary mfp-hide">
-                                        <!-- START MAGINIFIC POP-UP CONTENT -->
+                            <li id="RoomUKCPatentBox" data-room="RoomUKCPatentBox" class="room">
+                                <div class="ch-item" >              
+                                    <div class="ch-info-wrap">
+                                        <div class="ch-info unavailable">
+                                            <div class="ch-info-front hexagon">
+                                                <h1>BOX</h1>
+                                                <small><span class='temperature'>18</span> &#x2103;</small>
+                                            </div>
                                             
-                                            <article>
+                                            <div class="ch-info-back hexagon">
+                                                <div class="maskCircle bookerPhoto"><img src="img/photos/john-biggs.jpg" alt="Joe Bloggs"></div>
+                                                <h3>13:00 <i class="icon-arrow_right" aria-hidden="true"></i> 14:00</h3>
+                                                <h4>Joe Bloggs</h4>
+                                                <a href="tel:01517076707" title="Phone Joe" class="noSpin d-hide t-hide"><button class="maskCircle icon-telephone"><span>Telephone</span></button></a> 
+                                                <a href="mailto:info@redninja.co.uk" title="Email Joe" class="noSpin m-hide"><button class="maskCircle icon-email"><span>Email</span></button></a> 
+                                                <a href="#popup-BOX" title="View Itinerary" class="noSpin open-popup-link"><button class="maskCircle icon-information"><span>Itinerary Information</span></button></a>
+                                            </div>
 
-                                                <header class="clearfix">
-                                                    <h1>Today's Itinerary</h1>
-                                                    <h2>FM11</h2>
-                                                    <small><span class='temperature'>18</span> &#x2103;</small>
-                                                </header>
+                                            <aside id="popup-BOX" class="itinerary mfp-hide">
+                                            <!-- START MAGINIFIC POP-UP CONTENT -->
+                                                
+                                                <article>
 
-                                                <section>
-                                                    <table class="tg-table-dark">
-                                                        <tr>
-                                                            <td rowspan="2">
-                                                                <div class="wrapHexagon">
-                                                                    <div class="hexagon-in1">
-                                                                        <div class="hexagon-in2" style="background-image: url(img/photos/john-biggs.jpg);"></div>
+                                                    <header class="clearfix">
+                                                        <h1>Today's Itinerary</h1>
+                                                        <h2>BOX</h2>
+                                                        <small><span class='temperature'>18</span> &#x2103;</small>
+                                                    </header>
+
+                                                    <section>
+                                                        <table class="tg-table-dark">
+                                                            <tr>
+                                                                <td rowspan="2">
+                                                                    <div class="wrapHexagon">
+                                                                        <div class="hexagon-in1">
+                                                                            <div class="hexagon-in2" style="background-image: url(img/photos/john-biggs.jpg);"></div>
+                                                                        </div>
                                                                     </div>
-                                                                </div>
-                                                            </td>
-                                                            <td><i class="icon-clock" aria-hidden="true"></i></td>
-                                                            <td><span>13:00</span><i class="icon-arrow_right " aria-hidden="true"></i><span>14:00</span></td>
-                                                            <td rowspan="2"><a href="tel:01517076707" title="Phone Joe"><button class="maskCircle icon-telephone icon2x"><span>Telephone</span></button></a></td>
-                                                        </tr>
-                                                        <tr class="m-hide">
-                                                            <td><i class="icon-user" aria-hidden="true"></i></td>
-                                                            <td><p>Joe Blogs</p></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>
-                                                                <div class="wrapHexagon">
-                                                                    <div class="hexagon-in1">
-                                                                        <div class="hexagon-in2" style="background-image: url(img/photos/john-biggs.jpg);"></div>
+                                                                </td>
+                                                                <td><i class="icon-clock" aria-hidden="true"></i></td>
+                                                                <td><span>13:00</span><i class="icon-arrow_right " aria-hidden="true"></i><span>14:00</span></td>
+                                                                <td rowspan="2"><a href="tel:01517076707" title="Phone Joe"><button class="maskCircle icon-telephone icon2x"><span>Telephone</span></button></a></td>
+                                                            </tr>
+                                                            <tr class="m-hide">
+                                                                <td><i class="icon-user" aria-hidden="true"></i></td>
+                                                                <td><p>Joe Blogs</p></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <div class="wrapHexagon">
+                                                                        <div class="hexagon-in1">
+                                                                            <div class="hexagon-in2" style="background-image: url(img/photos/john-biggs.jpg);"></div>
+                                                                        </div>
                                                                     </div>
-                                                                </div>
-                                                            </td>
-                                                            <td><i class="icon-clock" aria-hidden="true"></i></td>
-                                                            <td><span>13:00</span><i class="icon-arrow_right " aria-hidden="true"></i><span>14:00</span></td>
-                                                            <td><a href="tel:01517076707" title="Phone Joe"><button class="maskCircle icon-telephone"><span>Telephone</span></button></a></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>
-                                                                <div class="wrapHexagon">
-                                                                    <div class="hexagon-in1">
-                                                                        <div class="hexagon-in2" style="background-image: url(img/photos/john-biggs.jpg);"></div>
+                                                                </td>
+                                                                <td><i class="icon-clock" aria-hidden="true"></i></td>
+                                                                <td><span>13:00</span><i class="icon-arrow_right " aria-hidden="true"></i><span>14:00</span></td>
+                                                                <td><a href="tel:01517076707" title="Phone Joe"><button class="maskCircle icon-telephone"><span>Telephone</span></button></a></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <div class="wrapHexagon">
+                                                                        <div class="hexagon-in1">
+                                                                            <div class="hexagon-in2" style="background-image: url(img/photos/john-biggs.jpg);"></div>
+                                                                        </div>
                                                                     </div>
-                                                                </div>
-                                                            </td>
-                                                            <td><i class="icon-clock" aria-hidden="true"></i></td>
-                                                            <td><span>13:00</span><i class="icon-arrow_right " aria-hidden="true"></i><span>14:00</span></td>
-                                                            <td><a href="tel:01517076707" title="Phone Joe"><button class="maskCircle icon-telephone"><span>Telephone</span></button></a></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>
-                                                                <div class="wrapHexagon">
-                                                                    <div class="hexagon-in1">
-                                                                        <div class="hexagon-in2" style="background-image: url(img/photos/john-biggs.jpg);"></div>
+                                                                </td>
+                                                                <td><i class="icon-clock" aria-hidden="true"></i></td>
+                                                                <td><span>13:00</span><i class="icon-arrow_right " aria-hidden="true"></i><span>14:00</span></td>
+                                                                <td><a href="tel:01517076707" title="Phone Joe"><button class="maskCircle icon-telephone"><span>Telephone</span></button></a></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <div class="wrapHexagon">
+                                                                        <div class="hexagon-in1">
+                                                                            <div class="hexagon-in2" style="background-image: url(img/photos/john-biggs.jpg);"></div>
+                                                                        </div>
                                                                     </div>
-                                                                </div>
-                                                            </td>
-                                                            <td><i class="icon-clock" aria-hidden="true"></i></td>
-                                                            <td><span>13:00</span><i class="icon-arrow_right " aria-hidden="true"></i><span>14:00</span></td>
-                                                            <td><a href="tel:01517076707" title="Phone Joe"><button class="maskCircle icon-telephone"><span>Telephone</span></button></a></td>
-                                                        </tr>
-                                                    </table>
-                                                </section>
+                                                                </td>
+                                                                <td><i class="icon-clock" aria-hidden="true"></i></td>
+                                                                <td><span>13:00</span><i class="icon-arrow_right " aria-hidden="true"></i><span>14:00</span></td>
+                                                                <td><a href="tel:01517076707" title="Phone Joe"><button class="maskCircle icon-telephone"><span>Telephone</span></button></a></td>
+                                                            </tr>
+                                                        </table>
+                                                    </section>
 
-                                            </article>
+                                                </article>
 
-                                        <!-- END MAGINIFIC POP-UP CONTENT -->
-                                        </aside>
+                                            <!-- END MAGINIFIC POP-UP CONTENT -->
+                                            </aside>
 
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        </li>
+                            </li>
 
-                        <li id="Room.UKCFM10" data-room="Room.UKCFM10" class="room">
-                            <div class="ch-item" >              
-                                <div class="ch-info-wrap">
-                                    <div class="ch-info unavailable">
-                                        <div class="ch-info-front hexagon">
-                                            <h1>FM10</h1>
-                                            <small><span class='temperature'>18</span> &#x2103;</small>
-                                        </div>
-                                        
-                                        <div class="ch-info-back hexagon">
-                                            <div class="maskCircle bookerPhoto"><img src="img/photos/john-biggs.jpg" alt="Joe Bloggs"></div>
-                                            <h3>13:00 <i class="icon-arrow_right" aria-hidden="true"></i> 14:00</h3>
-                                            <h4>Joe Bloggs</h4>
-                                            <a href="tel:01517076707" title="Phone Joe" class="noSpin d-hide t-hide"><button class="maskCircle icon-telephone"><span>Telephone</span></button></a> 
-                                            <a href="mailto:info@redninja.co.uk" title="Email Joe" class="noSpin m-hide"><button class="maskCircle icon-email"><span>Email</span></button></a> 
-                                            <a href="#popup-FM10" title="View Itinerary" class="noSpin open-popup-link"><button class="maskCircle icon-information"><span>Itinerary Information</span></button></a>
-                                        </div>
-
-                                        <aside id="popup-FM10" class="itinerary mfp-hide">
-                                        <!-- START MAGINIFIC POP-UP CONTENT -->
+                            <li id="Room.UKCWillowB" data-room="Room.UKCWillowB" class="room">
+                                <div class="ch-item" >              
+                                    <div class="ch-info-wrap">
+                                        <div class="ch-info available">
+                                            <div class="ch-info-front hexagon">
+                                                <h1>FM11</h1>
+                                                <small><span class='temperature'>18</span> &#x2103;</small>
+                                            </div>
                                             
-                                            <article>
+                                            <div class="ch-info-back hexagon">
+                                                <div class="maskCircle bookerPhoto"><img src="img/photos/john-biggs.jpg" alt="Joe Bloggs"></div>
+                                                <h3>13:00 <i class="icon-arrow_right" aria-hidden="true"></i> 14:00</h3>
+                                                <h4>Joe Bloggs</h4>
+                                                <a href="tel:01517076707" title="Phone Joe" class="noSpin d-hide t-hide"><button class="maskCircle icon-telephone"><span>Telephone</span></button></a> 
+                                                <a href="mailto:info@redninja.co.uk" title="Email Joe" class="noSpin m-hide"><button class="maskCircle icon-email"><span>Email</span></button></a> 
+                                                <a href="#popup-FM11" title="View Itinerary" class="noSpin open-popup-link"><button class="maskCircle icon-information"><span>Itinerary Information</span></button></a>
+                                            </div>
 
-                                                <header class="clearfix">
-                                                    <h1>Today's Itinerary</h1>
-                                                    <h2>FM10</h2>
-                                                    <small><span class='temperature'>18</span> &#x2103;</small>
-                                                </header>
+                                            <aside id="popup-FM11" class="itinerary mfp-hide">
+                                            <!-- START MAGINIFIC POP-UP CONTENT -->
+                                                
+                                                <article>
 
-                                                <section>
-                                                    <table class="tg-table-dark">
-                                                        <tr>
-                                                            <td rowspan="2">
-                                                                <div class="wrapHexagon">
-                                                                    <div class="hexagon-in1">
-                                                                        <div class="hexagon-in2" style="background-image: url(img/photos/john-biggs.jpg);"></div>
+                                                    <header class="clearfix">
+                                                        <h1>Today's Itinerary</h1>
+                                                        <h2>FM11</h2>
+                                                        <small><span class='temperature'>18</span> &#x2103;</small>
+                                                    </header>
+
+                                                    <section>
+                                                        <table class="tg-table-dark">
+                                                            <tr>
+                                                                <td rowspan="2">
+                                                                    <div class="wrapHexagon">
+                                                                        <div class="hexagon-in1">
+                                                                            <div class="hexagon-in2" style="background-image: url(img/photos/john-biggs.jpg);"></div>
+                                                                        </div>
                                                                     </div>
-                                                                </div>
-                                                            </td>
-                                                            <td><i class="icon-clock" aria-hidden="true"></i></td>
-                                                            <td><span>13:00</span><i class="icon-arrow_right " aria-hidden="true"></i><span>14:00</span></td>
-                                                            <td rowspan="2"><a href="tel:01517076707" title="Phone Joe"><button class="maskCircle icon-telephone icon2x"><span>Telephone</span></button></a></td>
-                                                        </tr>
-                                                        <tr class="m-hide">
-                                                            <td><i class="icon-user" aria-hidden="true"></i></td>
-                                                            <td><p>Joe Blogs</p></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>
-                                                                <div class="wrapHexagon">
-                                                                    <div class="hexagon-in1">
-                                                                        <div class="hexagon-in2" style="background-image: url(img/photos/john-biggs.jpg);"></div>
+                                                                </td>
+                                                                <td><i class="icon-clock" aria-hidden="true"></i></td>
+                                                                <td><span>13:00</span><i class="icon-arrow_right " aria-hidden="true"></i><span>14:00</span></td>
+                                                                <td rowspan="2"><a href="tel:01517076707" title="Phone Joe"><button class="maskCircle icon-telephone icon2x"><span>Telephone</span></button></a></td>
+                                                            </tr>
+                                                            <tr class="m-hide">
+                                                                <td><i class="icon-user" aria-hidden="true"></i></td>
+                                                                <td><p>Joe Blogs</p></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <div class="wrapHexagon">
+                                                                        <div class="hexagon-in1">
+                                                                            <div class="hexagon-in2" style="background-image: url(img/photos/john-biggs.jpg);"></div>
+                                                                        </div>
                                                                     </div>
-                                                                </div>
-                                                            </td>
-                                                            <td><i class="icon-clock" aria-hidden="true"></i></td>
-                                                            <td><span>13:00</span><i class="icon-arrow_right " aria-hidden="true"></i><span>14:00</span></td>
-                                                            <td><a href="tel:01517076707" title="Phone Joe"><button class="maskCircle icon-telephone"><span>Telephone</span></button></a></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>
-                                                                <div class="wrapHexagon">
-                                                                    <div class="hexagon-in1">
-                                                                        <div class="hexagon-in2" style="background-image: url(img/photos/john-biggs.jpg);"></div>
+                                                                </td>
+                                                                <td><i class="icon-clock" aria-hidden="true"></i></td>
+                                                                <td><span>13:00</span><i class="icon-arrow_right " aria-hidden="true"></i><span>14:00</span></td>
+                                                                <td><a href="tel:01517076707" title="Phone Joe"><button class="maskCircle icon-telephone"><span>Telephone</span></button></a></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <div class="wrapHexagon">
+                                                                        <div class="hexagon-in1">
+                                                                            <div class="hexagon-in2" style="background-image: url(img/photos/john-biggs.jpg);"></div>
+                                                                        </div>
                                                                     </div>
-                                                                </div>
-                                                            </td>
-                                                            <td><i class="icon-clock" aria-hidden="true"></i></td>
-                                                            <td><span>13:00</span><i class="icon-arrow_right " aria-hidden="true"></i><span>14:00</span></td>
-                                                            <td><a href="tel:01517076707" title="Phone Joe"><button class="maskCircle icon-telephone"><span>Telephone</span></button></a></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>
-                                                                <div class="wrapHexagon">
-                                                                    <div class="hexagon-in1">
-                                                                        <div class="hexagon-in2" style="background-image: url(img/photos/john-biggs.jpg);"></div>
+                                                                </td>
+                                                                <td><i class="icon-clock" aria-hidden="true"></i></td>
+                                                                <td><span>13:00</span><i class="icon-arrow_right " aria-hidden="true"></i><span>14:00</span></td>
+                                                                <td><a href="tel:01517076707" title="Phone Joe"><button class="maskCircle icon-telephone"><span>Telephone</span></button></a></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <div class="wrapHexagon">
+                                                                        <div class="hexagon-in1">
+                                                                            <div class="hexagon-in2" style="background-image: url(img/photos/john-biggs.jpg);"></div>
+                                                                        </div>
                                                                     </div>
-                                                                </div>
-                                                            </td>
-                                                            <td><i class="icon-clock" aria-hidden="true"></i></td>
-                                                            <td><span>13:00</span><i class="icon-arrow_right " aria-hidden="true"></i><span>14:00</span></td>
-                                                            <td><a href="tel:01517076707" title="Phone Joe"><button class="maskCircle icon-telephone"><span>Telephone</span></button></a></td>
-                                                        </tr>
-                                                    </table>
-                                                </section>
+                                                                </td>
+                                                                <td><i class="icon-clock" aria-hidden="true"></i></td>
+                                                                <td><span>13:00</span><i class="icon-arrow_right " aria-hidden="true"></i><span>14:00</span></td>
+                                                                <td><a href="tel:01517076707" title="Phone Joe"><button class="maskCircle icon-telephone"><span>Telephone</span></button></a></td>
+                                                            </tr>
+                                                        </table>
+                                                    </section>
 
-                                            </article>
+                                                </article>
 
-                                        <!-- END MAGINIFIC POP-UP CONTENT -->
-                                        </aside>
+                                            <!-- END MAGINIFIC POP-UP CONTENT -->
+                                            </aside>
 
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        </li>
+                            </li>
 
-                        <li id="Room.UKCARM66MR4" data-room="Room.UKCARM66MR4" class="room">
-                            <div class="ch-item" >              
-                                <div class="ch-info-wrap">
-                                    <div class="ch-info available">
-                                        <div class="ch-info-front hexagon">
-                                            <h1>MR4</h1>
-                                            <small><span class='temperature'>18</span> &#x2103;</small>
-                                        </div>
-                                        
-                                        <div class="ch-info-back hexagon">
-                                            <div class="maskCircle bookerPhoto"><img src="img/photos/john-biggs.jpg" alt="Joe Bloggs"></div>
-                                            <h3>13:00 <i class="icon-arrow_right" aria-hidden="true"></i> 14:00</h3>
-                                            <h4>Joe Bloggs</h4>
-                                            <a href="tel:01517076707" title="Phone Joe" class="noSpin d-hide t-hide"><button class="maskCircle icon-telephone"><span>Telephone</span></button></a> 
-                                            <a href="mailto:info@redninja.co.uk" title="Email Joe" class="noSpin m-hide"><button class="maskCircle icon-email"><span>Email</span></button></a> 
-                                            <a href="#popup-MR4" title="View Itinerary" class="noSpin open-popup-link"><button class="maskCircle icon-information"><span>Itinerary Information</span></button></a>
-                                        </div>
-
-                                        <aside id="popup-MR4" class="itinerary mfp-hide">
-                                        <!-- START MAGINIFIC POP-UP CONTENT -->
+                            <li id="Room.UKCFM10" data-room="Room.UKCFM10" class="room">
+                                <div class="ch-item" >              
+                                    <div class="ch-info-wrap">
+                                        <div class="ch-info unavailable">
+                                            <div class="ch-info-front hexagon">
+                                                <h1>FM10</h1>
+                                                <small><span class='temperature'>18</span> &#x2103;</small>
+                                            </div>
                                             
-                                            <article>
+                                            <div class="ch-info-back hexagon">
+                                                <div class="maskCircle bookerPhoto"><img src="img/photos/john-biggs.jpg" alt="Joe Bloggs"></div>
+                                                <h3>13:00 <i class="icon-arrow_right" aria-hidden="true"></i> 14:00</h3>
+                                                <h4>Joe Bloggs</h4>
+                                                <a href="tel:01517076707" title="Phone Joe" class="noSpin d-hide t-hide"><button class="maskCircle icon-telephone"><span>Telephone</span></button></a> 
+                                                <a href="mailto:info@redninja.co.uk" title="Email Joe" class="noSpin m-hide"><button class="maskCircle icon-email"><span>Email</span></button></a> 
+                                                <a href="#popup-FM10" title="View Itinerary" class="noSpin open-popup-link"><button class="maskCircle icon-information"><span>Itinerary Information</span></button></a>
+                                            </div>
 
-                                                <header class="clearfix">
-                                                    <h1>Today's Itinerary</h1>
-                                                    <h2>MR4</h2>
-                                                    <small><span class='temperature'>18</span> &#x2103;</small>
-                                                </header>
+                                            <aside id="popup-FM10" class="itinerary mfp-hide">
+                                            <!-- START MAGINIFIC POP-UP CONTENT -->
+                                                
+                                                <article>
 
-                                                <section>
-                                                    <table class="tg-table-dark">
-                                                        <tr>
-                                                            <td rowspan="2">
-                                                                <div class="wrapHexagon">
-                                                                    <div class="hexagon-in1">
-                                                                        <div class="hexagon-in2" style="background-image: url(img/photos/john-biggs.jpg);"></div>
+                                                    <header class="clearfix">
+                                                        <h1>Today's Itinerary</h1>
+                                                        <h2>FM10</h2>
+                                                        <small><span class='temperature'>18</span> &#x2103;</small>
+                                                    </header>
+
+                                                    <section>
+                                                        <table class="tg-table-dark">
+                                                            <tr>
+                                                                <td rowspan="2">
+                                                                    <div class="wrapHexagon">
+                                                                        <div class="hexagon-in1">
+                                                                            <div class="hexagon-in2" style="background-image: url(img/photos/john-biggs.jpg);"></div>
+                                                                        </div>
                                                                     </div>
-                                                                </div>
-                                                            </td>
-                                                            <td><i class="icon-clock" aria-hidden="true"></i></td>
-                                                            <td><span>13:00</span><i class="icon-arrow_right " aria-hidden="true"></i><span>14:00</span></td>
-                                                            <td rowspan="2"><a href="tel:01517076707" title="Phone Joe"><button class="maskCircle icon-telephone icon2x"><span>Telephone</span></button></a></td>
-                                                        </tr>
-                                                        <tr class="m-hide">
-                                                            <td><i class="icon-user" aria-hidden="true"></i></td>
-                                                            <td><p>Joe Blogs</p></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>
-                                                                <div class="wrapHexagon">
-                                                                    <div class="hexagon-in1">
-                                                                        <div class="hexagon-in2" style="background-image: url(img/photos/john-biggs.jpg);"></div>
+                                                                </td>
+                                                                <td><i class="icon-clock" aria-hidden="true"></i></td>
+                                                                <td><span>13:00</span><i class="icon-arrow_right " aria-hidden="true"></i><span>14:00</span></td>
+                                                                <td rowspan="2"><a href="tel:01517076707" title="Phone Joe"><button class="maskCircle icon-telephone icon2x"><span>Telephone</span></button></a></td>
+                                                            </tr>
+                                                            <tr class="m-hide">
+                                                                <td><i class="icon-user" aria-hidden="true"></i></td>
+                                                                <td><p>Joe Blogs</p></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <div class="wrapHexagon">
+                                                                        <div class="hexagon-in1">
+                                                                            <div class="hexagon-in2" style="background-image: url(img/photos/john-biggs.jpg);"></div>
+                                                                        </div>
                                                                     </div>
-                                                                </div>
-                                                            </td>
-                                                            <td><i class="icon-clock" aria-hidden="true"></i></td>
-                                                            <td><span>13:00</span><i class="icon-arrow_right " aria-hidden="true"></i><span>14:00</span></td>
-                                                            <td><a href="tel:01517076707" title="Phone Joe"><button class="maskCircle icon-telephone"><span>Telephone</span></button></a></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>
-                                                                <div class="wrapHexagon">
-                                                                    <div class="hexagon-in1">
-                                                                        <div class="hexagon-in2" style="background-image: url(img/photos/john-biggs.jpg);"></div>
+                                                                </td>
+                                                                <td><i class="icon-clock" aria-hidden="true"></i></td>
+                                                                <td><span>13:00</span><i class="icon-arrow_right " aria-hidden="true"></i><span>14:00</span></td>
+                                                                <td><a href="tel:01517076707" title="Phone Joe"><button class="maskCircle icon-telephone"><span>Telephone</span></button></a></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <div class="wrapHexagon">
+                                                                        <div class="hexagon-in1">
+                                                                            <div class="hexagon-in2" style="background-image: url(img/photos/john-biggs.jpg);"></div>
+                                                                        </div>
                                                                     </div>
-                                                                </div>
-                                                            </td>
-                                                            <td><i class="icon-clock" aria-hidden="true"></i></td>
-                                                            <td><span>13:00</span><i class="icon-arrow_right " aria-hidden="true"></i><span>14:00</span></td>
-                                                            <td><a href="tel:01517076707" title="Phone Joe"><button class="maskCircle icon-telephone"><span>Telephone</span></button></a></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>
-                                                                <div class="wrapHexagon">
-                                                                    <div class="hexagon-in1">
-                                                                        <div class="hexagon-in2" style="background-image: url(img/photos/john-biggs.jpg);"></div>
+                                                                </td>
+                                                                <td><i class="icon-clock" aria-hidden="true"></i></td>
+                                                                <td><span>13:00</span><i class="icon-arrow_right " aria-hidden="true"></i><span>14:00</span></td>
+                                                                <td><a href="tel:01517076707" title="Phone Joe"><button class="maskCircle icon-telephone"><span>Telephone</span></button></a></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <div class="wrapHexagon">
+                                                                        <div class="hexagon-in1">
+                                                                            <div class="hexagon-in2" style="background-image: url(img/photos/john-biggs.jpg);"></div>
+                                                                        </div>
                                                                     </div>
-                                                                </div>
-                                                            </td>
-                                                            <td><i class="icon-clock" aria-hidden="true"></i></td>
-                                                            <td><span>13:00</span><i class="icon-arrow_right " aria-hidden="true"></i><span>14:00</span></td>
-                                                            <td><a href="tel:01517076707" title="Phone Joe"><button class="maskCircle icon-telephone"><span>Telephone</span></button></a></td>
-                                                        </tr>
-                                                    </table>
-                                                </section>
+                                                                </td>
+                                                                <td><i class="icon-clock" aria-hidden="true"></i></td>
+                                                                <td><span>13:00</span><i class="icon-arrow_right " aria-hidden="true"></i><span>14:00</span></td>
+                                                                <td><a href="tel:01517076707" title="Phone Joe"><button class="maskCircle icon-telephone"><span>Telephone</span></button></a></td>
+                                                            </tr>
+                                                        </table>
+                                                    </section>
 
-                                            </article>
+                                                </article>
 
-                                        <!-- END MAGINIFIC POP-UP CONTENT -->
-                                        </aside>
+                                            <!-- END MAGINIFIC POP-UP CONTENT -->
+                                            </aside>
 
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        </li>
+                            </li>
 
-                        <li id="Room.UKCARM66MR5" data-room="Room.UKCARM66MR5" class="room">
-                            <div class="ch-item" >              
-                                <div class="ch-info-wrap">
-                                    <div class="ch-info unavailable">
-
-                                        <div class="ch-info-front hexagon">
-                                            <h1>MR5</h1>
-                                            <small><span class='temperature'>18</span> &#x2103;</small>
-                                        </div>
-
-                                        <div class="ch-info-back hexagon">
-                                            <div class="maskCircle bookerPhoto"><img src="img/photos/john-biggs.jpg" alt="Joe Bloggs"></div>
-                                            <h3>13:00 <i class="icon-arrow_right" aria-hidden="true"></i> 14:00</h3>
-                                            <h4>Joe Bloggs</h4>
-                                            <a href="tel:01517076707" title="Phone Joe" class="noSpin d-hide t-hide"><button class="maskCircle icon-telephone"><span>Telephone</span></button></a> 
-                                            <a href="mailto:info@redninja.co.uk" title="Email Joe" class="noSpin m-hide"><button class="maskCircle icon-email"><span>Email</span></button></a> 
-                                            <a href="#popup-MR5" title="View Itinerary" class="noSpin open-popup-link"><button class="maskCircle icon-information"><span>Itinerary Information</span></button></a>
-                                        </div>
-
-                                        <aside id="popup-MR5" class="itinerary mfp-hide">
-                                        <!-- START MAGINIFIC POP-UP CONTENT -->
+                            <li id="Room.UKCARM66MR4" data-room="Room.UKCARM66MR4" class="room">
+                                <div class="ch-item" >              
+                                    <div class="ch-info-wrap">
+                                        <div class="ch-info available">
+                                            <div class="ch-info-front hexagon">
+                                                <h1>MR4</h1>
+                                                <small><span class='temperature'>18</span> &#x2103;</small>
+                                            </div>
                                             
-                                            <article>
+                                            <div class="ch-info-back hexagon">
+                                                <div class="maskCircle bookerPhoto"><img src="img/photos/john-biggs.jpg" alt="Joe Bloggs"></div>
+                                                <h3>13:00 <i class="icon-arrow_right" aria-hidden="true"></i> 14:00</h3>
+                                                <h4>Joe Bloggs</h4>
+                                                <a href="tel:01517076707" title="Phone Joe" class="noSpin d-hide t-hide"><button class="maskCircle icon-telephone"><span>Telephone</span></button></a> 
+                                                <a href="mailto:info@redninja.co.uk" title="Email Joe" class="noSpin m-hide"><button class="maskCircle icon-email"><span>Email</span></button></a> 
+                                                <a href="#popup-MR4" title="View Itinerary" class="noSpin open-popup-link"><button class="maskCircle icon-information"><span>Itinerary Information</span></button></a>
+                                            </div>
 
-                                                <header class="clearfix">
-                                                    <h1>Today's Itinerary</h1>
-                                                    <h2>MR5</h2>
-                                                    <small><span class='temperature'>18</span> &#x2103;</small>
-                                                </header>
+                                            <aside id="popup-MR4" class="itinerary mfp-hide">
+                                            <!-- START MAGINIFIC POP-UP CONTENT -->
+                                                
+                                                <article>
 
-                                                <section>
-                                                    <table class="tg-table-dark">
-                                                        <tr>
-                                                            <td rowspan="2">
-                                                                <div class="wrapHexagon">
-                                                                    <div class="hexagon-in1">
-                                                                        <div class="hexagon-in2" style="background-image: url(img/photos/john-biggs.jpg);"></div>
+                                                    <header class="clearfix">
+                                                        <h1>Today's Itinerary</h1>
+                                                        <h2>MR4</h2>
+                                                        <small><span class='temperature'>18</span> &#x2103;</small>
+                                                    </header>
+
+                                                    <section>
+                                                        <table class="tg-table-dark">
+                                                            <tr>
+                                                                <td rowspan="2">
+                                                                    <div class="wrapHexagon">
+                                                                        <div class="hexagon-in1">
+                                                                            <div class="hexagon-in2" style="background-image: url(img/photos/john-biggs.jpg);"></div>
+                                                                        </div>
                                                                     </div>
-                                                                </div>
-                                                            </td>
-                                                            <td><i class="icon-clock" aria-hidden="true"></i></td>
-                                                            <td><span>13:00</span><i class="icon-arrow_right " aria-hidden="true"></i><span>14:00</span></td>
-                                                            <td rowspan="2"><a href="tel:01517076707" title="Phone Joe"><button class="maskCircle icon-telephone icon2x"><span>Telephone</span></button></a></td>
-                                                        </tr>
-                                                        <tr class="m-hide">
-                                                            <td><i class="icon-user" aria-hidden="true"></i></td>
-                                                            <td><p>Joe Blogs</p></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>
-                                                                <div class="wrapHexagon">
-                                                                    <div class="hexagon-in1">
-                                                                        <div class="hexagon-in2" style="background-image: url(img/photos/john-biggs.jpg);"></div>
+                                                                </td>
+                                                                <td><i class="icon-clock" aria-hidden="true"></i></td>
+                                                                <td><span>13:00</span><i class="icon-arrow_right " aria-hidden="true"></i><span>14:00</span></td>
+                                                                <td rowspan="2"><a href="tel:01517076707" title="Phone Joe"><button class="maskCircle icon-telephone icon2x"><span>Telephone</span></button></a></td>
+                                                            </tr>
+                                                            <tr class="m-hide">
+                                                                <td><i class="icon-user" aria-hidden="true"></i></td>
+                                                                <td><p>Joe Blogs</p></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <div class="wrapHexagon">
+                                                                        <div class="hexagon-in1">
+                                                                            <div class="hexagon-in2" style="background-image: url(img/photos/john-biggs.jpg);"></div>
+                                                                        </div>
                                                                     </div>
-                                                                </div>
-                                                            </td>
-                                                            <td><i class="icon-clock" aria-hidden="true"></i></td>
-                                                            <td><span>13:00</span><i class="icon-arrow_right " aria-hidden="true"></i><span>14:00</span></td>
-                                                            <td><a href="tel:01517076707" title="Phone Joe"><button class="maskCircle icon-telephone"><span>Telephone</span></button></a></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>
-                                                                <div class="wrapHexagon">
-                                                                    <div class="hexagon-in1">
-                                                                        <div class="hexagon-in2" style="background-image: url(img/photos/john-biggs.jpg);"></div>
+                                                                </td>
+                                                                <td><i class="icon-clock" aria-hidden="true"></i></td>
+                                                                <td><span>13:00</span><i class="icon-arrow_right " aria-hidden="true"></i><span>14:00</span></td>
+                                                                <td><a href="tel:01517076707" title="Phone Joe"><button class="maskCircle icon-telephone"><span>Telephone</span></button></a></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <div class="wrapHexagon">
+                                                                        <div class="hexagon-in1">
+                                                                            <div class="hexagon-in2" style="background-image: url(img/photos/john-biggs.jpg);"></div>
+                                                                        </div>
                                                                     </div>
-                                                                </div>
-                                                            </td>
-                                                            <td><i class="icon-clock" aria-hidden="true"></i></td>
-                                                            <td><span>13:00</span><i class="icon-arrow_right " aria-hidden="true"></i><span>14:00</span></td>
-                                                            <td><a href="tel:01517076707" title="Phone Joe"><button class="maskCircle icon-telephone"><span>Telephone</span></button></a></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>
-                                                                <div class="wrapHexagon">
-                                                                    <div class="hexagon-in1">
-                                                                        <div class="hexagon-in2" style="background-image: url(img/photos/john-biggs.jpg);"></div>
+                                                                </td>
+                                                                <td><i class="icon-clock" aria-hidden="true"></i></td>
+                                                                <td><span>13:00</span><i class="icon-arrow_right " aria-hidden="true"></i><span>14:00</span></td>
+                                                                <td><a href="tel:01517076707" title="Phone Joe"><button class="maskCircle icon-telephone"><span>Telephone</span></button></a></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <div class="wrapHexagon">
+                                                                        <div class="hexagon-in1">
+                                                                            <div class="hexagon-in2" style="background-image: url(img/photos/john-biggs.jpg);"></div>
+                                                                        </div>
                                                                     </div>
-                                                                </div>
-                                                            </td>
-                                                            <td><i class="icon-clock" aria-hidden="true"></i></td>
-                                                            <td><span>13:00</span><i class="icon-arrow_right " aria-hidden="true"></i><span>14:00</span></td>
-                                                            <td><a href="tel:01517076707" title="Phone Joe"><button class="maskCircle icon-telephone"><span>Telephone</span></button></a></td>
-                                                        </tr>
-                                                    </table>
-                                                </section>
+                                                                </td>
+                                                                <td><i class="icon-clock" aria-hidden="true"></i></td>
+                                                                <td><span>13:00</span><i class="icon-arrow_right " aria-hidden="true"></i><span>14:00</span></td>
+                                                                <td><a href="tel:01517076707" title="Phone Joe"><button class="maskCircle icon-telephone"><span>Telephone</span></button></a></td>
+                                                            </tr>
+                                                        </table>
+                                                    </section>
 
-                                            </article>
+                                                </article>
 
-                                        <!-- END MAGINIFIC POP-UP CONTENT -->
-                                        </aside>
+                                            <!-- END MAGINIFIC POP-UP CONTENT -->
+                                            </aside>
 
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        </li>
+                            </li>
 
-                    </ul>
+                            <li id="Room.UKCARM66MR5" data-room="Room.UKCARM66MR5" class="room">
+                                <div class="ch-item" >              
+                                    <div class="ch-info-wrap">
+                                        <div class="ch-info unavailable">
 
-                <!-- END #app-meeting -->
-                </section>
+                                            <div class="ch-info-front hexagon">
+                                                <h1>MR5</h1>
+                                                <small><span class='temperature'>18</span> &#x2103;</small>
+                                            </div>
 
-                <footer id="footer" class="clearfix">
-                <!-- START #footer -->
+                                            <div class="ch-info-back hexagon">
+                                                <div class="maskCircle bookerPhoto"><img src="img/photos/john-biggs.jpg" alt="Joe Bloggs"></div>
+                                                <h3>13:00 <i class="icon-arrow_right" aria-hidden="true"></i> 14:00</h3>
+                                                <h4>Joe Bloggs</h4>
+                                                <a href="tel:01517076707" title="Phone Joe" class="noSpin d-hide t-hide"><button class="maskCircle icon-telephone"><span>Telephone</span></button></a> 
+                                                <a href="mailto:info@redninja.co.uk" title="Email Joe" class="noSpin m-hide"><button class="maskCircle icon-email"><span>Email</span></button></a> 
+                                                <a href="#popup-MR5" title="View Itinerary" class="noSpin open-popup-link"><button class="maskCircle icon-information"><span>Itinerary Information</span></button></a>
+                                            </div>
 
-                    <div>
-                        <small>v0.60 Design &amp; Coded by <a href="http://www.redninja.co.uk" title="Design and Coded by Red Ninja Studios">Red Ninja Studios</a></small>
-                    </div>
+                                            <aside id="popup-MR5" class="itinerary mfp-hide">
+                                            <!-- START MAGINIFIC POP-UP CONTENT -->
+                                                
+                                                <article>
 
-                    <div>
-                        <a href="http://arm.com" class="logo-arm" title="ARM - Architecture for the digital world"><img src="img/ARM-RGB.png" alt="ARM - Architecture for the digital world" class="logo" /></a>
-                    </div>
-                
-                <!-- END #footer -->
-                </footer>
+                                                    <header class="clearfix">
+                                                        <h1>Today's Itinerary</h1>
+                                                        <h2>MR5</h2>
+                                                        <small><span class='temperature'>18</span> &#x2103;</small>
+                                                    </header>
 
-            <!-- end .scroller's -->
-            </div>
-            </div>
+                                                    <section>
+                                                        <table class="tg-table-dark">
+                                                            <tr>
+                                                                <td rowspan="2">
+                                                                    <div class="wrapHexagon">
+                                                                        <div class="hexagon-in1">
+                                                                            <div class="hexagon-in2" style="background-image: url(img/photos/john-biggs.jpg);"></div>
+                                                                        </div>
+                                                                    </div>
+                                                                </td>
+                                                                <td><i class="icon-clock" aria-hidden="true"></i></td>
+                                                                <td><span>13:00</span><i class="icon-arrow_right " aria-hidden="true"></i><span>14:00</span></td>
+                                                                <td rowspan="2"><a href="tel:01517076707" title="Phone Joe"><button class="maskCircle icon-telephone icon2x"><span>Telephone</span></button></a></td>
+                                                            </tr>
+                                                            <tr class="m-hide">
+                                                                <td><i class="icon-user" aria-hidden="true"></i></td>
+                                                                <td><p>Joe Blogs</p></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <div class="wrapHexagon">
+                                                                        <div class="hexagon-in1">
+                                                                            <div class="hexagon-in2" style="background-image: url(img/photos/john-biggs.jpg);"></div>
+                                                                        </div>
+                                                                    </div>
+                                                                </td>
+                                                                <td><i class="icon-clock" aria-hidden="true"></i></td>
+                                                                <td><span>13:00</span><i class="icon-arrow_right " aria-hidden="true"></i><span>14:00</span></td>
+                                                                <td><a href="tel:01517076707" title="Phone Joe"><button class="maskCircle icon-telephone"><span>Telephone</span></button></a></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <div class="wrapHexagon">
+                                                                        <div class="hexagon-in1">
+                                                                            <div class="hexagon-in2" style="background-image: url(img/photos/john-biggs.jpg);"></div>
+                                                                        </div>
+                                                                    </div>
+                                                                </td>
+                                                                <td><i class="icon-clock" aria-hidden="true"></i></td>
+                                                                <td><span>13:00</span><i class="icon-arrow_right " aria-hidden="true"></i><span>14:00</span></td>
+                                                                <td><a href="tel:01517076707" title="Phone Joe"><button class="maskCircle icon-telephone"><span>Telephone</span></button></a></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <div class="wrapHexagon">
+                                                                        <div class="hexagon-in1">
+                                                                            <div class="hexagon-in2" style="background-image: url(img/photos/john-biggs.jpg);"></div>
+                                                                        </div>
+                                                                    </div>
+                                                                </td>
+                                                                <td><i class="icon-clock" aria-hidden="true"></i></td>
+                                                                <td><span>13:00</span><i class="icon-arrow_right " aria-hidden="true"></i><span>14:00</span></td>
+                                                                <td><a href="tel:01517076707" title="Phone Joe"><button class="maskCircle icon-telephone"><span>Telephone</span></button></a></td>
+                                                            </tr>
+                                                        </table>
+                                                    </section>
 
-        </section>
+                                                </article>
 
-    <!-- END #container -->
+                                            <!-- END MAGINIFIC POP-UP CONTENT -->
+                                            </aside>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+
+                        </ul>
+
+                    <!-- END #app-meeting -->
+                    </section>
+
+                    <footer id="footer" class="clearfix">
+                    <!-- START #footer -->
+
+                        <div>
+                            <small>v0.60 Design &amp; Coded by <a href="http://www.redninja.co.uk" title="Design and Coded by Red Ninja Studios">Red Ninja Studios</a></small>
+                        </div>
+
+                        <div>
+                            <a href="http://arm.com" class="logo-arm" title="ARM - Architecture for the digital world"><img src="img/ARM-RGB.png" alt="ARM - Architecture for the digital world" class="logo" /></a>
+                        </div>
+                    
+                    <!-- END #footer -->
+                    </footer>
+
+                <!-- end .scroller's -->
+                </div>
+                </div>
+
+            </section>
+
+        <!-- END #container -->
+        </div>
+    <!-- END .meeting-room -->
     </div>
 
     <script src="js/vendor/jquery-1.10.1.min.js"></script>
@@ -950,7 +955,7 @@
                                         '</td>'+
                                         '<td><i class="icon-clock" aria-hidden="true"></i></td>'+
                                         '<td><span>'+dateformat(event.startDate)+'</span><i class="icon-arrow_right " aria-hidden="true"></i><span>'+dateformat(event.endDate)+'</span></td>'+
-                                        '<td><a href="tel:01517076707" title="Phone Joe"><button class="maskCircle icon-telephone icon2x"><span>Telephone</span></button></a></td>'+
+                                        '<td><a href="tel:01517076707" title="Phone Joe"><button class="maskCircle icon-telephone"><span>Telephone</span></button></a></td>'+
                                     '</tr>');
                         $('.tg-table-dark').append(event);									
 					})
