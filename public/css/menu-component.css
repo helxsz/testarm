@@ -10,7 +10,6 @@ html, body, .container, .scroller {
 .container {
 	position: relative;
 	overflow: hidden;
-	background: #34495e;
 }
 
 .mp-pusher {
