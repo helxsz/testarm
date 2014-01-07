@@ -558,9 +558,8 @@
             #app-brand h3 {padding-top: 0;}
         .ch-info-back h4 {margin-bottom: 0;}
 
-        .ch-info-front small {padding:0; line-height: 1em;}
-        .ch-info-front small p {
-            font-size: 1.875em; line-height: 1em; font-weight: bold; padding:0;
+        .ch-info-front small {
+            font-size: 1.25em; line-height: 1em; font-weight: bold; padding:0;
         }
 
         #app-brand .ch-info-back i {display: block; padding-top: 1.625em; margin-bottom:0.25em;}
@@ -985,6 +984,11 @@
         .itinerary a button {width: 1.875em; height: 1.875em}
     
     .itinerary i {color:#134D61; font-size: 1.625em;}
+    .itinerary i.icon-arrow_right {
+        font-size: 1em;
+        margin-left: 0.25em;
+        margin-right: 0.25em;
+    }
 
 
      /* V2 */
