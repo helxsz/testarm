@@ -38,6 +38,7 @@
                 <!-- mp-menu -->
                     <nav id="mp-menu" class="mp-menu">
                         <div class="mp-level">
+                            <button id="triggerMobile" class="mp-close d-hide t-hide"><i class="icon-cancel_circle icon2x"></i></button>
                             <h2 class="icon icon-world">All Categories</h2>
                             <ul>
                                 <li>
@@ -71,26 +72,9 @@
                     <header id="banner" class="d1-d9 t1-t4 m-all clearfix">
                     <!-- START #banner -->
 
-                        <!--<button id="showLeft"><i class="icon-reorder icon2x"></i></button>-->
                         <button id="trigger"><i class="icon-reorder icon2x"></i></button>
 
                         <h1>ARM 1 <span class="blue">FIRST FLOOR</span> <span class="pink">MEETING ROOM</span> AVAILABILITY</h1>
-
-                        <!--
-                        <nav id="cbp-spmenu-s1" class="cbp-spmenu" role="navigation">
-                            <h3>Menu <button id="closeLeft"><i class="icon-cross_mark"></i></button></h3>
-                            <ul id="menu-header-menu">
-                                <li><a href="#">ARM 1 Floor 1</a></li>
-                                <li><a href="#">ARM 1 Floor 2</a></li>
-                                <li><a href="#">ARM 2 Floor 1</a></li>
-                                <li><a href="#">ARM 2 Floor 2</a></li>
-                                <li><a href="#">ARM 3 Floor 1</a></li>
-                                <li><a href="#">ARM 3 Floor 2</a></li>
-                                <li><a href="#">ARM 6 Floor 1</a></li>
-                                <li><a href="#">ARM 6 Floor 2</a></li>
-                            </ul>
-                        </nav>
-                        -->
 
                     <!-- END #banner -->
                     </header>
@@ -974,22 +958,16 @@
 
     </script>
 
-    <!-- Classie - class helper functions by @desandro https://github.com/desandro/classie -->
+    <!-- Classie - class helper functions by @desandro https://github.com/desandro/classie 
     <script>
-        var menuLeft = document.getElementById( 'cbp-spmenu-s1' ),
-            showLeft = document.getElementById( 'showLeft' ),
+        var menuLeft = document.getElementById( 'mp-menu' ),
+            showLeft = document.getElementById( 'triggerMobile' ),
             body = document.body;
 
-        showLeft.onclick = function() {
+        triggerMobile.onclick = function() {
             classie.toggle( this, 'active' );
-            classie.toggle( menuLeft, 'cbp-spmenu-open' );
-            disableOther( 'showLeft' );
-        };
-
-        closeLeft.onclick = function() {
-            classie.toggle( this, 'active' );
-            classie.toggle( menuLeft, 'cbp-spmenu-open' );
-            disableOther( 'showLeft' );
+            classie.toggle( menuLeft, 'mp-menu-open' );
+            disableOther( 'triggerMobile' );
         };
 
         function disableOther( button ) {
@@ -998,7 +976,7 @@
             }
 
         }
-    </script>
+    </script>-->
 
     <!-- New Menu -->
     <script>

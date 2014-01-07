@@ -1146,6 +1146,7 @@
 
         /* MENU */
         #showLeft {left: 1em; top: 4em;}
+        #trigger {left: 1.75em;}
 
         #footer {
             width: auto;
@@ -1165,7 +1166,7 @@
         .wrapper {width: 86%;}
 
         #banner {border: none;}
-            nav {width: 70%; margin-top: 2.25em;}
+            nav {width: 70%;}
 
             #showLeft {
                 position: relative;
@@ -1175,9 +1176,11 @@
                 left: 0;
             }
 
-            /*#app-meeting {
-                top: 336px;
-            }*/
+            #trigger {top: 1em; left: 1em;}
+            #triggerMobile {
+                color: #134D61; float: right;
+                margin-right: 1em; margin-top: 1em;
+            }
         
             #app-meeting {
                 height: 100%;
