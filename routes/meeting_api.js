@@ -1,4 +1,4 @@
-var app = require('../app').app;
+var app = require('../app').app;  
 
 var async = require('async'),
     fs = require('fs'),
