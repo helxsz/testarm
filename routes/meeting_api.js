@@ -121,7 +121,7 @@ app.get('/room/events',function(req,res){
 				roomObj.name = room_nmae;
 				roomObj.temperature = 22+  (Math.floor(Math.random() * 8) + 1)/4;
 				
-				var eventlist = _.filter(eventlist, function(event){ return new Date(event.endDate).getTime() >= now.getTime() });				
+				var eventlist = _.filter(eventlist, function(event){ var eventDate = new Date(event.endDate);    return (eventDate.getTime() >= now.getTime())&&(eventDate.getDate()==now.getDate()); });				
 				roomObj.events = eventlist;
 				events.push(roomObj);				
 	        }
@@ -563,3 +563,4 @@ function getArmMeetingSchedules(done){
         });            			
     })
 }
+

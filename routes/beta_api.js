@@ -122,7 +122,8 @@ function MeetingRoomMQTTHandler(){
 		    var array = url.split('/');
 		    console.log(array[0],array[1],array[2],array[3],array[4],array[5], value);
 			var device_id = array[3] , device_attr = array[4];
-			
+			console.log('url :'+url);
+			/*
 		    console.log('url :'+url.substring(0,url.lastIndexOf("/")));
 	        var url1 = url.substring(0,url.lastIndexOf("/"));
 			db.findResource2("device:"+url1, 'loc',function(err,data){ 
@@ -130,6 +131,7 @@ function MeetingRoomMQTTHandler(){
 				else if(data) winston.info('hmget find location 11:'.green+"  "+data.url+"  " +data+"   id:"+device_id+"   attribute:"+device_attr+"   value:".green+value);	  
 			    else winston.error('hmget find no location11');
 			});
+			*/
 			var room = mapping[url];
 			if(room){
 			    console.log("room  is  "+room);

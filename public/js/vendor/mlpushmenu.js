@@ -76,8 +76,7 @@
 			// space between each overlaped level
 			levelSpacing : 40,
 			// classname for the element (if any) that when clicked closes the current level
-			backClass : 'mp-back',
-			closeClass : 'mp-close'
+			backClass : 'mp-back'
 		},
 		_init : function() {
 			// if menu is open or not
@@ -95,8 +94,6 @@
 			this.menuItems = Array.prototype.slice.call( this.el.querySelectorAll( 'li' ) );
 			// if type == "cover" these will serve as hooks to move back to the previous level
 			this.levelBack = Array.prototype.slice.call( this.el.querySelectorAll( '.' + this.options.backClass ) );
-			//
-			this.levelClose = Array.prototype.slice.call( this.el.querySelectorAll( '.' + this.options.closeClass ) );
 			// event type (if mobile use touch events)
 			this.eventtype = mobilecheck() ? 'touchstart' : 'click';
 			// add the class mp-overlap or mp-cover to the main element depending on options.type
@@ -130,12 +127,6 @@
 					} );
 				}
 			} );
-
-			this.levelClose.forEach( function( el, i ) {                
-				el.addEventListener( self.eventtype, function( ev ) {
-						bodyClickFn( this );
-				} );
-			} );	
 
 			// opening a sub level menu
 			this.menuItems.forEach( function( el, i ) {
