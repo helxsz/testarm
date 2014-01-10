@@ -96,7 +96,6 @@ button.close {
 
 .modal-content {
   position: relative;
-  background-color: #ffffff;
   border: 1px solid #999999;
   border: 1px solid rgba(0, 0, 0, 0.2);
   border-radius: 6px;
@@ -186,16 +185,7 @@ button.close {
   margin-left: 0;
 }
 
-@media screen and (min-width: 768px) {
-  .modal-dialog {
-    width: 600px;
-    margin: 30px auto;
-  }
-  .modal-content {
-    -webkit-box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
-  }
-}
+
 
 </style>	
 	
@@ -306,10 +296,11 @@ button.close {
 			--> 	
 
 	<script type="text/ng-template" id="eventModalTemplate.html">
-		<article modal="modalVisible" close="close()" >
+		<aside class="itinerary">
+		  <article>
 			<header class="clearfix">
 				<h1>Today's Itinerary</h1>
-				<h2>{{room.name}}</h2>
+				<h2>{{room.displayname}}</h2>
 				<small><span class='temperature'>{{room.temperature}}</span> &#x2103;</small>
 			</header>
 			<section>
@@ -328,7 +319,8 @@ button.close {
 					</tr>
 				</table>
 			</section>
-		</article>
+		   </article>	
+		</aside>
     </script>
 
 				
@@ -352,13 +344,13 @@ button.close {
                                                 <a href="mailto:info@redninja.co.uk" title="Email Joe" class="noSpin m-hide"><button class="maskCircle icon-email"><span>Email</span></button></a> 
                                                 <a href="#popup-{{ room.name }}" ng-click="$event.stopPropagation();open();"   title="View Itinerary" class="noSpin open-popup-link"><button class="maskCircle icon-information"><span>Itinerary Information</span></button></a>
                                             </div>
-
+<!--
                                             <aside id="popup-{{ room.name }}" class="itinerary mfp-hide">
-                                            <!-- START MAGINIFIC POP-UP CONTENT -->                                           
+                                                                                    
                                                 <article>
                                                     <header class="clearfix">
                                                         <h1>Today's Itinerary</h1>
-                                                        <h2>{{room.name}}</h2>
+                                                        <h2>{{room.displayname}}</h2>
                                                         <small><span class='temperature'>{{room.temperature}}</span> &#x2103;</small>
                                                     </header>
                                                     <section>
@@ -380,9 +372,9 @@ button.close {
 
                                                 </article>
 
-                                            <!-- END MAGINIFIC POP-UP CONTENT -->
+                                          
                                             </aside>
-
+-->
                                         </div>
                                     </div>
                                 </div>
