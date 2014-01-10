@@ -7,6 +7,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <title>ARM Dashboard Sensor Monitoring Project</title>
+    <meta name="author" content="Steven Hassall && Sizhe Xi ">
     <meta name="description" content="ARM Dashboard Project">
     <meta name="viewport" content="width=device-width, maximum-scale=1, minimum-scale=1, user-scalable=0, initial-scale=1">
     <link rel="stylesheet" href="css/normalize.min.css">
@@ -257,7 +258,10 @@ meetingApp.controller('meetingListCtrl', function ($rootScope,$scope, $http, $in
 		checkTimer = $interval($scope.checkMeetingMotionTimer, 1000*60);
 
 		$rootScope.$broadcast('mybroadcast');
-    });  
+    }).error(function(data, status, headers, config) {
+        // called asynchronously if an error occurs
+        // or server returns response with an error status.
+    });;  
 	
     $scope.orderProp = 'temperature';
 			

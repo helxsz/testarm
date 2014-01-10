@@ -111,10 +111,6 @@ appBuilder.createApp('blabla',new MeetingRoomMQTTHandler().handleMessage, functi
 
 
 
-
-
-
-
 function MeetingRoomMQTTHandler(){
     
 	this.handleMessage = handleMessage;
@@ -139,7 +135,7 @@ function MeetingRoomMQTTHandler(){
 			});
 			*/
 		
-			var room_uniqueURl = 	simulation.mapping[url];
+			var room_uniqueURl = simulation.mapping[url];
 			if(room_uniqueURl){			    
 				var getShortName = function(url){
 				   var array = url.split('/');
