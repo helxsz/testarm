@@ -143,19 +143,25 @@ app.get('/sensors/arm/',function(req,res,next){
 
 app.get('/meetings/arm/now',function(req,res){
     var rooms = [
-    { 'name': 'Room.UKCWillowA ', 
+    { 
+	  'name': 'Room.UKCWillowA ',
+      'displayname':'WilA',	
 	  "url":"https://protected-sands-2667.herokuapp.com/rooms/Room.UKCWillowA",
       'temperature': 43,
 	  'time':new Date()
 	},
-    {'name': 'Room.UKCWillowB',
-     "url":"https://protected-sands-2667.herokuapp.com/rooms/Room.UKCWillowB",
-	 'temperature': 12,
+    {
+	  'name': 'Room.UKCWillowB',
+	  'displayname':'WilB',
+      "url":"https://protected-sands-2667.herokuapp.com/rooms/Room.UKCWillowB",
+	  'temperature': 12,
 	  'time':new Date()
 	},
-    {'name': 'Room.UKCFM10',
+    {
+	  'name': 'Room.UKCFM10',
+	  'displayname':'FM10',
 	  "url":"https://protected-sands-2667.herokuapp.com/rooms/Room.UKCFM10",
-     'temperature': 23,
+      'temperature': 23,
 	  'time':new Date()
 	}
     ];

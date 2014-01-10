@@ -5,9 +5,9 @@
 <!--[if gt IE 8]><!--> <html class="no-js" ng-app="meetingApp"> <!--<![endif]-->
 <head>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>ARM Dashboard Sensor Monitoring Project</title>
-    <meta name="author" content="Steven Hassall && Sizhe Xi ">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<title>ARM Dashboard Sensor Monitoring Project</title>
+	<meta name="author" content="Steven Hassall && Sizhe Xi ">
     <meta name="description" content="ARM Dashboard Project">
     <meta name="viewport" content="width=device-width, maximum-scale=1, minimum-scale=1, user-scalable=0, initial-scale=1">
     <link rel="stylesheet" href="css/normalize.min.css">
@@ -18,13 +18,193 @@
     <link rel="stylesheet" href="css/mfglabs_iconset.css">
     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="css/menu-component.css">
+	
 
     <script src="/assets/js/socket.io.js"></script>
     <!--<script src="/assets/js/d3.v3.min.js"></script>-->
 	<script src="/assets/js/angular.min.js"></script>
 	<script src="/js/underscore-min.js"></script>
     <script src="js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+
+<style>
+.close {
+  float: right;
+  font-size: 21px;
+  font-weight: bold;
+  line-height: 1;
+  color: #000000;
+  text-shadow: 0 1px 0 #ffffff;
+  opacity: 0.2;
+  filter: alpha(opacity=20);
+}
+
+.close:hover,
+.close:focus {
+  color: #000000;
+  text-decoration: none;
+  cursor: pointer;
+  opacity: 0.5;
+  filter: alpha(opacity=50);
+}
+
+button.close {
+  padding: 0;
+  cursor: pointer;
+  background: transparent;
+  border: 0;
+  -webkit-appearance: none;
+}
+
+.modal-open {
+  overflow: hidden;
+}
+
+.modal {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1040;
+  display: none;
+  overflow: auto;
+  overflow-y: scroll;
+}
+
+.modal.fade .modal-dialog {
+  -webkit-transform: translate(0, -25%);
+      -ms-transform: translate(0, -25%);
+          transform: translate(0, -25%);
+  -webkit-transition: -webkit-transform 0.3s ease-out;
+     -moz-transition: -moz-transform 0.3s ease-out;
+       -o-transition: -o-transform 0.3s ease-out;
+          transition: transform 0.3s ease-out;
+}
+
+.modal.in .modal-dialog {
+  -webkit-transform: translate(0, 0);
+      -ms-transform: translate(0, 0);
+          transform: translate(0, 0);
+}
+
+.modal-dialog {
+  position: relative;
+  z-index: 1050;
+  width: auto;
+  margin: 10px;
+}
+
+.modal-content {
+  position: relative;
+  background-color: #ffffff;
+  border: 1px solid #999999;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 6px;
+  outline: none;
+  -webkit-box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);
+          box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);
+  background-clip: padding-box;
+}
+
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1030;
+  background-color: #000000;
+}
+
+.modal-backdrop.fade {
+  opacity: 0;
+  filter: alpha(opacity=0);
+}
+
+.modal-backdrop.in {
+  opacity: 0.5;
+  filter: alpha(opacity=50);
+}
+
+.modal-header {
+  min-height: 16.428571429px;
+  padding: 15px;
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.modal-header .close {
+  margin-top: -2px;
+}
+
+.modal-title {
+  margin: 0;
+  line-height: 1.428571429;
+}
+
+.modal-body {
+  position: relative;
+  padding: 20px;
+}
+
+.modal-footer {
+  padding: 19px 20px 20px;
+  margin-top: 15px;
+  text-align: right;
+  border-top: 1px solid #e5e5e5;
+}
+
+.modal-footer:before,
+.modal-footer:after {
+  display: table;
+  content: " ";
+}
+
+.modal-footer:after {
+  clear: both;
+}
+
+.modal-footer:before,
+.modal-footer:after {
+  display: table;
+  content: " ";
+}
+
+.modal-footer:after {
+  clear: both;
+}
+
+.modal-footer .btn + .btn {
+  margin-bottom: 0;
+  margin-left: 5px;
+}
+
+.modal-footer .btn-group .btn + .btn {
+  margin-left: -1px;
+}
+
+.modal-footer .btn-block + .btn-block {
+  margin-left: 0;
+}
+
+@media screen and (min-width: 768px) {
+  .modal-dialog {
+    width: 600px;
+    margin: 30px auto;
+  }
+  .modal-content {
+    -webkit-box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+  }
+}
+
+</style>	
+	
 </head>
+
+
+
+
+
 <body>
 <!--[if lt IE 7]>
     <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
@@ -113,9 +293,9 @@
                 <!-- END .wrapper -->
                 </div>
 
-				
+			<!--	
 	        <div class="span2">
-                <!--Sidebar content--> 
+                
                 Search: <input ng-model="query">
 				Sort by:
                 <select ng-model="orderProp">
@@ -123,26 +303,54 @@
                     <option value="age">Newest</option>
                 </select>
             </div>
-						
-                <section id="app-meeting" class="app-content"  ng-controller="meetingListCtrl">
+			--> 	
+
+	<script type="text/ng-template" id="eventModalTemplate.html">
+		<article modal="modalVisible" close="close()" >
+			<header class="clearfix">
+				<h1>Today's Itinerary</h1>
+				<h2>{{room.name}}</h2>
+				<small><span class='temperature'>{{room.temperature}}</span> &#x2103;</small>
+			</header>
+			<section>
+				<table class="tg-table-dark">
+					<tr ng-repeat="event in room.events">
+						<td rowspan="2">
+							<div class="wrapHexagon">
+								<div class="hexagon-in1">
+									<div class="hexagon-in2" style="background-image: url(img/photos/john-biggs.jpg);"></div>
+								</div>
+							</div>
+						</td>
+						<td><i class="icon-clock" aria-hidden="true"></i></td>
+						<td><span>{{ dateformat(event.startDate)}}</span><i class="icon-arrow_right " aria-hidden="true"></i><span>{{dateformat(event.endDate)}}</span></td>
+						<td rowspan="2"><a href="tel:01517076707" title="Phone Joe"><button class="maskCircle icon-telephone icon2x"><span>Telephone</span></button></a></td>
+					</tr>
+				</table>
+			</section>
+		</article>
+    </script>
+
+				
+                <section id="app-meeting" class="app-content"  ng-controller="meetingListCtrl">				
                         <ul class="ch-grid">
-                            <li class="room" ng-repeat="room in rooms | filter:query | orderBy:orderProp"">
-                                <div class="ch-item" >              
+                            <li class="room" ng-repeat="room in rooms | filter:query | orderBy:orderProp">
+                                <div class="ch-item" ng-click="room.front = !room.front" ng-class="{'flipped': room.front}">              
                                     <div class="ch-info-wrap">
                                         <div class="ch-info " ng-class="{'unavailable':room.available}">
                                             <div class="ch-info-front hexagon">
-                                                <h1>{{room.name}}</h1>
+                                                <h1>{{room.displayname}}</h1>
                                                 <small><span class='temperature'>{{room.temperature}}</span> &#x2103;</small>
                                             </div>
                                             
                                             <div class="ch-info-back hexagon">
                                                 <div class="maskCircle bookerPhoto"><img src="img/photos/john-biggs.jpg" alt="Joe Bloggs"></div>
-                                                <h3 ><span class='ch-start'>{{dateformat(room.events[0].startDate)}}</span> <i class="icon-arrow_right" aria-hidden="true"></i> <span class='ch-end'>{{dateformat(room.events[0].endDate)}}</span></h3>
+                                                <h3 ><span class='ch-start'>{{dateformat(room.events[room.eventIndex].startDate)}}</span> <i class="icon-arrow_right" aria-hidden="true"></i> <span class='ch-end'>{{dateformat(room.events[room.eventIndex].endDate)}}</span></h3>
 												
                                                 <h4>Joe Bloggs</h4>
                                                 <a href="tel:01517076707" title="Phone Joe" class="noSpin d-hide t-hide"><button class="maskCircle icon-telephone"><span>Telephone</span></button></a> 
                                                 <a href="mailto:info@redninja.co.uk" title="Email Joe" class="noSpin m-hide"><button class="maskCircle icon-email"><span>Email</span></button></a> 
-                                                <a href="#popup-{{ room.name }}" title="View Itinerary" class="noSpin open-popup-link"><button class="maskCircle icon-information"><span>Itinerary Information</span></button></a>
+                                                <a href="#popup-{{ room.name }}" ng-click="$event.stopPropagation();open();"   title="View Itinerary" class="noSpin open-popup-link"><button class="maskCircle icon-information"><span>Itinerary Information</span></button></a>
                                             </div>
 
                                             <aside id="popup-{{ room.name }}" class="itinerary mfp-hide">
@@ -216,8 +424,12 @@
 
     <script src="js/vendor/classie.js"></script>
     <script src="js/vendor/mlpushmenu.js"></script>
+    <script src="js/ui-bootstrap.min.js"></script>	
+	
 
-    <!-- Gridset overlay script - toggles grid overlay on and off - You can remove this if you want. -->
+    <!-- Gridset overlay script - toggles grid overlay on and off - You can remove this if you want. 
+	http://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.9.0/ui-bootstrap-tpls.min.js
+	-->
     <script src="./js/gridset-overlay.js"></script> 
 
     <!-- <script>
@@ -234,6 +446,8 @@
 // http://www.thinkster.io/pick/eHPCs7s87O/angularjs-tutorial-learn-to-rapidly-build-real-time-web-apps-with-firebase
 // http://dailyjs.com/2013/04/25/angularjs-3/
 // http://stackoverflow.com/questions/7792652/what-is-the-best-way-to-conditionally-apply-a-class-with-angularjs?rq=1
+// http://weblogs.asp.net/dwahlin/archive/2013/09/18/building-an-angularjs-modal-service.aspx
+// http://angular-ui.github.io/bootstrap/
 angular.module('meetingEventFilters', []).filter('filterEvent', function() {
   return function(event) {
     var now = new Date();
@@ -242,33 +456,97 @@ angular.module('meetingEventFilters', []).filter('filterEvent', function() {
   };
 });
 
-var meetingApp = angular.module('meetingApp', ['meetingEventFilters']);
-meetingApp.controller('meetingListCtrl', function ($rootScope,$scope, $http, $interval, socket) {
-    
+var meetingApp = angular.module('meetingApp', ['meetingEventFilters','ui.bootstrap']);
+
+meetingApp.controller('meetingListCtrl', function ($rootScope,$scope, $http, $interval, socket, $modal) {
+    $scope.items = ['item1', 'item2', 'item3'];
+
+    $scope.open = function ($event) {
+	
+	    console.log('open');
+		// how do I know which room I have clicked
+		
+        var modalInstance = $modal.open({
+            templateUrl: 'eventModalTemplate.html',
+			backdrop: true,
+            windowClass: 'modal',
+            controller: function ($scope, $modalInstance, room) {
+                $scope.room = room;
+				/*
+				$scope.ok = function () {
+                       $modalInstance.close($scope.selected.item);
+                };
+                $scope.cancel = function () {
+                    $modalInstance.dismiss('cancel');
+                };
+				*/
+            },			
+            resolve: {
+                room: function () {
+                    return $scope.rooms[1];
+                }
+            }
+        });
+
+       modalInstance.result.then(function (selectedItem) {
+        $scope.selected = selectedItem;
+        }, function () {
+        });
+		
+    }; 
+
+
 	$scope.rooms = [];
 	var checkTimer ;
     $http.get('/meetings/arm/now').success(function(data) {
-        $scope.rooms = data.rooms;
-	    console.log(data.rooms);
 	    data.rooms.forEach(function(room){
 	        console.log(room.name,'   remaining events for room ', room.events.length);
-	    })
+	    })		
+		_.map(data.rooms,function(room){  room.front = false;} )
+		
+	    $scope.rooms = data.rooms;
+	    console.log(data.rooms);
+
 		$scope.checkRoomAvailablity();
 		$scope.checkIntialEventIndex();
 		checkTimer = $interval($scope.checkMeetingMotionTimer, 1000*60);
-
+		
 		$rootScope.$broadcast('mybroadcast');
     }).error(function(data, status, headers, config) {
         // called asynchronously if an error occurs
         // or server returns response with an error status.
-    });;  
+    });
 	
     $scope.orderProp = 'temperature';
 			
 	$scope.$on('mybroadcast', function(service){
 		console.log('on my broadcast', service);
+		/*
+		setTimeout(function(){	
+		$('.open-popup-link').click(function(e){
+		    console.log($(this).html(), $(this).attr('href'));
+			var herf = $(this).attr('href')
+		    console.log( $(herf).html() );
+			console.log( $('#popup-Room.UKCWillowA').html() );
+			console.log( $('#popup-{{ room.name }}').html() );
+		})
+		
+	    $('.open-popup-link').magnificPopup({
+            midClick: true, // Allow opening popup on middle mouse click. Always set it to true if you don't provide alternative source in href.
+            // Delay in milliseconds before popup is removed
+            removalDelay: 300,
+            // Class that is added to popup wrapper and background
+            // make it unique to apply your CSS animations just to this exact popup
+            mainClass: 'mfp-fade'
+        });
+		}, 1000);
+		*/
     })
 	
+	$scope.$on('$viewContentLoaded', function(){
+	    console.log('view content loaded');
+	});
+		
 	$scope.checkRoomAvailablity = function(){
 	    console.log('checkRoomAvailablity');
 		var room_filtered = _.filter($scope.rooms, function(room){
@@ -369,7 +647,13 @@ meetingApp.controller('meetingListCtrl', function ($rootScope,$scope, $http, $in
         return  hour+":"+min;		 
 	}
 	
-    
+    $scope.showPopup = function($event){
+	    console.log('click showpopup stopropagation');
+        if ($event.stopPropagation) $event.stopPropagation();
+        if ($event.preventDefault) $event.preventDefault();
+        $event.cancelBubble = true;
+        $event.returnValue = false;	    
+	}
 	
 	$scope.$on('$destroy', function() {
         if (angular.isDefined(checkTimer)) {
