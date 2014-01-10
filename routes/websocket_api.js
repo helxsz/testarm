@@ -7,7 +7,8 @@ var async = require('async'),
      _=require('underscore'),
     moment = require('moment'),
 	socket = require('socket.io'),
-	request = require('request');	
+	request = require('request'),
+	redis= require('redis');	
 	
 var errors = require('../utils/errors'),
 	config = require('../conf/config'),
@@ -43,18 +44,58 @@ io.configure(function () {
 io.sockets.on('connection', function (socket) {
     console.log('socket connected');
 	socket.emit('connect');
-	
-	io.sockets.emit('mqtt',
-           {   'topic'  : 'aaa',
-              'payload' : 'ccc'
-           }
-        );
-	
-    /*
+	     
     socket.on('subscribe', function (data) {
-        mqttclient.subscribe(data.topic);
+        console.log('subscribe  to  ----------------------------'.green,data);
+		var room = data.room;
+		var rooms = room.split(',');
+		    getMotion(rooms,function(err,room_info_list){
+			    //console.log('aaaa',room_info_list);
+				//
+				var room_info_list = _.filter(room_info_list, function(room){ 
+				    if(  _.isNull(room))
+					return false;
+					else{
+				     var update = new Date(room.time);
+					 return (new Date().getTime() - update.getTime()) < 10000;
+                    }  					 
+			    });
+
+                console.log('give the socket the active list ',room_info_list);				
+				socket.emit('room_status',room_info_list);
+				
+			})		
+        
     });
-    */
 });
+
+
+function getMotion( names,callback ){
+    var redisClient;
+    var redis_ip= config.redis.host;  
+    var redis_port= config.redis.port; 	
+    try{ 
+        redisClient = redis.createClient(redis_port,redis_ip);
+	}
+    catch (error){
+        console.log('find Resource eInto Catalog  error' + error);
+		redisClient.quit();
+		return callback(error,null);
+    }	
+
+	var mul = redisClient.multi();
+    names.forEach(function(name){
+	    console.log('get motion ',name);
+		//mul.hmget(name, 'displayname');
+        mul.hgetall(name);		
+	})
+
+	mul.exec(function (err, data) {
+	    redisClient.quit();
+	    if(err) {return callback(err,null);}
+		else if(data) { return callback(null,data);}
+        else { return callback(null,null);}		
+    });	
+}
 
 module.exports = io;

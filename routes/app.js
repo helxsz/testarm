@@ -105,7 +105,6 @@ var App = function(id,description, messageCallback) {
 		        var roomID = array[2], sensorID = array[4], sensorType = array[5];
 		        winston.debug(roomID+" "+ sensorID+"  "+ sensorType+"  "+ value);
 			    // stream directly to app
-		        io.sockets.emit('info',{room:roomID,sensor:sensorID,type:sensorType, value:value});
 			   
 			}catch(e){
 			   

@@ -9,7 +9,6 @@ var async = require('async'),
      _=require('underscore'),
     moment = require('moment'),
     mqtt = require('mqtt'),
-	socket = require('socket.io'),
 	im = require('imagemagick'),
 	redis= require('redis'),
 	request = require('request');	

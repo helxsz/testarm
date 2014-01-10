@@ -2,7 +2,7 @@
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
 <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" ng-app="meetingApp"> <!--<![endif]-->
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -16,212 +16,205 @@
     <!--[if lte IE 8]><link rel="stylesheet" href="./css/gridset-ie-lte8.css" /><![endif]-->
     <link rel="stylesheet" href="css/mfglabs_iconset.css">
     <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/menu-component.css">
 
     <script src="/assets/js/socket.io.js"></script>
-    <script src="/assets/js/d3.v3.min.js"></script>
+    <!--<script src="/assets/js/d3.v3.min.js"></script>-->
+	<script src="/assets/js/angular.min.js"></script>
+	<script src="/js/underscore-min.js"></script>
     <script src="js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
 </head>
-<body class="meeting-room">
-    <!--[if lt IE 7]>
-        <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
-    <![endif]-->
+<body>
+<!--[if lt IE 7]>
+    <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+<![endif]-->
+		
+    <div class="meeting-room">
+    <!-- START .meeting-room -->
 
-    <div id="container" class="container" class="clearfix">
-    <!-- START #container -->
+        <div id="container" class="container" class="clearfix">
+        <!-- START #container -->
 
-        <section>
+            <section class="mp-pusher" id="mp-pusher">
 
-            <div class="wrapper">
-            <!-- START .wrapper -->
-
-                <header id="banner" class="d1-d9 t1-t4 m-all clearfix">
-                <!-- START #banner -->
-
-                    <button id="showLeft"><i class="icon-reorder icon2x"></i></button>
-
-                    <h1>ARM 1 <span class="blue">FIRST FLOOR</span> <span class="pink">MEETING ROOM</span> AVAILABILITY</h1>
-
-                    <nav id="cbp-spmenu-s1" class="cbp-spmenu" role="navigation">
-                        <h3>Menu <button id="closeLeft"><i class="icon-cross_mark"></i></button></h3>
-                        <ul id="menu-header-menu">
-                            <li><a href="#">ARM 1 Floor 1</a></li>
-                            <li><a href="#">ARM 1 Floor 2</a></li>
-                            <li><a href="#">ARM 2 Floor 1</a></li>
-                            <li><a href="#">ARM 2 Floor 2</a></li>
-                            <li><a href="#">ARM 3 Floor 1</a></li>
-                            <li><a href="#">ARM 3 Floor 2</a></li>
-                            <li><a href="#">ARM 6 Floor 1</a></li>
-                            <li><a href="#">ARM 6 Floor 2</a></li>
-                        </ul>
+                <!-- mp-menu -->
+                    <nav id="mp-menu" class="mp-menu">
+                        <div class="mp-level">
+                            <button id="triggerMobile" class="mp-close d-hide t-hide"><i class="icon-cancel_circle icon2x"></i></button>
+                            <h2><i class="icon-data_science blue"></i> ARM Buildings</h2>
+                            <ul>
+                                <li>
+                                    <a href="#">ARM 1</a>
+                                    <div class="mp-level">
+                                        <h2><i class="icon icon-data_science_black blue"></i> ARM 1</h2>
+                                        <a class="mp-back" href="#">back</a>
+                                        <ul>
+                                            <li><a href="#">Floor 1</a></li>
+                                            <li><a href="#">Floor 2</a></li>
+                                        </ul>
+                                    </div>
+                                </li>
+                                <li><a href="#">ARM 2</a></li>
+                                <li><a href="#">ARM 3</a></li>
+                                <li><a href="#">ARM 6</a></li>
+                            </ul>
+                                
+                        </div>
                     </nav>
+                    <!-- /mp-menu -->
 
-                <!-- END #banner -->
-                </header>
+                <div class="scroller">
+                <div class="scroller-inner">
+                <!-- start .scroller's -->
+                
+                <div class="wrapper">
+                <!-- START .wrapper -->
 
-                <article id="main" class="d1-d4 t1-t3 m-all clearfix">
-                <!-- START #main -->
 
-                    <div id="app-brand" class="m-hide" ontouchstart="">
-                        <div class="ch-item" ontouchstart="" >              
-                            <div class="ch-info-wrap">
-                                <div class="ch-info">
-                                    <div class="ch-info-front hexagon meetings"></div>
-                                    <div class="ch-info-back hexagon">
-                                        <a href="#" title="Return to the Home">
-                                            <i class="icon-home icon3x" aria-hidden="true"></i>
-                                            <h3>Home</h3>
-                                        </a>
-                                    </div>  
+                    <header id="banner" class="d1-d9 t1-t4 m-all clearfix">
+                    <!-- START #banner -->
+
+                        <button id="trigger"><i class="icon-reorder icon2x"></i></button>
+
+                        <h1>ARM 1 <span class="blue">FIRST FLOOR</span> <span class="pink">MEETING ROOM</span> AVAILABILITY</h1>
+
+                    <!-- END #banner -->
+                    </header>
+
+                    <article id="main" class="d1-d4 t1-t3 m-all clearfix">
+                    <!-- START #main -->
+
+                        <div id="app-brand" class="m-hide">
+                            <div class="ch-item" >              
+                                <div class="ch-info-wrap">
+                                    <div class="ch-info meetings">
+                                        <div class="ch-info-front hexagon"></div>
+                                        <div class="ch-info-back hexagon">
+                                            <a href="#" title="Return to the Home">
+                                                <i class="icon-home icon3x" aria-hidden="true"></i>
+                                                <h3>Home</h3>
+                                            </a>
+                                        </div>  
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
 
-                    <article id="app-description" class="t-hide m-hide" role="article">
+                        <article id="app-description" class="t-hide m-hide" role="article">
 
-                        <p>Click a hexagon to view more information about the meeting room.</p>
+                            <p>Click a hexagon to view more information about the meeting room.</p>
 
+                        </article>
+                    
+                    <!-- END #main -->
                     </article>
-                
-                <!-- END #main -->
-                </article>
 
-            <!-- END .wrapper -->
+                <!-- END .wrapper -->
+                </div>
+
+				
+	        <div class="span2">
+                <!--Sidebar content--> 
+                Search: <input ng-model="query">
+				Sort by:
+                <select ng-model="orderProp">
+                    <option value="name">Alphabetical</option>
+                    <option value="age">Newest</option>
+                </select>
             </div>
+						
+                <section id="app-meeting" class="app-content"  ng-controller="meetingListCtrl">
+                        <ul class="ch-grid">
+                            <li class="room" ng-repeat="room in rooms | filter:query | orderBy:orderProp"">
+                                <div class="ch-item" >              
+                                    <div class="ch-info-wrap">
+                                        <div class="ch-info " ng-class="{'unavailable':room.available}">
+                                            <div class="ch-info-front hexagon">
+                                                <h1>{{room.name}}</h1>
+                                                <small><span class='temperature'>{{room.temperature}}</span> &#x2103;</small>
+                                            </div>
+                                            
+                                            <div class="ch-info-back hexagon">
+                                                <div class="maskCircle bookerPhoto"><img src="img/photos/john-biggs.jpg" alt="Joe Bloggs"></div>
+                                                <h3 ><span class='ch-start'>{{dateformat(room.events[0].startDate)}}</span> <i class="icon-arrow_right" aria-hidden="true"></i> <span class='ch-end'>{{dateformat(room.events[0].endDate)}}</span></h3>
+												
+                                                <h4>Joe Bloggs</h4>
+                                                <a href="tel:01517076707" title="Phone Joe" class="noSpin d-hide t-hide"><button class="maskCircle icon-telephone"><span>Telephone</span></button></a> 
+                                                <a href="mailto:info@redninja.co.uk" title="Email Joe" class="noSpin m-hide"><button class="maskCircle icon-email"><span>Email</span></button></a> 
+                                                <a href="#popup-{{ room.name }}" title="View Itinerary" class="noSpin open-popup-link"><button class="maskCircle icon-information"><span>Itinerary Information</span></button></a>
+                                            </div>
 
-            <section id="app-meeting" class="app-content">
-            <!-- START #app-meeting -->
+                                            <aside id="popup-{{ room.name }}" class="itinerary mfp-hide">
+                                            <!-- START MAGINIFIC POP-UP CONTENT -->                                           
+                                                <article>
+                                                    <header class="clearfix">
+                                                        <h1>Today's Itinerary</h1>
+                                                        <h2>{{room.name}}</h2>
+                                                        <small><span class='temperature'>{{room.temperature}}</span> &#x2103;</small>
+                                                    </header>
+                                                    <section>
+                                                        <table class="tg-table-dark">
+                                                            <tr ng-repeat="event in room.events">
+                                                                <td rowspan="2">
+                                                                    <div class="wrapHexagon">
+                                                                        <div class="hexagon-in1">
+                                                                            <div class="hexagon-in2" style="background-image: url(img/photos/john-biggs.jpg);"></div>
+                                                                        </div>
+                                                                    </div>
+                                                                </td>
+                                                                <td><i class="icon-clock" aria-hidden="true"></i></td>
+                                                                <td><span>{{ dateformat(event.startDate)}}</span><i class="icon-arrow_right " aria-hidden="true"></i><span>{{dateformat(event.endDate)}}</span></td>
+                                                                <td rowspan="2"><a href="tel:01517076707" title="Phone Joe"><button class="maskCircle icon-telephone icon2x"><span>Telephone</span></button></a></td>
+                                                            </tr>
+                                                        </table>
+                                                    </section>
 
-                    <ul class="ch-grid">
+                                                </article>
 
-                        <li id="Room.UKCElm" data-room="Room.UKCElm" class="room">
-                            <div class="ch-item">              
-                                <div class="ch-info-wrap">
-                                    <div class="ch-info">
-                                        <div class="ch-info-front hexagon unavailable"><h1>Elm</h1></div>
-                                        <div class="ch-info-back hexagon">
-                                            <h3>13:00 > 14:00</h3>
-                                            <h4>Joe Bloggs</h4>
-                                        </div>  
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
+                                            <!-- END MAGINIFIC POP-UP CONTENT -->
+                                            </aside>
 
-                        <li id="Room.UKCSF8" data-room="Room.UKCSF8" class="room">
-                            <div class="ch-item" ontouchstart="" >              
-                                <div class="ch-info-wrap">
-                                    <div class="ch-info">
-                                        <div class="ch-info-front hexagon unavailable"><h1>SF8</h1></div>
-                                        <div class="ch-info-back hexagon">
-                                            <h3>13:00 > 14:00</h3>
-                                            <h4>Joe Bloggs</h4>
-                                        </div>  
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-
-                        <li id="RoomUKCPatentBox" data-room="RoomUKCPatentBox" class="room">
-                            <div class="ch-item" ontouchstart="" >              
-                                <div class="ch-info-wrap">
-                                    <div class="ch-info">
-                                        <div class="ch-info-front hexagon unavailable"><h1>BOX</h1></div>
-                                        <div class="ch-info-back hexagon">
-                                            <h3>13:00 > 14:00</h3>
-                                            <h4>Joe Bloggs</h4>
-                                        </div>  
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-
-                        <li id="Room.UKCWillowB" data-room="Room.UKCWillowB" class="room">
-                            <div class="ch-item" ontouchstart="" >              
-                                <div class="ch-info-wrap">
-                                    <div class="ch-info">
-                                        <div class="ch-info-front hexagon available"><h1>FM11</h1></div>
-                                        <div class="ch-info-back hexagon">
-                                            <h3>13:00 > 14:00</h3>
-                                            <h4>Joe Bloggs</h4>
-                                        </div>  
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-
-                        <li id="Room.UKCFM10" data-room="Room.UKCFM10" class="room">
-                            <div class="ch-item" ontouchstart="" >              
-                                <div class="ch-info-wrap">
-                                    <div class="ch-info">
-                                        <div class="ch-info-front hexagon unavailable"><h1>FM10</h1></div>
-                                        <div class="ch-info-back hexagon">
-                                            <h3>13:00 > 14:00</h3>
-                                            <h4>Joe Bloggs</h4>
-                                        </div>  
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-
-                        <li id="Room.UKCARM66MR4" data-room="Room.UKCARM66MR4" class="room">
-                            <div class="ch-item" ontouchstart="" >              
-                                <div class="ch-info-wrap">
-                                    <div class="ch-info">
-                                        <div class="ch-info-front hexagon available"><h1>MR4</h1></div>
-                                        <div class="ch-info-back hexagon">
-                                            <h3>13:00 > 14:00</h3>
-                                            <h4>Joe Bloggs</h4>
-                                        </div>  
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-
-                        <li id="Room.UKCARM66MR5" data-room="Room.UKCARM66MR5" class="room">
-                            <div class="ch-item" ontouchstart="" >              
-                                <div class="ch-info-wrap">
-                                    <div class="ch-info">
-                                        <div class="ch-info-front hexagon unavailable"><h1>MR5</h1></div>
-                                        <div class="ch-info-back hexagon">
-                                            <h3>13:00 > 14:00</h3>
-                                            <h4>Joe Bloggs</h4>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        </li>
+                            </li>
+                        </ul>
 
-                    </ul>
+                    <!-- END #app-meeting -->
+                    </section>
 
-                <!-- END #app-meeting -->
-                </section>
+                    <footer id="footer" class="clearfix">
+                    <!-- START #footer -->
 
-        </section>
+                        <div>
+                            <small>v0.90 Design &amp; Coded by <a href="http://www.redninja.co.uk" title="Design and Coded by Red Ninja Studios">Red Ninja Studios</a></small>
+                        </div>
 
-        <footer id="footer" class="clearfix">
-        <!-- START #footer -->
+                        <div>
+                            <a href="http://arm.com" class="logo-arm" title="ARM - Architecture for the digital world"><img src="img/ARM-RGB.png" alt="ARM - Architecture for the digital world" class="logo" /></a>
+                        </div>
+                    
+                    <!-- END #footer -->
+                    </footer>
 
-            <div>
-                <small>v0.50 Design &amp; Coded by <a href="http://www.redninja.co.uk" title="Design and Coded by Red Ninja Studios">Red Ninja Studios</a></small>
-            </div>
+                <!-- end .scroller's -->
+                </div>
+                </div>
 
-            <div>
-                <a href="http://arm.com" class="logo-arm" title="ARM - Architecture for the digital world"><img src="img/ARM-RGB.png" alt="ARM - Architecture for the digital world" class="logo" /></a>
-            </div>
-        
-        <!-- END #footer -->
-        </footer>
+            </section>
 
-    <!-- END #container -->
+        <!-- END #container -->
+        </div>
+    <!-- END .meeting-room -->
     </div>
 
     <script src="js/vendor/jquery-1.10.1.min.js"></script>
-    <!-- <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
-    <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.10.1.min.js"><\/script>')</script> -->
 
     <script src="js/plugins.js"></script>
     <script src="js/main.js"></script>
+
+    <script src="js/vendor/classie.js"></script>
+    <script src="js/vendor/mlpushmenu.js"></script>
 
     <!-- Gridset overlay script - toggles grid overlay on and off - You can remove this if you want. -->
     <script src="./js/gridset-overlay.js"></script> 
@@ -235,125 +228,212 @@
     
     
     <script>
-            $.ajax({
-               type: "GET",
-               url: "/buildings",
-               success: function(data)
-               {                                       
-                    console.log(data,data.length);
-					 $('#menu-header-menu').html('');
-                    for(var i=0;i<data.length;i++){
-					   var a = $('<li  data-id='+data[i]+'><a href="#" data-id='+data[i]+'>'+ data[i]  +'</a></li>');
-					   $('#menu-header-menu').append(a);
-					   a.click(function(e){
-					       console.log('click', $(this).attr('data-id'));
-						   getRoom($(this).attr('data-id'));
-					   })
-					}					
-               }
-            });
-			function getRoom(id){
-              $.ajax({
-                 type: "GET",
-                 url: "/buildings/"+id,
-                 success: function(data)
-                 {                                       
-                    console.log(data,data.length);                                 
-                 }
-              });
-            }
-            if (!window.location.origin)
-            window.location.origin = window.location.protocol+"//"+window.location.host;
-            var socket = io.connect(window.location.origin+":3000");
-            console.log(window.location.origin+":3000");
-            socket.on('connect', function () {
-                //socket.emit('subscribe', {topic : 'home/#'});
-            });
-            
-            $('.ch-info-front').removeClass('unavailable').addClass('available');
+// http://www.ibm.com/developerworks/web/library/wa-nodejs-polling-app/index.html?ca=drs-
+// http://coenraets.org/blog/2012/02/sample-application-with-angular-js/
+// http://www.thinkster.io/pick/eHPCs7s87O/angularjs-tutorial-learn-to-rapidly-build-real-time-web-apps-with-firebase
+// http://dailyjs.com/2013/04/25/angularjs-3/
+// http://stackoverflow.com/questions/7792652/what-is-the-best-way-to-conditionally-apply-a-class-with-angularjs?rq=1
+angular.module('meetingEventFilters', []).filter('filterEvent', function() {
+  return function(event) {
+    var now = new Date();
+    var eventDate = new Date(event.endDate);    
+	return (eventDate.getTime() >= now.getTime())&&(eventDate.getDate()==now.getDate()); 
+  };
+});
 
-                   var s = $('*[data-room="Room.UKCFM9"]');
-                   s.attr('data-time',new Date());
-                   s.attr('data-available',0);
-                   s.find('.ch-info-front').removeClass('available').addClass('unavailable');           
-                   console.log(s.find('.ch-info-front').html());
-
-            
-            requestAll();
-            
-            socket.on('info', function (msg) {
-                
-                console.log(msg);
-                console.log(msg.room,msg.sensor,msg.value,msg.type)
-                if(msg.type=='motion'){
-                    
-                   var s = $('*[data-room="'+msg.room+'"]');
-                   s.attr('data-time',new Date());
-                   s.attr('data-available',0);
-                   s.find('.ch-info-front').removeClass('available').addClass('unavailable');   
-                   console.log(s.html());
-                }
-
-            });
-            
-            setInterval(function(){         
-                $('#app-meeting').find('.room').each(function(e){
-                    var id = $(this).attr('data-room');
-                    var time = $(this).attr('data-time');
-                    var avail = $(this).attr('data-available');
-                    if(time !=null && avail == 0){
-                    
-                        var last = new Date(time);
-                        var now = new Date();
-                        diffMs = now - last;
-                        var diffMins = Math.round(((diffMs % 86400000) % 3600000) / 60000);                 
-                        console.log(id+   "    "+diffMins);
-                        if(diffMins >5){
-                             $(this).attr('data-available',1);
-                             $(this).find('.ch-info-front').removeClass('unavailable').addClass('available');
-                        }
-                    }
-                })
-            },60000);
-            
-            setInterval(function(){ requestAll() },184000);      
-
-    function requestAll(){      
-        $('#app-meeting').find('.room').each(function(e){
-            var id = $(this).attr('data-room');
- 
-            $.ajax({
-               type: "GET",
-               url: "/room/event?url="+id,
-               success: function(data)
-               {          
-                    var s = $('*[data-room="'+id+'"]');            
-                    //console.log(data.found,data.start,data.end, s.find('h3').text()); 
-                    s.find('h3').text(data.start +" > "+data.end);             
-               }
-            });
+var meetingApp = angular.module('meetingApp', ['meetingEventFilters']);
+meetingApp.controller('meetingListCtrl', function ($rootScope,$scope, $http, $interval, socket) {
     
-        })
-    }               
+	$scope.rooms = [];
+	var checkTimer ;
+    $http.get('/meetings/arm/now').success(function(data) {
+        $scope.rooms = data.rooms;
+	    console.log(data.rooms);
+	    data.rooms.forEach(function(room){
+	        console.log(room.name,'   remaining events for room ', room.events.length);
+	    })
+		$scope.checkRoomAvailablity();
+		$scope.checkIntialEventIndex();
+		checkTimer = $interval($scope.checkMeetingMotionTimer, 1000*60);
 
+		$rootScope.$broadcast('mybroadcast');
+    });  
+	
+    $scope.orderProp = 'temperature';
+			
+	$scope.$on('mybroadcast', function(service){
+		console.log('on my broadcast', service);
+    })
+	
+	$scope.checkRoomAvailablity = function(){
+	    console.log('checkRoomAvailablity');
+		var room_filtered = _.filter($scope.rooms, function(room){
+		    var lastupdate = new Date(room.time);    
+			return (new Date().getTime()-lastupdate.getTime()) > 5*60*1000;
+		})
+		
+		_.map(room_filtered, function(room){
+		     room.available = true;
+		})
+	}
+	
+	$scope.checkIntialEventIndex = function(){
+	    var nowTime = new Date().getTime();
+		$scope.rooms.forEach(function(room){
+		    var events = room.events;
+			//console.log("all events  ",events);
+		    var event_filtered = _.filter(events, function(event){
+		        var startTime = new Date(event.startDate).getTime(),endTime = new Date(event.endDate).getTime(); 				
+                //console.log('event  ',nowTime, startTime);				
+			    return  (nowTime>=startTime&& nowTime<=endTime) ||(nowTime <=startTime);  // 
+		    })
+            room.eventIndex = events.length - event_filtered.length;		    
+		    console.log("remaining events   ",event_filtered, room.eventIndex);
+		})
+	}
+	
+	$scope.checkNextEventAlert = function(){
+	    var nowTime = new Date().getTime();
+		$scope.rooms.forEach(function(room){
+		    var events = room.events, index = room.eventIndex;
+            console.log(room.name , events.length, index);			
+		    
+			if(events.length>0){
+			    var currentEvent = events[index], hasNextEvent = false;
+			    var startTime = new Date(currentEvent.startDate).getTime(),endTime = new Date(currentEvent.endDate).getTime();
+				
+				if(index+1>=events.length){
+				    console.log('no more next events');
+				}else{
+				    console.log('there is a next event');
+					hasNextEvent = true;
+				}
+				
+			    console.log('checkNextEventAlert  ', currentEvent.startDate, currentEvent.endDate);
+			    if(nowTime>startTime&&nowTime<endTime){
+			        // if there is a event, just update the event clock
+			        console.log( ' in current event , next time  for  ' , $scope.dateformat(currentEvent.startDate)  );
+				    var seconds = (endTime - nowTime)/1000;
+				    if(seconds<60){
+				    // setInterval  real timer 
+				    }else if(seconds < 60 *5){
+				        // show the alert  for room ( next event or event)
+                        if(hasNextEvent){
+						
+						}
+				    }
+		     	}else if(nowTime >= endTime){
+				    if(hasNextEvent){
+					    // show next event data and update the index
+					    room.eventIndex ++;
+					}
+				}
+			    else if(nowTime <=startTime){
+			        console.log( ' next event  ' , $scope.dateformat(currentEvent.startDate)  );
+				    // if there is no event now, just show the remaining time left for the next event
+				   if(seconds<60){
+				    // setInterval  real timer 
+				   }else if(seconds < 60 *5){
+				    // show the alert
+				   }else if(seconds < 60*60){
+				
+				   }else{
+				
+				   }				
+			    }
+			}else{
+			     console.log(' there is events in this day for this room ');
+			
+			}
+		})	
+	}
+		
+	$scope.checkMeetingMotionTimer = function(){
+	    //console.log('check timer');
+	    $scope.checkRoomAvailablity();
+		///////////////////////////////////////////////////////////
+		// give a alert for event transition 5 minutes before the next events
+		$scope.checkNextEventAlert();
+
+	}
+
+    $scope.dateformat = function(date){
+        var date = new Date(date);	
+	   	var hour = date.getHours(), min = date.getMinutes();
+		if(hour < 10) hour = '0'+date.getHours();
+		if(min < 10) min = '0'+date.getMinutes();
+        return  hour+":"+min;		 
+	}
+	
+    
+	
+	$scope.$on('$destroy', function() {
+        if (angular.isDefined(checkTimer)) {
+            $interval.cancel(checkTimer);
+            checkTimer = undefined;
+        }
+        socket.removeAllListeners();		
+    });	
+	
+	
+    socket.on('connect', function () {
+	    console.log('socket connected');
+    });
+                        
+    socket.on('info', function (msg) {               
+        //console.log(msg);
+        console.log(msg.room,msg.value,msg.type)
+        if(msg.type=='motion'){ 
+            var room = _.findWhere($scope.rooms, {name: msg.room});	
+			if(room){
+                console.log('room  object  ',room);
+                room.available = true;
+			}	
+        }
+    });		
+});
+
+
+meetingApp.factory('socket', function ($rootScope) {
+    if (!window.location.origin)
+    window.location.origin = window.location.protocol+"//"+window.location.host;
+    var socket = io.connect(window.location.origin+":3000",{'force new connection': true});
+    return {
+        on: function (eventName, callback) {
+            socket.on(eventName, function () {  
+            var args = arguments;
+            $rootScope.$apply(function () {
+                callback.apply(socket, args);
+            });
+        });
+    },
+        emit: function (eventName, data, callback) {
+            socket.emit(eventName, data, function () {
+            var args = arguments;
+            $rootScope.$apply(function () {
+                if (callback) {
+                    callback.apply(socket, args);
+                }
+            });
+        })
+    }
+  };
+});
+
+
+			       
     </script>
 
-    <!-- Classie - class helper functions by @desandro https://github.com/desandro/classie -->
+    <!-- Classie - class helper functions by @desandro https://github.com/desandro/classie 
     <script>
-        var menuLeft = document.getElementById( 'cbp-spmenu-s1' ),
-            showLeft = document.getElementById( 'showLeft' ),
+        var menuLeft = document.getElementById( 'mp-menu' ),
+            showLeft = document.getElementById( 'triggerMobile' ),
             body = document.body;
 
-        showLeft.onclick = function() {
+        triggerMobile.onclick = function() {
             classie.toggle( this, 'active' );
-            classie.toggle( menuLeft, 'cbp-spmenu-open' );
-            disableOther( 'showLeft' );
-        };
-
-        closeLeft.onclick = function() {
-            classie.toggle( this, 'active' );
-            classie.toggle( menuLeft, 'cbp-spmenu-open' );
-            disableOther( 'showLeft' );
+            classie.toggle( menuLeft, 'mp-menu-open' );
+            disableOther( 'triggerMobile' );
         };
 
         function disableOther( button ) {
@@ -362,6 +442,11 @@
             }
 
         }
+    </script>-->
+
+    <!-- New Menu -->
+    <script>
+        new mlPushMenu( document.getElementById( 'mp-menu' ), document.getElementById( 'trigger' ) );
     </script>
 
 </body>

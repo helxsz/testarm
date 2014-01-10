@@ -7,7 +7,8 @@ var async = require('async'),
      _=require('underscore'),
     moment = require('moment'),
 	request = require('request'),
-	Agenda  = require('agenda');	
+	Agenda  = require('agenda'),
+	redis = require('redis');	
 	
 var errors = require('../utils/errors'),
 	config = require('../conf/config'),
@@ -15,7 +16,8 @@ var errors = require('../utils/errors'),
 	io = require('./websocket_api.js'),
 	ServiceCatalog = require('./serviceCatalog.js'),ServiceBuilder = require('./serviceBuilder.js'),serviceBus = require('./serviceBusService.js'),
 	AppBuilder = require('./AppBuilder.js');
-	SensMLHandler = require('./senMLHandler.js');
+	SensMLHandler = require('./senMLHandler.js'),
+	simulation = require('./simulation.js');
 
 // http://sailsjs.org/#!documentation/policies	
 // http://schema.org/Event
@@ -95,6 +97,9 @@ serviceBuilder.buildRTService('armmeeting', SensMLHandler);
 
 
 var appBuilder = new AppBuilder();
+
+    //serviceCatalog.removeRTService('armmeeting');
+
 appBuilder.createApp('blabla',new MeetingRoomMQTTHandler().handleMessage, function(err,app){
     if(err) winston.error('error in create app');
 	else winston.info('app is created  '+app.id);  // 
@@ -105,121 +110,9 @@ appBuilder.createApp('blabla',new MeetingRoomMQTTHandler().handleMessage, functi
 });
 
 
-setTimeout(function(){
-    //serviceCatalog.removeRTService('armmeeting');
-},5000);
-
-var mapping = {
-    "/armmeeting/1/MotionSensor/00-0D-6F-00-00-C1-2E-EF/motion":"https://protected-sands-2667.herokuapp.com/rooms/Room.UKCGM4",
-    "/armmeeting/1/MotionSensor/00-0D-6F-00-00-C1-30-83/motion":"https://protected-sands-2667.herokuapp.com/rooms/Room.UKCGM5",
-    "/armmeeting/2/MotionSensor/00-0D-6F-00-00-C1-3F-63/motion":"https://protected-sands-2667.herokuapp.com/rooms/Room.UKCBeech",
-   // "/armmeeting/2/MotionSensor/00-0D-6F-00-00-C1-3F-61/motion":"BAY",
-    "/armmeeting/2/MotionSensor/00-0D-6F-00-00-C1-35-0A/motion":"https://protected-sands-2667.herokuapp.com/rooms/Room.UKCMaple",
-    "/armmeeting/3/MotionSensor/00-0D-6F-00-00-C1-46-34/motion":"https://protected-sands-2667.herokuapp.com/rooms/Room.UKCSF8",
-   // "/armmeeting/4/MotionSensor/00-0D-6F-00-00-C1-3B-84/motion":"SGM1",
-    "/armmeeting/5/MotionSensor/00-0D-6F-00-00-C1-31-4D/motion":"https://protected-sands-2667.herokuapp.com/rooms/Room.UKCBirch",
-    "/armmeeting/6/MotionSensor/00-0D-6F-00-00-C1-45-BA/motion":"https://protected-sands-2667.herokuapp.com/rooms/Room.UKCSycamore",
-    "/armmeeting/6/MotionSensor/00-0D-6F-00-00-C1-3D-53/motion":"https://protected-sands-2667.herokuapp.com/rooms/Room.UKCOak",
-    "/armmeeting/7/MotionSensor/00-0D-6F-00-00-C1-31-C1/motion":"https://protected-sands-2667.herokuapp.com/rooms/Room.UKCAsh",
-    "/armmeeting/7/MotionSensor/00-0D-6F-00-00-C1-46-17/motion":"https://protected-sands-2667.herokuapp.com/rooms/Room.UKCAlder",
-    "/armmeeting/8/MotionSensor/00-0D-6F-00-00-C1-46-89/motion":"https://protected-sands-2667.herokuapp.com/rooms/Room.UKCHazel",
-   // "/armmeeting/9/MotionSensor/00-0D-6F-00-00-C1-3F-4F/motion":"HOLLY",
-    "/armmeeting/9/MotionSensor/00-0D-6F-00-00-C1-3D-4A/motion":"https://protected-sands-2667.herokuapp.com/rooms/Room.UKCTrainingRoomA",
-    "/armmeeting/9/MotionSensor/00-0D-6F-00-00-C1-3F-22/motion":"https://protected-sands-2667.herokuapp.com/rooms/Room.UKCTrainingRoomB",
-    "/armmeeting/10/MotionSensor/00-0D-6F-00-00-C1-3F-20/motion":"https://protected-sands-2667.herokuapp.com/rooms/Room.UKCWillowA",
-    "/armmeeting/10/MotionSensor/00-0D-6F-00-00-C1-38-5F/motion":"https://protected-sands-2667.herokuapp.com/rooms/Room.UKCWillowB",
-    "/armmeeting/11/MotionSensor/00-0D-6F-00-00-C1-2D-F0/motion":"https://protected-sands-2667.herokuapp.com/rooms/Room.UKCLectureTheatre",
-    "/armmeeting/11/MotionSensor/00-0D-6F-00-00-C1-35-08/motion":"https://protected-sands-2667.herokuapp.com/rooms/RoomUKCPatentBox",
-    "/armmeeting/11/MotionSensor/00-0D-6F-00-00-C1-46-10/motion":"https://protected-sands-2667.herokuapp.com/rooms/Room.UKCElm",
-    "/armmeeting/12/MotionSensor/00-0D-6F-00-00-C1-2C-47/motion":"https://protected-sands-2667.herokuapp.com/rooms/Room.UKCYew",
-    "/armmeeting/12/MotionSensor/00-0D-6F-00-00-C1-48-36/motion":"https://protected-sands-2667.herokuapp.com/rooms/Room.UKCAspen",
-    "/armmeeting/13/MotionSensor/00-0D-6F-00-00-C1-30-9E/motion":"https://protected-sands-2667.herokuapp.com/rooms/Room.UKCRowan",
-    "/armmeeting/14/MotionSensor/00-0D-6F-00-00-C1-34-AE/motion":"https://protected-sands-2667.herokuapp.com/rooms/Room.SHABoardroom.VideoConference",
-    "/armmeeting/15/MotionSensor/00-0D-6F-00-00-C1-2F-E7/motion":"https://protected-sands-2667.herokuapp.com/rooms/Room.UKCFM9",
-    "/armmeeting/16/MotionSensor/00-0D-6F-00-00-C1-34-AF/motion":"https://protected-sands-2667.herokuapp.com/rooms/Room.UKCFM7",
-    "/armmeeting/17/MotionSensor/00-0D-6F-00-00-C1-34-EB/motion":"https://protected-sands-2667.herokuapp.com/rooms/Room.UKCFM10",
-    "/armmeeting/18/MotionSensor/00-0D-6F-00-00-C1-3B-67/motion":"https://protected-sands-2667.herokuapp.com/rooms/Room.UKCARM66MR01",
-    "/armmeeting/18/MotionSensor/00-0D-6F-00-00-C1-31-7E/motion":"https://protected-sands-2667.herokuapp.com/rooms/Room.UKCARM66MR02",
-    "/armmeeting/18/MotionSensor/00-0D-6F-00-00-C1-3D-59/motion":"https://protected-sands-2667.herokuapp.com/rooms/Room.UKCARM66MR3",
-    "/armmeeting/19/MotionSensor/00-0D-6F-00-00-C1-2F-10/motion":"https://protected-sands-2667.herokuapp.com/rooms/Room.UKCARM66MR4",
-    "/armmeeting/19/MotionSensor/00-0D-6F-00-00-C1-31-3F/motion":"https://protected-sands-2667.herokuapp.com/rooms/Room.UKCARM66MR5",
-    "/armmeeting/20/MotionSensor/00-0D-6F-00-00-C1-30-1E/motion":"https://protected-sands-2667.herokuapp.com/rooms/Room.UKCARM66MR06",
-    "/armmeeting/21/MotionSensor/00-0D-6F-00-00-C1-46-1A/motion":"https://protected-sands-2667.herokuapp.com/rooms/Room.UKCARM66MR8",
-    "/armmeeting/22/MotionSensor/00-0D-6F-00-00-C1-45-B6/motion":"https://protected-sands-2667.herokuapp.com/rooms/Room.UKCARM66MR11",
-    "/armmeeting/23/MotionSensor/00-0D-6F-00-00-C1-3F-5E/motion":"https://protected-sands-2667.herokuapp.com/rooms/RoomUKCCPC-1Knuth",
-    "/armmeeting/23/MotionSensor/00-0D-6F-00-00-C1-2C-88/motion":"https://protected-sands-2667.herokuapp.com/rooms/RoomUKCCPC-1Turing",
-    "/armmeeting/24/MotionSensor/00-0D-6F-00-00-C1-48-09/motion":"https://protected-sands-2667.herokuapp.com/rooms/RoomUKCCPC-1Ritchie"
-};	
 
 
-var rooms = {
-   "Room.UKCMaple": "https://protected-sands-2667.herokuapp.com/rooms/Room.UKCMaple",
-   "Room.UKCBeech": "https://protected-sands-2667.herokuapp.com/rooms/Room.UKCBeech",
-   "Room.UKCWillowA": "https://protected-sands-2667.herokuapp.com/rooms/Room.UKCWillowA",
-   "Room.UKCWillowB": "https://protected-sands-2667.herokuapp.com/rooms/Room.UKCWillowB",
-   "Room.UKCFM10": "https://protected-sands-2667.herokuapp.com/rooms/Room.UKCFM10",
-   "Room.UKCFM7": "https://protected-sands-2667.herokuapp.com/rooms/Room.UKCFM7",
-   "Room.UKCFM9": "https://protected-sands-2667.herokuapp.com/rooms/Room.UKCFM9",
-   "Room.UKCGM4": "https://protected-sands-2667.herokuapp.com/rooms/Room.UKCGM4",
-   "Room.UKCGM5": "https://protected-sands-2667.herokuapp.com/rooms/Room.UKCGM5",
-   "Room.UKCSF8": "https://protected-sands-2667.herokuapp.com/rooms/Room.UKCSF8",
-   "Room.UKCBirch": "https://protected-sands-2667.herokuapp.com/rooms/Room.UKCBirch",
-   "Room.UKCSycamore": "https://protected-sands-2667.herokuapp.com/rooms/Room.UKCSycamore",
-   "Room.UKCOak": "https://protected-sands-2667.herokuapp.com/rooms/Room.UKCOak",
-   "Room.UKCAsh": "https://protected-sands-2667.herokuapp.com/rooms/Room.UKCAsh",
-   "Room.UKCAlder": "https://protected-sands-2667.herokuapp.com/rooms/Room.UKCAlder",
-   "Room.UKCHazel": "https://protected-sands-2667.herokuapp.com/rooms/Room.UKCHazel",
-   
-   "Room.UKCElm":"https://protected-sands-2667.herokuapp.com/rooms/Room.UKCElm",
-   "Room.UKCLectureTheatre":"https://protected-sands-2667.herokuapp.com/rooms/Room.UKCLectureTheatre",
-   "RoomUKCPatentBox":"https://protected-sands-2667.herokuapp.com/rooms/RoomUKCPatentBox",
-   "Room.UKCARM66MR4":"https://protected-sands-2667.herokuapp.com/rooms/Room.UKCARM66MR4",
-   "Room.UKCARM66MR5":"https://protected-sands-2667.herokuapp.com/rooms/Room.UKCARM66MR5",
-   "RoomUKCPatentBox":"https://protected-sands-2667.herokuapp.com/rooms/RoomUKCPatentBox"
-}
 
-
-var reversemapping = {
-    "https://protected-sands-2667.herokuapp.com/rooms/Room.UKCGM4":"/armmeeting/1/MotionSensor/00-0D-6F-00-00-C1-2E-EF/motion",
-    "https://protected-sands-2667.herokuapp.com/rooms/Room.UKCGM5":"/armmeeting/1/MotionSensor/00-0D-6F-00-00-C1-30-83/motion",
-    "https://protected-sands-2667.herokuapp.com/rooms/Room.UKCBeech":"/armmeeting/2/MotionSensor/00-0D-6F-00-00-C1-3F-63/motion",
-   // "/armmeeting/2/MotionSensor/00-0D-6F-00-00-C1-3F-61/motion":"BAY",
-    "https://protected-sands-2667.herokuapp.com/rooms/Room.UKCMaple":"/armmeeting/2/MotionSensor/00-0D-6F-00-00-C1-35-0A/motion",
-    "/armmeeting/3/MotionSensor/00-0D-6F-00-00-C1-46-34/motion":"https://protected-sands-2667.herokuapp.com/rooms/Room.UKCSF8",
-   // "/armmeeting/4/MotionSensor/00-0D-6F-00-00-C1-3B-84/motion":"SGM1",
-    "https://protected-sands-2667.herokuapp.com/rooms/Room.UKCBirch":"/armmeeting/5/MotionSensor/00-0D-6F-00-00-C1-31-4D/motion",
-    "https://protected-sands-2667.herokuapp.com/rooms/Room.UKCSycamore":"/armmeeting/6/MotionSensor/00-0D-6F-00-00-C1-45-BA/motion",
-    "https://protected-sands-2667.herokuapp.com/rooms/Room.UKCOak":"/armmeeting/6/MotionSensor/00-0D-6F-00-00-C1-3D-53/motion",
-    "https://protected-sands-2667.herokuapp.com/rooms/Room.UKCAsh":"/armmeeting/7/MotionSensor/00-0D-6F-00-00-C1-31-C1/motion",
-    "https://protected-sands-2667.herokuapp.com/rooms/Room.UKCAlder":"/armmeeting/7/MotionSensor/00-0D-6F-00-00-C1-46-17/motion",
-    "https://protected-sands-2667.herokuapp.com/rooms/Room.UKCHazel":"/armmeeting/8/MotionSensor/00-0D-6F-00-00-C1-46-89/motion",
-   // "/armmeeting/9/MotionSensor/00-0D-6F-00-00-C1-3F-4F/motion":"HOLLY",
-    "https://protected-sands-2667.herokuapp.com/rooms/Room.UKCTrainingRoomA":"/armmeeting/9/MotionSensor/00-0D-6F-00-00-C1-3D-4A/motion",
-    "https://protected-sands-2667.herokuapp.com/rooms/Room.UKCTrainingRoomB":"/armmeeting/9/MotionSensor/00-0D-6F-00-00-C1-3F-22/motion",
-    "https://protected-sands-2667.herokuapp.com/rooms/Room.UKCWillowA":"/armmeeting/10/MotionSensor/00-0D-6F-00-00-C1-3F-20/motion",
-    "https://protected-sands-2667.herokuapp.com/rooms/Room.UKCWillowB":"/armmeeting/10/MotionSensor/00-0D-6F-00-00-C1-38-5F/motion",
-    "https://protected-sands-2667.herokuapp.com/rooms/Room.UKCLectureTheatre":"/armmeeting/11/MotionSensor/00-0D-6F-00-00-C1-2D-F0/motion",
-    "https://protected-sands-2667.herokuapp.com/rooms/RoomUKCPatentBox":"/armmeeting/11/MotionSensor/00-0D-6F-00-00-C1-35-08/motion",
-    "https://protected-sands-2667.herokuapp.com/rooms/Room.UKCElm":"/armmeeting/11/MotionSensor/00-0D-6F-00-00-C1-46-10/motion",
-    "https://protected-sands-2667.herokuapp.com/rooms/Room.UKCYew":"/armmeeting/12/MotionSensor/00-0D-6F-00-00-C1-2C-47/motion",
-    "https://protected-sands-2667.herokuapp.com/rooms/Room.UKCAspen":"/armmeeting/12/MotionSensor/00-0D-6F-00-00-C1-48-36/motion",
-    "https://protected-sands-2667.herokuapp.com/rooms/Room.UKCRowan":"/armmeeting/13/MotionSensor/00-0D-6F-00-00-C1-30-9E/motion",
-    "https://protected-sands-2667.herokuapp.com/rooms/Room.SHABoardroom.VideoConference":"/armmeeting/14/MotionSensor/00-0D-6F-00-00-C1-34-AE/motion",
-    "https://protected-sands-2667.herokuapp.com/rooms/Room.UKCFM9":"/armmeeting/15/MotionSensor/00-0D-6F-00-00-C1-2F-E7/motion",
-    "https://protected-sands-2667.herokuapp.com/rooms/Room.UKCFM7":"/armmeeting/16/MotionSensor/00-0D-6F-00-00-C1-34-AF/motion",
-    "https://protected-sands-2667.herokuapp.com/rooms/Room.UKCFM10":"/armmeeting/17/MotionSensor/00-0D-6F-00-00-C1-34-EB/motion",
-    "https://protected-sands-2667.herokuapp.com/rooms/Room.UKCARM66MR01":"/armmeeting/18/MotionSensor/00-0D-6F-00-00-C1-3B-67/motion",
-    "https://protected-sands-2667.herokuapp.com/rooms/Room.UKCARM66MR02":"/armmeeting/18/MotionSensor/00-0D-6F-00-00-C1-31-7E/motion",
-    "https://protected-sands-2667.herokuapp.com/rooms/Room.UKCARM66MR3":"/armmeeting/18/MotionSensor/00-0D-6F-00-00-C1-3D-59/motion",
-    "https://protected-sands-2667.herokuapp.com/rooms/Room.UKCARM66MR4":"/armmeeting/19/MotionSensor/00-0D-6F-00-00-C1-2F-10/motion",
-    "https://protected-sands-2667.herokuapp.com/rooms/Room.UKCARM66MR5":"/armmeeting/19/MotionSensor/00-0D-6F-00-00-C1-31-3F/motion",
-    "https://protected-sands-2667.herokuapp.com/rooms/Room.UKCARM66MR06":"/armmeeting/20/MotionSensor/00-0D-6F-00-00-C1-30-1E/motion",
-    "https://protected-sands-2667.herokuapp.com/rooms/Room.UKCARM66MR8":"/armmeeting/21/MotionSensor/00-0D-6F-00-00-C1-46-1A/motion",
-    "https://protected-sands-2667.herokuapp.com/rooms/Room.UKCARM66MR11":"/armmeeting/22/MotionSensor/00-0D-6F-00-00-C1-45-B6/motion",
-    "https://protected-sands-2667.herokuapp.com/rooms/RoomUKCCPC-1Knuth":"/armmeeting/23/MotionSensor/00-0D-6F-00-00-C1-3F-5E/motion",
-    "https://protected-sands-2667.herokuapp.com/rooms/RoomUKCCPC-1Turing":"/armmeeting/23/MotionSensor/00-0D-6F-00-00-C1-2C-88/motion",
-    "https://protected-sands-2667.herokuapp.com/rooms/RoomUKCCPC-1Ritchie":"/armmeeting/24/MotionSensor/00-0D-6F-00-00-C1-48-09/motion"
-};
 
 
 function MeetingRoomMQTTHandler(){
@@ -232,9 +125,10 @@ function MeetingRoomMQTTHandler(){
 		    var url = msg.n, value = msg.v, time = msg.t;
 		    // stream to interoperbility layer
 		    var array = url.split('/');
-		    console.log(array[0],array[1],array[2],array[3],array[4],array[5], value);
-			var device_id = array[3] , device_attr = array[4];
-			console.log('url :'+url);
+		    //console.log(array[0],array[1],array[2],array[3],array[4],array[5], value);
+			// device unique url = 
+			var device_id = array[4] , device_attr = array[5];
+			console.log('url :'+url, device_id,device_attr);
 			/*
 		    console.log('url :'+url.substring(0,url.lastIndexOf("/")));
 	        var url1 = url.substring(0,url.lastIndexOf("/"));
@@ -244,22 +138,69 @@ function MeetingRoomMQTTHandler(){
 			    else winston.error('hmget find no location11');
 			});
 			*/
-			var room = mapping[url];
-			if(room){
-			    console.log("room  is  "+room);
-				var array = room.split('/');
-				//console.log("io send message  "+array[4]);
-				io.sockets.emit('info',{room:array[4],type:'motion', value:100});
+		
+			var room_uniqueURl = 	simulation.mapping[url];
+			if(room_uniqueURl){			    
+				var getShortName = function(url){
+				   var array = url.split('/');
+				   return array[array.length-1];
+				}				
+				var room_shortName = getShortName(room_uniqueURl);
+				console.log("room  is  "+room_uniqueURl, room_shortName);
+                updateMotion(room_shortName,function(err,data){});	
+				console.log("io send message  "+room_shortName);
+				io.sockets.emit('info',{room:room_shortName,type:'motion', value:100});
 			}
 			
-		    var roomID = array[2], sensorID = array[4], sensorType = array[5];
 			url = array[0]+"/"+array[1]+"/"+array[2]+"/"+array[3]+"/"+array[4];
 		    //winston.debug('MeetingRoomMQTTHandler  '.green+url+"  "+sensorType+"  "+ value);			   
 		}catch(e){
-			console.log('some thing wrong   ......'+e);   
+			console.log('some thing wrong   ......'.red+e);   
 		}
     }		
 }
+
+function updateMotion(name,callback){
+	var redisClient;
+    var redis_ip= config.redis.host;  
+    var redis_port= config.redis.port; 	
+    try{ 
+        redisClient = redis.createClient(redis_port,redis_ip);
+	}
+    catch (error){
+        console.log('find Resource eInto Catalog  error' + error);
+		redisClient.quit();
+		return callback(error,null);
+    }	
+	
+
+	redisClient.hmset(name, 'time',new Date(), 'displayname',name,function(err, data){
+	    redisClient.quit();
+	    if(err) {return callback(err,null);}
+		else if(data) { return callback(null,data);}
+        else { return callback(null,null);}	
+	});
+
+	redisClient.quit();
+
+}
+
+/*
+io.sockets.on('connection', function (socket) {
+    console.log('socket connected');
+	socket.emit('connect');
+	     
+    socket.on('subscribe', function (data) {
+        console.log('subscribe  to  ----------------------------'.green,data);
+		var rooms = data.room.split(',');
+		console.log(rooms.length);
+		rooms.forEach(function(room){
+		    
+		   console.log(roomstatus[room]);
+		})
+    });
+});
+*/
 
 // http://localhost/all/meeting
 app.get('/all/meeting',function(req,res,next){
