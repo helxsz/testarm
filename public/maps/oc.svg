@@ -1,0 +1,72 @@
+<svg version="1.1" viewBox="0 0 612 750" class="oc">
+	<script type="text/javascript">
+		// <![CDATA[
+			this.SEATS = this.SEATS || {};
+			this.SEATS.oc = {
+				iconSize: 47.828,
+				seatPositions: [
+					[294.131, 212.894],
+					[294.131, 302.479],
+					[294.131, 392.064],
+					[294.131, 481.649],
+					[353.055, 212.894],
+					[353.055, 302.479],
+					[353.055, 392.064],
+					[353.055, 481.649],
+					[90.877, 212.894],
+					[90.877, 302.479],
+					[90.877, 392.064],
+					[90.877, 481.649],
+					[149.801, 212.894],
+					[149.801, 302.479],
+					[149.801, 392.064],
+					[173.632, 17.943],
+					[173.632, 69.309],
+					[173.632, 120.675],
+					[308.877, 17.943],
+					[241.255, 17.943],
+					[308.877, 69.309],
+					[308.877, 120.675],
+					[149.801, 481.649]
+				]
+			};
+		// ]]>
+	</script>
+
+	<rect class="background" x="14.083" y="13.644" width="586.833" height="723.5"/>
+	<g class="walls">
+		<g class="innerWalls">
+			<polyline points="600.667,592.644 403.167,592.644 403.167,737.144"/>
+			<polyline points="600.753,471.644 476.092,471.644 476.092,592.644"/>
+			<polyline points="600.753,231.644 476.092,231.644 476.092,471.644"/>
+			<path d="M600.667,231.644"/>
+			<line x1="532.667" y1="168.144" x2="532.667" y2="231.644"/>
+			<polyline points="469.667,13.644 469.667,168.144 600.667,168.144"/>
+			<polyline points="13.833,168.144 170.333,168.144 170.333,13.644"/>
+			<path d="M469.667,13.644"/>
+			<polyline points="361.167,13.644 361.167,168.144 469.667,168.144"/>
+			<polyline points="267.811,737.144 267.811,588.644 70.311,588.644 70.311,737.144"/>
+			<polyline points="267.811,675.644 141.811,675.644 141.811,737.144"/>
+			<line x1="347.507" y1="212.894" x2="347.507" y2="528.894"/>
+			<line x1="144.253" y1="212.894" x2="144.253" y2="528.894"/>
+		</g>
+		<polyline points="319.088,737.144 14.083,737.144 14.083,13.644 600.917,13.644 600.917,737.144 352.177,737.144"/>
+	</g>
+	<g class="roomNames">
+		<text x="092.083" y="097.416" text-anchor="middle">Belt Loop</text>
+		<text transform="matrix(1 0 0 1 415.417 089)" text-anchor="middle">
+			<tspan x="0" y="0">Back</tspan>
+			<tspan x="0" y="20.16">Pocket</tspan>
+		</text>
+		<text x="535.167" y="097.416" text-anchor="middle">Jean Jacket</text>
+		<text x="566.667" y="206.415" text-anchor="middle">Copier</text>
+		<text x="538.422" y="358.165" text-anchor="middle">Boardroom</text>
+		<text x="538.422" y="538.665" text-anchor="middle">Break room</text>
+		<text x="501.917" y="671.415" text-anchor="middle">Relaxed Fit</text>
+		<text x="335.489" y="671.415" text-anchor="middle">Lobby</text>
+		<text x="169.061" y="638.327" text-anchor="middle">Ping-pong</text>
+		<text x="204.811" y="712.915" text-anchor="middle">Servers</text>
+	</g>
+	<g class="seats"></g>
+	<g class="photos"></g>
+</svg>

@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html ng-app="MobileMappingApp">
+   <head>
+        <title>Visualization of Room</title>
+		<meta charset="utf-8">
+		<meta name="author" content="Steven Hassall && Sizhe Xi ">
+		<meta name="description" content="Visualization of the sensor map">
+	</head>
+	<body>
+
+		<section id="vis">
+			<div class="content" ng-controller="mappingListCtrl">
+			    <div id="loading">Loading...</div>
+				    <div id="stations">
+					    <div id="map-wrapper"><svg class="map"></svg></div>
+						<div id="station"><h2 id="station-name"></h2>
+						<div id="radial-wrapper"><svg class="radial"></svg></div>
+						<div id="tiles-wrapper"><svg class="tiles"></svg></div></div>
+						</div><div id="pollutant-selector"></div></div>
+		</section>
+			
+		<div id="playground"></div>
+			
+		<footer><div class="content"></div></footer>
+   
+        
+		<script src="/assets/js/jquery/jquery-1.10.2.min.js"></script>
+        <script src="/assets/js/socket.io.js"></script>
+        <script src="/assets/js/d3.v3.min.js"></script>
+	    <script src="/assets/js/angular.min.js"></script>
+	    <script src="/js/underscore-min.js"></script>
+        <script src="js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+		
+	<script src="snow/three.min.js"></script>
+	<script src="snow/OrbitControls.js"></script>
+	<script src="snow/EasePack.min.js"></script>
+	<script src="snow/TweenMax.min.js"></script>		
+
+	<script>
+// http://saqoo.sh:13000
+var MobileMappingApp = angular.module('MobileMappingApp', []);
+MobileMappingApp.controller('mappingListCtrl', function ($rootScope,$scope, $http, $interval, socket) {
+    
+	$scope.sensors = [];
+	var checkTimer ;
+	
+	var legend;
+    var data = {};
+	data.states= [{value:15,desc:'good'},{value:12,desc:'ok'},{value:9,desc:'not ok'},{value:6,desc:'bad'},{value:3,desc:'worse'}];	
+	var dy = 25;
+	var map ;
+	
+	
+
+    checkTimer = $interval($scope.checkSensorTimer, 1000*60);
+    $rootScope.$broadcast('mybroadcast');	
+		
+				
+	$scope.$on('mybroadcast', function(service){
+		console.log('on my broadcast', service);
+    })
+			
+	$scope.checkSensorTimer = function(){
+	    //console.log('check timer');
+	}
+
+    $scope.dateformat = function(date){
+        var date = new Date(date);	
+	   	var hour = date.getHours(), min = date.getMinutes();
+		if(hour < 10) hour = '0'+date.getHours();
+		if(min < 10) min = '0'+date.getMinutes();
+        return  hour+":"+min;		 
+	}
+                       
+    socket.on('connect', function() {
+      console.log('connecteddd!');
+      socket.emit('pc');
+    });
+    
+    socket.on('secret', function(secret) {
+      console.log(secret);
+      $('#connection-number').html(secret);
+      init();
+      app = new App();
+    });
+
+    socket.on('status', function(status) {
+      console.log('status', status);
+    });
+
+    var el = {
+      x: $('#x'),
+      y: $('#y'),
+      z: $('#z')
+    };
+    var kFilteringFactor = 0.1;
+    socket.on('message from mobile', function(orientation) {
+      // console.log(orientation);
+      var ax = Math.round(orientation.alpha * 1000) / 1000;
+      if (ax >= 0) ax = '+' + ax;
+      el.x.html('alpha: ' + ax);
+      var ay = Math.round(orientation.beta * 1000) / 1000;
+      if (ay >= 0) ay = '+' + ay;
+      el.y.html(' beta: ' + ay);
+      var az = Math.round(orientation.gamma * 1000) / 1000;
+      if (az >= 0) az = '+' + az;
+      el.z.html('gamma: ' + az);
+
+      var rad = Math.PI / 180;
+
+       app.update(orientation.beta  * rad, orientation.alpha * rad, -orientation.gamma * rad);
+    });		
+
+
+	$scope.$on('$destroy', function() {
+        if (angular.isDefined(checkTimer)) {
+            $interval.cancel(checkTimer);
+            checkTimer = undefined;
+        }
+        socket.removeAllListeners();		
+    });		
+});
+
+MobileMappingApp.factory('socket', function ($rootScope) {
+    if (!window.location.origin)
+    window.location.origin = window.location.protocol+"//"+window.location.host;
+    var socket = io.connect(window.location.origin+":3000",{'force new connection': true});
+    return {
+        on: function (eventName, callback) {
+            socket.on(eventName, function () {  
+            var args = arguments;
+            $rootScope.$apply(function () {
+                callback.apply(socket, args);
+            });
+        });
+    },
+        emit: function (eventName, data, callback) {
+            socket.emit(eventName, data, function () {
+            var args = arguments;
+            $rootScope.$apply(function () {
+                if (callback) {
+                    callback.apply(socket, args);
+                }
+            });
+        })
+    }
+  };
+});
+
+// http://www.coronaperspectives.com/src/ViewGL.js
+
+var App = function(){
+
+	var sw, sh, renderer, camera, scene, projector, control;
+    var renderIsActive = false;	
+	function init(){
+	    //Scene size
+	    sw = window.innerWidth;
+	    sh = window.innerHeight;
+
+	    //Setup the renderer
+	    var $container = $('#playground');
+	    renderer = new THREE.WebGLRenderer( { antialias: true } );
+	    renderer.setSize( sw, sh );
+	  
+	    //Setup the camera
+	    camera = new THREE.PerspectiveCamera( 45, sw / sh, 0.1, 10000 );
+	    camera.position.y = 2000;
+	    camera.position.z = 2000;
+
+	    //Setup the scene
+	    scene = new THREE.Scene();
+	    scene.fog = new THREE.FogExp2( 0xa4e2f2, 0.0002 );
+	    scene.add( camera );
+	    $container.append( renderer.domElement );
+	   
+	    projector = new THREE.Projector();
+
+	    //Handling window resize
+	    window.addEventListener('resize', function() {
+		    sw = window.innerWidth;
+		    sh = window.innerHeight;
+		    renderer.setSize(sw, sh);
+		    camera.aspect = sw / sh;
+		    camera.updateProjectionMatrix();
+	    });
+	  
+	    //Launch the drawing loop!
+	    setInterval( function(){
+		    renderloop();
+	    }, 1000/60 );
+
+	    controls = new THREE.OrbitControls(camera, renderer.domElement);
+	    controls.autoRotate = true;
+	    cycle = 0;
+	}
+	
+	var courtView, mesh ;
+	function initScences(){
+        var geometry = new THREE.CubeGeometry(200, 20, 350);
+
+        var texture = THREE.ImageUtils.loadTexture('textures/crate.gif');
+        texture.anisotropy = renderer.getMaxAnisotropy();
+
+        var material = new THREE.MeshBasicMaterial({map: texture});	
+        mesh = new THREE.Mesh(geometry, material);
+        mesh.eulerOrder = 'YXZ';
+		scene.add(mesh);
+	}
+	
+	function update(x, y, z){
+       mesh.rotation.x =  x;
+       mesh.rotation.y =  y;
+       mesh.rotation.z = z;	    
+	   renderer.render(scene, camera);
+	}
+	
+	function activateVisualisation() {
+        renderIsActive = true;	
+
+    }
+
+    function deactivateVisualisation() {
+        renderIsActive = false;
+
+
+    }
+   
+    function clear() {
+	
+	
+	}
+	
+	function renderloop(){
+        if ( ! renderIsActive ) return;
+						
+        renderer.render(scene, camera);
+        controls.update();  
+    }
+		
+	function degToRad( deg ){
+	  return (deg * ( Math.PI / 180));
+	}	
+	
+	init();
+	initScences();
+	
+	return {
+	    update:update,
+		activateVisualisation:activateVisualisation,
+		deactivateVisualisation:deactivateVisualisation,
+		clear:clear,
+		init:init
+	}
+}
+
+App.CourtView3D = function() {
+
+	// material	
+	this.material = null;
+	// object3d
+	this.object3D = null;
+	
+
+	var init = function() {
+			
+		this.material = new THREE.LineBasicMaterial( { 
+			linewidth 	: 2,
+			color 		: 0x999999,						
+			blending 	: THREE.NormalBlending, 
+			transparent : true, 
+			depthTest 	: false
+		} );
+
+		var geometry = new THREE.Geometry();
+		geometry.vertices = [
+			// rect exterior
+			new THREE.Vector3( -5.48, 0,  11.89 ), // bl 
+			new THREE.Vector3(  5.48, 0,  11.89 ), // br
+			new THREE.Vector3(  5.48, 0,  11.89 ), 
+			new THREE.Vector3(  5.48, 0, -11.89 ), // tr
+			new THREE.Vector3(  5.48, 0, -11.89 ),
+			new THREE.Vector3( -5.48, 0, -11.89 ), // tl
+			new THREE.Vector3( -5.48, 0, -11.89 ),
+			new THREE.Vector3( -5.48, 0,  11.89 ), // bl 
+			// horizontal:
+			new THREE.Vector3( -4.11, 0,  6.4 ),
+			new THREE.Vector3(  4.11, 0,  6.4 ),			
+			new THREE.Vector3( -5.48, 0,  0 ),	   // red
+			new THREE.Vector3(  5.48, 0,  0 ),
+			new THREE.Vector3( -4.11, 0, -6.4 ),
+			new THREE.Vector3(  4.11, 0, -6.4 ),
+			// vertical
+			new THREE.Vector3( -4.11,  0,  11.89 ),
+			new THREE.Vector3( -4.11,  0, -11.89 ),
+			new THREE.Vector3(  0,     0, -6.4 ),
+			new THREE.Vector3(  0,     0,  6.4 ),
+			new THREE.Vector3(  4.11,  0,  11.89 ),
+			new THREE.Vector3(  4.11,  0, -11.89 ),
+			new THREE.Vector3(  0,     0,  11.89 ),
+			new THREE.Vector3(  0,     0,  11.50 ),
+			new THREE.Vector3(  0,     0, -11.89 ),
+			new THREE.Vector3(  0,     0, -11.50 )
+		];  
+
+		this.object3D = new THREE.Line( geometry, this.material, THREE.LinePieces );
+		this.object3D.matrixAutoUpdate = false;	
+
+		this.material.opacity = 0.2;
+
+	}
+
+    init();	
+	
+};
+	  
+	</script>
+    </body>
+</html>
