@@ -23,8 +23,11 @@
     <script src="/assets/js/socket.io.js"></script>
     <!--<script src="/assets/js/d3.v3.min.js"></script>-->
 	<script src="/assets/js/angular.min.js"></script>
+	<script src="js/ui-bootstrap.min.js"></script>
 	<script src="/js/underscore-min.js"></script>
     <script src="js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+	
+
 
 <style>
 .close {
@@ -199,7 +202,11 @@ button.close {
 <!--[if lt IE 7]>
     <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
 <![endif]-->
-		
+
+
+
+
+	
     <div class="meeting-room">
     <!-- START .meeting-room -->
 
@@ -416,7 +423,7 @@ button.close {
 
     <script src="js/vendor/classie.js"></script>
     <script src="js/vendor/mlpushmenu.js"></script>
-    <script src="js/ui-bootstrap.min.js"></script>	
+    	
 	
 
     <!-- Gridset overlay script - toggles grid overlay on and off - You can remove this if you want. 
@@ -440,6 +447,7 @@ button.close {
 // http://stackoverflow.com/questions/7792652/what-is-the-best-way-to-conditionally-apply-a-class-with-angularjs?rq=1
 // http://weblogs.asp.net/dwahlin/archive/2013/09/18/building-an-angularjs-modal-service.aspx
 // http://angular-ui.github.io/bootstrap/
+// http://stackoverflow.com/questions/14475284/make-a-render-condition-with-angularjs   http://stackoverflow.com/questions/15810278/if-else-in-angularjs-template
 angular.module('meetingEventFilters', []).filter('filterEvent', function() {
   return function(event) {
     var now = new Date();
@@ -447,6 +455,9 @@ angular.module('meetingEventFilters', []).filter('filterEvent', function() {
 	return (eventDate.getTime() >= now.getTime())&&(eventDate.getDate()==now.getDate()); 
   };
 });
+
+
+
 
 var meetingApp = angular.module('meetingApp', ['meetingEventFilters','ui.bootstrap']);
 
