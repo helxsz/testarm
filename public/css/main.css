@@ -642,14 +642,12 @@
     }
 
     .modal-dialog {
-      position: relative;
-      z-index: 1050;
-      width: auto;
-      margin: 10px;
+        position: relative; z-index: 1050;
+        width: 50%; max-width: 27.625em;
+        margin: 0 auto; margin-top: 25%;
     }
 
     .modal-content {
-        width: 50%; max-width: 27.625em;
         margin: 0 auto; margin-top: 20%; padding: 3em;
         background-color: #092630;
         position: relative;
@@ -662,12 +660,8 @@
     }
 
     .modal-backdrop {
-      position: fixed;
-      top: 0;
-      right: 0;
-      bottom: 0;
-      left: 0;
-      z-index: 1030;
+      position: fixed; z-index: 1030;
+      top: 0; right: 0; bottom: 0; left: 0; 
       background-color: #000000;
     }
 
