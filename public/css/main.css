@@ -649,14 +649,17 @@
     }
 
     .modal-content {
-      position: relative;
-      border: 1px solid #999999;
-      border: 1px solid rgba(0, 0, 0, 0.2);
-      border-radius: 6px;
-      outline: none;
-      -webkit-box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);
-              box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);
-      background-clip: padding-box;
+        width: 50%;
+        margin: 0 auto;
+        padding: 3em;
+        background-color: #092630;
+        position: relative;
+        border: 10px solid #134D61;
+        border: 10px solid rgba(19, 77, 97, 1);
+        outline: none;
+        -webkit-box-shadow: 0 13px 1px rgba(0, 0, 0, 0.3);
+                box-shadow: 0 13px 1px rgba(0, 0, 0, 0.3);
+        background-clip: padding-box;
     }
 
     .modal-backdrop {
