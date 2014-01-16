@@ -650,7 +650,7 @@
 
     .modal-content {
         width: 50%; max-width: 27.625em;
-        margin: 0 auto; padding: 3em;
+        margin: 0 auto; margin-top: 20%; padding: 3em;
         background-color: #092630;
         position: relative;
         border: 10px solid #134D61;
