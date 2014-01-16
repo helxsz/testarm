@@ -20,11 +20,11 @@
     <link rel="stylesheet" href="css/menu-component.css">
 	
 
-    <script src="/assets/js/socket.io.js"></script>
+    <script src="js/socket.io.js"></script>
     <!--<script src="/assets/js/d3.v3.min.js"></script>-->
-    <script src="/assets/js/angular.min.js"></script>
+    <script src="js/angular.min.js"></script>
     <script src="js/ui-bootstrap.min.js"></script>
-    <script src="/js/underscore-min.js"></script>
+    <script src="js/underscore-min.js"></script>
     <script src="js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
 
 	
@@ -129,7 +129,8 @@
             </div>
 			--> 	
 				
-                <section id="app-meeting" class="app-content"  ng-controller="meetingListCtrl">				
+
+                <section id="app-meeting" class="app-content" ng-controller="meetingListCtrl">				
                         <ul class="ch-grid">
                             <li class="room" ng-repeat="room in rooms | filter:query | orderBy:orderProp">
                                 <div class="ch-item" ng-click="room.front = !room.front" ng-class="{'flipped': room.front}">              
@@ -193,7 +194,7 @@
                     <!-- START #footer -->
 
                         <div>
-                            <small>v0.919 Design &amp; Coded by <a href="http://www.redninja.co.uk" title="Design and Coded by Red Ninja Studios">Red Ninja Studios</a></small>
+                            <small>v0.924 Design &amp; Coded by <a href="http://www.redninja.co.uk" title="Design and Coded by Red Ninja Studios">Red Ninja Studios</a></small>
                         </div>
 
                         <div>
