@@ -524,11 +524,11 @@
         }
 
             .icon-telephone {
-                background: #670F38 url('../img/icon_telephone.png') no-repeat 50% 50%; 
+                background: #134D61 url('../img/icon_telephone.png') no-repeat 50% 50%; 
                 background-size: 100%;
             }
                 .svg .icon-telephone {
-                background: #670F38 url('../img/svg/icon_telephone.svg') no-repeat 50% 50%; 
+                background: #134D61 url('../img/svg/icon_telephone.svg') no-repeat 50% 50%; 
                 background-size: 100%;
             }
 
@@ -552,7 +552,7 @@
 
                 .icon-information:hover,
                 .icon-telephone:hover,
-                .icon-email:hover {background-color: #134D61;}
+                .icon-email:hover {background-color: #670F38;}
 
                 .available .icon-information,
                 .available .icon-telephone,
@@ -801,7 +801,7 @@
     .itinerary p {font-weight:bold; margin-bottom: 0; }
 
     .itinerary a {}
-        .itinerary a button {width: 1.875em; height: 1.875em}
+        .itinerary a button {width: 1.625em; height: 1.625em;}
     
     .itinerary i {color:#134D61; font-size: 1.625em;}
     .itinerary i.icon-arrow_right {
