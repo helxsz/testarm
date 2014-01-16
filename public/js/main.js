@@ -11,7 +11,6 @@ $('.open-popup-link').magnificPopup({
 
 // Emulate hover on tablets and smartphones
 $( ".ch-item" ).click(function(e) {
-    console.log('click the chitme  --------------------------------------------------------------------------');
  	$(this).toggleClass( "flipped" );
  	e.preventDefault();
 });
