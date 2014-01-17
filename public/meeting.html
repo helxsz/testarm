@@ -132,18 +132,16 @@
 
                 <section id="app-meeting" class="app-content" ng-controller="meetingListCtrl">				
                         <ul class="ch-grid">
-                            <li class="room" ng-repeat="room in rooms | filter:query | orderBy:orderProp">
+                            <li class="room" ng-repeat="room in rooms | filter:query "> <!-- | orderBy:orderProp index wrong after orderby -->
                                 <div class="ch-item" ng-click="room.front = !room.front" ng-class="{'flipped': room.front}">              
                                     <div class="ch-info-wrap">
                                         <div class="ch-info " ng-class="{'unavailable':room.available}">
                                             <div class="ch-info-front hexagon">
                                                 <h1>{{room.displayname}}</h1>
                                                 <small><span class='temperature'>{{room.temperature}}</span> &#x2103;</small>
-                                            </div>
-                                            
+                                            </div>                                            
                                             <div class="ch-info-back hexagon">
-                                                
-												
+                                                												
                                                 <div ng-if="room.events.length>0">
 												    <div class="maskCircle bookerPhoto"><img src="img/photos/john-biggs.jpg" alt="Joe Bloggs"></div>
 												    <h3>
@@ -152,46 +150,15 @@
 												   <h4>Joe Bloggs</h4>
 													<a href="tel:01517076707" title="Phone Joe" class="noSpin d-hide t-hide"><button class="maskCircle icon-telephone"><span>Telephone</span></button></a> 
 													<a href="mailto:info@redninja.co.uk" title="Email Joe" class="noSpin m-hide"><button class="maskCircle icon-email"><span>Email</span></button></a> 
-													<a href="#popup-{{ room.name }}" ng-click="$event.stopPropagation();open();"   title="View Itinerary" class="noSpin open-popup-link"><button class="maskCircle icon-information"><span>Itinerary Information</span></button></a>													
+													<a href="#popup-{{ room.name }}" ng-click="$event.stopPropagation();open($index);"   title="View Itinerary" class="noSpin open-popup-link"><button class="maskCircle icon-information"><span>Itinerary Information</span></button></a>													
 												</div>
-												
+													
                                                 <h3 ng-if="room.events.length==0">
 												    <div class="maskCircle bookerPhoto"><img src="img/photos/john-biggs.jpg" alt="Joe Bloggs"></div>
 												    <span> No bookings  </span>
-												</h3>												
-											                                     
+												</h3>
+                                                											
 											</div>
-<!--
-                                            <aside id="popup-{{ room.name }}" class="itinerary mfp-hide">
-                                                                                    
-                                                <article>
-                                                    <header class="clearfix">
-                                                        <h1>Today's Itinerary</h1>
-                                                        <h2>{{room.displayname}}</h2>
-                                                        <small><span class='temperature'>{{room.temperature}}</span> &#x2103;</small>
-                                                    </header>
-                                                    <section>
-                                                        <table class="tg-table-dark">
-                                                            <tr ng-repeat="event in room.events">
-                                                                <td rowspan="2">
-                                                                    <div class="wrapHexagon">
-                                                                        <div class="hexagon-in1">
-                                                                            <div class="hexagon-in2" style="background-image: url(img/photos/john-biggs.jpg);"></div>
-                                                                        </div>
-                                                                    </div>
-                                                                </td>
-                                                                <td><i class="icon-clock" aria-hidden="true"></i></td>
-                                                                <td><span>{{ dateformat(event.startDate)}}</span><i class="icon-arrow_right " aria-hidden="true"></i><span>{{dateformat(event.endDate)}}</span></td>
-                                                                <td rowspan="2"><a href="tel:01517076707" title="Phone Joe"><button class="maskCircle icon-telephone icon2x"><span>Telephone</span></button></a></td>
-                                                            </tr>
-                                                        </table>
-                                                    </section>
-
-                                                </article>
-
-                                          
-                                            </aside>
--->
                                         </div>
                                     </div>
                                 </div>
@@ -267,45 +234,44 @@
   });
 
 
-
-
   var meetingApp = angular.module('meetingApp', ['meetingEventFilters','ui.bootstrap']);
 
   meetingApp.controller('meetingListCtrl', function ($rootScope,$scope, $http, $interval, socket, $modal) {
-      $scope.items = ['item1', 'item2', 'item3'];
 
-      $scope.open = function ($event) {
-  	
-  	    console.log('open');
-  		// how do I know which room I have clicked
-  		
+      $scope.open = function ( index) {
+  	    var roomObj = $scope.rooms[index];
+  	    console.log('open',roomObj.name, roomObj, index);
           var modalInstance = $modal.open({
               templateUrl: 'eventModalTemplate.html',
-  			backdrop: true,
+  			  backdrop: true,
               windowClass: 'modal',
-              controller: function ($scope, $modalInstance, room) {
-                  $scope.room = room;
-  				/*
-  				$scope.ok = function () {
-                         $modalInstance.close($scope.selected.item);
-                  };
-                  $scope.cancel = function () {
-                      $modalInstance.dismiss('cancel');
-                  };
-  				*/
-              },			
               resolve: {
                   room: function () {
-                      return $scope.rooms[1];
+				    _.map(roomObj.events, function(event){
+  		                event.startDate = $scope.dateformat(event.startDate);
+						event.endDate = $scope.dateformat(event.endDate);
+						return event;
+  		            })
+                      return roomObj;
                   }
-              }
+              },			  
+              controller: function ($scope, $modalInstance, room) {
+                  $scope.room = room;
+					/*
+					$scope.ok = function () {
+							 $modalInstance.close($scope.selected.item);
+					  };
+					  $scope.cancel = function () {
+						  $modalInstance.dismiss('cancel');
+					  };
+					*/
+              }	
           });
 
          modalInstance.result.then(function (selectedItem) {
           $scope.selected = selectedItem;
           }, function () {
           });
-  		
       }; 
 
 
@@ -452,7 +418,7 @@
 
   	}
 
-      $scope.dateformat = function(date){
+    $scope.dateformat = function(date){
           var date = new Date(date);	
   	   	var hour = date.getHours(), min = date.getMinutes();
   		if(hour < 10) hour = '0'+date.getHours();
@@ -460,7 +426,7 @@
           return  hour+":"+min;		 
   	}
   	
-      $scope.showPopup = function($event){
+    $scope.showPopup = function($event){
   	    console.log('click showpopup stopropagation');
           if ($event.stopPropagation) $event.stopPropagation();
           if ($event.preventDefault) $event.preventDefault();
@@ -521,8 +487,7 @@
     };
   });
 
-
-			       
+	
     </script>
 
     <!-- Classie - class helper functions by @desandro https://github.com/desandro/classie 
@@ -557,10 +522,11 @@
         <h1>Today's Itinerary</h1>
         <h2>{{room.displayname}}</h2>
         <small><span class='temperature'>{{room.temperature}}</span> &#x2103;</small>
+		 <small><span class='temperature'>{{room.events.length}}</span> </small>
       </header>
       <section>
         <table class="tg-table-dark">
-          <tr ng-repeat="event in room.events">
+          <tr ng-repeat="event in room.events">  <!--add a filter for the remaining room -->
             <td>
               <div class="wrapHexagon">
                 <div class="hexagon-in1">
@@ -569,7 +535,7 @@
               </div>
             </td>
             <td><i class="icon-clock" aria-hidden="true"></i></td>
-            <td><span>{{ dateformat(event.startDate)}}</span><i class="icon-arrow_right " aria-hidden="true"></i><span>{{dateformat(event.endDate)}}</span></td>
+            <td><span>{{ event.startDate}}</span><i class="icon-arrow_right " aria-hidden="true"></i><span>{{event.endDate}}</span></td>
             <td><a href="tel:01517076707" title="Phone Joe"><button class="maskCircle icon-telephone icon2x"><span>Telephone</span></button></a></td>
           </tr>
         </table>
