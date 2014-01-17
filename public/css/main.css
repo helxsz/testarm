@@ -78,6 +78,14 @@
     2. Layout
     ========================================================================== */
     
+    .home {
+        min-height:100%; width:100%; 
+        background: #141414 url('../img/hexagon_BG.png') repeat 50% 0% scroll;
+    }
+        .svg .home {
+            background: #141414 url('../img/svg/hexagon_BG.svg') repeat 50% 0% scroll;
+        }
+
     .meeting-room {
         min-height:100%; width:100%; 
         background: #141414 url('../img/hexagon_BG.png') repeat 100% 0% scroll;
@@ -85,6 +93,8 @@
         .svg .meeting-room {
             background: #141414 url('../img/svg/hexagon_BG.svg') repeat 100% 0% scroll;
         }
+
+
 
         #banner {
             padding:0 0 1.625em 0; margin-top: 3.25em; display:block;
@@ -111,19 +121,28 @@
 
         /* APPS */
 
-        /*#app-meeting {
-            width:90%; position:absolute; 
-            right: 72px;
-            top: 560px;
-        }*/
-
+        #app-home,
         #app-meeting {
             height: 100%;
             padding-top: 35em; padding-left: 3em;
             margin-right: 4.5em; margin-bottom: 13em;
         }
 
-        #app-social {}
+        /* HOME */
+        .home  {}
+            .home #banner {
+                border: none; text-align: center; margin-bottom: 6.5em
+            }
+        
+            #app-home {
+                text-align: center; width: 100%;
+                padding: 0; margin: 0 auto;
+                margin-bottom: 13em; padding-top: 3.75em;
+            }
+
+            #app-meeting {}
+            #app-energy {}
+            #app-heating {}
 
 
 /*  ==========================================================================
@@ -165,6 +184,7 @@
                 line-height: 1.3em;
                 clear: both;
             }
+                .home #banner h1 {border-bottom: 4px #134D61 solid;}
         h2 {font-size: 1.75em; line-height: 26px;}
         h3 {font-size: 1em; line-height: 26px;} 
         h4 {font-size: 1em; line-height: 26px;} 
@@ -201,6 +221,15 @@
                 margin-left: -44px;
                 margin-bottom: -90px;
             }
+                #app-home.app-content ul {margin-left: 26px;}
+                #app-home.app-content ul li {
+                    margin-left: -48px; 
+                    margin-bottom: 0; 
+                    height: 232px;
+                }
+                    #app-home.app-content ul li:nth-child(odd) {
+                    
+                    }
 
     
     /*  Navigation  */
@@ -345,6 +374,8 @@
 
         #app-meeting li div.ch-item {}
         #app-meeting li:nth-child(even) div.ch-item {/*margin-top: 7em;*/ margin-top: 112px;}
+        #app-home li:nth-child(odd) div.ch-item{/*margin-top: 7em;*/ margin-top: 112px;}
+
         .hover {
             -webkit-touch-callout: none;
             -webkit-user-select: none;
@@ -368,6 +399,11 @@
         .unavailable .ch-info-back {background: url('../img/hexagon_unavailable-rear.png') no-repeat 50% 50% scroll;}
         .svg .unavailable .ch-info-back {background: url('../img/svg/hexagon_unavailable-rear.svg') no-repeat 50% 50% scroll;}
 
+        .coming-soon .ch-info-front {
+            opacity:0.5;
+            filter:alpha(opacity=50); /* For IE8 and earlier */
+        }
+
         /* FLIP ANIMATION */
         .ch-grid {
             margin: 0;
@@ -387,9 +423,8 @@
             clear: both;
         }
 
-        .ch-grid li {float:right;
-            
-        }
+        .ch-grid li {float:right;}
+            #app-home .ch-grid li {float: none;}
 
         .ch-item {
             width:232px; height:200px;
@@ -492,6 +527,12 @@
             top: 7em;
             right: 4.5em;
         }
+            .heating .ch-info-front {background: url('../img/hexagon_heating.png') no-repeat 50% 50% scroll;}
+            .svg .heating .ch-info-front {background: url('../img/svg/hexagon_heating.svg') no-repeat 50% 50% scroll;}
+
+            .energy .ch-info-front {background: url('../img/hexagon_energy.png') no-repeat 50% 50% scroll;}
+            .svg .energy .ch-info-front {background: url('../img/svg/hexagon_energy.svg') no-repeat 50% 50% scroll;}
+
             .meetings .ch-info-front {background: url('../img/hexagon_meetings.png') no-repeat 50% 50% scroll;}
             .svg .meetings .ch-info-front {background: url('../img/svg/hexagon_meetings.svg') no-repeat 50% 50% scroll;}
 
@@ -506,14 +547,16 @@
             /* padding-top: 3.25em; */
             padding-top: 0;
         }
-            #app-brand h3 {padding-top: 0;}
+            #app-brand h3,
+            .app-brand h3 {padding-top: 0;}
         .ch-info-back h4 {margin-bottom: 0;}
 
         .ch-info-front small {
             font-size: 1.25em; line-height: 1em; font-weight: bold; padding:0;
         }
 
-        #app-brand .ch-info-back i {display: block; padding-top: 1.625em; margin-bottom:0.25em;}
+        #app-brand .ch-info-back i,
+        .app-brand .ch-info-back i {display: block; padding-top: 1.625em; margin-bottom:0.25em;}
         .ch-info-back a {text-decoration: none; border: none; z-index: 10;}
         
 
@@ -917,13 +960,20 @@
     /*  LARGE SCREEN  */
 
     @media only screen and (min-width:1921px) {
-        .wrapper {width: 100%;}
+        .meeting-room .wrapper {width: 100%;}
 
-        #banner,
-        #app-description {margin-left:9.75em;}
+        .meeting-room #banner,
+        .meeting-room #app-description {margin-left:9.75em;}
+
+        /* APPS */
+        /* HOME */
+
+        #app-home.app-content ul {
+            
+        }
 
         /* Typography */
-        h1 {font-size: 6.25em; line-height: 1.04em; margin-bottom:0.26em;} 
+        .meeting-room h1 {font-size: 6.25em; line-height: 1.04em; margin-bottom:0.26em;} 
 
     }
 
@@ -939,10 +989,10 @@
 
     @media only screen and (min-width : 768px) and (max-width : 1024px) {
 
-        .wrapper {width: 100%;}
+        .meeting-room .wrapper {width: 100%;}
 
-        #banner,
-        #app-description {margin-left:4.875em;}
+        .meeting-room #banner,
+        .meeting-room #app-description {margin-left:4.875em;}
 
             /* #app-meeting {
                 top: 336px;
@@ -1017,6 +1067,26 @@
             margin-bottom: 24px;
         }
             
+        /* APPS */
+
+        /* HOME */
+        .home #banner {}
+        #app-home {}
+            #app-home li:nth-child(odd) div.ch-item {
+                margin-top: 0;
+            }
+            
+            #app-home.app-content ul li {height: auto;}
+            #app-home li div.ch-item {margin-top: 24px;}
+            #app-home li:nth-child(even) div.ch-item {margin:0;}
+                #app-home li div.ch-item {
+                    margin-top: 112px;
+                }
+
+            #app-home {margin-bottom: 3.25em; }
+
+            li.app-brand {margin-top: 16px;}
+                li.app-brand:first-child {margin-top: 0px;}
 
         /*  Typography  */
         #banner h1 {border-bottom: 2px #670F38 solid;}
