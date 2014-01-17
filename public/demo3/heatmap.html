@@ -1,0 +1,1105 @@
+<!DOCTYPE html>
+<html ng-app="HeatingMappingApp">
+   <head>
+        <title>Visualization of Room</title>
+		<meta charset="utf-8">
+		<meta name="author" content="Steven Hassall && Sizhe Xi ">
+		<meta name="description" content="Visualization of the sensor map">
+	</head>
+	<body style="background-color: #101010;">
+
+		<section >
+			<div class="content" ng-controller="mappingListCtrl">
+			    <!--  <div id="loading">Loading...</div>  -->
+            <div id="playground"></div>
+			
+		</section>
+			
+
+	<script src="/assets/js/jquery/jquery-1.10.2.min.js"></script>
+	<script src="/js/underscore-min.js"></script>		
+	<script src="snow/three.min.js"></script>
+	<script src="snow/OrbitControls.js"></script>
+	<script src="snow/EasePack.min.js"></script>
+	<script src="snow/TweenMax.min.js"></script>	
+
+   
+	
+
+<!-- <script src="js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script> -->	
+    <script src="/assets/js/socket.io.js"></script>
+    <script src="/assets/js/d3.v3.min.js"></script>
+	<script src="/assets/js/angular.min.js"></script>	
+	
+	<script>
+
+// http://nbremer.blogspot.com/2013/07/self-organizing-maps-creating-hexagonal.html
+var HeatingMappingApp = angular.module('HeatingMappingApp', []);
+HeatingMappingApp.controller('mappingListCtrl', function ($rootScope,$scope, $http, $interval, socket) {
+    
+	$scope.sensors = [];
+	var checkTimer ;
+	
+	var legend;
+    var data = {};
+	data.states= [{value:15,desc:'good'},{value:12,desc:'ok'},{value:9,desc:'not ok'},{value:6,desc:'bad'},{value:3,desc:'worse'}];	
+	var dy = 25;
+	var map ;
+	
+	new APP();
+	
+    checkTimer = $interval($scope.checkSensorTimer, 1000*60);
+    $rootScope.$broadcast('mybroadcast');	
+						
+	$scope.$on('mybroadcast', function(service){
+		console.log('on my broadcast', service);
+    })
+			
+	$scope.checkSensorTimer = function(){
+	    //console.log('check timer');
+	}
+
+    $scope.dateformat = function(date){
+        var date = new Date(date);	
+	   	var hour = date.getHours(), min = date.getMinutes();
+		if(hour < 10) hour = '0'+date.getHours();
+		if(min < 10) min = '0'+date.getMinutes();
+        return  hour+":"+min;		 
+	}
+			
+    socket.on('connect', function () {
+	    console.log('socket connected');
+    });
+                        
+    socket.on('info', function (msg) {               
+        //console.log(msg);
+        console.log(msg.room,msg.value,msg.type)
+        if(msg.type=='motion'){ 
+            var room = _.findWhere($scope.rooms, {name: msg.room});	
+			if(room){
+                console.log('room  object  ',room);
+                room.available = true;
+			}	
+        }
+    });		
+
+
+	$scope.$on('$destroy', function() {
+        if (angular.isDefined(checkTimer)) {
+            $interval.cancel(checkTimer);
+            checkTimer = undefined;
+        }
+        socket.removeAllListeners();		
+    });		
+});
+
+HeatingMappingApp.factory('socket', function ($rootScope) {
+    if (!window.location.origin)
+    window.location.origin = window.location.protocol+"//"+window.location.host;
+    var socket = io.connect(window.location.origin+":3000",{'force new connection': true});
+    return {
+        on: function (eventName, callback) {
+            socket.on(eventName, function () {  
+            var args = arguments;
+            $rootScope.$apply(function () {
+                callback.apply(socket, args);
+            });
+        });
+    },
+        emit: function (eventName, data, callback) {
+            socket.emit(eventName, data, function () {
+            var args = arguments;
+            $rootScope.$apply(function () {
+                if (callback) {
+                    callback.apply(socket, args);
+                }
+            });
+        })
+    }
+  };
+});
+/**/
+// http://www.coronaperspectives.com/src/ViewGL.js
+var APP = {};
+APP = function(){
+
+	var sw, sh, renderer, camera, scene, projector, control;
+    var renderIsActive = false;	
+	var plates = [];
+	function init(){	
+	    //Scene size
+	    sw = window.innerWidth;
+	    sh = window.innerHeight;
+        console.log('init the 3G',sw,"    ",sh);
+	    //Setup the renderer
+	    var $container = $('#playground');
+		console.log( $container.html() );
+	    renderer = new THREE.WebGLRenderer( { antialias: true} );
+	    renderer.setSize( sw/2, sh/2 );
+	    renderer.autoClear = false;
+	    //Setup the camera
+	    camera = new THREE.PerspectiveCamera( 45, sw / sh, 0.1, 10000 );
+		//camera = new THREE.PerspectiveCamera( 60, sw / sh, 1, 100 );
+        camera.aspect = sw / ( sh- 25 );
+	    camera.position.y = 20;
+	    camera.position.z = 20;
+
+	    //Setup the scene
+	    scene = new THREE.Scene();
+	    scene.fog = new THREE.FogExp2( 0xa4e2f2, 0.0002 );
+	    scene.add( camera );
+	    $container.append( renderer.domElement );
+	   
+	    projector = new THREE.Projector();
+
+	    //Handling window resize
+	    window.addEventListener('resize', function() {
+		    sw = window.innerWidth;
+		    sh = window.innerHeight;
+		    renderer.setSize(sw, sh);
+		    camera.aspect = sw / sh;
+		    camera.updateProjectionMatrix();
+	    });
+	  
+	    //Launch the drawing loop!
+	    setInterval( function(){
+		    //console.log('render loop');
+		    renderloop();
+	    }, 1000/60 );
+
+	    controls = new THREE.OrbitControls(camera, renderer.domElement);
+	    controls.autoRotate = true;
+	    cycle = 0;
+	}
+	
+	var courtView ;
+
+	
+	function activateVisualisation() {
+        renderIsActive = true;	
+        
+    }
+
+    function deactivateVisualisation() {
+        renderIsActive = false;
+    }
+    /*
+	var viewLookup = {};	
+	function build(){
+	    for(var i=0;i<10;i++){
+		    
+            lineView = new APP.LineView3D( setNode ),
+			particleView = new APP.ParticleView3D( setNode );
+			var view3D = {
+				lines     : lineView,
+				particles : particleView
+			};
+			viewLookup[ setNode.id ] = view3D;
+			scene.add( lineView.object3D );
+			scene.add( particleView.object3D );
+		   
+		}	
+	}
+   
+    function clear() {
+        if ( ! viewLookup ) return;	
+		viewLookup.each( function( view ) {
+		    
+			var lines = view.lines,	particles = view.particles;
+			scene.remove( lines.object3D );
+			scene.remove( particles.object3D );
+			lines.destroy();
+			particles.destroy();
+			
+		} );			
+	    viewLookup = null;
+	}
+	*/
+	function renderloop(){
+        if ( ! renderIsActive ) return;
+						
+		// renderizar textura heat map
+		heatMapView.render( renderer );				
+        renderer.render(scene, camera);
+        controls.update();  
+    }
+			
+	function degToRad( deg ){
+	  return (deg * ( Math.PI / 180));
+	}	
+	
+	function initScences(){
+	    console.log('initScences');
+        courtView = new APP.CourtView3D(scene);		// tennis court
+		scene.add( courtView.object3D );		
+		console.log(courtView.abc);
+		heatMapView = new APP.HeatMapView();	// heat map		
+		scene.add( heatMapView.object3D );
+	}	
+	
+	init();
+	initScences();
+	activateVisualisation();
+    ////////////////////////////////////////////////////////////////
+	var model;
+	initVisualisation('fn')
+    function initVisualisation( matchId) {
+        model = new APP.Model();
+		loadMatch( matchId, onMatchLoaded );
+		
+			function loadMatch( matchId, onComplete ) {
+				var url = 'data/' + matchId + '.json';
+				xhr = $.getJSON( url, function( data ) {
+						if ( onComplete )
+							onComplete( data );
+				});	
+			}
+
+		function onMatchLoaded( data ) {
+			// refresh model data tree
+			console.log('on Match Loaded',data);
+			model.setData( data );
+			// color values
+			var p1 = data.playerColors[ 0 ],							
+				p2 = data.playerColors[ 1 ],
+			//console.log('on Match Loaded',p1);
+			// color objects
+				color1 = new THREE.Color().setHSL( p1.h, p1.s, p1.v ),	
+				color2 = new THREE.Color().setHSL( p2.h, p2.s, p2.v );
+
+			model.setPlayerColor( 0, color1 );
+			model.setPlayerColor( 1, color2 );
+			clear();
+
+		    build()		
+		};		
+	}	
+	
+	var totalArcs = 0,
+		maxOpacity_particle = 1.0,
+		minOpacity_particle = 0.0,
+		maxOpacity_line = 1.0,
+		minOpacity_line = 0.0,
+
+		scope = this,
+
+		model = model,
+
+		scene,
+		renderer,
+
+		viewLookup,		// map between nodes and views [ node.id ] -> { lines: LineView3D, particles: ParticleView3D }
+
+		hotspotView,	// hotspot markers
+
+
+		heatMapView;
+
+		// bounces on the floor
+	function build() {
+
+		// look up object
+		// TODO: move to separate class: APP.utils.map
+
+		viewLookup = {};
+		viewLookup.each = function( fn ) {
+			for ( prop in this )	
+				if ( typeof this[ prop ] === 'object' )
+					fn( this[ prop ] );
+		};
+
+		var setNodes = model.getDataTree().children,
+			i, max = setNodes.length
+        console.log("max:",max);
+		for ( i = 0; i < 1; i ++ ) {
+
+			var setNode = setNodes[ i ],
+				lineView = new APP.LineView3D( setNode ),
+				particleView = new APP.ParticleView3D( setNode );
+            heatMapView.generateHeatmap(setNode);
+			
+			
+			var view3D = {
+				lines     : lineView,
+				particles : particleView
+			};
+
+			viewLookup[ setNode.id ] = view3D;
+
+			scene.add( lineView.object3D );
+			scene.add( particleView.object3D );
+			
+		}	
+	}
+
+	// clear the scene
+	function clear() {
+
+		if ( ! viewLookup )
+			return;
+
+		// scene.remove( courtView.object3D );
+		// scene.remove( heatMapView.object3D );
+		
+		viewLookup.each( function( view ) {
+
+			var lines = view.lines,
+				particles = view.particles;
+
+			scene.remove( lines.object3D );
+			scene.remove( particles.object3D );
+
+			lines.destroy();
+			particles.destroy();
+
+		} );
+
+		viewLookup = null;
+	}	
+}
+
+APP.CourtView3D = function(scene) {
+    this.abc = "abc";
+	// material		
+	material = null;
+	// object3d
+	object3D = null;
+	scene = scene;
+		
+	var init = function() {
+	    console.log('init courtview 3D');		
+		material = new THREE.LineBasicMaterial( { 
+			linewidth 	: 2,
+			color 		: 0x999999,						
+			blending 	: THREE.NormalBlending, 
+			transparent : true, 
+			depthTest 	: false
+		} );
+
+		var geometry = new THREE.Geometry();
+		geometry.vertices = [
+			// rect exterior
+			new THREE.Vector3( -5.48, 0,  11.89 ), // bl 
+			new THREE.Vector3(  5.48, 0,  11.89 ), // br
+			new THREE.Vector3(  5.48, 0,  11.89 ), 
+			new THREE.Vector3(  5.48, 0, -11.89 ), // tr
+			new THREE.Vector3(  5.48, 0, -11.89 ),
+			new THREE.Vector3( -5.48, 0, -11.89 ), // tl
+			new THREE.Vector3( -5.48, 0, -11.89 ),
+			new THREE.Vector3( -5.48, 0,  11.89 ), // bl 
+			// horizontal:
+			new THREE.Vector3( -4.11, 0,  6.4 ),
+			new THREE.Vector3(  4.11, 0,  6.4 ),			
+			new THREE.Vector3( -5.48, 0,  0 ),	   // red
+			new THREE.Vector3(  5.48, 0,  0 ),
+			new THREE.Vector3( -4.11, 0, -6.4 ),
+			new THREE.Vector3(  4.11, 0, -6.4 ),
+			// vertical
+			new THREE.Vector3( -4.11,  0,  11.89 ),
+			new THREE.Vector3( -4.11,  0, -11.89 ),
+			new THREE.Vector3(  0,     0, -6.4 ),
+			new THREE.Vector3(  0,     0,  6.4 ),
+			new THREE.Vector3(  4.11,  0,  11.89 ),
+			new THREE.Vector3(  4.11,  0, -11.89 ),
+			new THREE.Vector3(  0,     0,  11.89 ),
+			new THREE.Vector3(  0,     0,  11.50 ),
+			new THREE.Vector3(  0,     0, -11.89 ),
+			new THREE.Vector3(  0,     0, -11.50 )
+		];  
+
+		object3D = new THREE.Line( geometry, this.material, THREE.LinePieces );
+		object3D.matrixAutoUpdate = false;	
+		material.opacity = 0.5;
+		
+        if(scene){
+		    console.log('this scene  exist  add');
+			scene.add( object3D );
+		}
+		
+	}
+
+	init();
+	
+    return {
+	   init:init
+	}
+	
+};
+
+
+
+// ---------------------------------------------------------------------------------------------------------------------
+// Heat map
+// ---------------------------------------------------------------------------------------------------------------------
+
+
+APP.HeatMapView = function() {
+
+	// rtt stuff
+
+	this.particlesMaterial = null;
+	this.particles = null;
+
+	this.sceneRTT = null;
+	this.cameraRTT = null;
+	this.renderTarget = null;
+
+	this.particleTexture = null;
+	this.particleTexture = null;
+
+	// plane material
+
+	this.uniforms = null;
+	this.material = null;
+
+	// object3d (plane)
+
+	this.object3D = null;
+
+	// init
+
+	this.init();
+
+};
+
+APP.HeatMapView.prototype = {
+
+	init: function() {
+
+		// rtt 
+
+		var resolution  = 20,
+			planeWidth  = 12.8,
+			planeHeight = 32;
+
+		this.cameraRTT = new THREE.OrthographicCamera( -planeWidth/2, planeWidth/2, planeHeight/2, -planeHeight/2, -1000, 1000 );
+		this.cameraRTT.rotation.x = -Math.PI / 2;
+		this.cameraRTT.position.set( 0, 10, 0 );
+		this.cameraRTT.matrixAutoUpdate = false;
+		this.cameraRTT.updateMatrix();
+
+		this.sceneRTT = new THREE.Scene();
+
+		this.renderTarget = new THREE.WebGLRenderTarget( planeWidth * resolution, planeHeight * resolution, { 
+			minFilter : THREE.LinearFilter, 
+			magFilter : THREE.LinearFilter,
+			format    : THREE.RGBFormat
+		});	
+
+		this.particleTexture = THREE.ImageUtils.loadTexture( "img/particle.png" );
+		this.gradientTexture = THREE.ImageUtils.loadTexture( "img/gradient.png" );
+
+		// particle material
+		this.particlesMaterial =  new THREE.ParticleBasicMaterial( { 
+			map        : this.particleTexture,
+			size       : 1.0,
+			opacity    : 1.0,
+			blending   : THREE.AdditiveBlending,					
+			depthWrite : false,
+			// transparent : true
+		});
+
+		// plane material
+		this.uniforms = {
+			uTexArray : { type: "tv", value: 2, texture: [ this.renderTarget, this.gradientTexture ] }
+		};
+		this.material = new THREE.ShaderMaterial( {
+			uniforms	   : this.uniforms,
+			vertexShader   : APP.HeatMapView.vertexShader,
+			fragmentShader : APP.HeatMapView.fragmentShader,
+			blending	   : THREE.AdditiveBlending,
+			depthTest	   : false,
+			side           : THREE.DoubleSide
+			// transparent	   : true
+		});
+
+		// plane object
+
+		var geometry = new THREE.PlaneGeometry( planeWidth, planeHeight );
+
+		this.object3D = new THREE.Mesh( geometry, this.material );
+		this.object3D.rotation.x = - Math.PI/2;	
+		this.object3D.updateMatrix();
+		this.object3D.matrixAutoUpdate = false;
+
+	},
+
+	generateHeatmap: function( node ) {
+
+		var geometry = new THREE.Geometry();
+		var vertices, vertex, prevVertex;
+
+		// get bounces on the floor (fill geometry)		
+
+		APP.Iterator.preorder( node, function( node ) {
+
+			if ( node.data.kind !== 'arc' ) 
+				return;
+
+			vertices = node.data.vertices;
+
+			for ( i = 0, l = vertices.length; i < l; i ++ ) {
+
+				vertex = vertices[ i ];
+
+				if ( vertex.y === 0  &&  ! vertex.equals( prevVertex ) ) {
+
+					geometry.vertices.push( vertex.clone() );
+				}
+
+				prevVertex = vertex;
+			}
+		});
+
+		// create particle system (to be rendered into renderTarget)
+
+		if ( this.particles )
+			this.sceneRTT.remove( this.particles );
+
+		this.particles = new THREE.ParticleSystem( geometry, this.particlesMaterial );
+		this.sceneRTT.add( this.particles );
+		
+	},
+
+	render: function( renderer ) {
+
+		// Render particle scene into texture
+		renderer.render( this.sceneRTT, this.cameraRTT, this.renderTarget, true );
+
+	},
+
+	setThreshlod : function( value ) {
+
+		this.particles.material.opacity = value;
+
+	},
+
+	setHeatScale : function( value ) {
+
+		this.cameraRTT.position.y = 1 + value;
+		this.cameraRTT.updateMatrix();
+
+	}
+};
+
+APP.HeatMapView.vertexShader = [
+
+	"varying vec2 vUv;",
+
+	"void main() {",
+
+	"	vUv = uv;",
+
+	"	gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );",
+
+	"}"
+
+].join('\n');
+
+APP.HeatMapView.fragmentShader = [
+	
+	"varying vec2 vUv;",
+
+	"uniform sampler2D uTexArray[ 2 ];",	// textures only appear to work when contained in array?
+
+	"void main() {",
+
+	// "	gl_FragColor = texture2D( uTexArray[ 0 ], vUv );",
+		
+	"	float brighness = texture2D( uTexArray[ 0 ], vUv ).r;",			
+		
+	"	gl_FragColor = texture2D( uTexArray[ 1 ], vec2( brighness, 0.0 ) );",
+
+	"}"
+
+].join('\n');
+
+
+// ------------------------------------------------------------------------------------------------------------------------
+// Representacion visual de los arcos usando lineas 3d.
+// ------------------------------------------------------------------------------------------------------------------------
+
+APP.LineView3D = function( node ) {
+
+	// model
+	this.dataNode = node;
+
+	// map between nodes and arcs: arcLookup[ node.id ] = arc
+	this.arcLookup = {};
+
+	// material
+	this.uniforms   = null;
+	this.attributes = null;
+	this.material   = null;
+
+	// object3d
+	this.object3D = null;
+
+	// init
+	this.createArcs();
+	this.createObject3D();
+
+};
+
+APP.LineView3D.prototype = {
+
+	createArcs: function() {
+
+		var	arcLookup = this.arcLookup;
+        var k = 0;
+		APP.Iterator.preorder( this.dataNode, function( node ) {
+			
+			if ( node.data.kind !== 'arc' )
+				return;
+
+			// arcs store info about vertices (smoothed)
+			var arc = {
+				positions : [],
+				colors    : []
+			};
+			
+			
+            k++;
+            if(k>11) return;
+			
+			
+			var player    = node.data.player,
+				positions = getSmoothed( node.data.vertices, 6 ),
+				max       = positions.length,
+				i;
+            //console.log('positions',positions);
+				
+			 				
+				
+			// create linestrip
+
+			// start vertex
+			arc.positions.push( positions[ 0 ] );
+			arc.colors.push( new THREE.Vector4( 0, 0, 0, 0 ) );
+
+			// middle vertices
+			for ( i = 0; i < max; i ++ ) {
+				
+				arc.positions.push( positions[ i ] );
+				arc.colors.push( new THREE.Vector4( 1, 1, 1, 1 ) );	
+			}
+
+			// end vertex
+			arc.positions.push( positions[ max - 1 ] );
+			arc.colors.push( new THREE.Vector4( 0, 0, 0, 0 ) );
+
+			// store arc in lookup object
+			arcLookup[ node.id ] = arc;
+		});
+
+		function getSmoothed( points, subdivisions ) {
+
+			var smoothed  = [],					
+				spline    = new THREE.Spline( points ),
+				numPoints = points.length * subdivisions,
+				position,
+				i;
+            console.log('get smooth ',points.length , numPoints);
+			//importante incluir punto final (<=)
+			for ( i = 0; i <= numPoints; i ++ ) {
+
+				position = spline.getPoint( i / numPoints );
+				//console.log(i / numPoints,'-...',position); 
+                //console.log('----',position.x,position.y,position.z); 
+				smoothed.push( new THREE.Vector3( position.x, position.y, position.z ) );
+				//console.log(position.x,position.y,position.z);
+			}
+			return smoothed;
+		}
+
+	},
+
+	createObject3D: function() {
+
+		// create shader material (with default values)
+		this.uniforms = {
+			opacity : { type : 'f', value : 1.0 }
+		};
+		this.attributes = { 
+			customColor : { type : 'v4', value : [] } 
+		};
+		this.material = new THREE.ShaderMaterial( {
+			uniforms	   : this.uniforms,
+			attributes	   : this.attributes,
+			vertexShader   : APP.LineView3D.vertexShader,
+			fragmentShader : APP.LineView3D.fragmentShader,
+			blending	   : THREE.AdditiveBlending,
+			depthTest	   : false,
+			transparent	   : true
+		});
+		this.material.linewidth = 1;
+
+		// create geometry
+		var geometry        = new THREE.Geometry(),
+			values_position = geometry.vertices,
+			values_color    = this.attributes.customColor.value,
+			arcLookup       = this.arcLookup,
+			prop, arc, i, max;
+
+		/* ATENCION! 
+		 * los arrays contienen punteros a objetos almacenados en arcLookup (Vector3 y Vector4)
+		 * modificar los objetos en arcLookup implica modificamos la geometría y los attributes!
+		 */
+		 		 
+		for ( prop in arcLookup ) {
+			if ( arcLookup.hasOwnProperty( prop ) ) {
+
+				arc = arcLookup[ prop ];
+				max = arc.positions.length;
+
+				for ( i = 0; i < max; i ++ ) {
+
+     	 			values_position.push( arc.positions[ i ] );
+     	 			values_color.push( arc.colors[ i ] );
+     	 		}
+   			}
+		}
+
+		// create 3d object
+		this.object3D = new THREE.Line( geometry, this.material, THREE.LineStrip );
+		this.object3D.matrixAutoUpdate = false;	
+
+	},
+
+	// sets alpha value of all descendant arcs of node
+	setAlpha: function( node, value ) {
+
+		var arcLookup = this.arcLookup,
+			arc, colors, i, max;
+
+		APP.Iterator.preorder( node, function( node ) {
+		
+			if ( node.data.kind === 'arc' ) {
+					
+				arc    = arcLookup[ node.id ];
+				colors = arc.colors;
+				max    = colors.length - 1;
+
+				// discard arc ends
+				for ( i = 1; i < max; i ++ ) {
+					colors[ i ].w = value;
+				}
+			}
+		});
+
+		//this.attributes.customColor.needsUpdate = true;
+
+	},
+
+	setPlayerColor: function( player, color ) {
+
+		var arcLookup = this.arcLookup,
+			arc, colors,
+			i, max;
+
+		APP.Iterator.preorder( this.dataNode, function( node ) {
+			
+			if ( node.data.kind === 'arc' && node.data.player === player ) {				
+				arc    = arcLookup[ node.id ];
+				colors = arc.colors;
+				max    = colors.length - 1;
+				
+				// discard arc ends
+				for ( i = 1; i < max; i ++ ) {
+
+					colors[ i ].x = color.r;
+					colors[ i ].y = color.g;
+					colors[ i ].z = color.b;
+				}			
+			}
+		});
+
+		//this.attributes.customColor.needsUpdate = true;
+
+	},
+
+	destroy: function() {
+
+		this.dataNode = null;
+
+		this.arcLookup = null;
+
+		this.uniforms = null;
+		this.attributes = null;
+		this.material = null;
+
+		this.object3D = null;
+
+	}
+
+};
+
+// Static. Inlined vertex shader for lines.
+APP.LineView3D.vertexShader = [
+
+	"attribute vec4 customColor;",		
+
+	"varying vec4 vColor;",
+
+	"void main() {",
+
+	"	vColor = customColor;",
+
+	"	gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );",
+
+	"}"
+
+].join('\n');
+
+// Static. Inlined fragment shader for lines.
+APP.LineView3D.fragmentShader = [
+
+	"uniform float opacity;",
+
+	"varying vec4 vColor;",
+
+	"void main() {",
+
+	"	gl_FragColor = vec4( vColor.rgb, vColor.a * opacity );",
+
+	"}"
+
+].join('\n');
+
+
+// -----------------------------------------------------------------------------------------------------------------------------
+// Representación visual de los arcos usando particulas (una particula por cada rebote)
+// -----------------------------------------------------------------------------------------------------------------------------
+
+APP.ParticleView3D = function( node ) {
+
+	// model
+	this.dataNode = node;
+
+	// map between nodes and arcs: arcLookup[ node.id ] = arc
+	this.arcLookup = {};
+
+	// material
+	this.uniforms = null;
+	this.attributes = null;
+	this.material = null;
+
+	// object3d
+	this.object3D = null;
+
+	// init
+	this.createArcs();
+	this.createObject3D();
+
+};
+
+APP.ParticleView3D.prototype = {
+
+	createArcs: function() {
+
+		var color1 = new THREE.Vector3( 0.0, 1.0, 0.7 ), // model.getPlayerColor( 0 ),
+			color2 = new THREE.Vector3( 1.0, 0.0, 0.3 ), // model.getPlayerColor( 1 ),
+			arcLookup = this.arcLookup;
+
+		//console.log(this.dataNode);
+		var k = 0 ;
+		APP.Iterator.preorder( this.dataNode, function( node ) {
+			
+			if ( node.data.kind !== 'arc' )
+				return;
+			var player = node.data.player,
+				positions = node.data.vertices,
+				i, max = positions.length;
+				
+			k++;
+            if(k>11) return; 
+           // else console.log(k,"  node: ",positions);			
+
+			// arcs store info about vertices
+			var arc = {
+				positions : [],
+				colors    : [],
+				sizes     : []
+			};
+            
+			for ( i = 0; i < max; i ++ ) {												
+
+				if ( i === 1 ) continue;	// solo los extremos de cada arco
+				
+				var position = positions[ i ];
+				var color = ( player === 0 ) ? new THREE.Vector4( color1.x, color1.y, color1.z, 1.0 ): new THREE.Vector4( color2.x, color2.y, color2.z, 1.0 );
+				
+				arc.positions.push( position );
+				arc.colors.push( color );
+				arc.sizes.push( 1.0 );
+			}
+
+			// store arc in lookup object
+			arcLookup[ node.id ] = arc;
+		});
+	},
+
+	createObject3D: function() {
+
+		// create shader material (with defaut values)
+		this.uniforms = { 
+			size    : { type: 'f', value: 4.0 }, 
+			opacity : { type: 'f', value: 1.0 }
+		};
+		this.attributes = { 
+			customColor : { type: 'v4', value: [] }
+		};		
+
+
+		// create geometry
+		var geometry = new THREE.Geometry(),
+			//values_position  = geometry.vertices,
+			values_color = this.attributes.customColor.value,
+			arcLookup = this.arcLookup,
+			prop, arc, i, max;
+
+		/* ATENCION! 
+		 * los arrays contienen punteros a objetos almacenados en arcLookup (Vector3 y Vector4)
+		 * modificar los objetos en arcLookup implica modificamos la geometría y los attributes!
+		 */
+		 console.log(arcLookup);
+		for ( prop in arcLookup ) {
+
+			if ( arcLookup.hasOwnProperty( prop ) ) {
+
+				arc = arcLookup[ prop ];
+				max = arc.positions.length;
+				
+				for ( i = 0; i < max; i ++ ) {
+                    console.log(arc.positions[ i ],prop,arc.positions.length);
+     	 			geometry.vertices.push( arc.positions[ i ] );
+     	 			values_color.push( arc.colors[ i ] );
+     	 		}
+   			}
+		}
+		
+		
+		this.material = new THREE.ShaderMaterial( {
+			uniforms	   : this.uniforms,
+			attributes	   : this.attributes,
+			vertexShader   : APP.ParticleView3D.vertexShader,
+			fragmentShader : APP.ParticleView3D.fragmentShader,
+			blending 	   : THREE.AdditiveBlending,
+			depthTest	   : false,
+			transparent	   : true
+		});	
+		// create 3d object
+		this.object3D = new THREE.ParticleSystem( geometry, this.material );
+		this.object3D.matrixAutoUpdate = false;	
+
+	},
+
+	// sets alpha value of all descendant arcs of node
+	setAlpha: function( node, value ) {
+
+		var arcLookup = this.arcLookup,
+			arc, colors,
+			i, max;
+
+		APP.Iterator.preorder( node, function( node ) {
+		
+			if ( node.data.kind === 'arc' ) {
+					
+				arc    = arcLookup[ node.id ];
+				colors = arc.colors;
+				max    = colors.length;
+
+				for ( i = 0; i < max; i ++ ) {
+
+					colors[ i ].w = value;
+				}
+			}
+		});
+
+		//this.attributes.customColor.needsUpdate = true;
+
+	},
+
+	setPlayerColor: function( player, color ) {
+
+		var arcLookup = this.arcLookup,
+			arc, colors,
+			i, max;
+
+		APP.Iterator.preorder( this.dataNode, function( node ) {
+			
+			if ( node.data.kind === 'arc' 
+				&& node.data.player === player ) {
+				
+				arc    = arcLookup[ node.id ];
+				colors = arc.colors;
+				max    = colors.length;
+				
+				for ( i = 0; i < max; i ++ ) {
+
+					colors[ i ].x = color.r;
+					colors[ i ].y = color.g;
+					colors[ i ].z = color.b;
+				}			
+			}
+		});
+
+		//this.attributes.customColor.needsUpdate = true;
+
+	},
+
+	destroy: function() {
+
+		this.dataNode = null;
+
+		this.arcLookup = null;
+
+		this.uniforms = null;
+		this.attributes = null;
+		this.material = null;
+
+		this.object3D = null;
+
+	}
+
+};
+
+APP.ParticleView3D.vertexShader = [
+
+	"uniform float size;",
+	
+	"attribute vec4 customColor;",
+
+	"varying vec4 vColor;",
+
+	"void main() {",
+
+	"	vColor = customColor;",
+
+	"	gl_PointSize = size;",
+
+	"	gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );",
+
+	"}"
+
+].join('\n');
+
+APP.ParticleView3D.fragmentShader = [
+
+	"uniform float opacity;",
+
+	"varying vec4 vColor;",
+
+	"void main() {",
+
+	"	gl_FragColor = vec4( vColor.rgb, vColor.a * opacity );",
+
+	"}"
+
+].join('\n');	  
+	</script>
+	 <script src="snow/Data.js"></script>	 
+	 <script src="snow/Utils.js"></script>
+	<script src="snow/Model.js"></script>	
+    </body>
+</html>

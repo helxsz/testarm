@@ -39,7 +39,7 @@ $(document).ready( function(){
   //Scene size
   sw = window.innerWidth;
   sh = window.innerHeight;
-
+  console.log('scene size   ',sw, "   ",sh);
   //Setup the renderer
   $container = $('#playground');
   renderer = new THREE.WebGLRenderer( { antialias: true } );
@@ -78,8 +78,8 @@ $(document).ready( function(){
   controls = new THREE.OrbitControls(camera, renderer.domElement);
   controls.autoRotate = true;
   cycle = 0;
-  createMap();
-
+  //createMap();
+  createBaseGround();
 });
 
 function onDocumentMouseDown( event ) 

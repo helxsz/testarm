@@ -110,6 +110,7 @@
             return check;
         }
         pubnub.each( msg.subs, function(xy) {
+		    //console.log(xy);
             outside = outside || test( xy[0], xy[1] );
         } );
         outside = outside || test( msg.pub[0], msg.pub[1] );
@@ -161,10 +162,10 @@
             .attr('class','pub')
             .attr('r',3)
             .attr("cx", function(d,i) {
-                return d[1] * 2.6938 + 465.4;
+                return d[1] * 2.6938 //+ 465.4;
             })
             .attr("cy", function(d,i) {
-                return d[0] * -2.6938 + 227.066;
+                return d[0] * -2.6938 //+ 227.066;
             })
             .transition()
             .duration(300)
@@ -185,10 +186,10 @@
             .attr("stroke", color)
             .attr('r', 4)
             .attr("cx", function(d,i) {
-                return d[1] * 2.6938 + 465.4;
+                return d[1] * 2.6938   //+ 465.4;
             })
             .attr("cy", function(d,i) {
-                return d[0] * -2.6938 + 227.066;
+                return d[0] * -2.6938 //+ 227.066;
             });
 
         g.transition()

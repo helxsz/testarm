@@ -85,12 +85,9 @@ https://alertmeadaptor.appspot.com
     };
 
 
-	
-
 var serviceCatalog = new ServiceCatalog();
 var serviceBuilder = new ServiceBuilder(serviceCatalog);
 serviceBuilder.build([enlight,armhome,armmeeting,armbuilding]);
-
 
 serviceBus.startService();
 serviceBuilder.buildRTService('armmeeting', SensMLHandler);
