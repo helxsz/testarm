@@ -247,16 +247,26 @@
               windowClass: 'modal',
               resolve: {
                   room: function () {
-				    _.map(roomObj.events, function(event){
-  		                event.startDate = $scope.dateformat(event.startDate);
-						event.endDate = $scope.dateformat(event.endDate);
+				    var cloned = _.clone(roomObj);
+				    _.map(cloned.events, function(event){					
+  		                //event.startDate = $scope.dateformat(event.startDate);
+						//event.endDate = $scope.dateformat(event.endDate);
 						return event;
   		            })
-                      return roomObj;
+					console.log('cloned',cloned);
+                    return cloned;
                   }
               },			  
               controller: function ($scope, $modalInstance, room) {
                   $scope.room = room;
+				  $scope.dateformat = function(date){
+					  var date = new Date(date);	
+					  var hour = date.getHours(), min = date.getMinutes();
+					  if(hour < 10) hour = '0'+date.getHours();
+					  if(min < 10) min = '0'+date.getMinutes();
+					  return  hour+":"+min;		 
+				   }
+				  
 					/*
 					$scope.ok = function () {
 							 $modalInstance.close($scope.selected.item);
@@ -583,7 +593,7 @@ angular
         new mlPushMenu( document.getElementById( 'mp-menu' ), document.getElementById( 'trigger' ) );
     </script>
 
-    <script type="text/ng-template" id="eventModalTemplate.html">
+<script type="text/ng-template" id="eventModalTemplate.html"  >
     <aside class="itinerary">
       <article>
       <header class="clearfix">
@@ -602,14 +612,14 @@ angular
               </div>
             </td>
             <td><i class="icon-clock" aria-hidden="true"></i></td>
-            <td><span>{{ event.startDate}}</span><i class="icon-arrow_right " aria-hidden="true"></i><span>{{event.endDate}}</span></td>
+            <td><span>{{ dateformat(event.startDate)}}</span><i class="icon-arrow_right " aria-hidden="true"></i><span>{{dateformat(event.endDate)}}</span></td>
             <td><a href="tel:01517076707" title="Phone Joe"><button class="maskCircle icon-telephone icon2x"><span>Telephone</span></button></a></td>
           </tr>
         </table>
       </section>
        </article> 
     </aside>
-    </script>
+</script>
 
 	
 	
