@@ -196,7 +196,6 @@
     <script src="js/vendor/jquery-1.10.1.min.js"></script>
 
     <script src="js/plugins.js"></script>
-    <script src="js/main.js"></script>
 
     <script src="js/vendor/classie.js"></script>
     <script src="js/vendor/mlpushmenu.js"></script>
@@ -289,7 +288,7 @@
   	var checkTimer ;
       $http.get('/meetings/arm/now').success(function(data) {
   	    data.rooms.forEach(function(room){
-  	        console.log(room.name,'   remaining events for room ', room.events.length);
+  	        console.log(room.name,' (/meetings/arm/now)  remaining events for room ', room.events.length);
   	    })		
   		_.map(data.rooms,function(room){  room.front = false;} )
   		
@@ -310,26 +309,6 @@
   			
   	$scope.$on('mybroadcast', function(service){
   		console.log('on my broadcast', service);
-  		/*
-  		setTimeout(function(){	
-  		$('.open-popup-link').click(function(e){
-  		    console.log($(this).html(), $(this).attr('href'));
-  			var herf = $(this).attr('href')
-  		    console.log( $(herf).html() );
-  			console.log( $('#popup-Room.UKCWillowA').html() );
-  			console.log( $('#popup-{{ room.name }}').html() );
-  		})
-  		
-  	    $('.open-popup-link').magnificPopup({
-              midClick: true, // Allow opening popup on middle mouse click. Always set it to true if you don't provide alternative source in href.
-              // Delay in milliseconds before popup is removed
-              removalDelay: 300,
-              // Class that is added to popup wrapper and background
-              // make it unique to apply your CSS animations just to this exact popup
-              mainClass: 'mfp-fade'
-          });
-  		}, 1000);
-  		*/
       })
   	
   	$scope.$on('$viewContentLoaded', function(){
@@ -339,12 +318,15 @@
   	$scope.checkRoomAvailablity = function(){
   	    console.log('checkRoomAvailablity');
   		var room_filtered = _.filter($scope.rooms, function(room){
-  		    var lastupdate = new Date(room.time);    
-  			return (new Date().getTime()-lastupdate.getTime()) > 5*60*1000;
+  		    var lastupdate = new Date(room.time); 
+            if(room.available==true)			
+			console.log("---------  check room avail", (new Date().getTime() - lastupdate.getTime()) , 300000 , room.displayname,room.available );
+  			return ( room.available==true   && (new Date().getTime()-lastupdate.getTime()) > 5*60*1000  ) ;
   		})
   		
   		_.map(room_filtered, function(room){
-  		     room.available = true;
+		     console.log('.............should  update the room to be available  ',room);
+  		     room.available = false;
   		})
   	}
   	
@@ -459,13 +441,14 @@
                           
       socket.on('info', function (msg) {               
           //console.log(msg);
-          console.log(msg.room,msg.value,msg.type)
+          console.log('receiving the real time message from server ', msg.room,msg.value,msg.type)
           if(msg.type=='motion'){ 
               var room = _.findWhere($scope.rooms, {name: msg.room});	
-  			if(room){
-                  console.log('room  object  ',room);
+  			  if(room){
+                  console.log('room  object  becomes avaiable ',room);
                   room.available = true;
-  			}	
+				  room.time = new Date();
+  			  }	
           }
       });		
   });
@@ -621,7 +604,12 @@ angular
     </aside>
 </script>
 
-	
+<!-- 
+1. css blink color transition    http://stackoverflow.com/questions/16344354/how-to-make-blinking-flashing-text-with-css3  http://stackoverflow.com/questions/19049484/blinking-a-div-with-background-color-in-jquery-using-setinterval  http://stackoverflow.com/questions/13955163/imitating-a-blink-tag-with-css3-animations   
+    http://stackoverflow.com/questions/4411306/css3-transition-of-background-color  
+2. css time decrease , color descrese    http://css-tricks.com/almanac/properties/t/transition/
+3. svg clock
+-->	
 	
 </body>
 </html>

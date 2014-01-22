@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html ng-app="SensorMappingApp">
+   <head>
+        <title>Visualization of Room</title>
+		<meta charset="utf-8">
+		<meta name="author" content="Steven Hassall && Sizhe Xi ">
+		<meta name="description" content="Visualization of the sensor map">
+	</head>
+	<body >
+<style type="text/css">
+
+div.tooltip {
+  position: absolute;
+  text-align: center;
+  width: 60px;
+  height: 12px;
+  padding: 8px;
+  font: 10px sans-serif;
+  background: #ddd;
+  border: solid 1px #aaa;
+  border-radius: 8px;
+  pointer-events: none;
+}
+
+path {
+	stroke: steelblue;
+	stroke-width: 1;
+	fill: none;
+}
+
+.area {
+    fill: lightsteelblue;
+    stroke-width: 0;
+}
+
+.event.selected{stroke-width:1.5 ,stroke:#facd38}
+#vis svg #bars.selecting line.day.selected{stroke-width:1;}
+
+</style>
+		<section id="vis">
+			<div class="content" ng-controller="mappingListCtrl">			
+			</div>
+		</section>
+		
+	
+		<footer><div class="content"></div></footer>
+        
+		<script src="/assets/js/jquery.tipsy.js"></script>
+		<script src="/assets/js/jquery-1.10.2.min.js"></script>
+        <script src="/assets/js/socket.io.js"></script>
+        <script src="/assets/js/d3.v3.min.js"></script>
+	    <script src="/assets/js/angular.min.js"></script>
+	    <script src="js/underscore-min.js"></script>
+        <script src="js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+
+	<script>
+
+
+var SensormappingApp = angular.module('SensorMappingApp', []);
+SensormappingApp.controller('mappingListCtrl', function ($rootScope,$scope, $http, $interval, socket) {
+    
+	$scope.sensors = [];
+	var checkTimer ;
+	
+	var legend;
+    var data = {};
+	var map ;
+	
+	
+			
+	$scope.loadSensorData = function(){
+        $http.get('/sensors/arm/').success(function(data) {
+            $scope.sensors = data.sensors;
+	        //console.log(data.sensors);
+	        data.sensors.forEach(function(sensor){
+	            //console.log(sensor.name);
+	        })
+		    
+        }).error(function(data, status, headers, config) {
+                // called asynchronously if an error occurs
+                // or server returns response with an error status.
+        });
+	}
+	
+	$scope.loadMapData =function(){
+	    d3.csv('data/location-coord.csv', function(coord) {
+		    for (var j = 0; j < coord.length; j++) {
+                //console.log(coord[j].x,coord[j].y);
+            }
+			data.maps = coord;
+
+			console.log('mapping loading  success',data.maps);
+		})
+	}
+	
+	//$scope.loadSensorData();
+	//$scope.loadMapData();	
+    checkTimer = $interval($scope.checkSensorTimer, 1000*60);
+    $rootScope.$broadcast('mybroadcast');	
+	var sensorVis = new sensorVisual();
+	
+				
+	$scope.$on('mybroadcast', function(service){
+		console.log('on my broadcast', service);
+    })
+			
+	$scope.checkSensorTimer = function(){
+	    //console.log('check timer');
+	}
+
+    $scope.dateformat = function(date){
+        var date = new Date(date);	
+	   	var hour = date.getHours(), min = date.getMinutes();
+		if(hour < 10) hour = '0'+date.getHours();
+		if(min < 10) min = '0'+date.getMinutes();
+        return  hour+":"+min;		 
+	}
+			
+    socket.on('connect', function () {
+	    console.log('socket connected');
+    });
+	
+    socket.on('error', function (reason){
+		//stats.style("top","0px").select("div").text("Connecting...");				
+		console.error('Unable to connect Socket.IO', reason);
+	});	
+                        
+    socket.on('info', function (msg) {               
+        //console.log(msg);
+        console.log(msg.room,msg.value,msg.type);
+        sensorVis.updateSensorData(msg);
+    });		
+
+	$scope.$on('$destroy', function() {
+        if (angular.isDefined(checkTimer)) {
+            $interval.cancel(checkTimer);
+            checkTimer = undefined;
+        }
+        socket.removeAllListeners();		
+    });		
+});
+
+SensormappingApp.factory('socket', function ($rootScope) {
+    if (!window.location.origin)
+    window.location.origin = window.location.protocol+"//"+window.location.host;
+    var socket = io.connect(window.location.origin+":3000",{'force new connection': true});
+    return {
+        on: function (eventName, callback) {
+            socket.on(eventName, function () {  
+            var args = arguments;
+            $rootScope.$apply(function () {
+                callback.apply(socket, args);
+            });
+        });
+    },
+        emit: function (eventName, data, callback) {
+            socket.emit(eventName, data, function () {
+            var args = arguments;
+            $rootScope.$apply(function () {
+                if (callback) {
+                    callback.apply(socket, args);
+                }
+            });
+        })
+    }
+  };
+});
+	
+</script>
+
+
+    <script>
+	/*
+%I %p - for hour boundaries, such as "01 AM".
+%I:%M - for minute boundaries, such as "01:23".	
+	*/
+	
+	var width = 1700,
+		height = 700,
+		padding = 100;
+		
+	// create an svg container
+	var vis = d3.select("body").append("svg").attr("width", width).attr("height", height);
+													 
+	var formatHour = d3.time.format("%H:%M");	
+	var uktimeFormat = d3.time.format('%H:%M UK');
+	var now = new Date(), 
+	mindate = new Date( now.getFullYear (),now.getMonth(),now.getDate(),16),
+	maxdate = new Date( now.getFullYear (),now.getMonth(),now.getDate(),18);
+	//mindate = d3.time.hour.offset(now, -3),maxdate = d3.time.hour.offset(now, 2);		
+	var xScale = d3.time.scale().domain([mindate, maxdate]).range([100, 1200]);
+	var colors = [	"#CDFADB","#75B8C1","#DD8BB9","#BA97C1","#ff6600"];
+	var randomcolors = d3.scale.category20();	
+	/******************   time axis  **************************/	
+    var xAxis = d3.svg.axis().orient("up")
+	                         .scale(xScale)
+	                         .orient("bottom")
+				             .ticks(d3.time.minutes, 15)
+				             .tickFormat(formatHour);			
+	function showTimeAxis(){				             	
+        vis.append("g").attr("class", "xaxis")              
+            //.attr("transform", "translate(0," + (height - padding) + ")")
+            .call(xAxis); 
+        vis.selectAll(".xaxis text").attr("transform", function(d) {          
+              return "translate(" + this.getBBox().height*-2 + "," + this.getBBox().height + ")rotate(-45)";
+        });	
+	}		
+    showTimeAxis();    
+		
+		///////////////////////////////////////////////////////////////////////////////
+	
+	
+	/***************************   time_pointer _layer  *********************/
+	var current_time_layer = vis.append('g').attr('id', 'time-axis').attr('transform', "translate( 0 , 80)");
+	var time_text = current_time_layer.append('text').attr('text-anchor', 'middle')
+	                                                 .text( uktimeFormat(new Date()) )
+													 .attr('transform', "translate(" +  xScale(new Date()) + ", 0)");
+													 
+	var time_line = current_time_layer.append('line').attr('id', 'time-axis-line')
+													 .attr('y1', 10).attr('y2', 500)
+													 .attr("stroke-width", 2)
+													 .attr("stroke", "black")
+													 .style("stroke-dasharray", ("3, 3"))
+													 .attr('x1', xScale(new Date())).attr('x2', xScale(new Date()));		
+    
+	function showTimeAxisAt(time,x){
+		time_text.text( uktimeFormat(time) ).transition()
+				 .duration(750)
+                 .ease("elastic").attr('transform', "translate(" + x + ", 0)")
+				 .attr("stroke","white")
+                 .style("background-color",'#DD8BB9');
+		time_line.transition()
+				 .duration(750)
+                 .ease("elastic").attr('x1', x-5).attr('x2', x-5);	    	
+	}
+	
+	function showTimeAxisNow(){
+	    var now = new Date(), x = xScale(new Date());
+		time_text.text( uktimeFormat(now) )
+				 .transition()
+				 .duration(750)
+                 .ease("elastic")
+		         .attr('transform', "translate(" + x + ", 0)")
+				 .attr("stroke","white")
+                 .style("background-color",'#DD8BB9');
+		time_line.transition()
+		         .duration(750)
+                 .ease("elastic")
+		         .attr('x1', x-5).attr('x2', x-5)
+				 //.style("fill", function(d){return d3.rgb(d.color).darker(1);});	    		
+	}
+				
+	/******   sensor Data layer ************/	
+	var sensorDataLayer = vis.append("g").attr('id','sensorDataLayer');
+	
+	var motionData = [];
+	var temperatureData = [];
+	var sensorVisual= function(){
+		sensorDataLayer.on('mousemove', function() {
+			var time, x;
+			x = d3.mouse(this)[0];
+			if(x>=100 && x<= 1200){
+				time = new Date(xScale.invert(x));
+				//console.log(x,  time  );
+				showTimeAxisAt(time,x);		  
+				//d3.selectAll('.event').attr("stroke", "blue");
+				d3.selectAll('.event').classed('selected', function(d) {
+				   return xScale(d.startDate) <= x && xScale(d.endDate) >= x;
+				});
+		   }
+		});
+		
+		sensorDataLayer.on('mouseout', function(){
+			d3.selectAll('.event').attr("stroke", "black");	
+			showTimeAxisNow();
+			updateAllEvents();
+		});	
+		
+		var radiusScale = d3.scale.pow().domain([1, 120 ]).range([1, 20]).exponent(.75); 
+		
+        function updateSensorData(data){
+		    //console.log(msg.room,msg.value,msg.type) 
+			if(data.type =='motion'){
+     			console.log( 'this is new data ...',data.room, motionData.length); //,d3.select("path.layer-"+data.room).attr("y1")  , motionData,d3.select("path.layer1").attr('cy') 
+				if(lastUpdateMapping[data.room]!=undefined){
+				    data.t = new Date();
+					
+					var lasttime, leapse;					  
+					  lasttime = lastUpdateMapping[data.room];
+					  leapse= (new Date().getTime() - new Date(lasttime).getTime())/1000;
+					  
+					data.leapse = leapse;
+					
+	                motionData.push(data);
+                    renderMotionStatus();
+                }				
+			}
+		}
+				
+		function renderMotionStatus(){
+			console.log('render motion status');
+			sensorDataLayer.selectAll('circle.motion')
+				  .data(motionData)//simulated
+				  .enter()
+				  .append('circle')
+				  .filter(function(d){return d.room !=undefined && lastUpdateMapping[d.room]!=undefined;  })
+				  .attr('class', function(d) {
+					return 'motion at-'+d.room;
+				  })
+				  .attr('transform', function(d, i) {
+                      var layerTop = 40;				  
+					  var x = xScale(d.t), y;	
+                      var lasttime, leapse;					  
+					  y = layersTop + yAxisMapping[d.room];					  
+					  console.log("sensor location ",x, y );					  					  
+					  return 'translate(' + x + ',' + y + ')';
+				  })
+				  .attr('r', function(d) {
+					  console.log('room   ',d.room,"   leapse    ", radiusScale(d.leapse));                       						    				 
+					  return radiusScale(d.leapse);
+				  })
+				  .style('fill', function(d) {
+				        var events = room_events[d.room];
+				        var now = new Date();
+						var index = 1;
+						for(var i=0;i<events.length;i++){
+						    var startTime = new Date(events[i].startTime).getTime(), endTime = new Date(events[i].endTime).getTime();
+						    if(  now >= startTime && endTime <=now){
+							    index = i+1;
+							    break;
+							}
+						}						
+					    return randomcolors(index);
+				  })
+				  .attr('title', function(d) {               
+					return '<div class="status-info"><p class="status-content"><span class="user-name">@'
+					  + '<p><span>' + 200 + ' reposts</span><span style="margin-left:10px">' + 300 + ' comments</span></p></div>';
+				  })
+				  .style("fill-opacity", function(d,i){
+					  console.log('room   ',d.room,"   leapse    ",  radiusScale(d.leapse));
+                      lastUpdateMapping[d.room] = new Date();					  
+					  return 1-  0.06*radiusScale(d.leapse);
+				  });	  
+		}
+
+		function renderSensorValue(){
+			sensorDataLayer.selectAll('rect.status')
+				  //+ '.layer' + layer.key
+				  //+ '.topic' + topicOrdinal(topic.key))
+				  .data(temperatureData)
+				  .enter()
+				  .append('rect')
+				  .attr('class', function(d) {
+					return 'status layer' //+ layer.key + ' topic' + topicOrdinal(d.topic);
+				  })
+				  .attr("width", 2)
+				  .attr("height", function(d) { return d.v*4 })
+				  .attr('transform', function(d, i) {				
+					  var x = xScale(d.t),				
+					  y = layersTop;
+					  return 'translate(' + x + ',' + y + ')';
+				  })
+				  .style('fill', function(d, i) {
+					return colors[ i % 4];
+				  })
+				  .attr('title', function(d) {               
+					return '<div class="status-info"><p class="status-content"><span class="user-name">@'
+					  + '</span>: ' + d.text + '</p>'
+					  + '<p>' + d.v+ '</p>'
+					  + '<p><span>' + 200 + ' reposts</span><span style="margin-left:10px">' + 300 + ' comments</span></p></div>';
+				  })
+				  .style("fill-opacity", function(d,i){
+					  return 1- d.v * 0.06;
+			});	
+		}
+
+	
+	/**************   run the simulation   ***************/
+    var simulated = [];
+	//runSimulation();
+    function runSimulation(){
+		var now = new Date(), before = d3.time.hour.offset(now, -5);				
+		for(var i=0;i<200;i++){
+		    var data = {};
+			data.v = i%10;
+			data.t = new Date( before.getTime() + i*1000* 50 );
+			simulated.push(data);
+			
+		} 
+		setInterval(function(){
+			simulated.push({v:Math.random(10)*10,t:new Date()});
+			render();
+		},10000);	
+	}		
+
+		
+		function render(){				
+			renderMotionStatus();
+			//renderSensorValue();			  				  
+		} 
+		
+		render();
+        return {
+		    updateSensorData:updateSensorData,
+            renderMotionStatus:renderMotionStatus,
+           	renderSensorValue:renderSensorValue		
+		}		
+    }
+	
+	
+/**************************   baseline for status layer *****************************/
+
+	var windowW = 1524;
+	if (windowW < 1024) {
+		windowW = 1024;
+	}		
+	var marginSide = 50;
+	var svgW = windowW - marginSide * 2;
+	var stackW = 100;
+	var marginIn = 10;
+	var axisW = svgW - stackW - marginIn;		
+				
+	var layersTop = 100;
+	var layerLeft = 100, layerRight = 1200;
+	var layerHeight = 75;
+	var layerWidth = layerRight - layerLeft;
+	var layerHeightExpanded = 75;
+	var layerHeightHalfExpanded = 20;
+	var nLayers = 7;		
+	var layerY = function(layerId) {
+		return layerId * layerHeight + layersTop;
+	};		
+	var baselineD = function(d, i, opt) {
+		var y = layerY(i);
+		var h = 5;
+		if (opt && opt.expanded) {
+			  var h = layerHeightExpanded;
+		} else if (opt && opt.halfExpanded) {
+			  var h = layerHeightHalfExpanded;
+		} else {
+			  var h = 2;
+		}			
+		return 'M' + layerLeft + ' ' + (y - h / 2)
+		  + 'L' + (layerLeft + layerWidth) + ' ' + (y - h / 2)
+		  + 'L' + (layerLeft + layerWidth) + ' ' + (y + h / 2)
+		  + 'L' + layerLeft + ' ' + (y + h / 2)
+		  + 'Z';
+	};
+	
+	var layerPaths;
+	function renderLayerPaths(rooms){	    
+		layerPaths = sensorDataLayer.selectAll('path.base-line')
+			.data(rooms)
+			.enter()                             
+			.append('path')		
+			.attr('class', function(d,i) {
+			  return 'base-line layer'+i+"  collapse layer-"+d.name;
+			})
+			.attr('d', function(d, i) {
+			  return baselineD(d, i);
+			})
+			.style("fill-opacity", 0.7)
+			.style("fill",function(){ return "#F7F2F7" })
+			.style("stroke", "#F7F2F7")
+			
+		layerPaths
+		  .on('mouseover', function(d, i) {
+			var layerId = i;
+			d3.select('path.base-line.layer' + layerId)
+				.classed("collapse",false)
+				.transition()
+				.attr('d', function(d) {
+				  return baselineD(d, layerId, {halfExpanded: true});
+				});			  
+		  })
+		  .on('mouseout', function(d, i) {
+			var layerId = i; 
+			d3.select('path.base-line.layer' + layerId)
+				.classed("collapse",false)
+				.transition()
+				.attr('d', function(d) {
+				  return baselineD(d, layerId);
+				});			   
+		  })
+		  .on('click', function(d, i) {
+			var layerId = i;
+			d3.select('path.base-line.layer' + layerId)
+			  .classed("collapse", true)
+			  .transition()
+				.attr('d', function(d) {
+				  return baselineD(d, layerId,{expanded:true});
+				})
+		});
+	}
+	var layerLabels; 
+	function renderLayerLabels(rooms){
+		layerLabels = sensorDataLayer.selectAll('path.base-label')
+			.data(rooms)
+			.enter()
+			.append('text').attr('text-anchor', 'middle')
+			.text( function(d,i){   return d.name;} )
+			.attr('transform', function (d,i){ return "translate( 20 ,"+ i* 100 +")";  })	
+			.style("fill-opacity", 0.7)
+			//.style("fill",function(){ return "black" })
+			//.style("stroke", "black")	    
+	        .style("font-size","12px")
+	}
+
+
+	/****************************   event layer ****************************/						
+	var eventslayer = vis.append("g").attr('id','eventslayer');	
+	var buildEventsLayer = function(rooms){
+	    var index =0, room;		
+		for (var index =0; index< rooms.length;index++){
+		    room = rooms[index];
+			console.log(room.name, room.events.length,room.events);
+			eventslayer.selectAll('.event-'+room.name)
+				.data(room.events)
+				.enter()
+				.append('line')
+				.attr('class', function(d) {
+				  return "event event-"+room.name;
+				}).attr('x1', function(d) {
+				  return xScale( new Date( d.startDate ));
+				}).attr('x2', function(d) {
+				  return xScale( new Date( d.endDate) )-5;
+				}).attr('y1', function(d,i) {
+				  return 80*index+40;
+				}).attr('y2', function(d,i) {
+				  return 80*index+40;
+				}).attr("stroke-width", 1)
+				.attr("stroke", function(d,i){
+				    var startTime = new Date(d.startDate), endTime = new Date(d.endDate);
+                    var nowTime = new Date();
+                    if(nowTime < startTime) return 'black';
+                    else if(startTime <= nowTime && nowTime <=endTime)return 'red';
+                    else if(nowTime >endTime ) return 'grey';					
+				});				
+		}	    
+	}
+	
+	var updateAllEvents = function(){
+        eventslayer.selectAll('.event')
+			.attr("stroke", function(d,i){
+				var startTime = new Date(d.startDate), endTime = new Date(d.endDate);
+                var nowTime = new Date();
+                if(nowTime < startTime) return 'black';
+                else if(startTime <= nowTime && nowTime <=endTime)return 'red';
+                else if(nowTime >endTime ) return 'grey';					
+			});			
+	}
+	
+	/*****************   loading the dataset **************************/
+	var yAxisMapping = [];
+	var lastUpdateMapping = [];
+	var room_events = {}; 
+	var loadDailyEvents = function(){
+		d3.json('/meetings/arm/now', function(data) {
+		    rooms = data.rooms;
+			data.rooms.forEach(function(room){
+				console.log(room.name,'   remaining events for room ', room.events.length);
+				events = room.events;
+				room_events[room.name] = events;
+			})
+			events.forEach(function(event){
+				console.log(event.startDate, event.endDate);
+			})
+			
+			renderLayerPaths(data.rooms);
+			renderLayerLabels(data.rooms);
+			buildEventsLayer(data.rooms);
+			
+			var margin_y=100;
+			data.rooms.forEach(function(room){
+			    yAxisMapping[room.name] = margin_y;margin_y +=60;
+				lastUpdateMapping[room.name] = room.time;
+							
+			})
+			setInterval(eventTimer, 1000*60);
+			
+			
+		});
+	}
+		
+    loadDailyEvents();
+	
+	function eventTimer(){
+	    showTimeAxisNow();   
+	    updateAllEvents();
+	}
+	
+    </script>
+    </body>
+</html>

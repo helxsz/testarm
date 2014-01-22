@@ -615,7 +615,7 @@ return map;
 
 /*
 function timeline(){
-// http://www.seaoftweets.com/js/c.js  http://scottcheng.github.io/weibo-time-vis/  https://github.com/scottcheng/weibo-time-vis/blob/gh-pages/javascripts/vis.js  https://github.com/scottcheng/bj-air-vis/blob/gh-pages/air-vis.js
+// http://www.seaofstatus.com/js/c.js  http://scottcheng.github.io/weibo-time-vis/  https://github.com/scottcheng/weibo-time-vis/blob/gh-pages/javascripts/vis.js  https://github.com/scottcheng/bj-air-vis/blob/gh-pages/air-vis.js
     var colors={
 		"bersani":"#d90033",
 		"letta":"#fff",
@@ -638,8 +638,8 @@ function timeline(){
 
 	var timeline=svg.append("g")
 				.attr("id","timeline");
-	var tweets=svg.append("g")
-				.attr("id","tweets")
+	var status=svg.append("g")
+				.attr("id","status")
     
 	var formathhmmss = d3.time.format("%I:%M:%S");				
 	var arc = d3.svg.arc()
@@ -749,35 +749,168 @@ var line = d3.svg.line()
 
 
 /*http://stackoverflow.com/questions/11676286/d3-append-and-enter-issues    http://stackoverflow.com/questions/13832625/d3-js-uncaught-typeerror-object-has-no-method-exit*/
-var graph = d3.select("#graph").append("svg:svg").attr("width", "400px").attr("height", "100px");
-var inter = setInterval(function() {
-    
-	var updateData = function(){
-	
-	    data2.push( {v: Math.random(1+10)*10} )
+var graph = d3.select("#graph").append("svg").attr("width", "400px").attr("height", "100px");
+var statuslayer = graph.append("g").attr('id','statuslayer');
+var status1 = statuslayer.append('path').attr('id','status1');
+var status2 = statuslayer.append('path').attr('id','status2');
+
+/*
+var paths = d3.selectAll('#graph path');
+paths.each(function (d, i) {
+  elm = d3.select(this);
+  console.log('.............................................. get id  ', elm.attr('id'));
+});
+
+paths = d3.selectAll('#graph #status');
+paths.each(function (d, i) {
+  elm = d3.select(this);
+  console.log('.............................................. get id 2 ', elm.attr('id'));
+});
+*/
+/*
+   problem 1. how to move the second graph to different position,  
+           2. make the animation of linear moving
+*/
+var inter = setInterval(function() {    
+	var updateData2 = function(){
+	    data2.shift();
+	    data2.push( {v: Math.random(1+10)*10} ); 
+		console.log(data2[1],data2[0], data2.length);
+        /*
+        var paths = d3.selectAll('#statuslayer');
+		paths.each(function (d, i) {
+			  elm = d3.select(this);
+			  console.log('.............................................. get id 2 ', elm.attr('id'));
+		});
+		*/
 		
-	    var areachart = graph.append("path").attr('id','chart1');
-					
-		areachart.datum(data2)
+		d3.selectAll('#status1').datum(data2)
 		    .attr("class", "area")
 			.attr("d", area)
+			.style("fill-opacity", 0.8)
 			.style("fill",function(){ return colors['bersani'] })
-			.filter(function(d) { return d.v > 6 })  
-			.style("fill",function(){ return colors['epifani'] });
+			.transition()
+			.attr("transform", "translate(" + data2[1] + ")")
+			.transition()
+			.ease("linear")
+			.duration(2000)
+			.attr("transform", "translate(" + data2[0] + ")")
+			.attr('title', function(d) {
+			    return d.key + '<span style="margin-left:10px">' + d.v + ' statuses</span>';
+			});
+
+		d3.selectAll('#status2').datum(data2.reverse())
+		    .attr("class", "area")
+			.attr("d", area)
+			.style("fill-opacity", 0.4)
+			.style("fill",function(){ return colors['grillo'] })
+			.transition()
+			.attr("transform", "translate(" + data2[1]-5 + ",-15)")
+			.transition()
+			.ease("linear")
+			.duration(2000)
+			.attr("transform", "translate(" + data2[0]-5 + ",-15)")
 		
-		graph.selectAll('chart1').enter().attr("transform",function(d){
-		    console.log('enter');
-            x = -5;
-			return "translate("+x+")"
-		})
+		d3.selectAll('#graph #status1')
+		    .on("mouseover", function(d,i){ 
+			       d3.select(this).transition(400).style("fill-opacity", 0.9);   
+		    })
+		    .on("mouseout", function(d,i){   
+                   d3.select(this).transition(400).style("fill-opacity", 0.8); 
+			})
+			.on("click",function(d,i){
+			    console.log('click area chart ');
+			});
 		///////////////////////////////////////////////////////////////
-        var linechart = graph.append("svg:path").attr("d", line(data2));	   
+        //var linechart = graph.append("svg:path").attr("d", line(data2));	   
 	}
-	updateData();
+	updateData2();
 }, 1000); 
 
 
 
+/* http://jsfiddle.net/mvandiest/6VdSn/   http://pothibo.com/2013/09/d3-js-how-to-handle-dynamic-json-data/
+var data3 = [ {v:3},{v:6},{v:7},{v:5},{v:2},{v:4},{v:8},{v:9},{v:1},{v:3},{v:8},{v:3},{v:6},{v:8},{v:1},{v:3},{v:8},{v:5},{v:2},{v:1}];
+var msglayer = graph.append("g").attr('id','messagelayer');
+
+var time_scale=d3.scale["linear"]().range([0,width-100])
+
+var inter2 = setInterval(function() {    
+	var updateData3 = function(){
+	    data3.shift();
+	    data3.push( {v: Math.random(1+10)*10} );
+         
+		groups=msglayer.selectAll("g")
+			.data(data3)
+			.enter()
+				.append("g")
+				.attr("class",function(d){
+					return "tweet "+d.v;
+				})
+				.attr("transform",function(d){
+				    x = 9, y = 9;
+					return "translate("+x+","+y+")"
+				}); 
+	}   		
+	updateData3();
+}, 1000); 
+*/
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+  var w = 300,                        //width
+    h = 300,                            //height
+    r = 100,                            //radius
+    color = d3.scale.category20c();     //builtin range of colors
+ 
+    data = [{"label":"one", "value":20}, 
+            {"label":"two", "value":50}, 
+            {"label":"three", "value":30}];
+    
+    var vis = d3.select("body")
+        .append("svg:svg")              //create the SVG element inside the <body>
+        .data([data])                   //associate our data with the document
+            .attr("width", w)           //set the width and height of our visualization (these will be attributes of the <svg> tag
+            .attr("height", h)
+        .append("svg:g")                //make a group to hold our pie chart
+            .attr("transform", "translate(" + r + "," + r + ")")    //move the center of the pie chart from 0, 0 to radius, radius
+ 
+    var arc = d3.svg.arc()              //this will create <path> elements for us using arc data
+        .outerRadius(r);
+ 
+    var pie = d3.layout.pie()           //this will create arc data for us given a list of values
+        .value(function(d) { return d.value; });    //we must tell it out to access the value of each element in our data array
+ 
+    var arcs = vis.selectAll("g.slice")     //this selects all <g> elements with class slice (there aren't any yet)
+        .data(pie)                          //associate the generated pie data (an array of arcs, each having startAngle, endAngle and value properties) 
+        .enter()                            //this will create <g> elements for every "extra" data element that should be associated with a selection. The result is creating a <g> for every object in the data array
+            .append("svg:g")                //create a group to hold each slice (we will have a <path> and a <text> element associated with each slice)
+                .attr("class", "slice");    //allow us to style things in the slices (like text)
+ 
+        arcs.append("svg:path")
+                .attr("fill", function(d, i) { return color(i); } ) //set the color for each slice to be chosen from the color function defined above
+                .attr("d", arc);                                    //this creates the actual SVG path using the associated data (pie) with the arc drawing function
+        
+        arcs.append("svg:text")                                     //add a label to each slice
+                .attr("transform", function(d) {                    //set the label's origin to the center of the arc
+                //we have to make sure to set these before calling arc.centroid
+                d.innerRadius = 0;
+                d.outerRadius = r;
+                return "translate(" + arc.centroid(d) + ")";        //this gives us a pair of coordinates like [50, 50]
+            })
+            .attr("text-anchor", "middle")                          //center the text on it's origin
+            .text(function(d, i) { return data[i].label; }); 
+        */
 /*
 function redraw() {
 

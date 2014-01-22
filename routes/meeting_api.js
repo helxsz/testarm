@@ -140,8 +140,15 @@ app.get('/sensors/arm/',function(req,res,next){
 })
 
 
+app.get('/meetings/arm/tomorrow',function(req,res){
+ 	getRoomEvents(true,res);
+})
 
 app.get('/meetings/arm/now',function(req,res){
+ 	getRoomEvents(false,res);
+})
+
+function getRoomEvents(tomorrow, res){
     var rooms = [
     { 
 	  'name': 'Room.UKCWillowA ',
@@ -163,7 +170,42 @@ app.get('/meetings/arm/now',function(req,res){
 	  "url":"https://protected-sands-2667.herokuapp.com/rooms/Room.UKCFM10",
       'temperature': 23,
 	  'time':new Date()
-	}
+	},
+    {
+	  'name': 'Room.UKCLectureTheatre',
+	  'displayname':'Lec',
+	  "url":"https://protected-sands-2667.herokuapp.com/rooms/Room.UKCLectureTheatre",
+      'temperature': 23,
+	  'time':new Date()
+	},
+    {
+	  'name': 'Room.UKCElm',
+	  'displayname':'Elm',
+	  "url":"https://protected-sands-2667.herokuapp.com/rooms/Room.UKCElm",
+      'temperature': 27,
+	  'time':new Date()
+	},
+    {
+	  'name': 'Room.UKCOak',
+	  'displayname':'Oak',
+	  "url":"https://protected-sands-2667.herokuapp.com/rooms/Room.UKCOak",
+      'temperature': 21,
+	  'time':new Date()
+	},
+    {
+	  'name': 'Room.UKCTrainingRoomB',
+	  'displayname':'TrainB',
+	  "url":"https://protected-sands-2667.herokuapp.com/rooms/Room.UKCTrainingRoomB",
+      'temperature': 21,
+	  'time':new Date()	
+	},
+    {
+	  'name': 'Room.UKCTrainingRoomA',
+	  'displayname':'TrainA',
+	  "url":"https://protected-sands-2667.herokuapp.com/rooms/Room.UKCTrainingRoomA",
+      'temperature': 21,
+	  'time':new Date()	
+	}	
     ];
 	
 	async.forEach(rooms, 
@@ -176,10 +218,14 @@ app.get('/meetings/arm/now',function(req,res){
 	            winston.error('error    '+url+"/events");
 				room.events = [];	
 	        }else{
-			    winston.debug(eventlist);
-                //var now = new Date();
-				//var eventlist = _.filter(eventlist, function(event){ var eventDate = new Date(event.endDate);    return (eventDate.getTime() >= now.getTime())&&(eventDate.getDate()==now.getDate()); });								
-                room.events = eventlist;				
+                var now = new Date(), late_day = new Date(now.getFullYear(),now.getMonth(),now.getDate(),23,59,59);
+				// all events in this day
+				if(tomorrow)
+				eventlist = _.filter(eventlist, function(event){ var eventDate = new Date(event.endDate);   return eventDate.getTime() > late_day.getTime(); });
+                else
+				eventlist = _.filter(eventlist, function(event){ var eventDate = new Date(event.endDate);   return eventDate.getTime() <= late_day.getTime(); });				
+                room.events = eventlist;
+                //winston.debug('filtered  ... '+room.events.length);				
 	        }		
             callback();			
 	    });		
@@ -188,8 +234,9 @@ app.get('/meetings/arm/now',function(req,res){
         //winston.debug('get all the messages ',util.inspect(events, false, null));
 		res.send(200,{rooms:rooms});
 	  } 
-	); 	
-})
+	);
+}
+
 
 app.get('/room/events',function(req,res){
     var url = req.query.url;

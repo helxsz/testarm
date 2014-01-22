@@ -42,7 +42,7 @@ http://wiki.1248.io/doku.php?id=pathfinderpermissionsapi
 https://alertmeadaptor.appspot.com
 
 **************************************************************/
-
+// http://5.79.20.223:4001/cat/ARM6    http://data.openiot.org/cat
 /****   experiment 1 ********/
     var enlight = {
 	    'name': 'enlight',
@@ -79,6 +79,15 @@ https://alertmeadaptor.appspot.com
 		'description': '',
 		'url': 'https://protected-sands-2667.herokuapp.com/cat',
 		'key':'0L8kgshd4Lso3P1UQX7q',
+		'pattern':'',
+		'host':'protected-sands-2667.herokuapp.com',
+		'cat':''
+    },
+	intellisense = {
+	    'name': 'intellisense',
+		'description': '',
+		'url': 'https://5.79.20.223:3000/cat/ARM6',
+		'key':'d01fe91e8e249618d6c26d255f2a9d42',
 		'pattern':'',
 		'host':'protected-sands-2667.herokuapp.com',
 		'cat':''
