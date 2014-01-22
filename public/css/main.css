@@ -72,6 +72,7 @@
     .wrapper {width:990px; margin:0 auto;}
     .blue {color: #2599C1;}
     .pink {color: #CE1D6F;}
+    .darkBlue {color: #092630;}
 
 
 /*  ==========================================================================
@@ -686,7 +687,7 @@
 
     .modal-dialog {
         position: relative; z-index: 1050;
-        width: 50%; max-width: 27.625em;
+        width: 50%; max-width: 32.5em;
         margin: 0 auto; margin-top: 25%;
     }
 
@@ -973,10 +974,10 @@
         }
 
         /* Typography */
-        .meeting-room h1 {font-size: 6.25em; line-height: 1.04em; margin-bottom:0.26em;} 
+        #banner .meeting-room h1 {font-size: 6.25em; line-height: 1.04em; margin-bottom:0.26em;} 
 
     }
-
+ 
     
     /*  DESKTOP - DEFAULT  */
 
