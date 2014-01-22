@@ -35,7 +35,7 @@ function isTouchDevice(){
     }
 }
 
-function touchScroll(id){
+function touchScroll('#container'){
     if(isTouchDevice()){ //if touch events exist...
         var el=document.getElementById(id);
         var scrollStartPos=0;
