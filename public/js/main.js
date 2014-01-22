@@ -1,12 +1,4 @@
-// Emulate hover on tablets and smartphones
-$( ".ch-item" ).click(function(e) {
- 	$(this).toggleClass( "flipped" );
- 	e.preventDefault();
-});
 
-$('.noSpin').click(function(event){
-    event.stopImmediatePropagation();
-});
 
 // fix height bug on .container as there was an annoying gap below
 
