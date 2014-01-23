@@ -38,7 +38,7 @@ $('.noSpin').click(function(event){
 $(document).ready(init);
 
 //Every resize of window
-$(window).resize(sizeContent);
+//$(window).resize(sizeContent);
 
 // touch device overflow fix
 function isTouchDevice() {
@@ -57,12 +57,12 @@ function touchScroll(id) {
 
         document.getElementById(id).addEventListener("touchstart", function(event) {
             scrollStartPos=this.scrollTop+event.touches[0].pageY;
-            event.preventDefault();
+            //event.preventDefault();
         },false);
 
         document.getElementById(id).addEventListener("touchmove", function(event) {
             this.scrollTop=scrollStartPos-event.touches[0].pageY;
-            event.preventDefault();
+            //event.preventDefault();
         },false);
     }
 }
