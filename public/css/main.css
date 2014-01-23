@@ -430,7 +430,7 @@
         .ch-item {
             width:232px; height:200px;
             position: relative;
-            cursor: default;
+            cursor: pointer;
             z-index: 1;
         }
 

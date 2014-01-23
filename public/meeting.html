@@ -131,56 +131,69 @@
 				
 
                 <section id="app-meeting" class="app-content" ng-controller="meetingListCtrl">				
-                        <ul class="ch-grid">
-                            <li class="room" ng-repeat="room in rooms | filter:query "> <!-- | orderBy:orderProp index wrong after orderby -->
-                                <div class="ch-item" ng-click="room.front = !room.front" ng-class="{'flipped': room.front}">              
-                                    <div class="ch-info-wrap">
-                                        <div class="ch-info " ng-class="{'unavailable':room.available}">
-                                            <div class="ch-info-front hexagon">
-                                                <h1>{{room.displayname}}</h1>
-                                                <small><span class='temperature'>{{room.temperature}}</span> &#x2103;</small>
-                                            </div>                                            
-                                            <div class="ch-info-back hexagon">
-                                                												
-                                                <div ng-if="room.events.length>0">
-												    <div class="maskCircle bookerPhoto"><img src="img/photos/john-biggs.jpg" alt="Joe Bloggs"></div>
-												    <h3>
-													    <span class='ch-start'>{{dateformat(room.events[room.eventIndex].startDate)}}</span> <i class="icon-arrow_right" aria-hidden="true"></i> <span class='ch-end'>{{dateformat(room.events[room.eventIndex].endDate)}}</span>
-												    </h3>
-												   <h4>Joe Bloggs</h4>
-													<a href="tel:01517076707" title="Phone Joe" class="noSpin d-hide t-hide"><button class="maskCircle icon-telephone"><span>Telephone</span></button></a> 
-													<a href="mailto:info@redninja.co.uk" title="Email Joe" class="noSpin m-hide"><button class="maskCircle icon-email"><span>Email</span></button></a> 
-													<a href="#popup-{{ room.name }}" ng-click="$event.stopPropagation();open($index);"   title="View Itinerary" class="noSpin open-popup-link"><button class="maskCircle icon-information"><span>Itinerary Information</span></button></a>													
-												</div>
-													
-                                                <h3 ng-if="room.events.length==0">
-												    <div class="maskCircle bookerPhoto"><img src="img/photos/john-biggs.jpg" alt="Joe Bloggs"></div>
-												    <span> No bookings  </span>
-												</h3>
-                                                											
-											</div>
+                  <ul class="ch-grid">
+                      <li class="room" ng-repeat="room in rooms | filter:query "> <!-- | orderBy:orderProp index wrong after orderby -->
+                          <div class="ch-item" ng-click="room.front = !room.front" ng-class="{'flipped': room.front}">              
+                              <div class="ch-info-wrap">
+                                  <div class="ch-info " ng-class="{'unavailable':room.available}">
+                                  <!-- START .ch-info -->
+
+                                      <div class="ch-info-front hexagon">
+                                          <h1>{{room.displayname}}</h1>
+                                          <small><span class='temperature'>{{room.temperature}}</span> &#x2103;</small>
+                                      </div>    
+
+                                      <div class="ch-info-back hexagon">
+                                      <!-- START .ch-info-back -->
+                                          												
+                                        <div ng-if="room.events.length>0">
+                                        <!-- START .room.events.length -->
+
+              												    <div class="maskCircle bookerPhoto">
+                                            <img src="img/photos/john-biggs.jpg" alt="Joe Bloggs">
+                                          </div>
+              												    <h3>
+              													    <span class='ch-start'>{{dateformat(room.events[room.eventIndex].startDate)}}</span> <i class="icon-arrow_right" aria-hidden="true"></i> <span class='ch-end'>{{dateformat(room.events[room.eventIndex].endDate)}}</span>
+              												    </h3>
+              												    <h4>Joe Bloggs</h4>
+                													<a href="tel:01517076707" title="Phone Joe" class="noSpin d-hide t-hide"><button class="maskCircle icon-telephone"><span>Telephone</span></button></a> 
+                													<a href="mailto:info@redninja.co.uk" title="Email Joe" class="noSpin m-hide"><button class="maskCircle icon-email"><span>Email</span></button></a> 
+                													<a href="#popup-{{ room.name }}" ng-click="$event.stopPropagation();open($index);"   title="View Itinerary" class="noSpin open-popup-link"><button class="maskCircle icon-information"><span>Itinerary Information</span></button></a>													
+                												
+                                        <!-- END .room.events.length -->
                                         </div>
-                                    </div>
-                                </div>
-                            </li>
-                        </ul>
+                													
+                                        <h3 ng-if="room.events.length==0">
+              												    <div class="maskCircle bookerPhoto"><img src="img/photos/john-biggs.jpg" alt="Joe Bloggs"></div>
+              												    <span> No bookings  </span>
+                												</h3>
+                                                                 											
+                											<!-- END .ch-info-back -->
+                                      </div>
 
-                    <!-- END #app-meeting -->
-                    </section>
+                                  <!-- END .ch-info -->
+                                  </div>
+                              </div>
+                          </div>
+                      </li>
+                  </ul>
 
-                    <footer id="footer" class="clearfix">
-                    <!-- START #footer -->
+              <!-- END #app-meeting -->
+              </section>
 
-                        <div>
-                            <small>v0.939 Design &amp; Coded by <a href="http://www.redninja.co.uk" title="Design and Coded by Red Ninja Studios">Red Ninja Studios</a></small>
-                        </div>
+                  <footer id="footer" class="clearfix">
+                  <!-- START #footer -->
 
-                        <div>
-                            <a href="http://arm.com" class="logo-arm" title="ARM - Architecture for the digital world"><img src="img/ARM-RGB.png" alt="ARM - Architecture for the digital world" class="logo" /></a>
-                        </div>
-                    
-                    <!-- END #footer -->
-                    </footer>
+                      <div>
+                          <small>v0.940 Design &amp; Coded by <a href="http://www.redninja.co.uk" title="Design and Coded by Red Ninja Studios">Red Ninja Studios</a></small>
+                      </div>
+
+                      <div>
+                          <a href="http://arm.com" class="logo-arm" title="ARM - Architecture for the digital world"><img src="img/ARM-RGB.png" alt="ARM - Architecture for the digital world" class="logo" /></a>
+                      </div>
+                  
+                  <!-- END #footer -->
+                  </footer>
 
                 <!-- end .scroller's -->
                 </div>
