@@ -115,9 +115,15 @@
 
 	                	<article class="d1-d4 t1-t3 m-all" role="article">
 	                		
-	                		<img src="img/Energy_Icon_electricity.png" alt="Electricity" />
-	                		<img src="img/Energy_Icon_trash.png" alt="Electricity" />
-
+	                		<table>
+							  <tr>
+							    <th><img src="img/Energy_Icon_electricity.png" alt="Electricity" /></th>
+							    <td rowspan="2"></td>
+							  </tr>
+							  <tr>
+							    <th><img src="img/Energy_Icon_trash.png" alt="Trash" /></th>
+							  </tr>
+							</table>
 
 	                	</article>
 
@@ -334,8 +340,8 @@ var chart = d3.bullet()
     .height(height);
 
 
-  var svg = d3.select("body").selectAll("svg")
-      .data(temporaryData)
+  var svg = d3.select("td").selectAll("svg")
+    .data(temporaryData) // currently linked to Temp variable above, Xi work your magic
     .enter().append("svg")
       .attr("class", "bullet")
       .attr("width", width + margin.left + margin.right)
