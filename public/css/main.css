@@ -80,15 +80,21 @@
     ========================================================================== */
     
     .home,
-    .meeting-room,
     .energy {
         min-height:100%; width:100%; 
         background: #141414 url('../img/hexagon_BG.png') repeat 50% 0% scroll;
     }
         .svg .home,
-        .svg .meeting-room,
         .svg .energy {
             background: #141414 url('../img/svg/hexagon_BG.svg') repeat 50% 0% scroll;
+        }
+
+    .meeting-room{
+        min-height:100%; width:100%; 
+        background: #141414 url('../img/hexagon_BG.png') repeat 100% 0% scroll;
+    }
+        .svg .meeting-room{
+            background: #141414 url('../img/svg/hexagon_BG.svg') repeat 100% 0% scroll;
         }
 
 
