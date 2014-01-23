@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" ng-app="SensorMappingApp"> <!--<![endif]-->
+<head>
+    <title>Visualization of Room</title>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="author" content="Steven Hassall and Sizhe Xi ">
+	<meta name="description" content="Visualization of the sensor map">
+	  
+
+	<title>ARM Dashboard Sensor Monitoring Project</title>
+    <meta name="viewport" content="width=device-width, maximum-scale=1, minimum-scale=1, user-scalable=0, initial-scale=1">
+    <link rel="stylesheet" href="css/normalize.min.css">
+    <!-- Gridset CSS -->
+    <!--[if (!IE) | (gt IE 9)]><!--><link rel="stylesheet" href="css/gridset.css"><!--<![endif]-->
+    <!--[if IE 9]><link rel="stylesheet" href="./css/gridset-ie-9.css" /><![endif]-->
+    <!--[if lte IE 8]><link rel="stylesheet" href="./css/gridset-ie-lte8.css" /><![endif]-->
+    <link rel="stylesheet" href="css/mfglabs_iconset.css">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/menu-component.css">
+	
+
+    <script src="js/vendor/socket.io.js"></script>
+    <script src="assets/js/d3.v3.min.js"></script>
+    <script src="js/vendor/angular.min.js"></script>
+    <script src="js/vendor/ui-bootstrap.min.js"></script>
+    <script src="js/vendor/underscore-min.js"></script>
+    <script src="js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+
+
+
+
+
+</head>
+<body>
+<!--[if lt IE 7]>
+    <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+<![endif]-->
+
+    <div class="energy">
+    <!-- START .meeting-room -->
+
+        <div id="container" class="container" class="clearfix">
+        <!-- START #container -->
+
+            <section class="mp-pusher" id="mp-pusher">
+
+                <!-- mp-menu -->
+                    <nav id="mp-menu" class="mp-menu">
+                        <div class="mp-level">
+                            <button id="triggerMobile" class="mp-close d-hide t-hide"><i class="icon-cancel_circle icon2x"></i></button>
+                            <h2><i class="icon-data_science blue"></i> ARM Buildings</h2>
+                            <ul>
+                                <li><a href="#">ARM 6</a></li>
+                            </ul>
+                                
+                        </div>
+                    </nav>
+                    <!-- /mp-menu -->
+
+                <div class="scroller">
+                <div class="scroller-inner">
+                <!-- start .scroller's -->
+                
+                <div class="wrapper">
+                <!-- START .wrapper -->
+
+
+                    <header id="banner" class="d1-d9 t1-t4 m-all clearfix">
+                    <!-- START #banner -->
+
+                        <button id="trigger"><i class="icon-reorder icon2x"></i></button>
+
+                        <h1><span class="blue">ARM 6</span> MONTHLY <span class="pink">SUSTAINABILITY</span></h1>
+
+                    <!-- END #banner -->
+                    </header>
+
+                    <article id="main" class="d1-d4 t1-t3 m-all clearfix">
+                    <!-- START #main -->
+
+                        <div id="app-brand" class="m-hide" ng-click="room.front = !room.front" ng-class="{'flipped': room.front}">
+                            <div class="ch-item" >              
+                                <div class="ch-info-wrap">
+                                    <div class="ch-info meetings">
+                                        <div class="ch-info-front hexagon"></div>
+                                        <div class="ch-info-back hexagon">
+                                            <a href="http://arm.redninja.co.uk" title="Return to the Home">
+                                                <i class="icon-home icon3x" aria-hidden="true"></i>
+                                                <h3>Home</h3>
+                                            </a>
+                                        </div>  
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    
+                    <!-- END #main -->
+                    </article>
+
+                    <section id="app-energy" class="app-content">				
+	                <!-- START #app-energy -->
+
+						<button>Update</button>
+
+	                	<aside id="app-description" class="d1-d4 t1-t3 m-all">
+
+	                        <img src="img/Energy_Icon_time.png" alt="Time" />
+	                        <p>7 Days Remaining</p>
+
+	                    </aside>
+
+	                	<article class="d1-d4 t1-t3 m-all" role="article">
+	                		
+	                		<img src="img/Energy_Icon_electricity.png" alt="Electricity" />
+	                		<img src="img/Energy_Icon_trash.png" alt="Electricity" />
+
+
+	                	</article>
+
+					<!-- END #app-energy -->
+					</section>
+
+                <!-- END .wrapper -->
+                </div>
+				
+
+                
+
+				<footer id="footer" class="clearfix">
+				<!-- START #footer -->
+
+				  <div>
+				      <small>v0.1 Design &amp; Coded by <a href="http://www.redninja.co.uk" title="Design and Coded by Red Ninja Studios">Red Ninja Studios</a></small>
+				  </div>
+
+				  <div>
+				      <a href="http://arm.com" class="logo-arm" title="ARM - Architecture for the digital world"><img src="img/ARM-RGB.png" alt="ARM - Architecture for the digital world" class="logo" /></a>
+				  </div>
+
+				<!-- END #footer -->
+				</footer>
+
+                <!-- end .scroller's -->
+                </div>
+                </div>
+
+            </section>
+
+        <!-- END #container -->
+        </div>
+    <!-- END .meeting-room -->
+    </div>
+
+    <script src="js/vendor/jquery-1.10.1.min.js"></script>
+    <script src="js/plugins.js"></script>
+    <script src="js/vendor/classie.js"></script>
+    <script src="js/vendor/mlpushmenu.js"></script>
+    	
+    <!-- Gridset overlay script - toggles grid overlay on and off - You can remove this if you want. 
+	http://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.9.0/ui-bootstrap-tpls.min.js
+	-->
+    <script src="./js/gridset-overlay.js"></script> 
+
+    <!-- <script>
+        var _gaq=[['_setAccount','UA-XXXXX-X'],['_trackPageview']];
+        (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+        g.src='//www.google-analytics.com/ga.js';
+        s.parentNode.insertBefore(g,s)}(document,'script'));
+    </script> -->
+       
+<script>
+var SensormappingApp = angular.module('SensorMappingApp', []);
+SensormappingApp.controller('mappingListCtrl', function ($rootScope,$scope, $http, $interval, socket) {
+    
+	$scope.sensors = [];
+	var checkTimer ;
+	
+	var legend;
+    var data = {};
+	data.states= [{value:15,desc:'good'},{value:12,desc:'ok'},{value:9,desc:'not ok'},{value:6,desc:'bad'},{value:3,desc:'worse'}];	
+	var dy = 25;
+	var map ;
+	
+	$scope.initGrapth = function(){
+	    console.log('init grapth');
+	    legend = d3.select('svg.map').append('g').attr('class','legend').attr('transform', 'translate(450, 200)');
+	    render();	
+	}
+		
+	$scope.loadSensorData = function(){
+        $http.get('/sensors/arm/').success(function(data) {
+            $scope.sensors = data.sensors;
+	        //console.log(data.sensors);
+	        data.sensors.forEach(function(sensor){
+	            console.log(sensor.name);
+	        })
+		    
+        }).error(function(data, status, headers, config) {
+                // called asynchronously if an error occurs
+                // or server returns response with an error status.
+        });
+	}
+	
+	$scope.loadMapData =function(){
+	    d3.csv('data/location-coord.csv', function(coord) {
+		    for (var j = 0; j < coord.length; j++) {
+                //console.log(coord[j].x,coord[j].y);
+            }
+			data.maps = coord;
+
+			console.log('mapping loading  success',data.maps);
+		})
+	}
+	
+	$scope.initGrapth();
+	$scope.loadSensorData();
+	$scope.loadMapData();	
+    checkTimer = $interval($scope.checkSensorTimer, 1000*60);
+    $rootScope.$broadcast('mybroadcast');	
+		
+				
+	$scope.$on('mybroadcast', function(service){
+		console.log('on my broadcast', service);
+    })
+			
+	$scope.checkSensorTimer = function(){
+	    //console.log('check timer');
+	}
+
+    $scope.dateformat = function(date){
+        var date = new Date(date);	
+	   	var hour = date.getHours(), min = date.getMinutes();
+		if(hour < 10) hour = '0'+date.getHours();
+		if(min < 10) min = '0'+date.getMinutes();
+        return  hour+":"+min;		 
+	}
+			
+    socket.on('connect', function () {
+	    console.log('socket connected');
+    });
+	
+    socket.on('error', function (reason){
+		stats.style("top","0px").select("div").text("Connecting...");				
+		console.error('Unable to connect Socket.IO', reason);
+	});	
+                        
+    socket.on('info', function (msg) {               
+        //console.log(msg);
+        console.log(msg.room,msg.value,msg.type)
+        if(msg.type=='motion'){ 
+            var room = _.findWhere($scope.rooms, {name: msg.room});	
+			if(room){
+                console.log('room  object  ',room);
+                room.available = true;
+			}	
+        }
+    });		
+    function render(){	
+	    console.log('render  ...');
+
+	      	
+	    legend.selectAll('text11').data(data.states).enter().append('text')
+	        .attr('class', 'legend-element')
+	        .attr('x',15)
+	        .attr('y',function(e,i){return dy*i})      
+	        .attr('dy', '.375em')	      
+		    .transition()
+            .duration(2500)
+            .delay(function(d, i) { return i * 400; })
+		    .text(function(e,i){  return e.desc;   });    	
+	}
+
+	$scope.$on('$destroy', function() {
+        if (angular.isDefined(checkTimer)) {
+            $interval.cancel(checkTimer);
+            checkTimer = undefined;
+        }
+        socket.removeAllListeners();		
+    });		
+});
+
+SensormappingApp.factory('socket', function ($rootScope) {
+    if (!window.location.origin)
+    window.location.origin = window.location.protocol+"//"+window.location.host;
+    var socket = io.connect(window.location.origin+":3000",{'force new connection': true});
+    return {
+        on: function (eventName, callback) {
+            socket.on(eventName, function () {  
+            var args = arguments;
+            $rootScope.$apply(function () {
+                callback.apply(socket, args);
+            });
+        });
+    },
+        emit: function (eventName, data, callback) {
+            socket.emit(eventName, data, function () {
+            var args = arguments;
+            $rootScope.$apply(function () {
+                if (callback) {
+                    callback.apply(socket, args);
+                }
+            });
+        })
+    }
+  };
+});
+</script>
+<script>
+// bullet charts script - http://bl.ocks.org/mbostock/4061961
+// js/plugin.js has more js
+
+var margin = {top: 5, right: 40, bottom: 20, left: 120},
+    width = 960 - margin.left - margin.right,
+    height = 50 - margin.top - margin.bottom;
+
+var chart = d3.bullet()
+    .width(width)
+    .height(height);
+
+d3.json("bullets.json", function(error, data) {
+  var svg = d3.select("body").selectAll("svg")
+      .data(data)
+    .enter().append("svg")
+      .attr("class", "bullet")
+      .attr("width", width + margin.left + margin.right)
+      .attr("height", height + margin.top + margin.bottom)
+    .append("g")
+      .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
+      .call(chart);
+
+  var title = svg.append("g")
+      .style("text-anchor", "end")
+      .attr("transform", "translate(-6," + height / 2 + ")");
+
+  title.append("text")
+      .attr("class", "title")
+      .text(function(d) { return d.title; });
+
+  title.append("text")
+      .attr("class", "subtitle")
+      .attr("dy", "1em")
+      .text(function(d) { return d.subtitle; });
+
+  d3.selectAll("button").on("click", function() {
+    svg.datum(randomize).call(chart.duration(1000)); // TODO automatic transition
+  });
+});
+
+function randomize(d) {
+  if (!d.randomizer) d.randomizer = randomizer(d);
+  d.ranges = d.ranges.map(d.randomizer);
+  d.markers = d.markers.map(d.randomizer);
+  d.measures = d.measures.map(d.randomizer);
+  return d;
+}
+
+function randomizer(d) {
+  var k = d3.max(d.ranges) * .2;
+  return function(d) {
+    return Math.max(0, d + k * (Math.random() - .5));
+  };
+}
+
+</script>
+<script>
+// This is temp DATA for bullet chart
+
+	[
+	  {"title":"Revenue","subtitle":"US$, in thousands","ranges":[150,225,300],"measures":[220,270],"markers":[250]},
+	  {"title":"Profit","subtitle":"%","ranges":[20,25,30],"measures":[21,23],"markers":[26]},
+	  {"title":"Order Size","subtitle":"US$, average","ranges":[350,500,600],"measures":[100,320],"markers":[550]},
+	  {"title":"New Customers","subtitle":"count","ranges":[1400,2000,2500],"measures":[1000,1650],"markers":[2100]},
+	  {"title":"Satisfaction","subtitle":"out of 5","ranges":[3.5,4.25,5],"measures":[3.2,4.7],"markers":[4.4]}
+	]
+
+</script>
+</body>
+</html>
+
+
+
+
