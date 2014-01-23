@@ -66,7 +66,7 @@
         ont-smoothing:antialiased; 
         text-rendering:optimizeLegibility;
         font-family: Arial, "Helvetica Neue", Helvetica, sans-serif; color:#FFFFFF;background-color:#141414;
-        background-image: url(http://basehold.it/i/26/555555);  /* 26px baseline */ 
+        /*background-image: url(http://basehold.it/i/26/555555);   26px baseline */ 
     }
 
     .wrapper {width:990px; margin:0 auto;}
@@ -79,22 +79,17 @@
     2. Layout
     ========================================================================== */
     
-    .home {
+    .home,
+    .meeting-room,
+    .energy {
         min-height:100%; width:100%; 
         background: #141414 url('../img/hexagon_BG.png') repeat 50% 0% scroll;
     }
-        .svg .home {
+        .svg .home,
+        .svg .meeting-room,
+        .svg .energy {
             background: #141414 url('../img/svg/hexagon_BG.svg') repeat 50% 0% scroll;
         }
-
-    .meeting-room {
-        min-height:100%; width:100%; 
-        background: #141414 url('../img/hexagon_BG.png') repeat 100% 0% scroll;
-    }
-        .svg .meeting-room {
-            background: #141414 url('../img/svg/hexagon_BG.svg') repeat 100% 0% scroll;
-        }
-
 
 
         #banner {
@@ -123,7 +118,8 @@
         /* APPS */
 
         #app-home,
-        #app-meeting {
+        #app-meeting,
+        #app-energy {
             height: 100%;
             padding-top: 35em; padding-left: 3em;
             margin-right: 4.5em; margin-bottom: 13em;
@@ -144,6 +140,9 @@
             #app-meeting {}
             #app-energy {}
             #app-heating {}
+
+        /* ENERGY */
+
 
 
 /*  ==========================================================================
