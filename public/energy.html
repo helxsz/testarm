@@ -321,7 +321,7 @@ var chart = d3.bullet()
     .width(width)
     .height(height);
 
-d3.json("bullets.json", function(error, data) {
+
   var svg = d3.select("body").selectAll("svg")
       .data(data)
     .enter().append("svg")
@@ -348,7 +348,7 @@ d3.json("bullets.json", function(error, data) {
   d3.selectAll("button").on("click", function() {
     svg.datum(randomize).call(chart.duration(1000)); // TODO automatic transition
   });
-});
+
 
 function randomize(d) {
   if (!d.randomizer) d.randomizer = randomizer(d);
@@ -369,7 +369,7 @@ function randomizer(d) {
 <script>
 // This is temp DATA for bullet chart
 
-	[
+var data = [
 	  {"title":"Revenue","subtitle":"US$, in thousands","ranges":[150,225,300],"measures":[220,270],"markers":[250]},
 	  {"title":"Profit","subtitle":"%","ranges":[20,25,30],"measures":[21,23],"markers":[26]},
 	  {"title":"Order Size","subtitle":"US$, average","ranges":[350,500,600],"measures":[100,320],"markers":[550]},
