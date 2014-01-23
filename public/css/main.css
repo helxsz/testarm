@@ -232,16 +232,7 @@
                 margin-left: -44px;
                 margin-bottom: -90px;
             }
-                #app-home.app-content ul {margin-left: 26px;}
-                #app-home.app-content ul li {
-                    margin-left: -48px; 
-                    margin-bottom: 0; 
-                    height: 232px;
-                }
-                    #app-home.app-content ul li:nth-child(odd) {
-                    
-                    }
-
+            
     
     /*  Navigation  */
     
@@ -383,10 +374,6 @@
 
     }   .svg .hexagon {background: url('../img/svg/hexagon_active.svg') no-repeat 50% 50% scroll;}
 
-        #app-meeting li div.ch-item {}
-        #app-meeting li:nth-child(even) div.ch-item {/*margin-top: 7em;*/ margin-top: 112px;}
-        #app-home li:nth-child(odd) div.ch-item{/*margin-top: 7em;*/ margin-top: 112px;}
-
         .hover {
             -webkit-touch-callout: none;
             -webkit-user-select: none;
@@ -410,7 +397,7 @@
         .unavailable .ch-info-back {background: url('../img/hexagon_unavailable-rear.png') no-repeat 50% 50% scroll;}
         .svg .unavailable .ch-info-back {background: url('../img/svg/hexagon_unavailable-rear.svg') no-repeat 50% 50% scroll;}
 
-        .coming-soon .ch-info-front {
+        .coming-soon {
             opacity:0.5;
             filter:alpha(opacity=50); /* For IE8 and earlier */
         }
@@ -435,7 +422,6 @@
         }
 
         .ch-grid li {float:right;}
-            #app-home .ch-grid li {float: none;}
 
         .ch-item {
             width:232px; height:200px;
@@ -504,9 +490,34 @@
             transform: rotate3d(0,1,0,180deg);
         }
 
+
+        #app-meeting li div.ch-item {}
+        #app-meeting li:nth-child(even) div.ch-item {
+            /*margin-top: 7em;*/ margin-top: 112px;
+        }
+
+        #app-home ul li {margin-left: 26px; float:none;}
+
+            #app-home ul li {
+                margin-left: -48px; 
+                margin-bottom: 0; 
+                height: 232px;
+            } #app-home ul li:first-child {margin-left: 0;}
+
+                #app-home ul li:nth-child(even) a img {
+                    margin-top: -112px;
+                }
+                #app-home ul li:nth-child(odd) a img {
+                    margin-top: 112px;
+                }
+
+
+
         /* HOVER INTERACTIVITY */
 
-        .ch-info:hover {margin-top: -0.203125em;}
+        .ch-info:hover {
+            margin-top: -0.203125em;
+        }
 
         .flipped .ch-info-wrap {
             margin-left: -44px;
