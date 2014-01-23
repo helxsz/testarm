@@ -496,6 +496,8 @@
 
         /* HOVER INTERACTIVITY */
 
+        .ch-info:hover {margin-top: -0.203125em;}
+
         .flipped .ch-info-wrap {
             margin-left: -44px;
         }
@@ -507,19 +509,6 @@
             -ms-transform: rotate3d(0,1,0,-180deg);
             transform: rotate3d(0,1,0,-180deg);
         }
-
-        /*.ch-item:active .ch-info-wrap {
-            margin-left: -44px;
-        }
-
-        .ch-item:active .ch-info {
-            -webkit-transform: rotate3d(0,1,0,-180deg);
-            -moz-transform: rotate3d(0,1,0,-180deg);
-            -o-transform: rotate3d(0,1,0,-180deg);
-            -ms-transform: rotate3d(0,1,0,-180deg);
-            transform: rotate3d(0,1,0,-180deg);
-        }*/
-
 
         /* BRAND LOGOS */
 
@@ -621,7 +610,7 @@
 
 
 /*  ==========================================================================
-    8. Pop-up Magnific
+    8. MODAL
     ========================================================================== */
 
     /* Modal Pop-Up */
@@ -896,6 +885,13 @@
         -ms-transition:all 200ms ease-in-out;
         transition:all 200ms ease-in-out;
     } 
+    .app-brand a .ch-item, 
+    .app-brand a:hover .ch-item {
+        -webkit-transition: all 50ms ease-in-out;
+        -moz-transition:all 50ms ease-in-out;
+        -ms-transition:all 50ms ease-in-out;
+        transition:all 50ms ease-in-out;
+    }
 
     /* Image animations  */
     body { /* Addresses a small issue in webkit: http://bit.ly/NEdoDq */
