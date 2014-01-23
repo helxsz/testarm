@@ -323,7 +323,7 @@ var chart = d3.bullet()
 
 
   var svg = d3.select("body").selectAll("svg")
-      .data(data)
+      .data(temporaryData)
     .enter().append("svg")
       .attr("class", "bullet")
       .attr("width", width + margin.left + margin.right)
@@ -369,7 +369,7 @@ function randomizer(d) {
 <script>
 // This is temp DATA for bullet chart
 
-var data = [
+var temporaryData = [
 	  {"title":"Revenue","subtitle":"US$, in thousands","ranges":[150,225,300],"measures":[220,270],"markers":[250]},
 	  {"title":"Profit","subtitle":"%","ranges":[20,25,30],"measures":[21,23],"markers":[26]},
 	  {"title":"Order Size","subtitle":"US$, average","ranges":[350,500,600],"measures":[100,320],"markers":[550]},
