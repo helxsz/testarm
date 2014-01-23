@@ -19,8 +19,8 @@ function sizeContent() {
 
 function init() {
 
-     touchScroll("bodyID");
      sizeContent();
+     touchScroll("bodyID");
 }
 
 // Emulate hover on tablets and smartphones
