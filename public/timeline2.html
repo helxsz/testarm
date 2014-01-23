@@ -49,6 +49,12 @@ div.tooltip {
   pointer-events: none;         
 }
 
+
+.brush .extent {
+  stroke: #fff;
+  fill-opacity: .125;
+  shape-rendering: crispEdges;
+}
 </style>
 		<section id="vis">
 			<div class="content" ng-controller="mappingListCtrl">			
@@ -197,11 +203,14 @@ SensormappingApp.factory('socket', function ($rootScope) {
 													 
 	var formatHour = d3.time.format("%H:%M");	
 	var uktimeFormat = d3.time.format('%H:%M UK');
+	
+	var startHour = 9, endHour = 18, startTimeline = 100, endTimeline = 1200;
+	
 	var now = new Date(), 
-	mindate = new Date( now.getFullYear (),now.getMonth(),now.getDate(),12),
-	maxdate = new Date( now.getFullYear (),now.getMonth(),now.getDate(),18);
+	mindate = new Date( now.getFullYear (),now.getMonth(),now.getDate(),startHour),
+	maxdate = new Date( now.getFullYear (),now.getMonth(),now.getDate(),endHour);
 	//mindate = d3.time.hour.offset(now, -3),maxdate = d3.time.hour.offset(now, 2);		
-	var xScale = d3.time.scale().domain([mindate, maxdate]).range([100, 1200]);
+	var xScale = d3.time.scale().domain([mindate, maxdate]).range([startTimeline, endTimeline]);
 	var colors = [	"#CDFADB","#75B8C1","#DD8BB9","#BA97C1","#ff6600"];
 	var randomcolors = d3.scale.category20();	
 	
@@ -216,19 +225,66 @@ SensormappingApp.factory('socket', function ($rootScope) {
 	                         .orient("bottom")
 				             .ticks(d3.time.minutes, 15)
 				             .tickFormat(formatHour);			
-	function showTimeAxis(){				             	
-        vis.append("g").attr("class", "xaxis")              
+	
+	var time_control;
+	function showTimeControl(){
+	    var time_control = vis.append('g').attr('class','time_control');
+        	
+        time_control.append("g").attr("class", "xaxis")              
             //.attr("transform", "translate(0," + (height - padding) + ")")
             .call(xAxis); 
         vis.selectAll(".xaxis text").attr("transform", function(d) {          
               return "translate(" + this.getBBox().height*-2 + "," + this.getBBox().height + ")rotate(-45)";
-        });	
-	}		
-    showTimeAxis();    
+        });
+
+		/*****************  brush  ************************/
 		
-		///////////////////////////////////////////////////////////////////////////////
-	
-	
+		
+		
+	    var brush = d3.svg.brush().x(xScale).extent([0, 0])
+		              .on("brush", onbrushmove)
+					  .on('brushstart',onbrushstart)
+					  .on('brushend',onbrushend);
+
+	    time_control.append("g").attr("class", "brush").call(brush)
+		                         .selectAll("rect")								 
+                                 .attr("y", 6)
+                                 .attr("height",  50)
+								 //.attr("width", (endTimeline-startTimeline)/(endHour-startHour))
+								 //.attr('x', xScale(new Date()));	
+								 
+	    function onbrushstart(){
+		    console.log('on brush start');
+			/*
+			vis.select(".brush").transition().duration(750)
+                    .ease("elastic")
+					.attr('fill',colors[3]).style("opacity", 90)
+					.attr("width", (endTimeline-startTimeline)/(endHour-startHour))	
+            		.attr('x', xScale(new Date()));	
+            */					
+		}
+		function onbrushend(){
+		    console.log('on brush end');	
+            /*			
+	        var now = new Date(), x = xScale(new Date());
+		    vis.select(".brush")
+				    .transition()
+				    .duration(750)
+                    .ease("elastic")
+		            //.attr('transform', "translate(" + x + ", 0)")
+					.attr('fill',colors[2]).style("opacity", 70);		
+			*/
+		}
+		function onbrushmove(){
+			var s = brush.extent();
+			console.log('on brush move',s[0],s[1]);
+			//main_x.domain(brush.empty() ? mini_x.domain() : brush.extent());
+			//main.select(".line0").attr("d", main_line0);
+			//main.select(".line1").attr("d", main_line1);
+			//main.select(".x.axis").call(main_xAxis);	
+		}								 								 
+	}			
+    ///////////////////////////////////////////////////////////////////////////////	
 	/***************************   time_pointer _layer  *********************/
 	var current_time_layer = vis.append('g').attr('id', 'time-axis').attr('transform', "translate( 0 , 80)");
 	var time_text = current_time_layer.append('text').attr('text-anchor', 'middle')
@@ -242,26 +298,26 @@ SensormappingApp.factory('socket', function ($rootScope) {
 													 .style("stroke-dasharray", ("3, 3"))
 													 .attr('x1', xScale(new Date())).attr('x2', xScale(new Date()));		
     
-	function showTimeAxisAt(time,x){
+	function showTimeControlLineAt(time,x){
 		time_text.text( uktimeFormat(time) ).transition()
 				 .duration(750)
                  .ease("elastic").attr('transform', "translate(" + x + ", 0)")
-				 .attr("stroke","white")
-                 .style("background-color",'#DD8BB9');
+				 //.attr("stroke","white")
+                 .style("fill",'#DD8BB9');
 		time_line.transition()
 				 .duration(750)
                  .ease("elastic").attr('x1', x-5).attr('x2', x-5);	    	
 	}
 	
-	function showTimeAxisNow(){
+	function showTimeControlLineNow(){
 	    var now = new Date(), x = xScale(new Date());
 		time_text.text( uktimeFormat(now) )
 				 .transition()
 				 .duration(750)
                  .ease("elastic")
 		         .attr('transform', "translate(" + x + ", 0)")
-				 .attr("stroke","white")
-                 .style("background-color",'#DD8BB9');
+				 //.attr("stroke","white")
+                 .style("fill",'#DD8BB9');
 		time_line.transition()
 		         .duration(750)
                  .ease("elastic")
@@ -281,7 +337,7 @@ SensormappingApp.factory('socket', function ($rootScope) {
 			if(x>=100 && x<= 1200){
 				time = new Date(xScale.invert(x));
 				//console.log(x,  time  );
-				showTimeAxisAt(time,x);		  
+				showTimeControlLineAt(time,x);		  
 				//d3.selectAll('.event').attr("stroke", "blue");
 				d3.selectAll('.event').classed('selected', function(d) {
 				   return xScale(d.startDate) <= x && xScale(d.endDate) >= x;
@@ -291,7 +347,7 @@ SensormappingApp.factory('socket', function ($rootScope) {
 		
 		sensorDataLayer.on('mouseout', function(){
 			d3.selectAll('.event').attr("stroke", "black");	
-			showTimeAxisNow();
+			showTimeControlLineNow();
 			updateAllEvents();
 		});	
 		
@@ -649,6 +705,7 @@ SensormappingApp.factory('socket', function ($rootScope) {
 			renderLayerPaths(data.rooms);
 			renderLayerLabels(data.rooms);
 			buildEventsLayer(data.rooms);
+			showTimeControl();    
 			
 			var margin_y=100;
 			data.rooms.forEach(function(room){
@@ -665,7 +722,7 @@ SensormappingApp.factory('socket', function ($rootScope) {
     loadDailyEvents();
 	
 	function eventTimer(){
-	    showTimeAxisNow();   
+	    showTimeControlLineNow();   
 	    updateAllEvents();
 	}
 	

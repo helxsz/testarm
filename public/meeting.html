@@ -23,6 +23,7 @@
     <script src="js/vendor/socket.io.js"></script>
     <!--<script src="/assets/js/d3.v3.min.js"></script>-->
     <script src="js/vendor/angular.min.js"></script>
+	<script src="js/vendor/angular-touch.min.js"></script>
     <script src="js/vendor/ui-bootstrap.min.js"></script>
     <script src="js/vendor/underscore-min.js"></script>
     <script src="js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
@@ -247,7 +248,7 @@
   });
 
 
-  var meetingApp = angular.module('meetingApp', ['meetingEventFilters','ui.bootstrap']);
+  var meetingApp = angular.module('meetingApp', ['meetingEventFilters','ui.bootstrap','ngTouch']);
 
   meetingApp.controller('meetingListCtrl', function ($rootScope,$scope, $http, $interval, socket, $modal) {
 
@@ -320,11 +321,7 @@
       });
   	
       $scope.orderProp = 'temperature';
-  			
-  	$scope.$on('mybroadcast', function(service){
-  		console.log('on my broadcast', service);
-      })
-  	
+  			  	
   	$scope.$on('$viewContentLoaded', function(){
   	    console.log('view content loaded');
   	});
@@ -424,6 +421,13 @@
 
   	}
 
+	/****************************  utiliy ***********************************/
+  	$scope.$on('mybroadcast', function(service){
+  		console.log('on my broadcast', service);
+		touchScroll("bodyID");
+		sizeContent();			
+    })
+  
     $scope.dateformat = function(date){
           var date = new Date(date);	
   	   	var hour = date.getHours(), min = date.getMinutes();
@@ -431,24 +435,48 @@
   		if(min < 10) min = '0'+date.getMinutes();
           return  hour+":"+min;		 
   	}
-  	
-    $scope.showPopup = function($event){
-  	    console.log('click showpopup stopropagation');
-          if ($event.stopPropagation) $event.stopPropagation();
-          if ($event.preventDefault) $event.preventDefault();
-          $event.cancelBubble = true;
-          $event.returnValue = false;	    
-  	}
-  	
-  	$scope.$on('$destroy', function() {
-          if (angular.isDefined(checkTimer)) {
-              $interval.cancel(checkTimer);
-              checkTimer = undefined;
-          }
-          socket.removeAllListeners();		
-      });	
-  	
-  	
+ 
+	// touch device overflow fix
+	function isTouchDevice() {
+		try{
+			document.createEvent("TouchEvent");
+			return true;
+		}catch(e){
+			return false;
+		}
+	}
+
+	function touchScroll(id) {
+		if(isTouchDevice()){ //if touch events exist...
+			var el=document.getElementById(id);
+			var scrollStartPos=0;
+
+			document.getElementById(id).addEventListener("touchstart", function(event) {
+				scrollStartPos=this.scrollTop+event.touches[0].pageY;
+				event.preventDefault();
+			},false);
+
+			document.getElementById(id).addEventListener("touchmove", function(event) {
+				this.scrollTop=scrollStartPos-event.touches[0].pageY;
+				event.preventDefault();
+			},false);
+		}
+	}
+	
+	function sizeContent() {
+		// fix height bug on .container as there was an annoying gap below
+		var bodyHeight = window.innerWidth;
+		var containerHeight = document.getElementById('container').style.height;		
+		if (bodyHeight > containerHeight) {
+		  document.getElementById(id).style.height = "50px";
+		}
+		else {
+		  window.innerHeight = containerHeight;
+		}
+		console.log ('sizeContent working');
+	}	
+   	
+  	/******************    socket  **********************/
       socket.on('connect', function () {
   	    console.log('socket connected');
       });
@@ -464,7 +492,15 @@
 				  room.time = new Date();
   			  }	
           }
-      });		
+      });
+    /***************   destory *************************/
+  	$scope.$on('$destroy', function() {
+          if (angular.isDefined(checkTimer)) {
+              $interval.cancel(checkTimer);
+              checkTimer = undefined;
+          }
+          socket.removeAllListeners();		
+    });		
   });
 
 
@@ -494,6 +530,20 @@
     };
   });
 
+ function sizeContent() {
+    var bodyHeight = $('body').height();
+    var containerHeight = $("#container").height();   
+    if (bodyHeight > containerHeight) {
+      $('#container').css('height', bodyHeight );
+    }
+    else {
+      $('body').css('height', containerHeight);
+    }
+}
+
+//Every resize of window
+$(window).resize(sizeContent); 
+  
   
 angular
     .module('loadingOnAJAX', [])
@@ -623,8 +673,9 @@ angular
 1. css blink color transition    http://stackoverflow.com/questions/16344354/how-to-make-blinking-flashing-text-with-css3  http://stackoverflow.com/questions/19049484/blinking-a-div-with-background-color-in-jquery-using-setinterval  http://stackoverflow.com/questions/13955163/imitating-a-blink-tag-with-css3-animations   
     http://stackoverflow.com/questions/4411306/css3-transition-of-background-color  
 2. css time decrease , color descrese    http://css-tricks.com/almanac/properties/t/transition/
-3. svg clock
--->	
-	<script src="js/main.js"></script>
+3. svg clock-->	
+
+
+	
 </body>
 </html>

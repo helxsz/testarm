@@ -115,8 +115,6 @@ appBuilder.createApp('blabla',new MeetingRoomMQTTHandler().handleMessage, functi
 	})
 });
 
-
-
 function MeetingRoomMQTTHandler(){
     
 	this.handleMessage = handleMessage;
