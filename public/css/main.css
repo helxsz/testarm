@@ -488,7 +488,7 @@
         }
 
         .ch-info .ch-info-back {
-            margin-left: -44px;
+            margin-left: -44px; cursor: initial;
             -webkit-transform: rotate3d(0,1,0,180deg);
             -moz-transform: rotate3d(0,1,0,180deg);
             -o-transform: rotate3d(0,1,0,180deg);
