@@ -1,7 +1,7 @@
 console.log('START main.js');
 
 
-function init(){
+function init() {
 
      touchScroll("container");
      sizeContent();
@@ -38,7 +38,7 @@ $('.noSpin').click(function(event){
 $(document).ready(init);
 
 //Every resize of window
-$(window).resize(init);
+$(window).resize(sizeContent);
 
 // touch device overflow fix
 function isTouchDevice() {
