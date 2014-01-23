@@ -38,13 +38,13 @@
     <div class="meeting-room">
     <!-- START .meeting-room -->
 
-        <div id="container" class="container" class="clearfix">
+        <div id="container" class="container" class="clearfix" ng-controller="meetingListCtrl">
         <!-- START #container -->
 
             <section class="mp-pusher" id="mp-pusher">
 
                 <!-- mp-menu -->
-                    <nav id="mp-menu" class="mp-menu">
+                    <nav id="mp-menu" class="mp-menu" >
                         <div class="mp-level">
                             <button id="triggerMobile" class="mp-close d-hide t-hide"><i class="icon-cancel_circle icon2x"></i></button>
                             <h2><i class="icon-data_science blue"></i> ARM Buildings</h2>
@@ -73,8 +73,8 @@
                 <div class="scroller-inner">
                 <!-- start .scroller's -->
                 
-                <div class="wrapper">
-                <!-- START .wrapper -->
+                <div class="wrapper" >
+                <!-- START .wrapper    ng-swipe-left="app.showMenu=true" ng-swipe-right="app.showMenu=false"    -->
 
 
                     <header id="banner" class="d1-d9 t1-t4 m-all clearfix">
@@ -90,7 +90,7 @@
                     <article id="main" class="d1-d4 t1-t3 m-all clearfix">
                     <!-- START #main -->
 
-                        <div id="app-brand" class="m-hide" ng-click="room.front = !room.front" ng-class="{'flipped': room.front}">
+                        <div id="app-brand" class="m-hide" ng-click="room.front = !room.front" ng-class="{'flipped': room.front}" ng-show="app.showMenu">
                             <div class="ch-item" >              
                                 <div class="ch-info-wrap">
                                     <div class="ch-info meetings">
@@ -131,7 +131,7 @@
 			--> 	
 				
 
-                <section id="app-meeting" class="app-content" ng-controller="meetingListCtrl">				
+                <section id="app-meeting" class="app-content">				
                   <ul class="ch-grid">
                       <li class="room" ng-repeat="room in rooms | filter:query "> <!-- | orderBy:orderProp index wrong after orderby -->
                           <div class="ch-item" ng-click="room.front = !room.front" ng-class="{'flipped': room.front}">              
@@ -252,6 +252,11 @@
 
   meetingApp.controller('meetingListCtrl', function ($rootScope,$scope, $http, $interval, socket, $modal) {
 
+    $scope.app = {showMenu:true};
+  	$scope.rooms = [];
+  	var checkTimer ;
+    	
+  
       $scope.open = function ( index) {
   	    var roomObj = $scope.rooms[index];
   	    console.log('open',roomObj.name, roomObj, index);
@@ -298,9 +303,6 @@
           });
       }; 
 
-
-  	$scope.rooms = [];
-  	var checkTimer ;
       $http.get('/meetings/arm/now').success(function(data) {
   	    data.rooms.forEach(function(room){
   	        console.log(room.name,' (/meetings/arm/now)  remaining events for room ', room.events.length);
