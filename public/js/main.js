@@ -50,3 +50,15 @@ function touchScroll('#container'){
         },false);
     }
 }
+
+//Initial load of page
+$(document).ready(sizeContent);
+
+//Every resize of window
+$(window).resize(sizeContent);
+
+//Dynamically assign height
+function sizeContent() {
+    var newHeight = $("html").height() + "px";
+    $("#container").css("height", newHeight);
+}
