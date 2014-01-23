@@ -1,4 +1,4 @@
-console.log('START main.js');
+//console.log('START main.js');
 
 //Dynamically assign height
 function sizeContent() {
@@ -13,17 +13,15 @@ function sizeContent() {
     else {
       $('body').css('height', containerHeight);
     }
-    console.log ('sizeContent working');
+    //console.log ('sizeContent working');
 
 }
 
 function init() {
 
-     touchScroll("container");
+     touchScroll("bodyID");
      sizeContent();
 }
-
-
 
 // Emulate hover on tablets and smartphones
 $( ".ch-item" ).click(function(e) {
@@ -69,4 +67,4 @@ function touchScroll(id) {
     }
 }
 
-console.log ('END main.js');
+//console.log ('END main.js');
