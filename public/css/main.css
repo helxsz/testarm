@@ -593,20 +593,20 @@
             }
 
             .icon-information {
-                background: #670F38 url('../img/icon_information.png') no-repeat 50% 50%; 
+                background: #134D61 url('../img/icon_information.png') no-repeat 50% 50%; 
                 background-size: 100%;
             }
                 .svg .icon-information {
-                background: #670F38 url('../img/svg/icon_information.svg') no-repeat 50% 50%; 
+                background: #134D61 url('../img/svg/icon_information.svg') no-repeat 50% 50%; 
                 background-size: 100%;
             }
 
             .icon-email {
-                background: #670F38 url('../img/icon_email.png') no-repeat 50% 50%; 
+                background: #134D61 url('../img/icon_email.png') no-repeat 50% 50%; 
                 background-size: 100%;
             }
                 .svg .icon-email {
-                background: #670F38 url('../img/svg/icon_email.svg') no-repeat 50% 50%; 
+                background: #134D61 url('../img/svg/icon_email.svg') no-repeat 50% 50%; 
                 background-size: 100%;
             }
 
