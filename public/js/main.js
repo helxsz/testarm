@@ -6,7 +6,7 @@
 function init() {
 
      sizeContent();
-     touchScroll("bodyID");
+     
 }
 
 // Emulate hover on tablets and smartphones
@@ -35,7 +35,8 @@ function touchScroll(id) {
 
         document.getElementById(id).addEventListener("touchstart", function(event) {
             scrollStartPos=this.scrollTop+event.touches[0].pageY;
-            event.preventDefault();
+            //below commented out as will apparently bugs out on Android
+            //event.preventDefault();
         },false);
 
         document.getElementById(id).addEventListener("touchmove", function(event) {
@@ -43,6 +44,10 @@ function touchScroll(id) {
             event.preventDefault();
         },false);
     }
+}
+
+$(document).ready() {
+  touchScroll("container");
 }
 
 //console.log ('END main.js');
