@@ -79,13 +79,11 @@
     2. Layout
     ========================================================================== */
     
-    .home,
-    .energy {
+    .home{
         min-height:100%; width:100%; 
         background: #141414 url('../img/hexagon_BG.png') repeat 50% 0% scroll;
     }
-        .svg .home,
-        .svg .energy {
+        .svg .home{
             background: #141414 url('../img/svg/hexagon_BG.svg') repeat 50% 0% scroll;
         }
 
@@ -96,6 +94,10 @@
         .svg .meeting-room{
             background: #141414 url('../img/svg/hexagon_BG.svg') repeat 100% 0% scroll;
         }
+
+    .energy {
+        min-height:100%; width:100%; background-color: #141414;
+    }
 
 
         #banner {
@@ -149,15 +151,23 @@
 
         /* ENERGY */
 
-        .bullet { font: 10px sans-serif; }
+        .energy #app-description { 
+            text-align: center;
+            background-color: black; display: block;
+            width:14.625em; height: 13em; padding-top: 3.25em;
+            -webkit-border-radius: 10px 10px 10px 10px;
+                border-radius: 10px 10px 10px 10px;
+        }
+
+        .bullet { font: 10px sans-serif; color: white; }
         .bullet .marker { stroke: #000; stroke-width: 2px; }
         .bullet .tick line { stroke: #666; stroke-width: .5px; }
-        .bullet .range.s0 { fill: #eee; }
-        .bullet .range.s1 { fill: #ddd; }
-        .bullet .range.s2 { fill: #ccc; }
-        .bullet .measure.s0 { fill: lightsteelblue; }
-        .bullet .measure.s1 { fill: steelblue; }
-        .bullet .title { font-size: 14px; font-weight: bold; }
+        .bullet .range.s0 { fill: #092630; }
+        .bullet .range.s1 { fill: #134D61; }
+        .bullet .range.s2 { fill: #134D61; }
+        .bullet .measure.s0 { fill: #2599C1; }
+        .bullet .measure.s1 { fill: #2599C1; }
+        .bullet .title { font-size: 14px; font-weight: bold;  color: white;}
         .bullet .subtitle { fill: #999; }
 
 
