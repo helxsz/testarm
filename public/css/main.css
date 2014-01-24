@@ -1189,11 +1189,21 @@
             padding: 0.25em;
         }
 
+        .tg-table-dark tr td {display: table-cell; }
+
+        tr:first-child .wrapHexagon {width: 38px; height: 32px;}
+
         .itinerary tr:nth-child(2) td:nth-child(1) {
             width: auto;
         }
         .itinerary tr:nth-child(2) td:nth-child(2) {
              text-align: center;
+        }
+        .itinerary td:nth-child(3) {
+            font-size: 1.25em;
+        }
+        .itinerary a button {
+            width: 1em; height: 1em;
         }
       
 
