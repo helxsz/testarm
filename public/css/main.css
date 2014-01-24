@@ -860,7 +860,7 @@
     .itinerary p {font-weight:bold; margin-bottom: 0; }
 
     .itinerary a {}
-        .itinerary a button {width: 1.625em; height: 1.625em;}
+        .itinerary a button {width: 1.625em; height: 1.625em; font-size: 1.625em;}
     
     .itinerary i {color:#134D61; font-size: 1.625em;}
     .itinerary i.icon-arrow_right {
@@ -881,7 +881,7 @@
                 transform: rotate(120deg);
         cursor: pointer;
         }
-        tr:first-child .wrapHexagon {width: 76px; height: 66px; font-size: 1.625em;}
+        tr:first-child .wrapHexagon {width: 76px; height: 66px; }
     .hexagon-in1 {
         overflow: hidden;
         width: 100%; height: 100%;
