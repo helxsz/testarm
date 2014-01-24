@@ -1089,12 +1089,7 @@
             footer small {padding-top:0;}
 
 
-        /* Hexagons 
-
-        #app-meeting div:first-child {margin-top: 0;}
-
-        .hexagon {margin-top: 112px;}*/
-
+        /* Hexagons */
 
         #app-meeting li div.ch-item:first-child {margin-top: 0;}
         #app-meeting li div.ch-item {/*margin-top: 7em;*/ margin-top: 112px;}
@@ -1106,18 +1101,19 @@
         /* APPS */
 
         /* HOME */
-        .home #banner {}
+        .home #banner {margin-bottom: 3em;}
         #app-home {}
-            #app-home li:nth-child(odd) div.ch-item {
+        #app-home ul li {margin-left: 0; margin-top: 0;}
+            #app-home ul li:nth-child(-n+2) a img {
                 margin-top: 0;
             }
-            
+            #app-home ul li:nth-child(n+2) a img {
+                margin-top: 24px;
+            }
+
             #app-home.app-content ul li {height: auto;}
-            #app-home li div.ch-item {margin-top: 24px;}
-            #app-home li:nth-child(even) div.ch-item {margin:0;}
-                #app-home li div.ch-item {
-                    margin-top: 112px;
-                }
+            
+
 
             #app-home {margin-bottom: 3.25em; }
 
