@@ -521,10 +521,6 @@
 
         /* HOVER INTERACTIVITY */
 
-        .ch-info:hover {
-            margin-top: -0.203125em;
-        }
-
         .flipped .ch-info-wrap {
             margin-left: -44px;
         }
@@ -544,6 +540,10 @@
             top: 7em;
             right: 4.5em;
         }
+
+            .svg .home .app-brand a img {display: none;}
+            .svg .home .app-brand a img.svgIMG {display: inline-block;}
+
             .heating .ch-info-front {background: url('../img/hexagon_heating.png') no-repeat 50% 50% scroll;}
             .svg .heating .ch-info-front {background: url('../img/svg/hexagon_heating.svg') no-repeat 50% 50% scroll;}
 
@@ -914,13 +914,6 @@
         -ms-transition:all 200ms ease-in-out;
         transition:all 200ms ease-in-out;
     } 
-    .app-brand a .ch-item, 
-    .app-brand a:hover .ch-item {
-        -webkit-transition: all 50ms ease-in-out;
-        -moz-transition:all 50ms ease-in-out;
-        -ms-transition:all 50ms ease-in-out;
-        transition:all 50ms ease-in-out;
-    }
 
     /* Image animations  */
     body { /* Addresses a small issue in webkit: http://bit.ly/NEdoDq */
@@ -1010,6 +1003,20 @@
     /*  DESKTOP - DEFAULT  */
 
     @media only screen and (min-width:1057px) and (max-width:1920px) {
+
+        /* HOVER INTERACTIVITY */
+        .ch-info:hover {
+            margin-top: -0.203125em;
+        }
+
+        /* Animations */
+        .app-brand a .ch-item, 
+        .app-brand a:hover .ch-item {
+            -webkit-transition: all 50ms ease-in-out;
+            -moz-transition:all 50ms ease-in-out;
+            -ms-transition:all 50ms ease-in-out;
+            transition:all 50ms ease-in-out;
+        }
 
     }
 
