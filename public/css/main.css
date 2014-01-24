@@ -1188,6 +1188,13 @@
             margin-bottom: 1em;
             padding: 0.25em;
         }
+
+        .itinerary tr:nth-child(2) td:nth-child(1) {
+            width: auto;
+        }
+        .itinerary tr:nth-child(2) td:nth-child(2) {
+             text-align: center;
+        }
       
 
     }
