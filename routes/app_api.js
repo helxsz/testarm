@@ -18,7 +18,7 @@ var errors = require('../utils/errors'),
 	winston = require('../utils/logging.js'),
 	io = require('./websocket_api.js'),
 	catalog = require('./serviceCatalog.js'),
-	AppBuilder = require('./AppBuilder.js'), appBuilder = new AppBuilder();
+	appBuilder = require('./AppBuilder.js');
 	
 
 

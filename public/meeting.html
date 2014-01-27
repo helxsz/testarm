@@ -30,7 +30,7 @@
 
 	
 </head>
-<body>
+<body id="bodyID">
 <!--[if lt IE 7]>
     <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
 <![endif]-->
@@ -464,10 +464,11 @@
 	
 	function sizeContent() {
 		// fix height bug on .container as there was an annoying gap below
-		var bodyHeight = window.innerWidth;
-		var containerHeight = document.getElementById('container').style.height;		
-		if (bodyHeight > containerHeight) {
-		  document.getElementById(id).style.height = "50px";
+		var bodyHeight = window.innerHeight;
+		var containerHeight = document.getElementById("container").style.height;
+        console.log('size content  body:',bodyHeight,'container', containerHeight);		
+		if (bodyHeight > 1100) {
+		  //document.getElementById('container').style.height = bodyHeight+"px";
 		}
 		else {
 		  window.innerHeight = containerHeight;

@@ -14,6 +14,8 @@ var errors = require('../utils/errors'),
 
 var Service = function(obj) {
         
+		//console.log('Service   ........................    '+obj.name);
+		
 		this.serviceObj = obj; 
 				
 		this.getName = getName;

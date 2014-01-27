@@ -223,35 +223,42 @@ SensormappingApp.factory('socket', function ($rootScope) {
     var xAxis = d3.svg.axis().orient("up")
 	                         .scale(xScale)
 	                         .orient("bottom")
-				             .ticks(d3.time.minutes, 15)
+				             .ticks(d3.time.minutes, 30)
 				             .tickFormat(formatHour);			
 	
 	var time_control;
 	function showTimeControl(){
-	    var time_control = vis.append('g').attr('class','time_control');
-        	
+	
+	    var time_control = vis.append('g').attr('class','time_control'); 
+
+        /**/      	
         time_control.append("g").attr("class", "xaxis")              
             //.attr("transform", "translate(0," + (height - padding) + ")")
             .call(xAxis); 
         vis.selectAll(".xaxis text").attr("transform", function(d) {          
               return "translate(" + this.getBBox().height*-2 + "," + this.getBBox().height + ")rotate(-45)";
         });
-
+        
 		/*****************  brush  ************************/
-		
-		
-		
-	    var brush = d3.svg.brush().x(xScale).extent([0, 0])
+				
+	    var brush = d3.svg.brush().x(xScale)//.extent([mindate, maxdate])
 		              .on("brush", onbrushmove)
-					  .on('brushstart',onbrushstart)
-					  .on('brushend',onbrushend);
+					  //.on('brushstart',onbrushstart)
+					  //.on('brushend',onbrushend);
 
+		time_control.selectAll(".brush-line")  
+                                 .append('rect')
+                                 .attr("class","brush-line")								 
+                                 .attr("y", 6)
+                                 .attr("height",  10)
+								 .attr("width", (endTimeline-startTimeline)/(endHour-startHour))
+								 .attr('x', xScale(new Date()))
+								 .attr('fill',colors[4]);	
+								 
 	    time_control.append("g").attr("class", "brush").call(brush)
 		                         .selectAll("rect")								 
                                  .attr("y", 6)
-                                 .attr("height",  50)
-								 //.attr("width", (endTimeline-startTimeline)/(endHour-startHour))
-								 //.attr('x', xScale(new Date()));	
+                                 .attr("height",  50);	
 								 
 	    function onbrushstart(){
 		    console.log('on brush start');
@@ -265,40 +272,51 @@ SensormappingApp.factory('socket', function ($rootScope) {
 		}
 		function onbrushend(){
 		    console.log('on brush end');	
-            /*			
 	        var now = new Date(), x = xScale(new Date());
-		    vis.select(".brush")
+		    vis.select(".brush-line")
 				    .transition()
 				    .duration(750)
                     .ease("elastic")
 		            //.attr('transform', "translate(" + x + ", 0)")
 					.attr('fill',colors[2]).style("opacity", 70);		
-			*/
+			
 		}
 		function onbrushmove(){
+		
+		    // http://bl.ocks.org/gniemetz/raw/4618602/74eee5aff836de54d83715336b3bfd76dd8fb579/
 			var s = brush.extent();
-			console.log('on brush move',s[0],s[1]);
-			//main_x.domain(brush.empty() ? mini_x.domain() : brush.extent());
-			//main.select(".line0").attr("d", main_line0);
-			//main.select(".line1").attr("d", main_line1);
-			//main.select(".x.axis").call(main_xAxis);	
+			xScale.domain( s);
+			console.log('on brush move',brush.empty(), s[0],s[1]);
+			
+			//xScale.domain(brush.empty() ? xScale.domain() : s);
+            /*
+			eventslayer.selectAll('.event')
+		        .attr('x1', function(d) {
+				  return xScale( new Date(d.startDate) );
+				}).attr('x2', function(d) {
+				  return xScale( new Date(d.endDate) )-5;
+				})
+            */				
 		}								 								 
 	}			
     ///////////////////////////////////////////////////////////////////////////////	
 	/***************************   time_pointer _layer  *********************/
 	var current_time_layer = vis.append('g').attr('id', 'time-axis').attr('transform', "translate( 0 , 80)");
-	var time_text = current_time_layer.append('text').attr('text-anchor', 'middle')
+	var time_text, time_line;
+	function showTimeAxisLine(){
+	    time_text = current_time_layer.append('text').attr('text-anchor', 'middle')
 	                                                 .text( uktimeFormat(new Date()) )
 													 .attr('transform', "translate(" +  xScale(new Date()) + ", 0)");
 													 
-	var time_line = current_time_layer.append('line').attr('id', 'time-axis-line')
+	    time_line = current_time_layer.append('line').attr('id', 'time-axis-line')
 													 .attr('y1', 10).attr('y2', 500)
 													 .attr("stroke-width", 2)
 													 .attr("stroke", "black")
 													 .style("stroke-dasharray", ("3, 3"))
 													 .attr('x1', xScale(new Date())).attr('x2', xScale(new Date()));		
-    
-	function showTimeControlLineAt(time,x){
+    }
+	
+	function showTimeAxisLineAt(time,x){
 		time_text.text( uktimeFormat(time) ).transition()
 				 .duration(750)
                  .ease("elastic").attr('transform', "translate(" + x + ", 0)")
@@ -309,7 +327,7 @@ SensormappingApp.factory('socket', function ($rootScope) {
                  .ease("elastic").attr('x1', x-5).attr('x2', x-5);	    	
 	}
 	
-	function showTimeControlLineNow(){
+	function showTimeAxisLineNow(){
 	    var now = new Date(), x = xScale(new Date());
 		time_text.text( uktimeFormat(now) )
 				 .transition()
@@ -327,7 +345,51 @@ SensormappingApp.factory('socket', function ($rootScope) {
 				
 	/******   sensor Data layer ************/	
 	var sensorDataLayer = vis.append("g").attr('id','sensorDataLayer');
-	
+/*
+ var whichLayer = d3.scale.quantize()
+        .domain(createdTimeExtent)
+        .range(d3.range(nLayers));
+
+      var layerY = function(layerId) {
+        return layerId * layerHeight + layersTop;
+      };
+if (opt && opt.expanded) {
+          var y = statusCircleY(d, i, whichLayer(d.created_at_time));
+
+var statusCircleY = function(d, i, layerId) {
+        return layersTop
+          + statusYExpandedPlain(d.created_at_time)
+          - layerHeightExpanded / 2
+          - layerId * (layerHeightExpanded - layerHeight);
+      };
+var statusYExpandedPlain = d3.scale.linear()
+        .domain(createdTimeExtent)
+        .range([0, layerHeightExpanded * nLayers]);
+		
+		
+var linkD = function(d, i, n, opt) {
+        // user circle coord
+        var xu = users.userCircleXById(d.user.$id);
+        var yu = users.userCircleY;
+
+        // status circle coord
+        var xs = statusCircleX(d, i, n);
+        if (opt && opt.expanded) {
+          var du = 100;
+          var ds = 75;
+          var ys = statusCircleY(d, i, whichLayer(d.created_at_time));
+        } else {
+          var du = 100;
+          var ds = 100;
+          var ys = layerY(whichLayer(d.created_at_time));
+        }
+
+        return 'M' + xu + ',' + yu
+          + 'C' + xu + ',' + (yu + du)
+          + ' ' + xs + ',' + (ys - ds)
+          + ' ' + xs + ',' + ys;
+      };		
+*/		  
 	var motionData = [];
 	var temperatureData = [];
 	var sensorVisual= function(){
@@ -337,7 +399,7 @@ SensormappingApp.factory('socket', function ($rootScope) {
 			if(x>=100 && x<= 1200){
 				time = new Date(xScale.invert(x));
 				//console.log(x,  time  );
-				showTimeControlLineAt(time,x);		  
+				showTimeAxisLineAt(time,x);		  
 				//d3.selectAll('.event').attr("stroke", "blue");
 				d3.selectAll('.event').classed('selected', function(d) {
 				   return xScale(d.startDate) <= x && xScale(d.endDate) >= x;
@@ -347,7 +409,7 @@ SensormappingApp.factory('socket', function ($rootScope) {
 		
 		sensorDataLayer.on('mouseout', function(){
 			d3.selectAll('.event').attr("stroke", "black");	
-			showTimeControlLineNow();
+			showTimeAxisLineNow();
 			updateAllEvents();
 		});	
 		
@@ -389,7 +451,7 @@ SensormappingApp.factory('socket', function ($rootScope) {
 				  .attr('transform', function(d, i) {
                       var layerTop = 40;				  
 					  var x = xScale(d.t), y;	
-                      var lasttime, leapse;					  
+                      var lasttime;					  
 					  y = layersTop + yAxisMapping[d.room];					  
 					  //console.log("sensor location ",x, y );					  					  
 					  return 'translate(' + x + ',' + y + ')';
@@ -480,24 +542,41 @@ SensormappingApp.factory('socket', function ($rootScope) {
 		}
   
 		function renderSensorValue(){
-			sensorDataLayer.selectAll('rect.status')
-				  //+ '.layer' + layer.key
-				  //+ '.topic' + topicOrdinal(topic.key))
+				
+			var sensor = sensorDataLayer.selectAll('rect.temperature')
 				  .data(temperatureData)
-				  .enter()
+			
+            sensor.exit().remove();				
+			sensor.enter()
 				  .append('rect')
+				  .attr('x', function(d,i){ return xScale(d.t);  })
+				  .transition()
+				  .duration(800) 				  
 				  .attr('class', function(d) {
-					return 'status layer' //+ layer.key + ' topic' + topicOrdinal(d.topic);
+					return 'temperature at-'+d.room;
 				  })
 				  .attr("width", 2)
 				  .attr("height", function(d) { return d.v*4 })
 				  .attr('transform', function(d, i) {				
-					  var x = xScale(d.t),				
-					  y = layersTop;
-					  return 'translate(' + x + ',' + y + ')';
+                      var layerTop = 40;				  
+					  var x = xScale(d.t), y;	
+					  y = layersTop + yAxisMapping[d.room];					  
+					  //console.log("sensor location ",x, y );					  					  
+					  return 'translate(' + x + ',' + y + ')';					  
+					  
 				  })
 				  .style('fill', function(d, i) {
-					return colors[ i % 4];
+				        var events = room_events[d.room];
+				        var now = new Date();
+						var index = 1;
+						for(var i=0;i<events.length;i++){
+						    var startTime = new Date(events[i].startTime).getTime(), endTime = new Date(events[i].endTime).getTime();
+						    if(  now >= startTime && endTime <=now){
+							    index = i+1;
+							    break;
+							}
+						}						
+					    return randomcolors(index);
 				  })
 				  .attr('title', function(d) {               
 					return '<div class="status-info"><p class="status-content"><span class="user-name">@'
@@ -691,30 +770,40 @@ SensormappingApp.factory('socket', function ($rootScope) {
 	var lastUpdateMapping = [];
 	var room_events = {}; 
 	var loadDailyEvents = function(){
-		d3.json('/meetings/arm/now', function(data) {
-		    rooms = data.rooms;
-			data.rooms.forEach(function(room){
-				console.log(room.name,'   remaining events for room ', room.events.length);
-				events = room.events;
-				room_events[room.name] = events;
-			})
-			events.forEach(function(event){
-				console.log(event.startDate, event.endDate);
-			})
-			
-			renderLayerPaths(data.rooms);
-			renderLayerLabels(data.rooms);
-			buildEventsLayer(data.rooms);
-			showTimeControl();    
-			
-			var margin_y=100;
-			data.rooms.forEach(function(room){
-			    yAxisMapping[room.name] = margin_y;margin_y +=60;
-				lastUpdateMapping[room.name] = room.time;
-							
-			})
-			setInterval(eventTimer, 1000*60);
-			
+	
+	
+		d3.json('/meetings/arm/now')
+          .header("X-Requested-With", "XMLHttpRequest")
+          //.header("Authorization", auth_string)		
+		  .get( function(error , data) {
+		       if (!error) {
+					rooms = data.rooms;
+					data.rooms.forEach(function(room){
+						console.log(room.name,'   remaining events for room ', room.events.length);
+						events = room.events;
+						room_events[room.name] = events;
+					})
+					events.forEach(function(event){
+						console.log(event.startDate, event.endDate);
+					})
+					
+					renderLayerPaths(data.rooms);
+					renderLayerLabels(data.rooms);
+					
+					buildEventsLayer(data.rooms);
+					showTimeControl(); 
+					showTimeAxisLine();			
+					
+					var margin_y=100;
+					data.rooms.forEach(function(room){
+						yAxisMapping[room.name] = margin_y;margin_y +=60;
+						lastUpdateMapping[room.name] = room.time;
+									
+					})
+					setInterval(eventTimer, 1000*60);
+			    }else{
+				    console.log('error  ',error);
+				}
 			
 		});
 	}
@@ -722,7 +811,7 @@ SensormappingApp.factory('socket', function ($rootScope) {
     loadDailyEvents();
 	
 	function eventTimer(){
-	    showTimeControlLineNow();   
+	    showTimeAxisLineNow();   
 	    updateAllEvents();
 	}
 	

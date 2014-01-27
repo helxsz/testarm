@@ -1,4 +1,4 @@
-var app = require('../app').app;  
+var app = require('../../app').app;  
 
 var async = require('async'),
     fs = require('fs'),
@@ -10,22 +10,20 @@ var async = require('async'),
 	request = require('request'),
 	Agenda  = require('agenda');	
 	
-var errors = require('../utils/errors'),
-	config = require('../conf/config'),
-	winston = require('../utils/logging.js'),
-	io = require('./websocket_api.js'),
-	ServiceCatalog = require('./serviceCatalog.js'),ServiceBuilder = require('./serviceBuilder.js'),serviceBus = require('./serviceBusService.js'),
-	AppBuilder = require('./AppBuilder.js'),
-	SensMLHandler = require('./senMLHandler.js'),
-	db = require('./persistence_api.js'),
-	simulation = require('./simulation.js');
+var errors = require('../../utils/errors'),
+    serviceCatalog = require('../serviceCatalog.js'),
+	config = require('../../conf/config'),
+	winston = require('../../utils/logging.js'),
+	io = require('../websocket_api.js'),
+	appBuilder = require('../AppBuilder.js'),
+	db = require('../persistence_api.js'),
+	simulation = require('../simulation.js');
 
-var serviceCatalog = new ServiceCatalog();	
 /****   experiment 2 ********/
 var meetingService = serviceCatalog.findByName('armmeeting');  // enlight
 var buildingService = serviceCatalog.findByName('armbuilding');  // enlight	
 
-/*
+ /*
 https://alertmeadaptor.appspot.com/traverse?traverseURI=https%3A//geras.1248.io/cat/armmeeting/17/MotionSensor/00-0D-6F-00-00-C1-34-EB&traverseKey=924a7d4dbfab38c964f5545fd6186559
 https://alertmeadaptor.appspot.com/traverse?traverseURI=https%3A%2F%2Fprotected-sands-2667.herokuapp.com%2Fcat&traverseKey=0L8kgshd4Lso3P1UQX7q&Submit=Browse
 http://schema.org/Place
@@ -593,3 +591,81 @@ function getArmMeetingSchedules(done){
     })
 }
 
+/**********************************************   ********************************************************/
+appBuilder.createApp('meetingroom',new MeetingRoomMQTTHandler().handleMessage, function(err,app){
+	if(err) winston.error('error in create app');
+	else winston.info('app is created  meetingroom   '+app.id);  // 
+	app.subscribeService('armmeeting',function(err,success){
+		if(err) winston.error('errro in subscrption ');
+		else winston.info('subscribe success');
+	})
+});
+	
+function MeetingRoomMQTTHandler(){
+	this.handleMessage = handleMessage;
+	function handleMessage(pattern, channel, message){	    
+		try{
+		    var raw = JSON.parse(message);
+		    var msg = raw.e[0];  
+		    var url = msg.n, value = msg.v, time = msg.t;
+		    // stream to interoperbility layer
+		    var array = url.split('/');
+		    //console.log(array[0],array[1],array[2],array[3],array[4],array[5], value);
+			// device unique url = 
+			var device_id = array[4] , device_attr = array[5];
+			//winston.debug('url :'+url+ device_id+device_attr);
+			/*
+		    console.log('url :'+url.substring(0,url.lastIndexOf("/")));
+	        var url1 = url.substring(0,url.lastIndexOf("/"));
+			db.findResource2("device:"+url1, 'loc',function(err,data){ 
+			    if(err) winston.error('hmget 11 '+err);
+				else if(data) winston.info('hmget find location 11:'.green+"  "+data.url+"  " +data+"   id:"+device_id+"   attribute:"+device_attr+"   value:".green+value);	  
+			    else winston.error('hmget find no location11');
+			});
+			*/
+		
+			var room_uniqueURl = simulation.mapping[url];
+			if(room_uniqueURl){			    
+				var getShortName = function(url){
+				   var array = url.split('/');
+				   return array[array.length-1];
+				}				
+				var room_shortName = getShortName(room_uniqueURl);
+				winston.debug("room  is  "+room_uniqueURl, room_shortName);
+                updateMotion(room_shortName,function(err,data){});	
+				//winston.debug("io send message  "+room_shortName);
+				io.sockets.emit('info',{room:room_shortName,type:'motion', value:100});
+			}
+			
+			url = array[0]+"/"+array[1]+"/"+array[2]+"/"+array[3]+"/"+array[4];
+		    //winston.debug('MeetingRoomMQTTHandler  '.green+url+"  "+sensorType+"  "+ value);			   
+		}catch(e){
+			console.log('some thing wrong   ......'.red+e);   
+		}
+    }		
+}
+
+function updateMotion(name,callback){
+	var redisClient;
+    var redis_ip= config.redis.host;  
+    var redis_port= config.redis.port; 	
+    try{ 
+        redisClient = redis.createClient(redis_port,redis_ip);
+	}
+    catch (error){
+        console.log('find Resource eInto Catalog  error' + error);
+		redisClient.quit();
+		return callback(error,null);
+    }	
+	
+
+	redisClient.hmset(name, 'time',new Date(), 'displayname',name,function(err, data){
+	    redisClient.quit();
+	    if(err) {return callback(err,null);}
+		else if(data) { return callback(null,data);}
+        else { return callback(null,null);}	
+	});
+
+	redisClient.quit();
+
+}	

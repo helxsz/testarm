@@ -56,13 +56,13 @@ var ServiceCatalog = function(database) {
 		}
 		
 		function addService(service){
-		    winston.info('addService ',service);
+		    winston.info('addService '.green+service);
 		    if(service.name)
 			list[service.name] = service;
 		}
 
         function removeService(service){
-		    winston.info('removeService ',service);
+		    winston.info('removeService '+service);
 		    if(service){
 			    var name = service; 
 			    list[name] = null;
@@ -113,5 +113,5 @@ var ServiceCatalog = function(database) {
 };	
 
 
-module.exports = ServiceCatalog;
+module.exports = new ServiceCatalog();
 //module.exports = {enlight:enlight,armhome:armhome,armmeeting:armmeeting,armbuilding:armbuilding};	

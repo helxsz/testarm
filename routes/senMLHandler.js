@@ -20,7 +20,7 @@ function handleMessage(topic, message){
 	    var data = JSON.parse(message);
 	    var msg = data.e[0];  
 	    var url = msg.n, value = msg.v, time = msg.t;
-	    //winston.debug(url,value);
+	    //winston.debug(url+value);
 		//winston.debug(topic);
 		topic = topic.split('/')[1];
 		

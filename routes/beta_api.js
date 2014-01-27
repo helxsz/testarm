@@ -5,6 +5,7 @@ var async = require('async'),
     colors = require('colors'),
     crypto = require('crypto');	
      _=require('underscore'),
+	 path = require('path'),
     moment = require('moment'),
 	request = require('request'),
 	Agenda  = require('agenda'),
@@ -14,8 +15,8 @@ var errors = require('../utils/errors'),
 	config = require('../conf/config'),
 	winston = require('../utils/logging.js'),
 	io = require('./websocket_api.js'),
-	ServiceCatalog = require('./serviceCatalog.js'),ServiceBuilder = require('./serviceBuilder.js'),serviceBus = require('./serviceBusService.js'),
-	AppBuilder = require('./AppBuilder.js');
+	serviceCatalog = require('./serviceCatalog.js'),ServiceBuilder = require('./serviceBuilder.js'),serviceBus = require('./serviceBusService.js'),
+	appBuilder = require('./AppBuilder.js');
 	SensMLHandler = require('./senMLHandler.js'),
 	simulation = require('./simulation.js');
 
@@ -93,123 +94,50 @@ https://alertmeadaptor.appspot.com
 		'cat':''
     };
 
-
-var serviceCatalog = new ServiceCatalog();
 var serviceBuilder = new ServiceBuilder(serviceCatalog);
+// put the service into the service catalog, the catalog will be used by the app layer
 serviceBuilder.build([enlight,armhome,armmeeting,armbuilding]);
-
 serviceBus.startService();
-serviceBuilder.buildRTService('armmeeting', SensMLHandler);
-
-
-var appBuilder = new AppBuilder();
-
-    //serviceCatalog.removeRTService('armmeeting');
-
-appBuilder.createApp('blabla',new MeetingRoomMQTTHandler().handleMessage, function(err,app){
-    if(err) winston.error('error in create app');
-	else winston.info('app is created  '+app.id);  // 
-	app.subscribeService('armmeeting',function(err,success){
-	    if(err) winston.error('errro in subscrption ');
-		else winston.info('subscribe success');
-	})
-});
-
-function MeetingRoomMQTTHandler(){
-    
-	this.handleMessage = handleMessage;
-	function handleMessage(pattern, channel, message){	    
-		try{
-		    var raw = JSON.parse(message);
-		    var msg = raw.e[0];  
-		    var url = msg.n, value = msg.v, time = msg.t;
-		    // stream to interoperbility layer
-		    var array = url.split('/');
-		    //console.log(array[0],array[1],array[2],array[3],array[4],array[5], value);
-			// device unique url = 
-			var device_id = array[4] , device_attr = array[5];
-			console.log('url :'+url, device_id,device_attr);
-			/*
-		    console.log('url :'+url.substring(0,url.lastIndexOf("/")));
-	        var url1 = url.substring(0,url.lastIndexOf("/"));
-			db.findResource2("device:"+url1, 'loc',function(err,data){ 
-			    if(err) winston.error('hmget 11 '+err);
-				else if(data) winston.info('hmget find location 11:'.green+"  "+data.url+"  " +data+"   id:"+device_id+"   attribute:"+device_attr+"   value:".green+value);	  
-			    else winston.error('hmget find no location11');
-			});
-			*/
-		
-			var room_uniqueURl = simulation.mapping[url];
-			if(room_uniqueURl){			    
-				var getShortName = function(url){
-				   var array = url.split('/');
-				   return array[array.length-1];
-				}				
-				var room_shortName = getShortName(room_uniqueURl);
-				console.log("room  is  "+room_uniqueURl, room_shortName);
-                updateMotion(room_shortName,function(err,data){});	
-				console.log("io send message  "+room_shortName);
-				io.sockets.emit('info',{room:room_shortName,type:'motion', value:100});
-			}
-			
-			url = array[0]+"/"+array[1]+"/"+array[2]+"/"+array[3]+"/"+array[4];
-		    //winston.debug('MeetingRoomMQTTHandler  '.green+url+"  "+sensorType+"  "+ value);			   
-		}catch(e){
-			console.log('some thing wrong   ......'.red+e);   
-		}
-    }		
-}
-
-function updateMotion(name,callback){
-	var redisClient;
-    var redis_ip= config.redis.host;  
-    var redis_port= config.redis.port; 	
-    try{ 
-        redisClient = redis.createClient(redis_port,redis_ip);
-	}
-    catch (error){
-        console.log('find Resource eInto Catalog  error' + error);
-		redisClient.quit();
-		return callback(error,null);
-    }	
-	
-
-	redisClient.hmset(name, 'time',new Date(), 'displayname',name,function(err, data){
-	    redisClient.quit();
-	    if(err) {return callback(err,null);}
-		else if(data) { return callback(null,data);}
-        else { return callback(null,null);}	
+//serviceCatalog.removeRTService('armmeeting');
+// Bootstrap controllers
+function bootApps(app,route) {
+	fs.readdir(route, function(err, files){
+		if (err) throw err;
+		files.map(function (file) {
+            return path.join(route, file);
+        }).filter(function (file) {
+            return fs.statSync(file).isFile();
+        }).forEach(function (file) {         
+			var i = file.lastIndexOf('.');
+            var ext= (i < 0) ? '' : file.substr(i);
+			if(ext==".js")
+			bootApp(app, file);	
+        });
 	});
-
-	redisClient.quit();
-
 }
 
-/*
-io.sockets.on('connection', function (socket) {
-    console.log('socket connected');
-	socket.emit('connect');
-	     
-    socket.on('subscribe', function (data) {
-        console.log('subscribe  to  ----------------------------'.green,data);
-		var rooms = data.room.split(',');
-		console.log(rooms.length);
-		rooms.forEach(function(room){
-		    
-		   console.log(roomstatus[room]);
-		})
-    });
-});
-*/
+function bootApp(app, file) {
+	var name = file.replace('.js', '');
+	require( name);				
+}
+
+function bootRealTimeServices(){
+    serviceBuilder.buildRTService('armmeeting', SensMLHandler);
+    serviceBuilder.buildRTService('enlight', SensMLHandler);
+   //serviceBuilder.buildRTService('armhome', SensMLHandler);
+}
+	
+setTimeout(function(){
+    console.log('timeout  ');
+	bootApps(app,__dirname + '/apps');
+	bootRealTimeServices();
+}, 3000);	
 
 // http://localhost/all/meeting
 app.get('/all/meeting',function(req,res,next){
-
     getResourceList2('cat:armmeeting',function(err,data){
 	    res.send(200,data);
-	
 	});
-	
 })
 
 app.get('/catalog',function(req,res,next){   
@@ -225,7 +153,6 @@ app.get('/catalog',function(req,res,next){
 		res.send(404);
 	}
 })
-
 
 // http://localhost/catalog/tag?type=enlight&url=enlight/Ballast00002897
 // http://localhost/catalog/tag?type=armmeeting&url=armmeeting/1/MotionSensor/00-0D-6F-00-00-C1-2E-EF	   
@@ -365,3 +292,164 @@ function saveResourceList(context,service ,item ,callback){
 	return callback(null,1);
 }
 */
+
+
+var URI = require('URIjs');
+
+var unexplored = [];    // list of catalogues URLs to expand
+var explored = [];      // list of expanded catalogue URLs
+var facts = [];         // array of facts [{subject, predicate, object},...]
+
+function storeFact(o) {
+    // only store unique facts
+    for (var i=0;i<facts.length;i++) {
+        if (facts[i].subject == o.subject &&
+            facts[i].predicate == o.predicate &&
+            facts[i].object == o.object)
+                return;
+    }
+    facts.push(o);
+}
+
+function fetch(root, option, cb) {
+    //console.log("FETCH "+root);
+    //request(root, function (err, rsp, body) {
+
+    var h = {};
+    if (option.key !== undefined)
+        h.Authorization = 'Basic ' + new Buffer(option.key + ':').toString('base64')
+
+    request.get({
+        url: root,
+        headers: h
+    }, function(err, rsp, body) {
+        if (!err && rsp.statusCode == 200) {
+            if (cb !== undefined) {
+                try {
+                    cb(null, JSON.parse(body));
+                } catch(e) {
+                    console.error("Error parsing "+root+" "+body);
+                    cb("err parsing", null);
+                }
+            }
+        } else {
+            if (rsp)
+                cb("Status code " + rsp.statusCode, null);
+            else
+                cb("Fetch error "+err, null);
+        }
+    });
+}
+
+function expandCatalogue(url, doc) {
+    var i;
+    try {
+        // store metadata for catalogue
+        for (i=0;i<doc['item-metadata'].length;i++) {
+            //console.log("CATL-FACT "+url+" "+doc['item-metadata'][i].rel+" "+doc['item-metadata'][i].val);
+            storeFact({
+                subject: url,
+                predicate: doc['item-metadata'][i].rel,
+                object: doc['item-metadata'][i].val,
+                context: url
+            });
+        }
+    } catch(e) {
+        console.error(e);
+    }
+
+    try {
+        // store metadata for items and expand any catalogues
+        for (i=0;i<doc.items.length;i++) {
+            var item = doc.items[i];
+            item.href = URI(item.href).absoluteTo(url).toString();    // fixup relative URL
+            // store that catalogue has an item
+            storeFact({
+                subject: url,
+                predicate: "urn:X-tsbiot:rels:hasResource",
+                object: item.href,
+                context: url
+            });
+            for (var j=0;j<item['i-object-metadata'].length;j++) {
+                var mdata = item['i-object-metadata'][j];
+                //console.log("ITEM-FACT "+item.href+" "+mdata.rel+" "+mdata.val);
+                storeFact({
+                    subject: item.href,
+                    predicate: mdata.rel,
+                    object: mdata.val,
+                    context: url
+                });
+
+                // if we find a link to a catalogue, follow it
+                if (mdata.rel == "urn:X-tsbiot:rels:isContentType" &&
+                    mdata.val == "application/vnd.tsbiot.catalogue+json") {
+                        //unexplored.push(item.href);
+                        unexplored.push(item.href);
+                }
+            }
+        }
+    } catch(e) {
+        console.error(e);
+    }
+}
+
+function crawl(option,cb) {
+    if (unexplored.length > 0) {    // something to explore
+        var url = unexplored.pop();
+
+        if (explored.indexOf(url) == -1) {   // not seen before
+            fetch(url, option, function(err, doc) {
+                if (err) {
+                    console.error("Error in "+url+" ("+err+")");
+                    explored.push(url); // was bad, but explored
+                    crawl(option,cb);
+                } else {
+                    explored.push(url);
+                    expandCatalogue(url, doc);    // parse doc
+                    crawl(option,cb);    // do some more work
+                }
+            });
+        } else {
+            crawl(option,cb);  // get next
+        }
+    } else {
+        cb();   // done
+    }
+}
+
+// dump a graph in dot/GraphViz format
+function dumpGraph() {
+    if (facts.length) {
+        console.log("digraph {");
+        for (var i=0;i<facts.length;i++) {
+            console.log('    "'+facts[i].subject+'" -> "'+facts[i].object+'" [label="'+facts[i].predicate+'"];');
+        }
+        console.log("}");
+    }
+}
+
+// dump a graph in N-Quads format
+function dumpNQuads() {
+    function f(s) { // FIXME, not a great way to detect URI
+        if (s.match(/^http/) || s.match(/^mqtt/) || s.match(/^urn:/) || s.match(/^\//))
+            return '<'+s+'>';
+        else
+            return '"'+s+'"';
+    }
+    for (var i=0;i<facts.length;i++) {
+        console.log(f(facts[i].subject)+' '+f(facts[i].predicate)+' '+f(facts[i].object)+' '+f(facts[i].context)+' .');
+    }
+}
+
+startCrawl(armbuilding);
+
+function startCrawl(option){
+	// add root catalogue URL to crawl list
+	unexplored.push(option.url);
+	crawl(option,function() {
+		if (true)
+			dumpNQuads();
+		else
+			dumpGraph();
+	});
+}

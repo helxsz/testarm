@@ -17,6 +17,10 @@ var errors = require('../utils/errors'),
 	
 var AppBuilder = function() {
 
+		if (AppBuilder.prototype._singletonInstance) {
+				 return AppBuilder.prototype._singletonInstance;
+		}
+		AppBuilder.prototype._singletonInstance = this;
 		
 		this.getUser = getUser;
 		
@@ -70,4 +74,4 @@ var AppBuilder = function() {
 		}		
 };
 
-module.exports = AppBuilder;
+module.exports = new AppBuilder();

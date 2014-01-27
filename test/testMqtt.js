@@ -18,7 +18,7 @@ var
 	config = require('../conf/config'),
 	winston = require('../utils/logging.js'); 
 	
-subscribe();
+//subscribe();
 
 function subscribe(){
     console.log('subscribe');
@@ -57,10 +57,57 @@ function subscribe(){
         winston.info('MQTT Connected'.green+ '/'+config.pattern);	
 	
 	}
-
+    var enlight = {
+	    'name': 'enlight',
+		'description': 'Streetlight data',
+		'url': 'https://geras.1248.io/cat/enlight',
+		'key':'1bfc8d081f5b1eed8359a7517fdb054a',
+        'pattern':'enlight',
+		'host':'geras.1248.io',
+        'cat':'enlight',
+        'RT':'mqtt'		
+	},
+	armhome = {
+	    'name': 'armhome',
+		'description': 'ARM homes data',
+		'url': 'https://geras.1248.io/cat/armhome',
+		'key':'924a7d4dbfab38c964f5545fd6186559',
+        'pattern':'armhome',
+		'host':'geras.1248.io',
+        'cat':'armhome',
+        'RT':'mqtt'			
+	},
+	armmeeting = {
+	    'name': 'armmeeting',
+		'description': 'ARM meeting room data',
+		'url': 'https://geras.1248.io/cat/armmeeting',
+		'key':'924a7d4dbfab38c964f5545fd6186559',
+        'pattern':'armmeeting',
+		'host':'geras.1248.io',
+        'cat':'armmeeting',
+        'RT':'mqtt'			
+	},
+	armbuilding = {
+	    'name': 'armbuilding',
+		'description': '',
+		'url': 'https://protected-sands-2667.herokuapp.com/cat',
+		'key':'0L8kgshd4Lso3P1UQX7q',
+		'pattern':'',
+		'host':'protected-sands-2667.herokuapp.com',
+		'cat':''
+    },
+	intellisense = {
+	    'name': 'intellisense',
+		'description': '',
+		'url': 'https://5.79.20.223:3000/cat/ARM6',
+		'key':'d01fe91e8e249618d6c26d255f2a9d42',
+		'pattern':'',
+		'host':'protected-sands-2667.herokuapp.com',
+		'cat':''
+};
 //subscribeToMQTT(armhome,handleHomeData);
 //subscribeToMQTT(armmeeting,handleMeetingMotionData);
-//subscribeToMQTT(enlight,handleLightingData);  //,'/Ballast0000291B/light'
+subscribeToMQTT(enlight,handleLightingData);  //,'/Ballast0000291B/light'
 function subscribeToMQTT(config,handleCallback,name){
     name = name || '/#';
     var mqttclient = mqtt.createClient(1883, "geras.1248.io",{username:"" ,password: config.key, keepalive: 10000 });
@@ -95,7 +142,7 @@ function handleHomeData(topic, message) {
 		// stream to interoperbility layer
 		
 		// stream directly to app
-		io.sockets.emit('mqtt',{'payload' : data});		
+		//io.sockets.emit('mqtt',{'payload' : data});		
 }
 
 function handleLightingData(topic, message) {
@@ -103,11 +150,11 @@ function handleLightingData(topic, message) {
 		var data = JSON.parse(message);
 		var msg = data.e[0];  
 		var url = msg.n, value = msg.v, time = msg.t;
-		console.log(url,value);
+		console.log(url,value, time);
 		// stream to interoperbility layer
 		
 		// stream directly to app
-		io.sockets.emit('mqtt',{'payload' : data});		
+		//io.sockets.emit('mqtt',{'payload' : data});		
 }
 
 
@@ -123,7 +170,6 @@ function handleMeetingMotionData(topic, message) {
 		var roomID = array[2], sensorID = array[4], sensorType = array[5];
 		console.log(roomID, sensorID, sensorType, value);
 		// stream directly to app
-		io.sockets.emit('info',{room:roomID,sensor:sensorID,type:sensorType, value:value});
+		//io.sockets.emit('info',{room:roomID,sensor:sensorID,type:sensorType, value:value});
 		//io.sockets.emit('raw',{'payload' : raw});		
 }
-

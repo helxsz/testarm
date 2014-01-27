@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html >
+   <head>
+        <title>Visualization of Room</title>
+		<meta charset="utf-8">
+		<script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+	</head>
+	<body >
+
+        <div id="abc" > </div>	
+    </body>
+		
+	<script>
+var formatHour = d3.time.format("%H:%M");
+	var width = 1700,
+		height = 700,
+		padding = 100;
+		
+	// create an svg container
+	var vis = d3.select("body").append("svg").attr("width", width).attr("height", height);
+	
+	var startHour = 9, endHour = 18, startTimeline = 100, endTimeline = 1200;
+	
+	var now = new Date(), 
+	mindate = new Date( now.getFullYear (),now.getMonth(),now.getDate(),startHour),
+	maxdate = new Date( now.getFullYear (),now.getMonth(),now.getDate(),endHour);
+	var xScale = d3.time.scale().domain([mindate, maxdate]).range([startTimeline, endTimeline]);	
+	
+	var time_control, brush;
+	function showTimeControl(){
+	
+	    time_control = vis.append('g').attr('class','time_control'); 
+		/*****************  brush  ************************/
+				
+	    brush = d3.svg.brush().x(xScale).extent([mindate,maxdate])
+		              .on("brush", onbrushmove)
+								 
+	    time_control.append("g").attr("class", "brush").call(brush)
+		                         .selectAll("rect")								 
+                                 .attr("y", 6)
+                                 .attr("height",  50);	
+								 
+								 								 
+	}
+		function onbrushmove(){
+			var s = brush.extent();
+			xScale.domain( brush.empty() ? xScale.domain() : s);
+			console.log('on brush move',brush.empty(), s[0],s[1]);	
+            document.getElementById('abc').innerHTML = "brush empty:"+brush.empty()+"    "+formatHour(new Date(s[0]))+ "     "+formatHour(new Date(s[1]));			
+		}  
+    showTimeControl();
+
+
+</script>
+
+</html>
+
+
+
+

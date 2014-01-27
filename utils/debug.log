@@ -1,573 +1,165 @@
-{"level":"info","message":"\u001b[33mapp on development\u001b[39m","timestamp":"2014-01-23T11:51:05.230Z"}
-{"level":"info","message":"\u001b[33mthe port used \u001b[39m","timestamp":"2014-01-23T11:51:05.313Z"}
-{"level":"info","message":"\u001b[33mExpress started on port\u001b[39m","timestamp":"2014-01-23T11:51:05.330Z"}
-{"level":"info","message":"mongodb connect success","timestamp":"2014-01-23T11:51:06.193Z"}
-{"level":"info","message":"connection opening","timestamp":"2014-01-23T11:51:06.193Z"}
-{"level":"info","message":"\u001b[32mMQTT Connected\u001b[39m","timestamp":"2014-01-23T11:51:06.289Z"}
-{"level":"debug","message":"........................Room.UKCWillowA        undefined","timestamp":"2014-01-23T11:51:10.251Z"}
-{"level":"error","message":"Thu Jan 23 2014 11:51:10 GMT+0000 (GMT 标准时间):(H:\\Dropbox\\node\\testarm\\routes\\service.js:126:\u001b[31merror  \u001b[39m","timestamp":"2014-01-23T11:51:10.255Z"}
-{"level":"error","message":"Thu Jan 23 2014 11:51:10 GMT+0000 (GMT 标准时间):H:\\Dropbox\\node\\testarm\\routes\\meeting_api.js:218:error    undefined/events","timestamp":"2014-01-23T11:51:10.256Z"}
-{"level":"debug","message":"........................Room.UKCWillowB       https://protected-sands-2667.herokuapp.com/rooms/Room.UKCWillowB","timestamp":"2014-01-23T11:51:10.257Z"}
-{"level":"debug","message":"........................Room.UKCFM10       https://protected-sands-2667.herokuapp.com/rooms/Room.UKCFM10","timestamp":"2014-01-23T11:51:10.258Z"}
-{"level":"debug","message":"........................Room.UKCLectureTheatre       https://protected-sands-2667.herokuapp.com/rooms/Room.UKCLectureTheatre","timestamp":"2014-01-23T11:51:10.259Z"}
-{"level":"debug","message":"........................Room.UKCElm       https://protected-sands-2667.herokuapp.com/rooms/Room.UKCElm","timestamp":"2014-01-23T11:51:10.261Z"}
-{"level":"debug","message":"........................Room.UKCOak       https://protected-sands-2667.herokuapp.com/rooms/Room.UKCOak","timestamp":"2014-01-23T11:51:10.262Z"}
-{"level":"debug","message":"........................Room.UKCTrainingRoomB       undefined","timestamp":"2014-01-23T11:51:10.262Z"}
-{"level":"error","message":"Thu Jan 23 2014 11:51:10 GMT+0000 (GMT 标准时间):(H:\\Dropbox\\node\\testarm\\routes\\service.js:126:\u001b[31merror  \u001b[39m","timestamp":"2014-01-23T11:51:10.263Z"}
-{"level":"error","message":"Thu Jan 23 2014 11:51:10 GMT+0000 (GMT 标准时间):H:\\Dropbox\\node\\testarm\\routes\\meeting_api.js:218:error    undefined/events","timestamp":"2014-01-23T11:51:10.264Z"}
-{"level":"debug","message":"........................Room.UKCTrainingRoomA       undefined","timestamp":"2014-01-23T11:51:10.264Z"}
-{"level":"error","message":"Thu Jan 23 2014 11:51:10 GMT+0000 (GMT 标准时间):(H:\\Dropbox\\node\\testarm\\routes\\service.js:126:\u001b[31merror  \u001b[39m","timestamp":"2014-01-23T11:51:10.265Z"}
-{"level":"error","message":"Thu Jan 23 2014 11:51:10 GMT+0000 (GMT 标准时间):H:\\Dropbox\\node\\testarm\\routes\\meeting_api.js:218:error    undefined/events","timestamp":"2014-01-23T11:51:10.265Z"}
-{"level":"debug","message":"........................Room.UKCWillowA        undefined","timestamp":"2014-01-23T12:00:04.949Z"}
-{"level":"error","message":"Thu Jan 23 2014 12:00:04 GMT+0000 (GMT 标准时间):(H:\\Dropbox\\node\\testarm\\routes\\service.js:126:\u001b[31merror  \u001b[39m","timestamp":"2014-01-23T12:00:04.950Z"}
-{"level":"error","message":"Thu Jan 23 2014 12:00:04 GMT+0000 (GMT 标准时间):H:\\Dropbox\\node\\testarm\\routes\\meeting_api.js:218:error    undefined/events","timestamp":"2014-01-23T12:00:04.951Z"}
-{"level":"debug","message":"........................Room.UKCWillowB       https://protected-sands-2667.herokuapp.com/rooms/Room.UKCWillowB","timestamp":"2014-01-23T12:00:04.952Z"}
-{"level":"debug","message":"........................Room.UKCFM10       https://protected-sands-2667.herokuapp.com/rooms/Room.UKCFM10","timestamp":"2014-01-23T12:00:04.953Z"}
-{"level":"debug","message":"........................Room.UKCLectureTheatre       https://protected-sands-2667.herokuapp.com/rooms/Room.UKCLectureTheatre","timestamp":"2014-01-23T12:00:04.954Z"}
-{"level":"debug","message":"........................Room.UKCElm       https://protected-sands-2667.herokuapp.com/rooms/Room.UKCElm","timestamp":"2014-01-23T12:00:04.954Z"}
-{"level":"debug","message":"........................Room.UKCOak       https://protected-sands-2667.herokuapp.com/rooms/Room.UKCOak","timestamp":"2014-01-23T12:00:04.955Z"}
-{"level":"debug","message":"........................Room.UKCTrainingRoomB       undefined","timestamp":"2014-01-23T12:00:04.955Z"}
-{"level":"error","message":"Thu Jan 23 2014 12:00:04 GMT+0000 (GMT 标准时间):(H:\\Dropbox\\node\\testarm\\routes\\service.js:126:\u001b[31merror  \u001b[39m","timestamp":"2014-01-23T12:00:04.957Z"}
-{"level":"error","message":"Thu Jan 23 2014 12:00:04 GMT+0000 (GMT 标准时间):H:\\Dropbox\\node\\testarm\\routes\\meeting_api.js:218:error    undefined/events","timestamp":"2014-01-23T12:00:04.958Z"}
-{"level":"debug","message":"........................Room.UKCTrainingRoomA       undefined","timestamp":"2014-01-23T12:00:04.958Z"}
-{"level":"error","message":"Thu Jan 23 2014 12:00:04 GMT+0000 (GMT 标准时间):(H:\\Dropbox\\node\\testarm\\routes\\service.js:126:\u001b[31merror  \u001b[39m","timestamp":"2014-01-23T12:00:04.959Z"}
-{"level":"error","message":"Thu Jan 23 2014 12:00:04 GMT+0000 (GMT 标准时间):H:\\Dropbox\\node\\testarm\\routes\\meeting_api.js:218:error    undefined/events","timestamp":"2014-01-23T12:00:04.960Z"}
-{"level":"debug","message":"........................Room.UKCWillowA        undefined","timestamp":"2014-01-23T12:00:18.929Z"}
-{"level":"error","message":"Thu Jan 23 2014 12:00:18 GMT+0000 (GMT 标准时间):(H:\\Dropbox\\node\\testarm\\routes\\service.js:126:\u001b[31merror  \u001b[39m","timestamp":"2014-01-23T12:00:18.930Z"}
-{"level":"error","message":"Thu Jan 23 2014 12:00:18 GMT+0000 (GMT 标准时间):H:\\Dropbox\\node\\testarm\\routes\\meeting_api.js:218:error    undefined/events","timestamp":"2014-01-23T12:00:18.932Z"}
-{"level":"debug","message":"........................Room.UKCWillowB       https://protected-sands-2667.herokuapp.com/rooms/Room.UKCWillowB","timestamp":"2014-01-23T12:00:18.932Z"}
-{"level":"debug","message":"........................Room.UKCFM10       https://protected-sands-2667.herokuapp.com/rooms/Room.UKCFM10","timestamp":"2014-01-23T12:00:18.933Z"}
-{"level":"debug","message":"........................Room.UKCLectureTheatre       https://protected-sands-2667.herokuapp.com/rooms/Room.UKCLectureTheatre","timestamp":"2014-01-23T12:00:18.934Z"}
-{"level":"debug","message":"........................Room.UKCElm       https://protected-sands-2667.herokuapp.com/rooms/Room.UKCElm","timestamp":"2014-01-23T12:00:18.934Z"}
-{"level":"debug","message":"........................Room.UKCOak       https://protected-sands-2667.herokuapp.com/rooms/Room.UKCOak","timestamp":"2014-01-23T12:00:18.935Z"}
-{"level":"debug","message":"........................Room.UKCTrainingRoomB       undefined","timestamp":"2014-01-23T12:00:18.936Z"}
-{"level":"error","message":"Thu Jan 23 2014 12:00:18 GMT+0000 (GMT 标准时间):(H:\\Dropbox\\node\\testarm\\routes\\service.js:126:\u001b[31merror  \u001b[39m","timestamp":"2014-01-23T12:00:18.936Z"}
-{"level":"error","message":"Thu Jan 23 2014 12:00:18 GMT+0000 (GMT 标准时间):H:\\Dropbox\\node\\testarm\\routes\\meeting_api.js:218:error    undefined/events","timestamp":"2014-01-23T12:00:18.938Z"}
-{"level":"debug","message":"........................Room.UKCTrainingRoomA       undefined","timestamp":"2014-01-23T12:00:18.938Z"}
-{"level":"error","message":"Thu Jan 23 2014 12:00:18 GMT+0000 (GMT 标准时间):(H:\\Dropbox\\node\\testarm\\routes\\service.js:126:\u001b[31merror  \u001b[39m","timestamp":"2014-01-23T12:00:18.939Z"}
-{"level":"error","message":"Thu Jan 23 2014 12:00:18 GMT+0000 (GMT 标准时间):H:\\Dropbox\\node\\testarm\\routes\\meeting_api.js:218:error    undefined/events","timestamp":"2014-01-23T12:00:18.941Z"}
-{"level":"debug","message":"........................Room.UKCWillowA        undefined","timestamp":"2014-01-23T12:02:09.764Z"}
-{"level":"error","message":"Thu Jan 23 2014 12:02:09 GMT+0000 (GMT 标准时间):(H:\\Dropbox\\node\\testarm\\routes\\service.js:126:\u001b[31merror  \u001b[39m","timestamp":"2014-01-23T12:02:09.765Z"}
-{"level":"error","message":"Thu Jan 23 2014 12:02:09 GMT+0000 (GMT 标准时间):H:\\Dropbox\\node\\testarm\\routes\\meeting_api.js:218:error    undefined/events","timestamp":"2014-01-23T12:02:09.766Z"}
-{"level":"debug","message":"........................Room.UKCWillowB       https://protected-sands-2667.herokuapp.com/rooms/Room.UKCWillowB","timestamp":"2014-01-23T12:02:09.766Z"}
-{"level":"debug","message":"........................Room.UKCFM10       https://protected-sands-2667.herokuapp.com/rooms/Room.UKCFM10","timestamp":"2014-01-23T12:02:09.766Z"}
-{"level":"debug","message":"........................Room.UKCLectureTheatre       https://protected-sands-2667.herokuapp.com/rooms/Room.UKCLectureTheatre","timestamp":"2014-01-23T12:02:09.768Z"}
-{"level":"debug","message":"........................Room.UKCElm       https://protected-sands-2667.herokuapp.com/rooms/Room.UKCElm","timestamp":"2014-01-23T12:02:09.768Z"}
-{"level":"debug","message":"........................Room.UKCOak       https://protected-sands-2667.herokuapp.com/rooms/Room.UKCOak","timestamp":"2014-01-23T12:02:09.769Z"}
-{"level":"debug","message":"........................Room.UKCTrainingRoomB       undefined","timestamp":"2014-01-23T12:02:09.769Z"}
-{"level":"error","message":"Thu Jan 23 2014 12:02:09 GMT+0000 (GMT 标准时间):(H:\\Dropbox\\node\\testarm\\routes\\service.js:126:\u001b[31merror  \u001b[39m","timestamp":"2014-01-23T12:02:09.770Z"}
-{"level":"error","message":"Thu Jan 23 2014 12:02:09 GMT+0000 (GMT 标准时间):H:\\Dropbox\\node\\testarm\\routes\\meeting_api.js:218:error    undefined/events","timestamp":"2014-01-23T12:02:09.771Z"}
-{"level":"debug","message":"........................Room.UKCTrainingRoomA       undefined","timestamp":"2014-01-23T12:02:09.771Z"}
-{"level":"error","message":"Thu Jan 23 2014 12:02:09 GMT+0000 (GMT 标准时间):(H:\\Dropbox\\node\\testarm\\routes\\service.js:126:\u001b[31merror  \u001b[39m","timestamp":"2014-01-23T12:02:09.772Z"}
-{"level":"error","message":"Thu Jan 23 2014 12:02:09 GMT+0000 (GMT 标准时间):H:\\Dropbox\\node\\testarm\\routes\\meeting_api.js:218:error    undefined/events","timestamp":"2014-01-23T12:02:09.772Z"}
-{"level":"debug","message":"........................Room.UKCWillowA        undefined","timestamp":"2014-01-23T12:02:36.938Z"}
-{"level":"error","message":"Thu Jan 23 2014 12:02:36 GMT+0000 (GMT 标准时间):(H:\\Dropbox\\node\\testarm\\routes\\service.js:126:\u001b[31merror  \u001b[39m","timestamp":"2014-01-23T12:02:36.939Z"}
-{"level":"error","message":"Thu Jan 23 2014 12:02:36 GMT+0000 (GMT 标准时间):H:\\Dropbox\\node\\testarm\\routes\\meeting_api.js:218:error    undefined/events","timestamp":"2014-01-23T12:02:36.941Z"}
-{"level":"debug","message":"........................Room.UKCWillowB       https://protected-sands-2667.herokuapp.com/rooms/Room.UKCWillowB","timestamp":"2014-01-23T12:02:36.941Z"}
-{"level":"debug","message":"........................Room.UKCFM10       https://protected-sands-2667.herokuapp.com/rooms/Room.UKCFM10","timestamp":"2014-01-23T12:02:36.942Z"}
-{"level":"debug","message":"........................Room.UKCLectureTheatre       https://protected-sands-2667.herokuapp.com/rooms/Room.UKCLectureTheatre","timestamp":"2014-01-23T12:02:36.942Z"}
-{"level":"debug","message":"........................Room.UKCElm       https://protected-sands-2667.herokuapp.com/rooms/Room.UKCElm","timestamp":"2014-01-23T12:02:36.943Z"}
-{"level":"debug","message":"........................Room.UKCOak       https://protected-sands-2667.herokuapp.com/rooms/Room.UKCOak","timestamp":"2014-01-23T12:02:36.943Z"}
-{"level":"debug","message":"........................Room.UKCTrainingRoomB       undefined","timestamp":"2014-01-23T12:02:36.943Z"}
-{"level":"error","message":"Thu Jan 23 2014 12:02:36 GMT+0000 (GMT 标准时间):(H:\\Dropbox\\node\\testarm\\routes\\service.js:126:\u001b[31merror  \u001b[39m","timestamp":"2014-01-23T12:02:36.944Z"}
-{"level":"error","message":"Thu Jan 23 2014 12:02:36 GMT+0000 (GMT 标准时间):H:\\Dropbox\\node\\testarm\\routes\\meeting_api.js:218:error    undefined/events","timestamp":"2014-01-23T12:02:36.945Z"}
-{"level":"debug","message":"........................Room.UKCTrainingRoomA       undefined","timestamp":"2014-01-23T12:02:36.945Z"}
-{"level":"error","message":"Thu Jan 23 2014 12:02:36 GMT+0000 (GMT 标准时间):(H:\\Dropbox\\node\\testarm\\routes\\service.js:126:\u001b[31merror  \u001b[39m","timestamp":"2014-01-23T12:02:36.947Z"}
-{"level":"error","message":"Thu Jan 23 2014 12:02:36 GMT+0000 (GMT 标准时间):H:\\Dropbox\\node\\testarm\\routes\\meeting_api.js:218:error    undefined/events","timestamp":"2014-01-23T12:02:36.948Z"}
-{"level":"debug","message":"........................Room.UKCWillowA        undefined","timestamp":"2014-01-23T12:03:56.728Z"}
-{"level":"error","message":"Thu Jan 23 2014 12:03:56 GMT+0000 (GMT 标准时间):(H:\\Dropbox\\node\\testarm\\routes\\service.js:126:\u001b[31merror  \u001b[39m","timestamp":"2014-01-23T12:03:56.729Z"}
-{"level":"error","message":"Thu Jan 23 2014 12:03:56 GMT+0000 (GMT 标准时间):H:\\Dropbox\\node\\testarm\\routes\\meeting_api.js:218:error    undefined/events","timestamp":"2014-01-23T12:03:56.730Z"}
-{"level":"debug","message":"........................Room.UKCWillowB       https://protected-sands-2667.herokuapp.com/rooms/Room.UKCWillowB","timestamp":"2014-01-23T12:03:56.731Z"}
-{"level":"debug","message":"........................Room.UKCFM10       https://protected-sands-2667.herokuapp.com/rooms/Room.UKCFM10","timestamp":"2014-01-23T12:03:56.731Z"}
-{"level":"debug","message":"........................Room.UKCLectureTheatre       https://protected-sands-2667.herokuapp.com/rooms/Room.UKCLectureTheatre","timestamp":"2014-01-23T12:03:56.732Z"}
-{"level":"debug","message":"........................Room.UKCElm       https://protected-sands-2667.herokuapp.com/rooms/Room.UKCElm","timestamp":"2014-01-23T12:03:56.732Z"}
-{"level":"debug","message":"........................Room.UKCOak       https://protected-sands-2667.herokuapp.com/rooms/Room.UKCOak","timestamp":"2014-01-23T12:03:56.733Z"}
-{"level":"debug","message":"........................Room.UKCTrainingRoomB       undefined","timestamp":"2014-01-23T12:03:56.733Z"}
-{"level":"error","message":"Thu Jan 23 2014 12:03:56 GMT+0000 (GMT 标准时间):(H:\\Dropbox\\node\\testarm\\routes\\service.js:126:\u001b[31merror  \u001b[39m","timestamp":"2014-01-23T12:03:56.736Z"}
-{"level":"error","message":"Thu Jan 23 2014 12:03:56 GMT+0000 (GMT 标准时间):H:\\Dropbox\\node\\testarm\\routes\\meeting_api.js:218:error    undefined/events","timestamp":"2014-01-23T12:03:56.736Z"}
-{"level":"debug","message":"........................Room.UKCTrainingRoomA       undefined","timestamp":"2014-01-23T12:03:56.737Z"}
-{"level":"error","message":"Thu Jan 23 2014 12:03:56 GMT+0000 (GMT 标准时间):(H:\\Dropbox\\node\\testarm\\routes\\service.js:126:\u001b[31merror  \u001b[39m","timestamp":"2014-01-23T12:03:56.738Z"}
-{"level":"error","message":"Thu Jan 23 2014 12:03:56 GMT+0000 (GMT 标准时间):H:\\Dropbox\\node\\testarm\\routes\\meeting_api.js:218:error    undefined/events","timestamp":"2014-01-23T12:03:56.738Z"}
-{"level":"debug","message":"........................Room.UKCWillowA        undefined","timestamp":"2014-01-23T12:04:47.356Z"}
-{"level":"error","message":"Thu Jan 23 2014 12:04:47 GMT+0000 (GMT 标准时间):(H:\\Dropbox\\node\\testarm\\routes\\service.js:126:\u001b[31merror  \u001b[39m","timestamp":"2014-01-23T12:04:47.357Z"}
-{"level":"error","message":"Thu Jan 23 2014 12:04:47 GMT+0000 (GMT 标准时间):H:\\Dropbox\\node\\testarm\\routes\\meeting_api.js:218:error    undefined/events","timestamp":"2014-01-23T12:04:47.358Z"}
-{"level":"debug","message":"........................Room.UKCWillowB       https://protected-sands-2667.herokuapp.com/rooms/Room.UKCWillowB","timestamp":"2014-01-23T12:04:47.358Z"}
-{"level":"debug","message":"........................Room.UKCFM10       https://protected-sands-2667.herokuapp.com/rooms/Room.UKCFM10","timestamp":"2014-01-23T12:04:47.359Z"}
-{"level":"debug","message":"........................Room.UKCLectureTheatre       https://protected-sands-2667.herokuapp.com/rooms/Room.UKCLectureTheatre","timestamp":"2014-01-23T12:04:47.359Z"}
-{"level":"debug","message":"........................Room.UKCElm       https://protected-sands-2667.herokuapp.com/rooms/Room.UKCElm","timestamp":"2014-01-23T12:04:47.360Z"}
-{"level":"debug","message":"........................Room.UKCOak       https://protected-sands-2667.herokuapp.com/rooms/Room.UKCOak","timestamp":"2014-01-23T12:04:47.360Z"}
-{"level":"debug","message":"........................Room.UKCTrainingRoomB       undefined","timestamp":"2014-01-23T12:04:47.360Z"}
-{"level":"error","message":"Thu Jan 23 2014 12:04:47 GMT+0000 (GMT 标准时间):(H:\\Dropbox\\node\\testarm\\routes\\service.js:126:\u001b[31merror  \u001b[39m","timestamp":"2014-01-23T12:04:47.361Z"}
-{"level":"error","message":"Thu Jan 23 2014 12:04:47 GMT+0000 (GMT 标准时间):H:\\Dropbox\\node\\testarm\\routes\\meeting_api.js:218:error    undefined/events","timestamp":"2014-01-23T12:04:47.363Z"}
-{"level":"debug","message":"........................Room.UKCTrainingRoomA       undefined","timestamp":"2014-01-23T12:04:47.363Z"}
-{"level":"error","message":"Thu Jan 23 2014 12:04:47 GMT+0000 (GMT 标准时间):(H:\\Dropbox\\node\\testarm\\routes\\service.js:126:\u001b[31merror  \u001b[39m","timestamp":"2014-01-23T12:04:47.365Z"}
-{"level":"error","message":"Thu Jan 23 2014 12:04:47 GMT+0000 (GMT 标准时间):H:\\Dropbox\\node\\testarm\\routes\\meeting_api.js:218:error    undefined/events","timestamp":"2014-01-23T12:04:47.365Z"}
-{"level":"debug","message":"........................Room.UKCWillowA        undefined","timestamp":"2014-01-23T12:06:39.053Z"}
-{"level":"error","message":"Thu Jan 23 2014 12:06:39 GMT+0000 (GMT 标准时间):(H:\\Dropbox\\node\\testarm\\routes\\service.js:126:\u001b[31merror  \u001b[39m","timestamp":"2014-01-23T12:06:39.054Z"}
-{"level":"error","message":"Thu Jan 23 2014 12:06:39 GMT+0000 (GMT 标准时间):H:\\Dropbox\\node\\testarm\\routes\\meeting_api.js:218:error    undefined/events","timestamp":"2014-01-23T12:06:39.054Z"}
-{"level":"debug","message":"........................Room.UKCWillowB       https://protected-sands-2667.herokuapp.com/rooms/Room.UKCWillowB","timestamp":"2014-01-23T12:06:39.055Z"}
-{"level":"debug","message":"........................Room.UKCFM10       https://protected-sands-2667.herokuapp.com/rooms/Room.UKCFM10","timestamp":"2014-01-23T12:06:39.055Z"}
-{"level":"debug","message":"........................Room.UKCLectureTheatre       https://protected-sands-2667.herokuapp.com/rooms/Room.UKCLectureTheatre","timestamp":"2014-01-23T12:06:39.056Z"}
-{"level":"debug","message":"........................Room.UKCElm       https://protected-sands-2667.herokuapp.com/rooms/Room.UKCElm","timestamp":"2014-01-23T12:06:39.056Z"}
-{"level":"debug","message":"........................Room.UKCOak       https://protected-sands-2667.herokuapp.com/rooms/Room.UKCOak","timestamp":"2014-01-23T12:06:39.057Z"}
-{"level":"debug","message":"........................Room.UKCTrainingRoomB       undefined","timestamp":"2014-01-23T12:06:39.057Z"}
-{"level":"error","message":"Thu Jan 23 2014 12:06:39 GMT+0000 (GMT 标准时间):(H:\\Dropbox\\node\\testarm\\routes\\service.js:126:\u001b[31merror  \u001b[39m","timestamp":"2014-01-23T12:06:39.058Z"}
-{"level":"error","message":"Thu Jan 23 2014 12:06:39 GMT+0000 (GMT 标准时间):H:\\Dropbox\\node\\testarm\\routes\\meeting_api.js:218:error    undefined/events","timestamp":"2014-01-23T12:06:39.059Z"}
-{"level":"debug","message":"........................Room.UKCTrainingRoomA       undefined","timestamp":"2014-01-23T12:06:39.059Z"}
-{"level":"error","message":"Thu Jan 23 2014 12:06:39 GMT+0000 (GMT 标准时间):(H:\\Dropbox\\node\\testarm\\routes\\service.js:126:\u001b[31merror  \u001b[39m","timestamp":"2014-01-23T12:06:39.060Z"}
-{"level":"error","message":"Thu Jan 23 2014 12:06:39 GMT+0000 (GMT 标准时间):H:\\Dropbox\\node\\testarm\\routes\\meeting_api.js:218:error    undefined/events","timestamp":"2014-01-23T12:06:39.061Z"}
-{"level":"debug","message":"........................Room.UKCWillowA        undefined","timestamp":"2014-01-23T12:07:02.799Z"}
-{"level":"error","message":"Thu Jan 23 2014 12:07:02 GMT+0000 (GMT 标准时间):(H:\\Dropbox\\node\\testarm\\routes\\service.js:126:\u001b[31merror  \u001b[39m","timestamp":"2014-01-23T12:07:02.800Z"}
-{"level":"error","message":"Thu Jan 23 2014 12:07:02 GMT+0000 (GMT 标准时间):H:\\Dropbox\\node\\testarm\\routes\\meeting_api.js:218:error    undefined/events","timestamp":"2014-01-23T12:07:02.802Z"}
-{"level":"debug","message":"........................Room.UKCWillowB       https://protected-sands-2667.herokuapp.com/rooms/Room.UKCWillowB","timestamp":"2014-01-23T12:07:02.802Z"}
-{"level":"debug","message":"........................Room.UKCFM10       https://protected-sands-2667.herokuapp.com/rooms/Room.UKCFM10","timestamp":"2014-01-23T12:07:02.802Z"}
-{"level":"debug","message":"........................Room.UKCLectureTheatre       https://protected-sands-2667.herokuapp.com/rooms/Room.UKCLectureTheatre","timestamp":"2014-01-23T12:07:02.803Z"}
-{"level":"debug","message":"........................Room.UKCElm       https://protected-sands-2667.herokuapp.com/rooms/Room.UKCElm","timestamp":"2014-01-23T12:07:02.803Z"}
-{"level":"debug","message":"........................Room.UKCOak       https://protected-sands-2667.herokuapp.com/rooms/Room.UKCOak","timestamp":"2014-01-23T12:07:02.804Z"}
-{"level":"debug","message":"........................Room.UKCTrainingRoomB       undefined","timestamp":"2014-01-23T12:07:02.804Z"}
-{"level":"error","message":"Thu Jan 23 2014 12:07:02 GMT+0000 (GMT 标准时间):(H:\\Dropbox\\node\\testarm\\routes\\service.js:126:\u001b[31merror  \u001b[39m","timestamp":"2014-01-23T12:07:02.805Z"}
-{"level":"error","message":"Thu Jan 23 2014 12:07:02 GMT+0000 (GMT 标准时间):H:\\Dropbox\\node\\testarm\\routes\\meeting_api.js:218:error    undefined/events","timestamp":"2014-01-23T12:07:02.805Z"}
-{"level":"debug","message":"........................Room.UKCTrainingRoomA       undefined","timestamp":"2014-01-23T12:07:02.806Z"}
-{"level":"error","message":"Thu Jan 23 2014 12:07:02 GMT+0000 (GMT 标准时间):(H:\\Dropbox\\node\\testarm\\routes\\service.js:126:\u001b[31merror  \u001b[39m","timestamp":"2014-01-23T12:07:02.806Z"}
-{"level":"error","message":"Thu Jan 23 2014 12:07:02 GMT+0000 (GMT 标准时间):H:\\Dropbox\\node\\testarm\\routes\\meeting_api.js:218:error    undefined/events","timestamp":"2014-01-23T12:07:02.807Z"}
-{"0":"Thu Jan 23 2014 12:41:46 GMT+0000 (GMT 标准时间)","1":"SIGINT","level":"info","message":"%s: Received %s - terminating Node server ...","timestamp":"2014-01-23T12:41:46.012Z"}
-{"level":"info","message":"\u001b[33mapp on development\u001b[39m","timestamp":"2014-01-23T12:42:33.856Z"}
-{"level":"info","message":"\u001b[33mthe port used \u001b[39m","timestamp":"2014-01-23T12:42:33.939Z"}
-{"level":"info","message":"\u001b[33mExpress started on port\u001b[39m","timestamp":"2014-01-23T12:42:33.956Z"}
-{"level":"info","message":"mongodb connect success","timestamp":"2014-01-23T12:42:34.819Z"}
-{"level":"info","message":"connection opening","timestamp":"2014-01-23T12:42:34.820Z"}
-{"level":"info","message":"\u001b[32mMQTT Connected\u001b[39m","timestamp":"2014-01-23T12:42:35.720Z"}
-{"level":"debug","message":"........................Room.UKCWillowA        undefined","timestamp":"2014-01-23T12:42:55.317Z"}
-{"level":"error","message":"Thu Jan 23 2014 12:42:55 GMT+0000 (GMT 标准时间):(H:\\Dropbox\\node\\testarm\\routes\\service.js:126:\u001b[31merror  \u001b[39m","timestamp":"2014-01-23T12:42:55.322Z"}
-{"level":"error","message":"Thu Jan 23 2014 12:42:55 GMT+0000 (GMT 标准时间):H:\\Dropbox\\node\\testarm\\routes\\meeting_api.js:218:error    undefined/events","timestamp":"2014-01-23T12:42:55.324Z"}
-{"level":"debug","message":"........................Room.UKCWillowB       https://protected-sands-2667.herokuapp.com/rooms/Room.UKCWillowB","timestamp":"2014-01-23T12:42:55.324Z"}
-{"level":"debug","message":"........................Room.UKCFM10       https://protected-sands-2667.herokuapp.com/rooms/Room.UKCFM10","timestamp":"2014-01-23T12:42:55.326Z"}
-{"level":"debug","message":"........................Room.UKCLectureTheatre       https://protected-sands-2667.herokuapp.com/rooms/Room.UKCLectureTheatre","timestamp":"2014-01-23T12:42:55.327Z"}
-{"level":"debug","message":"........................Room.UKCElm       https://protected-sands-2667.herokuapp.com/rooms/Room.UKCElm","timestamp":"2014-01-23T12:42:55.328Z"}
-{"level":"debug","message":"........................Room.UKCOak       https://protected-sands-2667.herokuapp.com/rooms/Room.UKCOak","timestamp":"2014-01-23T12:42:55.329Z"}
-{"level":"debug","message":"........................Room.UKCTrainingRoomB       undefined","timestamp":"2014-01-23T12:42:55.330Z"}
-{"level":"error","message":"Thu Jan 23 2014 12:42:55 GMT+0000 (GMT 标准时间):(H:\\Dropbox\\node\\testarm\\routes\\service.js:126:\u001b[31merror  \u001b[39m","timestamp":"2014-01-23T12:42:55.332Z"}
-{"level":"error","message":"Thu Jan 23 2014 12:42:55 GMT+0000 (GMT 标准时间):H:\\Dropbox\\node\\testarm\\routes\\meeting_api.js:218:error    undefined/events","timestamp":"2014-01-23T12:42:55.334Z"}
-{"level":"debug","message":"........................Room.UKCTrainingRoomA       undefined","timestamp":"2014-01-23T12:42:55.335Z"}
-{"level":"error","message":"Thu Jan 23 2014 12:42:55 GMT+0000 (GMT 标准时间):(H:\\Dropbox\\node\\testarm\\routes\\service.js:126:\u001b[31merror  \u001b[39m","timestamp":"2014-01-23T12:42:55.337Z"}
-{"level":"error","message":"Thu Jan 23 2014 12:42:55 GMT+0000 (GMT 标准时间):H:\\Dropbox\\node\\testarm\\routes\\meeting_api.js:218:error    undefined/events","timestamp":"2014-01-23T12:42:55.339Z"}
-{"level":"debug","message":"........................Room.UKCWillowA        undefined","timestamp":"2014-01-23T12:51:28.676Z"}
-{"level":"error","message":"Thu Jan 23 2014 12:51:28 GMT+0000 (GMT 标准时间):(H:\\Dropbox\\node\\testarm\\routes\\service.js:126:\u001b[31merror  \u001b[39m","timestamp":"2014-01-23T12:51:28.678Z"}
-{"level":"error","message":"Thu Jan 23 2014 12:51:28 GMT+0000 (GMT 标准时间):H:\\Dropbox\\node\\testarm\\routes\\meeting_api.js:218:error    undefined/events","timestamp":"2014-01-23T12:51:28.679Z"}
-{"level":"debug","message":"........................Room.UKCWillowB       https://protected-sands-2667.herokuapp.com/rooms/Room.UKCWillowB","timestamp":"2014-01-23T12:51:28.680Z"}
-{"level":"debug","message":"........................Room.UKCFM10       https://protected-sands-2667.herokuapp.com/rooms/Room.UKCFM10","timestamp":"2014-01-23T12:51:28.680Z"}
-{"level":"debug","message":"........................Room.UKCLectureTheatre       https://protected-sands-2667.herokuapp.com/rooms/Room.UKCLectureTheatre","timestamp":"2014-01-23T12:51:28.681Z"}
-{"level":"debug","message":"........................Room.UKCElm       https://protected-sands-2667.herokuapp.com/rooms/Room.UKCElm","timestamp":"2014-01-23T12:51:28.682Z"}
-{"level":"debug","message":"........................Room.UKCOak       https://protected-sands-2667.herokuapp.com/rooms/Room.UKCOak","timestamp":"2014-01-23T12:51:28.682Z"}
-{"level":"debug","message":"........................Room.UKCTrainingRoomB       undefined","timestamp":"2014-01-23T12:51:28.683Z"}
-{"level":"error","message":"Thu Jan 23 2014 12:51:28 GMT+0000 (GMT 标准时间):(H:\\Dropbox\\node\\testarm\\routes\\service.js:126:\u001b[31merror  \u001b[39m","timestamp":"2014-01-23T12:51:28.684Z"}
-{"level":"error","message":"Thu Jan 23 2014 12:51:28 GMT+0000 (GMT 标准时间):H:\\Dropbox\\node\\testarm\\routes\\meeting_api.js:218:error    undefined/events","timestamp":"2014-01-23T12:51:28.685Z"}
-{"level":"debug","message":"........................Room.UKCTrainingRoomA       undefined","timestamp":"2014-01-23T12:51:28.686Z"}
-{"level":"error","message":"Thu Jan 23 2014 12:51:28 GMT+0000 (GMT 标准时间):(H:\\Dropbox\\node\\testarm\\routes\\service.js:126:\u001b[31merror  \u001b[39m","timestamp":"2014-01-23T12:51:28.687Z"}
-{"level":"error","message":"Thu Jan 23 2014 12:51:28 GMT+0000 (GMT 标准时间):H:\\Dropbox\\node\\testarm\\routes\\meeting_api.js:218:error    undefined/events","timestamp":"2014-01-23T12:51:28.688Z"}
-{"level":"debug","message":"........................Room.UKCWillowA        undefined","timestamp":"2014-01-23T12:51:47.883Z"}
-{"level":"error","message":"Thu Jan 23 2014 12:51:47 GMT+0000 (GMT 标准时间):(H:\\Dropbox\\node\\testarm\\routes\\service.js:126:\u001b[31merror  \u001b[39m","timestamp":"2014-01-23T12:51:47.885Z"}
-{"level":"error","message":"Thu Jan 23 2014 12:51:47 GMT+0000 (GMT 标准时间):H:\\Dropbox\\node\\testarm\\routes\\meeting_api.js:218:error    undefined/events","timestamp":"2014-01-23T12:51:47.887Z"}
-{"level":"debug","message":"........................Room.UKCWillowB       https://protected-sands-2667.herokuapp.com/rooms/Room.UKCWillowB","timestamp":"2014-01-23T12:51:47.887Z"}
-{"level":"debug","message":"........................Room.UKCFM10       https://protected-sands-2667.herokuapp.com/rooms/Room.UKCFM10","timestamp":"2014-01-23T12:51:47.888Z"}
-{"level":"debug","message":"........................Room.UKCLectureTheatre       https://protected-sands-2667.herokuapp.com/rooms/Room.UKCLectureTheatre","timestamp":"2014-01-23T12:51:47.889Z"}
-{"level":"debug","message":"........................Room.UKCElm       https://protected-sands-2667.herokuapp.com/rooms/Room.UKCElm","timestamp":"2014-01-23T12:51:47.890Z"}
-{"level":"debug","message":"........................Room.UKCOak       https://protected-sands-2667.herokuapp.com/rooms/Room.UKCOak","timestamp":"2014-01-23T12:51:47.890Z"}
-{"level":"debug","message":"........................Room.UKCTrainingRoomB       undefined","timestamp":"2014-01-23T12:51:47.891Z"}
-{"level":"error","message":"Thu Jan 23 2014 12:51:47 GMT+0000 (GMT 标准时间):(H:\\Dropbox\\node\\testarm\\routes\\service.js:126:\u001b[31merror  \u001b[39m","timestamp":"2014-01-23T12:51:47.893Z"}
-{"level":"error","message":"Thu Jan 23 2014 12:51:47 GMT+0000 (GMT 标准时间):H:\\Dropbox\\node\\testarm\\routes\\meeting_api.js:218:error    undefined/events","timestamp":"2014-01-23T12:51:47.893Z"}
-{"level":"debug","message":"........................Room.UKCTrainingRoomA       undefined","timestamp":"2014-01-23T12:51:47.894Z"}
-{"level":"error","message":"Thu Jan 23 2014 12:51:47 GMT+0000 (GMT 标准时间):(H:\\Dropbox\\node\\testarm\\routes\\service.js:126:\u001b[31merror  \u001b[39m","timestamp":"2014-01-23T12:51:47.895Z"}
-{"level":"error","message":"Thu Jan 23 2014 12:51:47 GMT+0000 (GMT 标准时间):H:\\Dropbox\\node\\testarm\\routes\\meeting_api.js:218:error    undefined/events","timestamp":"2014-01-23T12:51:47.896Z"}
-{"level":"debug","message":"........................Room.UKCWillowA        undefined","timestamp":"2014-01-23T12:52:06.821Z"}
-{"level":"error","message":"Thu Jan 23 2014 12:52:06 GMT+0000 (GMT 标准时间):(H:\\Dropbox\\node\\testarm\\routes\\service.js:126:\u001b[31merror  \u001b[39m","timestamp":"2014-01-23T12:52:06.823Z"}
-{"level":"error","message":"Thu Jan 23 2014 12:52:06 GMT+0000 (GMT 标准时间):H:\\Dropbox\\node\\testarm\\routes\\meeting_api.js:218:error    undefined/events","timestamp":"2014-01-23T12:52:06.824Z"}
-{"level":"debug","message":"........................Room.UKCWillowB       https://protected-sands-2667.herokuapp.com/rooms/Room.UKCWillowB","timestamp":"2014-01-23T12:52:06.824Z"}
-{"level":"debug","message":"........................Room.UKCFM10       https://protected-sands-2667.herokuapp.com/rooms/Room.UKCFM10","timestamp":"2014-01-23T12:52:06.825Z"}
-{"level":"debug","message":"........................Room.UKCLectureTheatre       https://protected-sands-2667.herokuapp.com/rooms/Room.UKCLectureTheatre","timestamp":"2014-01-23T12:52:06.826Z"}
-{"level":"debug","message":"........................Room.UKCElm       https://protected-sands-2667.herokuapp.com/rooms/Room.UKCElm","timestamp":"2014-01-23T12:52:06.828Z"}
-{"level":"debug","message":"........................Room.UKCOak       https://protected-sands-2667.herokuapp.com/rooms/Room.UKCOak","timestamp":"2014-01-23T12:52:06.828Z"}
-{"level":"debug","message":"........................Room.UKCTrainingRoomB       undefined","timestamp":"2014-01-23T12:52:06.829Z"}
-{"level":"error","message":"Thu Jan 23 2014 12:52:06 GMT+0000 (GMT 标准时间):(H:\\Dropbox\\node\\testarm\\routes\\service.js:126:\u001b[31merror  \u001b[39m","timestamp":"2014-01-23T12:52:06.830Z"}
-{"level":"error","message":"Thu Jan 23 2014 12:52:06 GMT+0000 (GMT 标准时间):H:\\Dropbox\\node\\testarm\\routes\\meeting_api.js:218:error    undefined/events","timestamp":"2014-01-23T12:52:06.832Z"}
-{"level":"debug","message":"........................Room.UKCTrainingRoomA       undefined","timestamp":"2014-01-23T12:52:06.832Z"}
-{"level":"error","message":"Thu Jan 23 2014 12:52:06 GMT+0000 (GMT 标准时间):(H:\\Dropbox\\node\\testarm\\routes\\service.js:126:\u001b[31merror  \u001b[39m","timestamp":"2014-01-23T12:52:06.833Z"}
-{"level":"error","message":"Thu Jan 23 2014 12:52:06 GMT+0000 (GMT 标准时间):H:\\Dropbox\\node\\testarm\\routes\\meeting_api.js:218:error    undefined/events","timestamp":"2014-01-23T12:52:06.834Z"}
-{"level":"debug","message":"........................Room.UKCWillowA        undefined","timestamp":"2014-01-23T12:52:43.143Z"}
-{"level":"error","message":"Thu Jan 23 2014 12:52:43 GMT+0000 (GMT 标准时间):(H:\\Dropbox\\node\\testarm\\routes\\service.js:126:\u001b[31merror  \u001b[39m","timestamp":"2014-01-23T12:52:43.145Z"}
-{"level":"error","message":"Thu Jan 23 2014 12:52:43 GMT+0000 (GMT 标准时间):H:\\Dropbox\\node\\testarm\\routes\\meeting_api.js:218:error    undefined/events","timestamp":"2014-01-23T12:52:43.146Z"}
-{"level":"debug","message":"........................Room.UKCWillowB       https://protected-sands-2667.herokuapp.com/rooms/Room.UKCWillowB","timestamp":"2014-01-23T12:52:43.147Z"}
-{"level":"debug","message":"........................Room.UKCFM10       https://protected-sands-2667.herokuapp.com/rooms/Room.UKCFM10","timestamp":"2014-01-23T12:52:43.147Z"}
-{"level":"debug","message":"........................Room.UKCLectureTheatre       https://protected-sands-2667.herokuapp.com/rooms/Room.UKCLectureTheatre","timestamp":"2014-01-23T12:52:43.148Z"}
-{"level":"debug","message":"........................Room.UKCElm       https://protected-sands-2667.herokuapp.com/rooms/Room.UKCElm","timestamp":"2014-01-23T12:52:43.149Z"}
-{"level":"debug","message":"........................Room.UKCOak       https://protected-sands-2667.herokuapp.com/rooms/Room.UKCOak","timestamp":"2014-01-23T12:52:43.150Z"}
-{"level":"debug","message":"........................Room.UKCTrainingRoomB       undefined","timestamp":"2014-01-23T12:52:43.151Z"}
-{"level":"error","message":"Thu Jan 23 2014 12:52:43 GMT+0000 (GMT 标准时间):(H:\\Dropbox\\node\\testarm\\routes\\service.js:126:\u001b[31merror  \u001b[39m","timestamp":"2014-01-23T12:52:43.152Z"}
-{"level":"error","message":"Thu Jan 23 2014 12:52:43 GMT+0000 (GMT 标准时间):H:\\Dropbox\\node\\testarm\\routes\\meeting_api.js:218:error    undefined/events","timestamp":"2014-01-23T12:52:43.153Z"}
-{"level":"debug","message":"........................Room.UKCTrainingRoomA       undefined","timestamp":"2014-01-23T12:52:43.154Z"}
-{"level":"error","message":"Thu Jan 23 2014 12:52:43 GMT+0000 (GMT 标准时间):(H:\\Dropbox\\node\\testarm\\routes\\service.js:126:\u001b[31merror  \u001b[39m","timestamp":"2014-01-23T12:52:43.155Z"}
-{"level":"error","message":"Thu Jan 23 2014 12:52:43 GMT+0000 (GMT 标准时间):H:\\Dropbox\\node\\testarm\\routes\\meeting_api.js:218:error    undefined/events","timestamp":"2014-01-23T12:52:43.156Z"}
-{"level":"debug","message":"........................Room.UKCWillowA        undefined","timestamp":"2014-01-23T12:55:36.819Z"}
-{"level":"error","message":"Thu Jan 23 2014 12:55:36 GMT+0000 (GMT 标准时间):(H:\\Dropbox\\node\\testarm\\routes\\service.js:126:\u001b[31merror  \u001b[39m","timestamp":"2014-01-23T12:55:36.821Z"}
-{"level":"error","message":"Thu Jan 23 2014 12:55:36 GMT+0000 (GMT 标准时间):H:\\Dropbox\\node\\testarm\\routes\\meeting_api.js:218:error    undefined/events","timestamp":"2014-01-23T12:55:36.822Z"}
-{"level":"debug","message":"........................Room.UKCWillowB       https://protected-sands-2667.herokuapp.com/rooms/Room.UKCWillowB","timestamp":"2014-01-23T12:55:36.823Z"}
-{"level":"debug","message":"........................Room.UKCFM10       https://protected-sands-2667.herokuapp.com/rooms/Room.UKCFM10","timestamp":"2014-01-23T12:55:36.824Z"}
-{"level":"debug","message":"........................Room.UKCLectureTheatre       https://protected-sands-2667.herokuapp.com/rooms/Room.UKCLectureTheatre","timestamp":"2014-01-23T12:55:36.825Z"}
-{"level":"debug","message":"........................Room.UKCElm       https://protected-sands-2667.herokuapp.com/rooms/Room.UKCElm","timestamp":"2014-01-23T12:55:36.826Z"}
-{"level":"debug","message":"........................Room.UKCOak       https://protected-sands-2667.herokuapp.com/rooms/Room.UKCOak","timestamp":"2014-01-23T12:55:36.827Z"}
-{"level":"debug","message":"........................Room.UKCTrainingRoomB       undefined","timestamp":"2014-01-23T12:55:36.827Z"}
-{"level":"error","message":"Thu Jan 23 2014 12:55:36 GMT+0000 (GMT 标准时间):(H:\\Dropbox\\node\\testarm\\routes\\service.js:126:\u001b[31merror  \u001b[39m","timestamp":"2014-01-23T12:55:36.829Z"}
-{"level":"error","message":"Thu Jan 23 2014 12:55:36 GMT+0000 (GMT 标准时间):H:\\Dropbox\\node\\testarm\\routes\\meeting_api.js:218:error    undefined/events","timestamp":"2014-01-23T12:55:36.830Z"}
-{"level":"debug","message":"........................Room.UKCTrainingRoomA       undefined","timestamp":"2014-01-23T12:55:36.830Z"}
-{"level":"error","message":"Thu Jan 23 2014 12:55:36 GMT+0000 (GMT 标准时间):(H:\\Dropbox\\node\\testarm\\routes\\service.js:126:\u001b[31merror  \u001b[39m","timestamp":"2014-01-23T12:55:36.832Z"}
-{"level":"error","message":"Thu Jan 23 2014 12:55:36 GMT+0000 (GMT 标准时间):H:\\Dropbox\\node\\testarm\\routes\\meeting_api.js:218:error    undefined/events","timestamp":"2014-01-23T12:55:36.832Z"}
-{"level":"debug","message":"........................Room.UKCWillowA        undefined","timestamp":"2014-01-23T12:56:04.027Z"}
-{"level":"error","message":"Thu Jan 23 2014 12:56:04 GMT+0000 (GMT 标准时间):(H:\\Dropbox\\node\\testarm\\routes\\service.js:126:\u001b[31merror  \u001b[39m","timestamp":"2014-01-23T12:56:04.028Z"}
-{"level":"error","message":"Thu Jan 23 2014 12:56:04 GMT+0000 (GMT 标准时间):H:\\Dropbox\\node\\testarm\\routes\\meeting_api.js:218:error    undefined/events","timestamp":"2014-01-23T12:56:04.028Z"}
-{"level":"debug","message":"........................Room.UKCWillowB       https://protected-sands-2667.herokuapp.com/rooms/Room.UKCWillowB","timestamp":"2014-01-23T12:56:04.029Z"}
-{"level":"debug","message":"........................Room.UKCFM10       https://protected-sands-2667.herokuapp.com/rooms/Room.UKCFM10","timestamp":"2014-01-23T12:56:04.029Z"}
-{"level":"debug","message":"........................Room.UKCLectureTheatre       https://protected-sands-2667.herokuapp.com/rooms/Room.UKCLectureTheatre","timestamp":"2014-01-23T12:56:04.030Z"}
-{"level":"debug","message":"........................Room.UKCElm       https://protected-sands-2667.herokuapp.com/rooms/Room.UKCElm","timestamp":"2014-01-23T12:56:04.030Z"}
-{"level":"debug","message":"........................Room.UKCOak       https://protected-sands-2667.herokuapp.com/rooms/Room.UKCOak","timestamp":"2014-01-23T12:56:04.031Z"}
-{"level":"debug","message":"........................Room.UKCTrainingRoomB       undefined","timestamp":"2014-01-23T12:56:04.031Z"}
-{"level":"error","message":"Thu Jan 23 2014 12:56:04 GMT+0000 (GMT 标准时间):(H:\\Dropbox\\node\\testarm\\routes\\service.js:126:\u001b[31merror  \u001b[39m","timestamp":"2014-01-23T12:56:04.032Z"}
-{"level":"error","message":"Thu Jan 23 2014 12:56:04 GMT+0000 (GMT 标准时间):H:\\Dropbox\\node\\testarm\\routes\\meeting_api.js:218:error    undefined/events","timestamp":"2014-01-23T12:56:04.040Z"}
-{"level":"debug","message":"........................Room.UKCTrainingRoomA       undefined","timestamp":"2014-01-23T12:56:04.040Z"}
-{"level":"error","message":"Thu Jan 23 2014 12:56:04 GMT+0000 (GMT 标准时间):(H:\\Dropbox\\node\\testarm\\routes\\service.js:126:\u001b[31merror  \u001b[39m","timestamp":"2014-01-23T12:56:04.041Z"}
-{"level":"error","message":"Thu Jan 23 2014 12:56:04 GMT+0000 (GMT 标准时间):H:\\Dropbox\\node\\testarm\\routes\\meeting_api.js:218:error    undefined/events","timestamp":"2014-01-23T12:56:04.042Z"}
-{"level":"debug","message":"........................Room.UKCWillowA        undefined","timestamp":"2014-01-23T12:56:12.768Z"}
-{"level":"error","message":"Thu Jan 23 2014 12:56:12 GMT+0000 (GMT 标准时间):(H:\\Dropbox\\node\\testarm\\routes\\service.js:126:\u001b[31merror  \u001b[39m","timestamp":"2014-01-23T12:56:12.769Z"}
-{"level":"error","message":"Thu Jan 23 2014 12:56:12 GMT+0000 (GMT 标准时间):H:\\Dropbox\\node\\testarm\\routes\\meeting_api.js:218:error    undefined/events","timestamp":"2014-01-23T12:56:12.770Z"}
-{"level":"debug","message":"........................Room.UKCWillowB       https://protected-sands-2667.herokuapp.com/rooms/Room.UKCWillowB","timestamp":"2014-01-23T12:56:12.770Z"}
-{"level":"debug","message":"........................Room.UKCFM10       https://protected-sands-2667.herokuapp.com/rooms/Room.UKCFM10","timestamp":"2014-01-23T12:56:12.771Z"}
-{"level":"debug","message":"........................Room.UKCLectureTheatre       https://protected-sands-2667.herokuapp.com/rooms/Room.UKCLectureTheatre","timestamp":"2014-01-23T12:56:12.771Z"}
-{"level":"debug","message":"........................Room.UKCElm       https://protected-sands-2667.herokuapp.com/rooms/Room.UKCElm","timestamp":"2014-01-23T12:56:12.771Z"}
-{"level":"debug","message":"........................Room.UKCOak       https://protected-sands-2667.herokuapp.com/rooms/Room.UKCOak","timestamp":"2014-01-23T12:56:12.772Z"}
-{"level":"debug","message":"........................Room.UKCTrainingRoomB       undefined","timestamp":"2014-01-23T12:56:12.772Z"}
-{"level":"error","message":"Thu Jan 23 2014 12:56:12 GMT+0000 (GMT 标准时间):(H:\\Dropbox\\node\\testarm\\routes\\service.js:126:\u001b[31merror  \u001b[39m","timestamp":"2014-01-23T12:56:12.773Z"}
-{"level":"error","message":"Thu Jan 23 2014 12:56:12 GMT+0000 (GMT 标准时间):H:\\Dropbox\\node\\testarm\\routes\\meeting_api.js:218:error    undefined/events","timestamp":"2014-01-23T12:56:12.773Z"}
-{"level":"debug","message":"........................Room.UKCTrainingRoomA       undefined","timestamp":"2014-01-23T12:56:12.774Z"}
-{"level":"error","message":"Thu Jan 23 2014 12:56:12 GMT+0000 (GMT 标准时间):(H:\\Dropbox\\node\\testarm\\routes\\service.js:126:\u001b[31merror  \u001b[39m","timestamp":"2014-01-23T12:56:12.774Z"}
-{"level":"error","message":"Thu Jan 23 2014 12:56:12 GMT+0000 (GMT 标准时间):H:\\Dropbox\\node\\testarm\\routes\\meeting_api.js:218:error    undefined/events","timestamp":"2014-01-23T12:56:12.775Z"}
-{"level":"debug","message":"........................Room.UKCWillowA        undefined","timestamp":"2014-01-23T13:02:58.800Z"}
-{"level":"error","message":"Thu Jan 23 2014 13:02:58 GMT+0000 (GMT 标准时间):(H:\\Dropbox\\node\\testarm\\routes\\service.js:126:\u001b[31merror  \u001b[39m","timestamp":"2014-01-23T13:02:58.802Z"}
-{"level":"error","message":"Thu Jan 23 2014 13:02:58 GMT+0000 (GMT 标准时间):H:\\Dropbox\\node\\testarm\\routes\\meeting_api.js:218:error    undefined/events","timestamp":"2014-01-23T13:02:58.803Z"}
-{"level":"debug","message":"........................Room.UKCWillowB       https://protected-sands-2667.herokuapp.com/rooms/Room.UKCWillowB","timestamp":"2014-01-23T13:02:58.803Z"}
-{"level":"debug","message":"........................Room.UKCFM10       https://protected-sands-2667.herokuapp.com/rooms/Room.UKCFM10","timestamp":"2014-01-23T13:02:58.804Z"}
-{"level":"debug","message":"........................Room.UKCLectureTheatre       https://protected-sands-2667.herokuapp.com/rooms/Room.UKCLectureTheatre","timestamp":"2014-01-23T13:02:58.804Z"}
-{"level":"debug","message":"........................Room.UKCElm       https://protected-sands-2667.herokuapp.com/rooms/Room.UKCElm","timestamp":"2014-01-23T13:02:58.805Z"}
-{"level":"debug","message":"........................Room.UKCOak       https://protected-sands-2667.herokuapp.com/rooms/Room.UKCOak","timestamp":"2014-01-23T13:02:58.806Z"}
-{"level":"debug","message":"........................Room.UKCTrainingRoomB       undefined","timestamp":"2014-01-23T13:02:58.806Z"}
-{"level":"error","message":"Thu Jan 23 2014 13:02:58 GMT+0000 (GMT 标准时间):(H:\\Dropbox\\node\\testarm\\routes\\service.js:126:\u001b[31merror  \u001b[39m","timestamp":"2014-01-23T13:02:58.807Z"}
-{"level":"error","message":"Thu Jan 23 2014 13:02:58 GMT+0000 (GMT 标准时间):H:\\Dropbox\\node\\testarm\\routes\\meeting_api.js:218:error    undefined/events","timestamp":"2014-01-23T13:02:58.808Z"}
-{"level":"debug","message":"........................Room.UKCTrainingRoomA       undefined","timestamp":"2014-01-23T13:02:58.809Z"}
-{"level":"error","message":"Thu Jan 23 2014 13:02:58 GMT+0000 (GMT 标准时间):(H:\\Dropbox\\node\\testarm\\routes\\service.js:126:\u001b[31merror  \u001b[39m","timestamp":"2014-01-23T13:02:58.810Z"}
-{"level":"error","message":"Thu Jan 23 2014 13:02:58 GMT+0000 (GMT 标准时间):H:\\Dropbox\\node\\testarm\\routes\\meeting_api.js:218:error    undefined/events","timestamp":"2014-01-23T13:02:58.811Z"}
-{"level":"debug","message":"........................Room.UKCWillowA        undefined","timestamp":"2014-01-23T13:05:18.681Z"}
-{"level":"error","message":"Thu Jan 23 2014 13:05:18 GMT+0000 (GMT 标准时间):(H:\\Dropbox\\node\\testarm\\routes\\service.js:126:\u001b[31merror  \u001b[39m","timestamp":"2014-01-23T13:05:18.683Z"}
-{"level":"error","message":"Thu Jan 23 2014 13:05:18 GMT+0000 (GMT 标准时间):H:\\Dropbox\\node\\testarm\\routes\\meeting_api.js:218:error    undefined/events","timestamp":"2014-01-23T13:05:18.684Z"}
-{"level":"debug","message":"........................Room.UKCWillowB       https://protected-sands-2667.herokuapp.com/rooms/Room.UKCWillowB","timestamp":"2014-01-23T13:05:18.684Z"}
-{"level":"debug","message":"........................Room.UKCFM10       https://protected-sands-2667.herokuapp.com/rooms/Room.UKCFM10","timestamp":"2014-01-23T13:05:18.685Z"}
-{"level":"debug","message":"........................Room.UKCLectureTheatre       https://protected-sands-2667.herokuapp.com/rooms/Room.UKCLectureTheatre","timestamp":"2014-01-23T13:05:18.685Z"}
-{"level":"debug","message":"........................Room.UKCElm       https://protected-sands-2667.herokuapp.com/rooms/Room.UKCElm","timestamp":"2014-01-23T13:05:18.686Z"}
-{"level":"debug","message":"........................Room.UKCOak       https://protected-sands-2667.herokuapp.com/rooms/Room.UKCOak","timestamp":"2014-01-23T13:05:18.686Z"}
-{"level":"debug","message":"........................Room.UKCTrainingRoomB       undefined","timestamp":"2014-01-23T13:05:18.687Z"}
-{"level":"error","message":"Thu Jan 23 2014 13:05:18 GMT+0000 (GMT 标准时间):(H:\\Dropbox\\node\\testarm\\routes\\service.js:126:\u001b[31merror  \u001b[39m","timestamp":"2014-01-23T13:05:18.688Z"}
-{"level":"error","message":"Thu Jan 23 2014 13:05:18 GMT+0000 (GMT 标准时间):H:\\Dropbox\\node\\testarm\\routes\\meeting_api.js:218:error    undefined/events","timestamp":"2014-01-23T13:05:18.689Z"}
-{"level":"debug","message":"........................Room.UKCTrainingRoomA       undefined","timestamp":"2014-01-23T13:05:18.690Z"}
-{"level":"error","message":"Thu Jan 23 2014 13:05:18 GMT+0000 (GMT 标准时间):(H:\\Dropbox\\node\\testarm\\routes\\service.js:126:\u001b[31merror  \u001b[39m","timestamp":"2014-01-23T13:05:18.691Z"}
-{"level":"error","message":"Thu Jan 23 2014 13:05:18 GMT+0000 (GMT 标准时间):H:\\Dropbox\\node\\testarm\\routes\\meeting_api.js:218:error    undefined/events","timestamp":"2014-01-23T13:05:18.692Z"}
-{"level":"debug","message":"........................Room.UKCWillowA        undefined","timestamp":"2014-01-23T13:09:28.492Z"}
-{"level":"error","message":"Thu Jan 23 2014 13:09:28 GMT+0000 (GMT 标准时间):(H:\\Dropbox\\node\\testarm\\routes\\service.js:126:\u001b[31merror  \u001b[39m","timestamp":"2014-01-23T13:09:28.494Z"}
-{"level":"error","message":"Thu Jan 23 2014 13:09:28 GMT+0000 (GMT 标准时间):H:\\Dropbox\\node\\testarm\\routes\\meeting_api.js:218:error    undefined/events","timestamp":"2014-01-23T13:09:28.495Z"}
-{"level":"debug","message":"........................Room.UKCWillowB       https://protected-sands-2667.herokuapp.com/rooms/Room.UKCWillowB","timestamp":"2014-01-23T13:09:28.495Z"}
-{"level":"debug","message":"........................Room.UKCFM10       https://protected-sands-2667.herokuapp.com/rooms/Room.UKCFM10","timestamp":"2014-01-23T13:09:28.495Z"}
-{"level":"debug","message":"........................Room.UKCLectureTheatre       https://protected-sands-2667.herokuapp.com/rooms/Room.UKCLectureTheatre","timestamp":"2014-01-23T13:09:28.496Z"}
-{"level":"debug","message":"........................Room.UKCElm       https://protected-sands-2667.herokuapp.com/rooms/Room.UKCElm","timestamp":"2014-01-23T13:09:28.496Z"}
-{"level":"debug","message":"........................Room.UKCOak       https://protected-sands-2667.herokuapp.com/rooms/Room.UKCOak","timestamp":"2014-01-23T13:09:28.497Z"}
-{"level":"debug","message":"........................Room.UKCTrainingRoomB       undefined","timestamp":"2014-01-23T13:09:28.497Z"}
-{"level":"error","message":"Thu Jan 23 2014 13:09:28 GMT+0000 (GMT 标准时间):(H:\\Dropbox\\node\\testarm\\routes\\service.js:126:\u001b[31merror  \u001b[39m","timestamp":"2014-01-23T13:09:28.498Z"}
-{"level":"error","message":"Thu Jan 23 2014 13:09:28 GMT+0000 (GMT 标准时间):H:\\Dropbox\\node\\testarm\\routes\\meeting_api.js:218:error    undefined/events","timestamp":"2014-01-23T13:09:28.498Z"}
-{"level":"debug","message":"........................Room.UKCTrainingRoomA       undefined","timestamp":"2014-01-23T13:09:28.498Z"}
-{"level":"error","message":"Thu Jan 23 2014 13:09:28 GMT+0000 (GMT 标准时间):(H:\\Dropbox\\node\\testarm\\routes\\service.js:126:\u001b[31merror  \u001b[39m","timestamp":"2014-01-23T13:09:28.499Z"}
-{"level":"error","message":"Thu Jan 23 2014 13:09:28 GMT+0000 (GMT 标准时间):H:\\Dropbox\\node\\testarm\\routes\\meeting_api.js:218:error    undefined/events","timestamp":"2014-01-23T13:09:28.500Z"}
-{"level":"debug","message":"........................Room.UKCWillowA        undefined","timestamp":"2014-01-23T13:09:54.351Z"}
-{"level":"error","message":"Thu Jan 23 2014 13:09:54 GMT+0000 (GMT 标准时间):(H:\\Dropbox\\node\\testarm\\routes\\service.js:126:\u001b[31merror  \u001b[39m","timestamp":"2014-01-23T13:09:54.352Z"}
-{"level":"error","message":"Thu Jan 23 2014 13:09:54 GMT+0000 (GMT 标准时间):H:\\Dropbox\\node\\testarm\\routes\\meeting_api.js:218:error    undefined/events","timestamp":"2014-01-23T13:09:54.353Z"}
-{"level":"debug","message":"........................Room.UKCWillowB       https://protected-sands-2667.herokuapp.com/rooms/Room.UKCWillowB","timestamp":"2014-01-23T13:09:54.353Z"}
-{"level":"debug","message":"........................Room.UKCFM10       https://protected-sands-2667.herokuapp.com/rooms/Room.UKCFM10","timestamp":"2014-01-23T13:09:54.354Z"}
-{"level":"debug","message":"........................Room.UKCLectureTheatre       https://protected-sands-2667.herokuapp.com/rooms/Room.UKCLectureTheatre","timestamp":"2014-01-23T13:09:54.354Z"}
-{"level":"debug","message":"........................Room.UKCElm       https://protected-sands-2667.herokuapp.com/rooms/Room.UKCElm","timestamp":"2014-01-23T13:09:54.354Z"}
-{"level":"debug","message":"........................Room.UKCOak       https://protected-sands-2667.herokuapp.com/rooms/Room.UKCOak","timestamp":"2014-01-23T13:09:54.355Z"}
-{"level":"debug","message":"........................Room.UKCTrainingRoomB       undefined","timestamp":"2014-01-23T13:09:54.355Z"}
-{"level":"error","message":"Thu Jan 23 2014 13:09:54 GMT+0000 (GMT 标准时间):(H:\\Dropbox\\node\\testarm\\routes\\service.js:126:\u001b[31merror  \u001b[39m","timestamp":"2014-01-23T13:09:54.356Z"}
-{"level":"error","message":"Thu Jan 23 2014 13:09:54 GMT+0000 (GMT 标准时间):H:\\Dropbox\\node\\testarm\\routes\\meeting_api.js:218:error    undefined/events","timestamp":"2014-01-23T13:09:54.356Z"}
-{"level":"debug","message":"........................Room.UKCTrainingRoomA       undefined","timestamp":"2014-01-23T13:09:54.357Z"}
-{"level":"error","message":"Thu Jan 23 2014 13:09:54 GMT+0000 (GMT 标准时间):(H:\\Dropbox\\node\\testarm\\routes\\service.js:126:\u001b[31merror  \u001b[39m","timestamp":"2014-01-23T13:09:54.357Z"}
-{"level":"error","message":"Thu Jan 23 2014 13:09:54 GMT+0000 (GMT 标准时间):H:\\Dropbox\\node\\testarm\\routes\\meeting_api.js:218:error    undefined/events","timestamp":"2014-01-23T13:09:54.358Z"}
-{"level":"debug","message":"........................Room.UKCWillowA        undefined","timestamp":"2014-01-23T13:11:01.493Z"}
-{"level":"error","message":"Thu Jan 23 2014 13:11:01 GMT+0000 (GMT 标准时间):(H:\\Dropbox\\node\\testarm\\routes\\service.js:126:\u001b[31merror  \u001b[39m","timestamp":"2014-01-23T13:11:01.495Z"}
-{"level":"error","message":"Thu Jan 23 2014 13:11:01 GMT+0000 (GMT 标准时间):H:\\Dropbox\\node\\testarm\\routes\\meeting_api.js:218:error    undefined/events","timestamp":"2014-01-23T13:11:01.495Z"}
-{"level":"debug","message":"........................Room.UKCWillowB       https://protected-sands-2667.herokuapp.com/rooms/Room.UKCWillowB","timestamp":"2014-01-23T13:11:01.496Z"}
-{"level":"debug","message":"........................Room.UKCFM10       https://protected-sands-2667.herokuapp.com/rooms/Room.UKCFM10","timestamp":"2014-01-23T13:11:01.497Z"}
-{"level":"debug","message":"........................Room.UKCLectureTheatre       https://protected-sands-2667.herokuapp.com/rooms/Room.UKCLectureTheatre","timestamp":"2014-01-23T13:11:01.497Z"}
-{"level":"debug","message":"........................Room.UKCElm       https://protected-sands-2667.herokuapp.com/rooms/Room.UKCElm","timestamp":"2014-01-23T13:11:01.498Z"}
-{"level":"debug","message":"........................Room.UKCOak       https://protected-sands-2667.herokuapp.com/rooms/Room.UKCOak","timestamp":"2014-01-23T13:11:01.499Z"}
-{"level":"debug","message":"........................Room.UKCTrainingRoomB       undefined","timestamp":"2014-01-23T13:11:01.500Z"}
-{"level":"error","message":"Thu Jan 23 2014 13:11:01 GMT+0000 (GMT 标准时间):(H:\\Dropbox\\node\\testarm\\routes\\service.js:126:\u001b[31merror  \u001b[39m","timestamp":"2014-01-23T13:11:01.501Z"}
-{"level":"error","message":"Thu Jan 23 2014 13:11:01 GMT+0000 (GMT 标准时间):H:\\Dropbox\\node\\testarm\\routes\\meeting_api.js:218:error    undefined/events","timestamp":"2014-01-23T13:11:01.502Z"}
-{"level":"debug","message":"........................Room.UKCTrainingRoomA       undefined","timestamp":"2014-01-23T13:11:01.502Z"}
-{"level":"error","message":"Thu Jan 23 2014 13:11:01 GMT+0000 (GMT 标准时间):(H:\\Dropbox\\node\\testarm\\routes\\service.js:126:\u001b[31merror  \u001b[39m","timestamp":"2014-01-23T13:11:01.508Z"}
-{"level":"error","message":"Thu Jan 23 2014 13:11:01 GMT+0000 (GMT 标准时间):H:\\Dropbox\\node\\testarm\\routes\\meeting_api.js:218:error    undefined/events","timestamp":"2014-01-23T13:11:01.509Z"}
-{"level":"debug","message":"........................Room.UKCWillowA        undefined","timestamp":"2014-01-23T13:11:16.886Z"}
-{"level":"error","message":"Thu Jan 23 2014 13:11:16 GMT+0000 (GMT 标准时间):(H:\\Dropbox\\node\\testarm\\routes\\service.js:126:\u001b[31merror  \u001b[39m","timestamp":"2014-01-23T13:11:16.887Z"}
-{"level":"error","message":"Thu Jan 23 2014 13:11:16 GMT+0000 (GMT 标准时间):H:\\Dropbox\\node\\testarm\\routes\\meeting_api.js:218:error    undefined/events","timestamp":"2014-01-23T13:11:16.888Z"}
-{"level":"debug","message":"........................Room.UKCWillowB       https://protected-sands-2667.herokuapp.com/rooms/Room.UKCWillowB","timestamp":"2014-01-23T13:11:16.888Z"}
-{"level":"debug","message":"........................Room.UKCFM10       https://protected-sands-2667.herokuapp.com/rooms/Room.UKCFM10","timestamp":"2014-01-23T13:11:16.889Z"}
-{"level":"debug","message":"........................Room.UKCLectureTheatre       https://protected-sands-2667.herokuapp.com/rooms/Room.UKCLectureTheatre","timestamp":"2014-01-23T13:11:16.889Z"}
-{"level":"debug","message":"........................Room.UKCElm       https://protected-sands-2667.herokuapp.com/rooms/Room.UKCElm","timestamp":"2014-01-23T13:11:16.890Z"}
-{"level":"debug","message":"........................Room.UKCOak       https://protected-sands-2667.herokuapp.com/rooms/Room.UKCOak","timestamp":"2014-01-23T13:11:16.891Z"}
-{"level":"debug","message":"........................Room.UKCTrainingRoomB       undefined","timestamp":"2014-01-23T13:11:16.891Z"}
-{"level":"error","message":"Thu Jan 23 2014 13:11:16 GMT+0000 (GMT 标准时间):(H:\\Dropbox\\node\\testarm\\routes\\service.js:126:\u001b[31merror  \u001b[39m","timestamp":"2014-01-23T13:11:16.892Z"}
-{"level":"error","message":"Thu Jan 23 2014 13:11:16 GMT+0000 (GMT 标准时间):H:\\Dropbox\\node\\testarm\\routes\\meeting_api.js:218:error    undefined/events","timestamp":"2014-01-23T13:11:16.893Z"}
-{"level":"debug","message":"........................Room.UKCTrainingRoomA       undefined","timestamp":"2014-01-23T13:11:16.893Z"}
-{"level":"error","message":"Thu Jan 23 2014 13:11:16 GMT+0000 (GMT 标准时间):(H:\\Dropbox\\node\\testarm\\routes\\service.js:126:\u001b[31merror  \u001b[39m","timestamp":"2014-01-23T13:11:16.894Z"}
-{"level":"error","message":"Thu Jan 23 2014 13:11:16 GMT+0000 (GMT 标准时间):H:\\Dropbox\\node\\testarm\\routes\\meeting_api.js:218:error    undefined/events","timestamp":"2014-01-23T13:11:16.895Z"}
-{"level":"debug","message":"........................Room.UKCWillowA        undefined","timestamp":"2014-01-23T13:12:25.170Z"}
-{"level":"error","message":"Thu Jan 23 2014 13:12:25 GMT+0000 (GMT 标准时间):(H:\\Dropbox\\node\\testarm\\routes\\service.js:126:\u001b[31merror  \u001b[39m","timestamp":"2014-01-23T13:12:25.172Z"}
-{"level":"error","message":"Thu Jan 23 2014 13:12:25 GMT+0000 (GMT 标准时间):H:\\Dropbox\\node\\testarm\\routes\\meeting_api.js:218:error    undefined/events","timestamp":"2014-01-23T13:12:25.173Z"}
-{"level":"debug","message":"........................Room.UKCWillowB       https://protected-sands-2667.herokuapp.com/rooms/Room.UKCWillowB","timestamp":"2014-01-23T13:12:25.173Z"}
-{"level":"debug","message":"........................Room.UKCFM10       https://protected-sands-2667.herokuapp.com/rooms/Room.UKCFM10","timestamp":"2014-01-23T13:12:25.174Z"}
-{"level":"debug","message":"........................Room.UKCLectureTheatre       https://protected-sands-2667.herokuapp.com/rooms/Room.UKCLectureTheatre","timestamp":"2014-01-23T13:12:25.175Z"}
-{"level":"debug","message":"........................Room.UKCElm       https://protected-sands-2667.herokuapp.com/rooms/Room.UKCElm","timestamp":"2014-01-23T13:12:25.175Z"}
-{"level":"debug","message":"........................Room.UKCOak       https://protected-sands-2667.herokuapp.com/rooms/Room.UKCOak","timestamp":"2014-01-23T13:12:25.176Z"}
-{"level":"debug","message":"........................Room.UKCTrainingRoomB       undefined","timestamp":"2014-01-23T13:12:25.176Z"}
-{"level":"error","message":"Thu Jan 23 2014 13:12:25 GMT+0000 (GMT 标准时间):(H:\\Dropbox\\node\\testarm\\routes\\service.js:126:\u001b[31merror  \u001b[39m","timestamp":"2014-01-23T13:12:25.177Z"}
-{"level":"error","message":"Thu Jan 23 2014 13:12:25 GMT+0000 (GMT 标准时间):H:\\Dropbox\\node\\testarm\\routes\\meeting_api.js:218:error    undefined/events","timestamp":"2014-01-23T13:12:25.177Z"}
-{"level":"debug","message":"........................Room.UKCTrainingRoomA       undefined","timestamp":"2014-01-23T13:12:25.178Z"}
-{"level":"error","message":"Thu Jan 23 2014 13:12:25 GMT+0000 (GMT 标准时间):(H:\\Dropbox\\node\\testarm\\routes\\service.js:126:\u001b[31merror  \u001b[39m","timestamp":"2014-01-23T13:12:25.179Z"}
-{"level":"error","message":"Thu Jan 23 2014 13:12:25 GMT+0000 (GMT 标准时间):H:\\Dropbox\\node\\testarm\\routes\\meeting_api.js:218:error    undefined/events","timestamp":"2014-01-23T13:12:25.180Z"}
-{"level":"debug","message":"........................Room.UKCWillowA        undefined","timestamp":"2014-01-23T13:12:36.309Z"}
-{"level":"error","message":"Thu Jan 23 2014 13:12:36 GMT+0000 (GMT 标准时间):(H:\\Dropbox\\node\\testarm\\routes\\service.js:126:\u001b[31merror  \u001b[39m","timestamp":"2014-01-23T13:12:36.311Z"}
-{"level":"error","message":"Thu Jan 23 2014 13:12:36 GMT+0000 (GMT 标准时间):H:\\Dropbox\\node\\testarm\\routes\\meeting_api.js:218:error    undefined/events","timestamp":"2014-01-23T13:12:36.311Z"}
-{"level":"debug","message":"........................Room.UKCWillowB       https://protected-sands-2667.herokuapp.com/rooms/Room.UKCWillowB","timestamp":"2014-01-23T13:12:36.313Z"}
-{"level":"debug","message":"........................Room.UKCFM10       https://protected-sands-2667.herokuapp.com/rooms/Room.UKCFM10","timestamp":"2014-01-23T13:12:36.313Z"}
-{"level":"debug","message":"........................Room.UKCLectureTheatre       https://protected-sands-2667.herokuapp.com/rooms/Room.UKCLectureTheatre","timestamp":"2014-01-23T13:12:36.314Z"}
-{"level":"debug","message":"........................Room.UKCElm       https://protected-sands-2667.herokuapp.com/rooms/Room.UKCElm","timestamp":"2014-01-23T13:12:36.315Z"}
-{"level":"debug","message":"........................Room.UKCOak       https://protected-sands-2667.herokuapp.com/rooms/Room.UKCOak","timestamp":"2014-01-23T13:12:36.315Z"}
-{"level":"debug","message":"........................Room.UKCTrainingRoomB       undefined","timestamp":"2014-01-23T13:12:36.316Z"}
-{"level":"error","message":"Thu Jan 23 2014 13:12:36 GMT+0000 (GMT 标准时间):(H:\\Dropbox\\node\\testarm\\routes\\service.js:126:\u001b[31merror  \u001b[39m","timestamp":"2014-01-23T13:12:36.317Z"}
-{"level":"error","message":"Thu Jan 23 2014 13:12:36 GMT+0000 (GMT 标准时间):H:\\Dropbox\\node\\testarm\\routes\\meeting_api.js:218:error    undefined/events","timestamp":"2014-01-23T13:12:36.318Z"}
-{"level":"debug","message":"........................Room.UKCTrainingRoomA       undefined","timestamp":"2014-01-23T13:12:36.319Z"}
-{"level":"error","message":"Thu Jan 23 2014 13:12:36 GMT+0000 (GMT 标准时间):(H:\\Dropbox\\node\\testarm\\routes\\service.js:126:\u001b[31merror  \u001b[39m","timestamp":"2014-01-23T13:12:36.320Z"}
-{"level":"error","message":"Thu Jan 23 2014 13:12:36 GMT+0000 (GMT 标准时间):H:\\Dropbox\\node\\testarm\\routes\\meeting_api.js:218:error    undefined/events","timestamp":"2014-01-23T13:12:36.321Z"}
-{"level":"debug","message":"........................Room.UKCWillowA        undefined","timestamp":"2014-01-23T13:13:31.896Z"}
-{"level":"error","message":"Thu Jan 23 2014 13:13:31 GMT+0000 (GMT 标准时间):(H:\\Dropbox\\node\\testarm\\routes\\service.js:126:\u001b[31merror  \u001b[39m","timestamp":"2014-01-23T13:13:31.897Z"}
-{"level":"error","message":"Thu Jan 23 2014 13:13:31 GMT+0000 (GMT 标准时间):H:\\Dropbox\\node\\testarm\\routes\\meeting_api.js:218:error    undefined/events","timestamp":"2014-01-23T13:13:31.897Z"}
-{"level":"debug","message":"........................Room.UKCWillowB       https://protected-sands-2667.herokuapp.com/rooms/Room.UKCWillowB","timestamp":"2014-01-23T13:13:31.898Z"}
-{"level":"debug","message":"........................Room.UKCFM10       https://protected-sands-2667.herokuapp.com/rooms/Room.UKCFM10","timestamp":"2014-01-23T13:13:31.898Z"}
-{"level":"debug","message":"........................Room.UKCLectureTheatre       https://protected-sands-2667.herokuapp.com/rooms/Room.UKCLectureTheatre","timestamp":"2014-01-23T13:13:31.899Z"}
-{"level":"debug","message":"........................Room.UKCElm       https://protected-sands-2667.herokuapp.com/rooms/Room.UKCElm","timestamp":"2014-01-23T13:13:31.899Z"}
-{"level":"debug","message":"........................Room.UKCOak       https://protected-sands-2667.herokuapp.com/rooms/Room.UKCOak","timestamp":"2014-01-23T13:13:31.900Z"}
-{"level":"debug","message":"........................Room.UKCTrainingRoomB       undefined","timestamp":"2014-01-23T13:13:31.900Z"}
-{"level":"error","message":"Thu Jan 23 2014 13:13:31 GMT+0000 (GMT 标准时间):(H:\\Dropbox\\node\\testarm\\routes\\service.js:126:\u001b[31merror  \u001b[39m","timestamp":"2014-01-23T13:13:31.901Z"}
-{"level":"error","message":"Thu Jan 23 2014 13:13:31 GMT+0000 (GMT 标准时间):H:\\Dropbox\\node\\testarm\\routes\\meeting_api.js:218:error    undefined/events","timestamp":"2014-01-23T13:13:31.902Z"}
-{"level":"debug","message":"........................Room.UKCTrainingRoomA       undefined","timestamp":"2014-01-23T13:13:31.902Z"}
-{"level":"error","message":"Thu Jan 23 2014 13:13:31 GMT+0000 (GMT 标准时间):(H:\\Dropbox\\node\\testarm\\routes\\service.js:126:\u001b[31merror  \u001b[39m","timestamp":"2014-01-23T13:13:31.903Z"}
-{"level":"error","message":"Thu Jan 23 2014 13:13:31 GMT+0000 (GMT 标准时间):H:\\Dropbox\\node\\testarm\\routes\\meeting_api.js:218:error    undefined/events","timestamp":"2014-01-23T13:13:31.903Z"}
-{"level":"debug","message":"........................Room.UKCWillowA        undefined","timestamp":"2014-01-23T13:15:17.143Z"}
-{"level":"error","message":"Thu Jan 23 2014 13:15:17 GMT+0000 (GMT 标准时间):(H:\\Dropbox\\node\\testarm\\routes\\service.js:126:\u001b[31merror  \u001b[39m","timestamp":"2014-01-23T13:15:17.144Z"}
-{"level":"error","message":"Thu Jan 23 2014 13:15:17 GMT+0000 (GMT 标准时间):H:\\Dropbox\\node\\testarm\\routes\\meeting_api.js:218:error    undefined/events","timestamp":"2014-01-23T13:15:17.145Z"}
-{"level":"debug","message":"........................Room.UKCWillowB       https://protected-sands-2667.herokuapp.com/rooms/Room.UKCWillowB","timestamp":"2014-01-23T13:15:17.145Z"}
-{"level":"debug","message":"........................Room.UKCFM10       https://protected-sands-2667.herokuapp.com/rooms/Room.UKCFM10","timestamp":"2014-01-23T13:15:17.146Z"}
-{"level":"debug","message":"........................Room.UKCLectureTheatre       https://protected-sands-2667.herokuapp.com/rooms/Room.UKCLectureTheatre","timestamp":"2014-01-23T13:15:17.147Z"}
-{"level":"debug","message":"........................Room.UKCElm       https://protected-sands-2667.herokuapp.com/rooms/Room.UKCElm","timestamp":"2014-01-23T13:15:17.147Z"}
-{"level":"debug","message":"........................Room.UKCOak       https://protected-sands-2667.herokuapp.com/rooms/Room.UKCOak","timestamp":"2014-01-23T13:15:17.147Z"}
-{"level":"debug","message":"........................Room.UKCTrainingRoomB       undefined","timestamp":"2014-01-23T13:15:17.148Z"}
-{"level":"error","message":"Thu Jan 23 2014 13:15:17 GMT+0000 (GMT 标准时间):(H:\\Dropbox\\node\\testarm\\routes\\service.js:126:\u001b[31merror  \u001b[39m","timestamp":"2014-01-23T13:15:17.149Z"}
-{"level":"error","message":"Thu Jan 23 2014 13:15:17 GMT+0000 (GMT 标准时间):H:\\Dropbox\\node\\testarm\\routes\\meeting_api.js:218:error    undefined/events","timestamp":"2014-01-23T13:15:17.149Z"}
-{"level":"debug","message":"........................Room.UKCTrainingRoomA       undefined","timestamp":"2014-01-23T13:15:17.150Z"}
-{"level":"error","message":"Thu Jan 23 2014 13:15:17 GMT+0000 (GMT 标准时间):(H:\\Dropbox\\node\\testarm\\routes\\service.js:126:\u001b[31merror  \u001b[39m","timestamp":"2014-01-23T13:15:17.151Z"}
-{"level":"error","message":"Thu Jan 23 2014 13:15:17 GMT+0000 (GMT 标准时间):H:\\Dropbox\\node\\testarm\\routes\\meeting_api.js:218:error    undefined/events","timestamp":"2014-01-23T13:15:17.151Z"}
-{"level":"debug","message":"........................Room.UKCWillowA        undefined","timestamp":"2014-01-23T13:15:19.961Z"}
-{"level":"error","message":"Thu Jan 23 2014 13:15:19 GMT+0000 (GMT 标准时间):(H:\\Dropbox\\node\\testarm\\routes\\service.js:126:\u001b[31merror  \u001b[39m","timestamp":"2014-01-23T13:15:19.962Z"}
-{"level":"error","message":"Thu Jan 23 2014 13:15:19 GMT+0000 (GMT 标准时间):H:\\Dropbox\\node\\testarm\\routes\\meeting_api.js:218:error    undefined/events","timestamp":"2014-01-23T13:15:19.963Z"}
-{"level":"debug","message":"........................Room.UKCWillowB       https://protected-sands-2667.herokuapp.com/rooms/Room.UKCWillowB","timestamp":"2014-01-23T13:15:19.964Z"}
-{"level":"debug","message":"........................Room.UKCFM10       https://protected-sands-2667.herokuapp.com/rooms/Room.UKCFM10","timestamp":"2014-01-23T13:15:19.965Z"}
-{"level":"debug","message":"........................Room.UKCLectureTheatre       https://protected-sands-2667.herokuapp.com/rooms/Room.UKCLectureTheatre","timestamp":"2014-01-23T13:15:19.965Z"}
-{"level":"debug","message":"........................Room.UKCElm       https://protected-sands-2667.herokuapp.com/rooms/Room.UKCElm","timestamp":"2014-01-23T13:15:19.966Z"}
-{"level":"debug","message":"........................Room.UKCOak       https://protected-sands-2667.herokuapp.com/rooms/Room.UKCOak","timestamp":"2014-01-23T13:15:19.967Z"}
-{"level":"debug","message":"........................Room.UKCTrainingRoomB       undefined","timestamp":"2014-01-23T13:15:19.967Z"}
-{"level":"error","message":"Thu Jan 23 2014 13:15:19 GMT+0000 (GMT 标准时间):(H:\\Dropbox\\node\\testarm\\routes\\service.js:126:\u001b[31merror  \u001b[39m","timestamp":"2014-01-23T13:15:19.968Z"}
-{"level":"error","message":"Thu Jan 23 2014 13:15:19 GMT+0000 (GMT 标准时间):H:\\Dropbox\\node\\testarm\\routes\\meeting_api.js:218:error    undefined/events","timestamp":"2014-01-23T13:15:19.969Z"}
-{"level":"debug","message":"........................Room.UKCTrainingRoomA       undefined","timestamp":"2014-01-23T13:15:19.970Z"}
-{"level":"error","message":"Thu Jan 23 2014 13:15:19 GMT+0000 (GMT 标准时间):(H:\\Dropbox\\node\\testarm\\routes\\service.js:126:\u001b[31merror  \u001b[39m","timestamp":"2014-01-23T13:15:19.971Z"}
-{"level":"error","message":"Thu Jan 23 2014 13:15:19 GMT+0000 (GMT 标准时间):H:\\Dropbox\\node\\testarm\\routes\\meeting_api.js:218:error    undefined/events","timestamp":"2014-01-23T13:15:19.972Z"}
-{"level":"debug","message":"........................Room.UKCWillowA        undefined","timestamp":"2014-01-23T13:15:32.967Z"}
-{"level":"error","message":"Thu Jan 23 2014 13:15:32 GMT+0000 (GMT 标准时间):(H:\\Dropbox\\node\\testarm\\routes\\service.js:126:\u001b[31merror  \u001b[39m","timestamp":"2014-01-23T13:15:32.968Z"}
-{"level":"error","message":"Thu Jan 23 2014 13:15:32 GMT+0000 (GMT 标准时间):H:\\Dropbox\\node\\testarm\\routes\\meeting_api.js:218:error    undefined/events","timestamp":"2014-01-23T13:15:32.969Z"}
-{"level":"debug","message":"........................Room.UKCWillowB       https://protected-sands-2667.herokuapp.com/rooms/Room.UKCWillowB","timestamp":"2014-01-23T13:15:32.969Z"}
-{"level":"debug","message":"........................Room.UKCFM10       https://protected-sands-2667.herokuapp.com/rooms/Room.UKCFM10","timestamp":"2014-01-23T13:15:32.970Z"}
-{"level":"debug","message":"........................Room.UKCLectureTheatre       https://protected-sands-2667.herokuapp.com/rooms/Room.UKCLectureTheatre","timestamp":"2014-01-23T13:15:32.971Z"}
-{"level":"debug","message":"........................Room.UKCElm       https://protected-sands-2667.herokuapp.com/rooms/Room.UKCElm","timestamp":"2014-01-23T13:15:32.971Z"}
-{"level":"debug","message":"........................Room.UKCOak       https://protected-sands-2667.herokuapp.com/rooms/Room.UKCOak","timestamp":"2014-01-23T13:15:32.972Z"}
-{"level":"debug","message":"........................Room.UKCTrainingRoomB       undefined","timestamp":"2014-01-23T13:15:32.972Z"}
-{"level":"error","message":"Thu Jan 23 2014 13:15:32 GMT+0000 (GMT 标准时间):(H:\\Dropbox\\node\\testarm\\routes\\service.js:126:\u001b[31merror  \u001b[39m","timestamp":"2014-01-23T13:15:32.973Z"}
-{"level":"error","message":"Thu Jan 23 2014 13:15:32 GMT+0000 (GMT 标准时间):H:\\Dropbox\\node\\testarm\\routes\\meeting_api.js:218:error    undefined/events","timestamp":"2014-01-23T13:15:32.974Z"}
-{"level":"debug","message":"........................Room.UKCTrainingRoomA       undefined","timestamp":"2014-01-23T13:15:32.975Z"}
-{"level":"error","message":"Thu Jan 23 2014 13:15:32 GMT+0000 (GMT 标准时间):(H:\\Dropbox\\node\\testarm\\routes\\service.js:126:\u001b[31merror  \u001b[39m","timestamp":"2014-01-23T13:15:32.976Z"}
-{"level":"error","message":"Thu Jan 23 2014 13:15:32 GMT+0000 (GMT 标准时间):H:\\Dropbox\\node\\testarm\\routes\\meeting_api.js:218:error    undefined/events","timestamp":"2014-01-23T13:15:32.977Z"}
-{"level":"debug","message":"........................Room.UKCWillowA        undefined","timestamp":"2014-01-23T13:15:46.137Z"}
-{"level":"error","message":"Thu Jan 23 2014 13:15:46 GMT+0000 (GMT 标准时间):(H:\\Dropbox\\node\\testarm\\routes\\service.js:126:\u001b[31merror  \u001b[39m","timestamp":"2014-01-23T13:15:46.138Z"}
-{"level":"error","message":"Thu Jan 23 2014 13:15:46 GMT+0000 (GMT 标准时间):H:\\Dropbox\\node\\testarm\\routes\\meeting_api.js:218:error    undefined/events","timestamp":"2014-01-23T13:15:46.139Z"}
-{"level":"debug","message":"........................Room.UKCWillowB       https://protected-sands-2667.herokuapp.com/rooms/Room.UKCWillowB","timestamp":"2014-01-23T13:15:46.139Z"}
-{"level":"debug","message":"........................Room.UKCFM10       https://protected-sands-2667.herokuapp.com/rooms/Room.UKCFM10","timestamp":"2014-01-23T13:15:46.139Z"}
-{"level":"debug","message":"........................Room.UKCLectureTheatre       https://protected-sands-2667.herokuapp.com/rooms/Room.UKCLectureTheatre","timestamp":"2014-01-23T13:15:46.140Z"}
-{"level":"debug","message":"........................Room.UKCElm       https://protected-sands-2667.herokuapp.com/rooms/Room.UKCElm","timestamp":"2014-01-23T13:15:46.141Z"}
-{"level":"debug","message":"........................Room.UKCOak       https://protected-sands-2667.herokuapp.com/rooms/Room.UKCOak","timestamp":"2014-01-23T13:15:46.142Z"}
-{"level":"debug","message":"........................Room.UKCTrainingRoomB       undefined","timestamp":"2014-01-23T13:15:46.143Z"}
-{"level":"error","message":"Thu Jan 23 2014 13:15:46 GMT+0000 (GMT 标准时间):(H:\\Dropbox\\node\\testarm\\routes\\service.js:126:\u001b[31merror  \u001b[39m","timestamp":"2014-01-23T13:15:46.144Z"}
-{"level":"error","message":"Thu Jan 23 2014 13:15:46 GMT+0000 (GMT 标准时间):H:\\Dropbox\\node\\testarm\\routes\\meeting_api.js:218:error    undefined/events","timestamp":"2014-01-23T13:15:46.145Z"}
-{"level":"debug","message":"........................Room.UKCTrainingRoomA       undefined","timestamp":"2014-01-23T13:15:46.145Z"}
-{"level":"error","message":"Thu Jan 23 2014 13:15:46 GMT+0000 (GMT 标准时间):(H:\\Dropbox\\node\\testarm\\routes\\service.js:126:\u001b[31merror  \u001b[39m","timestamp":"2014-01-23T13:15:46.146Z"}
-{"level":"error","message":"Thu Jan 23 2014 13:15:46 GMT+0000 (GMT 标准时间):H:\\Dropbox\\node\\testarm\\routes\\meeting_api.js:218:error    undefined/events","timestamp":"2014-01-23T13:15:46.147Z"}
-{"level":"debug","message":"........................Room.UKCWillowA        undefined","timestamp":"2014-01-23T13:15:54.256Z"}
-{"level":"error","message":"Thu Jan 23 2014 13:15:54 GMT+0000 (GMT 标准时间):(H:\\Dropbox\\node\\testarm\\routes\\service.js:126:\u001b[31merror  \u001b[39m","timestamp":"2014-01-23T13:15:54.257Z"}
-{"level":"error","message":"Thu Jan 23 2014 13:15:54 GMT+0000 (GMT 标准时间):H:\\Dropbox\\node\\testarm\\routes\\meeting_api.js:218:error    undefined/events","timestamp":"2014-01-23T13:15:54.258Z"}
-{"level":"debug","message":"........................Room.UKCWillowB       https://protected-sands-2667.herokuapp.com/rooms/Room.UKCWillowB","timestamp":"2014-01-23T13:15:54.258Z"}
-{"level":"debug","message":"........................Room.UKCFM10       https://protected-sands-2667.herokuapp.com/rooms/Room.UKCFM10","timestamp":"2014-01-23T13:15:54.259Z"}
-{"level":"debug","message":"........................Room.UKCLectureTheatre       https://protected-sands-2667.herokuapp.com/rooms/Room.UKCLectureTheatre","timestamp":"2014-01-23T13:15:54.260Z"}
-{"level":"debug","message":"........................Room.UKCElm       https://protected-sands-2667.herokuapp.com/rooms/Room.UKCElm","timestamp":"2014-01-23T13:15:54.260Z"}
-{"level":"debug","message":"........................Room.UKCOak       https://protected-sands-2667.herokuapp.com/rooms/Room.UKCOak","timestamp":"2014-01-23T13:15:54.261Z"}
-{"level":"debug","message":"........................Room.UKCTrainingRoomB       undefined","timestamp":"2014-01-23T13:15:54.261Z"}
-{"level":"error","message":"Thu Jan 23 2014 13:15:54 GMT+0000 (GMT 标准时间):(H:\\Dropbox\\node\\testarm\\routes\\service.js:126:\u001b[31merror  \u001b[39m","timestamp":"2014-01-23T13:15:54.263Z"}
-{"level":"error","message":"Thu Jan 23 2014 13:15:54 GMT+0000 (GMT 标准时间):H:\\Dropbox\\node\\testarm\\routes\\meeting_api.js:218:error    undefined/events","timestamp":"2014-01-23T13:15:54.264Z"}
-{"level":"debug","message":"........................Room.UKCTrainingRoomA       undefined","timestamp":"2014-01-23T13:15:54.264Z"}
-{"level":"error","message":"Thu Jan 23 2014 13:15:54 GMT+0000 (GMT 标准时间):(H:\\Dropbox\\node\\testarm\\routes\\service.js:126:\u001b[31merror  \u001b[39m","timestamp":"2014-01-23T13:15:54.265Z"}
-{"level":"error","message":"Thu Jan 23 2014 13:15:54 GMT+0000 (GMT 标准时间):H:\\Dropbox\\node\\testarm\\routes\\meeting_api.js:218:error    undefined/events","timestamp":"2014-01-23T13:15:54.266Z"}
-{"level":"debug","message":"........................Room.UKCWillowA        undefined","timestamp":"2014-01-23T13:17:01.718Z"}
-{"level":"error","message":"Thu Jan 23 2014 13:17:01 GMT+0000 (GMT 标准时间):(H:\\Dropbox\\node\\testarm\\routes\\service.js:126:\u001b[31merror  \u001b[39m","timestamp":"2014-01-23T13:17:01.720Z"}
-{"level":"error","message":"Thu Jan 23 2014 13:17:01 GMT+0000 (GMT 标准时间):H:\\Dropbox\\node\\testarm\\routes\\meeting_api.js:218:error    undefined/events","timestamp":"2014-01-23T13:17:01.721Z"}
-{"level":"debug","message":"........................Room.UKCWillowB       https://protected-sands-2667.herokuapp.com/rooms/Room.UKCWillowB","timestamp":"2014-01-23T13:17:01.722Z"}
-{"level":"debug","message":"........................Room.UKCFM10       https://protected-sands-2667.herokuapp.com/rooms/Room.UKCFM10","timestamp":"2014-01-23T13:17:01.722Z"}
-{"level":"debug","message":"........................Room.UKCLectureTheatre       https://protected-sands-2667.herokuapp.com/rooms/Room.UKCLectureTheatre","timestamp":"2014-01-23T13:17:01.723Z"}
-{"level":"debug","message":"........................Room.UKCElm       https://protected-sands-2667.herokuapp.com/rooms/Room.UKCElm","timestamp":"2014-01-23T13:17:01.724Z"}
-{"level":"debug","message":"........................Room.UKCOak       https://protected-sands-2667.herokuapp.com/rooms/Room.UKCOak","timestamp":"2014-01-23T13:17:01.724Z"}
-{"level":"debug","message":"........................Room.UKCTrainingRoomB       undefined","timestamp":"2014-01-23T13:17:01.725Z"}
-{"level":"error","message":"Thu Jan 23 2014 13:17:01 GMT+0000 (GMT 标准时间):(H:\\Dropbox\\node\\testarm\\routes\\service.js:126:\u001b[31merror  \u001b[39m","timestamp":"2014-01-23T13:17:01.726Z"}
-{"level":"error","message":"Thu Jan 23 2014 13:17:01 GMT+0000 (GMT 标准时间):H:\\Dropbox\\node\\testarm\\routes\\meeting_api.js:218:error    undefined/events","timestamp":"2014-01-23T13:17:01.727Z"}
-{"level":"debug","message":"........................Room.UKCTrainingRoomA       undefined","timestamp":"2014-01-23T13:17:01.728Z"}
-{"level":"error","message":"Thu Jan 23 2014 13:17:01 GMT+0000 (GMT 标准时间):(H:\\Dropbox\\node\\testarm\\routes\\service.js:126:\u001b[31merror  \u001b[39m","timestamp":"2014-01-23T13:17:01.729Z"}
-{"level":"error","message":"Thu Jan 23 2014 13:17:01 GMT+0000 (GMT 标准时间):H:\\Dropbox\\node\\testarm\\routes\\meeting_api.js:218:error    undefined/events","timestamp":"2014-01-23T13:17:01.730Z"}
-{"level":"debug","message":"........................Room.UKCWillowA        undefined","timestamp":"2014-01-23T13:17:04.007Z"}
-{"level":"error","message":"Thu Jan 23 2014 13:17:04 GMT+0000 (GMT 标准时间):(H:\\Dropbox\\node\\testarm\\routes\\service.js:126:\u001b[31merror  \u001b[39m","timestamp":"2014-01-23T13:17:04.009Z"}
-{"level":"error","message":"Thu Jan 23 2014 13:17:04 GMT+0000 (GMT 标准时间):H:\\Dropbox\\node\\testarm\\routes\\meeting_api.js:218:error    undefined/events","timestamp":"2014-01-23T13:17:04.010Z"}
-{"level":"debug","message":"........................Room.UKCWillowB       https://protected-sands-2667.herokuapp.com/rooms/Room.UKCWillowB","timestamp":"2014-01-23T13:17:04.010Z"}
-{"level":"debug","message":"........................Room.UKCFM10       https://protected-sands-2667.herokuapp.com/rooms/Room.UKCFM10","timestamp":"2014-01-23T13:17:04.011Z"}
-{"level":"debug","message":"........................Room.UKCLectureTheatre       https://protected-sands-2667.herokuapp.com/rooms/Room.UKCLectureTheatre","timestamp":"2014-01-23T13:17:04.012Z"}
-{"level":"debug","message":"........................Room.UKCElm       https://protected-sands-2667.herokuapp.com/rooms/Room.UKCElm","timestamp":"2014-01-23T13:17:04.012Z"}
-{"level":"debug","message":"........................Room.UKCOak       https://protected-sands-2667.herokuapp.com/rooms/Room.UKCOak","timestamp":"2014-01-23T13:17:04.013Z"}
-{"level":"debug","message":"........................Room.UKCTrainingRoomB       undefined","timestamp":"2014-01-23T13:17:04.015Z"}
-{"level":"error","message":"Thu Jan 23 2014 13:17:04 GMT+0000 (GMT 标准时间):(H:\\Dropbox\\node\\testarm\\routes\\service.js:126:\u001b[31merror  \u001b[39m","timestamp":"2014-01-23T13:17:04.016Z"}
-{"level":"error","message":"Thu Jan 23 2014 13:17:04 GMT+0000 (GMT 标准时间):H:\\Dropbox\\node\\testarm\\routes\\meeting_api.js:218:error    undefined/events","timestamp":"2014-01-23T13:17:04.017Z"}
-{"level":"debug","message":"........................Room.UKCTrainingRoomA       undefined","timestamp":"2014-01-23T13:17:04.017Z"}
-{"level":"error","message":"Thu Jan 23 2014 13:17:04 GMT+0000 (GMT 标准时间):(H:\\Dropbox\\node\\testarm\\routes\\service.js:126:\u001b[31merror  \u001b[39m","timestamp":"2014-01-23T13:17:04.018Z"}
-{"level":"error","message":"Thu Jan 23 2014 13:17:04 GMT+0000 (GMT 标准时间):H:\\Dropbox\\node\\testarm\\routes\\meeting_api.js:218:error    undefined/events","timestamp":"2014-01-23T13:17:04.019Z"}
-{"level":"debug","message":"........................Room.UKCWillowA        undefined","timestamp":"2014-01-23T13:17:20.124Z"}
-{"level":"error","message":"Thu Jan 23 2014 13:17:20 GMT+0000 (GMT 标准时间):(H:\\Dropbox\\node\\testarm\\routes\\service.js:126:\u001b[31merror  \u001b[39m","timestamp":"2014-01-23T13:17:20.126Z"}
-{"level":"error","message":"Thu Jan 23 2014 13:17:20 GMT+0000 (GMT 标准时间):H:\\Dropbox\\node\\testarm\\routes\\meeting_api.js:218:error    undefined/events","timestamp":"2014-01-23T13:17:20.127Z"}
-{"level":"debug","message":"........................Room.UKCWillowB       https://protected-sands-2667.herokuapp.com/rooms/Room.UKCWillowB","timestamp":"2014-01-23T13:17:20.127Z"}
-{"level":"debug","message":"........................Room.UKCFM10       https://protected-sands-2667.herokuapp.com/rooms/Room.UKCFM10","timestamp":"2014-01-23T13:17:20.128Z"}
-{"level":"debug","message":"........................Room.UKCLectureTheatre       https://protected-sands-2667.herokuapp.com/rooms/Room.UKCLectureTheatre","timestamp":"2014-01-23T13:17:20.128Z"}
-{"level":"debug","message":"........................Room.UKCElm       https://protected-sands-2667.herokuapp.com/rooms/Room.UKCElm","timestamp":"2014-01-23T13:17:20.129Z"}
-{"level":"debug","message":"........................Room.UKCOak       https://protected-sands-2667.herokuapp.com/rooms/Room.UKCOak","timestamp":"2014-01-23T13:17:20.130Z"}
-{"level":"debug","message":"........................Room.UKCTrainingRoomB       undefined","timestamp":"2014-01-23T13:17:20.131Z"}
-{"level":"error","message":"Thu Jan 23 2014 13:17:20 GMT+0000 (GMT 标准时间):(H:\\Dropbox\\node\\testarm\\routes\\service.js:126:\u001b[31merror  \u001b[39m","timestamp":"2014-01-23T13:17:20.132Z"}
-{"level":"error","message":"Thu Jan 23 2014 13:17:20 GMT+0000 (GMT 标准时间):H:\\Dropbox\\node\\testarm\\routes\\meeting_api.js:218:error    undefined/events","timestamp":"2014-01-23T13:17:20.132Z"}
-{"level":"debug","message":"........................Room.UKCTrainingRoomA       undefined","timestamp":"2014-01-23T13:17:20.133Z"}
-{"level":"error","message":"Thu Jan 23 2014 13:17:20 GMT+0000 (GMT 标准时间):(H:\\Dropbox\\node\\testarm\\routes\\service.js:126:\u001b[31merror  \u001b[39m","timestamp":"2014-01-23T13:17:20.134Z"}
-{"level":"error","message":"Thu Jan 23 2014 13:17:20 GMT+0000 (GMT 标准时间):H:\\Dropbox\\node\\testarm\\routes\\meeting_api.js:218:error    undefined/events","timestamp":"2014-01-23T13:17:20.135Z"}
-{"level":"debug","message":"........................Room.UKCWillowA        undefined","timestamp":"2014-01-23T13:18:24.364Z"}
-{"level":"error","message":"Thu Jan 23 2014 13:18:24 GMT+0000 (GMT 标准时间):(H:\\Dropbox\\node\\testarm\\routes\\service.js:126:\u001b[31merror  \u001b[39m","timestamp":"2014-01-23T13:18:24.366Z"}
-{"level":"error","message":"Thu Jan 23 2014 13:18:24 GMT+0000 (GMT 标准时间):H:\\Dropbox\\node\\testarm\\routes\\meeting_api.js:218:error    undefined/events","timestamp":"2014-01-23T13:18:24.367Z"}
-{"level":"debug","message":"........................Room.UKCWillowB       https://protected-sands-2667.herokuapp.com/rooms/Room.UKCWillowB","timestamp":"2014-01-23T13:18:24.367Z"}
-{"level":"debug","message":"........................Room.UKCFM10       https://protected-sands-2667.herokuapp.com/rooms/Room.UKCFM10","timestamp":"2014-01-23T13:18:24.368Z"}
-{"level":"debug","message":"........................Room.UKCLectureTheatre       https://protected-sands-2667.herokuapp.com/rooms/Room.UKCLectureTheatre","timestamp":"2014-01-23T13:18:24.369Z"}
-{"level":"debug","message":"........................Room.UKCElm       https://protected-sands-2667.herokuapp.com/rooms/Room.UKCElm","timestamp":"2014-01-23T13:18:24.369Z"}
-{"level":"debug","message":"........................Room.UKCOak       https://protected-sands-2667.herokuapp.com/rooms/Room.UKCOak","timestamp":"2014-01-23T13:18:24.370Z"}
-{"level":"debug","message":"........................Room.UKCTrainingRoomB       undefined","timestamp":"2014-01-23T13:18:24.371Z"}
-{"level":"error","message":"Thu Jan 23 2014 13:18:24 GMT+0000 (GMT 标准时间):(H:\\Dropbox\\node\\testarm\\routes\\service.js:126:\u001b[31merror  \u001b[39m","timestamp":"2014-01-23T13:18:24.379Z"}
-{"level":"error","message":"Thu Jan 23 2014 13:18:24 GMT+0000 (GMT 标准时间):H:\\Dropbox\\node\\testarm\\routes\\meeting_api.js:218:error    undefined/events","timestamp":"2014-01-23T13:18:24.380Z"}
-{"level":"debug","message":"........................Room.UKCTrainingRoomA       undefined","timestamp":"2014-01-23T13:18:24.381Z"}
-{"level":"error","message":"Thu Jan 23 2014 13:18:24 GMT+0000 (GMT 标准时间):(H:\\Dropbox\\node\\testarm\\routes\\service.js:126:\u001b[31merror  \u001b[39m","timestamp":"2014-01-23T13:18:24.382Z"}
-{"level":"error","message":"Thu Jan 23 2014 13:18:24 GMT+0000 (GMT 标准时间):H:\\Dropbox\\node\\testarm\\routes\\meeting_api.js:218:error    undefined/events","timestamp":"2014-01-23T13:18:24.402Z"}
-{"level":"debug","message":"........................Room.UKCWillowA        undefined","timestamp":"2014-01-23T13:18:29.852Z"}
-{"level":"error","message":"Thu Jan 23 2014 13:18:29 GMT+0000 (GMT 标准时间):(H:\\Dropbox\\node\\testarm\\routes\\service.js:126:\u001b[31merror  \u001b[39m","timestamp":"2014-01-23T13:18:29.855Z"}
-{"level":"error","message":"Thu Jan 23 2014 13:18:29 GMT+0000 (GMT 标准时间):H:\\Dropbox\\node\\testarm\\routes\\meeting_api.js:218:error    undefined/events","timestamp":"2014-01-23T13:18:29.857Z"}
-{"level":"debug","message":"........................Room.UKCWillowB       https://protected-sands-2667.herokuapp.com/rooms/Room.UKCWillowB","timestamp":"2014-01-23T13:18:29.858Z"}
-{"level":"debug","message":"........................Room.UKCFM10       https://protected-sands-2667.herokuapp.com/rooms/Room.UKCFM10","timestamp":"2014-01-23T13:18:29.859Z"}
-{"level":"debug","message":"........................Room.UKCLectureTheatre       https://protected-sands-2667.herokuapp.com/rooms/Room.UKCLectureTheatre","timestamp":"2014-01-23T13:18:29.864Z"}
-{"level":"debug","message":"........................Room.UKCElm       https://protected-sands-2667.herokuapp.com/rooms/Room.UKCElm","timestamp":"2014-01-23T13:18:29.866Z"}
-{"level":"debug","message":"........................Room.UKCOak       https://protected-sands-2667.herokuapp.com/rooms/Room.UKCOak","timestamp":"2014-01-23T13:18:29.876Z"}
-{"level":"debug","message":"........................Room.UKCTrainingRoomB       undefined","timestamp":"2014-01-23T13:18:29.877Z"}
-{"level":"error","message":"Thu Jan 23 2014 13:18:29 GMT+0000 (GMT 标准时间):(H:\\Dropbox\\node\\testarm\\routes\\service.js:126:\u001b[31merror  \u001b[39m","timestamp":"2014-01-23T13:18:29.878Z"}
-{"level":"error","message":"Thu Jan 23 2014 13:18:29 GMT+0000 (GMT 标准时间):H:\\Dropbox\\node\\testarm\\routes\\meeting_api.js:218:error    undefined/events","timestamp":"2014-01-23T13:18:29.881Z"}
-{"level":"debug","message":"........................Room.UKCTrainingRoomA       undefined","timestamp":"2014-01-23T13:18:29.883Z"}
-{"level":"error","message":"Thu Jan 23 2014 13:18:29 GMT+0000 (GMT 标准时间):(H:\\Dropbox\\node\\testarm\\routes\\service.js:126:\u001b[31merror  \u001b[39m","timestamp":"2014-01-23T13:18:29.886Z"}
-{"level":"error","message":"Thu Jan 23 2014 13:18:29 GMT+0000 (GMT 标准时间):H:\\Dropbox\\node\\testarm\\routes\\meeting_api.js:218:error    undefined/events","timestamp":"2014-01-23T13:18:29.887Z"}
-{"level":"debug","message":"........................Room.UKCWillowA        undefined","timestamp":"2014-01-23T13:23:03.051Z"}
-{"level":"error","message":"Thu Jan 23 2014 13:23:03 GMT+0000 (GMT 标准时间):(H:\\Dropbox\\node\\testarm\\routes\\service.js:126:\u001b[31merror  \u001b[39m","timestamp":"2014-01-23T13:23:03.052Z"}
-{"level":"error","message":"Thu Jan 23 2014 13:23:03 GMT+0000 (GMT 标准时间):H:\\Dropbox\\node\\testarm\\routes\\meeting_api.js:218:error    undefined/events","timestamp":"2014-01-23T13:23:03.053Z"}
-{"level":"debug","message":"........................Room.UKCWillowB       https://protected-sands-2667.herokuapp.com/rooms/Room.UKCWillowB","timestamp":"2014-01-23T13:23:03.053Z"}
-{"level":"debug","message":"........................Room.UKCFM10       https://protected-sands-2667.herokuapp.com/rooms/Room.UKCFM10","timestamp":"2014-01-23T13:23:03.054Z"}
-{"level":"debug","message":"........................Room.UKCLectureTheatre       https://protected-sands-2667.herokuapp.com/rooms/Room.UKCLectureTheatre","timestamp":"2014-01-23T13:23:03.054Z"}
-{"level":"debug","message":"........................Room.UKCElm       https://protected-sands-2667.herokuapp.com/rooms/Room.UKCElm","timestamp":"2014-01-23T13:23:03.055Z"}
-{"level":"debug","message":"........................Room.UKCOak       https://protected-sands-2667.herokuapp.com/rooms/Room.UKCOak","timestamp":"2014-01-23T13:23:03.055Z"}
-{"level":"debug","message":"........................Room.UKCTrainingRoomB       undefined","timestamp":"2014-01-23T13:23:03.056Z"}
-{"level":"error","message":"Thu Jan 23 2014 13:23:03 GMT+0000 (GMT 标准时间):(H:\\Dropbox\\node\\testarm\\routes\\service.js:126:\u001b[31merror  \u001b[39m","timestamp":"2014-01-23T13:23:03.057Z"}
-{"level":"error","message":"Thu Jan 23 2014 13:23:03 GMT+0000 (GMT 标准时间):H:\\Dropbox\\node\\testarm\\routes\\meeting_api.js:218:error    undefined/events","timestamp":"2014-01-23T13:23:03.058Z"}
-{"level":"debug","message":"........................Room.UKCTrainingRoomA       undefined","timestamp":"2014-01-23T13:23:03.058Z"}
-{"level":"error","message":"Thu Jan 23 2014 13:23:03 GMT+0000 (GMT 标准时间):(H:\\Dropbox\\node\\testarm\\routes\\service.js:126:\u001b[31merror  \u001b[39m","timestamp":"2014-01-23T13:23:03.059Z"}
-{"level":"error","message":"Thu Jan 23 2014 13:23:03 GMT+0000 (GMT 标准时间):H:\\Dropbox\\node\\testarm\\routes\\meeting_api.js:218:error    undefined/events","timestamp":"2014-01-23T13:23:03.060Z"}
-{"level":"debug","message":"........................Room.UKCWillowA        undefined","timestamp":"2014-01-23T13:27:07.873Z"}
-{"level":"error","message":"Thu Jan 23 2014 13:27:07 GMT+0000 (GMT 标准时间):(H:\\Dropbox\\node\\testarm\\routes\\service.js:126:\u001b[31merror  \u001b[39m","timestamp":"2014-01-23T13:27:07.874Z"}
-{"level":"error","message":"Thu Jan 23 2014 13:27:07 GMT+0000 (GMT 标准时间):H:\\Dropbox\\node\\testarm\\routes\\meeting_api.js:218:error    undefined/events","timestamp":"2014-01-23T13:27:07.875Z"}
-{"level":"debug","message":"........................Room.UKCWillowB       https://protected-sands-2667.herokuapp.com/rooms/Room.UKCWillowB","timestamp":"2014-01-23T13:27:07.875Z"}
-{"level":"debug","message":"........................Room.UKCFM10       https://protected-sands-2667.herokuapp.com/rooms/Room.UKCFM10","timestamp":"2014-01-23T13:27:07.876Z"}
-{"level":"debug","message":"........................Room.UKCLectureTheatre       https://protected-sands-2667.herokuapp.com/rooms/Room.UKCLectureTheatre","timestamp":"2014-01-23T13:27:07.876Z"}
-{"level":"debug","message":"........................Room.UKCElm       https://protected-sands-2667.herokuapp.com/rooms/Room.UKCElm","timestamp":"2014-01-23T13:27:07.877Z"}
-{"level":"debug","message":"........................Room.UKCOak       https://protected-sands-2667.herokuapp.com/rooms/Room.UKCOak","timestamp":"2014-01-23T13:27:07.878Z"}
-{"level":"debug","message":"........................Room.UKCTrainingRoomB       undefined","timestamp":"2014-01-23T13:27:07.879Z"}
-{"level":"error","message":"Thu Jan 23 2014 13:27:07 GMT+0000 (GMT 标准时间):(H:\\Dropbox\\node\\testarm\\routes\\service.js:126:\u001b[31merror  \u001b[39m","timestamp":"2014-01-23T13:27:07.880Z"}
-{"level":"error","message":"Thu Jan 23 2014 13:27:07 GMT+0000 (GMT 标准时间):H:\\Dropbox\\node\\testarm\\routes\\meeting_api.js:218:error    undefined/events","timestamp":"2014-01-23T13:27:07.881Z"}
-{"level":"debug","message":"........................Room.UKCTrainingRoomA       undefined","timestamp":"2014-01-23T13:27:07.881Z"}
-{"level":"error","message":"Thu Jan 23 2014 13:27:07 GMT+0000 (GMT 标准时间):(H:\\Dropbox\\node\\testarm\\routes\\service.js:126:\u001b[31merror  \u001b[39m","timestamp":"2014-01-23T13:27:07.882Z"}
-{"level":"error","message":"Thu Jan 23 2014 13:27:07 GMT+0000 (GMT 标准时间):H:\\Dropbox\\node\\testarm\\routes\\meeting_api.js:218:error    undefined/events","timestamp":"2014-01-23T13:27:07.883Z"}
-{"level":"debug","message":"........................Room.UKCWillowA        undefined","timestamp":"2014-01-23T13:29:15.988Z"}
-{"level":"error","message":"Thu Jan 23 2014 13:29:15 GMT+0000 (GMT 标准时间):(H:\\Dropbox\\node\\testarm\\routes\\service.js:126:\u001b[31merror  \u001b[39m","timestamp":"2014-01-23T13:29:15.989Z"}
-{"level":"error","message":"Thu Jan 23 2014 13:29:15 GMT+0000 (GMT 标准时间):H:\\Dropbox\\node\\testarm\\routes\\meeting_api.js:218:error    undefined/events","timestamp":"2014-01-23T13:29:15.990Z"}
-{"level":"debug","message":"........................Room.UKCWillowB       https://protected-sands-2667.herokuapp.com/rooms/Room.UKCWillowB","timestamp":"2014-01-23T13:29:15.991Z"}
-{"level":"debug","message":"........................Room.UKCFM10       https://protected-sands-2667.herokuapp.com/rooms/Room.UKCFM10","timestamp":"2014-01-23T13:29:15.991Z"}
-{"level":"debug","message":"........................Room.UKCLectureTheatre       https://protected-sands-2667.herokuapp.com/rooms/Room.UKCLectureTheatre","timestamp":"2014-01-23T13:29:15.992Z"}
-{"level":"debug","message":"........................Room.UKCElm       https://protected-sands-2667.herokuapp.com/rooms/Room.UKCElm","timestamp":"2014-01-23T13:29:15.993Z"}
-{"level":"debug","message":"........................Room.UKCOak       https://protected-sands-2667.herokuapp.com/rooms/Room.UKCOak","timestamp":"2014-01-23T13:29:15.993Z"}
-{"level":"debug","message":"........................Room.UKCTrainingRoomB       undefined","timestamp":"2014-01-23T13:29:15.994Z"}
-{"level":"error","message":"Thu Jan 23 2014 13:29:15 GMT+0000 (GMT 标准时间):(H:\\Dropbox\\node\\testarm\\routes\\service.js:126:\u001b[31merror  \u001b[39m","timestamp":"2014-01-23T13:29:15.995Z"}
-{"level":"error","message":"Thu Jan 23 2014 13:29:15 GMT+0000 (GMT 标准时间):H:\\Dropbox\\node\\testarm\\routes\\meeting_api.js:218:error    undefined/events","timestamp":"2014-01-23T13:29:15.996Z"}
-{"level":"debug","message":"........................Room.UKCTrainingRoomA       undefined","timestamp":"2014-01-23T13:29:15.996Z"}
-{"level":"error","message":"Thu Jan 23 2014 13:29:15 GMT+0000 (GMT 标准时间):(H:\\Dropbox\\node\\testarm\\routes\\service.js:126:\u001b[31merror  \u001b[39m","timestamp":"2014-01-23T13:29:15.998Z"}
-{"level":"error","message":"Thu Jan 23 2014 13:29:15 GMT+0000 (GMT 标准时间):H:\\Dropbox\\node\\testarm\\routes\\meeting_api.js:218:error    undefined/events","timestamp":"2014-01-23T13:29:15.999Z"}
-{"level":"debug","message":"........................Room.UKCWillowA        undefined","timestamp":"2014-01-23T13:30:13.189Z"}
-{"level":"error","message":"Thu Jan 23 2014 13:30:13 GMT+0000 (GMT 标准时间):(H:\\Dropbox\\node\\testarm\\routes\\service.js:126:\u001b[31merror  \u001b[39m","timestamp":"2014-01-23T13:30:13.190Z"}
-{"level":"error","message":"Thu Jan 23 2014 13:30:13 GMT+0000 (GMT 标准时间):H:\\Dropbox\\node\\testarm\\routes\\meeting_api.js:218:error    undefined/events","timestamp":"2014-01-23T13:30:13.191Z"}
-{"level":"debug","message":"........................Room.UKCWillowB       https://protected-sands-2667.herokuapp.com/rooms/Room.UKCWillowB","timestamp":"2014-01-23T13:30:13.191Z"}
-{"level":"debug","message":"........................Room.UKCFM10       https://protected-sands-2667.herokuapp.com/rooms/Room.UKCFM10","timestamp":"2014-01-23T13:30:13.192Z"}
-{"level":"debug","message":"........................Room.UKCLectureTheatre       https://protected-sands-2667.herokuapp.com/rooms/Room.UKCLectureTheatre","timestamp":"2014-01-23T13:30:13.193Z"}
-{"level":"debug","message":"........................Room.UKCElm       https://protected-sands-2667.herokuapp.com/rooms/Room.UKCElm","timestamp":"2014-01-23T13:30:13.193Z"}
-{"level":"debug","message":"........................Room.UKCOak       https://protected-sands-2667.herokuapp.com/rooms/Room.UKCOak","timestamp":"2014-01-23T13:30:13.194Z"}
-{"level":"debug","message":"........................Room.UKCTrainingRoomB       undefined","timestamp":"2014-01-23T13:30:13.195Z"}
-{"level":"error","message":"Thu Jan 23 2014 13:30:13 GMT+0000 (GMT 标准时间):(H:\\Dropbox\\node\\testarm\\routes\\service.js:126:\u001b[31merror  \u001b[39m","timestamp":"2014-01-23T13:30:13.196Z"}
-{"level":"error","message":"Thu Jan 23 2014 13:30:13 GMT+0000 (GMT 标准时间):H:\\Dropbox\\node\\testarm\\routes\\meeting_api.js:218:error    undefined/events","timestamp":"2014-01-23T13:30:13.197Z"}
-{"level":"debug","message":"........................Room.UKCTrainingRoomA       undefined","timestamp":"2014-01-23T13:30:13.197Z"}
-{"level":"error","message":"Thu Jan 23 2014 13:30:13 GMT+0000 (GMT 标准时间):(H:\\Dropbox\\node\\testarm\\routes\\service.js:126:\u001b[31merror  \u001b[39m","timestamp":"2014-01-23T13:30:13.198Z"}
-{"level":"error","message":"Thu Jan 23 2014 13:30:13 GMT+0000 (GMT 标准时间):H:\\Dropbox\\node\\testarm\\routes\\meeting_api.js:218:error    undefined/events","timestamp":"2014-01-23T13:30:13.199Z"}
+{"level":"info","message":"\u001b[33mapp on development\u001b[39m","timestamp":"2014-01-26T17:39:34.501Z"}
+{"level":"info","message":"\u001b[33mthe port used \u001b[39m","timestamp":"2014-01-26T17:39:34.584Z"}
+{"level":"info","message":"\u001b[33mExpress started on port\u001b[39m","timestamp":"2014-01-26T17:39:34.600Z"}
+{"level":"info","message":"mongodb connect success","timestamp":"2014-01-26T17:39:35.501Z"}
+{"level":"info","message":"connection opening","timestamp":"2014-01-26T17:39:35.502Z"}
+{"level":"info","message":"listen to the MQTT service succfully   - armmeeting","timestamp":"2014-01-26T17:39:38.452Z"}
+{"level":"info","message":"add new RT SERVICE armmeeting","timestamp":"2014-01-26T17:39:38.453Z"}
+{"level":"info","message":"listen to the MQTT service succfully   - enlight","timestamp":"2014-01-26T17:39:38.454Z"}
+{"level":"info","message":"add new RT SERVICE enlight","timestamp":"2014-01-26T17:39:38.455Z"}
+{"level":"error","message":"Sun Jan 26 2014 17:39:38 GMT+0000 (GMT 标准时间):(H:\\Dropbox\\node\\testarm\\app.js:329:ReferenceError: serviceCatalog is not defined\n    at Object.<anonymous> (H:\\Dropbox\\node\\testarm\\routes\\apps\\app_energy.js:22:22)\n    at Module._compile (module.js:456:26)\n    at Object.Module._extensions..js (module.js:474:10)\n    at Module.load (module.js:356:32)\n    at Function.Module._load (module.js:312:12)\n    at Module.require (module.js:364:17)\n    at require (module.js:380:17)\n    at bootApp (H:\\Dropbox\\node\\testarm\\routes\\beta_api.js:121:2)\n    at H:\\Dropbox\\node\\testarm\\routes\\beta_api.js:114:4\n    at Array.forEach (native)","timestamp":"2014-01-26T17:39:38.481Z"}
+{"level":"info","message":"\u001b[32mMQTT Connected\u001b[39m","timestamp":"2014-01-26T17:39:38.642Z"}
+{"level":"info","message":"\u001b[32mMQTT Connected\u001b[39m","timestamp":"2014-01-26T17:39:38.645Z"}
+{"0":"Sun Jan 26 2014 17:39:39 GMT+0000 (GMT 标准时间)","1":"SIGINT","level":"info","message":"%s: Received %s - terminating Node server ...","timestamp":"2014-01-26T17:39:39.776Z"}
+{"level":"info","message":"\u001b[33mapp on development\u001b[39m","timestamp":"2014-01-27T07:57:38.044Z"}
+{"level":"info","message":"\u001b[33mthe port used \u001b[39m","timestamp":"2014-01-27T07:57:38.126Z"}
+{"level":"error","message":"Mon Jan 27 2014 07:57:38 GMT+0000 (GMT 标准时间):(H:\\Dropbox\\node\\testarm\\app.js:329:Error: listen EADDRINUSE\n    at errnoException (net.js:883:11)\n    at Server._listen2 (net.js:1021:14)\n    at listen (net.js:1043:10)\n    at net.js:1117:9\n    at dns.js:72:18\n    at process._tickDomainCallback (node.js:459:13)\n    at Function.Module.runMain (module.js:499:11)\n    at startup (node.js:119:16)\n    at node.js:901:3","timestamp":"2014-01-27T07:57:38.152Z"}
+{"level":"info","message":"mongodb connect success","timestamp":"2014-01-27T07:57:38.959Z"}
+{"level":"info","message":"connection opening","timestamp":"2014-01-27T07:57:38.960Z"}
+{"0":"Mon Jan 27 2014 07:57:40 GMT+0000 (GMT 标准时间)","1":"SIGINT","level":"info","message":"%s: Received %s - terminating Node server ...","timestamp":"2014-01-27T07:57:40.094Z"}
+{"level":"info","message":"\u001b[33mapp on development\u001b[39m","timestamp":"2014-01-27T07:58:44.856Z"}
+{"level":"info","message":"\u001b[33mthe port used \u001b[39m","timestamp":"2014-01-27T07:58:44.938Z"}
+{"level":"error","message":"Mon Jan 27 2014 07:58:44 GMT+0000 (GMT 标准时间):(H:\\Dropbox\\node\\testarm\\app.js:329:Error: listen EADDRINUSE\n    at errnoException (net.js:883:11)\n    at Server._listen2 (net.js:1021:14)\n    at listen (net.js:1043:10)\n    at net.js:1117:9\n    at dns.js:72:18\n    at process._tickDomainCallback (node.js:459:13)\n    at Function.Module.runMain (module.js:499:11)\n    at startup (node.js:119:16)\n    at node.js:901:3","timestamp":"2014-01-27T07:58:44.964Z"}
+{"level":"info","message":"mongodb connect success","timestamp":"2014-01-27T07:58:45.781Z"}
+{"level":"info","message":"connection opening","timestamp":"2014-01-27T07:58:45.781Z"}
+{"0":"Mon Jan 27 2014 07:58:46 GMT+0000 (GMT 标准时间)","1":"SIGINT","level":"info","message":"%s: Received %s - terminating Node server ...","timestamp":"2014-01-27T07:58:46.909Z"}
+{"level":"info","message":"\u001b[33mapp on development\u001b[39m","timestamp":"2014-01-27T07:59:42.413Z"}
+{"level":"info","message":"\u001b[33mthe port used \u001b[39m","timestamp":"2014-01-27T07:59:42.494Z"}
+{"level":"error","message":"Mon Jan 27 2014 07:59:42 GMT+0000 (GMT 标准时间):(H:\\Dropbox\\node\\testarm\\app.js:329:Error: listen EADDRINUSE\n    at errnoException (net.js:883:11)\n    at Server._listen2 (net.js:1021:14)\n    at listen (net.js:1043:10)\n    at net.js:1117:9\n    at dns.js:72:18\n    at process._tickDomainCallback (node.js:459:13)\n    at Function.Module.runMain (module.js:499:11)\n    at startup (node.js:119:16)\n    at node.js:901:3","timestamp":"2014-01-27T07:59:42.526Z"}
+{"level":"info","message":"mongodb connect success","timestamp":"2014-01-27T07:59:43.344Z"}
+{"level":"info","message":"connection opening","timestamp":"2014-01-27T07:59:43.345Z"}
+{"level":"error","message":"Mon Jan 27 2014 07:59:47 GMT+0000 (GMT 标准时间):(H:\\Dropbox\\node\\testarm\\app.js:329:TypeError: undefined is not a function\n    at crawl (H:\\Dropbox\\node\\testarm\\routes\\beta_api.js:416:9)\n    at H:\\Dropbox\\node\\testarm\\routes\\beta_api.js:405:21\n    at Request._callback (H:\\Dropbox\\node\\testarm\\routes\\beta_api.js:332:21)\n    at Request.self.callback (H:\\Dropbox\\node\\node_modules\\request\\index.js:148:22)\n    at Request.EventEmitter.emit (events.js:98:17)\n    at Request.<anonymous> (H:\\Dropbox\\node\\node_modules\\request\\index.js:876:14)\n    at Request.EventEmitter.emit (events.js:117:20)\n    at IncomingMessage.<anonymous> (H:\\Dropbox\\node\\node_modules\\request\\index.js:827:12)\n    at IncomingMessage.EventEmitter.emit (events.js:117:20)\n    at _stream_readable.js:883:14","timestamp":"2014-01-27T07:59:47.125Z"}
+{"level":"info","message":"listen to the MQTT service succfully   - armmeeting","timestamp":"2014-01-27T07:59:47.128Z"}
+{"level":"info","message":"add new RT SERVICE armmeeting","timestamp":"2014-01-27T07:59:47.130Z"}
+{"level":"info","message":"listen to the MQTT service succfully   - enlight","timestamp":"2014-01-27T07:59:47.131Z"}
+{"level":"info","message":"add new RT SERVICE enlight","timestamp":"2014-01-27T07:59:47.131Z"}
+{"level":"info","message":"app is created    intellisense   6v1ie1rgm2o0","timestamp":"2014-01-27T07:59:47.150Z"}
+{"level":"info","message":"\u001b[32msubscribe success intellisense   \u001b[39m","timestamp":"2014-01-27T07:59:47.151Z"}
+{"level":"info","message":"app is created enlight 72ziw2wj0iw4","timestamp":"2014-01-27T07:59:47.153Z"}
+{"level":"info","message":"\u001b[32msubscribe success  enlight  \u001b[39m","timestamp":"2014-01-27T07:59:47.154Z"}
+{"level":"info","message":"app is created  meetingroom   2e3s3tnftijo","timestamp":"2014-01-27T07:59:47.163Z"}
+{"level":"info","message":"subscribe success","timestamp":"2014-01-27T07:59:47.163Z"}
+{"level":"info","message":"App has subscribe to the channel success","timestamp":"2014-01-27T07:59:47.165Z"}
+{"level":"info","message":"App has subscribe to the channel success","timestamp":"2014-01-27T07:59:47.167Z"}
+{"level":"info","message":"App has subscribe to the channel success","timestamp":"2014-01-27T07:59:47.169Z"}
+{"level":"info","message":"\u001b[32mMQTT Connected\u001b[39m","timestamp":"2014-01-27T07:59:47.319Z"}
+{"level":"info","message":"\u001b[32mMQTT Connected\u001b[39m","timestamp":"2014-01-27T07:59:47.322Z"}
+{"level":"debug","message":"room  is  https://protected-sands-2667.herokuapp.com/rooms/Room.UKCARM66MR5","timestamp":"2014-01-27T07:59:48.369Z"}
+{"level":"debug","message":"room  is  https://protected-sands-2667.herokuapp.com/rooms/Room.UKCMaple","timestamp":"2014-01-27T07:59:48.381Z"}
+{"level":"debug","message":"room  is  https://protected-sands-2667.herokuapp.com/rooms/Room.UKCSycamore","timestamp":"2014-01-27T07:59:48.382Z"}
+{"level":"debug","message":"room  is  https://protected-sands-2667.herokuapp.com/rooms/Room.UKCBeech","timestamp":"2014-01-27T07:59:48.383Z"}
+{"level":"debug","message":"room  is  https://protected-sands-2667.herokuapp.com/rooms/Room.UKCLectureTheatre","timestamp":"2014-01-27T07:59:48.384Z"}
+{"level":"debug","message":"room  is  https://protected-sands-2667.herokuapp.com/rooms/Room.UKCFM10","timestamp":"2014-01-27T07:59:48.385Z"}
+{"level":"debug","message":"room  is  https://protected-sands-2667.herokuapp.com/rooms/Room.UKCOak","timestamp":"2014-01-27T07:59:48.386Z"}
+{"level":"debug","message":"room  is  https://protected-sands-2667.herokuapp.com/rooms/Room.UKCElm","timestamp":"2014-01-27T07:59:48.387Z"}
+{"level":"debug","message":"room  is  https://protected-sands-2667.herokuapp.com/rooms/Room.UKCWillowA","timestamp":"2014-01-27T07:59:48.388Z"}
+{"level":"debug","message":"room  is  https://protected-sands-2667.herokuapp.com/rooms/Room.UKCWillowB","timestamp":"2014-01-27T07:59:48.389Z"}
+{"level":"debug","message":"room  is  https://protected-sands-2667.herokuapp.com/rooms/RoomUKCPatentBox","timestamp":"2014-01-27T07:59:48.390Z"}
+{"level":"debug","message":"room  is  https://protected-sands-2667.herokuapp.com/rooms/Room.UKCSF8","timestamp":"2014-01-27T07:59:48.391Z"}
+{"level":"debug","message":"room  is  https://protected-sands-2667.herokuapp.com/rooms/Room.UKCARM66MR11","timestamp":"2014-01-27T07:59:48.391Z"}
+{"level":"debug","message":"room  is  https://protected-sands-2667.herokuapp.com/rooms/Room.UKCTrainingRoomA","timestamp":"2014-01-27T07:59:48.402Z"}
+{"level":"debug","message":"room  is  https://protected-sands-2667.herokuapp.com/rooms/Room.UKCTrainingRoomB","timestamp":"2014-01-27T07:59:48.403Z"}
+{"level":"debug","message":"room  is  https://protected-sands-2667.herokuapp.com/rooms/Room.UKCARM66MR4","timestamp":"2014-01-27T07:59:48.404Z"}
+{"0":"Mon Jan 27 2014 07:59:51 GMT+0000 (GMT 标准时间)","1":"SIGINT","level":"info","message":"%s: Received %s - terminating Node server ...","timestamp":"2014-01-27T07:59:51.980Z"}
+{"level":"info","message":"\u001b[33mapp on development\u001b[39m","timestamp":"2014-01-27T08:09:18.251Z"}
+{"level":"info","message":"\u001b[33mthe port used \u001b[39m","timestamp":"2014-01-27T08:09:20.591Z"}
+{"level":"info","message":"\u001b[33mExpress started on port\u001b[39m","timestamp":"2014-01-27T08:09:20.607Z"}
+{"level":"info","message":"listen to the MQTT service succfully   - armmeeting","timestamp":"2014-01-27T08:09:42.976Z"}
+{"level":"info","message":"add new RT SERVICE armmeeting","timestamp":"2014-01-27T08:09:42.976Z"}
+{"level":"info","message":"listen to the MQTT service succfully   - enlight","timestamp":"2014-01-27T08:09:42.976Z"}
+{"level":"info","message":"add new RT SERVICE enlight","timestamp":"2014-01-27T08:09:42.976Z"}
+{"level":"info","message":"app is created    intellisense   3hethsqzogow","timestamp":"2014-01-27T08:09:43.054Z"}
+{"level":"info","message":"\u001b[32msubscribe success intellisense   \u001b[39m","timestamp":"2014-01-27T08:09:43.070Z"}
+{"level":"info","message":"app is created enlight 4h6oaj0gpjqc","timestamp":"2014-01-27T08:09:43.195Z"}
+{"level":"info","message":"\u001b[32msubscribe success  enlight  \u001b[39m","timestamp":"2014-01-27T08:09:43.195Z"}
+{"level":"info","message":"app is created  meetingroom   646x0lfz70ws","timestamp":"2014-01-27T08:09:43.242Z"}
+{"level":"info","message":"subscribe success","timestamp":"2014-01-27T08:09:43.242Z"}
+{"level":"error","message":"Mon Jan 27 2014 08:09:44 GMT+0000 (GMT 标准时间):(H:\\Dropbox\\node\\testarm\\app.js:329:TypeError: undefined is not a function\n    at crawl (H:\\Dropbox\\node\\testarm\\routes\\beta_api.js:416:9)\n    at H:\\Dropbox\\node\\testarm\\routes\\beta_api.js:405:21\n    at Request._callback (H:\\Dropbox\\node\\testarm\\routes\\beta_api.js:332:21)\n    at Request.self.callback (H:\\Dropbox\\node\\node_modules\\request\\index.js:148:22)\n    at Request.EventEmitter.emit (events.js:98:17)\n    at Request.<anonymous> (H:\\Dropbox\\node\\node_modules\\request\\index.js:876:14)\n    at Request.EventEmitter.emit (events.js:117:20)\n    at IncomingMessage.<anonymous> (H:\\Dropbox\\node\\node_modules\\request\\index.js:827:12)\n    at IncomingMessage.EventEmitter.emit (events.js:117:20)\n    at _stream_readable.js:883:14","timestamp":"2014-01-27T08:09:44.536Z"}
+{"level":"info","message":"App has subscribe to the channel success","timestamp":"2014-01-27T08:09:44.536Z"}
+{"level":"info","message":"App has subscribe to the channel success","timestamp":"2014-01-27T08:09:44.536Z"}
+{"level":"info","message":"App has subscribe to the channel success","timestamp":"2014-01-27T08:09:44.552Z"}
+{"level":"info","message":"\u001b[32mMQTT Connected\u001b[39m","timestamp":"2014-01-27T08:09:44.599Z"}
+{"level":"info","message":"\u001b[32mMQTT Connected\u001b[39m","timestamp":"2014-01-27T08:09:44.614Z"}
+{"level":"debug","message":"room  is  https://protected-sands-2667.herokuapp.com/rooms/Room.UKCARM66MR5","timestamp":"2014-01-27T08:09:45.691Z"}
+{"level":"debug","message":"room  is  https://protected-sands-2667.herokuapp.com/rooms/Room.UKCMaple","timestamp":"2014-01-27T08:09:45.706Z"}
+{"level":"debug","message":"room  is  https://protected-sands-2667.herokuapp.com/rooms/Room.UKCSycamore","timestamp":"2014-01-27T08:09:45.706Z"}
+{"level":"debug","message":"room  is  https://protected-sands-2667.herokuapp.com/rooms/Room.UKCBeech","timestamp":"2014-01-27T08:09:45.706Z"}
+{"level":"debug","message":"room  is  https://protected-sands-2667.herokuapp.com/rooms/Room.UKCLectureTheatre","timestamp":"2014-01-27T08:09:45.706Z"}
+{"level":"debug","message":"room  is  https://protected-sands-2667.herokuapp.com/rooms/Room.UKCFM10","timestamp":"2014-01-27T08:09:45.706Z"}
+{"level":"debug","message":"room  is  https://protected-sands-2667.herokuapp.com/rooms/Room.UKCOak","timestamp":"2014-01-27T08:09:45.706Z"}
+{"level":"debug","message":"room  is  https://protected-sands-2667.herokuapp.com/rooms/Room.UKCElm","timestamp":"2014-01-27T08:09:45.706Z"}
+{"level":"debug","message":"room  is  https://protected-sands-2667.herokuapp.com/rooms/Room.UKCWillowA","timestamp":"2014-01-27T08:09:45.706Z"}
+{"level":"debug","message":"room  is  https://protected-sands-2667.herokuapp.com/rooms/Room.UKCWillowB","timestamp":"2014-01-27T08:09:45.706Z"}
+{"level":"debug","message":"room  is  https://protected-sands-2667.herokuapp.com/rooms/RoomUKCPatentBox","timestamp":"2014-01-27T08:09:45.706Z"}
+{"level":"debug","message":"room  is  https://protected-sands-2667.herokuapp.com/rooms/Room.UKCSF8","timestamp":"2014-01-27T08:09:45.706Z"}
+{"level":"debug","message":"room  is  https://protected-sands-2667.herokuapp.com/rooms/Room.UKCARM66MR11","timestamp":"2014-01-27T08:09:45.722Z"}
+{"level":"debug","message":"room  is  https://protected-sands-2667.herokuapp.com/rooms/Room.UKCTrainingRoomA","timestamp":"2014-01-27T08:09:45.738Z"}
+{"level":"debug","message":"room  is  https://protected-sands-2667.herokuapp.com/rooms/Room.UKCTrainingRoomB","timestamp":"2014-01-27T08:09:45.738Z"}
+{"level":"debug","message":"room  is  https://protected-sands-2667.herokuapp.com/rooms/Room.UKCARM66MR4","timestamp":"2014-01-27T08:09:45.738Z"}
+{"0":"Mon Jan 27 2014 08:09:46 GMT+0000 (GMT 标准时间)","1":"SIGINT","level":"info","message":"%s: Received %s - terminating Node server ...","timestamp":"2014-01-27T08:09:47.012Z"}
+{"level":"info","message":"\u001b[33mapp on development\u001b[39m","timestamp":"2014-01-27T08:11:51.826Z"}
+{"level":"info","message":"\u001b[33mthe port used \u001b[39m","timestamp":"2014-01-27T08:11:51.904Z"}
+{"level":"info","message":"\u001b[33mExpress started on port\u001b[39m","timestamp":"2014-01-27T08:11:51.920Z"}
+{"level":"info","message":"mongodb connect success","timestamp":"2014-01-27T08:11:52.762Z"}
+{"level":"info","message":"connection opening","timestamp":"2014-01-27T08:11:52.762Z"}
+{"level":"info","message":"listen to the MQTT service succfully   - armmeeting","timestamp":"2014-01-27T08:11:56.147Z"}
+{"level":"info","message":"add new RT SERVICE armmeeting","timestamp":"2014-01-27T08:11:56.147Z"}
+{"level":"info","message":"listen to the MQTT service succfully   - enlight","timestamp":"2014-01-27T08:11:56.147Z"}
+{"level":"info","message":"add new RT SERVICE enlight","timestamp":"2014-01-27T08:11:56.147Z"}
+{"level":"info","message":"app is created    intellisense   29eq9xwhthhc","timestamp":"2014-01-27T08:11:56.163Z"}
+{"level":"info","message":"\u001b[32msubscribe success intellisense   \u001b[39m","timestamp":"2014-01-27T08:11:56.163Z"}
+{"level":"info","message":"app is created enlight 51xq051566o8","timestamp":"2014-01-27T08:11:56.163Z"}
+{"level":"info","message":"\u001b[32msubscribe success  enlight  \u001b[39m","timestamp":"2014-01-27T08:11:56.163Z"}
+{"level":"info","message":"app is created  meetingroom   2o2ewwybpyio","timestamp":"2014-01-27T08:11:56.179Z"}
+{"level":"info","message":"subscribe success","timestamp":"2014-01-27T08:11:56.179Z"}
+{"level":"info","message":"App has subscribe to the channel success","timestamp":"2014-01-27T08:11:56.179Z"}
+{"level":"info","message":"App has subscribe to the channel success","timestamp":"2014-01-27T08:11:56.179Z"}
+{"level":"info","message":"App has subscribe to the channel success","timestamp":"2014-01-27T08:11:56.179Z"}
+{"level":"info","message":"\u001b[32mMQTT Connected\u001b[39m","timestamp":"2014-01-27T08:11:56.241Z"}
+{"level":"info","message":"\u001b[32mMQTT Connected\u001b[39m","timestamp":"2014-01-27T08:11:56.241Z"}
+{"level":"debug","message":"room  is  https://protected-sands-2667.herokuapp.com/rooms/Room.UKCARM66MR5","timestamp":"2014-01-27T08:11:56.272Z"}
+{"level":"debug","message":"room  is  https://protected-sands-2667.herokuapp.com/rooms/Room.UKCMaple","timestamp":"2014-01-27T08:11:56.272Z"}
+{"level":"debug","message":"room  is  https://protected-sands-2667.herokuapp.com/rooms/Room.UKCSycamore","timestamp":"2014-01-27T08:11:56.272Z"}
+{"level":"debug","message":"room  is  https://protected-sands-2667.herokuapp.com/rooms/Room.UKCBeech","timestamp":"2014-01-27T08:11:56.272Z"}
+{"level":"debug","message":"room  is  https://protected-sands-2667.herokuapp.com/rooms/Room.UKCLectureTheatre","timestamp":"2014-01-27T08:11:56.272Z"}
+{"level":"debug","message":"room  is  https://protected-sands-2667.herokuapp.com/rooms/Room.UKCFM10","timestamp":"2014-01-27T08:11:56.272Z"}
+{"level":"debug","message":"room  is  https://protected-sands-2667.herokuapp.com/rooms/Room.UKCOak","timestamp":"2014-01-27T08:11:56.288Z"}
+{"level":"debug","message":"room  is  https://protected-sands-2667.herokuapp.com/rooms/Room.UKCElm","timestamp":"2014-01-27T08:11:56.288Z"}
+{"level":"debug","message":"room  is  https://protected-sands-2667.herokuapp.com/rooms/Room.UKCWillowA","timestamp":"2014-01-27T08:11:56.288Z"}
+{"level":"debug","message":"room  is  https://protected-sands-2667.herokuapp.com/rooms/Room.UKCWillowB","timestamp":"2014-01-27T08:11:56.288Z"}
+{"level":"debug","message":"room  is  https://protected-sands-2667.herokuapp.com/rooms/RoomUKCPatentBox","timestamp":"2014-01-27T08:11:56.288Z"}
+{"level":"debug","message":"room  is  https://protected-sands-2667.herokuapp.com/rooms/Room.UKCSF8","timestamp":"2014-01-27T08:11:56.288Z"}
+{"level":"debug","message":"room  is  https://protected-sands-2667.herokuapp.com/rooms/Room.UKCARM66MR11","timestamp":"2014-01-27T08:11:56.288Z"}
+{"level":"debug","message":"room  is  https://protected-sands-2667.herokuapp.com/rooms/Room.UKCTrainingRoomA","timestamp":"2014-01-27T08:11:56.319Z"}
+{"level":"debug","message":"room  is  https://protected-sands-2667.herokuapp.com/rooms/Room.UKCTrainingRoomB","timestamp":"2014-01-27T08:11:56.319Z"}
+{"level":"debug","message":"room  is  https://protected-sands-2667.herokuapp.com/rooms/Room.UKCARM66MR4","timestamp":"2014-01-27T08:11:56.319Z"}
+{"level":"debug","message":"room  is  https://protected-sands-2667.herokuapp.com/rooms/Room.UKCARM66MR5","timestamp":"2014-01-27T08:11:57.255Z"}
+{"level":"debug","message":"room  is  https://protected-sands-2667.herokuapp.com/rooms/Room.UKCMaple","timestamp":"2014-01-27T08:11:57.255Z"}
+{"level":"debug","message":"room  is  https://protected-sands-2667.herokuapp.com/rooms/Room.UKCSycamore","timestamp":"2014-01-27T08:11:57.255Z"}
+{"level":"debug","message":"room  is  https://protected-sands-2667.herokuapp.com/rooms/Room.UKCBeech","timestamp":"2014-01-27T08:11:57.255Z"}
+{"level":"debug","message":"room  is  https://protected-sands-2667.herokuapp.com/rooms/Room.UKCLectureTheatre","timestamp":"2014-01-27T08:11:57.255Z"}
+{"level":"debug","message":"room  is  https://protected-sands-2667.herokuapp.com/rooms/Room.UKCFM10","timestamp":"2014-01-27T08:11:57.255Z"}
+{"level":"debug","message":"room  is  https://protected-sands-2667.herokuapp.com/rooms/Room.UKCOak","timestamp":"2014-01-27T08:11:57.255Z"}
+{"level":"debug","message":"room  is  https://protected-sands-2667.herokuapp.com/rooms/Room.UKCElm","timestamp":"2014-01-27T08:11:57.255Z"}
+{"level":"debug","message":"room  is  https://protected-sands-2667.herokuapp.com/rooms/Room.UKCWillowA","timestamp":"2014-01-27T08:11:57.271Z"}
+{"level":"debug","message":"room  is  https://protected-sands-2667.herokuapp.com/rooms/Room.UKCWillowB","timestamp":"2014-01-27T08:11:57.271Z"}
+{"level":"debug","message":"room  is  https://protected-sands-2667.herokuapp.com/rooms/RoomUKCPatentBox","timestamp":"2014-01-27T08:11:57.271Z"}
+{"level":"debug","message":"room  is  https://protected-sands-2667.herokuapp.com/rooms/Room.UKCSF8","timestamp":"2014-01-27T08:11:57.286Z"}
+{"level":"debug","message":"room  is  https://protected-sands-2667.herokuapp.com/rooms/Room.UKCARM66MR11","timestamp":"2014-01-27T08:11:57.286Z"}
+{"level":"debug","message":"room  is  https://protected-sands-2667.herokuapp.com/rooms/Room.UKCTrainingRoomA","timestamp":"2014-01-27T08:11:57.286Z"}
+{"level":"debug","message":"room  is  https://protected-sands-2667.herokuapp.com/rooms/Room.UKCTrainingRoomB","timestamp":"2014-01-27T08:11:57.286Z"}
+{"level":"debug","message":"room  is  https://protected-sands-2667.herokuapp.com/rooms/Room.UKCARM66MR4","timestamp":"2014-01-27T08:11:57.302Z"}
+{"level":"debug","message":"room  is  https://protected-sands-2667.herokuapp.com/rooms/Room.UKCElm","timestamp":"2014-01-27T08:18:56.636Z"}
+{"level":"debug","message":"room  is  https://protected-sands-2667.herokuapp.com/rooms/Room.UKCElm","timestamp":"2014-01-27T08:34:05.240Z"}
+{"level":"debug","message":"room  is  https://protected-sands-2667.herokuapp.com/rooms/Room.UKCLectureTheatre","timestamp":"2014-01-27T08:36:37.028Z"}
+{"level":"debug","message":"room  is  https://protected-sands-2667.herokuapp.com/rooms/Room.UKCOak","timestamp":"2014-01-27T08:56:25.590Z"}
+{"level":"debug","message":"room  is  https://protected-sands-2667.herokuapp.com/rooms/Room.UKCOak","timestamp":"2014-01-27T08:57:13.476Z"}
+{"level":"debug","message":"room  is  https://protected-sands-2667.herokuapp.com/rooms/Room.UKCOak","timestamp":"2014-01-27T08:59:23.135Z"}
+{"level":"debug","message":"room  is  https://protected-sands-2667.herokuapp.com/rooms/Room.UKCARM66MR11","timestamp":"2014-01-27T09:02:29.258Z"}
+{"level":"debug","message":"room  is  https://protected-sands-2667.herokuapp.com/rooms/Room.UKCARM66MR11","timestamp":"2014-01-27T09:03:38.630Z"}
+{"level":"debug","message":"room  is  https://protected-sands-2667.herokuapp.com/rooms/Room.UKCOak","timestamp":"2014-01-27T09:04:16.966Z"}
+{"level":"debug","message":"room  is  https://protected-sands-2667.herokuapp.com/rooms/Room.UKCOak","timestamp":"2014-01-27T09:05:40.730Z"}
+{"level":"debug","message":"room  is  https://protected-sands-2667.herokuapp.com/rooms/Room.UKCARM66MR11","timestamp":"2014-01-27T09:05:46.978Z"}
+{"level":"debug","message":"room  is  https://protected-sands-2667.herokuapp.com/rooms/Room.UKCARM66MR11","timestamp":"2014-01-27T09:06:23.225Z"}
+{"level":"debug","message":"room  is  https://protected-sands-2667.herokuapp.com/rooms/RoomUKCPatentBox","timestamp":"2014-01-27T09:06:44.327Z"}
+{"level":"debug","message":"room  is  https://protected-sands-2667.herokuapp.com/rooms/Room.UKCOak","timestamp":"2014-01-27T09:07:15.594Z"}

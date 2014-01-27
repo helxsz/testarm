@@ -65,8 +65,7 @@ var ServiceBuilder = function(serviceCatalog) {
 		var catalog = this.catalog;
 		if(catalog){
 		    var service = catalog.findByName(name); 
-			if(service.supportMQTT()){
-			    
+			if(service.supportMQTT()){		    
 			    buildMQTT(service, new MQTTMonitor(catalog), mqttHandler,function(mqttService){
                      winston.info('listen to the MQTT service succfully   - '+name);
 				    catalog.addRTService(name,mqttService);
