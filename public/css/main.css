@@ -9,10 +9,17 @@
     ========================================================================== */
 
     @import url(http://fonts.googleapis.com/css?family=Roboto+Condensed:400,700,300);
+    /*
+
+    @import url(http://fonts.googleapis.com/css?family=Monoton|Roboto+Condensed:700italic,400,300);
+    font-family: 'Monoton', cursive;
+
+    */
+
 
 /*  ==========================================================================
 
-    Copyright 2013 www.redninja.co.uk
+    Copyright 2014 www.redninja.co.uk
     Design and Code: Red Ninja Studios (Steven Hassall)
 
     COLOURS
@@ -41,7 +48,7 @@
     5. Images
     6. Menu
     7. Hexagons
-    8. Popup - Magnific
+    8. Modal
     9. Tables
     10. Animations (CSS3)
     11. Media Queries (Responsive)
@@ -79,13 +86,11 @@
     2. Layout
     ========================================================================== */
     
-    .home,
-    .energy {
+    .home{
         min-height:100%; width:100%; 
         background: #141414 url('../img/hexagon_BG.png') repeat 50% 0% scroll;
     }
-        .svg .home,
-        .svg .energy {
+        .svg .home{
             background: #141414 url('../img/svg/hexagon_BG.svg') repeat 50% 0% scroll;
         }
 
@@ -96,6 +101,10 @@
         .svg .meeting-room{
             background: #141414 url('../img/svg/hexagon_BG.svg') repeat 100% 0% scroll;
         }
+
+    .energy {
+        min-height:100%; width:100%; background-color: #141414;
+    }
 
 
         #banner {
@@ -149,16 +158,31 @@
 
         /* ENERGY */
 
-        .bullet { font: 10px sans-serif; }
+        .energy #app-description { 
+            text-align: center;
+            background-color: black; display: block;
+            width:14.625em; height: 13em; padding-top: 3.25em;
+            -webkit-border-radius: 10px 10px 10px 10px;
+                border-radius: 10px 10px 10px 10px;
+        }
+
+        .bullet { font: 16px sans-serif; fill: white; }
         .bullet .marker { stroke: #000; stroke-width: 2px; }
-        .bullet .tick line { stroke: #666; stroke-width: .5px; }
-        .bullet .range.s0 { fill: #eee; }
-        .bullet .range.s1 { fill: #ddd; }
-        .bullet .range.s2 { fill: #ccc; }
-        .bullet .measure.s0 { fill: lightsteelblue; }
-        .bullet .measure.s1 { fill: steelblue; }
-        .bullet .title { font-size: 14px; font-weight: bold; }
+        .bullet .tick line { stroke: #333333; stroke-width: 4px; }
+        .bullet .range.s0 { fill: #092630; }
+        .bullet .range.s1 { fill: #134D61; }
+        .bullet .range.s2 { fill: #134D61; }
+        .bullet .measure.s0 { fill: #2599C1; }
+        .bullet .measure.s1 { fill: #2599C1; }
+        .bullet .title { font-size: 14px; font-weight: bold; fill: white;}
         .bullet .subtitle { fill: #999; }
+
+        .energyDial {
+            display: block; width:320px; height:274px; 
+            background: url('../img/Energy-Dial.png') no-repeat 50% 50%;
+        }
+
+            .svg .energyDial {background: url('../img/svg/Energy-Dial.svg') no-repeat 50% 50%; }
 
 
 
@@ -521,10 +545,6 @@
 
         /* HOVER INTERACTIVITY */
 
-        .ch-info:hover {
-            margin-top: -0.203125em;
-        }
-
         .flipped .ch-info-wrap {
             margin-left: -44px;
         }
@@ -544,6 +564,10 @@
             top: 7em;
             right: 4.5em;
         }
+
+            .svg .home .app-brand a img {display: none;}
+            .svg .home .app-brand a img.svgIMG {display: inline-block;}
+
             .heating .ch-info-front {background: url('../img/hexagon_heating.png') no-repeat 50% 50% scroll;}
             .svg .heating .ch-info-front {background: url('../img/svg/hexagon_heating.svg') no-repeat 50% 50% scroll;}
 
@@ -829,7 +853,7 @@
                     width:3em; text-align: center;
                 }  
                 .itinerary tr:nth-child(2) td:nth-child(2) {
-                    width:auto; text-align: left;
+                    width:auto; text-align: center;
                 } 
             .itinerary td:nth-child(3) {
                 font-size: 1.875em; font-weight: 700;
@@ -860,7 +884,7 @@
     .itinerary p {font-weight:bold; margin-bottom: 0; }
 
     .itinerary a {}
-        .itinerary a button {width: 1.625em; height: 1.625em;}
+        .itinerary a button {width: 1.625em; height: 1.625em; font-size: 1.625em;}
     
     .itinerary i {color:#134D61; font-size: 1.625em;}
     .itinerary i.icon-arrow_right {
@@ -881,7 +905,7 @@
                 transform: rotate(120deg);
         cursor: pointer;
         }
-        tr:first-child .wrapHexagon {width: 76px; height: 66px;}
+        tr:first-child .wrapHexagon {width: 76px; height: 66px; }
     .hexagon-in1 {
         overflow: hidden;
         width: 100%; height: 100%;
@@ -914,13 +938,6 @@
         -ms-transition:all 200ms ease-in-out;
         transition:all 200ms ease-in-out;
     } 
-    .app-brand a .ch-item, 
-    .app-brand a:hover .ch-item {
-        -webkit-transition: all 50ms ease-in-out;
-        -moz-transition:all 50ms ease-in-out;
-        -ms-transition:all 50ms ease-in-out;
-        transition:all 50ms ease-in-out;
-    }
 
     /* Image animations  */
     body { /* Addresses a small issue in webkit: http://bit.ly/NEdoDq */
@@ -1011,6 +1028,20 @@
 
     @media only screen and (min-width:1057px) and (max-width:1920px) {
 
+        /* HOVER INTERACTIVITY */
+        .ch-info:hover {
+            margin-top: -0.203125em;
+        }
+
+        /* Animations */
+        .app-brand a .ch-item, 
+        .app-brand a:hover .ch-item {
+            -webkit-transition: all 50ms ease-in-out;
+            -moz-transition:all 50ms ease-in-out;
+            -ms-transition:all 50ms ease-in-out;
+            transition:all 50ms ease-in-out;
+        }
+
     }
 
 
@@ -1082,12 +1113,7 @@
             footer small {padding-top:0;}
 
 
-        /* Hexagons 
-
-        #app-meeting div:first-child {margin-top: 0;}
-
-        .hexagon {margin-top: 112px;}*/
-
+        /* Hexagons */
 
         #app-meeting li div.ch-item:first-child {margin-top: 0;}
         #app-meeting li div.ch-item {/*margin-top: 7em;*/ margin-top: 112px;}
@@ -1099,18 +1125,19 @@
         /* APPS */
 
         /* HOME */
-        .home #banner {}
+        .home #banner {margin-bottom: 3em;}
         #app-home {}
-            #app-home li:nth-child(odd) div.ch-item {
+        #app-home ul li {margin-left: 0; margin-top: 0;}
+            #app-home ul li:nth-child(-n+2) a img {
                 margin-top: 0;
             }
-            
+            #app-home ul li:nth-child(n+2) a img {
+                margin-top: 24px;
+            }
+
             #app-home.app-content ul li {height: auto;}
-            #app-home li div.ch-item {margin-top: 24px;}
-            #app-home li:nth-child(even) div.ch-item {margin:0;}
-                #app-home li div.ch-item {
-                    margin-top: 112px;
-                }
+            
+
 
             #app-home {margin-bottom: 3.25em; }
 
@@ -1173,109 +1200,39 @@
             font-size: 0.8125em;
         }
 
-        /* Navigation Button
+        /* Side Navigation
         -------------------------------------------------------- */
-
-        .nav-button {
-            display: block;
-            float:right;
-            right: 1em;
-            margin: 0 auto;
-            text-align: center;
-            height: 3.25em;
-            width: 3.25em;
-            cursor: pointer;
-            border: 0 none;
-            border-radius: 5px;
-            z-index: 999;
-        }
-        .nav-button:hover { 
-            background-color: rgba(0,0,0,.1); 
-        }
-        .nav-button.open {
-        }
-
-        /* Navigation Drop Down
-        -------------------------------------------------------- */
-
-        #menu-header-menu {
-            width: 100%;
-            float: none;
-            background-color: #CEE6EB; /* change the menu-header-menu color */
-            background-image: -webkit-linear-gradient(top, rgba(0,0,0,0), rgba(0,0,0,.2));
-            background-image:    -moz-linear-gradient(top, rgba(0,0,0,0), rgba(0,0,0,.2));
-            background-image:     -ms-linear-gradient(top, rgba(0,0,0,0), rgba(0,0,0,.2));
-            background-image:      -o-linear-gradient(top, rgba(0,0,0,0), rgba(0,0,0,.2));
-            display: block;
-            margin: 0;
-            padding: 0;
-            overflow: hidden;
-            box-shadow: 0 1px 2px rgba(0,0,0,.6);
-            position: absolute;
-            top: -9em;
-            left: 0px;
-            z-index: 998;
-            clear: both;
-        }
-        #menu-header-menu li {
-            display: none;
-            width: 100%;
-            font-family: Arial;
-        }
-        #menu-header-menu li a {
-            display: block;
+        .modal-dialog {
             width: 90%;
-            padding: 1.25em 5%;
-            border-bottom: 1px solid rgba(255, 255, 255, .25); 
-        }
-        #menu-header-menu li a:hover {
-            background-color: rgba(255,255,255,.1);
-            border-top-color: transparent;
-        }
-        #menu-header-menu > li:first-child {
-            
+            max-width: 32.5em;
+            margin: 0 auto;
+            margin-top: 1em;
         }
 
-        /* Toggle the navigation bar open  */
-
-        #menu-header-menu.open { 
-            height: auto;
-            top: 6.875em;
-        }
-        #menu-header-menu.open li { 
-            display: block; padding: 0; margin: 0;
+        .modal-content {
+            margin: 0 auto;
+            margin-top: 0;
+            margin-bottom: 1em;
+            padding: 0.25em;
         }
 
-        /* Submenu-header-menus optional .parent class indicates dropdowns */
+        .tg-table-dark tr td {display: table-cell; }
 
-        #menu-header-menu > li:hover > a {
-            background: rgba(255,255,255,.2);
-            border-bottom-color: transparent;
+        tr:first-child .wrapHexagon {width: 38px; height: 32px;}
+
+        .itinerary tr:nth-child(2) td:nth-child(1) {
+            width: auto;
         }
-        #menu-header-menu li.parent > a:after {
-            content: "â–¼";
-            color: rgba(255,255,255,.5);
-            float: right;
+        .itinerary tr:nth-child(2) td:nth-child(2) {
+             text-align: center;
         }
-        #menu-header-menu li.parent > a:hover {
-            background: rgba(0,0,0,.75);
+        .itinerary td:nth-child(3) {
+            font-size: 1.25em;
         }
-        #menu-header-menu li ul {
-            display: none;
-            background: rgba(0,0,0,.5);
-            border-top: 0 none;
-            padding: 0;
+        .itinerary a button {
+            font-size: 1em;
         }
-        #menu-header-menu li ul a {
-            border: 0 none;
-            font-size: 12px;
-            padding: 10px 5%;
-            font-weight: normal;
-        }
-        #menu-header-menu li:hover ul {
-                display: block;
-                border-top: 0 none;
-        }
+      
 
     }
 

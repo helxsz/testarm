@@ -149,9 +149,11 @@ var Service = function(obj) {
         // https://geras.1248.io/series/armmeeting/1/MotionSensor/00-0D-6F-00-00-C1-2E-EF/temperature
         function getResourceData(url, time,callback)	{
 		    var service = this.serviceObj;
-			if(time == null) time='';
+			var url ;
+			if(time == null) url = 'http://'+service.host+'/now'+ url;
+			else url  = 'http://'+service.host+'/series/'+ url +time;
             request.get({  
-                url: 'http://'+service.host+'/series/'+ url +time,	
+                url: url,	
                 headers: {
 		            'Authorization': 'Basic ' + new Buffer(service.key+":").toString('base64')
 		            ,'content-type':'application/json'		
@@ -160,14 +162,14 @@ var Service = function(obj) {
                 requestCert: true,
                 agent: false
             }, function(error, response, body) {
-	            console.log('requestDataByURL'.green, url);
+	            //console.log('requestDataByURL'.green, url);
 	            if(error){ 
 		            winston.error("error  ".red, error);
 			        callback(error,null);
 		        }
 	            else
 	            { 	
-                    winston.debug('getResourceData'+body);				
+                    winston.debug('getResourceData'+url +"  "+body);				
                     var obj ;				
                     try{				
 		                obj = JSON.parse(body);
@@ -191,7 +193,7 @@ var Service = function(obj) {
                 requestCert: true,
                 agent: false
             }, function(error, response, body) {
-	            console.log('requestDataByURL'.green, 'http://'+service.host+'/tags/'+ url);
+	            //console.log('requestDataByURL'.green, 'http://'+service.host+'/tags/'+ url);
 	            if(error){ 
 		            winston.error("error  ".red, error);
 			        callback(error,null);
@@ -211,19 +213,19 @@ var Service = function(obj) {
         }		
 
 
-function isAbsoluteURL(s) {
-    return s.charAt(0) != "#"
-      && s.charAt(0) != "/"
-      && ( s.indexOf("//") == -1 
-        || s.indexOf("//") > s.indexOf("#")
-        || s.indexOf("//") > s.indexOf("?")
-    );
-}
+	function isAbsoluteURL(s) {
+		return s.charAt(0) != "#"
+		  && s.charAt(0) != "/"
+		  && ( s.indexOf("//") == -1 
+			|| s.indexOf("//") > s.indexOf("#")
+			|| s.indexOf("//") > s.indexOf("?")
+		);
+	}
 
-function extractRelativeURL(href,host){
+	function extractRelativeURL(href,host){
 
-   return href.replace("https://"+host,"");
-}
+	   return href.replace("https://"+host,"");
+	}
 
 		
 };

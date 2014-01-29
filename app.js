@@ -18,12 +18,6 @@ var config = require('./conf/config.js'),
     webdir = '/web',
     mobiledir = '/mobile';  
 
- 
- 
- 
- 
-
-
 var sessionStore;
 function configSessionStore(){
     var redisClient = require("redis").createClient(config.redis.port,config.redis.host)

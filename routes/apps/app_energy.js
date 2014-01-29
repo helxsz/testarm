@@ -49,3 +49,40 @@ function EnergyMQTTHandler(){
 }
 
 ////////////////////////////////////////////////////////////////////
+
+app.get('/buildings/arm/floor',function(req,res,next){
+    var buildings = [
+    { 'name': 'ARM1', 
+	  "url":"https://protected-sands-2667.herokuapp.com/rooms/Room.UKCWillowA",
+	  "floors":[]
+	},
+    {'name': 'ARM1',
+     "url":"https://protected-sands-2667.herokuapp.com/rooms/Room.UKCWillowB",
+	  "floors":[]
+	},
+    {'name': 'ARM5',
+	  "url":"https://protected-sands-2667.herokuapp.com/rooms/Room.UKCFM10",
+	  "floors":[]
+	},
+    {'name': 'ARM6',
+	  "url":"https://protected-sands-2667.herokuapp.com/rooms/Room.UKCFM10",
+	}
+    ];
+	
+	res.send(200, buildings);
+})
+
+app.get('/sensors/arm/',function(req,res,next){
+    var sensors = [
+       {'name': 'aaa' , 'url':"https://protected-sands-2667.herokuapp.com/rooms/Room.UKCFM10", 'loc':[396,526], 'room':'abc'},
+	   {'name': 'bbb',  'url':"https://protected-sands-2667.herokuapp.com/rooms/Room.UKCFM10", 'loc':[419,552], 'room':'bcd'},
+	   {'name': 'ccc' , 'url':"https://protected-sands-2667.herokuapp.com/rooms/Room.UKCFM10", 'loc':[396,526], 'room':'abc'},
+	   {'name': 'ddd',  'url':"https://protected-sands-2667.herokuapp.com/rooms/Room.UKCFM10", 'loc':[369,521], 'room':'bcd'},
+	   {'name': 'eee',  'url':"https://protected-sands-2667.herokuapp.com/rooms/Room.UKCFM10", 'loc':[311,477], 'room':'bcd'},
+	   {'name': 'fff',  'url':"https://protected-sands-2667.herokuapp.com/rooms/Room.UKCFM10", 'loc':[339,500], 'room':'bcd'},
+	   {'name': 'ggg',  'url':"https://protected-sands-2667.herokuapp.com/rooms/Room.UKCFM10", 'loc':[358,585], 'room':'bcd'},
+	   {'name': 'zzz',  'url':"https://protected-sands-2667.herokuapp.com/rooms/Room.UKCFM10", 'loc':[358,585], 'room':'bcd'},
+    ];
+        
+    res.send(200,{sensors:sensors});
+})

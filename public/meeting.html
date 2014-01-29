@@ -5,10 +5,10 @@
 <!--[if gt IE 8]><!--> <html class="no-js" ng-app="meetingApp"> <!--<![endif]-->
 <head>
     <meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-	<title>ARM Dashboard Sensor Monitoring Project</title>
-	<meta name="author" content="Steven Hassall && Sizhe Xi ">
-    <meta name="description" content="ARM Dashboard Project">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>ARM Dashboard Meeting Room App</title>
+    <meta name="author" content="Steven Hassall and Sizhe Xi ">
+    <meta name="description" content="ARM Dashboard Sensor Monitoring Project">
     <meta name="viewport" content="width=device-width, maximum-scale=1, minimum-scale=1, user-scalable=0, initial-scale=1">
     <link rel="stylesheet" href="css/normalize.min.css">
     <!-- Gridset CSS -->
@@ -16,19 +16,16 @@
     <!--[if IE 9]><link rel="stylesheet" href="./css/gridset-ie-9.css" /><![endif]-->
     <!--[if lte IE 8]><link rel="stylesheet" href="./css/gridset-ie-lte8.css" /><![endif]-->
     <link rel="stylesheet" href="css/mfglabs_iconset.css">
-    <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="css/menu-component.css">
-	
-
+    <link rel="stylesheet" href="css/main.css">
+    
     <script src="js/vendor/socket.io.js"></script>
     <!--<script src="/assets/js/d3.v3.min.js"></script>-->
     <script src="js/vendor/angular.min.js"></script>
-	<script src="js/vendor/angular-touch.min.js"></script>
+    <script src="js/vendor/angular-touch.min.js"></script>
     <script src="js/vendor/ui-bootstrap.min.js"></script>
     <script src="js/vendor/underscore-min.js"></script>
-    <script src="js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
-
-	
+    <script src="js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>	
 </head>
 <body id="bodyID">
 <!--[if lt IE 7]>
@@ -186,7 +183,7 @@
                   <!-- START #footer -->
 
                       <div>
-                          <small>v0.941 Design &amp; Coded by <a href="http://www.redninja.co.uk" title="Design and Coded by Red Ninja Studios">Red Ninja Studios</a></small>
+                          <small>v0.944 Design &amp; Coded by <a href="http://www.redninja.co.uk" title="Design and Coded by Red Ninja Studios">Red Ninja Studios</a></small>
                       </div>
 
                       <div>
@@ -207,218 +204,286 @@
     <!-- END .meeting-room -->
     </div>
 
-    <script src="js/vendor/jquery-1.10.1.min.js"></script>
-
-    <script src="js/vendor/classie.js"></script>
-    <script src="js/vendor/mlpushmenu.js"></script>
-    	
-	
-
-    <!-- Gridset overlay script - toggles grid overlay on and off - You can remove this if you want. 
-	http://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.9.0/ui-bootstrap-tpls.min.js
-	-->
-    <script src="./js/gridset-overlay.js"></script> 
-
-    <!-- <script>
-        var _gaq=[['_setAccount','UA-XXXXX-X'],['_trackPageview']];
-        (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
-        g.src='//www.google-analytics.com/ga.js';
-        s.parentNode.insertBefore(g,s)}(document,'script'));
-    </script> -->
+  <script src="js/vendor/jquery-1.10.1.min.js"></script>
+  <script src="js/vendor/classie.js"></script>
+  <script src="js/vendor/mlpushmenu.js"></script>
     
+  <script>
+    // http://www.ibm.com/developerworks/web/library/wa-nodejs-polling-app/index.html?ca=drs-
+    // http://coenraets.org/blog/2012/02/sample-application-with-angular-js/
+    // http://www.thinkster.io/pick/eHPCs7s87O/angularjs-tutorial-learn-to-rapidly-build-real-time-web-apps-with-firebase
+    // http://dailyjs.com/2013/04/25/angularjs-3/
+    // http://stackoverflow.com/questions/7792652/what-is-the-best-way-to-conditionally-apply-a-class-with-angularjs?rq=1
+    // http://weblogs.asp.net/dwahlin/archive/2013/09/18/building-an-angularjs-modal-service.aspx
+    // http://angular-ui.github.io/bootstrap/
+    // http://stackoverflow.com/questions/14475284/make-a-render-condition-with-angularjs   http://stackoverflow.com/questions/15810278/if-else-in-angularjs-template
+    angular.module('meetingEventFilters', []).filter('filterEvent', function() {
+      return function(event) {
+        var now = new Date();
+        var eventDate = new Date(event.endDate);    
+    	return (eventDate.getTime() >= now.getTime())&&(eventDate.getDate()==now.getDate()); 
+      };
+    });
+
+
+    var meetingApp = angular.module('meetingApp', ['meetingEventFilters','ui.bootstrap','ngTouch']);
+
+    meetingApp.controller('meetingListCtrl', function ($rootScope,$scope, $http, $interval, socket, $modal) {
+
+      $scope.app = {showMenu:true};
+    	$scope.rooms = [];
+    	var checkTimer ;
+      	
     
-    <script>
-  // http://www.ibm.com/developerworks/web/library/wa-nodejs-polling-app/index.html?ca=drs-
-  // http://coenraets.org/blog/2012/02/sample-application-with-angular-js/
-  // http://www.thinkster.io/pick/eHPCs7s87O/angularjs-tutorial-learn-to-rapidly-build-real-time-web-apps-with-firebase
-  // http://dailyjs.com/2013/04/25/angularjs-3/
-  // http://stackoverflow.com/questions/7792652/what-is-the-best-way-to-conditionally-apply-a-class-with-angularjs?rq=1
-  // http://weblogs.asp.net/dwahlin/archive/2013/09/18/building-an-angularjs-modal-service.aspx
-  // http://angular-ui.github.io/bootstrap/
-  // http://stackoverflow.com/questions/14475284/make-a-render-condition-with-angularjs   http://stackoverflow.com/questions/15810278/if-else-in-angularjs-template
-  angular.module('meetingEventFilters', []).filter('filterEvent', function() {
-    return function(event) {
-      var now = new Date();
-      var eventDate = new Date(event.endDate);    
-  	return (eventDate.getTime() >= now.getTime())&&(eventDate.getDate()==now.getDate()); 
-    };
-  });
+        $scope.open = function ( index) {
+    	    var roomObj = $scope.rooms[index];
+    	    console.log('open',roomObj.name, roomObj, index);
+            var modalInstance = $modal.open({
+                templateUrl: 'eventModalTemplate.html',
+    			  backdrop: true,
+                windowClass: 'modal',
+                resolve: {
+                    room: function () {
+  				    var cloned = _.clone(roomObj);
+  				    _.map(cloned.events, function(event){					
+    		                //event.startDate = $scope.dateformat(event.startDate);
+  						//event.endDate = $scope.dateformat(event.endDate);
+  						return event;
+    		            })
+  					console.log('cloned',cloned);
+                      return cloned;
+                    }
+                },			  
+                controller: function ($scope, $modalInstance, room) {
+                    $scope.room = room;
+  				  $scope.dateformat = function(date){
+  					  var date = new Date(date);	
+  					  var hour = date.getHours(), min = date.getMinutes();
+  					  if(hour < 10) hour = '0'+date.getHours();
+  					  if(min < 10) min = '0'+date.getMinutes();
+  					  return  hour+":"+min;		 
+  				   }
+  				  
+  					/*
+  					$scope.ok = function () {
+  							 $modalInstance.close($scope.selected.item);
+  					  };
+  					  $scope.cancel = function () {
+  						  $modalInstance.dismiss('cancel');
+  					  };
+  					*/
+                }	
+            });
 
+           modalInstance.result.then(function (selectedItem) {
+            $scope.selected = selectedItem;
+            }, function () {
+            });
+        }; 
 
-  var meetingApp = angular.module('meetingApp', ['meetingEventFilters','ui.bootstrap','ngTouch']);
+        $http.get('/meetings/arm/now').success(function(data) {
+    	    data.rooms.forEach(function(room){
+    	        console.log(room.name,' (/meetings/arm/now)  remaining events for room ', room.events.length);
+    	    })		
+    		_.map(data.rooms,function(room){  room.front = false;} )
+    		
+    	    $scope.rooms = data.rooms;
+    	    console.log(data.rooms);
 
-  meetingApp.controller('meetingListCtrl', function ($rootScope,$scope, $http, $interval, socket, $modal) {
-
-    $scope.app = {showMenu:true};
-  	$scope.rooms = [];
-  	var checkTimer ;
+    		$scope.checkRoomAvailablity();
+    		$scope.checkIntialEventIndex();
+    		checkTimer = $interval($scope.checkMeetingMotionTimer, 1000*60);
+    		
+    		$rootScope.$broadcast('mybroadcast');
+        }).error(function(data, status, headers, config) {
+            // called asynchronously if an error occurs
+            // or server returns response with an error status.
+        });
     	
-  
-      $scope.open = function ( index) {
-  	    var roomObj = $scope.rooms[index];
-  	    console.log('open',roomObj.name, roomObj, index);
-          var modalInstance = $modal.open({
-              templateUrl: 'eventModalTemplate.html',
-  			  backdrop: true,
-              windowClass: 'modal',
-              resolve: {
-                  room: function () {
-				    var cloned = _.clone(roomObj);
-				    _.map(cloned.events, function(event){					
-  		                //event.startDate = $scope.dateformat(event.startDate);
-						//event.endDate = $scope.dateformat(event.endDate);
-						return event;
-  		            })
-					console.log('cloned',cloned);
-                    return cloned;
-                  }
-              },			  
-              controller: function ($scope, $modalInstance, room) {
-                  $scope.room = room;
-				  $scope.dateformat = function(date){
-					  var date = new Date(date);	
-					  var hour = date.getHours(), min = date.getMinutes();
-					  if(hour < 10) hour = '0'+date.getHours();
-					  if(min < 10) min = '0'+date.getMinutes();
-					  return  hour+":"+min;		 
-				   }
-				  
-					/*
-					$scope.ok = function () {
-							 $modalInstance.close($scope.selected.item);
-					  };
-					  $scope.cancel = function () {
-						  $modalInstance.dismiss('cancel');
-					  };
-					*/
-              }	
-          });
+        $scope.orderProp = 'temperature';
+    			  	
+    	$scope.$on('$viewContentLoaded', function(){
+    	    console.log('view content loaded');
+    	});
+    		
+    	$scope.checkRoomAvailablity = function(){
+    	    console.log('checkRoomAvailablity');
+    		var room_filtered = _.filter($scope.rooms, function(room){
+    		    var lastupdate = new Date(room.time); 
+              if(room.available==true)			
+  			console.log("---------  check room avail", (new Date().getTime() - lastupdate.getTime()) , 300000 , room.displayname,room.available );
+    			return ( room.available==true   && (new Date().getTime()-lastupdate.getTime()) > 5*60*1000  ) ;
+    		})
+    		
+    		_.map(room_filtered, function(room){
+  		     console.log('.............should  update the room to be available  ',room);
+    		     room.available = false;
+    		})
+    	}
+    	
+    	$scope.checkIntialEventIndex = function(){
+    	    var nowTime = new Date().getTime();
+    		$scope.rooms.forEach(function(room){
+    		    var events = room.events;
+    			//console.log("all events  ",events);
+    		    var event_filtered = _.filter(events, function(event){
+    		        var startTime = new Date(event.startDate).getTime(),endTime = new Date(event.endDate).getTime(); 				
+                    //console.log('event  ',nowTime, startTime);				
+    			    return  (nowTime>=startTime&& nowTime<=endTime) ||(nowTime <=startTime);  // 
+    		    })
+                room.eventIndex = events.length - event_filtered.length;		    
+    		    console.log("remaining events   ",event_filtered, room.eventIndex);
+    		})
+    	}
+    	
+    	$scope.checkNextEventAlert = function(){
+    	    var nowTime = new Date().getTime();
+    		$scope.rooms.forEach(function(room){
+    		    var events = room.events, index = room.eventIndex;
+                console.log(room.name , events.length, index);			
+    		    
+    			if(events.length>0){
+    			    var currentEvent = events[index], hasNextEvent = false;
+    			    var startTime = new Date(currentEvent.startDate).getTime(),endTime = new Date(currentEvent.endDate).getTime();
+    				
+    				if(index+1>=events.length){
+    				    console.log('no more next events');
+    				}else{
+    				    console.log('there is a next event');
+    					hasNextEvent = true;
+    				}
+    				
+    			    console.log('checkNextEventAlert  ', currentEvent.startDate, currentEvent.endDate);
+    			    if(nowTime>startTime&&nowTime<endTime){
+    			        // if there is a event, just update the event clock
+    			        console.log( ' in current event , next time  for  ' , $scope.dateformat(currentEvent.startDate)  );
+    				    var seconds = (endTime - nowTime)/1000;
+    				    if(seconds<60){
+    				    // setInterval  real timer 
+    				    }else if(seconds < 60 *5){
+    				        // show the alert  for room ( next event or event)
+                            if(hasNextEvent){
+    						
+    						}
+    				    }
+    		     	}else if(nowTime >= endTime){
+    				    if(hasNextEvent){
+    					    // show next event data and update the index
+    					    room.eventIndex ++;
+    					}
+    				}
+    			    else if(nowTime <=startTime){
+    			        console.log( ' next event  ' , $scope.dateformat(currentEvent.startDate)  );
+    				    // if there is no event now, just show the remaining time left for the next event
+    				   if(seconds<60){
+    				    // setInterval  real timer 
+    				   }else if(seconds < 60 *5){
+    				    // show the alert
+    				   }else if(seconds < 60*60){
+    				
+    				   }else{
+    				
+    				   }				
+    			    }
+    			}else{
+    			     console.log(' there is events in this day for this room ');
+    			
+    			}
+    		})	
+    	}
+    		
+    	$scope.checkMeetingMotionTimer = function(){
+    	    //console.log('check timer');
+    	    $scope.checkRoomAvailablity();
+    		///////////////////////////////////////////////////////////
+    		// give a alert for event transition 5 minutes before the next events
+    		$scope.checkNextEventAlert();
 
-         modalInstance.result.then(function (selectedItem) {
-          $scope.selected = selectedItem;
-          }, function () {
-          });
-      }; 
+    	}
 
-      $http.get('/meetings/arm/now').success(function(data) {
-  	    data.rooms.forEach(function(room){
-  	        console.log(room.name,' (/meetings/arm/now)  remaining events for room ', room.events.length);
-  	    })		
-  		_.map(data.rooms,function(room){  room.front = false;} )
-  		
-  	    $scope.rooms = data.rooms;
-  	    console.log(data.rooms);
+  	/****************************  utiliy ***********************************/
+    	$scope.$on('mybroadcast', function(service){
+    		console.log('on my broadcast', service);
+  		touchScroll("bodyID");
+  		sizeContent();			
+      })
+    
+      $scope.dateformat = function(date){
+            var date = new Date(date);	
+    	   	var hour = date.getHours(), min = date.getMinutes();
+    		if(hour < 10) hour = '0'+date.getHours();
+    		if(min < 10) min = '0'+date.getMinutes();
+            return  hour+":"+min;		 
+    	}
+   
+  	// touch device overflow fix
+  	function isTouchDevice() {
+  		try{
+  			document.createEvent("TouchEvent");
+  			return true;
+  		}catch(e){
+  			return false;
+  		}
+  	}
 
-  		$scope.checkRoomAvailablity();
-  		$scope.checkIntialEventIndex();
-  		checkTimer = $interval($scope.checkMeetingMotionTimer, 1000*60);
-  		
-  		$rootScope.$broadcast('mybroadcast');
-      }).error(function(data, status, headers, config) {
-          // called asynchronously if an error occurs
-          // or server returns response with an error status.
-      });
-  	
-      $scope.orderProp = 'temperature';
-  			  	
-  	$scope.$on('$viewContentLoaded', function(){
-  	    console.log('view content loaded');
-  	});
-  		
-  	$scope.checkRoomAvailablity = function(){
-  	    console.log('checkRoomAvailablity');
-  		var room_filtered = _.filter($scope.rooms, function(room){
-  		    var lastupdate = new Date(room.time); 
-            if(room.available==true)			
-			console.log("---------  check room avail", (new Date().getTime() - lastupdate.getTime()) , 300000 , room.displayname,room.available );
-  			return ( room.available==true   && (new Date().getTime()-lastupdate.getTime()) > 5*60*1000  ) ;
-  		})
-  		
-  		_.map(room_filtered, function(room){
-		     console.log('.............should  update the room to be available  ',room);
-  		     room.available = false;
-  		})
+  	function touchScroll(id) {
+  		if(isTouchDevice()){ //if touch events exist...
+  			var el=document.getElementById(id);
+  			var scrollStartPos=0;
+
+  			document.getElementById(id).addEventListener("touchstart", function(event) {
+  				scrollStartPos=this.scrollTop+event.touches[0].pageY;
+  				event.preventDefault();
+  			},false);
+
+  			document.getElementById(id).addEventListener("touchmove", function(event) {
+  				this.scrollTop=scrollStartPos-event.touches[0].pageY;
+  				event.preventDefault();
+  			},false);
+  		}
   	}
   	
-  	$scope.checkIntialEventIndex = function(){
-  	    var nowTime = new Date().getTime();
-  		$scope.rooms.forEach(function(room){
-  		    var events = room.events;
-  			//console.log("all events  ",events);
-  		    var event_filtered = _.filter(events, function(event){
-  		        var startTime = new Date(event.startDate).getTime(),endTime = new Date(event.endDate).getTime(); 				
-                  //console.log('event  ',nowTime, startTime);				
-  			    return  (nowTime>=startTime&& nowTime<=endTime) ||(nowTime <=startTime);  // 
-  		    })
-              room.eventIndex = events.length - event_filtered.length;		    
-  		    console.log("remaining events   ",event_filtered, room.eventIndex);
-  		})
-  	}
-  	
-  	$scope.checkNextEventAlert = function(){
-  	    var nowTime = new Date().getTime();
-  		$scope.rooms.forEach(function(room){
-  		    var events = room.events, index = room.eventIndex;
-              console.log(room.name , events.length, index);			
-  		    
-  			if(events.length>0){
-  			    var currentEvent = events[index], hasNextEvent = false;
-  			    var startTime = new Date(currentEvent.startDate).getTime(),endTime = new Date(currentEvent.endDate).getTime();
-  				
-  				if(index+1>=events.length){
-  				    console.log('no more next events');
-  				}else{
-  				    console.log('there is a next event');
-  					hasNextEvent = true;
-  				}
-  				
-  			    console.log('checkNextEventAlert  ', currentEvent.startDate, currentEvent.endDate);
-  			    if(nowTime>startTime&&nowTime<endTime){
-  			        // if there is a event, just update the event clock
-  			        console.log( ' in current event , next time  for  ' , $scope.dateformat(currentEvent.startDate)  );
-  				    var seconds = (endTime - nowTime)/1000;
-  				    if(seconds<60){
-  				    // setInterval  real timer 
-  				    }else if(seconds < 60 *5){
-  				        // show the alert  for room ( next event or event)
-                          if(hasNextEvent){
-  						
-  						}
-  				    }
-  		     	}else if(nowTime >= endTime){
-  				    if(hasNextEvent){
-  					    // show next event data and update the index
-  					    room.eventIndex ++;
-  					}
-  				}
-  			    else if(nowTime <=startTime){
-  			        console.log( ' next event  ' , $scope.dateformat(currentEvent.startDate)  );
-  				    // if there is no event now, just show the remaining time left for the next event
-  				   if(seconds<60){
-  				    // setInterval  real timer 
-  				   }else if(seconds < 60 *5){
-  				    // show the alert
-  				   }else if(seconds < 60*60){
-  				
-  				   }else{
-  				
-  				   }				
-  			    }
-  			}else{
-  			     console.log(' there is events in this day for this room ');
-  			
-  			}
-  		})	
-  	}
-  		
-  	$scope.checkMeetingMotionTimer = function(){
-  	    //console.log('check timer');
-  	    $scope.checkRoomAvailablity();
-  		///////////////////////////////////////////////////////////
-  		// give a alert for event transition 5 minutes before the next events
-  		$scope.checkNextEventAlert();
+  	function sizeContent() {
+  		// fix height bug on .container as there was an annoying gap below
+  		var bodyHeight = window.innerWidth;
+  		var containerHeight = document.getElementById('container').style.height;		
+  		if (bodyHeight > containerHeight) {
+  		  document.getElementById(id).style.height = "50px";
+  		}
+  		else {
+  		  window.innerHeight = containerHeight;
+  		}
+  		console.log ('sizeContent working');
+  	}	
+     	
+    	/******************    socket  **********************/
+        socket.on('connect', function () {
+    	    console.log('socket connected');
+        });
+                            
+        socket.on('info', function (msg) {               
+            //console.log(msg);
+            console.log('receiving the real time message from server ', msg.room,msg.value,msg.type)
+            if(msg.type=='motion'){ 
+                var room = _.findWhere($scope.rooms, {name: msg.room});	
+    			  if(room){
+                    console.log('room  object  becomes avaiable ',room);
+                    room.available = true;
+  				  room.time = new Date();
+    			  }	
+            }
+        });
+      /***************   destory *************************/
+    	$scope.$on('$destroy', function() {
+            if (angular.isDefined(checkTimer)) {
+                $interval.cancel(checkTimer);
+                checkTimer = undefined;
+            }
+            socket.removeAllListeners();		
+      });		
+    
 
-  	}
+
 
 	/****************************  utiliy ***********************************/
   	$scope.$on('mybroadcast', function(service){
@@ -543,25 +608,27 @@
 
 //Every resize of window
 $(window).resize(sizeContent); 
-  
-  
-angular
-    .module('loadingOnAJAX', [])
-    .config(function($httpProvider) {
-        var numLoadings = 0;
-        var loadingScreen = $('LOADING')
-            .appendTo($('body')).hide();
-        $httpProvider.responseInterceptors.push(function() {
-            return function(promise) {
-                numLoadings++;
-                loadingScreen.show();
-                var hide = function(r) { if (!(--numLoadings)) loadingScreen.hide(); return r; };
-                return promise.then(hide, hide);
-            };
-        });
-    });
 
-angular
+
+    
+  
+  angular
+      .module('loadingOnAJAX', [])
+      .config(function($httpProvider) {
+          var numLoadings = 0;
+          var loadingScreen = $('LOADING')
+              .appendTo($('body')).hide();
+          $httpProvider.responseInterceptors.push(function() {
+              return function(promise) {
+                  numLoadings++;
+                  loadingScreen.show();
+                  var hide = function(r) { if (!(--numLoadings)) loadingScreen.hide(); return r; };
+                  return promise.then(hide, hide);
+              };
+          });
+      });
+
+  angular
     .module('globalErrors', [])
     .config(function($provide, $httpProvider, $compileProvider) {
         var elementsList = $();
@@ -610,73 +677,61 @@ angular
             };
             return directiveDefinitionObject;
         });
-    });  
-  
-	
+    }); 
+  	
     </script>
-
-    <!-- Classie - class helper functions by @desandro https://github.com/desandro/classie 
-    <script>
-        var menuLeft = document.getElementById( 'mp-menu' ),
-            showLeft = document.getElementById( 'triggerMobile' ),
-            body = document.body;
-
-        triggerMobile.onclick = function() {
-            classie.toggle( this, 'active' );
-            classie.toggle( menuLeft, 'mp-menu-open' );
-            disableOther( 'triggerMobile' );
-        };
-
-        function disableOther( button ) {
-            if( button !== 'showLeft' ) {
-                classie.toggle( showLeft, 'disabled' );
-            }
-
-        }
-    </script>-->
 
     <!-- New Menu -->
     <script>
         new mlPushMenu( document.getElementById( 'mp-menu' ), document.getElementById( 'trigger' ) );
     </script>
 
-<script type="text/ng-template" id="eventModalTemplate.html"  >
-    <aside class="itinerary">
-      <article>
-      <header class="clearfix">
-        <h1>Today's Itinerary</h1>
-        <h2>{{room.displayname}}</h2>
-        <small><span class='temperature'>{{room.temperature}}</span> &#x2103;</small>
-      </header>
-      <section>
-        <table class="tg-table-dark">
-          <tr ng-repeat="event in room.events">  <!--add a filter for the remaining room -->
-            <td>
-              <div class="wrapHexagon">
-                <div class="hexagon-in1">
-                  <div class="hexagon-in2" style="background-image: url(img/photos/john-biggs.jpg);"></div>
-                </div>
-              </div>
-            </td>
-            <td><i class="icon-clock" aria-hidden="true"></i></td>
-            <td><span>{{ dateformat(event.startDate)}}</span><i class="icon-arrow_right " aria-hidden="true"></i><span>{{dateformat(event.endDate)}}</span></td>
-            <td><a href="tel:01517076707" title="Phone Joe"><button class="maskCircle icon-telephone icon2x"><span>Telephone</span></button></a></td>
-          </tr>
-        </table>
-        <h3 class="darkBlue">No More Bookings Today</h3>
-      </section>
-       </article> 
-    </aside>
-</script>
+  <script type="text/ng-template" id="eventModalTemplate.html">
+      <aside class="itinerary">
+        <article>
+          <header class="clearfix">
+            <h1>Today's Itinerary</h1>
+            <h2>{{room.displayname}}</h2>
+            <small><span class='temperature'>{{room.temperature}}</span> &#x2103;</small>
+          </header>
+          <section>
+            <table class="tg-table-dark">
+              <tr ng-repeat="event in room.events">  <!--add a filter for the remaining room -->
+                <td>
+                  <div class="wrapHexagon">
+                    <div class="hexagon-in1">
+                      <div class="hexagon-in2" style="background-image: url(img/photos/john-biggs.jpg);"></div>
+                    </div>
+                  </div>
+                </td>
+                <td><i class="icon-clock" aria-hidden="true"></i></td>
+                <td><span>{{ dateformat(event.startDate)}}</span><i class="icon-arrow_right " aria-hidden="true"></i><span>{{dateformat(event.endDate)}}</span></td>
+                <td><a href="tel:01517076707" title="Phone Joe"><button class="maskCircle icon-telephone icon2x"><span>Telephone</span></button></a></td>
+              </tr>
+            </table>
+            <h3 class="darkBlue">No More Bookings Today</h3>
+          </section>
+        </article> 
+      </aside>
+  </script>
 
-<!-- 
-1. css blink color transition    http://stackoverflow.com/questions/16344354/how-to-make-blinking-flashing-text-with-css3  http://stackoverflow.com/questions/19049484/blinking-a-div-with-background-color-in-jquery-using-setinterval  http://stackoverflow.com/questions/13955163/imitating-a-blink-tag-with-css3-animations   
-    http://stackoverflow.com/questions/4411306/css3-transition-of-background-color  
-2. css time decrease , color descrese    http://css-tricks.com/almanac/properties/t/transition/
-3. svg clock-->	
+  <!-- 
+  1. css blink color transition    http://stackoverflow.com/questions/16344354/how-to-make-blinking-flashing-text-with-css3  http://stackoverflow.com/questions/19049484/blinking-a-div-with-background-color-in-jquery-using-setinterval  http://stackoverflow.com/questions/13955163/imitating-a-blink-tag-with-css3-animations   
+      http://stackoverflow.com/questions/4411306/css3-transition-of-background-color  
+  2. css time decrease , color descrese    http://css-tricks.com/almanac/properties/t/transition/
+  3. svg clock-->	
 
-    <script src="js/plugins.js"></script>
+  <script src="js/plugins.js"></script>
 
-	
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-46398255-2', 'redninja.co.uk');
+    ga('send', 'pageview');
+
+  </script>
 </body>
 </html>

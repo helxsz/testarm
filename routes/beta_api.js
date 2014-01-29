@@ -17,34 +17,19 @@ var errors = require('../utils/errors'),
 	io = require('./websocket_api.js'),
 	serviceCatalog = require('./serviceCatalog.js'),ServiceBuilder = require('./serviceBuilder.js'),serviceBus = require('./serviceBusService.js'),
 	appBuilder = require('./AppBuilder.js');
-	SensMLHandler = require('./senMLHandler.js'),
-	simulation = require('./simulation.js');
+	SensMLHandler = require('./senMLHandler.js');
 
 // http://sailsjs.org/#!documentation/policies	
 // http://schema.org/Event
 // https://github.com/indexzero/node-schema-org
 /************************************************************************
 	request to 1248
-http://wiki.1248.io/doku.php?id=hypercat
-http://geras.1248.io/user/apidoc	
-	
-List of metadata properties in use   http://wiki.1248.io/doku.php?id=hypercatmetadatalist
 https://docs.google.com/viewer?a=v&pid=sites&srcid=ZGVmYXVsdGRvbWFpbnx0c2JvcGVuaW90fGd4OjJiMDhjYzRlZWI1OTk2NGI
-http://wiki.1248.io/lib/exe/fetch.php?media=hypercat-overview.pdf	
 http://imove-project.org/cat i-Move Project
 http://strauss.ccr.bris.ac.uk/catalogue/services/api/root IoT-Bay Project	
+https://alertmeadaptor.appspot.com
 *************************************************************************/
 
-/**************************************************************
-https://github.com/tobyjaffey/coap-cat-proxy/blob/master/coap-cat-proxy.js
-http://wiki.1248.io/doku.php?id=senml
-http://wiki.1248.io/doku.php?id=hypercat
-http://wiki.1248.io/doku.php?id=pathfinderpermissionsapi
-https://alertmeadaptor.appspot.com
-
-**************************************************************/
-// http://5.79.20.223:4001/cat/ARM6    http://data.openiot.org/cat
-/****   experiment 1 ********/
     var enlight = {
 	    'name': 'enlight',
 		'description': 'Streetlight data',
@@ -131,7 +116,7 @@ setTimeout(function(){
     console.log('timeout  ');
 	bootApps(app,__dirname + '/apps');
 	bootRealTimeServices();
-}, 3000);	
+}, 2000);	
 
 // http://localhost/all/meeting
 app.get('/all/meeting',function(req,res,next){
@@ -172,284 +157,583 @@ app.get('/catalog/tag',function(req,res,next){
 })
 
 
-	/*
-	client.hgetall("device:"+url, function (err, data) {
-        console.log('hgetall  reply 2'+data);	
-    });
 
-function findResource(context,url ,item ,callback){
-    var redisClient;
-    var redis_ip= config.redis.host;  
-    var redis_port= config.redis.port; 	
-    try{ 
-        redisClient = redis.createClient(redis_port,redis_ip);
-	}
-    catch (error){
-        console.log('find Resource eInto Catalog  error' + error);
-		redisClient.quit();
-		return callback(error,null);
-    }	
+function catalog_crawler(option){
+
+	var URI = require('URIjs');
+
+	var unexplored = [];    // list of catalogues URLs to expand
+	var explored = [];      // list of expanded catalogue URLs
+	var facts = [];         // array of facts [{subject, predicate, object},...]
 	
+	this.option = option;
+	
+	function storeFact(o) {
+		// only store unique facts
+		for (var i=0;i<facts.length;i++) {
+			if (facts[i].subject == o.subject &&
+				facts[i].predicate == o.predicate &&
+				facts[i].object == o.object)
+					return;
+		}
+		facts.push(o);
+	}
 
-	redisClient.hmget(context+url, item,function(err, data){
-	    redisClient.quit();
-		data.url = url;
-	    if(err) {return callback(err,null);}
-		else if(data) { return callback(null,data);}
-        else { return callback(null,null);}	
-	});
+	function fetch(root,  cb) {
+		//console.log("FETCH "+root);
+		//request(root, function (err, rsp, body) {
 
-	redisClient.quit();
-	return callback(null,1);
+		var h = {};
+		if (option.key !== undefined)
+			h.Authorization = 'Basic ' + new Buffer(option.key + ':').toString('base64')
+
+		request.get({
+			url: root,
+			headers: h,
+			rejectUnauthorized: false,
+			requestCert: true,
+			agent: false			
+		}, function(err, rsp, body) {
+			if (!err && rsp.statusCode == 200) {
+				if (cb !== undefined) {
+					try {
+						cb(null, JSON.parse(body));
+					} catch(e) {
+						console.error("Error parsing "+root+" "+body);
+						cb("err parsing", null);
+					}
+				}
+			} else {
+				if (rsp)
+					cb("Status code " + rsp.statusCode, null);
+				else
+					cb("Fetch error "+err, null);
+			}
+		});
+	}
+
+	function expandCatalogue(url, doc) {
+		var i;
+		try {
+			// store metadata for catalogue
+			for (i=0;i<doc['item-metadata'].length;i++) {
+				//console.log("CATL-FACT "+url+" "+doc['item-metadata'][i].rel+" "+doc['item-metadata'][i].val);
+				storeFact({
+					subject: url,
+					predicate: doc['item-metadata'][i].rel,
+					object: doc['item-metadata'][i].val,
+					context: url
+				});
+			}
+		} catch(e) {
+			console.error(e);
+		}
+
+		try {
+			// store metadata for items and expand any catalogues
+			for (i=0;i<doc.items.length;i++) {
+				var item = doc.items[i];
+				item.href = URI(item.href).absoluteTo(url).toString();    // fixup relative URL
+				// store that catalogue has an item
+				storeFact({
+					subject: url,
+					predicate: "urn:X-tsbiot:rels:hasResource",
+					object: item.href,
+					context: url
+				});
+				for (var j=0;j<item['i-object-metadata'].length;j++) {
+					var mdata = item['i-object-metadata'][j];
+					//console.log("ITEM-FACT "+item.href+" "+mdata.rel+" "+mdata.val);
+					storeFact({
+						subject: item.href,
+						predicate: mdata.rel,
+						object: mdata.val,
+						context: url
+					});
+
+					// if we find a link to a catalogue, follow it
+					if (mdata.rel == "urn:X-tsbiot:rels:isContentType" &&
+						mdata.val == "application/vnd.tsbiot.catalogue+json") {
+							//unexplored.push(item.href);
+							unexplored.push(item.href);
+					}
+				}
+			}
+		} catch(e) {
+			console.error(e);
+		}
+	}
+
+	function crawl(cb) {
+		if (unexplored.length > 0) {    // something to explore
+			var url = unexplored.pop();
+
+			if (explored.indexOf(url) == -1) {   // not seen before
+				fetch(url,  function(err, doc) {
+					if (err) {
+						console.error("Error in "+url+" ("+err+")");
+						explored.push(url); // was bad, but explored
+						crawl(cb);
+					} else {
+						explored.push(url);
+						expandCatalogue(url, doc);    // parse doc
+						crawl(cb);    // do some more work
+					}
+				});
+			} else {
+				crawl(cb);  // get next
+			}
+		} else {
+			cb();   // done
+		}
+	}
+
+	// dump a graph in dot/GraphViz format
+	function dumpGraph() {
+		if (facts.length) {
+			console.log("digraph {");
+			for (var i=0;i<facts.length;i++) {
+				console.log('    "'+facts[i].subject+'" -> "'+facts[i].object+'" [label="'+facts[i].predicate+'"];');
+			}
+			console.log("}");
+		}
+	}
+
+	// dump a graph in N-Quads format
+	function dumpNQuads() {
+		function f(s) { // FIXME, not a great way to detect URI
+			if (s.match(/^http/) || s.match(/^mqtt/) || s.match(/^urn:/) || s.match(/^\//))
+				return '<'+s+'>';
+			else
+				return '"'+s+'"';
+		}
+		for (var i=0;i<facts.length;i++) {
+			console.log(f(facts[i].subject)+' '+f(facts[i].predicate)+' '+f(facts[i].object)+' '+f(facts[i].context)+' .');
+		}
+	}
+
+	function startCrawl(option,callback){
+		// add root catalogue URL to crawl list
+		this.option = option;
+		unexplored.push(option.url);
+		crawl(function() {
+		    /*
+			if (true)
+				dumpNQuads();
+			else
+				dumpGraph();
+			*/	
+			callback(facts);
+		});
+	}
+
+    return {
+	    startCrawl:startCrawl
+	}	
 }
 
-function saveResourceInBulk(context, url ,item ,callback){
-    var redisClient;
-    var redis_ip= config.redis.host;  
-    var redis_port= config.redis.port;	
-    try{ 
-        redisClient = redis.createClient(redis_port,redis_ip);
-	}
-    catch (error){
-        console.log('save Resource IntoCatalog  error' + error);
-		redisClient.quit();
-		return callback(error,null);
-    }	
-	var time = new Date().getTime();
+var catalog_filter = function(){
+
+    /////////////////////////  TSB ///////////////////////////////
+	var CONTENT_TYPE = "urn:X-tsbiot:rels:isContentType";
+	var IS_CATALOG = 'application/vnd.tsbiot.catalogue+json';
+	var IS_SENML = 'application/senml+json';
+	var IS_APPLICATIONTYPE_ROOM = 'application/json; profile=http://schema.org/Place/Room';
+
+	var SUPPORTS_QUERY = 'urn:X-tsbiot:rels:supports:query';
+	var SUPPORTS_MQTT = 'urn:X-tsbiot:rels:supports:observe:mqtt:senml:v1';
+
+	//////////////////////////  ONTOLOGY ////////////////////////////
+	var HAS_LOCATION= 'http://www.loa-cnr.it/ontologies/DUL.owl#hasLocation';
+	var SAME_AS = 'http://www.w3.org/2002/07/owl#sameAs';
+	var GEO_LAT = 'http://www.w3.org/2003/01/geo/wgs84_pos#lat';
+	var GEO_LNG = 'http://www.w3.org/2003/01/geo/wgs84_pos#long';
+
+	var SCHEMA_EVENT = 'http://schema.org/event';
+	var SCHEMA_ADDRESS = 'http://schema.org/addressLocality';
+                          
+	///////////////////////// ONTOLOGY WITHOUT CONTEXT ////////////////////////////
+    var HAS_LOCATION_SHORT = 'hasLocation';
+	var SAME_AS_SHORT = 'sameAs';
+	var GEO_LAT_SHORT = 'lat';
+	var GEO_LNG_SHORT = 'long';
+
+	var SCHEMA_EVENT_SHORT = 'event';
+	var SCHEMA_ADDRESS_SHORT = 'addressLocality';	
+	
+	function filterRoom(facts, _callback) {
+		if (facts.length) {
 		
-	var mul = redisClient.multi();
-    for(var index in item) {
-		mul.hmset(context+url,index,item[index],function(){})
-    }		
-	mul.exec(function (err, replies) {
-        console.log("save Resource ".green + replies.length + " replies");
-    });
-	redisClient.quit();
-	return callback(null,1);
-}
- */
- 
- 
-/*
-function clearResourceList(service,callback){
-    var redisClient;
-    var redis_ip= config.redis.host;  
-    var redis_port= config.redis.port; 	
-    try{ 
-        redisClient = redis.createClient(redis_port,redis_ip);
+		    console.log('facts length  '.green,facts.length);			
+			var groups = _.groupBy(facts, function(fact){ return fact.subject; });
+			
+			var array = Object.keys(groups);
+			console.log('group length '.green, array.length );	
+
+			var buildingService = serviceCatalog.findByName('armbuilding');
+            var results = {};			
+			async.forEach(array, function(key,callback){ 
+					 				 
+				var value = groups[key]; 				 
+				//console.log(key , value );
+                var hash = {};
+                _.map(value,function(item){
+				    if(item.predicate != 'urn:X-tsbiot:rels:hasDescription:en') 
+				    hash[item.predicate]  = item.object;			    
+				})				
+				if(hash[CONTENT_TYPE] == IS_APPLICATIONTYPE_ROOM){
+				    //console.log( hash[SCHEMA_EVENT], hash[SCHEMA_ADDRESS] );
+					// add key , hash 
+		            for(var index in hash) {
+			            //console.log('-------------------------- '.green, index, hash[index]);
+						if( index == SCHEMA_EVENT){
+							hash[SCHEMA_EVENT_SHORT] = hash[SCHEMA_EVENT];
+						}else if( index == SCHEMA_ADDRESS ){
+							hash[SCHEMA_ADDRESS_SHORT] = hash[SCHEMA_ADDRESS];
+						}else if( index == SAME_AS ){
+							hash[SAME_AS_SHORT] = hash[SAME_AS];
+						}					
+                        delete  hash[index] ;						
+		            }
+					
+					
+					////////////////////////////////////////////////////
+					buildingService.fetchResourceDetail(key,function(err,obj){
+						if(err){
+							winston.debug('error ',err);
+						}else{               
+							var address = JSON.stringify(obj.address),building = obj.building, floor = obj.floor;  
+							if(address) hash['address'] = address;
+							if(building) hash['building'] = building; 
+							if(floor) hash['floor'] = floor;
+						}
+						results[key] = hash;
+						callback();
+					})					
+					
+				}else{
+				    //console.log('not wanted '.red, key);
+				   callback();
+				}             
+				
+			 }, function(err) {      
+				if(err){
+					 console.log(err);
+				}
+				else{
+				    var array = Object.keys(results);
+					//console.log('complete   filterRoom'.green, array.length);
+					if(_callback){
+					    _callback(results);
+					}					
+				}
+				delete facts;
+			});
+		}
+	}	
+	
+	function filterSensors(facts, _callback){
+		if (facts.length) {		
+		    console.log('facts length  '.green,facts.length);			
+			var groups = _.groupBy(facts, function(fact){ return fact.subject; });			
+			var array = Object.keys(groups);
+			console.log('group length '.green, array.length );
+            var results = {};			
+			async.forEach(array, function(key,callback){ 				 				 
+				var value = groups[key]; 				 
+				//console.log(key , value );
+                var hash = {};
+                _.map(value,function(item){
+				    if(item.predicate != 'urn:X-tsbiot:rels:hasDescription:en') 
+				    hash[item.predicate]  = item.object;			    
+				})
+				
+				if(hash[CONTENT_TYPE] == IS_SENML){
+				    //console.log( hash[SUPPORTS_QUERY], hash[SUPPORTS_MQTT] , hash[GEO_LAT], hash[GEO_LNG], hash[SAME_AS]);
+					// add key , hash
+		            for(var index in hash) {
+			            //console.log(' '.green, index, hash[index]);					
+						if( index == GEO_LAT){
+							hash[GEO_LAT_SHORT] = hash[GEO_LAT];
+						}else if( index ==  GEO_LNG ){
+							hash[GEO_LNG_SHORT] = hash[GEO_LNG];
+						}else if( index == SAME_AS ){
+							hash[SAME_AS_SHORT] = hash[SAME_AS];
+						}
+						delete hash[index];
+					}									
+					results[key] = hash;
+				}else if(hash[CONTENT_TYPE] == IS_CATALOG){
+				    //console.log('not wanted, because it is catalog'.red, key);
+				
+				}
+
+                callback();				
+			 }, function(err) {      
+				if(err){
+					console.log(err);
+				}
+				else{
+				    var array = Object.keys(results);
+					//console.log('complete   filterSensors'.green, array.length);
+					if(_callback){
+					    _callback(results);
+					}
+				}
+				delete facts;								
+			});
+		}	
 	}
-    catch (error){
-        console.log('save ResourceIntoCatalog  error' + error);
-		redisClient.quit();
-		return callback(error,null);
-    }
-    redisClient.multi().smembers('cat:'+service).exec(function (err, replies) {
-		console.log('services     '.green +  replies+"  ");
-    });
-	redisClient.quit();  
-	return callback(null,1);
-}
-
-function getResourceList(context,service,callback){
-    var redisClient;
-    var redis_ip= config.redis.host;  
-    var redis_port= config.redis.port; 	
-    try{ 
-        redisClient = redis.createClient(redis_port,redis_ip);
+		
+	return {
+	    filterRoom:filterRoom,
+        filterSensors:filterSensors		
 	}
-    catch (error){
-        console.log('get ResourceList Catalog  error' + error);
-		redisClient.quit();
-		return callback(error,null);
-    }
-    redisClient.multi().smembers(context+service).exec(function (err, replies) {
-		console.log('services     '.green +  replies.length+"  ");
-		replies.forEach(function (reply, index) {
-             console.log("Reply " + index + ": " + reply.toString() +"\n" );
-        });
-		return callback(null,replies);
-    });
-	redisClient.quit();  	
 }
 
-function saveResourceList(context,service ,item ,callback){
-    var redisClient;
-    var redis_ip= config.redis.host;  
-    var redis_port= config.redis.port; 	
-    try{ 
-        redisClient = redis.createClient(redis_port,redis_ip);
+function updateResourceRepository(){
+
+	var SUPPORTS_QUERY = 'urn:X-tsbiot:rels:supports:query';
+	var SUPPORTS_MQTT = 'urn:X-tsbiot:rels:supports:observe:mqtt:senml:v1';
+
+	var HAS_LOCATION= 'http://www.loa-cnr.it/ontologies/DUL.owl#hasLocation';
+	var SAME_AS = 'http://www.w3.org/2002/07/owl#sameAs';
+	var GEO_LAT = 'http://www.w3.org/2003/01/geo/wgs84_pos#lat';
+	var GEO_LNG = 'http://www.w3.org/2003/01/geo/wgs84_pos#long';
+	
+	var SCHEMA_EVENT = 'http://schema.org/event';
+	var SCHEMA_ADDRESS = 'http://schema.org/addressLocality';
+
+
+	function saveResource(name ,hash ,callback){
+		var redisClient;
+		var redis_ip= config.redis.host;  
+		var redis_port= config.redis.port;	
+		try{ 
+			redisClient = redis.createClient(redis_port,redis_ip);
+		}
+		catch (error){
+			console.log('save Resource IntoCatalog  error' + error);
+			redisClient.quit();
+			return callback(error,null);
+		}	
+			
+		var mul = redisClient.multi();
+		console.log('--------------------------------------------');
+		for(var index in hash) {
+			mul.hmset(name,index,hash[index],function(){})
+			console.log('save resource '.green, index, hash[index]);
+		}		
+		mul.exec(function (err, replies) {
+		    if(err) console.log('save error '+err);
+			else{
+			    //console.log("save Resource ".green + replies.length + " replies");
+			}
+		});
+		redisClient.quit();
+		return callback(null,1);
+	}   
+
+	function checkDB(callback){
+		var redisClient;
+		var redis_ip= config.redis.host;  
+		var redis_port= config.redis.port;	
+		try{ 
+			redisClient = redis.createClient(redis_port,redis_ip);
+		}
+		catch (error){
+			console.log('save Resource IntoCatalog  error' + error);
+			redisClient.quit();
+			return callback(error,null);
+		}
+		redisClient.keys("res:*", function(err, keys) {
+		   console.log('res key',keys.length);		   
+		   redisClient.quit();
+		   if(keys.length >0){
+		      return callback(null, 1);
+		   }else{
+		      return callback(null, 0);   
+		   }  
+		});       
 	}
-    catch (error){
-        console.log('save Resource IntoCatalog  error' + error);
-		redisClient.quit();
-		return callback(error,null);
-    }	
-	var time = new Date().getTime();
-    //redisClient.zadd('imgs:'+service,time,JSON.stringify({'img':img_id,'time':time}));
-	redisClient.sadd(context+service,JSON.stringify({'item':item}));
-	redisClient.incrby(context+service+':count',1);
-	redisClient.quit();
-	return callback(null,1);
+
+	function flushDB(callback){
+		var redisClient;
+		var redis_ip= config.redis.host;  
+		var redis_port= config.redis.port;	
+		try{ 
+			redisClient = redis.createClient(redis_port,redis_ip);
+		}
+		catch (error){
+			console.log('save Resource IntoCatalog  error' + error);
+			redisClient.quit();
+			return callback(error,null);
+		}
+		// delete all keys 
+		redisClient.keys("res:*", function(err, keys) {
+		   console.log('res key',keys.length);
+		   keys.forEach(function(key){
+		       console.log(key);
+		       redisClient.del(key, function(err) {});		   
+		   })
+		});      
+		// flush the database
+	    redisClient.flushdb(function(err, key) {});	
+        redisClient.quit();
+        return callback(null, 0); 		
+	}	
+	
+	var filter = new catalog_filter();
+	var crawler = new catalog_crawler(armbuilding);
+
+	//flushDB(function(){});
+	checkDB(function(err,data){
+		if(err){
+		
+		}else if(data == 1){
+			console.log('semantic data right'.green);
+			integrate();
+		}else if(data ==0){
+			console.log('semantic data empty '.red);
+			updateRes();
+		}			
+	   
+	})
+		
+	function updateRes(){
+		async.series([
+			function(callback){
+				crawler.startCrawl(armbuilding, function(facts){
+					filter.filterRoom(facts,function(results){
+						var key_array = Object.keys(results);
+						//console.log('complete   filterRoom'.green, key_array.length);				
+						async.forEach(key_array, 
+						  function(key,callback){
+							console.log(key , results[key]);						
+							saveResource('res:room:'+key, results[key],function(){});
+						},function(err){
+							console.log('');
+						});					
+					});
+					callback(null, 'one'); 
+				});    
+			},
+			function(callback){
+				crawler = new catalog_crawler(armmeeting);
+				crawler.startCrawl(armmeeting, function(facts){
+					filter.filterSensors(facts,function(results){
+						var key_array = Object.keys(results);
+						console.log('complete   filterSensor'.green, key_array.length);				
+						async.forEach(key_array, function(key,callback){
+							console.log(key , results[key]);
+							saveResource('res:sensor:'+key, results[key],function(){});
+						},function(err){
+							console.log('');
+						});				
+					});
+					callback(null, 'one'); 
+				});		
+			}
+		],function(err, results){
+			console.log('crawler  finished  .....  '.green, results);
+			integrate();
+			
+			
+		});	
+	}
+
+	function integrate(){
+	    console.log('integate'.green);
+		var redisClient;
+		var redis_ip= config.redis.host;  
+		var redis_port= config.redis.port;	
+		try{ 
+			redisClient = redis.createClient(redis_port,redis_ip);
+		}
+		catch (error){
+			console.log('save Resource IntoCatalog  error' + error);
+			redisClient.quit();
+			return callback(error,null);
+		}
+		// get all keys 
+		var rooms  = [];      	
+		var sensors = [];
+
+		async.parallel([
+			function(callback){
+				redisClient.keys("res:room:*", function(err, keys) {
+					console.log('res key room',keys.length);
+					
+					var mul = redisClient.multi();
+					keys.forEach(function(key){		
+					   mul.hmget( key , 'sameAs');
+					})		           		
+					mul.exec(function (err, replies) {
+						console.log("res:room Resource ".green + replies.length + " replies");
+						//console.log("res:room Resource ".green + replies + " replies");
+						//console.log("res:room Resource ".green + keys + " keys");
+																	
+						for(var i=0;i<keys.length;i++){		
+							 rooms.push({'rid':keys[i],'sameas':replies[i]});							 
+						}					
+						callback();
+					});			
+					
+				});   
+			},
+			function(callback){
+				redisClient.keys("res:sensor:*", function(err, keys) {
+					console.log('res key sensor',keys.length);
+					var mul = redisClient.multi();
+					keys.forEach(function(key){		
+					   mul.hmget( key , 'sameAs');
+					})		           		
+					mul.exec(function (err, replies) {
+						console.log("res:sensor Resource ".green + replies.length + " replies");
+						//console.log("res:sensor Resource ".green + replies + " replies");
+						//console.log("res:sensor Resource ".green + keys + " keys");
+											
+						for(var i=0;i<keys.length;i++){		
+							 sensors.push({'sid':keys[i],'sameas':replies[i]});
+							 
+						}
+                        callback();						
+					});            
+				});	
+			}
+		],function(err, results){
+		    console.log('compare the resources    '.green, rooms.length, sensors.length);
+            console.log(rooms[0], sensors[0]);
+			var match = 0, matchs = [];
+            for(var i=0;i<sensors.length;i++){
+			    for(var j=0;j<rooms.length;j++){
+				    //console.log(sensors[i].sameas[0] , rooms[j].sameas[0]);
+				    if(sensors[i].sameas[0] == rooms[j].sameas[0]){
+					    console.log('find match   '.green, sensors[i].sid, rooms[j].rid);
+						match ++;
+						
+						//matchs.push({ 'sid':sensors[i].sid.substring(11, sensors[i].sid.length), 'rid': rooms[j].rid.substring(9, rooms[j].rid.length)})
+						matchs.push({ 'sid':sensors[i].sid, 'rid': rooms[j].rid})
+						continue;
+					}				
+				}
+			}
+			console.log(' found match  number   '.green+matchs.length);
+							
+			var mul = redisClient.multi();
+			for(var i =0 ;i<matchs.length;i++){
+			    console.log(matchs[i]);
+                mul.hmset( matchs[i].sid , 'room', matchs[i].rid)
+				   .hmset( matchs[i].rid , 'sensor',matchs[i].sid );			
+			}
+			mul.exec(function (err, replies) {
+				console.log("res:sensor Resource ".green + replies.length + " replies");								
+			}); 				
+			
+			delete sensors, rooms;
+            redisClient.quit();			
+		});			
+	}		
 }
-*/
 
-
-var URI = require('URIjs');
-
-var unexplored = [];    // list of catalogues URLs to expand
-var explored = [];      // list of expanded catalogue URLs
-var facts = [];         // array of facts [{subject, predicate, object},...]
-
-function storeFact(o) {
-    // only store unique facts
-    for (var i=0;i<facts.length;i++) {
-        if (facts[i].subject == o.subject &&
-            facts[i].predicate == o.predicate &&
-            facts[i].object == o.object)
-                return;
-    }
-    facts.push(o);
-}
-
-function fetch(root, option, cb) {
-    //console.log("FETCH "+root);
-    //request(root, function (err, rsp, body) {
-
-    var h = {};
-    if (option.key !== undefined)
-        h.Authorization = 'Basic ' + new Buffer(option.key + ':').toString('base64')
-
-    request.get({
-        url: root,
-        headers: h
-    }, function(err, rsp, body) {
-        if (!err && rsp.statusCode == 200) {
-            if (cb !== undefined) {
-                try {
-                    cb(null, JSON.parse(body));
-                } catch(e) {
-                    console.error("Error parsing "+root+" "+body);
-                    cb("err parsing", null);
-                }
-            }
-        } else {
-            if (rsp)
-                cb("Status code " + rsp.statusCode, null);
-            else
-                cb("Fetch error "+err, null);
-        }
-    });
-}
-
-function expandCatalogue(url, doc) {
-    var i;
-    try {
-        // store metadata for catalogue
-        for (i=0;i<doc['item-metadata'].length;i++) {
-            //console.log("CATL-FACT "+url+" "+doc['item-metadata'][i].rel+" "+doc['item-metadata'][i].val);
-            storeFact({
-                subject: url,
-                predicate: doc['item-metadata'][i].rel,
-                object: doc['item-metadata'][i].val,
-                context: url
-            });
-        }
-    } catch(e) {
-        console.error(e);
-    }
-
-    try {
-        // store metadata for items and expand any catalogues
-        for (i=0;i<doc.items.length;i++) {
-            var item = doc.items[i];
-            item.href = URI(item.href).absoluteTo(url).toString();    // fixup relative URL
-            // store that catalogue has an item
-            storeFact({
-                subject: url,
-                predicate: "urn:X-tsbiot:rels:hasResource",
-                object: item.href,
-                context: url
-            });
-            for (var j=0;j<item['i-object-metadata'].length;j++) {
-                var mdata = item['i-object-metadata'][j];
-                //console.log("ITEM-FACT "+item.href+" "+mdata.rel+" "+mdata.val);
-                storeFact({
-                    subject: item.href,
-                    predicate: mdata.rel,
-                    object: mdata.val,
-                    context: url
-                });
-
-                // if we find a link to a catalogue, follow it
-                if (mdata.rel == "urn:X-tsbiot:rels:isContentType" &&
-                    mdata.val == "application/vnd.tsbiot.catalogue+json") {
-                        //unexplored.push(item.href);
-                        unexplored.push(item.href);
-                }
-            }
-        }
-    } catch(e) {
-        console.error(e);
-    }
-}
-
-function crawl(option,cb) {
-    if (unexplored.length > 0) {    // something to explore
-        var url = unexplored.pop();
-
-        if (explored.indexOf(url) == -1) {   // not seen before
-            fetch(url, option, function(err, doc) {
-                if (err) {
-                    console.error("Error in "+url+" ("+err+")");
-                    explored.push(url); // was bad, but explored
-                    crawl(option,cb);
-                } else {
-                    explored.push(url);
-                    expandCatalogue(url, doc);    // parse doc
-                    crawl(option,cb);    // do some more work
-                }
-            });
-        } else {
-            crawl(option,cb);  // get next
-        }
-    } else {
-        cb();   // done
-    }
-}
-
-// dump a graph in dot/GraphViz format
-function dumpGraph() {
-    if (facts.length) {
-        console.log("digraph {");
-        for (var i=0;i<facts.length;i++) {
-            console.log('    "'+facts[i].subject+'" -> "'+facts[i].object+'" [label="'+facts[i].predicate+'"];');
-        }
-        console.log("}");
-    }
-}
-
-// dump a graph in N-Quads format
-function dumpNQuads() {
-    function f(s) { // FIXME, not a great way to detect URI
-        if (s.match(/^http/) || s.match(/^mqtt/) || s.match(/^urn:/) || s.match(/^\//))
-            return '<'+s+'>';
-        else
-            return '"'+s+'"';
-    }
-    for (var i=0;i<facts.length;i++) {
-        console.log(f(facts[i].subject)+' '+f(facts[i].predicate)+' '+f(facts[i].object)+' '+f(facts[i].context)+' .');
-    }
-}
-
-startCrawl(armbuilding);
-
-function startCrawl(option){
-	// add root catalogue URL to crawl list
-	unexplored.push(option.url);
-	crawl(option,function() {
-		if (true)
-			dumpNQuads();
-		else
-			dumpGraph();
-	});
-}
+updateResourceRepository();

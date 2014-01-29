@@ -14,13 +14,8 @@ var RoomEventsModel = function(collection, options){
 	    room: {type:String, unique:true},
 		day: {type: Date, index: true, required: true},	
 		url:{type:String, unique:true, required:true},	    		
-        events: [ 
-		         {
-				    sd:Date,
-					ed:Date				 
-				 } 
-		       ]
-    },{ _id: false, strict: false, read: readOption, shardKey: { user: 1, sequence: 1 } });
+        events:  [    { startDate:Date,endDate:Date	} ]
+    },{ _id: false, strict: false, read: readOption, shardKey: { room: 1, day: 1 } });   //how to choose a sharding key for day 
 	
     schema.index({ "room": 1, "sequence": 1 }, { unique: true });
 
@@ -45,7 +40,7 @@ var RoomEventsModel = function(collection, options){
 	    var option = { upsert: true };
 				
 		if(_.isArray(events)){  // http://docs.mongodb.org/manual/reference/operator/update/sort/  
-			model.update({room:room, day:day, url:url},{'$push':{'events':{'$each': events}}},option,function(err,data){
+			model.update({room:room, day:day, url:url},{'$addToSet':{'events':{'$each': events}}},option,function(err,data){
 		        if(err) callback(err);
 			    else callback(null,data)		
 		    });	
@@ -63,7 +58,7 @@ var RoomEventsModel = function(collection, options){
 		})
 	}	
 
-	var getSelectRoomEvents = function(rooms,day, callback){
+	var getMultiRoomEvents = function(rooms,day, callback){
  		model.find({room:{ '$in':rooms},day:day}).exec( function(err, data){ 
 		    if(err) callback(err);
 		    else callback(null,data);
@@ -75,7 +70,7 @@ var RoomEventsModel = function(collection, options){
 		getSchema:getSchema,
 		pushRoomEvents:pushRoomEvents,
 		getRoomEvents:getRoomEvents,
-		getSelectRoomEvents:getSelectRoomEvents
+		getMultiRoomEvents:getMultiRoomEvents
 	}
 }
-module.exports = RoomEventsModel;        
+module.exports = new RoomEventsModel('RoomEvents', {read:'primary'});        

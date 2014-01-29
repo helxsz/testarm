@@ -14,6 +14,7 @@ var errors = require('../../utils/errors'),
     serviceCatalog = require('../serviceCatalog.js'),
 	config = require('../../conf/config'),
 	winston = require('../../utils/logging.js'),
+	eventModel = require('../../model/event_model.js')
 	io = require('../websocket_api.js'),
 	appBuilder = require('../AppBuilder.js'),
 	db = require('../persistence_api.js'),
@@ -28,26 +29,6 @@ https://alertmeadaptor.appspot.com/traverse?traverseURI=https%3A//geras.1248.io/
 https://alertmeadaptor.appspot.com/traverse?traverseURI=https%3A%2F%2Fprotected-sands-2667.herokuapp.com%2Fcat&traverseKey=0L8kgshd4Lso3P1UQX7q&Submit=Browse
 http://schema.org/Place
 */
-
-// http://localhost/tempdata	
-app.get('/tempdata',function(req,res){
-    meetingService.getResourceData('armmeeting/1/MotionSensor/00-0D-6F-00-00-C1-2E-EF/temperature','',function(err,data){
-        if(err)  console.log(err);
-        else {
-		    console.log('data   ------------------'.green,data.e.length);
-			
-			var dataParse = function(data){			
-			    var e = data.e;
-				e.forEach(function(data){
-				    console.log(data.n , data.t ,data.v  ,  new Date(data.v));	//,  moment(data.t ).fromNow()
-				})
-			}
-			dataParse(data);
-		    res.send(200,data);
-		}	
-    })
-})
-
 
 	
 app.get('/buildings',function(req,res){
@@ -100,44 +81,6 @@ app.get('/buildings/:name',function(req,res){
 
 // http://localhost/room/events?url=Room.UKCMaple,Room.UKCBeech,Room.UKCWillowA 
 
-app.get('/buildings/arm/floor',function(req,res,next){
-    var buildings = [
-    { 'name': 'ARM1', 
-	  "url":"https://protected-sands-2667.herokuapp.com/rooms/Room.UKCWillowA",
-	  "floors":[]
-	},
-    {'name': 'ARM1',
-     "url":"https://protected-sands-2667.herokuapp.com/rooms/Room.UKCWillowB",
-	  "floors":[]
-	},
-    {'name': 'ARM5',
-	  "url":"https://protected-sands-2667.herokuapp.com/rooms/Room.UKCFM10",
-	  "floors":[]
-	},
-    {'name': 'ARM6',
-	  "url":"https://protected-sands-2667.herokuapp.com/rooms/Room.UKCFM10",
-	}
-    ];
-	
-	res.send(200, buildings);
-})
-
-app.get('/sensors/arm/',function(req,res,next){
-    var sensors = [
-       {'name': 'aaa' , 'url':"https://protected-sands-2667.herokuapp.com/rooms/Room.UKCFM10", 'loc':[396,526], 'room':'abc'},
-	   {'name': 'bbb',  'url':"https://protected-sands-2667.herokuapp.com/rooms/Room.UKCFM10", 'loc':[419,552], 'room':'bcd'},
-	   {'name': 'ccc' , 'url':"https://protected-sands-2667.herokuapp.com/rooms/Room.UKCFM10", 'loc':[396,526], 'room':'abc'},
-	   {'name': 'ddd',  'url':"https://protected-sands-2667.herokuapp.com/rooms/Room.UKCFM10", 'loc':[369,521], 'room':'bcd'},
-	   {'name': 'eee',  'url':"https://protected-sands-2667.herokuapp.com/rooms/Room.UKCFM10", 'loc':[311,477], 'room':'bcd'},
-	   {'name': 'fff',  'url':"https://protected-sands-2667.herokuapp.com/rooms/Room.UKCFM10", 'loc':[339,500], 'room':'bcd'},
-	   {'name': 'ggg',  'url':"https://protected-sands-2667.herokuapp.com/rooms/Room.UKCFM10", 'loc':[358,585], 'room':'bcd'},
-	   {'name': 'zzz',  'url':"https://protected-sands-2667.herokuapp.com/rooms/Room.UKCFM10", 'loc':[358,585], 'room':'bcd'},
-    ];
-        
-    res.send(200,{sensors:sensors});
-})
-
-
 app.get('/meetings/arm/tomorrow',function(req,res){
  	getRoomEvents(true,res);
 })
@@ -146,10 +89,14 @@ app.get('/meetings/arm/now',function(req,res){
  	getRoomEvents(false,res);
 })
 
+app.get('/meetings/arm/building',function(req,res){
+	
+})
+
 function getRoomEvents(tomorrow, res){
     var rooms = [
     { 
-	  'name': 'Room.UKCWillowA ',
+	  'name': 'Room.UKCWillowA',
       'displayname':'WilA',	
 	  "url":"https://protected-sands-2667.herokuapp.com/rooms/Room.UKCWillowA",
       'temperature': 43,
@@ -235,7 +182,6 @@ function getRoomEvents(tomorrow, res){
 	);
 }
 
-
 app.get('/room/events',function(req,res){
     var url = req.query.url;
 		
@@ -273,265 +219,10 @@ app.get('/room/events',function(req,res){
 })
 
 
-// socket.io 
-
-
-app.get('/room/event',function(req,res){
-    var url = req.query.url;
-	
-	url = rooms[url];
-	buildingService.fetchResourceDetail(url+"/events",function(err,obj){
-        if(err){
-	        winston.error('error    '+url+"/events");
-			res.send(404);
-	    }else{
-		    var currentDate = new Date();
-			var found = false, next = -1;
-	        for(var i=0;i<obj.length;i++){
-	            var event = obj[i];
-	            //console.log(url,event.startDate, event.endDate);
-				var startDate = new Date(event.startDate), endDate = new Date(event.endDate);
-				if(i==0&&currentDate.getTime() < startDate.getTime() ) break;
-				if(currentDate.getTime() >= startDate.getTime()  ) {  next ++; }
-				if(startDate.getTime()<=currentDate.getTime() &&  currentDate.getTime() <= endDate.getTime()){
-				    found = true;
-					next = i;
-					break
-				}
-	        }
-			
-			var start, end,event ;
-			if(found) {  
-			    event = obj[next];
-			}else{
-			    event = obj[next+1];
-			}
-			try{
-                var startDate = new Date(event.startDate), endDate = new Date(event.endDate);
-				var hour = startDate.getHours(), min = startDate.getMinutes();
-				if(hour < 10) hour = '0'+startDate.getHours();
-				if(min < 10) min = '0'+startDate.getMinutes();
-                start = hour+":"+min;
-				
-                hour = endDate.getHours(), min = endDate.getMinutes();
-				if(hour < 10) hour = '0'+endDate.getHours();
-				if(min < 10) min = '0'+endDate.getMinutes();				
-                end = hour+":"+min;	
-            }catch(e){
-			    console.log(url,'not found , not nexts'.red);
-			    return res.send(200,{'found':0});
-			}
-				
-            if(found) found = 1;
-			else found = 0;
-			//console.log(' found   ',found, next,start ,end);
-            res.send(200,{'found':found,'start':start,'end':end, 'temperature': 22+  (Math.floor(Math.random() * 8) + 1)/4 });			
-	    }	 	 
-	});
-})
 
 
 
 
-app.get('/service/armbuilding/build',function(req,res){
-    try{
-	    buildingService.fetchResourceList(function(err,obj){
-            if(err){
-	            winston.error('error ');
-	        }else{
-                getLocationResource(obj);			
-	        }	 	 
-	    });
-    }catch(e){  winston.error('service not found') }
-    res.send(200);
-})
-
-app.get('/service/armmeeting/build',function(req,res){
-    try{
-	    meetingService.fetchResourceList(function(err,obj){
-            if(err){
-	            winston.error('error ');
-	        }else{
-                getArmMeetingResource(obj);	
-	        }	 	 
-	   });
-    }catch(e){  winston.error('service not found') }
-	res.send(200);
-})
-
-
-/******    catalog  crawler   ********/
-
-function getLocationResource(obj){
-  	for(var i=0;i<obj['item-metadata'].length;i++){
-		var item  = obj['item-metadata'][i], rel = item.rel, val= item.val;
-		winston.debug('item-metadata'.green+ rel+ val);              				
-    }
-	winston.debug('parseHyperCat1  item-metadata  length'.green+obj.items.length );
-    /**/
-	db.saveResourceListInBulk2('cat:'+obj.service,obj.items,function(err,data){
-		                        if(err){  winston.error('save resource list error'+err);}
-		                        else winston.info(data);
-	});
-	
-	
-	for(var i=0;i<obj.items.length;i++){
-		var item  = obj.items[i], href = item.href, metadata= item['i-object-metadata'];
-		winston.debug("parseHyperCat1  href".yellow+ href +"  "+ metadata.length+"   "+isAbsoluteURL(href)+"   "+isAbsoluteURL("https://"+obj.host+href) ); //
-		
-		//////////////////////////////////////////////////////////////////////////////////
-		var relativeURL, absoluteURL ;
-		if(!isAbsoluteURL(href)){
-		    relativeURL = href;
-			absoluteURL = "https://"+obj.host+href;
-		    href = "https://"+obj.host+href;
-
-		}
-		winston.debug("parseHyperCat2  href".yellow+ href ); //
-		// get the location
-		buildingService.fetchResourceDetail(href,function(err,obj){
-            if(err){
-	            winston.error('error ',err);
-	        }else{               
-	            var url = obj.url, name = obj.name, address = JSON.stringify(obj.address),capacity = obj.capacity, email = obj.email, event = obj.event;  
-                var relativeURL = extractRelativeURL(url,buildingService.getHost());				
-				winston.debug("LocationDetailHandler  ".green+relativeURL);
-                db.saveResourceInBulk2("location:"+relativeURL, obj, function(err,data){} );
-				// add into attribute groups
-                if(obj.building){
-				    db.savePropertyGroup("location:"+"building:"+obj.building, "location:"+relativeURL, function(err,data){} );	
-                    db.saveResourceList2("location:"+"building",obj.building,function(err,data){});					
-				}				
-		    }
-        })
-       					
-		//////////////////////////////////////////////////////////////////////////////////
-		var hash = {};
-		for(var j=0;j<metadata.length;j++){
-		    var item  = metadata[j], rel = item.rel, val= item.val;
-			//console.log(rel+"  "+val);
-			
-            if(rel == 'urn:X-tsbiot:rels:isContentType'){
-				winston.debug('this is a room');						                       
-			}else if(rel == 'http://www.w3.org/2002/07/owl#sameAs'){				                            
-				
-				winston.debug('email link :'+"   "+val);
-                hash.sameAs = val;													
-			}else if(rel == 'http://schema.org/event'){
-			    winston.debug('event :'+"   "+val);
-				hash.event = val;
-				if(!isAbsoluteURL(val)){
-		            val = "https://"+obj.host+val;
-		        }
-		        winston.debug("parseHyperCat3  event href".yellow+ val ); //
-		        // get the event of a location
-		        /*
-				buildingService.fetchResourceDetail(val,function(err,events){
-				    
-                        if(err){
-	                     winston.error('error ',err);
-	                    }else{
-						    var relativeURL = extractRelativeURL(events.url, buildingService.getHost());
-							console.log( "relative:".green,  relativeURL );
-                            for(var i=0;i<events.length;i++){
-	                            var event = events[i];								
-				                winston.debug("event handler  ".green+event.location+event.startDate+ event.endDate+ event.url);                               								
-		                    }
-							
-							pushToListInBulk( 'events:',relativeURL ,events,function(err,data){});
-						}
-                })
-				*/		
-			}else if(rel=='http://schema.org/addressLocality'){
-			    winston.debug('addressLocality :'+"   "+val);
-				hash.addressLocality = val;
-				db.savePropertyGroup("location:"+"addressLocality:"+hash.addressLocality, "location:"+relativeURL, function(err,data){} );
-			}				
-        }
-		db.saveResourceInBulk2("location:"+href, hash, function(err,data){} );	
-	}	
-}
-
-
-function getArmMeetingResource(obj){
-    	
- 	for(var i=0;i<obj['item-metadata'].length;i++){
-		var item  = obj['item-metadata'][i], rel = item.rel, val= item.val;
-		console.log('item-metadata'.green, rel, val);              				
-    }
-	console.log('parseHyperCat1  item-metadata  length'.green,obj.items.length );
-	
-	for(var i=0;i<obj.items.length;i++){
-		var item  = obj.items[i], href = item.href, metadata= item['i-object-metadata'];
-		console.log("parseHyperCat1  href".yellow, href, metadata.length); //
-	    meetingService.fetchResourceDetail(href,function(err,data){
-            if(err){
-	            winston.error('error ');
-	       }else{
-                for(var i=0;i<data.items.length;i++){
-		            var item  = data.items[i], href = item.href, metadata= item['i-object-metadata'];
-                    console.log("fetchResourceDetail  href".yellow, href, metadata.length);
-					meetingService.fetchResourceDetail(href,function(err,data1){
-					    if(err){
-                                winston.error('error ');
-						}else{
-						    for(var i=0;i<data1.items.length;i++){
-		                        var item  = data1.items[i], href = item.href, metadata= item['i-object-metadata'];
-                                console.log("fetchResourceDetail 2  href".yellow, href, metadata.length);
-								 
-								meetingService.fetchResourceDetail(href,function(err,data2){ 
-                                    if(err){
-								        winston.error('error ');
-								    }else{
-									  try{
-									    for(var i=0;i<data2['item-metadata'].length;i++){
-		                                    var item  = data2['item-metadata'][i], rel = item.rel, val= item.val;
-		                                    //console.log('item-metadata'.green, rel, val); 
-                                            if(rel == 'urn:X-tsbiot:rels:isContentType'){
-						                            winston.debug('this is a sensor');						                       
-					                        }else if(rel == 'http://www.w3.org/2002/07/owl#sameAs'){
-					                            
-												var res = href.replace("https://geras.1248.io/cat","");
-												winston.debug('location :'+res+"   "+val+"  "+meetingService.getName());
-                                                db.saveResourceInBulk2("device:"+res, {loc:val}, function(err,data){} );													
-					                        }else if(rel == 'urn:X-tsbiot:rels:supports:observe:mqtt:senml:v1'){
-													
-											}else if(rel == 'urn:X-tsbiot:rels:supports:query'){
-													
-											}					
-                                        }
-
-                                      }catch(e){winston.error(e.name+"    "+data2.toString());} 										
-									}
-								})
-						    }							
-                            db.saveResourceListInBulk2('cat:'+obj.service,data1.items,function(err,data){
-		                        if(err){  winston.error('save resource list error'+err);}
-		                        else winston.info(data);
-	                        });													
-						}	
-					})
-				}
-	       }	 	 
-	    });							
-	}	
-	db.getResourceList2('cat:'+obj.service,function(err,data){});
-}
-
-/******    catalog  crawler   ********/
-function isAbsoluteURL(s) {
-    return s.charAt(0) != "#"
-      && s.charAt(0) != "/"
-      && ( s.indexOf("//") == -1 
-        || s.indexOf("//") > s.indexOf("#")
-        || s.indexOf("//") > s.indexOf("?")
-    );
-}
-
-function extractRelativeURL(href,host){
-
-   return href.replace("https://"+host,"");
-}
 
 
 
@@ -553,42 +244,9 @@ agenda.on('fail:request events for arm room', function(err, job) {
   console.log("Job failed with error: %s", err.message);
 });
 
-//getArmMeetingSchedules(function(){})
 
 function getArmMeetingSchedules(done){
-
-    db.getResourceList2("location:addressLocality:Cambridge",function(err,data){ 
-        //winston.debug('getArmMeetingSchedules  '+data.length);  
-		async.forEach(data, function(item,callback){ 
-		     db.findResource2(item,['event'],function(err,data){ 
-			    //winston.debug("data222".green,item,data[0]); 				
-                buildingService.fetchResourceDetail(data[0],function(err,events){			    
-                        if(err){
-	                     winston.error('error ',err);
-	                    }else{
-						    var relativeURL = extractRelativeURL(events.url, buildingService.getHost());
-							//winston.debug( "relative:".green,  relativeURL );
-                            for(var i=0;i<events.length;i++){
-	                            var event = events[i];								
-				                //winston.debug("event handler  ".green+event.location+event.startDate+ event.endDate+ event.url); 
-                                event.start = new Date(event.startDate).getTime();								
-		                    }
-							db.addEventsForRoom( 'events:'+relativeURL ,events,function(err,data){});
-							callback();
-						}
-                })				
-				
-			 })
-		 }, function(err) {      
-            if(err){
-                 //winston.error(err);
-            }
-			else{
-                
-			}
-			done();
-        });            			
-    })
+	done();
 }
 
 /**********************************************   ********************************************************/
@@ -608,13 +266,20 @@ function MeetingRoomMQTTHandler(){
 		    var raw = JSON.parse(message);
 		    var msg = raw.e[0];  
 		    var url = msg.n, value = msg.v, time = msg.t;
-		    // stream to interoperbility layer
+		    console.log('MQTT:  '.green,"https://geras.1248.io/series"+url, value);
+			
+            sensorLayer.queryRoomFromSensor( "res:sensor:"+"https://geras.1248.io/series"+url ,function(err,data){
+			    if(err) console.log('err  ',err)
+			    else if(data) console.log('find the room '.green,data);
+				else if(!data) console.log('room not found'.red);
+			})
+			
+			
+			/*
 		    var array = url.split('/');
 		    //console.log(array[0],array[1],array[2],array[3],array[4],array[5], value);
-			// device unique url = 
 			var device_id = array[4] , device_attr = array[5];
 			//winston.debug('url :'+url+ device_id+device_attr);
-			/*
 		    console.log('url :'+url.substring(0,url.lastIndexOf("/")));
 	        var url1 = url.substring(0,url.lastIndexOf("/"));
 			db.findResource2("device:"+url1, 'loc',function(err,data){ 
@@ -631,41 +296,362 @@ function MeetingRoomMQTTHandler(){
 				   return array[array.length-1];
 				}				
 				var room_shortName = getShortName(room_uniqueURl);
-				winston.debug("room  is  "+room_uniqueURl, room_shortName);
-                updateMotion(room_shortName,function(err,data){});	
+				//winston.debug(" simulation mode :   room  is  "+room_uniqueURl, room_shortName);
+                sensorLayer.updateMotion(room_shortName,function(err,data){});	
 				//winston.debug("io send message  "+room_shortName);
 				io.sockets.emit('info',{room:room_shortName,type:'motion', value:100});
-			}
-			
-			url = array[0]+"/"+array[1]+"/"+array[2]+"/"+array[3]+"/"+array[4];
-		    //winston.debug('MeetingRoomMQTTHandler  '.green+url+"  "+sensorType+"  "+ value);			   
+			}		
+			   
 		}catch(e){
 			console.log('some thing wrong   ......'.red+e);   
 		}
     }		
 }
 
-function updateMotion(name,callback){
-	var redisClient;
-    var redis_ip= config.redis.host;  
-    var redis_port= config.redis.port; 	
-    try{ 
-        redisClient = redis.createClient(redis_port,redis_ip);
-	}
-    catch (error){
-        console.log('find Resource eInto Catalog  error' + error);
-		redisClient.quit();
-		return callback(error,null);
-    }	
+var sensorLayer = new SensorLayer();
+function SensorLayer(){
+	var redis_ip= config.redis.host;  
+	var redis_port= config.redis.port;
 	
+	function getRoomByBuilding(name,callback){
+		var rooms = [];
+		var redisClient;	
+			try{ 
+				redisClient = redis.createClient(redis_port,redis_ip);
+			}
+			catch (error){
+				console.log('updateMotion  error' + error);
+				redisClient.quit();
+				return callback(error,null);
+			}		
+		redisClient.keys("res:room:*", function(err, keys) {
+			console.log('res key room',keys.length);
+			
+			var mul = redisClient.multi();
+			keys.forEach(function(key){		
+			   mul.hmget( key , 'building');
+			})		           		
+			mul.exec(function (err, replies) {
+				console.log("res:room Resource ".green + replies.length + " replies");
+				//console.log("res:room Resource ".green + replies + " replies");
+				//console.log("res:room Resource ".green + keys + " keys");
+			    if(err) { redisClient.quit(); return callback(err,null);}			    
+			    else if(!replies){ redisClient.quit(); return callback(null,null);}					
+				else{											
+					for(var i=0;i<keys.length;i++){		
+						 rooms.push({'room':keys[i],'building':replies[i]});							 
+					}
 
-	redisClient.hmset(name, 'time',new Date(), 'displayname',name,function(err, data){
-	    redisClient.quit();
-	    if(err) {return callback(err,null);}
-		else if(data) { return callback(null,data);}
-        else { return callback(null,null);}	
-	});
+					var groups = _.groupBy(rooms,function(room){
+									return room.building;		
+						        })
+					redisClient.quit();
+                    return callback(null,groups);					
+                }									
+			});						
+		});	
+	
+	
+	}
+	
+	function updateMotion(name,callback){
+		var redisClient;	
+		try{ 
+			redisClient = redis.createClient(redis_port,redis_ip);
+		}
+		catch (error){
+			console.log('updateMotion  error' + error);
+			redisClient.quit();
+			return callback(error,null);
+		}	
+		
+		redisClient.hmset(name, 'time',new Date(), 'displayname',name,function(err, data){
+			redisClient.quit();
+			if(err) {return callback(err,null);}
+			else if(data) { return callback(null,data);}
+			else { return callback(null,null);}	
+		});
 
-	redisClient.quit();
+		redisClient.quit();
+	}	
 
-}	
+	function getSensorData( items, callback ){
+		var redisClient;	
+		try{ 
+			redisClient = redis.createClient(redis_port,redis_ip);
+		}
+		catch (error){
+			console.log('getSensorData  error' + error);
+			redisClient.quit();
+			return callback(error,null);
+		}	
+
+		var mul = redisClient.multi();
+		for(var i=0;i<items.length;i++){
+		   mul.hgetall(items[i]);
+		}
+		mul.exec(function (err, replies) {            
+			redisClient.quit();
+			if(err) {return callback(err,null);}
+			else if(replies) { return callback(null,replies);}
+			else { return callback(null,null);}			
+		});		
+		redisClient.quit();
+	}
+	
+	
+	function updateTempData(name,temp,callback){
+		var redisClient;	
+		try{ 
+			redisClient = redis.createClient(redis_port,redis_ip);
+		}
+		catch (error){
+			console.log('updateTempData' + error);
+			redisClient.quit();
+			return callback(error,null);
+		}	
+		
+		redisClient.hmset(name, 'temp',temp, function(err, data){
+			redisClient.quit();
+			if(err) {return callback(err,null);}
+			else if(data) { return callback(null,data);}
+			else { return callback(null,null);}	
+		});
+
+		redisClient.quit();	
+	}
+	
+	
+	function queryRoomFromSensor( url, callback){
+		var redisClient;	
+		try{ 
+			redisClient = redis.createClient(redis_port,redis_ip);
+		}
+		catch (error){
+			//console.log('queryRoomFromSensor' + error);
+			redisClient.quit();
+			return callback(error,null);
+		}	
+		
+		redisClient.hmget(url, 'room', function(err, data){
+			
+			if(err) { redisClient.quit();	 return callback(err,null);}
+			else if(!data) { redisClient.quit();	 return callback(null,null);}
+			else { 
+			    var room_id = data
+				
+				redisClient.hgetall(room_id,function(err,room){
+				//redisClient.hmget(room_id,'floor building time temp ',function(err,room){
+                    //console.log('room Data: ' + room);
+					redisClient.quit();
+					if(err) {return callback(err,null);}
+					else if(!data) { return callback(null,null);}
+					else return callback(null,room);
+                })
+			}	
+		});
+
+		
+	}
+		
+    return {
+	    getSensorData:getSensorData,
+	    updateMotion:updateMotion,
+		updateTempData:updateTempData,
+		queryRoomFromSensor:queryRoomFromSensor
+	}
+}
+/********************88   *********************/
+//  updateRoomEvents on 2:00 pm
+
+var RoomScheduleEvents = function(){
+	var rooms = [
+		{ 
+		  'name': 'Room.UKCWillowA ',
+		  'displayname':'WilA',	
+		  "url":"https://protected-sands-2667.herokuapp.com/rooms/Room.UKCWillowA"
+		} ,
+		{
+		  'name': 'Room.UKCFM10',
+		  'displayname':'FM10',
+		  "url":"https://protected-sands-2667.herokuapp.com/rooms/Room.UKCFM10",
+		  'temperature': 23,
+		  'time':new Date()
+		}	
+	] ;
+		
+	function updateRoomEvents(req,res,next){
+  
+		var tomorrow = false;		
+		async.forEach(rooms, 
+		  function(room, callback){ 
+
+				console.log('update room events  ', room.url, room.name);		  
+				buildingService.fetchResourceDetail(room.url+"/events",function(err,eventlist){
+					if(err){
+						winston.error('error    '+url+"/events");
+						room.events = [];	
+					}else{
+						var now = new Date(), late_day = new Date(now.getFullYear(),now.getMonth(),now.getDate(),23,59,59), early_day = new Date(now.getFullYear(),now.getMonth(),now.getDate(),0,0,0);
+						// all events in this day
+						if(tomorrow)
+						eventlist = _.filter(eventlist, function(event){ var eventDate = new Date(event.endDate);   return eventDate.getTime() > late_day.getTime(); });
+						else
+						eventlist = _.filter(eventlist, function(event){ var eventDate = new Date(event.endDate);   return eventDate.getTime() <= late_day.getTime(); });				
+						room.events = eventlist;
+						winston.debug('filtered  ... '+room.events.length);
+						_.map(room.events,function(event){
+							delete event.url;
+							delete event.location;
+						})
+						eventModel.pushRoomEvents(room.name,room.url,early_day,room.events,function(err,data){
+							if(err){
+								console.log('events updated error '.red+err);
+							}
+							else{
+								console.log('events updated  '.green);				
+							}
+						});
+						callback();
+						//res.send(room.events);			
+					}
+				})
+		  },
+		  function(err){
+			//winston.debug('get all the messages ',util.inspect(events, false, null));
+			res.send(200,{rooms:rooms});
+		  } 
+		);	
+		
+	}
+
+	function updateRoomTemp(req,res,next){
+		var array = Object.keys(simulation.reversemapping);
+		//console.log(array);
+		async.forEach(array, function(room,callback){ 
+			console.log(room , simulation.reversemapping[room] );		 
+			meetingService.getResourceData(simulation.reversemapping[room]+"/temperature" ,null,function(err,data){
+				if(err)  console.log(err);
+				else {
+					var senmlParse = function(data){			
+						var e = data.e;
+						e.forEach(function(data){
+							console.log( room, 'temperature:', data.v );	//   ,new Date(data.t*1000) ,  moment(data.t*1000 ).fromNow()
+							sensorLayer.updateTempData(room,data.v,function(err,data){});	    
+						})				
+						/// now 									
+					}						
+					senmlParse(data);
+					callback();				
+				}	
+			})		 		 
+		 }, function(err) {      
+			if(err){
+				 console.log(err);
+				 res.send(404);
+			}
+			else{
+				res.send(array);
+			}
+		});
+	}
+	
+	
+	return {
+	    updateRoomTemp:updateRoomTemp,
+	    updateRoomEvents:updateRoomEvents
+	}
+}
+var roomSchedule = new RoomScheduleEvents();
+app.get('/arm/meeting/update', roomSchedule.updateRoomEvents);
+app.get('/arm/meeting/temp',roomSchedule.updateRoomTemp);
+
+
+app.get('/arm/meeting/today', getMultiRoomEvents);
+function getMultiRoomEvents(req,res,next){
+    var rooms = [  'Room.UKCWillowA', 'Room.UKCFM10', 'Room.UKCARM66MR11' ,'Room.UKCWillowB','Room.UKCOak'] ;
+    var now = new Date(), early_day = new Date(now.getFullYear(),now.getMonth(),now.getDate(),0,0,0);
+	// certain day
+	
+	var day_begin  = new Date(2014,1,27,8,0,0);
+	var day_end = new Date(2014,1,27,18,0,0);
+	
+	//var range = "?start="+day_begin.getTime()/1000+"&end="+day_end.getTime()/1000;
+    var range = "?start="+  ( -60*60*24 )+"&end="+ (-100);
+/*
+http://geras.1248.io/series/armmeeting/1/MotionSensor/00-0D-6F-00-00-C1-2E-EF/motion?start=1392278400&end=1392314400  {"e":[]}				
+http://geras.1248.io/series/foo/temperature?start=1234&end=2468				
+http://geras.1248.io/series/armmeeting/22/MotionSensor/00-0D-6F-00-00-C1-45-B6/motion?start=1392278400&end=1392314400
+*/
+	
+    meetingService.getResourceData('armmeeting/22/MotionSensor/00-0D-6F-00-00-C1-45-B6/motion',range,function(err,data){
+        if(err)  console.log(err);
+        else {
+		    console.log('data   ------------------'.green,data.e.length);			
+			var senmlParse = function(data,res){			
+			    var e = data.e;
+				e.forEach(function(data){
+				    console.log(  moment(data.t*1000 ).fromNow() );	//   ,new Date(data.t*1000) ,  moment(data.t*1000 ).fromNow()
+				})				
+				
+			}						
+			senmlParse(data,res);
+		   
+		}	
+    })	
+	
+	eventModel.getMultiRoomEvents(rooms,early_day,function(err,data){
+		if(err){
+			console.log('getting events error '.red+err);
+		}
+		else{
+		    //_.map(data.events,function(event){  delete event._id; })
+			console.log('getting events  '.green);
+            res.send(data);				
+		}		
+	});		
+}
+
+
+
+// http://localhost/tempdata	
+/*
+app.get('/testevents2', getRoomEvents);
+function getRoomEvents(req,res,next){
+    var room = { 
+	  'name': 'Room.UKCWillowA ',
+      'displayname':'WilA',	
+	  "url":"https://protected-sands-2667.herokuapp.com/rooms/Room.UKCWillowA"
+	}  
+    var now = new Date(), early_day = new Date(now.getFullYear(),now.getMonth(),now.getDate(),0,0,0);	
+	eventModel.getRoomEvents(room.name,early_day,function(err,data){
+		if(err){
+			console.log('getting events error '.red+err);
+		}
+		else{
+		    _.map(data.events,function(event){  delete event._id; })
+			console.log('getting events  '.green);
+            res.send(data);				
+		}		
+	});		
+}
+*/
+	
+/*	// 
+    meetingService.getResourceData('armmeeting/1/MotionSensor/00-0D-6F-00-00-C1-2E-EF/temperature',null,function(err,data){
+        if(err)  console.log(err);
+        else {
+		    console.log('data   ------------------'.green,data.e.length);			
+			var senmlParse = function(data,res){			
+			    var e = data.e;
+				e.forEach(function(data){
+				    console.log(data.n , data.v );	//   ,new Date(data.t*1000) ,  moment(data.t*1000 ).fromNow()
+				})				
+				/// now 				
+				res.send(200,{ 'n':data.e[0].n, 'v':data.e[0].v, 't': new Date( data.e[0].t *1000) });
+			}						
+			senmlParse(data,res);
+		   
+		}	
+    })
+*/	

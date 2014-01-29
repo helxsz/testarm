@@ -161,8 +161,7 @@ function addEventsForRoom(name,items ,callback){
     var mul = redisClient.multi();
     for(var i=0;i<items.length;i++){
 	   mul.zadd(name,items[i].start,JSON.stringify({'item':items[i]}));
-	}
-	
+	}	
 	mul.exec(function (err, replies) {
             //winston.debug("pushToListInBulk  " + replies.length + " replies");
             replies.forEach(function (reply, index) {
