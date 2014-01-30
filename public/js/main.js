@@ -9,6 +9,7 @@ function sizeContent() {
     
     if (bodyHeight > containerHeight) {
       $('#container').css('height', bodyHeight );
+      $('#loading').css('height', bodyHeight );
     }
     else {
       $('body').css('height', containerHeight);
