@@ -149,7 +149,7 @@
             #app-home {
                 text-align: center; width: 100%;
                 padding: 0; margin: 0 auto;
-                margin-bottom: 13em; padding-top: 3.75em;
+                margin-bottom: 0; padding-top: 3.75em;
             }
 
             #app-meeting {}
@@ -570,6 +570,11 @@
                 }
                 #app-home ul li:nth-child(odd) a img {
                     margin-top: 112px;
+                }
+
+                #app-home ul li:last-child {
+                    margin-left: -0;
+                    margin-top: -8px;
                 }
 
 
@@ -1267,6 +1272,7 @@
             #app-home ul li:nth-child(n+2) a img {
                 margin-top: 24px;
             }
+            #app-home ul li:last-child {margin-top: 0;}
 
             #app-home.app-content ul li {height: auto;}
             
