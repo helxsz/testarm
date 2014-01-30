@@ -64,7 +64,7 @@ https://alertmeadaptor.appspot.com
 	    'name': 'armbuilding',
 		'description': '',
 		'url': 'https://protected-sands-2667.herokuapp.com/cat',
-		'key':'0L8kgshd4Lso3P1UQX7q',
+		'key': 'vFFwWk1pClGtHOaK0ZyK',//'0L8kgshd4Lso3P1UQX7q',
 		'pattern':'',
 		'host':'protected-sands-2667.herokuapp.com',
 		'cat':''
