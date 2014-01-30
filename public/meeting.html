@@ -41,7 +41,7 @@
             <section class="mp-pusher" id="mp-pusher">
 
                 <!-- mp-menu -->
-                    <nav id="mp-menu" class="mp-menu" >
+                    <nav id="mp-menu" class="mp-menu" > 
                         <div class="mp-level">
                             <button id="triggerMobile" class="mp-close d-hide t-hide"><i class="icon-cancel_circle icon2x"></i></button>
                             <h2><i class="icon-data_science blue"></i> ARM Buildings</h2>
@@ -285,9 +285,9 @@
     	$scope.rooms = [];
 		$scope.buildings = [];
 		
-		$scope.current_building = "ARM 1";
+		$scope.current_building = "ARM 3";
 		$scope.current_floor = "GROUND";
-		
+		$scope.menu_open = false;
     	var checkTimer ;
       	    
         $scope.open = function ( index) {
@@ -357,7 +357,7 @@
 		
         //$http.get('/meetings/arm/now').success(function(data) {
 		///buildings/ARM1/0
-		$http.get('/buildings/ARM1/0').success(function(data) {
+		$http.get('/buildings/ARM3/0').success(function(data) {
     	    data.rooms.forEach(function(room){
     	        console.log(room.name,' ', room.events.length);
 				for(var i=0;i<room.events.length;i++){
@@ -387,6 +387,12 @@
 		
 		$scope.getRoomInfo = function(href){
 		    console.log('get room info',href);
+			
+			$scope.menu_open = false;
+			//$('.mp-level').removeClass('mp-level-open');
+			//$('#mp-menu div').removeClass('mp-level-open');
+			//$('.mp-level').removeClass('mp-level-overlay');
+			//$('.mp-pusher').removeClass('mp-pushed');
 			
 			var arr = href.split('/');
 			console.log(arr);

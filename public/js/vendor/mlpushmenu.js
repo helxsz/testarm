@@ -160,10 +160,18 @@
 				el.addEventListener( self.eventtype, function( ev ) {
 					ev.stopPropagation();
 					var level = el.getAttribute( 'data-level' );
+					console.log(level , self.level);
+					/*
 					if( self.level > level ) {
 						self.level = level;
 						self._closeMenu();
 					}
+					*/
+					if( self.level == level ) {
+					    console.log('close menu');
+						//self.level = level;
+						self._resetMenu();
+					}										
 				} );
 			} );
 
@@ -177,6 +185,7 @@
 						self.level = closest( el, 'mp-level' ).getAttribute( 'data-level' ) - 1;
 						self.level === 0 ? self._resetMenu() : self._closeMenu();
 					}
+					//self._closeMenu();
 				} );
 			} );	
 		},
@@ -233,6 +242,7 @@
 		},
 		// removes classes mp-level-open from closing levels
 		_toggleLevels : function() {
+		    console.log('toggle levels  ',this.levels.length);
 			for( var i = 0, len = this.levels.length; i < len; ++i ) {
 				var levelEl = this.levels[i];
 				if( levelEl.getAttribute( 'data-level' ) >= this.level + 1 ) {
