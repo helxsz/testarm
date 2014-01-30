@@ -467,7 +467,7 @@
             width:232px; height:200px;
             position: relative;
             cursor: pointer;
-            z-index: 1;
+            z-index: 0;
         }
 
         .ch-info-wrap {
