@@ -185,22 +185,6 @@
             .svg .energyDial {background: url('../img/svg/Energy-Dial.svg') no-repeat 50% 50%; }
 
 
-    .loading {
-        display: none;
-        position:relative;
-        width:100%; height:100%;
-        background-color: #141414; 
-        opacity:0.9;
-        filter:alpha(opacity=90); /* For IE8 and earlier */
-    }
-        .loading .box {
-            position: absolute; top: 50%;
-            overflow: hidden; z-index: 99;
-            padding-top: 1em;
-            width: 100%;
-        }
-
-
 
 /*  ==========================================================================
     3. Typography
@@ -483,7 +467,7 @@
             width:232px; height:200px;
             position: relative;
             cursor: pointer;
-            z-index: 0;
+            z-index: 1;
         }
 
         .ch-info-wrap {
@@ -846,7 +830,7 @@
     .modal-footer .btn-block + .btn-block {
       margin-left: 0;
     }
-
+ 
 
 /*  ==========================================================================
     9. Tables
@@ -1024,95 +1008,6 @@
         animation-delay: 3s;
     }
 
-    /* LOADING ANIMATIONS */
-    .circle {
-        background-color: rgba(20,20,20,0);
-        border: 5px solid rgba(37,153,193,0.9);
-        opacity: .9;
-        border-right: 5px solid rgba(20,20,20,0);
-        border-left: 5px solid rgba(20,20,20,0);
-        border-radius: 50px;
-        box-shadow: 0 0 35px #2599C1;
-        width: 50px;
-        height: 50px;
-        margin: 0 auto;
-        -moz-animation: spinPulse 1s infinite ease-in-out;
-        -webkit-animation: spinPulse 1s infinite linear;
-    }
-
-    .circle1 {
-        background-color: rgba(20,20,20,0);
-        border: 5px solid rgba(37,153,193,0.9);
-        opacity: .9;
-        border-left: 5px solid rgba(20,20,20,1);
-        border-right: 5px solid rgba(20,20,20,1);
-        border-radius: 50px;
-        box-shadow: 0 0 15px #2599C1;
-        width: 30px;
-        height: 30px;
-        margin: 0 auto;
-        position: relative;
-        top: -50px;
-        -moz-animation: spinoffPulse 1s infinite linear;
-        -webkit-animation: spinoffPulse 1s infinite linear;
-    }
-
-    @-moz-keyframes spinPulse {
-        0% {
-            -moz-transform: rotate(160deg);
-            opacity: 0;
-            box-shadow: 0 0 1px #2599C1;
-        }
-
-        50% {
-            -moz-transform: rotate(145deg);
-            opacity: 1;
-        }
-
-        100% {
-            -moz-transform: rotate(-320deg);
-            opacity: 0;
-        };
-    }
-
-    @-moz-keyframes spinoffPulse {
-        0% {
-            -moz-transform: rotate(0deg);
-        }
-
-        100% {
-            -moz-transform: rotate(360deg);
-        };
-    }
-
-    @-webkit-keyframes spinPulse {
-        0% {
-            -webkit-transform: rotate(160deg);
-            opacity: 0;
-            box-shadow: 0 0 1px #2599C1;
-        }
-
-        50% {
-            -webkit-transform: rotate(145deg);
-            opacity: 1;
-        }
-
-        100% {
-            -webkit-transform: rotate(-320deg);
-            opacity: 0;
-        };
-    }
-
-    @-webkit-keyframes spinoffPulse {
-        0% {
-            -webkit-transform: rotate(0deg);
-        }
-
-        100% {
-            -webkit-transform: rotate(360deg);
-        };
-    }
- 
 
 /*  ==========================================================================
     11. Media Queries
