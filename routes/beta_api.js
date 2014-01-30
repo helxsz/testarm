@@ -696,7 +696,7 @@ function updateResourceRepository(){
 		});			
 	}
 
-	flushDB(function(){});
+	//flushDB(function(){});
 	checkDB(function(err,data){
 		if(err){
 		
