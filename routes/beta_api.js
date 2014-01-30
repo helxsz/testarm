@@ -118,43 +118,7 @@ setTimeout(function(){
 	bootRealTimeServices();
 }, 2000);	
 
-// http://localhost/all/meeting
-app.get('/all/meeting',function(req,res,next){
-    getResourceList2('cat:armmeeting',function(err,data){
-	    res.send(200,data);
-	});
-})
 
-app.get('/catalog',function(req,res,next){   
-    var type = req.query.type;
-    var enlightService = serviceCatalog.findByName(type);
-    try{
-        enlightService.fetchResourceList(function(err,data){
-	            if(err) {  winston.error(err.name + ": " + err.message);  res.send(404,err);}
-	            else res.json(200,data);			
-		});		
-    }catch(e){  
-		winston.error('service not found'); 
-		res.send(404);
-	}
-})
-
-// http://localhost/catalog/tag?type=enlight&url=enlight/Ballast00002897
-// http://localhost/catalog/tag?type=armmeeting&url=armmeeting/1/MotionSensor/00-0D-6F-00-00-C1-2E-EF	   
-app.get('/catalog/tag',function(req,res,next){   
-    var type = req.query.type, url = req.query.url;
-    var enlightService = serviceCatalog.findByName(type);
-	
-    try{
-        enlightService.getResourceTag(url,function(err,data){
-	            if(err) {  winston.error(err.name + ": " + err.message);  res.send(404,err);}
-	            else res.json(200,data);			
-		});		
-    }catch(e){  
-		winston.error('service not found'); 
-		res.send(404);
-	}
-})
 
 
 
@@ -585,20 +549,6 @@ function updateResourceRepository(){
 	
 	var filter = new catalog_filter();
 	var crawler = new catalog_crawler(armbuilding);
-
-	//flushDB(function(){});
-	checkDB(function(err,data){
-		if(err){
-		
-		}else if(data == 1){
-			console.log('semantic data right'.green);
-			integrate();
-		}else if(data ==0){
-			console.log('semantic data empty '.red);
-			updateRes();
-		}			
-	   
-	})
 		
 	function updateRes(){
 		async.series([
@@ -715,16 +665,29 @@ function updateResourceRepository(){
 						//matchs.push({ 'sid':sensors[i].sid.substring(11, sensors[i].sid.length), 'rid': rooms[j].rid.substring(9, rooms[j].rid.length)})
 						matchs.push({ 'sid':sensors[i].sid, 'rid': rooms[j].rid})
 						continue;
-					}				
+					}
 				}
 			}
 			console.log(' found match  number   '.green+matchs.length);
-							
+			
+            var group = _.groupBy(matchs,function(match){			   
+			    return match.rid;
+			})
+            console.log('group ',group);
+			
 			var mul = redisClient.multi();
 			for(var i =0 ;i<matchs.length;i++){
-			    console.log(matchs[i]);
-                mul.hmset( matchs[i].sid , 'room', matchs[i].rid)
-				   .hmset( matchs[i].rid , 'sensor',matchs[i].sid );			
+			    //console.log('-------------------',matchs[i]);
+                mul.hmset( matchs[i].sid , 'room', matchs[i].rid)  // link the sensor with room
+				
+				if( matchs[i].sid.lastIndexOf('temperature') >0){
+				    mul.hmset( matchs[i].rid , 'query:temperature',matchs[i].sid );
+					console.log('match temperature'.green,matchs[i].sid);
+				}
+				if( matchs[i].sid.lastIndexOf('motion') >0 ){
+				    mul.hmset( matchs[i].rid , 'query:motion',matchs[i].sid );
+					console.log('match motion'.green, matchs[i].sid);
+				}
 			}
 			mul.exec(function (err, replies) {
 				console.log("res:sensor Resource ".green + replies.length + " replies");								
@@ -733,7 +696,37 @@ function updateResourceRepository(){
 			delete sensors, rooms;
             redisClient.quit();			
 		});			
-	}		
+	}
+
+	//flushDB(function(){});
+	checkDB(function(err,data){
+		if(err){
+		
+		}else if(data == 1){
+			console.log('semantic data right'.green);
+			integrate();
+		}else if(data ==0){
+			console.log('semantic data empty '.red);
+			updateRes();
+		}			
+	   
+	})
+	
 }
 
 updateResourceRepository();
+
+
+
+app.get('/admin/repository/delete',function(req,res,next){
+    flushDB(function(){
+        res.send(200);	
+	});
+})
+
+app.get('/admin/repository/update',function(req,res,next){
+
+    updateResourceRepository();
+	res.send(200);
+
+})

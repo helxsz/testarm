@@ -163,12 +163,12 @@ function MQTTMonitor(serviceCatalog){
 	}
 	
 	function onClose(e){
-        winston.info('MQTT MONITOR close!'+e);
+        //winston.info('MQTT MONITOR close!'+e);
 		try{
 		  //  problem class variables in the callback are always unidentified
           this.client.end();
         }catch(err){   // problem how to tell what type of error
-		    winston.error(err.name + ": " + err.message);
+		    //winston.error(err.name + ": " + err.message);
 		} 		
 	}
 	

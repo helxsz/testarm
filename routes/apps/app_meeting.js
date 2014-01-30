@@ -21,58 +21,128 @@ var errors = require('../../utils/errors'),
 	simulation = require('../simulation.js');
 
 /****   experiment 2 ********/
-var meetingService = serviceCatalog.findByName('armmeeting');  // enlight
-var buildingService = serviceCatalog.findByName('armbuilding');  // enlight	
+var meetingService = serviceCatalog.findByName('armmeeting'); 
+var buildingService = serviceCatalog.findByName('armbuilding');  
 
  /*
 https://alertmeadaptor.appspot.com/traverse?traverseURI=https%3A//geras.1248.io/cat/armmeeting/17/MotionSensor/00-0D-6F-00-00-C1-34-EB&traverseKey=924a7d4dbfab38c964f5545fd6186559
 https://alertmeadaptor.appspot.com/traverse?traverseURI=https%3A%2F%2Fprotected-sands-2667.herokuapp.com%2Fcat&traverseKey=0L8kgshd4Lso3P1UQX7q&Submit=Browse
 http://schema.org/Place
 */
-
 	
-app.get('/buildings',function(req,res){
-    db.getResourceList2("location:building",function(err,data){ 
-        console.log('membres building',data.length);  
-        for(var i=0;i<data.length;i++){
-	        console.log(data[i]);
-	    }
-		res.send(data);
-    })
+app.get('/buildings/test',function(req,res){
+    sensorRoomModel.getRoomByBuilding('abc',function(err,data){
+	    if(err) res.send(404);
+	    else if(!data){res.send(404);}
+		else{
+		    //console.log(data);
+		    res.send(data);
+		}
+	})
 })
 
-
-/*
-getResourceList2("location:building:ARM6",function(err,data){ 
-    console.log('membres  arm5',data.length);  
-    for(var i=0;i<data.length;i++){
-	    console.log(data[i]);	
-	}
-})
-*/
-
+// http://localhost:8080/buildings/ARM1
 app.get('/buildings/:name',function(req,res){
     var name = req.params.name;
-    db.getResourceList2("location:building:"+name,function(err,data){ 
-        console.log('membres',name,data.length);  		
-		var array = [];
-		async.forEach(data, function(item,callback){ 
-		     db.findResource2(item,['email','name','url','address'],function(err,data){ 
-			    //winston.debug("data1111".green,item,data);               				
-			    array.push({ 'email':data[0],'name':data[1],'url':data[2] ,'address':data[3].toString()  });
-				callback();
-			 })
-		 }, function(err) {      
+	console.log('query room '.green+name);
+	name = name || 'ARM1';
+	var rooms = simulation.buildings[name+" 0"];
+	
+	var array = [];
+	for(var i=0;i<rooms.length;i++){
+	   array.push(rooms[i].room)
+	}
+	
+	sensorRoomModel.getRoomData(array, function(err,data){
+		if(err) {  console.log('get room error '.red); res.send(500)}
+		else if(!data) { console.log('no data for room'.red); res.send(404);}
+		else{
+			console.log('find room data '.green, data);
+			res.send(data);
+		}
+	})
+	
+/*	
+	async.forEach(rooms, 
+	  function(room, callback){        
+		url = simulation.rooms[room.name];
+		winston.debug('........................'+room.name+"       " +url);
+		
+		buildingService.fetchResourceDetail(url+"/events",function(err,eventlist){
             if(err){
-                 console.log(err);
-				 res.send(404);
-            }
-			else{
-			    console.log(array);
-				res.send(array);
-			}
-        });		
-    })
+	            winston.error('error    '+url+"/events");
+				room.events = [];	
+	        }else{
+                var now = new Date(), late_day = new Date(now.getFullYear(),now.getMonth(),now.getDate(),23,59,59);
+				// all events in this day
+				if(tomorrow)
+				eventlist = _.filter(eventlist, function(event){ var eventDate = new Date(event.endDate);   return eventDate.getTime() > late_day.getTime(); });
+                else
+				eventlist = _.filter(eventlist, function(event){ var eventDate = new Date(event.endDate);   return eventDate.getTime() <= late_day.getTime(); });				
+                room.events = eventlist;
+                //winston.debug('filtered  ... '+room.events.length);				
+	        }		
+            callback();			
+	    });		
+      },
+	  function(err){
+        //winston.debug('get all the messages ',util.inspect(events, false, null));
+		res.send(200,{rooms:rooms});
+	  } 
+	);	
+*/	
+})
+
+app.get('/buildings/:name/:floor',function(req,res){
+    var name = req.params.name, floor = req.params.floor;
+	name = name || 'ARM1';
+	floor = floor || 0;
+	var rooms = simulation.buildings[name+" "+floor];
+	console.log(rooms);
+	
+	var array = [];
+	for(var i=0;i<rooms.length;i++){
+	   array.push(rooms[i].room)
+	}
+	
+	sensorRoomModel.getRoomData(array, function(err,data){
+		if(err) {  console.log('get room error '.red); res.send(500)}
+		else if(!data) { console.log('no data for room'.red); res.send(404);}
+		else{
+			console.log('find room data '.green, data);
+			res.send(data);
+		}
+	})
+	
+/*
+	async.forEach(rooms, 
+	  function(room, callback){        
+		url = simulation.rooms[room.name];
+		winston.debug('........................'+room.name+"       " +url);
+		
+		buildingService.fetchResourceDetail(url+"/events",function(err,eventlist){
+            if(err){
+	            winston.error('error    '+url+"/events");
+				room.events = [];	
+	        }else{
+                var now = new Date(), late_day = new Date(now.getFullYear(),now.getMonth(),now.getDate(),23,59,59);
+				// all events in this day
+				if(tomorrow)
+				eventlist = _.filter(eventlist, function(event){ var eventDate = new Date(event.endDate);   return eventDate.getTime() > late_day.getTime(); });
+                else
+				eventlist = _.filter(eventlist, function(event){ var eventDate = new Date(event.endDate);   return eventDate.getTime() <= late_day.getTime(); });				
+                room.events = eventlist;
+                //winston.debug('filtered  ... '+room.events.length);				
+	        }		
+            callback();			
+	    });		
+      },
+	  function(err){
+        //winston.debug('get all the messages ',util.inspect(events, false, null));
+		res.send(200,{rooms:rooms});
+	  } 
+	);
+*/	
 })
 
 // http://localhost/room/event?url=https://protected-sands-2667.herokuapp.com/rooms/Room.UKCGM4
@@ -89,9 +159,6 @@ app.get('/meetings/arm/now',function(req,res){
  	getRoomEvents(false,res);
 })
 
-app.get('/meetings/arm/building',function(req,res){
-	
-})
 
 function getRoomEvents(tomorrow, res){
     var rooms = [
@@ -99,14 +166,14 @@ function getRoomEvents(tomorrow, res){
 	  'name': 'Room.UKCWillowA',
       'displayname':'WilA',	
 	  "url":"https://protected-sands-2667.herokuapp.com/rooms/Room.UKCWillowA",
-      'temperature': 43,
+      'temperature': 23,
 	  'time':new Date()
 	},
     {
 	  'name': 'Room.UKCWillowB',
 	  'displayname':'WilB',
       "url":"https://protected-sands-2667.herokuapp.com/rooms/Room.UKCWillowB",
-	  'temperature': 12,
+	  'temperature': 22,
 	  'time':new Date()
 	},
     {
@@ -127,7 +194,7 @@ function getRoomEvents(tomorrow, res){
 	  'name': 'Room.UKCElm',
 	  'displayname':'Elm',
 	  "url":"https://protected-sands-2667.herokuapp.com/rooms/Room.UKCElm",
-      'temperature': 27,
+      'temperature': 23,
 	  'time':new Date()
 	},
     {
@@ -197,8 +264,7 @@ app.get('/room/events',function(req,res){
             if(err){
 	            winston.error('error    '+url+"/events");
 	        }else{
-			    //winston.debug(obj);
-				
+			    //winston.debug(obj);				
 				var roomObj = {};
 				roomObj.name = room_nmae;
 				roomObj.temperature = 18+  (Math.floor(Math.random() * 16) + 1)/4;
@@ -217,13 +283,6 @@ app.get('/room/events',function(req,res){
 	  } 
 	);    
 })
-
-
-
-
-
-
-
 
 
 var agenda = new Agenda({db: { address: 'localhost:27017/agenda-example'}});
@@ -261,6 +320,10 @@ appBuilder.createApp('meetingroom',new MeetingRoomMQTTHandler().handleMessage, f
 	
 function MeetingRoomMQTTHandler(){
 	this.handleMessage = handleMessage;
+	var getShortName = function(url){
+	   var array = url.split('/');
+	   return array[array.length-1];
+	}	
 	function handleMessage(pattern, channel, message){	    
 		try{
 		    var raw = JSON.parse(message);
@@ -268,92 +331,97 @@ function MeetingRoomMQTTHandler(){
 		    var url = msg.n, value = msg.v, time = msg.t;
 		    console.log('MQTT:  '.green,"https://geras.1248.io/series"+url, value);
 			
-            sensorLayer.queryRoomFromSensor( "res:sensor:"+"https://geras.1248.io/series"+url ,function(err,data){
-			    if(err) console.log('err  ',err)
-			    else if(data) console.log('find the room '.green,data);
-				else if(!data) console.log('room not found'.red);
-			})
-			
-			
-			/*
-		    var array = url.split('/');
-		    //console.log(array[0],array[1],array[2],array[3],array[4],array[5], value);
-			var device_id = array[4] , device_attr = array[5];
-			//winston.debug('url :'+url+ device_id+device_attr);
-		    console.log('url :'+url.substring(0,url.lastIndexOf("/")));
-	        var url1 = url.substring(0,url.lastIndexOf("/"));
-			db.findResource2("device:"+url1, 'loc',function(err,data){ 
-			    if(err) winston.error('hmget 11 '+err);
-				else if(data) winston.info('hmget find location 11:'.green+"  "+data.url+"  " +data+"   id:"+device_id+"   attribute:"+device_attr+"   value:".green+value);	  
-			    else winston.error('hmget find no location11');
-			});
-			*/
-		
+            sensorRoomModel.queryRoomFromSensor( "res:sensor:"+"https://geras.1248.io/series"+url ,function(err,data){
+			    if(err) console.log('err  query room from sensor',err);
+				else if(!data) console.log('room not found'.red, url);
+			    else if(data) {
+				    //console.log('find the room '.green,data);
+                    if(url.lastIndexOf('motion') >0){
+					    console.log('update motion'.green,url);
+						sensorRoomModel.updateMotion(data.name,function(err,data){});
+						io.sockets.emit('info',{room:data.url,type:'motion', value:value});
+					}
+					else if(url.lastIndexOf('temperature') >0){
+					    console.log('update temperature '.yellow,url);
+						io.sockets.emit('info',{room:data.name,type:'temperature', value:value});
+						sensorRoomModel.updateTempData(data.url,value,function(err,data){});
+					}
+				}
+			})	
+            /*			
 			var room_uniqueURl = simulation.mapping[url];
 			if(room_uniqueURl){			    
-				var getShortName = function(url){
-				   var array = url.split('/');
-				   return array[array.length-1];
-				}				
+				
 				var room_shortName = getShortName(room_uniqueURl);
 				//winston.debug(" simulation mode :   room  is  "+room_uniqueURl, room_shortName);
-                sensorLayer.updateMotion(room_shortName,function(err,data){});	
+                sensorRoomModel.updateMotion(room_shortName,function(err,data){});	
 				//winston.debug("io send message  "+room_shortName);
 				io.sockets.emit('info',{room:room_shortName,type:'motion', value:100});
-			}		
-			   
+			}
+            */			
 		}catch(e){
 			console.log('some thing wrong   ......'.red+e);   
 		}
     }		
 }
 
-var sensorLayer = new SensorLayer();
-function SensorLayer(){
+
+var sensorRoomModel = new SensorRoomModel();
+function SensorRoomModel(){
 	var redis_ip= config.redis.host;  
 	var redis_port= config.redis.port;
 	
+	// name == building name
 	function getRoomByBuilding(name,callback){
 		var rooms = [];
 		var redisClient;	
-			try{ 
-				redisClient = redis.createClient(redis_port,redis_ip);
-			}
-			catch (error){
-				console.log('updateMotion  error' + error);
-				redisClient.quit();
-				return callback(error,null);
-			}		
+		try{ 
+			redisClient = redis.createClient(redis_port,redis_ip);
+		}
+		catch (error){
+			console.log('get room by building  error' + error);
+			redisClient.quit();
+			return callback(error,null);
+		}		
 		redisClient.keys("res:room:*", function(err, keys) {
 			console.log('res key room',keys.length);
 			
 			var mul = redisClient.multi();
 			keys.forEach(function(key){		
-			   mul.hmget( key , 'building');
+			   mul.hmget( key , 'building','floor');
 			})		           		
 			mul.exec(function (err, replies) {
 				console.log("res:room Resource ".green + replies.length + " replies");
-				//console.log("res:room Resource ".green + replies + " replies");
-				//console.log("res:room Resource ".green + keys + " keys");
+
 			    if(err) { redisClient.quit(); return callback(err,null);}			    
 			    else if(!replies){ redisClient.quit(); return callback(null,null);}					
 				else{											
-					for(var i=0;i<keys.length;i++){		
-						 rooms.push({'room':keys[i],'building':replies[i]});							 
+					for(var i=0;i<keys.length;i++){
+                         if(replies[i][0] != null)					
+						 rooms.push({'room':keys[i],'building':replies[i][0], 'floor':replies[i][1]});                        						 
 					}
 
 					var groups = _.groupBy(rooms,function(room){
-									return room.building;		
-						        })
+						return (room.building+" "+room.floor);		
+					})
+					
+					_.map(groups,function(group){
+					    console.log(group.length);
+						console.log('--------------------------------------------------------');
+						var array = _.map(group,function(room){
+						    delete room.building; delete room.floor;
+						    return room.room;
+						})
+					    return [];
+					})
+
 					redisClient.quit();
                     return callback(null,groups);					
                 }									
 			});						
-		});	
-	
-	
+		});		
 	}
-	
+	// name == room url
 	function updateMotion(name,callback){
 		var redisClient;	
 		try{ 
@@ -373,33 +441,9 @@ function SensorLayer(){
 		});
 
 		redisClient.quit();
-	}	
-
-	function getSensorData( items, callback ){
-		var redisClient;	
-		try{ 
-			redisClient = redis.createClient(redis_port,redis_ip);
-		}
-		catch (error){
-			console.log('getSensorData  error' + error);
-			redisClient.quit();
-			return callback(error,null);
-		}	
-
-		var mul = redisClient.multi();
-		for(var i=0;i<items.length;i++){
-		   mul.hgetall(items[i]);
-		}
-		mul.exec(function (err, replies) {            
-			redisClient.quit();
-			if(err) {return callback(err,null);}
-			else if(replies) { return callback(null,replies);}
-			else { return callback(null,null);}			
-		});		
-		redisClient.quit();
 	}
 	
-	
+    // room url
 	function updateTempData(name,temp,callback){
 		var redisClient;	
 		try{ 
@@ -416,12 +460,58 @@ function SensorLayer(){
 			if(err) {return callback(err,null);}
 			else if(data) { return callback(null,data);}
 			else { return callback(null,null);}	
-		});
+		});		
+	}	
+ 
+/*
+	'name': 'Room.UKCTrainingRoomA',  +
+	'displayname':'TrainA',  +
+	"url":"https://protected-sands-2667.herokuapp.com/rooms/Room.UKCTrainingRoomA",  // for query the events
+    'temperature': 21, ++ 
+	'time':new Date()  ++	
+*/
+ 
+	// items == room urls
+	function getRoomData( items, callback ){
+		var redisClient;	
+		try{ 
+			redisClient = redis.createClient(redis_port,redis_ip);
+		}
+		catch (error){
+			console.log('getSensorData  error' + error);
+			redisClient.quit();
+			return callback(error,null);
+		}	
 
-		redisClient.quit();	
+		var mul = redisClient.multi();
+		for(var i=0;i<items.length;i++){
+		   //mul.hgetall(items[i]);
+		   mul.hmget(items[i], 'event', 'time', 'temp');  //,'name','diaplayname','temperature','time'
+		}
+		mul.exec(function (err, replies) {            
+			redisClient.quit();
+			if(err) {redisClient.quit();return callback(err,null);}			
+			else if(!replies){ redisClient.quit(); return callback(null,null);}
+            else if(replies) { 
+			    redisClient.quit();				
+				var rooms = [];
+				for(var i=0;i<replies.length;i++){
+				    console.log('get room data ',replies[i]);
+					var room = replies[i];
+					var short_name = getShortName(room[0]), time = room[1], temp = room[2];
+					if(time == null) time = new Date();
+					if(temp == null || temp ==0) temp = 20.5;
+				    //rooms.push({url:items[i],name:short_name,event:room[0],time:room[1],temperature:room[2]});
+					rooms.push({url:items[i],name:short_name,event:room[0],time:time,temperature:temp});
+				}
+						//var short_name = getShortName(room_id[0]);					    
+					    //return callback(null,{url:room_id,name:short_name,event:room[0],time:room[1],temperature:room[2]});							
+				return callback(null,rooms);
+			}			
+		});			
 	}
-	
-	
+		
+	// url == sensor url
 	function queryRoomFromSensor( url, callback){
 		var redisClient;	
 		try{ 
@@ -433,32 +523,39 @@ function SensorLayer(){
 			return callback(error,null);
 		}	
 		
-		redisClient.hmget(url, 'room', function(err, data){
-			
+		redisClient.hmget(url, 'room', function(err, data){			
 			if(err) { redisClient.quit();	 return callback(err,null);}
 			else if(!data) { redisClient.quit();	 return callback(null,null);}
 			else { 
-			    var room_id = data
-				
-				redisClient.hgetall(room_id,function(err,room){
-				//redisClient.hmget(room_id,'floor building time temp ',function(err,room){
-                    //console.log('room Data: ' + room);
+			    var room_id = data;				
+				//redisClient.hgetall(room_id,function(err,room){
+				redisClient.hmget(room_id,'event', 'time', 'temp',function(err,room){
+                    //console.log('room Data: ' + room_id);
 					redisClient.quit();
 					if(err) {return callback(err,null);}
-					else if(!data) { return callback(null,null);}
-					else return callback(null,room);
+					else if(!room[0]) { return callback(null,null);}
+					else {					    
+						var short_name = getShortName(room_id[0]);					    
+					    return callback(null,{url:room_id,name:short_name,event:room[0],time:room[1],temperature:room[2]});
+					}	
                 })
 			}	
-		});
-
-		
+		});		
 	}
-		
+
+	var getShortName = function(url){
+	   var array = url.split('/');
+	   return array[array.length-1];
+	}
+	
     return {
-	    getSensorData:getSensorData,
-	    updateMotion:updateMotion,
-		updateTempData:updateTempData,
-		queryRoomFromSensor:queryRoomFromSensor
+	    
+	    updateMotion:updateMotion,        // update room model with sensor data
+		updateTempData:updateTempData,    // update room model with sensor data
+		queryRoomFromSensor:queryRoomFromSensor, // find room from the sensor url
+		
+		getRoomByBuilding:getRoomByBuilding,  // get rooms by filtering the building and floor
+		getRoomData:getRoomData       // get room info including room name and room sensor data
 	}
 }
 /********************88   *********************/
@@ -481,7 +578,6 @@ var RoomScheduleEvents = function(){
 	] ;
 		
 	function updateRoomEvents(req,res,next){
-  
 		var tomorrow = false;		
 		async.forEach(rooms, 
 		  function(room, callback){ 
@@ -537,7 +633,7 @@ var RoomScheduleEvents = function(){
 						var e = data.e;
 						e.forEach(function(data){
 							console.log( room, 'temperature:', data.v );	//   ,new Date(data.t*1000) ,  moment(data.t*1000 ).fromNow()
-							sensorLayer.updateTempData(room,data.v,function(err,data){});	    
+							sensorRoomModel.updateTempData(room,data.v,function(err,data){});	    
 						})				
 						/// now 									
 					}						
@@ -555,7 +651,6 @@ var RoomScheduleEvents = function(){
 			}
 		});
 	}
-	
 	
 	return {
 	    updateRoomTemp:updateRoomTemp,

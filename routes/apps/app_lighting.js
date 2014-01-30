@@ -22,7 +22,39 @@ var errors = require('../../utils/errors'),
 
 var enlightService = serviceCatalog.findByName('enlight');  // enlight
 //serviceCatalog.removeRTService('enlight');
-   
+
+/*
+app.get('/catalog',function(req,res,next){   
+    var type = req.query.type;
+    var enlightService = serviceCatalog.findByName(type);
+    try{
+        enlightService.fetchResourceList(function(err,data){
+	            if(err) {  winston.error(err.name + ": " + err.message);  res.send(404,err);}
+	            else res.json(200,data);			
+		});		
+    }catch(e){  
+		winston.error('service not found'); 
+		res.send(404);
+	}
+})
+
+// http://localhost/catalog/tag?type=enlight&url=enlight/Ballast00002897
+// http://localhost/catalog/tag?type=armmeeting&url=armmeeting/1/MotionSensor/00-0D-6F-00-00-C1-2E-EF	   
+app.get('/catalog/tag',function(req,res,next){   
+    var type = req.query.type, url = req.query.url;
+    var enlightService = serviceCatalog.findByName(type);
+	
+    try{
+        enlightService.getResourceTag(url,function(err,data){
+	            if(err) {  winston.error(err.name + ": " + err.message);  res.send(404,err);}
+	            else res.json(200,data);			
+		});		
+    }catch(e){  
+		winston.error('service not found'); 
+		res.send(404);
+	}
+})
+*/   
    
 appBuilder.createApp('enlight',new EnlightingMQTTHandler().handleMessage, function(err,app){
     if(err) winston.error('error in create app');

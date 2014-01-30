@@ -196,7 +196,15 @@ function getEventFromHome(name ,callback){
 	return callback(null,1);
 }
 
-/*******                                            ***********/
+/*******          
+db.findResource2(item,['email','name','url','address'],function(err,data){ 
+			    //winston.debug("data1111".green,item,data);               				
+			    array.push({ 'email':data[0],'name':data[1],'url':data[2] ,'address':data[3].toString()  });
+				callback();
+			 })
+
+
+***********/
 
  
  

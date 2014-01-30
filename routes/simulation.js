@@ -114,8 +114,185 @@ var reversemapping = {
 };
 
 
+
+var buildings = 
+{
+  "ARM6 0": [
+    {
+      "room": "res:room:https://protected-sands-2667.herokuapp.com/rooms/Room.UKCARM66MR3"
+    },
+    {
+      "room": "res:room:https://protected-sands-2667.herokuapp.com/rooms/Room.UKCARM66MR01"
+    },
+    {
+      "room": "res:room:https://protected-sands-2667.herokuapp.com/rooms/Room.UKCARM66MR02"
+    }
+  ],
+  "ARM6 1": [
+    {
+      "room": "res:room:https://protected-sands-2667.herokuapp.com/rooms/Room.UKCARM66MR4"
+    },
+    {
+      "room": "res:room:https://protected-sands-2667.herokuapp.com/rooms/Room.UKCARM66MR5"
+    },
+    {
+      "room": "res:room:https://protected-sands-2667.herokuapp.com/rooms/Room.UKCARM66MR8"
+    },
+    {
+      "room": "res:room:https://protected-sands-2667.herokuapp.com/rooms/Room.UKCARM6F3Studio"
+    },
+    {
+      "room": "res:room:https://protected-sands-2667.herokuapp.com/rooms/Room.UKCARM66MR11"
+    },
+    {
+      "room": "res:room:https://protected-sands-2667.herokuapp.com/rooms/Room.UKCARM66MR06"
+    }
+  ],
+    "ARM3 0": [
+    {
+      "room": "res:room:https://protected-sands-2667.herokuapp.com/rooms/Room.UKCSycamore"
+    },
+    {
+      "room": "res:room:https://protected-sands-2667.herokuapp.com/rooms/Room.UKCAlder"
+    },
+    {
+      "room": "res:room:https://protected-sands-2667.herokuapp.com/rooms/Room.UKCHawthorn"
+    },
+    {
+      "room": "res:room:https://protected-sands-2667.herokuapp.com/rooms/Room.UKCMaple"
+    },
+    {
+      "room": "res:room:https://protected-sands-2667.herokuapp.com/rooms/Room.UKCBeech"
+    },
+    {
+      "room": "res:room:https://protected-sands-2667.herokuapp.com/rooms/Room.UKCHolly"
+    },
+    {
+      "room": "res:room:https://protected-sands-2667.herokuapp.com/rooms/Room.UKCBirch"
+    },
+    {
+      "room": "res:room:https://protected-sands-2667.herokuapp.com/rooms/Room.UKCHazel"
+    },
+    {
+      "room": "res:room:https://protected-sands-2667.herokuapp.com/rooms/Room.UKCOak"
+    },
+    {
+      "room": "res:room:https://protected-sands-2667.herokuapp.com/rooms/Room.UKCAsh"
+    }
+  ],
+  "ARM3 1": [
+    {
+      "room": "res:room:https://protected-sands-2667.herokuapp.com/rooms/Room.UKCWillowA"
+    },
+    {
+      "room": "res:room:https://protected-sands-2667.herokuapp.com/rooms/Room.UKCWillowB"
+    },
+    {
+      "room": "res:room:https://protected-sands-2667.herokuapp.com/rooms/Room.UKCLectureTheatre"
+    },
+    {
+      "room": "res:room:https://protected-sands-2667.herokuapp.com/rooms/Room.UKCRowan"
+    },
+    {
+      "room": "res:room:https://protected-sands-2667.herokuapp.com/rooms/Room.UKCBox"
+    },
+    {
+      "room": "res:room:https://protected-sands-2667.herokuapp.com/rooms/Room.UKCYew"
+    },
+    {
+      "room": "res:room:https://protected-sands-2667.herokuapp.com/rooms/Room.UKCElm"
+    },
+    {
+      "room": "res:room:https://protected-sands-2667.herokuapp.com/rooms/Room.UKCAspen"
+    }
+  ],
+  "ARM2 0": [
+    {
+      "room": "res:room:https://protected-sands-2667.herokuapp.com/rooms/RoomUKCSGM5"
+    }
+  ],
+  "ARM2 1": [
+    {
+      "room": "res:room:https://protected-sands-2667.herokuapp.com/rooms/Room.UKCSF8"
+    }
+  ],
+  "ARM1 0": [
+    {
+      "room": "res:room:https://protected-sands-2667.herokuapp.com/rooms/Room.UKCAtrium"
+    },
+    {
+      "room": "res:room:https://protected-sands-2667.herokuapp.com/rooms/Room.UKCGM4"
+    },
+    {
+      "room": "res:room:https://protected-sands-2667.herokuapp.com/rooms/Room.UKCGM5"
+    }
+  ],
+  "ARM1 1": [
+    {
+      "room": "res:room:https://protected-sands-2667.herokuapp.com/rooms/Room.UKCBoardroom"
+    },
+    {
+      "room": "res:room:https://protected-sands-2667.herokuapp.com/rooms/Room.UKCFM7"
+    },
+    {
+      "room": "res:room:https://protected-sands-2667.herokuapp.com/rooms/Room.UKCFM9"
+    },
+    {
+      "room": "res:room:https://protected-sands-2667.herokuapp.com/rooms/Room.UKCFM10"
+    }
+  ], 
+  "CPC1 0": [
+    {
+      "room": "res:room:https://protected-sands-2667.herokuapp.com/rooms/Room.UKCCPC1-0Knuth"
+    },
+    {
+      "room": "res:room:https://protected-sands-2667.herokuapp.com/rooms/Room.UKCCPC1-0Babbage"
+    },
+    {
+      "room": "res:room:https://protected-sands-2667.herokuapp.com/rooms/Room.UKCCPC1-0Turing"
+    },
+    {
+      "room": "res:room:https://protected-sands-2667.herokuapp.com/rooms/Room.UKCCPC1-0Ritchie"
+    },
+    {
+      "room": "res:room:https://protected-sands-2667.herokuapp.com/rooms/Room.UKCCPC1-0Hopper"
+    },
+    {
+      "room": "res:room:https://protected-sands-2667.herokuapp.com/rooms/Room.UKCCPC1-0Kernighan"
+    }
+  ],  
+  "CPC1 2": [
+    {
+      "room": "res:room:https://protected-sands-2667.herokuapp.com/rooms/room.ukccpc1-2faraday"
+    },
+    {
+      "room": "res:room:https://protected-sands-2667.herokuapp.com/rooms/Room.UKCCPC1-2Tesla"
+    },
+    {
+      "room": "res:room:https://protected-sands-2667.herokuapp.com/rooms/room.ukccpc1-2ampere"
+    },
+    {
+      "room": "res:room:https://protected-sands-2667.herokuapp.com/rooms/Room.UKCCPC1-2Joule"
+    },
+    {
+      "room": "res:room:https://protected-sands-2667.herokuapp.com/rooms/room.ukccpc1-2ohm"
+    },
+    {
+      "room": "res:room:https://protected-sands-2667.herokuapp.com/rooms/room.ukccpc1-2volta"
+    },
+    {
+      "room": "res:room:https://protected-sands-2667.herokuapp.com/rooms/room.ukccpc1-2henry"
+    },
+    {
+      "room": "res:room:https://protected-sands-2667.herokuapp.com/rooms/Room.UKCCPC1-2Hertz"
+    }
+  ]
+}
+
+// MQTT:   https://geras.1248.io/series/armmeeting/9/MotionSensor/00-0D-6F-00-00-C1-3F-4F/motion 100
 module.exports = {
    mapping: mapping,
    reversemapping: reversemapping,
-   rooms:rooms
+   rooms:rooms,
+   buildings:buildings
 }

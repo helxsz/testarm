@@ -27,7 +27,7 @@
     <script src="js/vendor/underscore-min.js"></script>
     <script src="js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>	
 </head>
-<body id="bodyID">
+<body>
 <!--[if lt IE 7]>
     <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
 <![endif]-->
@@ -153,7 +153,7 @@
               												    <h3>
               													    <span class='ch-start'>{{dateformat(room.events[room.eventIndex].startDate)}}</span> <i class="icon-arrow_right" aria-hidden="true"></i> <span class='ch-end'>{{dateformat(room.events[room.eventIndex].endDate)}}</span>
               												    </h3>
-              												    <h4>Joe Bloggs</h4>
+              												    <h4>{{room.events[room.eventIndex].organizer}}</h4>
                 													<a href="tel:01517076707" title="Phone Joe" class="noSpin d-hide t-hide"><button class="maskCircle icon-telephone"><span>Telephone</span></button></a> 
                 													<a href="mailto:info@redninja.co.uk" title="Email Joe" class="noSpin m-hide"><button class="maskCircle icon-email"><span>Email</span></button></a> 
                 													<a href="#popup-{{ room.name }}" ng-click="$event.stopPropagation();open($index);"   title="View Itinerary" class="noSpin open-popup-link"><button class="maskCircle icon-information"><span>Itinerary Information</span></button></a>													
@@ -283,9 +283,13 @@
 
         $http.get('/meetings/arm/now').success(function(data) {
     	    data.rooms.forEach(function(room){
-    	        console.log(room.name,' (/meetings/arm/now)  remaining events for room ', room.events.length);
+    	        console.log(room.name,' ', room.events.length);
+				for(var i=0;i<room.events.length;i++){
+				    room.events[i].organizer = unescape(room.events[i].organizer.split('/')[2]);
+				}
     	    })		
     		_.map(data.rooms,function(room){  room.front = false;} )
+			
     		
     	    $scope.rooms = data.rooms;
     	    console.log(data.rooms);
@@ -443,18 +447,19 @@
   		}
   	}
   	
-  	function sizeContent() {
-  		// fix height bug on .container as there was an annoying gap below
-  		var bodyHeight = window.innerWidth;
-  		var containerHeight = document.getElementById('container').style.height;		
-  		if (bodyHeight > containerHeight) {
-  		  document.getElementById(id).style.height = "50px";
-  		}
-  		else {
-  		  window.innerHeight = containerHeight;
-  		}
-  		console.log ('sizeContent working');
-  	}	
+	function sizeContent() {
+		// fix height bug on .container as there was an annoying gap below
+		var bodyHeight = window.innerHeight;
+		var containerHeight = document.getElementById("container").style.height;
+        console.log('size content  body:',bodyHeight,'container', containerHeight);		
+		if (bodyHeight > 1100) {
+		  document.getElementById('container').style.height = bodyHeight+"px";
+		}
+		else {
+		  window.innerHeight = containerHeight;
+		}
+		console.log ('sizeContent working');
+	}	
      	
     	/******************    socket  **********************/
         socket.on('connect', function () {
@@ -481,137 +486,50 @@
             }
             socket.removeAllListeners();		
       });		
-    
+    });
 
 
+    meetingApp.factory('socket', function ($rootScope) {
+        if (!window.location.origin)
+        window.location.origin = window.location.protocol+"//"+window.location.host;
+        var socket = io.connect(window.location.origin+":3000",{'force new connection': true});
+        return {
+            on: function (eventName, callback) {
+                socket.on(eventName, function () {  
+                var args = arguments;
+                $rootScope.$apply(function () {
+                    callback.apply(socket, args);
+                });
+            });
+        },
+            emit: function (eventName, data, callback) {
+                socket.emit(eventName, data, function () {
+                var args = arguments;
+                $rootScope.$apply(function () {
+                    if (callback) {
+                        callback.apply(socket, args);
+                    }
+                });
+            })
+        }
+      };
+    });
 
-	/****************************  utiliy ***********************************/
-  	$scope.$on('mybroadcast', function(service){
-  		console.log('on my broadcast', service);
-		touchScroll("bodyID");
-		sizeContent();			
-    })
-  
-    $scope.dateformat = function(date){
-          var date = new Date(date);	
-  	   	var hour = date.getHours(), min = date.getMinutes();
-  		if(hour < 10) hour = '0'+date.getHours();
-  		if(min < 10) min = '0'+date.getMinutes();
-          return  hour+":"+min;		 
-  	}
- 
-	// touch device overflow fix
-	function isTouchDevice() {
-		try{
-			document.createEvent("TouchEvent");
-			return true;
-		}catch(e){
-			return false;
-		}
-	}
-
-	function touchScroll(id) {
-		if(isTouchDevice()){ //if touch events exist...
-			var el=document.getElementById(id);
-			var scrollStartPos=0;
-
-			document.getElementById(id).addEventListener("touchstart", function(event) {
-				scrollStartPos=this.scrollTop+event.touches[0].pageY;
-				event.preventDefault();
-			},false);
-
-			document.getElementById(id).addEventListener("touchmove", function(event) {
-				this.scrollTop=scrollStartPos-event.touches[0].pageY;
-				event.preventDefault();
-			},false);
-		}
-	}
-	
-	function sizeContent() {
-		// fix height bug on .container as there was an annoying gap below
-		var bodyHeight = window.innerHeight;
-		var containerHeight = document.getElementById("container").style.height;
-        console.log('size content  body:',bodyHeight,'container', containerHeight);		
-		if (bodyHeight > 1100) {
-		  //document.getElementById('container').style.height = bodyHeight+"px";
-		}
-		else {
-		  window.innerHeight = containerHeight;
-		}
-		console.log ('sizeContent working');
-	}	
-   	
-  	/******************    socket  **********************/
-      socket.on('connect', function () {
-  	    console.log('socket connected');
-      });
-                          
-      socket.on('info', function (msg) {               
-          //console.log(msg);
-          console.log('receiving the real time message from server ', msg.room,msg.value,msg.type)
-          if(msg.type=='motion'){ 
-              var room = _.findWhere($scope.rooms, {name: msg.room});	
-  			  if(room){
-                  console.log('room  object  becomes avaiable ',room);
-                  room.available = true;
-				  room.time = new Date();
-  			  }	
-          }
-      });
-    /***************   destory *************************/
-  	$scope.$on('$destroy', function() {
-          if (angular.isDefined(checkTimer)) {
-              $interval.cancel(checkTimer);
-              checkTimer = undefined;
-          }
-          socket.removeAllListeners();		
-    });		
-  });
-
-
-  meetingApp.factory('socket', function ($rootScope) {
-      if (!window.location.origin)
-      window.location.origin = window.location.protocol+"//"+window.location.host;
-      var socket = io.connect(window.location.origin+":3000",{'force new connection': true});
-      return {
-          on: function (eventName, callback) {
-              socket.on(eventName, function () {  
-              var args = arguments;
-              $rootScope.$apply(function () {
-                  callback.apply(socket, args);
-              });
-          });
-      },
-          emit: function (eventName, data, callback) {
-              socket.emit(eventName, data, function () {
-              var args = arguments;
-              $rootScope.$apply(function () {
-                  if (callback) {
-                      callback.apply(socket, args);
-                  }
-              });
-          })
+   function sizeContent() {
+      var bodyHeight = $('body').height();
+      var containerHeight = $("#container").height();   
+      if (bodyHeight > containerHeight) {
+        $('#container').css('height', bodyHeight );
       }
-    };
-  });
+      else {
+        $('body').css('height', containerHeight);
+      }
+  }
 
- function sizeContent() {
-    var bodyHeight = $('body').height();
-    var containerHeight = $("#container").height();   
-    if (bodyHeight > containerHeight) {
-      $('#container').css('height', bodyHeight );
-    }
-    else {
-      $('body').css('height', containerHeight);
-    }
-}
-
-//Every resize of window
-$(window).resize(sizeContent); 
-
-
+  //Every resize of window
+  $(window).resize(sizeContent); 
     
-  
+    
   angular
       .module('loadingOnAJAX', [])
       .config(function($httpProvider) {
@@ -677,8 +595,9 @@ $(window).resize(sizeContent);
             };
             return directiveDefinitionObject;
         });
-    }); 
-  	
+    });  
+  
+	
     </script>
 
     <!-- New Menu -->
