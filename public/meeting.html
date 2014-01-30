@@ -617,14 +617,16 @@
 	function sizeContent() {
 		// fix height bug on .container as there was an annoying gap below
 		var bodyHeight = window.innerHeight;
+
 		var containerHeight = document.getElementById("container").style.height;
         console.log('size content  body:',bodyHeight,'container', containerHeight);	
+    
     var loadingHeight = document.getElementById("loading").style.height;
         console.log('size content  body:',bodyHeight,'loading', loadingHeight);   
 
 		if (bodyHeight > 1100) {
 		  document.getElementById('container').style.height = bodyHeight+"px";
-      document.getElementById('loading').style.height = bodyHeight+"px";
+      document.getElementById('loading').style.height = containerHeight+"px";
 		}
 		else {
 		  window.innerHeight = containerHeight;
@@ -693,13 +695,16 @@
       var loadingHeight = $("#loading").height();
 
       if (bodyHeight > containerHeight) {
+
         $('#container').css('height', bodyHeight );
-      } else if (bodyHeight > loadingHeight) {
-        $('#loading').css('height', bodyHeight );
+
+      } else if (containerHeight > loadingHeight) {
+
+        $('#loading').css('height', containerHeight );
+
       }
       else {
         $('body').css('height', containerHeight);
-        $('body').css('height', loadingHeight);
       }
   }
 
