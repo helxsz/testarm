@@ -56,6 +56,37 @@ app.get('/buildinglist',function(req,res){
 	res.json(200,{buildings:list});
 })
 
+
+app.get('/buildings/:name/:floor/test',function(req,res){
+    var name = req.params.name, floor = req.params.floor;
+	name = name || 'ARM1';
+	floor = floor || 0;
+	var rooms = simulation.buildings[name+" "+floor];
+	console.log(rooms);
+	
+	var array = [];
+	for(var i=0;i<rooms.length;i++){
+	   array.push(rooms[i].room)
+	}
+	
+	var displayname = function(name){
+		var temp_name = name;
+		temp_name = temp_name.substring( temp_name.indexOf('UKC')+3,temp_name.length);
+		if(temp_name.length > 3)
+		temp_name = temp_name.substring(0,3)+temp_name[temp_name.length-1];	
+		return temp_name;
+	}
+	
+	sensorRoomModel.getRoomData(array, function(err,rooms){
+		if(err) {  console.log('get room error '.red); res.send(500)}
+		else if(!rooms) { console.log('no data for room'.red); res.send(404);}
+		else{
+			console.log('get rooms data '.green, rooms);
+            res.send(200,{rooms:rooms});						
+		}
+	})
+})
+
 app.get('/buildings/:name/:floor',function(req,res){
     var name = req.params.name, floor = req.params.floor;
 	name = name || 'ARM1';
@@ -270,14 +301,15 @@ function MeetingRoomMQTTHandler(){
 			    else if(data) {
 				    //console.log('find the room '.green,data);
                     if(url.lastIndexOf('motion') >0){
-					    console.log('update motion'.green,url, data.name);
-						sensorRoomModel.updateMotion(data.name,function(err,data){});
-						io.sockets.emit('info',{room:data.url,type:'motion', value:value});
+					    console.log('update motion'.green, data.name ,'--------------',data.url);        // "res:sensor:"+"https://geras.1248.io/series"+url,  ,"res:sensor:"+"https://geras.1248.io/series"+url
+ 						sensorRoomModel.updateMotion(data.url,function(err,data){});
+						io.sockets.emit('info',{room:data.name,type:'motion', value:value});
 					}
 					else if(url.lastIndexOf('temperature') >0){
-					    console.log('update temperature '.yellow,url, data.name);
-						io.sockets.emit('info',{room:data.name,type:'temperature', value:value});
+					    console.log('update temperature '.yellow, data.name,'----------------', data.url); //  "res:sensor:"+"https://geras.1248.io/series"+url,
+						
 						sensorRoomModel.updateTempData(data.url,value,function(err,data){});
+						io.sockets.emit('info',{room:data.name,type:'temperature', value:value});
 					}
 				}
 			})	
@@ -481,7 +513,7 @@ function SensorRoomModel(){
 					else if(!room[0]) { return callback(null,null);}
 					else {					    
 						var short_name = getShortName(room_id[0]);					    
-					    return callback(null,{url:room_id,name:short_name,event:room[0],time:room[1],temperature:room[2]});
+					    return callback(null,{url:room_id[0],name:short_name,event:room[0],time:room[1],temperature:room[2]});
 					}	
                 })
 			}	

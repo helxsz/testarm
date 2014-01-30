@@ -176,12 +176,13 @@
                       <li class="room" ng-repeat="room in rooms | filter:query "> <!-- | orderBy:orderProp index wrong after orderby -->
                           <div class="ch-item" ng-click="room.front = !room.front" ng-class="{'flipped': room.front}">              
                               <div class="ch-info-wrap">
-                                  <div class="ch-info " ng-class="{'unavailable':room.available}">
+                                  <div class="ch-info " ng-class="{'unavailable':room.available, 'available':!room.available}"> <!-- 'unknown':!room.m_enabled , -->
                                   <!-- START .ch-info -->
 
                                       <div class="ch-info-front hexagon">
                                           <h1>{{room.displayname}}</h1>
-                                          <small><span class='temperature'>{{room.temperature}}</span> &#x2103;</small>
+                                          <small ng-if="room.t_enabled==true"><span class='temperature'>{{room.temperature}}</span> &#x2103;</small>
+										  <!-- <h5 ng-if="room.m_enabled==false">No </h5> -->
                                       </div>    
 
                                       <div class="ch-info-back hexagon">
@@ -198,16 +199,17 @@
               												    </h3>
               												    <h4>{{room.events[room.eventIndex].organizer}}</h4>
                 													<a href="tel:01517076707" title="Phone Joe" class="noSpin d-hide t-hide"><button class="maskCircle icon-telephone"><span>Telephone</span></button></a> 
-                													<a href="mailto:"{{room.events[room.eventIndex].organizer}}"@redninja.co.uk" title="Email Joe" class="noSpin m-hide"><button class="maskCircle icon-email"><span>Email</span></button></a> 
+                													<a href='{{getEmail(room.events[room.eventIndex].organizer)}}' ng-click="$event.stopPropagation();" title="Email Joe" class="noSpin m-hide"><button class="maskCircle icon-email"><span>Email</span></button></a> 
                 													<a href="#popup-{{ room.name }}" ng-click="$event.stopPropagation();open($index);"   title="View Itinerary" class="noSpin open-popup-link"><button class="maskCircle icon-information"><span>Itinerary Information</span></button></a>													
                 												
                                         <!-- END .room.events.length -->
                                         </div>
-                													
+                						                                        
+										
                                         <div class="noBooking" ng-if="room.events.length==0">
               												    <div class="maskCircle bookerPhoto"><img src="img/photos/ARM-Employee-Icon.png" alt="Joe Bloggs"></div>
               												    <h3>No bookings</h3>
-                												</div>
+                						</div>
                                                                  											
                 											<!-- END .ch-info-back -->
                                       </div>
@@ -289,7 +291,7 @@
 		$scope.current_floor = "GROUND";
 		$scope.menu_open = false;
     	var checkTimer ;
-      	    
+      			
         $scope.open = function ( index) {
     	    var roomObj = $scope.rooms[index];
     	    console.log('open',roomObj.name, roomObj, index);
@@ -359,9 +361,17 @@
 		///buildings/ARM1/0
 		$http.get('/buildings/ARM3/0').success(function(data) {
     	    data.rooms.forEach(function(room){
-    	        console.log(room.name,' ', room.events.length);
+    	        //console.log(room.name,' ', room.events.length);
 				for(var i=0;i<room.events.length;i++){
-				    room.events[i].organizer = unescape(room.events[i].organizer.split('/')[2]);
+				
+					try
+					  {
+					  	 room.events[i].organizer = unescape(room.events[i].organizer.split('/')[2]);
+					  }
+					catch(err)
+					  {
+					    room.events[i].organizer = 'unknow ';
+					  }
 				}
     	    })		
     		_.map(data.rooms,function(room){  room.front = false;} )
@@ -409,7 +419,15 @@
 				data.rooms.forEach(function(room){
 					console.log(room.name,' ', room.events.length);
 					for(var i=0;i<room.events.length;i++){
-						room.events[i].organizer = unescape(room.events[i].organizer.split('/')[2]);
+					
+						try
+						  {
+							 room.events[i].organizer = unescape(room.events[i].organizer.split('/')[2]);
+						  }
+						catch(err)
+						  {
+							room.events[i].organizer = 'unknow ';
+						  }					
 					}
 				})		
 				_.map(data.rooms,function(room){  room.front = false;} )
@@ -427,19 +445,35 @@
             });
 		}
     		
+        // 213.123.189.97   		
+		
     	$scope.checkRoomAvailablity = function(){
     	    console.log('checkRoomAvailablity');
+			/*
     		var room_filtered = _.filter($scope.rooms, function(room){
-    		var lastupdate = new Date(room.time); 
-            if(room.available==true)			
-  			console.log("---------  check room avail", (new Date().getTime() - lastupdate.getTime()) , 300000 , room.displayname,room.available );
-    			return ( room.available==true   && (new Date().getTime()-lastupdate.getTime()) > 5*60*1000  ) ;
+    		    var lastupdate = new Date(room.time); 
+                //if(room.available==true)			
+  			    console.log("---------  check room avail", (new Date().getTime() - lastupdate.getTime()) , 300000 , room.displayname,room.available );
+    			return ( (new Date().getTime()-lastupdate.getTime()) > 5*60*1000  ) ;  //room.available==true   && 
     		})
     		
     		_.map(room_filtered, function(room){
   		     console.log('.............should  update the room to be available  ',room);
     		     room.available = false;
     		})
+			*/
+    		_.map($scope.rooms, function(room){
+  		         console.log('.............should  update the room to be available  ',room);
+				 var lastupdate = new Date(room.time);
+				 
+				 if(!room.m_enabled) room.available = false;
+				 else{
+                     if( (new Date().getTime() - lastupdate.getTime()) > 300000	)  room.available = false;
+                     else room.available = true;
+                 }					 
+    		     return true;
+    		})			
+			
     	}
     	
     	$scope.checkIntialEventIndex = function(){
@@ -468,16 +502,16 @@
     			    var startTime = new Date(currentEvent.startDate).getTime(),endTime = new Date(currentEvent.endDate).getTime();
     				
     				if(index+1>=events.length){
-    				    console.log('no more next events');
+    				    //console.log('no more next events');
     				}else{
-    				    console.log('there is a next event');
+    				    //console.log('there is a next event');
     					hasNextEvent = true;
     				}
     				
     			    console.log('checkNextEventAlert  ', currentEvent.startDate, currentEvent.endDate);
     			    if(nowTime>startTime&&nowTime<endTime){
     			        // if there is a event, just update the event clock
-    			        console.log( ' in current event , next time  for  ' , $scope.dateformat(currentEvent.startDate)  );
+    			        //console.log( ' in current event , next time  for  ' , $scope.dateformat(currentEvent.startDate)  );
     				    var seconds = (endTime - nowTime)/1000;
     				    if(seconds<60){
     				    // setInterval  real timer 
@@ -536,6 +570,13 @@
     		if(min < 10) min = '0'+date.getMinutes();
             return  hour+":"+min;		 
     	}
+		
+	$scope.getEmail = function(name){
+	    var name = name.replace(' ','.');
+	    //mailto:{{room.events[room.eventIndex].organizer}}@redninja.co.uk
+		return 'mailto:'+name+'@arm.com';
+	}
+	
    
   	// touch device overflow fix
   	function isTouchDevice() {

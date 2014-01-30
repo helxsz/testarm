@@ -168,7 +168,7 @@
 					}
 					*/
 					if( self.level == level ) {
-					    console.log('close menu');
+					    //console.log('close menu');
 						//self.level = level;
 						self._resetMenu();
 					}										
@@ -185,7 +185,6 @@
 						self.level = closest( el, 'mp-level' ).getAttribute( 'data-level' ) - 1;
 						self.level === 0 ? self._resetMenu() : self._closeMenu();
 					}
-					//self._closeMenu();
 				} );
 			} );	
 		},
