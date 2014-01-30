@@ -1214,8 +1214,8 @@
         -------------------------------------------------------- */
 
         .mp-menu {
-            overflow-y: scroll;/* has to be scroll, not auto */
-            -webkit-overflow-scrolling: touch;
+            /*overflow-y: scroll; has to be scroll, not auto 
+            -webkit-overflow-scrolling: touch;*/
         }
         .modal-dialog {
             width: 90%;
