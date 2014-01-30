@@ -46,20 +46,76 @@
                             <button id="triggerMobile" class="mp-close d-hide t-hide"><i class="icon-cancel_circle icon2x"></i></button>
                             <h2><i class="icon-data_science blue"></i> ARM Buildings</h2>
                             <ul>
+							    <!--
+                                <li ng-repeat="building in buildings">
+								    <a href="#">{{building.name}}</a>
+                                    <div class="mp-level">
+                                        <h2><i class="icon icon-data_science_black blue"></i> {{building.name}} </h2>
+                                        <a class="mp-back" href="#">back</a>
+                                        <ul>
+                                            <li  ng-repeat="floor in building.floors">
+											   <a class='room_nav' data-href="{{floor.url}}">{{floor.name}}</a>
+											</li>                                           
+                                        </ul>
+                                    </div>									
+								</li>							    
+							    -->
                                 <li>
                                     <a href="#">ARM 1</a>
                                     <div class="mp-level">
                                         <h2><i class="icon icon-data_science_black blue"></i> ARM 1</h2>
                                         <a class="mp-back" href="#">back</a>
                                         <ul>
-                                            <li><a href="#">Floor 1</a></li>
-                                            <li><a href="#">Floor 2</a></li>
+                                            <li><a class='room_nav' ng-click="getRoomInfo($event.target.href);$event.preventDefault()" href="/buildings/ARM1/0">Ground</a></li>
+                                            <li><a class='room_nav' ng-click="getRoomInfo($event.target.href);$event.preventDefault()" href="/buildings/ARM1/1">Floor 1</a></li>
                                         </ul>
                                     </div>
                                 </li>
-                                <li><a href="#">ARM 2</a></li>
-                                <li><a href="#">ARM 3</a></li>
-                                <li><a href="#">ARM 6</a></li>
+                                <li>
+								    <a href="#">ARM 2</a>
+                                    <div class="mp-level">
+                                        <h2><i class="icon icon-data_science_black blue"></i> ARM 2</h2>
+                                        <a class="mp-back" href="#">back</a>
+                                        <ul>
+                                            <li><a class='room_nav' ng-click="getRoomInfo($event.target.href);$event.preventDefault()" href="/buildings/ARM2/0">Ground</a></li>
+                                            <li><a class='room_nav' ng-click="getRoomInfo($event.target.href);$event.preventDefault()" href="/buildings/ARM2/1">Floor 1</a></li>
+                                        </ul>
+                                    </div>									
+								</li>
+                                <li>
+								    <a href="#">ARM 3</a>
+                                    <div class="mp-level">
+                                        <h2><i class="icon icon-data_science_black blue"></i> ARM 3</h2>
+                                        <a class="mp-back" href="#">back</a>
+                                        <ul>
+                                            <li><a class='room_nav' ng-click="getRoomInfo($event.target.href);$event.preventDefault()" href="/buildings/ARM3/0">Ground</a></li>
+                                            <li><a class='room_nav' ng-click="getRoomInfo($event.target.href);$event.preventDefault()" href="/buildings/ARM3/1">Floor 1</a></li>
+                                        </ul>
+                                    </div>									
+								</li>
+                                <li>
+								    <a href="#">ARM 6</a>
+                                    <div class="mp-level">
+                                        <h2><i class="icon icon-data_science_black blue"></i> ARM 6</h2>
+                                        <a class="mp-back" href="#">back</a>
+                                        <ul>
+                                            <li><a class='room_nav' ng-click="getRoomInfo($event.target.href);$event.preventDefault()" href="/buildings/ARM6/0">Ground</a></li>
+                                            <li><a class='room_nav' ng-click="getRoomInfo($event.target.href);$event.preventDefault()" href="/buildings/ARM6/1">Floor 1</a></li>
+                                        </ul>
+                                    </div>									
+								</li>
+                                <li>
+								    <a href="#">CPC1</a>
+                                    <div class="mp-level">
+                                        <h2><i class="icon icon-data_science_black blue"></i> CPC1 </h2>
+                                        <a class="mp-back" href="#">back</a>
+                                        <ul>
+                                            <li><a class='room_nav' ng-click="getRoomInfo($event.target.href);$event.preventDefault()" href="/buildings/CPC1/0">Ground</a></li>
+                                            <li><a class='room_nav' ng-click="getRoomInfo($event.target.href);$event.preventDefault()" href="/buildings/CPC1/1">Floor 2</a></li>
+                                        </ul>
+                                    </div>									
+								</li>
+                                 								
                             </ul>
                                 
                         </div>
@@ -79,7 +135,7 @@
 
                         <button id="trigger"><i class="icon-reorder icon2x"></i></button>
 
-                        <h1>ARM 1 <span class="blue">FIRST FLOOR</span> <span class="pink">MEETING ROOM</span> AVAILABILITY</h1>
+                        <h1>{{current_building}} <span class="blue">{{current_floor}} FLOOR</span> <span class="pink">MEETING ROOM</span> AVAILABILITY</h1>
 
                     <!-- END #banner -->
                     </header>
@@ -114,20 +170,7 @@
 
                 <!-- END .wrapper -->
                 </div>
-
-			<!--	
-	        <div class="span2">
-                
-                Search: <input ng-model="query">
-				Sort by:
-                <select ng-model="orderProp">
-                    <option value="name">Alphabetical</option>
-                    <option value="age">Newest</option>
-                </select>
-            </div>
-			--> 	
 				
-
                 <section id="app-meeting" class="app-content">				
                   <ul class="ch-grid">
                       <li class="room" ng-repeat="room in rooms | filter:query "> <!-- | orderBy:orderProp index wrong after orderby -->
@@ -155,7 +198,7 @@
               												    </h3>
               												    <h4>{{room.events[room.eventIndex].organizer}}</h4>
                 													<a href="tel:01517076707" title="Phone Joe" class="noSpin d-hide t-hide"><button class="maskCircle icon-telephone"><span>Telephone</span></button></a> 
-                													<a href="mailto:info@redninja.co.uk" title="Email Joe" class="noSpin m-hide"><button class="maskCircle icon-email"><span>Email</span></button></a> 
+                													<a href="mailto:"{{room.events[room.eventIndex].organizer}}"@redninja.co.uk" title="Email Joe" class="noSpin m-hide"><button class="maskCircle icon-email"><span>Email</span></button></a> 
                 													<a href="#popup-{{ room.name }}" ng-click="$event.stopPropagation();open($index);"   title="View Itinerary" class="noSpin open-popup-link"><button class="maskCircle icon-information"><span>Itinerary Information</span></button></a>													
                 												
                                         <!-- END .room.events.length -->
@@ -209,14 +252,7 @@
   <script src="js/vendor/mlpushmenu.js"></script>
     
   <script>
-    // http://www.ibm.com/developerworks/web/library/wa-nodejs-polling-app/index.html?ca=drs-
-    // http://coenraets.org/blog/2012/02/sample-application-with-angular-js/
-    // http://www.thinkster.io/pick/eHPCs7s87O/angularjs-tutorial-learn-to-rapidly-build-real-time-web-apps-with-firebase
-    // http://dailyjs.com/2013/04/25/angularjs-3/
-    // http://stackoverflow.com/questions/7792652/what-is-the-best-way-to-conditionally-apply-a-class-with-angularjs?rq=1
-    // http://weblogs.asp.net/dwahlin/archive/2013/09/18/building-an-angularjs-modal-service.aspx
-    // http://angular-ui.github.io/bootstrap/
-    // http://stackoverflow.com/questions/14475284/make-a-render-condition-with-angularjs   http://stackoverflow.com/questions/15810278/if-else-in-angularjs-template
+
     angular.module('meetingEventFilters', []).filter('filterEvent', function() {
       return function(event) {
         var now = new Date();
@@ -227,14 +263,33 @@
 
 
     var meetingApp = angular.module('meetingApp', ['meetingEventFilters','ui.bootstrap','ngTouch']);
-
+    /*
+	meetingApp.directive('a', function() {
+		return {
+			restrict: 'E',
+			link: function(scope, elem, attrs) {
+				if(attrs.ngClick){
+					elem.on('click', function(e){
+						e.preventDefault();
+						console.log('click   ',attrs.href);
+					});
+				}
+			}
+	   };
+	});
+    */	
+	
     meetingApp.controller('meetingListCtrl', function ($rootScope,$scope, $http, $interval, socket, $modal) {
 
       $scope.app = {showMenu:true};
     	$scope.rooms = [];
+		$scope.buildings = [];
+		
+		$scope.current_building = "ARM 1";
+		$scope.current_floor = "GROUND";
+		
     	var checkTimer ;
-      	
-    
+      	    
         $scope.open = function ( index) {
     	    var roomObj = $scope.rooms[index];
     	    console.log('open',roomObj.name, roomObj, index);
@@ -281,7 +336,28 @@
             });
         }; 
 
-        $http.get('/meetings/arm/now').success(function(data) {
+		$('.room_nav').click(function(e){
+		    console.log('   ', $(e).attr('data-href'), $(e).html());		
+		})
+		
+		
+        /*			
+        $http.get('/buildinglist').success(function(data) {
+    	    data.buildings.forEach(function(building){
+    	        console.log(building.name,' ', building.floors.length);
+				for(var i=0;i<building.floors.length;i++){
+				    console.log(building.floors[i].name, building.floors[i].url);
+				}			
+    	    })	
+            $scope.buildings = data.buildings;			
+        }).error(function(data, status, headers, config) {
+
+        });
+        */		
+		
+        //$http.get('/meetings/arm/now').success(function(data) {
+		///buildings/ARM1/0
+		$http.get('/buildings/ARM1/0').success(function(data) {
     	    data.rooms.forEach(function(room){
     	        console.log(room.name,' ', room.events.length);
 				for(var i=0;i<room.events.length;i++){
@@ -289,8 +365,7 @@
 				}
     	    })		
     		_.map(data.rooms,function(room){  room.front = false;} )
-			
-    		
+					
     	    $scope.rooms = data.rooms;
     	    console.log(data.rooms);
 
@@ -309,12 +384,48 @@
     	$scope.$on('$viewContentLoaded', function(){
     	    console.log('view content loaded');
     	});
+		
+		$scope.getRoomInfo = function(href){
+		    console.log('get room info',href);
+			
+			var arr = href.split('/');
+			console.log(arr);
+			$scope.current_building = arr[4];
+			if(arr[5] == 0) 
+			$scope.current_floor = 'GROUND';
+			else if(arr[5]==1)
+			$scope.current_floor = 'FIRST';
+			else if(arr[5]==2)
+			$scope.current_floor = 'SECOND';
+			
+			$http.get(href).success(function(data) {			    
+			    console.log('loading ',data);
+				data.rooms.forEach(function(room){
+					console.log(room.name,' ', room.events.length);
+					for(var i=0;i<room.events.length;i++){
+						room.events[i].organizer = unescape(room.events[i].organizer.split('/')[2]);
+					}
+				})		
+				_.map(data.rooms,function(room){  room.front = false;} )
+						
+				$scope.rooms = data.rooms;
+				console.log(data.rooms);
+
+				$scope.checkRoomAvailablity();
+				$scope.checkIntialEventIndex();
+				checkTimer = $interval($scope.checkMeetingMotionTimer, 1000*60);
+				
+				$rootScope.$broadcast('mybroadcast');								
+            }).error(function(data, status, headers, config) {
+                
+            });
+		}
     		
     	$scope.checkRoomAvailablity = function(){
     	    console.log('checkRoomAvailablity');
     		var room_filtered = _.filter($scope.rooms, function(room){
-    		    var lastupdate = new Date(room.time); 
-              if(room.available==true)			
+    		var lastupdate = new Date(room.time); 
+            if(room.available==true)			
   			console.log("---------  check room avail", (new Date().getTime() - lastupdate.getTime()) , 300000 , room.displayname,room.available );
     			return ( room.available==true   && (new Date().getTime()-lastupdate.getTime()) > 5*60*1000  ) ;
     		})
