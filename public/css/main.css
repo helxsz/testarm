@@ -9,10 +9,17 @@
     ========================================================================== */
 
     @import url(http://fonts.googleapis.com/css?family=Roboto+Condensed:400,700,300);
+    /*
+
+    @import url(http://fonts.googleapis.com/css?family=Monoton|Roboto+Condensed:700italic,400,300);
+    font-family: 'Monoton', cursive;
+
+    */
+
 
 /*  ==========================================================================
 
-    Copyright 2013 www.redninja.co.uk
+    Copyright 2014 www.redninja.co.uk
     Design and Code: Red Ninja Studios (Steven Hassall)
 
     COLOURS
@@ -41,7 +48,7 @@
     5. Images
     6. Menu
     7. Hexagons
-    8. Popup - Magnific
+    8. Modal
     9. Tables
     10. Animations (CSS3)
     11. Media Queries (Responsive)
@@ -66,7 +73,7 @@
         ont-smoothing:antialiased; 
         text-rendering:optimizeLegibility;
         font-family: Arial, "Helvetica Neue", Helvetica, sans-serif; color:#FFFFFF;background-color:#141414;
-        background-image: url(http://basehold.it/i/26/555555);  /* 26px baseline */ 
+        /*background-image: url(http://basehold.it/i/26/555555);   26px baseline */ 
     }
 
     .wrapper {width:990px; margin:0 auto;}
@@ -79,22 +86,25 @@
     2. Layout
     ========================================================================== */
     
-    .home {
+    .home{
         min-height:100%; width:100%; 
         background: #141414 url('../img/hexagon_BG.png') repeat 50% 0% scroll;
     }
-        .svg .home {
+        .svg .home{
             background: #141414 url('../img/svg/hexagon_BG.svg') repeat 50% 0% scroll;
         }
 
-    .meeting-room {
+    .meeting-room{
         min-height:100%; width:100%; 
         background: #141414 url('../img/hexagon_BG.png') repeat 100% 0% scroll;
     }
-        .svg .meeting-room {
+        .svg .meeting-room{
             background: #141414 url('../img/svg/hexagon_BG.svg') repeat 100% 0% scroll;
         }
 
+    .energy {
+        min-height:100%; width:100%; background-color: #141414;
+    }
 
 
         #banner {
@@ -123,7 +133,8 @@
         /* APPS */
 
         #app-home,
-        #app-meeting {
+        #app-meeting,
+        #app-energy {
             height: 100%;
             padding-top: 35em; padding-left: 3em;
             margin-right: 4.5em; margin-bottom: 13em;
@@ -144,6 +155,56 @@
             #app-meeting {}
             #app-energy {}
             #app-heating {}
+
+        /* ENERGY */
+
+        .energy #app-description { 
+            text-align: center;
+            background-color: black; display: block;
+            width:14.625em; height: 13em; padding-top: 3.25em;
+            -webkit-border-radius: 10px 10px 10px 10px;
+                border-radius: 10px 10px 10px 10px;
+        }
+
+        .bullet { font: 16px sans-serif; fill: white; }
+        .bullet .marker { stroke: #000; stroke-width: 2px; }
+        .bullet .tick line { stroke: #333333; stroke-width: 4px; }
+        .bullet .range.s0 { fill: #092630; }
+        .bullet .range.s1 { fill: #134D61; }
+        .bullet .range.s2 { fill: #134D61; }
+        .bullet .measure.s0 { fill: #2599C1; }
+        .bullet .measure.s1 { fill: #2599C1; }
+        .bullet .title { font-size: 14px; font-weight: bold; fill: white;}
+        .bullet .subtitle { fill: #999; }
+
+        .energyDial {
+            display: block; width:320px; height:274px; 
+            background: url('../img/Energy-Dial.png') no-repeat 50% 50%;
+        }
+
+            .svg .energyDial {background: url('../img/svg/Energy-Dial.svg') no-repeat 50% 50%; }
+
+
+    /*.loading {
+        position: absolute; top:0;
+        z-index: 99;
+        width: 100%; height:100%;
+        background-color: #141414; 
+        opacity:0.9; overflow: hidden;
+        filter:alpha(opacity=90);  For IE8 and earlier 
+    }
+        .loading .inner {
+            position:relative;
+            width:100%; height:100%;
+            
+        }
+            .loading .box {
+                position: absolute; top: 50%;
+                overflow: hidden; z-index: 99;
+                padding-top: 1em;
+                width: 100%; height:100%;
+            }*/
+
 
 
 /*  ==========================================================================
@@ -222,16 +283,7 @@
                 margin-left: -44px;
                 margin-bottom: -90px;
             }
-                #app-home.app-content ul {margin-left: 26px;}
-                #app-home.app-content ul li {
-                    margin-left: -48px; 
-                    margin-bottom: 0; 
-                    height: 232px;
-                }
-                    #app-home.app-content ul li:nth-child(odd) {
-                    
-                    }
-
+            
     
     /*  Navigation  */
     
@@ -373,10 +425,6 @@
 
     }   .svg .hexagon {background: url('../img/svg/hexagon_active.svg') no-repeat 50% 50% scroll;}
 
-        #app-meeting li div.ch-item {}
-        #app-meeting li:nth-child(even) div.ch-item {/*margin-top: 7em;*/ margin-top: 112px;}
-        #app-home li:nth-child(odd) div.ch-item{/*margin-top: 7em;*/ margin-top: 112px;}
-
         .hover {
             -webkit-touch-callout: none;
             -webkit-user-select: none;
@@ -388,19 +436,29 @@
 
         /* COLOUR STATES */
 
+        /* AVAILABLE - BLUE */
         .available .ch-info-front {background: url('../img/hexagon_available.png') no-repeat 50% 50% scroll;}
         .svg .available .ch-info-front {background: url('../img/svg/hexagon_available.svg') no-repeat 50% 50% scroll;}
 
         .available .ch-info-back {background: url('../img/hexagon_available-rear.png') no-repeat 50% 50% scroll;}
         .svg .available .ch-info-back {background: url('../img/svg/hexagon_available-rear.svg') no-repeat 50% 50% scroll;}
 
+        /* UNAVAILABLE - PINK */
         .unavailable .ch-info-front {background: url('../img/hexagon_unavailable.png') no-repeat 50% 50% scroll;}
         .svg .unavailable .ch-info-front {background: url('../img/svg/hexagon_unavailable.svg') no-repeat 50% 50% scroll;}
 
         .unavailable .ch-info-back {background: url('../img/hexagon_unavailable-rear.png') no-repeat 50% 50% scroll;}
         .svg .unavailable .ch-info-back {background: url('../img/svg/hexagon_unavailable-rear.svg') no-repeat 50% 50% scroll;}
 
-        .coming-soon .ch-info-front {
+        /* UNKNOWN - GOLD */
+        .unknown .ch-info-front {background: url('../img/hexagon_unknown.png') no-repeat 50% 50% scroll;}
+        .svg .unknown .ch-info-front {background: url('../img/svg/hexagon_unknown.svg') no-repeat 50% 50% scroll;}
+
+        .unknown .ch-info-back {background: url('../img/hexagon_unknown-rear.png') no-repeat 50% 50% scroll;}
+        .svg .unknown .ch-info-back {background: url('../img/svg/hexagon_unknown-rear.svg') no-repeat 50% 50% scroll;}
+
+
+        .coming-soon {
             opacity:0.5;
             filter:alpha(opacity=50); /* For IE8 and earlier */
         }
@@ -425,13 +483,12 @@
         }
 
         .ch-grid li {float:right;}
-            #app-home .ch-grid li {float: none;}
 
         .ch-item {
             width:232px; height:200px;
             position: relative;
             cursor: pointer;
-            z-index: 1;
+            z-index: 0;
         }
 
         .ch-info-wrap {
@@ -486,13 +543,36 @@
         }
 
         .ch-info .ch-info-back {
-            margin-left: -44px;
+            margin-left: -44px; cursor: initial;
             -webkit-transform: rotate3d(0,1,0,180deg);
             -moz-transform: rotate3d(0,1,0,180deg);
             -o-transform: rotate3d(0,1,0,180deg);
             -ms-transform: rotate3d(0,1,0,180deg);
             transform: rotate3d(0,1,0,180deg);
         }
+
+
+        #app-meeting li div.ch-item {}
+        #app-meeting li:nth-child(even) div.ch-item {
+            /*margin-top: 7em;*/ margin-top: 112px;
+        }
+
+        #app-home ul li {margin-left: 26px; float:none;}
+
+            #app-home ul li {
+                margin-left: -48px; 
+                margin-bottom: 0; 
+                height: 232px;
+            } #app-home ul li:first-child {margin-left: 0;}
+
+                #app-home ul li:nth-child(even) a img {
+                    margin-top: -112px;
+                }
+                #app-home ul li:nth-child(odd) a img {
+                    margin-top: 112px;
+                }
+
+
 
         /* HOVER INTERACTIVITY */
 
@@ -508,19 +588,6 @@
             transform: rotate3d(0,1,0,-180deg);
         }
 
-        /*.ch-item:active .ch-info-wrap {
-            margin-left: -44px;
-        }
-
-        .ch-item:active .ch-info {
-            -webkit-transform: rotate3d(0,1,0,-180deg);
-            -moz-transform: rotate3d(0,1,0,-180deg);
-            -o-transform: rotate3d(0,1,0,-180deg);
-            -ms-transform: rotate3d(0,1,0,-180deg);
-            transform: rotate3d(0,1,0,-180deg);
-        }*/
-
-
         /* BRAND LOGOS */
 
         #app-brand {
@@ -528,6 +595,10 @@
             top: 7em;
             right: 4.5em;
         }
+
+            .svg .home .app-brand a img {display: none;}
+            .svg .home .app-brand a img.svgIMG {display: inline-block;}
+
             .heating .ch-info-front {background: url('../img/hexagon_heating.png') no-repeat 50% 50% scroll;}
             .svg .heating .ch-info-front {background: url('../img/svg/hexagon_heating.svg') no-repeat 50% 50% scroll;}
 
@@ -577,20 +648,29 @@
             }
 
             .icon-information {
-                background: #670F38 url('../img/icon_information.png') no-repeat 50% 50%; 
+                background: #134D61 url('../img/icon_information.png') no-repeat 50% 50%; 
                 background-size: 100%;
             }
                 .svg .icon-information {
-                background: #670F38 url('../img/svg/icon_information.svg') no-repeat 50% 50%; 
+                background: #134D61 url('../img/svg/icon_information.svg') no-repeat 50% 50%; 
                 background-size: 100%;
             }
 
             .icon-email {
-                background: #670F38 url('../img/icon_email.png') no-repeat 50% 50%; 
+                background: #134D61 url('../img/icon_email.png') no-repeat 50% 50%; 
                 background-size: 100%;
             }
                 .svg .icon-email {
-                background: #670F38 url('../img/svg/icon_email.svg') no-repeat 50% 50%; 
+                background: #134D61 url('../img/svg/icon_email.svg') no-repeat 50% 50%; 
+                background-size: 100%;
+            }
+
+            .icon-alert {
+                background: #134D61 url('../img/icon_alert.png') no-repeat 50% 50%; 
+                background-size: 100%;
+            }
+                .svg .icon-alert {
+                background: #134D61 url('../img/svg/icon_alert.svg') no-repeat 50% 50%; 
                 background-size: 100%;
             }
 
@@ -600,11 +680,13 @@
 
                 .available .icon-information,
                 .available .icon-telephone,
-                .available .icon-email {background-color: #134D61;}
+                .available .icon-email,
+                .available .icon-alert {background-color: #134D61;}
 
                     .available .icon-information:hover,
                     .available .icon-telephone:hover,
-                    .available .icon-email:hover {background-color: #670F38;}
+                    .available .icon-email:hover,
+                    .available .icon-alert:hover {background-color: #670F38;}
 
             .ch-info-back .icon-arrow_right {font-size: 0.8125em; color: #670F38;}
                 .available .ch-info-back .icon-arrow_right {color: #134D61;}
@@ -618,10 +700,12 @@
 
             .bookerPhoto img {max-width: 100%}
 
+            .noBooking {margin-top: 3.25em;}
+
 
 
 /*  ==========================================================================
-    8. Pop-up Magnific
+    8. MODAL
     ========================================================================== */
 
     /* Modal Pop-Up */
@@ -688,7 +772,7 @@
     .modal-dialog {
         position: relative; z-index: 1050;
         width: 50%; max-width: 32.5em;
-        margin: 0 auto; margin-top: 25%;
+        margin: 0 auto; margin-top: 15%;
     }
 
     .modal-content {
@@ -778,7 +862,7 @@
     .modal-footer .btn-block + .btn-block {
       margin-left: 0;
     }
- 
+
 
 /*  ==========================================================================
     9. Tables
@@ -811,7 +895,7 @@
                     width:3em; text-align: center;
                 }  
                 .itinerary tr:nth-child(2) td:nth-child(2) {
-                    width:auto; text-align: left;
+                    width:auto; text-align: center;
                 } 
             .itinerary td:nth-child(3) {
                 font-size: 1.875em; font-weight: 700;
@@ -842,7 +926,7 @@
     .itinerary p {font-weight:bold; margin-bottom: 0; }
 
     .itinerary a {}
-        .itinerary a button {width: 1.625em; height: 1.625em;}
+        .itinerary a button {width: 1.625em; height: 1.625em; font-size: 1.625em;}
     
     .itinerary i {color:#134D61; font-size: 1.625em;}
     .itinerary i.icon-arrow_right {
@@ -863,7 +947,8 @@
                 transform: rotate(120deg);
         cursor: pointer;
         }
-        tr:first-child .wrapHexagon {width: 76px; height: 66px;}
+        tr:first-child .wrapHexagon {width: 76px; height: 66px; }
+
     .hexagon-in1 {
         overflow: hidden;
         width: 100%; height: 100%;
@@ -872,6 +957,7 @@
              -o-transform: rotate(-60deg);
                 transform: rotate(-60deg);
         }
+        
     .hexagon-in2 {
         width: 100%; height: 100%;
         background-repeat: no-repeat;
@@ -956,6 +1042,95 @@
         animation-delay: 3s;
     }
 
+    /* LOADING ANIMATIONS */
+    .circle {
+        background-color: rgba(20,20,20,0);
+        border: 5px solid rgba(37,153,193,0.9);
+        opacity: 0.9;
+        border-right: 5px solid rgba(20,20,20,0);
+        border-left: 5px solid rgba(20,20,20,0);
+        border-radius: 50px;
+        box-shadow: 0 0 35px #2599C1;
+        width: 50px;
+        height: 50px;
+        margin: 0 auto;
+        -moz-animation: spinPulse 1s infinite ease-in-out;
+        -webkit-animation: spinPulse 1s infinite linear;
+    }
+
+    .circle1 {
+        background-color: rgba(20,20,20,0);
+        border: 5px solid rgba(37,153,193,0.9);
+        opacity: 0.9;
+        border-left: 5px solid rgba(20,20,20,1);
+        border-right: 5px solid rgba(20,20,20,1);
+        border-radius: 50px;
+        box-shadow: 0 0 15px #2599C1;
+        width: 30px;
+        height: 30px;
+        margin: 0 auto;
+        position: relative;
+        top: -50px;
+        -moz-animation: spinoffPulse 1s infinite linear;
+        -webkit-animation: spinoffPulse 1s infinite linear;
+    }
+
+    @-moz-keyframes spinPulse {
+        0% {
+            -moz-transform: rotate(160deg);
+            opacity: 0;
+            box-shadow: 0 0 1px #2599C1;
+        }
+
+        50% {
+            -moz-transform: rotate(145deg);
+            opacity: 1;
+        }
+
+        100% {
+            -moz-transform: rotate(-320deg);
+            opacity: 0;
+        };
+    }
+
+    @-moz-keyframes spinoffPulse {
+        0% {
+            -moz-transform: rotate(0deg);
+        }
+
+        100% {
+            -moz-transform: rotate(360deg);
+        };
+    }
+
+    @-webkit-keyframes spinPulse {
+        0% {
+            -webkit-transform: rotate(160deg);
+            opacity: 0;
+            box-shadow: 0 0 1px #2599C1;
+        }
+
+        50% {
+            -webkit-transform: rotate(145deg);
+            opacity: 1;
+        }
+
+        100% {
+            -webkit-transform: rotate(-320deg);
+            opacity: 0;
+        };
+    }
+
+    @-webkit-keyframes spinoffPulse {
+        0% {
+            -webkit-transform: rotate(0deg);
+        }
+
+        100% {
+            -webkit-transform: rotate(360deg);
+        };
+    }
+ 
 
 /*  ==========================================================================
     11. Media Queries
@@ -985,6 +1160,20 @@
     /*  DESKTOP - DEFAULT  */
 
     @media only screen and (min-width:1057px) and (max-width:1920px) {
+
+        /* HOVER INTERACTIVITY */
+        .ch-info:hover {
+            margin-top: -0.203125em;
+        }
+
+        /* Animations */
+        .app-brand a .ch-item, 
+        .app-brand a:hover .ch-item {
+            -webkit-transition: all 50ms ease-in-out;
+            -moz-transition:all 50ms ease-in-out;
+            -ms-transition:all 50ms ease-in-out;
+            transition:all 50ms ease-in-out;
+        }
 
     }
 
@@ -1049,7 +1238,7 @@
                 margin-right: 4.5em; margin-bottom: 3.25em;
             }
 
-        footer ,
+        footer,
         footer div:first-child,
         footer div:last-child {text-align: center; margin-right:0;}
            
@@ -1057,12 +1246,7 @@
             footer small {padding-top:0;}
 
 
-        /* Hexagons 
-
-        #app-meeting div:first-child {margin-top: 0;}
-
-        .hexagon {margin-top: 112px;}*/
-
+        /* Hexagons */
 
         #app-meeting li div.ch-item:first-child {margin-top: 0;}
         #app-meeting li div.ch-item {/*margin-top: 7em;*/ margin-top: 112px;}
@@ -1074,18 +1258,19 @@
         /* APPS */
 
         /* HOME */
-        .home #banner {}
+        .home #banner {margin-bottom: 3em;}
         #app-home {}
-            #app-home li:nth-child(odd) div.ch-item {
+        #app-home ul li {margin-left: 0; margin-top: 0;}
+            #app-home ul li:nth-child(-n+2) a img {
                 margin-top: 0;
             }
-            
+            #app-home ul li:nth-child(n+2) a img {
+                margin-top: 24px;
+            }
+
             #app-home.app-content ul li {height: auto;}
-            #app-home li div.ch-item {margin-top: 24px;}
-            #app-home li:nth-child(even) div.ch-item {margin:0;}
-                #app-home li div.ch-item {
-                    margin-top: 112px;
-                }
+            
+
 
             #app-home {margin-bottom: 3.25em; }
 
@@ -1148,109 +1333,44 @@
             font-size: 0.8125em;
         }
 
-        /* Navigation Button
+        /* Side Navigation
         -------------------------------------------------------- */
 
-        .nav-button {
-            display: block;
-            float:right;
-            right: 1em;
-            margin: 0 auto;
-            text-align: center;
-            height: 3.25em;
-            width: 3.25em;
-            cursor: pointer;
-            border: 0 none;
-            border-radius: 5px;
-            z-index: 999;
+        .mp-menu {
+            /*overflow-y: scroll; has to be scroll, not auto 
+            -webkit-overflow-scrolling: touch;*/
         }
-        .nav-button:hover { 
-            background-color: rgba(0,0,0,.1); 
-        }
-        .nav-button.open {
-        }
-
-        /* Navigation Drop Down
-        -------------------------------------------------------- */
-
-        #menu-header-menu {
-            width: 100%;
-            float: none;
-            background-color: #CEE6EB; /* change the menu-header-menu color */
-            background-image: -webkit-linear-gradient(top, rgba(0,0,0,0), rgba(0,0,0,.2));
-            background-image:    -moz-linear-gradient(top, rgba(0,0,0,0), rgba(0,0,0,.2));
-            background-image:     -ms-linear-gradient(top, rgba(0,0,0,0), rgba(0,0,0,.2));
-            background-image:      -o-linear-gradient(top, rgba(0,0,0,0), rgba(0,0,0,.2));
-            display: block;
-            margin: 0;
-            padding: 0;
-            overflow: hidden;
-            box-shadow: 0 1px 2px rgba(0,0,0,.6);
-            position: absolute;
-            top: -9em;
-            left: 0px;
-            z-index: 998;
-            clear: both;
-        }
-        #menu-header-menu li {
-            display: none;
-            width: 100%;
-            font-family: Arial;
-        }
-        #menu-header-menu li a {
-            display: block;
+        .modal-dialog {
             width: 90%;
-            padding: 1.25em 5%;
-            border-bottom: 1px solid rgba(255, 255, 255, .25); 
-        }
-        #menu-header-menu li a:hover {
-            background-color: rgba(255,255,255,.1);
-            border-top-color: transparent;
-        }
-        #menu-header-menu > li:first-child {
-            
+            max-width: 32.5em;
+            margin: 0 auto;
+            margin-top: 1em;
         }
 
-        /* Toggle the navigation bar open  */
-
-        #menu-header-menu.open { 
-            height: auto;
-            top: 6.875em;
-        }
-        #menu-header-menu.open li { 
-            display: block; padding: 0; margin: 0;
+        .modal-content {
+            margin: 0 auto;
+            margin-top: 0;
+            margin-bottom: 1em;
+            padding: 0.25em;
         }
 
-        /* Submenu-header-menus optional .parent class indicates dropdowns */
+        .tg-table-dark tr td {display: table-cell; }
 
-        #menu-header-menu > li:hover > a {
-            background: rgba(255,255,255,.2);
-            border-bottom-color: transparent;
+        tr:first-child .wrapHexagon {width: 38px; height: 32px;}
+
+        .itinerary tr:nth-child(2) td:nth-child(1) {
+            width: auto;
         }
-        #menu-header-menu li.parent > a:after {
-            content: "â–¼";
-            color: rgba(255,255,255,.5);
-            float: right;
+        .itinerary tr:nth-child(2) td:nth-child(2) {
+             text-align: center;
         }
-        #menu-header-menu li.parent > a:hover {
-            background: rgba(0,0,0,.75);
+        .itinerary td:nth-child(3) {
+            font-size: 1.25em;
         }
-        #menu-header-menu li ul {
-            display: none;
-            background: rgba(0,0,0,.5);
-            border-top: 0 none;
-            padding: 0;
+        .itinerary a button {
+            font-size: 1em;
         }
-        #menu-header-menu li ul a {
-            border: 0 none;
-            font-size: 12px;
-            padding: 10px 5%;
-            font-weight: normal;
-        }
-        #menu-header-menu li:hover ul {
-                display: block;
-                border-top: 0 none;
-        }
+      
 
     }
 
