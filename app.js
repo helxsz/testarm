@@ -43,30 +43,44 @@ function configLogging(){
 configLogging();
 
 
-
+var allowedHost = [
+'http://127.0.0.1',
+'http://213.123.189.97',  //us
+'http://217.140.96.21',   // cambridge
+'http://217.140.100.22',  // san jose
+'http://217.140.110.23',  // austin
+'http://217.140.104.28',  // tokyo a
+'http://217.140.104.30',  // tokyo b
+'http://217.140.108.21',  // santa clara
+'http://217.140.105.7'    // bangalore
+];
 //  allowed cross domain
 var allowCrossDomain = function(req, res, next) {
   // WARNING - Be careful with what origins you give access to
-  var allowedHost = [
-    'http://localhost',
-    'http://readyappspush.herokuapp.com/',
-    'http://shielded-mesa-5845.herokuapp.com/'
-  ];
-
-  if(allowedHost.indexOf(req.headers.origin) !== -1) {
+    //console.log('headers '  , req.ip);
+    var allow = false;
+    for(var i=0;i<allowedHost.length;i++){
+        if(allowedHost[i].indexOf(req.ip)!=-1)
+	    {  
+		    allow=true;
+	        break;
+	    }
+    }
+  
+    if(allow) {
+        //console.log('allow access '.green);
+        next();
+    } else {
+        res.send(404);
+    }
+};
+/*
     //res.header('Access-Control-Allow-Max-Age', maxAge);
     res.header('Access-Control-Allow-Credentials', true);
     res.header('Access-Control-Allow-Origin', req.headers.origin)
     res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
     res.header('Access-Control-Allow-Headers', 'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version');
-    next();
-  } else {
-    res.send(404);
-  }
-};
-
-
-
+*/
 if (process.env.NODE_ENV == 'production'){
    //winston.info('on production env', config.port);
 }else if(process.env.NODE_ENV == 'development'){
@@ -129,7 +143,8 @@ app.configure(function(){
                 next();
         });
     }
-		
+	
+    app.use(allowCrossDomain);	
     //app.use(express.csrf()); 
 	app.use(conditionalCSRF);
     app.use(function(req, res, next){
