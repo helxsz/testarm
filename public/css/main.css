@@ -186,24 +186,19 @@
 
 
     .loading {
-        position: absolute; top:0;
-        z-index: 99;
-        width: 100%; height:100%;
+        display: none;
+        position:relative;
+        width:100%; height:100%;
         background-color: #141414; 
-        opacity:0.9; overflow: hidden;
+        opacity:0.9;
         filter:alpha(opacity=90); /* For IE8 and earlier */
     }
-        .loading .inner {
-            position:relative;
-            width:100%; height:100%;
-            
+        .loading .box {
+            position: absolute; top: 50%;
+            overflow: hidden; z-index: 99;
+            padding-top: 1em;
+            width: 100%;
         }
-            .loading .box {
-                position: absolute; top: 50%;
-                overflow: hidden; z-index: 99;
-                padding-top: 1em;
-                width: 100%; height:100%;
-            }
 
 
 
@@ -665,28 +660,17 @@
                 background-size: 100%;
             }
 
-            .icon-alert {
-                background: #134D61 url('../img/icon_alert.png') no-repeat 50% 50%; 
-                background-size: 100%;
-            }
-                .svg .icon-alert {
-                background: #134D61 url('../img/svg/icon_alert.svg') no-repeat 50% 50%; 
-                background-size: 100%;
-            }
-
                 .icon-information:hover,
                 .icon-telephone:hover,
                 .icon-email:hover {background-color: #670F38;}
 
                 .available .icon-information,
                 .available .icon-telephone,
-                .available .icon-email,
-                .available .icon-alert {background-color: #134D61;}
+                .available .icon-email {background-color: #134D61;}
 
                     .available .icon-information:hover,
                     .available .icon-telephone:hover,
-                    .available .icon-email:hover,
-                    .available .icon-alert:hover {background-color: #670F38;}
+                    .available .icon-email:hover {background-color: #670F38;}
 
             .ch-info-back .icon-arrow_right {font-size: 0.8125em; color: #670F38;}
                 .available .ch-info-back .icon-arrow_right {color: #134D61;}
