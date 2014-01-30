@@ -415,17 +415,27 @@
 
         /* COLOUR STATES */
 
+        /* AVAILABLE - BLUE */
         .available .ch-info-front {background: url('../img/hexagon_available.png') no-repeat 50% 50% scroll;}
         .svg .available .ch-info-front {background: url('../img/svg/hexagon_available.svg') no-repeat 50% 50% scroll;}
 
         .available .ch-info-back {background: url('../img/hexagon_available-rear.png') no-repeat 50% 50% scroll;}
         .svg .available .ch-info-back {background: url('../img/svg/hexagon_available-rear.svg') no-repeat 50% 50% scroll;}
 
+        /* UNAVAILABLE - PINK */
         .unavailable .ch-info-front {background: url('../img/hexagon_unavailable.png') no-repeat 50% 50% scroll;}
         .svg .unavailable .ch-info-front {background: url('../img/svg/hexagon_unavailable.svg') no-repeat 50% 50% scroll;}
 
         .unavailable .ch-info-back {background: url('../img/hexagon_unavailable-rear.png') no-repeat 50% 50% scroll;}
         .svg .unavailable .ch-info-back {background: url('../img/svg/hexagon_unavailable-rear.svg') no-repeat 50% 50% scroll;}
+
+        /* UNKNOWN - GOLD */
+        .unknown .ch-info-front {background: url('../img/hexagon_unknown.png') no-repeat 50% 50% scroll;}
+        .svg .unknown .ch-info-front {background: url('../img/svg/hexagon_unknown.svg') no-repeat 50% 50% scroll;}
+
+        .unknown .ch-info-back {background: url('../img/hexagon_unknown-rear.png') no-repeat 50% 50% scroll;}
+        .svg .unknown .ch-info-back {background: url('../img/svg/hexagon_unknown-rear.svg') no-repeat 50% 50% scroll;}
+
 
         .coming-soon {
             opacity:0.5;
@@ -1202,6 +1212,11 @@
 
         /* Side Navigation
         -------------------------------------------------------- */
+
+        .mp-menu {
+            overflow-y: scroll;/* has to be scroll, not auto */
+            -webkit-overflow-scrolling: touch;
+        }
         .modal-dialog {
             width: 90%;
             max-width: 32.5em;
