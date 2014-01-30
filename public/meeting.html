@@ -165,6 +165,7 @@
 
                         </article>
                     
+                    
                     <!-- END #main -->
                     </article>
 
@@ -176,7 +177,7 @@
                       <li class="room" ng-repeat="room in rooms | filter:query "> <!-- | orderBy:orderProp index wrong after orderby -->
                           <div class="ch-item" ng-click="room.front = !room.front" ng-class="{'flipped': room.front}">              
                               <div class="ch-info-wrap">
-                                  <div class="ch-info " ng-class="{'unavailable':room.available, 'available':!room.available}"> <!-- 'unknown':!room.m_enabled , -->
+                                  <div class="ch-info " ng-class="{'unavailable':room.available, 'available':!room.available}"> <!-- 'unknownn':!room.m_enabled , -->
                                   <!-- START .ch-info -->
 
                                       <div class="ch-info-front hexagon">
@@ -244,19 +245,25 @@
 
             </section>
 
+			<div id="loading" ng-class="{'loading': loading}">
+			<!-- START #loading -->
+				<div class="box">
+					<div class="circle"></div>
+					<div class="circle1"></div>
+				</div>
+			<!-- END #loading -->
+			</div>			
+			
+			
         <!-- END #container -->
         </div>
     <!-- END .meeting-room -->
+	
+	
+	
+	
     </div>
 
-    <div id="loading">
-    <!-- START #loading -->
-        <div class="box">
-            <div class="circle"></div>
-            <div class="circle1"></div>
-        </div>
-    <!-- END #loading -->
-    </div>
 
   <script src="js/vendor/jquery-1.10.1.min.js"></script>
   <script src="js/vendor/classie.js"></script>
@@ -293,6 +300,7 @@
     meetingApp.controller('meetingListCtrl', function ($rootScope,$scope, $http, $interval, socket, $modal) {
 
       $scope.app = {showMenu:true};
+	    $scope.loading = false;
     	$scope.rooms = [];
 		$scope.buildings = [];
 		
@@ -367,10 +375,12 @@
         */		
 		
         //$http.get('/meetings/arm/now').success(function(data) {
-		///buildings/ARM1/0
+		$scope.loading = false;
 		$http.get('/buildings/ARM3/0').success(function(data) {
+		    $scope.loading = true;
     	    data.rooms.forEach(function(room){
     	        //console.log(room.name,' ', room.events.length);
+				
 				for(var i=0;i<room.events.length;i++){
 				
 					try
@@ -379,7 +389,7 @@
 					  }
 					catch(err)
 					  {
-					    room.events[i].organizer = 'unknow ';
+					    room.events[i].organizer = 'unknown ';
 					  }
 				}
     	    })		
@@ -396,6 +406,7 @@
         }).error(function(data, status, headers, config) {
             // called asynchronously if an error occurs
             // or server returns response with an error status.
+			$scope.loading = true;
         });
     	
         $scope.orderProp = 'temperature';
@@ -408,10 +419,7 @@
 		    console.log('get room info',href);
 			
 			$scope.menu_open = false;
-			//$('.mp-level').removeClass('mp-level-open');
-			//$('#mp-menu div').removeClass('mp-level-open');
-			//$('.mp-level').removeClass('mp-level-overlay');
-			//$('.mp-pusher').removeClass('mp-pushed');
+			$scope.loading = false;
 			
 			var arr = href.split('/');
 			console.log(arr);
@@ -425,6 +433,7 @@
 			
 			$http.get(href).success(function(data) {			    
 			    console.log('loading ',data);
+				$scope.loading = true;
 				data.rooms.forEach(function(room){
 					console.log(room.name,' ', room.events.length);
 					for(var i=0;i<room.events.length;i++){
@@ -435,7 +444,7 @@
 						  }
 						catch(err)
 						  {
-							room.events[i].organizer = 'unknow ';
+							room.events[i].organizer = 'unknown ';
 						  }					
 					}
 				})		
@@ -450,7 +459,7 @@
 				
 				$rootScope.$broadcast('mybroadcast');								
             }).error(function(data, status, headers, config) {
-                
+                $scope.loading = false;
             });
 		}
     		
@@ -566,23 +575,22 @@
     	}
 
   	/****************************  utiliy ***********************************/
-    	$scope.$on('mybroadcast', function(service){
-    		console.log('on my broadcast', service);
-  		touchScroll("bodyID");
-  		sizeContent();			
-      })
-    
-      $scope.dateformat = function(date){
-            var date = new Date(date);	
-    	   	var hour = date.getHours(), min = date.getMinutes();
-    		if(hour < 10) hour = '0'+date.getHours();
-    		if(min < 10) min = '0'+date.getMinutes();
-            return  hour+":"+min;		 
-    	}
+	$scope.$on('mybroadcast', function(service){
+		console.log('on my broadcast', service);
+	    touchScroll("bodyID");
+	    sizeContent();			
+    })
+
+    $scope.dateformat = function(date){
+		var date = new Date(date);	
+		var hour = date.getHours(), min = date.getMinutes();
+		if(hour < 10) hour = '0'+date.getHours();
+		if(min < 10) min = '0'+date.getMinutes();
+		return  hour+":"+min;		 
+	}
 		
 	$scope.getEmail = function(name){
 	    var name = name.replace(' ','.');
-	    //mailto:{{room.events[room.eventIndex].organizer}}@redninja.co.uk
 		return 'mailto:'+name+'@arm.com';
 	}
 	
@@ -693,7 +701,7 @@
       var bodyHeight = $('body').height();
       var containerHeight = $("#container").height();
       var loadingHeight = $("#loading").height();
-
+      console.log('size contenter   ... ',bodyHeight, containerHeight);
       if (bodyHeight > containerHeight) {
 
         $('#container').css('height', bodyHeight );

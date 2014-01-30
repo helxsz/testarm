@@ -185,7 +185,7 @@
             .svg .energyDial {background: url('../img/svg/Energy-Dial.svg') no-repeat 50% 50%; }
 
 
-    #loading {
+    .loading {
         display: none;
         position:relative;
 
@@ -196,7 +196,7 @@
         opacity:0.9;
         filter:alpha(opacity=90); /* For IE8 and earlier */
     }
-        #loading .box {
+        .loading .box {
             position: absolute; top: 50%;
             overflow: hidden; z-index: 99;
             padding-top: 1em;
