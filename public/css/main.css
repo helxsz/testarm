@@ -665,17 +665,28 @@
                 background-size: 100%;
             }
 
+            .icon-alert {
+                background: #134D61 url('../img/icon_alert.png') no-repeat 50% 50%; 
+                background-size: 100%;
+            }
+                .svg .icon-alert {
+                background: #134D61 url('../img/svg/icon_alert.svg') no-repeat 50% 50%; 
+                background-size: 100%;
+            }
+
                 .icon-information:hover,
                 .icon-telephone:hover,
                 .icon-email:hover {background-color: #670F38;}
 
                 .available .icon-information,
                 .available .icon-telephone,
-                .available .icon-email {background-color: #134D61;}
+                .available .icon-email,
+                .available .icon-alert {background-color: #134D61;}
 
                     .available .icon-information:hover,
                     .available .icon-telephone:hover,
-                    .available .icon-email:hover {background-color: #670F38;}
+                    .available .icon-email:hover,
+                    .available .icon-alert:hover {background-color: #670F38;}
 
             .ch-info-back .icon-arrow_right {font-size: 0.8125em; color: #670F38;}
                 .available .ch-info-back .icon-arrow_right {color: #134D61;}
