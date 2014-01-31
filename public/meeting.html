@@ -32,6 +32,30 @@
     <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
 <![endif]-->
 
+<style>
+.animate-enter {
+  -webkit-animation: enter_sequence 1s linear; /* Safari/Chrome */
+  -moz-animation: enter_sequence 1s linear; /* Firefox */
+  -o-animation: enter_sequence 1s linear; /* Opera */
+  animation: enter_sequence 1s linear; /* IE10+ and Future Browsers */
+}
+@-webkit-keyframes enter_sequence {
+  from { opacity:0; }
+  to { opacity:1; }
+}
+@-moz-keyframes enter_sequence {
+  from { opacity:0; }
+  to { opacity:1; }
+}
+@-o-keyframes enter_sequence {
+  from { opacity:0; }
+  to { opacity:1; }
+}
+@keyframes enter_sequence {
+  from { opacity:0; }
+  to { opacity:1; }
+}
+</style>
     <div class="meeting-room">
     <!-- START .meeting-room -->
 
@@ -130,12 +154,12 @@
                 <!-- START .wrapper    ng-swipe-left="app.showMenu=true" ng-swipe-right="app.showMenu=false"    -->
 
 
-                    <header id="banner" class="d1-d9 t1-t4 m-all clearfix">
+                    <header id="banner" class="d1-d9 t1-t4 m-all clearfix" >
                     <!-- START #banner -->
 
                         <button id="trigger"><i class="icon-reorder icon2x"></i></button>
 
-                        <h1>{{current_building}} <span class="blue">{{current_floor}} FLOOR</span> <span class="pink">MEETING ROOM</span> AVAILABILITY</h1>
+                        <h1 ng-cloak>{{current_building}} <span class="blue" ng-cloak> {{current_floor}} FLOOR</span> <span class="pink">MEETING ROOM</span> AVAILABILITY</h1>
 
                     <!-- END #banner -->
                     </header>
@@ -174,7 +198,7 @@
 				
                 <section id="app-meeting" class="app-content">				
                   <ul class="ch-grid">
-                      <li class="room" ng-repeat="room in rooms | filter:query "> <!-- | orderBy:orderProp index wrong after orderby -->
+                      <li class="room" ng-repeat="room in rooms | filter:query " ng-cloak  ng-animate="{enter: 'animate-enter'}" > <!-- | orderBy:orderProp index wrong after orderby -->
                           <div class="ch-item" ng-click="room.front = !room.front" ng-class="{'flipped': room.front}">              
                               <div class="ch-info-wrap">
                                   <div class="ch-info " ng-class="{'unavailable':room.available, 'available':!room.available}"> <!-- 'unknownn':!room.m_enabled , -->
@@ -309,7 +333,7 @@
       			
         $scope.open = function ( index) {
     	    var roomObj = $scope.rooms[index];
-    	    console.log('open',roomObj.name, roomObj, index);
+    	    //console.log('open',roomObj.name, roomObj, index);
             var modalInstance = $modal.open({
                 templateUrl: 'eventModalTemplate.html',
     			  backdrop: true,
@@ -322,7 +346,7 @@
   						//event.endDate = $scope.dateformat(event.endDate);
   						return event;
     		            })
-  					console.log('cloned',cloned);
+  					//console.log('cloned',cloned);
                       return cloned;
                     }
                 },			  
@@ -353,10 +377,6 @@
             });
         }; 
 
-		$('.room_nav').click(function(e){
-		    console.log('   ', $(e).attr('data-href'), $(e).html());		
-		})
-		
 		
         /*			
         $http.get('/buildinglist').success(function(data) {
@@ -394,7 +414,7 @@
     		_.map(data.rooms,function(room){  room.front = false;} )
 					
     	    $scope.rooms = data.rooms;
-    	    console.log(data.rooms);
+    	    //console.log(data.rooms);
 
     		$scope.checkRoomAvailablity();
     		$scope.checkIntialEventIndex();
@@ -410,11 +430,11 @@
         $scope.orderProp = 'temperature';
     			  	
     	$scope.$on('$viewContentLoaded', function(){
-    	    console.log('view content loaded');
+    	    //console.log('view content loaded');
     	});
 		
 		$scope.getRoomInfo = function(href){
-		    console.log('get room info',href);
+		    //console.log('get room info',href);
 			
 			$scope.menu_open = false;
 			$scope.loading = false;
@@ -430,10 +450,10 @@
 			$scope.current_floor = 'SECOND';
 			
 			$http.get(href).success(function(data) {			    
-			    console.log('loading ',data);
+			    //console.log('loading ',data);
 				$scope.loading = true;
 				data.rooms.forEach(function(room){
-					console.log(room.name,' ', room.events.length);
+					//console.log(room.name,' ', room.events.length);
 					for(var i=0;i<room.events.length;i++){
 					
 						try
@@ -449,7 +469,7 @@
 				_.map(data.rooms,function(room){  room.front = false;} )
 						
 				$scope.rooms = data.rooms;
-				console.log(data.rooms);
+				//console.log(data.rooms);
 
 				$scope.checkRoomAvailablity();
 				$scope.checkIntialEventIndex();
@@ -464,7 +484,7 @@
         // 213.123.189.97   		
 		
     	$scope.checkRoomAvailablity = function(){
-    	    console.log('checkRoomAvailablity');
+    	    //console.log('checkRoomAvailablity');
 			/*
     		var room_filtered = _.filter($scope.rooms, function(room){
     		    var lastupdate = new Date(room.time); 
@@ -479,7 +499,7 @@
     		})
 			*/
     		_.map($scope.rooms, function(room){
-  		         console.log('.............should  update the room to be available  ',room);
+  		         //console.log('.............should  update the room to be available  ',room);
 				 var lastupdate = new Date(room.time);
 				 
 				 if(!room.m_enabled) room.available = false;
@@ -503,7 +523,7 @@
     			    return  (nowTime>=startTime&& nowTime<=endTime) ||(nowTime <=startTime);  // 
     		    })
                 room.eventIndex = events.length - event_filtered.length;		    
-    		    console.log("remaining events   ",event_filtered, room.eventIndex);
+    		    //console.log("remaining events   ",event_filtered, room.eventIndex);
     		})
     	}
     	
@@ -511,7 +531,7 @@
     	    var nowTime = new Date().getTime();
     		$scope.rooms.forEach(function(room){
     		    var events = room.events, index = room.eventIndex;
-                console.log(room.name , events.length, index);			
+                //console.log(room.name , events.length, index);			
     		    
     			if(events.length>0){
     			    var currentEvent = events[index], hasNextEvent = false;
@@ -524,7 +544,7 @@
     					hasNextEvent = true;
     				}
     				
-    			    console.log('checkNextEventAlert  ', currentEvent.startDate, currentEvent.endDate);
+    			    //console.log('checkNextEventAlert  ', currentEvent.startDate, currentEvent.endDate);
     			    if(nowTime>startTime&&nowTime<endTime){
     			        // if there is a event, just update the event clock
     			        //console.log( ' in current event , next time  for  ' , $scope.dateformat(currentEvent.startDate)  );
@@ -544,7 +564,7 @@
     					}
     				}
     			    else if(nowTime <=startTime){
-    			        console.log( ' next event  ' , $scope.dateformat(currentEvent.startDate)  );
+    			       // console.log( ' next event  ' , $scope.dateformat(currentEvent.startDate)  );
     				    // if there is no event now, just show the remaining time left for the next event
     				   if(seconds<60){
     				    // setInterval  real timer 
@@ -557,7 +577,7 @@
     				   }				
     			    }
     			}else{
-    			     console.log(' there is events in this day for this room ');
+    			     //console.log(' there is events in this day for this room ');
     			
     			}
     		})	
@@ -574,7 +594,7 @@
 
   	/****************************  utiliy ***********************************/
 	$scope.$on('mybroadcast', function(service){
-		console.log('on my broadcast', service);
+		//console.log('on my broadcast', service);
 	    touchScroll("bodyID");
 	    sizeContent();			
     })
@@ -625,20 +645,20 @@
 		var bodyHeight = window.innerHeight;
 
 		var containerHeight = document.getElementById("container").style.height;
-        console.log('size content  body:',bodyHeight,'container', containerHeight);	
+        //console.log('size content  body:',bodyHeight,'container', containerHeight);	
     
-    var loadingHeight = document.getElementById("loading").style.height;
-        console.log('size content  body:',bodyHeight,'loading', loadingHeight);   
+    //var loadingHeight = document.getElementById("loading").style.height;
+      //  console.log('size content  body:',bodyHeight,'loading', loadingHeight);   
 
 		if (bodyHeight > 1100) {
 		  document.getElementById('container').style.height = bodyHeight+"px";
-      document.getElementById('loading').style.height = containerHeight+"px";
+      //document.getElementById('loading').style.height = containerHeight+"px";
 		}
 		else {
 		  window.innerHeight = containerHeight;
-      window.innerHeight = loadingHeight;
+      //window.innerHeight = loadingHeight;
 		}
-		console.log ('sizeContent working');
+		//console.log ('sizeContent working');
 	}	
      	
     	/******************    socket  **********************/
@@ -652,7 +672,7 @@
             if(msg.type=='motion'){ 
                 var room = _.findWhere($scope.rooms, {name: msg.room});	
     			  if(room){
-                    console.log('room  object  becomes avaiable ',room);
+                    //console.log('room  object  becomes avaiable ',room);
                     room.available = true;
   				  room.time = new Date();
     			  }	
@@ -699,7 +719,7 @@
       var bodyHeight = $('body').height();
       var containerHeight = $("#container").height();
       var loadingHeight = $("#loading").height();
-      console.log('size contenter   ... ',bodyHeight, containerHeight);
+      //console.log('size contenter   ... ',bodyHeight, containerHeight);
       if (bodyHeight > containerHeight) {
 
         $('#container').css('height', bodyHeight );
