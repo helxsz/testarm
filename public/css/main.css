@@ -49,7 +49,7 @@
     6. Menu
     7. Hexagons
     8. Modal
-    9. Tables
+    9. Tables & Charts
     10. Animations (CSS3)
     11. Media Queries (Responsive)
     12. Helper Classes
@@ -447,8 +447,8 @@
         .unavailable .ch-info-front {background: url('../img/hexagon_unavailable.png') no-repeat 50% 50% scroll;}
         .svg .unavailable .ch-info-front {background: url('../img/svg/hexagon_unavailable.svg') no-repeat 50% 50% scroll;}
 
-        .unavailable .ch-info-back {background: url('../img/hexagon_unavailable-rear.png') no-repeat 50% 50% scroll;}
-        .svg .unavailable .ch-info-back {background: url('../img/svg/hexagon_unavailable-rear.svg') no-repeat 50% 50% scroll;}
+        .unavailable .ch-info-back {background: url('../img/hexagon_unavailable.png') no-repeat 50% 50% scroll;}
+        .svg .unavailable .ch-info-back {background: url('../img/svg/hexagon_unavailable.svg') no-repeat 50% 50% scroll;}
 
         /* UNKNOWN - GOLD */
         .unknown .ch-info-front {background: url('../img/hexagon_unknown.png') no-repeat 50% 50% scroll;}
@@ -975,6 +975,12 @@
              -o-transform: rotate(-60deg);
                 transform: rotate(-60deg);
         }
+
+
+    /* D3 Piechart */
+    .arc path {
+        stroke: #fff;
+    }
 
 
 /*  ==========================================================================
