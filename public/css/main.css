@@ -981,6 +981,13 @@
     .arc path {
         stroke: #fff;
     }
+    #knockout,
+    #knockout img {
+            mask: url(../img/svg/hexagon_available.svg);
+    -webkit-mask: url(../img/svg/hexagon_available.svg) top left / cover;
+         -o-mask: url(../img/svg/hexagon_available.svg) top left / cover;
+        -ms-mask: url(../img/svg/hexagon_available.svg) top left / cover;
+    }
 
 
 /*  ==========================================================================
