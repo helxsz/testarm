@@ -981,8 +981,8 @@
     .arc path {
         stroke: #fff;
     }
-    #knockout,
-    #knockout img {
+    #knockout {
+        width: 232px; height: 200px;
             mask: url(../img/svg/hexagon_available.svg);
     -webkit-mask: url(../img/svg/hexagon_available.svg) top left / cover;
          -o-mask: url(../img/svg/hexagon_available.svg) top left / cover;
