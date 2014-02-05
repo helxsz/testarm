@@ -49,7 +49,7 @@
     6. Menu
     7. Hexagons
     8. Modal
-    9. Tables
+    9. Tables & Charts
     10. Animations (CSS3)
     11. Media Queries (Responsive)
     12. Helper Classes
@@ -434,7 +434,28 @@
             user-select: none;
         }
 
-        /* COLOUR STATES */
+        .ch-info-front  {
+            position: relative; z-index: 0;
+        }
+        .ch-info-front header {
+            position: relative; z-index: 2;
+        }
+
+        .knockout {
+            position: absolute; z-index: 1; top: 0; left: 0; right: 0; 
+            margin: 0 auto; margin-top: 10px;
+            width: 208px; height: 180px;
+            -webkit-mask: url(../img/svg/hexagon_available.svg) top left / cover;
+                -ms-mask: url(../img/svg/hexagon_available.svg) top left / cover;
+                 -o-mask: url(../img/svg/hexagon_available.svg) top left / cover;
+                    mask: url(../img/svg/hexagon_available.svg);
+        }
+
+        /* 
+
+        COLOUR STATES 
+
+        */
 
         /* AVAILABLE - BLUE */
         .available .ch-info-front {background: url('../img/hexagon_available.png') no-repeat 50% 50% scroll;}
@@ -447,8 +468,8 @@
         .unavailable .ch-info-front {background: url('../img/hexagon_unavailable.png') no-repeat 50% 50% scroll;}
         .svg .unavailable .ch-info-front {background: url('../img/svg/hexagon_unavailable.svg') no-repeat 50% 50% scroll;}
 
-        .unavailable .ch-info-back {background: url('../img/hexagon_unavailable-rear.png') no-repeat 50% 50% scroll;}
-        .svg .unavailable .ch-info-back {background: url('../img/svg/hexagon_unavailable-rear.svg') no-repeat 50% 50% scroll;}
+        .unavailable .ch-info-back {background: url('../img/hexagon_unavailable.png') no-repeat 50% 50% scroll;}
+        .svg .unavailable .ch-info-back {background: url('../img/svg/hexagon_unavailable.svg') no-repeat 50% 50% scroll;}
 
         /* UNKNOWN - GOLD */
         .unknown .ch-info-front {background: url('../img/hexagon_unknown.png') no-repeat 50% 50% scroll;}
@@ -615,7 +636,16 @@
 
         /* TYPOGRAPHY */
 
+        .test-text {
+            height: 100px; width:200px; margin: 0 auto;
+            font-size: 4.25em; line-height:1.625em;
+        }
         .hexagon h1 {font-size: 4.25em; padding-top:1em;}
+            .test-text h1 {
+                font-size: 100%; padding-top:1em; 
+                border-bottom: none !important;
+            }
+
         .ch-info-back h2 {font-size:3.25em; margin-bottom:0.25em; padding-top:1.625em; }
         .ch-info-back h3 {
             font-size: 1.625em;
@@ -977,6 +1007,12 @@
         }
 
 
+    /* D3 Piechart */
+    .arc path {
+        stroke: #CE1D6F;
+    }
+
+
 /*  ==========================================================================
     10. Animations
     ========================================================================== */
@@ -1048,6 +1084,29 @@
     }
 
     /* LOADING ANIMATIONS */
+    .animate-enter {
+      -webkit-animation: enter_sequence 1s linear; /* Safari/Chrome */
+      -moz-animation: enter_sequence 1s linear; /* Firefox */
+      -o-animation: enter_sequence 1s linear; /* Opera */
+      animation: enter_sequence 1s linear; /* IE10+ and Future Browsers */
+    }
+    @-webkit-keyframes enter_sequence {
+      from { opacity:0; }
+      to { opacity:1; }
+    }
+    @-moz-keyframes enter_sequence {
+      from { opacity:0; }
+      to { opacity:1; }
+    }
+    @-o-keyframes enter_sequence {
+      from { opacity:0; }
+      to { opacity:1; }
+    }
+    @keyframes enter_sequence {
+      from { opacity:0; }
+      to { opacity:1; }
+    }
+
     .circle {
         background-color: rgba(20,20,20,0);
         border: 5px solid rgba(37,153,193,0.9);
