@@ -18,9 +18,20 @@ function sizeContent() {
 
 }
 
+function adjustHeights(elem) {
+    console.log ('elem ='+elem);
+    var fontstep = 2;
+    if ($(elem).height()>$(elem).parent().height() || $(elem).width()>$(elem).parent().width()) {
+        $(elem).css('font-size',(($(elem).css('font-size').substr(0,2)-fontstep)) + 'px').css('line-height',(($(elem).css('font-size').substr(0,2))) + 'px');
+        adjustHeights(elem);
+    }
+}
+
 function init() {
 
-     sizeContent();
+    sizeContent();
+    console.log ('sizeContent initial fire');
+    adjustHeights('.ch-info-front h1');
      
 }
 
