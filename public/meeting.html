@@ -199,16 +199,27 @@
                 <section id="app-meeting" class="app-content">				
                   <ul class="ch-grid">
                       <li class="room" ng-repeat="room in rooms | filter:query " ng-cloak  ng-animate="{enter: 'animate-enter'}" > <!-- | orderBy:orderProp index wrong after orderby -->
-                          <div class="ch-item" ng-click="room.front = !room.front;" ng-class="{'flipped': room.front}">              
+                          <div class="ch-item" ng-click="room.front = !room.front;" ng-class="{'flipped': room.front}" onClick="_gaq.push(['_trackEvent', 'Hexagon', 'Flipped', 'Hexagon - #ID']);">              
                               <div class="ch-info-wrap">
                                   <div class="ch-info " ng-class="{'unavailable':room.available, 'available':!room.available}"> <!-- 'unknownn':!room.m_enabled , -->
                                   <!-- START .ch-info -->
 
                                       <div class="ch-info-front hexagon">
+                                          <header>
+                                            <h1>{{room.displayname}}</h1>
+                                            <small ng-if="room.t_enabled==true"><span class='temperature'>{{room.temperature}}</span> &#x2103;</small>
+                                            <!-- <h5 ng-if="room.m_enabled==false">No </h5> -->
+                                          </header>
+                                          <div class="knockout">
+                                            <div id="piechart{{room.displayname}}"></div>
+                                          </div>
+                                      </div> 
+
+                                      <!--<div class="ch-info-front hexagon">
                                           <h1>{{room.displayname}}</h1>
                                           <small ng-if="room.t_enabled==true"><span class='temperature'>{{room.temperature}}</span> &#x2103;</small>
-										  <!-- <h5 ng-if="room.m_enabled==false">No </h5> -->
-                                      </div>    
+                                           <h5 ng-if="room.m_enabled==false">No </h5>
+                                      </div>     -->
 
                                       <div class="ch-info-back hexagon">
                                       <!-- START .ch-info-back -->
