@@ -21,12 +21,13 @@ function sizeContent() {
 function adjustHeights(elem) {
     console.log ('adjustHeights initial fire');
     console.log ('elem = '+elem);
-    console.log ('$(elem).height() = '+$(elem).height());
+    console.log ('elem height = '+$(elem).height());
+    console.log ('elem font size = '+$elem.css('font-size'));
     var fontstep = 2;
     if ($(elem).height()>$(elem).parent().height() || $(elem).width()>$(elem).parent().width()) {
         $(elem).css('font-size',(($(elem).css('font-size').substr(0,2)-fontstep)) + 'em').css('line-height',(($(elem).css('font-size').substr(0,2))) + 'em');
         adjustHeights(elem);
-        console.log ('font size = '+$elem.css('font-size'));
+        console.log ('elem font size = '+$elem.css('font-size'));
     }
 }
 
