@@ -199,7 +199,7 @@
                 <section id="app-meeting" class="app-content">				
                   <ul class="ch-grid">
                       <li class="room" ng-repeat="room in rooms | filter:query " ng-cloak  ng-animate="{enter: 'animate-enter'}" > <!-- | orderBy:orderProp index wrong after orderby -->
-                          <div class="ch-item" ng-click="room.front = !room.front;" ng-class="{'flipped': room.front}" onClick="_gaq.push(['_trackEvent', 'Hexagon', 'Flipped', 'Hexagon - {{room.displayname}}']);">              
+                          <div class="ch-item" ng-click="room.front = !room.front; _gaq.push(['_trackEvent', 'Hexagon', 'Flipped', 'Hexagon - {{room.displayname}}']);" ng-class="{'flipped': room.front}"">              
                               <div class="ch-info-wrap">
                                   <div class="ch-info " ng-class="{'unavailable':room.available, 'available':!room.available}"> <!-- 'unknownn':!room.m_enabled , -->
                                   <!-- START .ch-info -->
@@ -264,7 +264,7 @@
                   <!-- START #footer -->
 
                       <div>
-                          <small>v0.965 Design &amp; Coded by <a href="http://www.redninja.co.uk" title="Design and Coded by Red Ninja Studios">Red Ninja Studios</a></small>
+                          <small>v0.966 Design &amp; Coded by <a href="http://www.redninja.co.uk" title="Design and Coded by Red Ninja Studios">Red Ninja Studios</a></small>
                       </div>
 
                       <div>
