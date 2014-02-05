@@ -20,7 +20,7 @@
     <link rel="stylesheet" href="css/main.css">
     
     <script src="js/vendor/socket.io.js"></script>
-    <!--<script src="/assets/js/d3.v3.min.js"></script>-->
+    <script src="/assets/js/d3.v3.min.js"></script>
     <script src="js/vendor/angular.min.js"></script>
     <script src="js/vendor/angular-touch.min.js"></script>
     <script src="js/vendor/ui-bootstrap.min.js"></script>
@@ -289,6 +289,20 @@
 	
     meetingApp.controller('meetingListCtrl', function ($rootScope,$scope, $http, $interval, socket, $modal) {
 
+        var color = d3.scale.ordinal()
+            .range(["#670F38", "#CE1D6F"]);
+
+
+        var twoPi = 2 * Math.PI;	
+        var width = 400,
+            height = 400,
+            radius = Math.min(width, height) / 2;	
+
+        var arc = d3.svg.arc()
+            .outerRadius(radius - 10)
+            .innerRadius(0)
+			.startAngle(0);	
+			
       $scope.app = {showMenu:true};
 	    $scope.loading = false;
     	$scope.rooms = [];
@@ -363,32 +377,7 @@
         //$http.get('/meetings/arm/now').success(function(data) {
 		$scope.loading = false;
 		$http.get('/buildings/ARM3/0').success(function(data) {
-		    $scope.loading = true;
-    	    data.rooms.forEach(function(room){
-    	        //console.log(room.name,' ', room.events.length);
-				
-				for(var i=0;i<room.events.length;i++){
-				
-					try
-					  {
-					  	 room.events[i].organizer = unescape(room.events[i].organizer.split('/')[2]);
-					  }
-					catch(err)
-					  {
-					    room.events[i].organizer = 'unknown ';
-					  }
-				}
-    	    })		
-    		_.map(data.rooms,function(room){  room.front = false;} )
-					
-    	    $scope.rooms = data.rooms;
-    	    //console.log(data.rooms);
-
-    		$scope.checkRoomAvailablity();
-    		$scope.checkIntialEventIndex();
-    		checkTimer = $interval($scope.checkMeetingMotionTimer, 1000*60);
-    		
-    		$rootScope.$broadcast('mybroadcast');
+            $scope.loadRoomData(data);    		
         }).error(function(data, status, headers, config) {
             // called asynchronously if an error occurs
             // or server returns response with an error status.
@@ -418,12 +407,18 @@
 			$scope.current_floor = 'SECOND';
 			
 			$http.get(href).success(function(data) {			    
+				$scope.loadRoomData(data);			
+            }).error(function(data, status, headers, config) {
+                $scope.loading = false;
+            });
+		}
+		
+		$scope.loadRoomData = function(data){
 			    //console.log('loading ',data);
 				$scope.loading = true;
 				data.rooms.forEach(function(room){
 					//console.log(room.name,' ', room.events.length);
-					for(var i=0;i<room.events.length;i++){
-					
+					for(var i=0;i<room.events.length;i++){				
 						try
 						  {
 							 room.events[i].organizer = unescape(room.events[i].organizer.split('/')[2]);
@@ -433,51 +428,76 @@
 							room.events[i].organizer = 'unknown ';
 						  }					
 					}
-				})		
-				_.map(data.rooms,function(room){  room.front = false;} )
+				})
+				
+				setTimeout(function(){
+					_.map(data.rooms,function(room){  
+						room.front = false;	
+						var svg = d3.select('#clock-'+room.displayname).append("svg")
+							.attr("width", width)
+							.attr("height", height)
+							.append("g")
+							.attr("transform", "translate(" + width/4 + "," + height/4 + ")");	
+							
+						var meter = svg.append("g").attr("class", "progress-meter").style("fill-opacity", 0.1).style('fill',color[0]);
+						meter.append("path").attr("d", arc.endAngle(twoPi));
+						var foreground = meter.append("path")
+						.attr("class", "foreground")
+						.style("fill-opacity", 0.7)
+						.style('fill',color[1]).attr("d", arc.endAngle(twoPi * 0));
 						
+						foreground
+						.transition()        
+						.duration(1500)
+						.attr("d", arc.endAngle(twoPi * 1/3));
+						
+						console.log('#clock-'+room.displayname);				
+					} )
+
+				},1000);
 				$scope.rooms = data.rooms;
+								
 				//console.log(data.rooms);
 
 				$scope.checkRoomAvailablity();
 				$scope.checkIntialEventIndex();
 				checkTimer = $interval($scope.checkMeetingMotionTimer, 1000*60);
 				
-				$rootScope.$broadcast('mybroadcast');								
-            }).error(function(data, status, headers, config) {
-                $scope.loading = false;
-            });
+				$rootScope.$broadcast('mybroadcast');
 		}
-    		
-        // 213.123.189.97   		
+			
+		$scope.updateClock = function(id,percentage){
+            console.log('updateClock   ',id, percentage);	    
+			d3.select(id+'  .foreground').transition().duration(1500).attr("d", arc.endAngle(twoPi * percentage));
+		} 		
 		
     	$scope.checkRoomAvailablity = function(){
     	    //console.log('checkRoomAvailablity');
-			/*
-    		var room_filtered = _.filter($scope.rooms, function(room){
-    		    var lastupdate = new Date(room.time); 
-                //if(room.available==true)			
-  			    console.log("---------  check room avail", (new Date().getTime() - lastupdate.getTime()) , 300000 , room.displayname,room.available );
-    			return ( (new Date().getTime()-lastupdate.getTime()) > 5*60*1000  ) ;  //room.available==true   && 
-    		})
-    		
-    		_.map(room_filtered, function(room){
-  		     console.log('.............should  update the room to be available  ',room);
-    		     room.available = false;
-    		})
-			*/
     		_.map($scope.rooms, function(room){
   		         //console.log('.............should  update the room to be available  ',room);
 				 var lastupdate = new Date(room.time);
-				 
+				 // room has no motion sensor
 				 if(!room.m_enabled) room.available = false;
 				 else{
-                     if( (new Date().getTime() - lastupdate.getTime()) > 300000	)  room.available = false;
-                     else room.available = true;
-                 }					 
-    		     return true;
+				    // room has motion sensor
+				     var leapsed = new Date().getTime() - lastupdate.getTime();
+                     if( leapsed > 5*60*1000){ 
+					    room.available = false;
+                        if(leapsed > 10*60*1000){
+						    console.log('room ',room.displayname, ' has been empty for 10 minutes');
+						}						
+					 }else {
+					    room.available = true;
+					 }
+                    				 
+                 }	
+				///////////////////////////////////////////////
+                var minutes = new Date().getMinutes();
+                $scope.updateClock('#clock-'+room.displayname,minutes/60); 					
+    		    
     		})			
-			
+            
+            			
     	}
     	
     	$scope.checkIntialEventIndex = function(){
@@ -823,7 +843,7 @@
   m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
   })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-  ga('create', 'UA-46398255-2', '54.194.94.166');
+  ga('create', 'UA-46398255-2', '54.194.94.166:80');
   ga('require', 'linkid', 'linkid.js');
   ga('send', 'pageview');
 
