@@ -32,30 +32,6 @@
     <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
 <![endif]-->
 
-<style>
-.animate-enter {
-  -webkit-animation: enter_sequence 1s linear; /* Safari/Chrome */
-  -moz-animation: enter_sequence 1s linear; /* Firefox */
-  -o-animation: enter_sequence 1s linear; /* Opera */
-  animation: enter_sequence 1s linear; /* IE10+ and Future Browsers */
-}
-@-webkit-keyframes enter_sequence {
-  from { opacity:0; }
-  to { opacity:1; }
-}
-@-moz-keyframes enter_sequence {
-  from { opacity:0; }
-  to { opacity:1; }
-}
-@-o-keyframes enter_sequence {
-  from { opacity:0; }
-  to { opacity:1; }
-}
-@keyframes enter_sequence {
-  from { opacity:0; }
-  to { opacity:1; }
-}
-</style>
     <div class="meeting-room">
     <!-- START .meeting-room -->
 
@@ -70,20 +46,7 @@
                             <button id="triggerMobile" class="mp-close d-hide t-hide"><i class="icon-cancel_circle icon2x"></i></button>
                             <h2><i class="icon-data_science blue"></i> ARM Buildings</h2>
                             <ul>
-							    <!--
-                                <li ng-repeat="building in buildings">
-								    <a href="#">{{building.name}}</a>
-                                    <div class="mp-level">
-                                        <h2><i class="icon icon-data_science_black blue"></i> {{building.name}} </h2>
-                                        <a class="mp-back" href="#">back</a>
-                                        <ul>
-                                            <li  ng-repeat="floor in building.floors">
-											   <a class='room_nav' data-href="{{floor.url}}">{{floor.name}}</a>
-											</li>                                           
-                                        </ul>
-                                    </div>									
-								</li>							    
-							    -->
+
                                 <li>
                                     <a href="#">ARM 1</a>
                                     <div class="mp-level">
@@ -186,6 +149,7 @@
                         <article id="app-description" class="t-hide m-hide" role="article">
 
                             <p>Click a hexagon to view more information about the meeting room.</p>
+                            <p>Please email any feedback to <a href="mailto:arm@redninja.co.uk" title="Email Feedback">arm@redninja.co.uk.</a></p>
 
                         </article>
                     
@@ -199,7 +163,7 @@
                 <section id="app-meeting" class="app-content">				
                   <ul class="ch-grid">
                       <li class="room" ng-repeat="room in rooms | filter:query " ng-cloak  ng-animate="{enter: 'animate-enter'}" > <!-- | orderBy:orderProp index wrong after orderby -->
-                          <div class="ch-item" ng-click="room.front = !room.front; _gaq.push(['_trackEvent', 'Hexagon', 'Flipped', 'Hexagon - {{room.displayname}}']);" ng-class="{'flipped': room.front}">              
+                          <div class="ch-item" ng-click="room.front = !room.front;_gaq.push(['_trackEvent', 'Hexagon', 'Flipped', 'Hexagon - {{room.displayname}}']);" ng-class="{'flipped': room.front}">              
                               <div class="ch-info-wrap">
                                   <div class="ch-info " ng-class="{'unavailable':room.available, 'available':!room.available}"> <!-- 'unknownn':!room.m_enabled , -->
                                   <!-- START .ch-info -->
@@ -214,12 +178,6 @@
                                             <div id="clock-{{room.displayname}}"></div>
                                           </div>
                                       </div> 
-
-                                      <!--<div class="ch-info-front hexagon">
-                                          <h1>{{room.displayname}}</h1>
-                                          <small ng-if="room.t_enabled==true"><span class='temperature'>{{room.temperature}}</span> &#x2103;</small>
-                                           <h5 ng-if="room.m_enabled==false">No </h5>
-                                      </div>     -->
 
                                       <div class="ch-info-back hexagon">
                                       <!-- START .ch-info-back -->
