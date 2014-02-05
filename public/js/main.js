@@ -26,6 +26,7 @@ function adjustHeights(elem) {
     if ($(elem).height()>$(elem).parent().height() || $(elem).width()>$(elem).parent().width()) {
         $(elem).css('font-size',(($(elem).css('font-size').substr(0,2)-fontstep)) + 'em').css('line-height',(($(elem).css('font-size').substr(0,2))) + 'em');
         adjustHeights(elem);
+        console.log ('font size = '+$elem.css('font-size'));
     }
 }
 
