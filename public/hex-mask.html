@@ -72,45 +72,50 @@
                                             </a>
                                         </li>-->
 
-                                        <li class="room" style="margin-top: -120px;"> <!-- | orderBy:orderProp index wrong after orderby -->
-                                          <div class="ch-item" ng-click="room.front = !room.front" ng-class="{'flipped': room.front}">              
+                                        <li class="room" style="margin-top: -120px;" ng-repeat="room in rooms | filter:query " ng-cloak  ng-animate="{enter: 'animate-enter'}" onClick="_gaq.push(['_trackEvent', 'Hexagon', 'Flipped', 'Hexagon - #ID']);">
+                                        <!-- | orderBy:orderProp index wrong after orderby -->
+                                          
+                                          <div class="ch-item" ng-click="room.front = !room.front;" ng-class="{'flipped': room.front}">              
                                               <div class="ch-info-wrap">
-                                                  <div class="ch-info " ng-class="{'unavailable':room.available, 'available':!room.available}"> <!-- 'unknownn':!room.m_enabled , -->
+                                                  <div class="ch-info " ng-class="{'unavailable':room.available, 'available':!room.available}">
+                                                  <!-- 'unknownn':!room.m_enabled , -->
                                                   <!-- START .ch-info -->
 
                                                       <div class="ch-info-front hexagon">
-                                                          <h1>Test</h1>
-                                                          <small ng-if="room.t_enabled==true"><span class='temperature'>Temp</span> &#x2103;</small>
+                                                          <h1>{{room.displayname}}</h1>
+                                                          <small ng-if="room.t_enabled==true"><span class='temperature'>{{room.temperature}}</span> &#x2103;</small>
                                                           <!-- <h5 ng-if="room.m_enabled==false">No </h5> -->
+                                                          <div class="knockout" >
+                                                            <div id="piechart"></div>
+                                                        </div>
                                                       </div>    
 
                                                       <div class="ch-info-back hexagon">
                                                       <!-- START .ch-info-back -->
-                                                                                                        
+                                                                                  
                                                         <div ng-if="room.events.length>0">
                                                         <!-- START .room.events.length -->
 
-                                                            <div class="maskCircle bookerPhoto">
-                                                                <img src="img/photos/john-biggs.jpg" alt="Joe Bloggs">
-                                                              </div>
-                                                            <h3>
-                                                                <span class='ch-start'>{{dateformat(room.events[room.eventIndex].startDate)}}</span> <i class="icon-arrow_right" aria-hidden="true"></i> <span class='ch-end'>{{dateformat(room.events[room.eventIndex].endDate)}}</span>
-                                                            </h3>
-                                                            <h4>{{room.events[room.eventIndex].organizer}}</h4>
-                                                            <a href="tel:01517076707" title="Phone Joe" class="noSpin d-hide t-hide"><button class="maskCircle icon-telephone"><span>Telephone</span></button></a> 
-                                                            <a href='{{getEmail(room.events[room.eventIndex].organizer)}}' ng-click="$event.stopPropagation();" title="Email Joe" class="noSpin m-hide"><button class="maskCircle icon-email"><span>Email</span></button></a> 
-                                                            <a href="#popup-{{ room.name }}" ng-click="$event.stopPropagation();open($index);"   title="View Itinerary" class="noSpin open-popup-link"><button class="maskCircle icon-information"><span>Itinerary Information</span></button></a>                                                  
-                                                                                
+                                                          <div class="maskCircle bookerPhoto">
+                                                            <img src="img/photos/john-biggs.jpg" alt="Joe Bloggs">
+                                                          </div>
+                                                          <h3>
+                                                            <span class='ch-start'>{{dateformat(room.events[room.eventIndex].startDate)}}</span> <i class="icon-arrow_right" aria-hidden="true"></i> <span class='ch-end'>{{dateformat(room.events[room.eventIndex].endDate)}}</span>
+                                                          </h3>
+                                                          <h4>{{room.events[room.eventIndex].organizer}}</h4>
+                                                          <a href="tel:01517076707" title="Phone Joe" class="noSpin d-hide t-hide"><button class="maskCircle icon-telephone"><span>Telephone</span></button></a> 
+                                                          <a href='{{getEmail(room.events[room.eventIndex].organizer)}}' ng-click="$event.stopPropagation();" title="Email Joe" class="noSpin m-hide"><button class="maskCircle icon-email"><span>Email</span></button></a> 
+                                                          <a href="#popup-{{ room.name }}" ng-click="$event.stopPropagation();open($index);"   title="View Itinerary" class="noSpin open-popup-link"><button class="maskCircle icon-information"><span>Itinerary Information</span></button></a>                          
+                                                        
                                                         <!-- END .room.events.length -->
                                                         </div>
-                                                                                                
-                                                        
+                                    
                                                         <div class="noBooking" ng-if="room.events.length==0">
-                                                            <div class="maskCircle bookerPhoto"><img src="img/photos/ARM-Employee-Icon.png" alt="Joe Bloggs"></div>
-                                                            <h3>No bookings</h3>
+                                                          <div class="maskCircle bookerPhoto"><img src="img/photos/ARM-Employee-Icon.png" alt="Joe Bloggs"></div>
+                                                          <h3>No bookings</h3>
                                                         </div>
-                                                                                                                            
-                                                                            <!-- END .ch-info-back -->
+                                                                                                      
+                                                      <!-- END .ch-info-back -->
                                                       </div>
 
                                                   <!-- END .ch-info -->
@@ -121,13 +126,14 @@
 
                                     </ul>
 
-                                    <aside style="display:block; margin-top: -16px;">
+                                    <!--<aside style="display:block; margin-top: -16px;">
 
                                         <div class="knockout" >
                                             <div id="piechart"></div>
                                         </div>
 
-                                        <!--<svg class="svg-graphic" width="232" height="200" viewBox="0 0 232 200" preserveAspectRatio="xMinYMin meet" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" version="1.1">
+
+                                        <svg class="svg-graphic" width="232" height="200" viewBox="0 0 232 200" preserveAspectRatio="xMinYMin meet" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" version="1.1">
                                             <g>
                                                <clipPath id="hexagonal-mask">
                                                   <polygon points="58,0 0,100 58,200 176,200 230,100 176,0" />
