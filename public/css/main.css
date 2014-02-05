@@ -438,7 +438,7 @@
             position: relative; z-index: 0;
         }
         .ch-info-front header {
-            padding-top: 3.25em;
+            /* padding-top: 3.25em; */
             position: relative; z-index: 2;
         }
 
@@ -638,7 +638,7 @@
         /* TYPOGRAPHY */
 
         .dynamic-text {
-            height: 100px; width:208px; margin: 0 auto;
+            height: 100px; width:200px; margin: 0 auto;
             font-size: 4.25em;  line-height: 1em;
         }
         .hexagon h1 {font-size: 4.25em; padding-top:1em;}
