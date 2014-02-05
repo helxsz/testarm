@@ -221,7 +221,7 @@
                   <!-- START #footer -->
 
                       <div>
-                          <small>v0.970 Design &amp; Coded by <a href="http://www.redninja.co.uk" title="Design and Coded by Red Ninja Studios">Red Ninja Studios</a></small>
+                          <small>v0.971 Design &amp; Coded by <a href="http://www.redninja.co.uk" title="Design and Coded by Red Ninja Studios">Red Ninja Studios</a></small>
                       </div>
 
                       <div>
@@ -237,9 +237,23 @@
 
             </section>
 
-    			<div id="loading" ng-class="{'loading': loading}" class="loading">
-    			<!-- START #loading --> 
-          
+          <div id="loading" ng-class="checkLoading(call.State)">
+          <!-- START #loading --> 
+
+            <div class="inner">
+              <div class="box">
+                <div class="circle"></div>
+                <div class="circle1"></div>
+              </div>
+            </div>
+
+          <!-- END #loading -->     
+          </div>  
+
+
+    			<!--<div id="loading" ng-class="{'loading': loading}">
+    			 START #loading  
+
             <div class="inner">
       				<div class="box">
       					<div class="circle"></div>
@@ -247,8 +261,8 @@
       				</div>
             </div>
 
-    			<!-- END #loading -->     
-    			</div>	
+    			END #loading      
+    			</div>	-->
 			
 			
         <!-- END #container -->
@@ -568,6 +582,20 @@
 	    touchScroll("bodyID");
 	    sizeContent();			
     })
+
+
+    //Check content is loaded and display Loading overlay accordingly
+    $scope.checkLoading= function(name) {
+     if($scope.loading == true)
+        .appendTo($('#loading')).loading();
+        console.log('checkLoading = true');
+     else if($scope.loading == false)
+        .appendTo($('#loading')).hide();
+        console.log('checkLoading = false');
+     else
+         console.log('checkLoading error');
+    }
+
 
     $scope.dateformat = function(date){
 		var date = new Date(date);	

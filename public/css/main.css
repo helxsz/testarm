@@ -191,7 +191,7 @@
         width: 100%; height:100%;
         background-color: #141414; 
         opacity:0.9; overflow: hidden;
-        filter:alpha(opacity=90);  For IE8 and earlier 
+        filter:alpha(opacity=90);  /* For IE8 and earlier */
     }
         .loading .inner {
             position:relative;
@@ -204,6 +204,11 @@
                 padding-top: 1em;
                 width: 100%; height:100%;
             }
+
+    .hide {
+        opacity: 0; overflow: hidden;
+        filter:alpha(opacity=0);  /* For IE8 and earlier */
+    }
 
 
 
