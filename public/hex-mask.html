@@ -82,8 +82,8 @@
                                                   <!-- START .ch-info -->
 
                                                       <div class="ch-info-front hexagon">
-                                                        <header class="test-text">
-                                                          <h1>BIG ROOM NAME</h1>
+                                                        <header>
+                                                          <div class="test-text"><h1>BIG</h1></div>
                                                           <small ng-if="room.t_enabled==true"><span class='temperature'>21</span> &#x2103;</small>
                                                           <!-- <h5 ng-if="room.m_enabled==false">No </h5> -->
                                                         </header>
@@ -107,7 +107,7 @@
                                                           <h4>{{room.events[room.eventIndex].organizer}}</h4>
                                                           <a href="tel:01517076707" title="Phone Joe" class="noSpin d-hide t-hide"><button class="maskCircle icon-telephone"><span>Telephone</span></button></a> 
                                                           <a href='{{getEmail(room.events[room.eventIndex].organizer)}}' ng-click="$event.stopPropagation();" title="Email Joe" class="noSpin m-hide"><button class="maskCircle icon-email"><span>Email</span></button></a> 
-                                                          <a href="#popup-{{ room.name }}" ng-click="$event.stopPropagation();open($index);"   title="View Itinerary" class="noSpin open-popup-link"><button class="maskCircle icon-information"><span>Itinerary Information</span></button></a>                          
+                                                          <a href="#popup-{{ room.name }}" ng-click="$event.stopPropagation();open($index);" title="View Itinerary" class="noSpin open-popup-link"><button class="maskCircle icon-information"><span>Itinerary Information</span></button></a>                          
                                                         
                                                         <!-- END .room.events.length -->
                                                         </div>

@@ -25,7 +25,7 @@ function adjustHeights(elem) {
     console.log ('elem font size = '+$(elem).css('font-size'));
     var fontstep = 2;
     if ($(elem).height()>$(elem).parent().height() || $(elem).width()>$(elem).parent().width()) {
-        $(elem).css('font-size',(($(elem).css('font-size').substr(0,2)-fontstep)) + 'em').css('line-height',(($(elem).css('font-size').substr(0,2))) + 'em');
+        $(elem).css('font-size',(($(elem).css('font-size').substr(0,2)-fontstep)) + 'px').css('line-height',(($(elem).css('font-size').substr(0,2))) + 'px');
         adjustHeights(elem);
         console.log ('elem font size = '+$(elem).css('font-size'));
     }
@@ -35,7 +35,7 @@ function init() {
 
     sizeContent();
     console.log ('sizeContent initial fire');
-    adjustHeights('.test-text');
+    adjustHeights('.test-text h1');
      
 }
 
