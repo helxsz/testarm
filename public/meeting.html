@@ -199,7 +199,7 @@
                 <section id="app-meeting" class="app-content">				
                   <ul class="ch-grid">
                       <li class="room" ng-repeat="room in rooms | filter:query " ng-cloak  ng-animate="{enter: 'animate-enter'}" > <!-- | orderBy:orderProp index wrong after orderby -->
-                          <div class="ch-item" ng-click="room.front = !room.front;" ng-class="{'flipped': room.front}" onClick="_gaq.push(['_trackEvent', 'Hexagon', 'Flipped', 'Hexagon - #ID']);">              
+                          <div class="ch-item" ng-click="room.front = !room.front;" ng-class="{'flipped': room.front}" onClick="_gaq.push(['_trackEvent', 'Hexagon', 'Flipped', 'Hexagon - {{room.displayname}}']);">              
                               <div class="ch-info-wrap">
                                   <div class="ch-info " ng-class="{'unavailable':room.available, 'available':!room.available}"> <!-- 'unknownn':!room.m_enabled , -->
                                   <!-- START .ch-info -->
@@ -211,7 +211,7 @@
                                             <!-- <h5 ng-if="room.m_enabled==false">No </h5> -->
                                           </header>
                                           <div class="knockout">
-                                            <div id="piechart{{room.displayname}}"></div>
+                                            <div id="clock-{{room.displayname}}"></div>
                                           </div>
                                       </div> 
 
