@@ -434,7 +434,28 @@
             user-select: none;
         }
 
-        /* COLOUR STATES */
+        .ch-info-front  {
+            position: relative; z-index: 0;
+        }
+        .ch-info-front header {
+            position: relative; z-index: 2;
+        }
+
+        .knockout {
+            position: absolute; z-index: 1; top: 0; left: 0; right: 0; 
+            margin: 0 auto; margin-top: 10px;
+            width: 208px; height: 180px;
+            -webkit-mask: url(../img/svg/hexagon_available.svg) top left / cover;
+                -ms-mask: url(../img/svg/hexagon_available.svg) top left / cover;
+                 -o-mask: url(../img/svg/hexagon_available.svg) top left / cover;
+                    mask: url(../img/svg/hexagon_available.svg);
+        }
+
+        /* 
+
+        COLOUR STATES 
+
+        */
 
         /* AVAILABLE - BLUE */
         .available .ch-info-front {background: url('../img/hexagon_available.png') no-repeat 50% 50% scroll;}
@@ -980,14 +1001,6 @@
     /* D3 Piechart */
     .arc path {
         stroke: #CE1D6F;
-    }
-    .knockout {
-        margin: 0 auto; margin-top: 10px;
-        width: 208px; height: 180px;
-        -webkit-mask: url(../img/svg/hexagon_available.svg) top left / cover;
-            -ms-mask: url(../img/svg/hexagon_available.svg) top left / cover;
-             -o-mask: url(../img/svg/hexagon_available.svg) top left / cover;
-                mask: url(../img/svg/hexagon_available.svg);
     }
 
 

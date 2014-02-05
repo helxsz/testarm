@@ -82,11 +82,13 @@
                                                   <!-- START .ch-info -->
 
                                                       <div class="ch-info-front hexagon">
+                                                        <header>
                                                           <h1>{{room.displayname}}</h1>
                                                           <small ng-if="room.t_enabled==true"><span class='temperature'>{{room.temperature}}</span> &#x2103;</small>
                                                           <!-- <h5 ng-if="room.m_enabled==false">No </h5> -->
-                                                          <div class="knockout" >
-                                                            <div id="piechart"></div>
+                                                        </header>
+                                                        <div class="knockout">
+                                                          <div id="piechart"></div>
                                                         </div>
                                                       </div>    
 
