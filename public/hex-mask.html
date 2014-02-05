@@ -83,12 +83,12 @@
 
                                                       <div class="ch-info-front hexagon">
                                                         <header>
-                                                          <div class="test-text"><h1>Four</h1></div>
+                                                          <div class="test-text"><h1>Four sada as asdada</h1></div>
                                                           <small ng-if="room.t_enabled==true"><span class='temperature'>21</span> &#x2103;</small>
                                                           <!-- <h5 ng-if="room.m_enabled==false">No </h5> -->
                                                         </header>
                                                         <div class="knockout">
-                                                          <div id="clock-{{room.displayname}}"></div>
+                                                          <div id="clock-id"></div>
                                                         </div>
                                                       </div>    
 
@@ -220,7 +220,7 @@
             .sort(null)
             .value(function(d) { return d.population; });
 
-        var svg = d3.select("#clock-{{room.displayname}}").append("svg")
+        var svg = d3.select("#clock-id").append("svg")
             .attr("width", width)
             .attr("height", height)
           .append("g")
