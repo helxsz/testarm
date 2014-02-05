@@ -47,6 +47,7 @@ var allowedHost = [
 'http://127.0.0.1',
 'http://213.123.189.97',  //us
 'http://195.88.101.44',   // us
+'http://146.90.110.143',// us steve
 
 'http://217.140.96.21',   // cambridge
 'http://217.140.100.22',  // san jose
