@@ -586,18 +586,20 @@
 
     //Check content is loaded and display Loading overlay accordingly
     $scope.checkLoading= function() {
-     if (scope.loading == true)
 
-        .appendTo($('#loading')).hide();
-        console.log('checkLoading = true');
+       if (scope.loading == true) {
 
-     else if (scope.loading == false)
+          //.appendTo($('#loading')).hide();
+          console.log('checkLoading = true');
 
-        .appendTo($('#loading')).hide();
-        console.log('checkLoading = false');
+       } else if { (scope.loading == false)
 
-     else
-         console.log('checkLoading error');
+          //.appendTo($('#loading')).hide();
+          console.log('checkLoading = false');
+
+       } else {
+           console.log('checkLoading error');
+           
     }
 
 
