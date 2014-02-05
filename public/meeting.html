@@ -148,7 +148,7 @@
 
                         <article id="app-description" class="t-hide m-hide" role="article">
 
-                            <p>Click a hexagon to view more information about the meeting room. Please email any feedback to <a href="mailto:arm@redninja.co.uk" title="Email Feedback">arm@redninja.co.uk</a>.</p>
+                          <p>Click a hexagon to view more information about the meeting room. Please email any feedback to <a href="mailto:arm@redninja.co.uk" title="Email Feedback">arm@redninja.co.uk</a>.</p>
 
                         </article>
                     
@@ -169,7 +169,7 @@
 
                                       <div class="ch-info-front hexagon">
                                           <header>
-                                            <h1>{{room.displayname}}</h1>
+                                            <div class="dynamic-text"><h1>{{room.displayname}}</h1></div>
                                             <small ng-if="room.t_enabled==true"><span class='temperature'>{{room.temperature}}</span> &#x2103;</small>
                                             <!-- <h5 ng-if="room.m_enabled==false">No </h5> -->
                                           </header>
@@ -823,10 +823,11 @@
   m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
   })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-  ga('create', 'UA-46398255-2', '54.194.94.166');
+  ga('create', 'UA-46398255-2', '54.194.94.166:80');
   ga('require', 'linkid', 'linkid.js');
   ga('send', 'pageview');
 
 </script>
+
 </body>
 </html>

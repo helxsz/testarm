@@ -35,7 +35,7 @@ function init() {
 
     sizeContent();
     console.log ('sizeContent initial fire');
-    adjustHeights('.test-text h1');
+    adjustHeights('.dynamic-text h1');
      
 }
 
