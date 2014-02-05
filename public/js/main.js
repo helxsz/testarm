@@ -33,7 +33,7 @@ function init() {
 
     sizeContent();
     console.log ('sizeContent initial fire');
-    adjustHeights('.ch-info-front h1');
+    adjustHeights('.test-text');
      
 }
 
