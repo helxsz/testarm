@@ -24,7 +24,7 @@ function adjustHeights(elem) {
     console.log ('$(elem).height() = '+$(elem).height());
     var fontstep = 2;
     if ($(elem).height()>$(elem).parent().height() || $(elem).width()>$(elem).parent().width()) {
-        $(elem).css('font-size',(($(elem).css('font-size').substr(0,2)-fontstep)) + 'px').css('line-height',(($(elem).css('font-size').substr(0,2))) + 'px');
+        $(elem).css('font-size',(($(elem).css('font-size').substr(0,2)-fontstep)) + 'em').css('line-height',(($(elem).css('font-size').substr(0,2))) + 'em');
         adjustHeights(elem);
     }
 }

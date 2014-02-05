@@ -636,7 +636,8 @@
 
         /* TYPOGRAPHY */
 
-        .hexagon h1 {font-size: 4.25em; padding-top:1em;}
+        .hexagon h1,
+        .test-text {font-size: 4.25em; padding-top:1em;}
         .ch-info-back h2 {font-size:3.25em; margin-bottom:0.25em; padding-top:1.625em; }
         .ch-info-back h3 {
             font-size: 1.625em;
@@ -656,6 +657,9 @@
         #app-brand .ch-info-back i,
         .app-brand .ch-info-back i {display: block; padding-top: 1.625em; margin-bottom:0.25em;}
         .ch-info-back a {text-decoration: none; border: none; z-index: 10;}
+
+        .test-text {font-size: 4.25em; padding-top:1em;}
+        .test-text h1 {font-size: 100%;}
         
 
         /* hex buttons */
@@ -1075,6 +1079,29 @@
     }
 
     /* LOADING ANIMATIONS */
+    .animate-enter {
+      -webkit-animation: enter_sequence 1s linear; /* Safari/Chrome */
+      -moz-animation: enter_sequence 1s linear; /* Firefox */
+      -o-animation: enter_sequence 1s linear; /* Opera */
+      animation: enter_sequence 1s linear; /* IE10+ and Future Browsers */
+    }
+    @-webkit-keyframes enter_sequence {
+      from { opacity:0; }
+      to { opacity:1; }
+    }
+    @-moz-keyframes enter_sequence {
+      from { opacity:0; }
+      to { opacity:1; }
+    }
+    @-o-keyframes enter_sequence {
+      from { opacity:0; }
+      to { opacity:1; }
+    }
+    @keyframes enter_sequence {
+      from { opacity:0; }
+      to { opacity:1; }
+    }
+
     .circle {
         background-color: rgba(20,20,20,0);
         border: 5px solid rgba(37,153,193,0.9);
