@@ -1,0 +1,17 @@
+# humanstxt.org/
+# The humans responsible & technology colophon
+
+# TEAM
+
+    Lee Omar		CEO				@leeomar 
+    Steven Hassall	Senior Designer	@designfunction
+    Xi Shize		Lead Developer	@helxsz
+
+# THANKS
+
+    Amyas Phillips
+
+# TECHNOLOGY COLOPHON
+
+    HTML5, CSS3
+    jQuery, Modernizr

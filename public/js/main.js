@@ -18,9 +18,24 @@ function sizeContent() {
 
 }
 
+function adjustHeights(elem) {
+    console.log ('adjustHeights initial fire');
+    console.log ('elem = '+elem);
+    console.log ('elem height = '+$(elem).height());
+    console.log ('elem font size = '+$(elem).css('font-size'));
+    var fontstep = 2;
+    if ($(elem).height()>$(elem).parent().height() || $(elem).width()>$(elem).parent().width()) {
+        $(elem).css('font-size',(($(elem).css('font-size').substr(0,2)-fontstep)) + 'px').css('line-height',(($(elem).css('font-size').substr(0,2))) + 'px');
+        adjustHeights(elem);
+        console.log ('elem font size = '+$(elem).css('font-size'));
+    }
+}
+
 function init() {
 
-     sizeContent();
+    sizeContent();
+    console.log ('sizeContent initial fire');
+    adjustHeights('.test-text h1');
      
 }
 

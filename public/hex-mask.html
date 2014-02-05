@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Hexagon Mask Test</title>
+    <meta name="author" content="Steven Hassall and Sizhe Xi">
+    <meta name="description" content="ARM Dashboard Sensor Monitoring Project">
+    <meta name="viewport" content="width=device-width, maximum-scale=1, minimum-scale=1, user-scalable=0, initial-scale=1">
+    <link rel="stylesheet" href="css/normalize.min.css">
+    <!-- Gridset CSS -->
+    <!--[if (!IE) | (gt IE 9)]><!--><link rel="stylesheet" href="css/gridset.css"><!--<![endif]-->
+    <!--[if IE 9]><link rel="stylesheet" href="./css/gridset-ie-9.css" /><![endif]-->
+    <!--[if lte IE 8]><link rel="stylesheet" href="./css/gridset-ie-lte8.css" /><![endif]-->
+    <link rel="stylesheet" href="css/mfglabs_iconset.css">
+    <link rel="stylesheet" href="css/main.css">
+    <script src="js/vendor/d3.v3.min.js"></script>
+
+    <script src="js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+</head>
+<body>
+<!--[if lt IE 7]>
+    <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+<![endif]-->
+
+    <div class="home">
+    <!-- START .home -->
+
+        <div id="container" class="container" class="clearfix">
+        <!-- START #container -->
+                
+                    <div class="wrapper">
+                    <!-- START .wrapper -->
+
+
+                        <header id="banner" class="d2-d11 t1-t4 m-all clearfix">
+                        <!-- START #banner -->
+
+                            <section id="app-home" class="app-content">
+                            <!-- START #app-home -->
+
+                                    <ul class="ch-grid">
+
+                                        <li class="app-brand coming-soon">
+                                            <a href="#" title="Heat Map App">
+                                                <img src="img/hexagon_heating.png" alt="Heat Map App"/>
+                                                <img src="img/svg/hexagon_heating.svg" alt="Heat Map App" class="svgIMG" />
+                                            </a>
+                                        </li>
+
+                                        <li class="app-brand">
+                                            <a href="#" title="My ARM App">
+                                                <img src="img/hexagon_myarmapp.png" alt="My ARM App" />
+                                                <img src="img/svg/hexagon_myarmapp.svg" alt="My ARM App" class="svgIMG" />
+                                            </a>
+                                        </li>
+
+                                        <li class="app-brand coming-soon">
+                                            <a href="#" title="Energy App">
+                                                <img src="img/hexagon_energy.png" alt="Energy App" />
+                                                <img src="img/svg/hexagon_energy.svg" alt="Energy App" class="svgIMG" />
+                                            </a>
+                                        </li>
+
+                                        <!--<li class="app-brand">
+                                            <a href="meeting.html" title="Meeting App">
+                                                <img src="img/hexagon_meetings.png" alt="Meeting App" />
+                                                <img src="img/svg/hexagon_meetings.svg" alt="Meeting App" class="svgIMG" />
+                                            </a>
+                                        </li>-->
+
+                                        <li class="room" style="margin-top: -120px;" ng-repeat="room in rooms | filter:query " ng-cloak  ng-animate="{enter: 'animate-enter'}" onClick="_gaq.push(['_trackEvent', 'Hexagon', 'Flipped', 'Hexagon - #ID']);">
+                                        <!-- | orderBy:orderProp index wrong after orderby -->
+                                          
+                                          <div class="ch-item" ng-click="room.front = !room.front;" ng-class="{'flipped': room.front}">              
+                                              <div class="ch-info-wrap">
+                                                  <div class="ch-info " ng-class="{'unavailable':room.available, 'available':!room.available}">
+                                                  <!-- 'unknownn':!room.m_enabled , -->
+                                                  <!-- START .ch-info -->
+
+                                                      <div class="ch-info-front hexagon">
+                                                        <header>
+                                                          <div class="test-text"><h1>Four</h1></div>
+                                                          <small ng-if="room.t_enabled==true"><span class='temperature'>21</span> &#x2103;</small>
+                                                          <!-- <h5 ng-if="room.m_enabled==false">No </h5> -->
+                                                        </header>
+                                                        <div class="knockout">
+                                                          <div id="clock-{{room.displayname}}"></div>
+                                                        </div>
+                                                      </div>    
+
+                                                      <div class="ch-info-back hexagon">
+                                                      <!-- START .ch-info-back -->
+                                                                                  
+                                                        <div ng-if="room.events.length>0">
+                                                        <!-- START .room.events.length -->
+
+                                                          <div class="maskCircle bookerPhoto">
+                                                            <img src="img/photos/john-biggs.jpg" alt="Joe Bloggs">
+                                                          </div>
+                                                          <h3>
+                                                            <span class='ch-start'>{{dateformat(room.events[room.eventIndex].startDate)}}</span> <i class="icon-arrow_right" aria-hidden="true"></i> <span class='ch-end'>{{dateformat(room.events[room.eventIndex].endDate)}}</span>
+                                                          </h3>
+                                                          <h4>{{room.events[room.eventIndex].organizer}}</h4>
+                                                          <a href="tel:01517076707" title="Phone Joe" class="noSpin d-hide t-hide"><button class="maskCircle icon-telephone"><span>Telephone</span></button></a> 
+                                                          <a href='{{getEmail(room.events[room.eventIndex].organizer)}}' ng-click="$event.stopPropagation();" title="Email Joe" class="noSpin m-hide"><button class="maskCircle icon-email"><span>Email</span></button></a> 
+                                                          <a href="#popup-{{ room.name }}" ng-click="$event.stopPropagation();open($index);" title="View Itinerary" class="noSpin open-popup-link"><button class="maskCircle icon-information"><span>Itinerary Information</span></button></a>                          
+                                                        
+                                                        <!-- END .room.events.length -->
+                                                        </div>
+                                    
+                                                        <div class="noBooking" ng-if="room.events.length==0">
+                                                          <div class="maskCircle bookerPhoto"><img src="img/photos/ARM-Employee-Icon.png" alt="Joe Bloggs"></div>
+                                                          <h3>No bookings</h3>
+                                                        </div>
+                                                                                                      
+                                                      <!-- END .ch-info-back -->
+                                                      </div>
+
+                                                  <!-- END .ch-info -->
+                                                  </div>
+                                              </div>
+                                          </div>
+                                      </li>
+
+                                    </ul>
+
+                                    <!--<aside style="display:block; margin-top: -16px;">
+
+                                        <div class="knockout" >
+                                            <div id="piechart"></div>
+                                        </div>
+
+
+                                        <svg class="svg-graphic" width="232" height="200" viewBox="0 0 232 200" preserveAspectRatio="xMinYMin meet" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" version="1.1">
+                                            <g>
+                                               <clipPath id="hexagonal-mask">
+                                                  <polygon points="58,0 0,100 58,200 176,200 230,100 176,0" />
+                                               </clipPath>
+                                            </g> 
+                                            <a xlink:href="http://www.redninja.co.uk" style="display: block; height: 200px; width: 232px;">
+                                                <image id="test" clip-path="url(#hexagonal-mask)" height="100%" width="100%" xlink:href="img/svg/hexagon_available.svg" />
+                                            </a>
+                                            <a xlink:href="http://www.redninja.co.uk">
+                                             <image clip-path="url(#hexagonal-mask)" height="100%" width="100%" xlink:href="img/svg/hexagon_available.svg" />
+                                            </a>
+                                        </svg>-->
+
+                                        <!--<svg class="svg-graphic" width="232" height="200" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                            <defs>
+                                                <mask id="mask">
+                                                    <text x="0" y="100" id="knockout" fill="white" style="font-size:120px; font-family: Blue Highway, Arial Black, sans-serif;">KNOCKOUT</text>
+                                                    
+                                                </mask>
+                                            </defs>
+                                            <use xlink:href="#knockout"/>
+                                        </svg>-->
+
+                                        <!--<div id="knockout" ><image x="0" y="0" src="http://placekitten.com/232/200" /></div>-->
+
+                                    </aside>
+
+                                <!-- END #app-home -->
+                                </section>
+
+                            <h1>ARCHITECTURE FOR THE DIGITAL WORLD</h1>
+
+                        <!-- END #banner -->
+                        </header>
+
+                    <!-- END .wrapper -->
+                    </div>
+
+
+                    <footer id="footer" class="clearfix">
+                    <!-- START #footer -->
+
+                        <div>
+                            <small>v0.802 Design &amp; Coded by <a href="http://www.redninja.co.uk" title="Design and Coded by Red Ninja Studios">Red Ninja Studios</a></small>
+                        </div>
+
+                        <div>
+                            <a href="http://arm.com" class="logo-arm" title="ARM - Architecture for the digital world"><img src="img/ARM-RGB.png" alt="ARM - Architecture for the digital world" class="logo" /></a>
+                        </div>
+                    
+                    <!-- END #footer -->
+                    </footer>
+
+        <!-- END #container -->
+        </div>
+    <!-- END .home -->
+    </div>
+
+    <script src="js/vendor/jquery-1.10.1.min.js"></script>
+    <!-- <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.10.1.min.js"><\/script>')</script> -->
+
+    <!-- <script src="js/plugins.js"></script> -->
+    <script src="js/vendor/classie.js"></script>
+    <script src="js/main.js"></script>
+
+    <!-- Piechart script -->
+    <script>
+
+        var width = 464,
+            height = 400,
+            radius = Math.min(width, height) / 2;
+
+        var color = d3.scale.ordinal()
+            .range(["#670F38", "#CE1D6F"]);
+
+        var arc = d3.svg.arc()
+            .outerRadius(radius - 10)
+            .innerRadius(0);
+
+        var pie = d3.layout.pie()
+            .sort(null)
+            .value(function(d) { return d.population; });
+
+        var svg = d3.select("#clock-{{room.displayname}}").append("svg")
+            .attr("width", width)
+            .attr("height", height)
+          .append("g")
+            .attr("transform", "translate(" + width / 4 + "," + height / 4 + ")");
+
+        d3.csv("data.csv", function(error, data) {
+
+          data.forEach(function(d) {
+            d.population = +d.population;
+          });
+
+          var g = svg.selectAll(".arc")
+              .data(pie(data))
+            .enter().append("g")
+              .attr("class", "arc");
+
+          g.append("path")
+              .attr("d", arc)
+              .style("fill", function(d) { return color(d.data.age); });
+
+          g.append("text")
+              .attr("transform", function(d) { return "translate(" + arc.centroid(d) + ")"; })
+              .attr("dy", ".35em")
+              .style("text-anchor", "middle")
+              .text(function(d) { return d.data.age; });
+
+        });
+
+    </script>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-46398255-2', '54.194.94.166');
+      ga('require', 'linkid', 'linkid.js');
+      ga('send', 'pageview');
+
+    </script>
+
+</body>
+</html>
