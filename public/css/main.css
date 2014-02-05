@@ -982,11 +982,12 @@
         stroke: #CE1D6F;
     }
     .knockout {
-        width: 232px; height: 200px;
-            mask: url(../img/svg/hexagon_available.svg);
-    -webkit-mask: url(../img/svg/hexagon_available.svg) top left / cover;
-         -o-mask: url(../img/svg/hexagon_available.svg) top left / cover;
-        -ms-mask: url(../img/svg/hexagon_available.svg) top left / cover;
+        margin: 0 auto; margin-top: 10px;
+        width: 208px; height: 180px;
+        -webkit-mask: url(../img/svg/hexagon_available.svg) top left / cover;
+            -ms-mask: url(../img/svg/hexagon_available.svg) top left / cover;
+             -o-mask: url(../img/svg/hexagon_available.svg) top left / cover;
+                mask: url(../img/svg/hexagon_available.svg);
     }
 
 
