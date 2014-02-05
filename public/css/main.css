@@ -636,9 +636,15 @@
 
         /* TYPOGRAPHY */
 
-        .test-text {width:200px; height: 100px; font-size: 4.25em; line-height:1.625em;}
+        .test-text {
+            height: 100px; width:200px; margin: 0 auto;
+            font-size: 4.25em; line-height:1.625em;
+        }
         .hexagon h1 {font-size: 4.25em; padding-top:1em;}
-            .test-text h1 {font-size: 100%;}
+            .test-text h1 {
+                font-size: 100%; padding-top:1em; 
+                border-bottom: none !important;
+            }
 
         .ch-info-back h2 {font-size:3.25em; margin-bottom:0.25em; padding-top:1.625em; }
         .ch-info-back h3 {
