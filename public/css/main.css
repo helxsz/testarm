@@ -185,25 +185,27 @@
             .svg .energyDial {background: url('../img/svg/Energy-Dial.svg') no-repeat 50% 50%; }
 
 
-    /*.loading {
+    .loading {
         position: absolute; top:0;
         z-index: 99;
         width: 100%; height:100%;
         background-color: #141414; 
         opacity:0.9; overflow: hidden;
-        filter:alpha(opacity=90);  For IE8 and earlier 
+        filter:alpha(opacity=90); /* For IE8 and earlier */
     }
         .loading .inner {
             position:relative;
             width:100%; height:100%;
             
         }
-            .loading .box {
-                position: absolute; top: 50%;
-                overflow: hidden; z-index: 99;
-                padding-top: 1em;
-                width: 100%; height:100%;
-            }*/
+	.loading .box {
+		position: absolute; top: 50%;
+		overflow: hidden; z-index: 99;
+		padding-top: 1em;
+		width: 100%; height:100%;
+	}
+	
+	.loadComplete {display:none;}
 
 
 
@@ -1184,7 +1186,8 @@
         -webkit-animation: spinoffPulse 1s infinite linear;
     }
 
-    /*@-moz-keyframes spinPulse {
+    /**/
+	@-moz-keyframes spinPulse {
         0% {
             -moz-transform: rotate(160deg);
             opacity: 0;
@@ -1238,7 +1241,7 @@
         100% {
             -webkit-transform: rotate(360deg);
         };
-    }*/
+    }
  
 
 /*  ==========================================================================

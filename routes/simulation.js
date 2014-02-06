@@ -178,6 +178,12 @@ var buildings =
     },
     {
       "room": "res:room:https://protected-sands-2667.herokuapp.com/rooms/Room.UKCAsh"
+    },
+    {
+      "room": "res:room:https://protected-sands-2667.herokuapp.com/rooms/Room.UKCTrainingRoomA"
+    },
+    {
+      "room": "res:room:https://protected-sands-2667.herokuapp.com/rooms/Room.UKCTrainingRoomB"
     }
   ],
   "ARM3 1": [

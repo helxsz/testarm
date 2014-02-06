@@ -167,7 +167,7 @@ SensormappingApp.factory('socket', function ($rootScope) {
 	*/
 	
 	var width = 1700,
-		height = 700,
+		height = 1200,
 		padding = 100;
 		
 	// create an svg container
@@ -292,8 +292,7 @@ SensormappingApp.factory('socket', function ($rootScope) {
 				})	
 				var	mindate = new Date( e[0].t*1000),
 					maxdate = new Date( e[e.length-1].t*1000);
-				console.log('sensor date range : ',mindate, maxdate);
-				//xScale = d3.time.scale().domain([mindate, maxdate]).range([startTimeline, endTimeline]);								
+				    //console.log('sensor date range : ',mindate, maxdate);
             }			
 		}
 		
@@ -371,8 +370,10 @@ SensormappingApp.factory('socket', function ($rootScope) {
 		function renderMotionStatus(list){
 			console.log('sensor value ',list);
 			list.forEach(function(sensor){
-				console.log(sensor.url, sensor.e);	
-				//senmlParse(sensor);						
+				//console.log(sensor.url, sensor.e);
+                if(sensor.e.length==0){
+				    console.log(sensor.url, sensor.e);
+				}				
 			})		
 				
 		    for(var index=0;index<list.length;index++){
@@ -425,7 +426,7 @@ SensormappingApp.factory('socket', function ($rootScope) {
 						  var x = xScale( new Date(d.t*1000)  ), y;	
                           //y = layerHeight*index+layersTop;
 						  y = yAxisMapping[data.room];	
-						  //console.log(data.room, y, 'test');
+						  console.log(data.room, y, 'test');
 						  //console.log(x,y, index);
                           return 'translate(' + x + ',' + y + ')';
 					  });
@@ -490,8 +491,7 @@ SensormappingApp.factory('socket', function ($rootScope) {
 						  return 1- 0.06 * d.values.length;                                                   ////
 				     });
 
-				sensor.on("mouseover", function(d) {      
-					
+				sensor.on("mouseover", function(d) {					
 					tooltip.transition()        
 						.duration(200)      
 						.style("opacity", .9);      
@@ -503,8 +503,7 @@ SensormappingApp.factory('socket', function ($rootScope) {
 					tooltip.transition()        
 						.duration(500)      
 						.style("opacity", 0);   
-				});					 
-			
+				});
 			}
 		}
 		
@@ -531,6 +530,7 @@ SensormappingApp.factory('socket', function ($rootScope) {
 /**************************   baseline for status layer *****************************/
 	var layerLabels; 
 	function renderLayerLabels(rooms){
+	    rooms.sort(function(a,b) {return b.e-a.e;});
 		layerLabels = sensorDataLayer.selectAll('path.base-label')
 			.data(rooms)
 			.enter()
@@ -538,9 +538,25 @@ SensormappingApp.factory('socket', function ($rootScope) {
 			.text( function(d,i){   return d.name;} )
 			.attr('transform', function (d,i){ return "translate( 20 ,"+ (layersTop+ i* layerHeight) +")";  })	
 			.style("fill-opacity", 0.7)
-			//.style("fill",function(){ return "black" })
-			//.style("stroke", "black")	    
-	        .style("font-size","12px")
+			.style("fill",function(d,i){ 
+			    if(d.m_enabled)
+			    return "black"; 
+				else 
+				return 'red';
+			})
+	        .style("font-size","12px");
+
+        layerLabels.on("mouseover", function(d) {
+                    if(d.m_enabled){		
+					    tooltip.transition().duration(200).style("opacity", .9);          						     
+					    tooltip.html("<br/>"+ d.sensor+"<br/>").style("left", (d3.event.pageX) + "px").style("top", (d3.event.pageY - 28) + "px"); 
+                    }					
+			    })                  
+				.on("mouseout", function(d) {       
+					tooltip.transition()        
+						.duration(500)      
+						.style("opacity", 0);   
+				});
 	}
 
 
@@ -550,7 +566,9 @@ SensormappingApp.factory('socket', function ($rootScope) {
 	    var index =0, room;		
 		for (var index =0; index< rooms.length;index++){
 		    room = rooms[index];
-			console.log(room.name, room.events.length,room.events);
+			if(room.events == undefined)
+			room.events = [];
+			//console.log(room.name, room.events.length,room.events);
 			eventslayer.selectAll('.event-'+room.name)
 				.data(room.events)
 				.enter()
@@ -591,7 +609,7 @@ SensormappingApp.factory('socket', function ($rootScope) {
 				
 	var layersTop = 100;
 	var layerLeft = 100, layerRight = 1200;
-	var layerHeight = 35;
+	var layerHeight = 25;
 	
 	var layerWidth = layerRight - layerLeft;
 	
@@ -603,31 +621,31 @@ SensormappingApp.factory('socket', function ($rootScope) {
 		var query = '?start='+start+'&end='+end;
 		query  = query || '';
 		
-		d3.json('/arm/meeting/today')
+		d3.json('/buildings/history/events/all'+query)  ///arm/meeting/today   /buildings/ARM3/0/2   
           .header("X-Requested-With", "XMLHttpRequest")
           //.header("Authorization", auth_string)		
 		  .get( function(error , data) {
 		       if (!error) {			        				
-			   // loading the events
-			        console.log(data);
+			        console.log('room data',data);
 					rooms = data.rooms;
 					data.rooms.forEach(function(room){
-						console.log(room.name,'   remaining events for room ', room.events.length);
+					    if(room.events == undefined) room.events = [];
+						
 						events = room.events;
+						//console.log(room.name,'   remaining events for room ', events.length);
 						room_events[room.name] = events;
 					})
 					events.forEach(function(event){
-						console.log(event.startDate, event.endDate);
+						//console.log(event.startDate, event.endDate);
 					})
 					
 					renderLayerLabels(data.rooms);					
 					buildEventsLayer(data.rooms);
-					
-				    
+								    
 					data.rooms.forEach(function(room,i){
 					    
 						yAxisMapping[room.url] =layerHeight*i+layersTop;
-						console.log(room.url   ,'y axis :' , yAxisMapping[room.url], room );
+						//console.log(room.url   ,'y axis :' , yAxisMapping[room.url], room );
 					})					
 					setInterval(eventTimer, 1000*60);
 			    }else{
@@ -640,7 +658,7 @@ SensormappingApp.factory('socket', function ($rootScope) {
 	    var sensorVis = new sensorVisual();
 		var query = '?start='+start+'&end='+end;
 		query  = query || '';
-    	d3.json('/arm/meeting/data/motion'+query)
+    	d3.json('/arm/meeting/history/all'+query)
           .header("X-Requested-With", "XMLHttpRequest")
 		  .get( function(error , list) {
 		       if (!error) {
@@ -649,14 +667,13 @@ SensormappingApp.factory('socket', function ($rootScope) {
 					sensorVis.renderMotionStatus(list);
 					//sensorVis.renderMotionFrequency(list);
 					//sensorVis.renderSensorValue(list);
-				
 			    }else{
 				    console.log('error  ',error);
 				}
 		});	
 	}
 
-	var startHour = 9, endHour = 22, startTimeline = 100, endTimeline = 1200;
+	var startHour = 9, endHour = 18, startTimeline = 100, endTimeline = 1000;
 	
 	var now, mindate, maxdate; 
     var xScale = d3.time.scale().range([startTimeline, endTimeline]);;	
@@ -667,12 +684,13 @@ SensormappingApp.factory('socket', function ($rootScope) {
 	 start = new Date( now.getFullYear (),now.getMonth(),now.getDate(),startHour),
 	 end = new Date( now.getFullYear (),now.getMonth(),now.getDate(),endHour);
 	 xScale = d3.time.scale().domain([start, end]).range([startTimeline, endTimeline]);	
-	/*
-	var start = new Date(2014,0,31,8,0,0);
-	var end = new Date(2014,0,31,18,0,0);
+	/**/
+	
+	var start = new Date(2014,1,6,8,0,0);
+	var end = new Date(2014,1,6,18,0,0);
 	console.log(start +  "      "+end);		
     xScale = d3.time.scale().domain([start, end]).range([startTimeline, endTimeline]);
-	*/	
+		
 	showTimeControl();
 	timeAxis = new timeAxisLayer(xScale); 					
 	timeAxis.showTimeAxisLine();	

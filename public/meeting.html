@@ -116,22 +116,17 @@
                 <div class="wrapper" >
                 <!-- START .wrapper    ng-swipe-left="app.showMenu=true" ng-swipe-right="app.showMenu=false"    -->
 
-
                     <header id="banner" class="d1-d9 t1-t4 m-all clearfix" >
                     <!-- START #banner -->
-
                         <button id="trigger" onclick="_gaq.push(['_trackEvent', 'Menu', 'Toggle', 'Menu Toggle',, false]);"><i class="icon-reorder icon2x"></i></button>
-
                         <h1 ng-cloak>{{current_building}} <span class="blue" ng-cloak> {{current_floor}} FLOOR</span> <span class="pink">MEETING ROOM</span> AVAILABILITY</h1>
-
                     <!-- END #banner -->
                     </header>
 
                     <article id="main" class="d1-d4 t1-t3 m-all clearfix">
                     <!-- START #main -->
-
                         <div id="app-brand" class="m-hide" ng-click="room.front = !room.front" ng-class="{'flipped': room.front}" ng-show="app.showMenu">
-                            <div class="ch-item" >              
+                            <div class="ch-item" >
                                 <div class="ch-info-wrap">
                                     <div class="ch-info meetings">
                                         <div class="ch-info-front hexagon"></div>
@@ -147,16 +142,11 @@
                         </div>
 
                         <article id="app-description" class="t-hide m-hide" role="article">
-
                           <p>Click a hexagon to view more information about the meeting room. Please email any feedback to <a href="mailto:arm@redninja.co.uk" title="Email Feedback">arm@redninja.co.uk</a>.</p>
                           <p><a href="#popup-key" ng-click="openkey();" title="View Key" class="button">View Key</a></p>
-
-                        </article>
-                    
-                    
+                        </article>                   
                     <!-- END #main -->
                     </article>
-
                 <!-- END .wrapper -->
                 </div>
 				
@@ -170,8 +160,8 @@
 
                                       <div class="ch-info-front hexagon">
                                           <header>
-                                            <!--<div class="dynamic-text">--><h1>{{room.displayname}}</h1><!--</div>-->
-                                            <small ng-if="room.t_enabled==true"><span class='temperature'>{{room.temperature}}</span> &#x2103;</small>
+                                            <h1 ng-style="styleFont(room.displayname)">{{ UpperCaseArray(room.displayname)}}</h1>
+                                            <small ><span class='temperature'>{{room.status}}</span> </small>
                                             <!-- <h5 ng-if="room.m_enabled==false">No </h5> -->
                                           </header>
                                           <div class="knockout">
@@ -238,16 +228,16 @@
 
             </section>
 
-    			<!--<div id="loading" ng-class="{'loading': loading}" class="loading">
-    			 START #loading 
+    			<!---->
+				
+			<div id="loading" ng-class="{'loading': loading, 'loadComplete':!loading}" >
             <div class="inner">
       				<div class="box">
       					<div class="circle"></div>
       					<div class="circle1"></div>
       				</div>
             </div>
-    			END #loading 
-    			</div>-->			
+    			</div>			
 			
 			
         <!-- END #container -->
@@ -291,7 +281,6 @@
 
         var color = d3.scale.ordinal()
             .range(["#CE1D6F", "#670F38"]);
-
 
         var twoPi = 2 * Math.PI;	
         var width = 400,
@@ -388,14 +377,14 @@
         });
         */		
 		
-        //$http.get('/meetings/arm/now').success(function(data) {
-		$scope.loading = false;
+		$scope.loading = true;
 		$http.get('/buildings/ARM3/0').success(function(data) {
-            $scope.loadRoomData(data);    		
+            $scope.loadRoomData(data);    	
+            $scope.loading = false;			
         }).error(function(data, status, headers, config) {
             // called asynchronously if an error occurs
             // or server returns response with an error status.
-			$scope.loading = true;
+			$scope.loading = false;
         });
     	
         $scope.orderProp = 'temperature';
@@ -408,7 +397,7 @@
 		    //console.log('get room info',href);
 			
 			$scope.menu_open = false;
-			$scope.loading = false;
+			$scope.loading = true;
 			
 			var arr = href.split('/');
 			console.log(arr);
@@ -421,11 +410,12 @@
 			$scope.current_floor = 'SECOND';
 			
 			$http.get(href).success(function(data) {			    
-				$scope.loadRoomData(data);			
+				$scope.loadRoomData(data);
+                $scope.loading = false;				
             }).error(function(data, status, headers, config) {
                 $scope.loading = false;
             });
-		}
+		}   
 		
 		$scope.loadRoomData = function(data){
 			    //console.log('loading ',data);
@@ -441,12 +431,12 @@
 						  {
 							room.events[i].organizer = 'unknown ';
 						  }					
-					}
+					}					
 				})
 				
 				setTimeout(function(){			    
 					_.map(data.rooms,function(room){  
-						room.front = false;	
+						room.front = false;												
 						var svg = d3.select('#clock-'+room.displayname).append("svg")
 							.attr("width", width)
 							.attr("height", height)
@@ -458,34 +448,53 @@
 						var foreground = meter.append("path")
 						.attr("class", "foreground")
 						.style("fill-opacity", 0.3)
-						.style('fill',color[0]).attr("d", arc.endAngle(twoPi * 0));
-						
-            //foreground.transition().duration(1500).attr("d", arc.endAngle( twoPi * 1/3  )); 
-            $scope.updateClock(room);
-					
+						.style('fill',color[0]).attr("d", arc.endAngle(twoPi * 0));						
+                        //foreground.transition().duration(1500).attr("d", arc.endAngle( twoPi * 1/3  )); 
+                        $scope.updateClock(room);					    
 						//console.log('#clock-'+room.displayname,room.events.length);				
 					} )
 
 				},1000);
+							
 				$scope.rooms = data.rooms;
-								
 				//console.log(data.rooms);
-
 				$scope.checkRoomAvailablity();
 				$scope.checkIntialEventIndex();
 				checkTimer = $interval($scope.checkMeetingMotionTimer, 1000*60);
 				
 				$rootScope.$broadcast('mybroadcast');
 		}
+		
+		$scope.updateStatus = function(room){
+		    //console.log('%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%',room.displayname, room.eventIndex);
+		    if(room.eventIndex >=0 && room.events.length > 0){
+			    var event = room.events[room.eventIndex];	
+			    var startTime = new Date(event.startDate).getTime(),endTime = new Date(event.endDate).getTime(), nowTime = new Date().getTime();
+			    var seconds = (endTime-nowTime)/1000;
+				//console.log('-----------------------------------------   updateStatus',room.displayname, seconds,endTime,nowTime);
+				if(seconds > 0){
+				    if(seconds <= 60*60)
+				    room.status = Math.floor(seconds/60)+1+ ' MINS';
+					else if(seconds > 60*60)
+					room.status = Math.round( seconds/3600 * 10) / 10 +' HOURS';
+				}
+			}else{
+			    room.status = 'FREE';    
+			}
+		}
 			
-		$scope.updateClock = function(room,percentage){
-            console.log('updateClock   ',room.displayname, percentage);	
+		$scope.updateClock = function(room){
+            //console.log('updateClock   ',room.displayname, percentage);	
 			if( room.eventIndex >=0 && room.events.length > 0){
 				var event = room.events[room.eventIndex];	
 				var startTime = new Date(event.startDate).getTime(),endTime = new Date(event.endDate).getTime();
 				var per = (new Date().getTime()-startTime) / (endTime-startTime);
-				if(per <0) {  per = 0;	console.log('event not start yet'); }						
-				d3.select('#clock-'+room.displayname+'  .foreground').transition().duration(1500).attr("d", arc.endAngle(twoPi *  per  ));                            							
+				if(per <0) {  
+				    per = 0;	
+					console.log('event not start yet'); 
+				}else{
+				}						
+				d3.select('#clock-'+room.displayname+'  .foreground').transition().duration(1500).attr("d", arc.endAngle(twoPi *  per  )); 				
 			}
 			//
             //var minutes = new Date().getMinutes();			
@@ -511,16 +520,14 @@
 						}						
 					 }else {
 					    room.available = true;
-					 }
-                    				 
+					 }                  				 
                  }	
 				///////////////////////////////////////////////
-                
-                $scope.updateClock(room); 					
-    		    
+                $scope.updateClock(room);
+                $scope.updateStatus(room);				
     		})        			
     	}
-    	
+		    	
     	$scope.checkIntialEventIndex = function(){
     	    var nowTime = new Date().getTime();
     		$scope.rooms.forEach(function(room){
@@ -533,6 +540,7 @@
     		    })
                 room.eventIndex = events.length - event_filtered.length;		    
     		    //console.log("remaining events   ",event_filtered, room.eventIndex);
+				$scope.updateStatus(room);
     		})
     	}
     	
@@ -586,8 +594,7 @@
     				   }				
     			    }
     			}else{
-    			     //console.log(' there is events in this day for this room ');
-    			
+    			     //console.log(' there is events in this day for this room ');			
     			}
     		})	
     	}
@@ -598,9 +605,8 @@
     		///////////////////////////////////////////////////////////
     		// give a alert for event transition 5 minutes before the next events
     		$scope.checkNextEventAlert();
-
     	}
-
+		
   	/****************************  utiliy ***********************************/
 	$scope.$on('mybroadcast', function(service){
 		//console.log('on my broadcast', service);
@@ -608,6 +614,27 @@
 	    sizeContent();			
     })
 
+	$scope.styleFont = function(elem) {
+		console.log(elem ,  elem.length,'--------------------------------------------------------------------');
+		if(elem.length <= 5)
+		return { "font-size": '65px' };
+		else if(elem.length < 7)
+		return { "font-size": '48px', 'margin-top':'20px' };
+		else if(elem.length < 9)
+		return { "font-size": '42px', 'margin-top':'28px' };
+		else if(elem.length <=12)
+		return { "font-size": '34px', 'margin-top':'37px' };			
+		else if(elem.length <=17)
+		return { "font-size": '25px', 'margin-top':'50px' };			
+	}
+
+	$scope.UpperCaseArray = function(input) {
+		var result = input.replace(/([A-Z]+)/g, ",$1").replace(/^,/, "");
+		var arr = result.split(" "), str = '';
+		for(var i=0;i<arr.length;i++)  str+=arr[i]+" ";
+		return str;			
+	}	
+	
     $scope.dateformat = function(date){
 		var date = new Date(date);	
 		var hour = date.getHours(), min = date.getMinutes();
@@ -621,7 +648,6 @@
 		return 'mailto:'+name+'@arm.com';
 	}
 	
-   
   	// touch device overflow fix
   	function isTouchDevice() {
   		try{
@@ -670,31 +696,31 @@
 		//console.log ('sizeContent working');
 	}	
      	
-    	/******************    socket  **********************/
-        socket.on('connect', function () {
-    	    console.log('socket connected');
-        });
-                            
-        socket.on('info', function (msg) {               
-            //console.log(msg);
-            console.log('receiving the real time message from server ', msg.room,msg.value,msg.type)
-            if(msg.type=='motion'){ 
-                var room = _.findWhere($scope.rooms, {name: msg.room});	
-    			  if(room){
-                    //console.log('room  object  becomes avaiable ',room);
-                    room.available = true;
-  				  room.time = new Date();
-    			  }	
-            }
-        });
-      /***************   destory *************************/
-    	$scope.$on('$destroy', function() {
-            if (angular.isDefined(checkTimer)) {
-                $interval.cancel(checkTimer);
-                checkTimer = undefined;
-            }
-            socket.removeAllListeners();		
-      });		
+	/******************    socket  **********************/
+	socket.on('connect', function () {
+		console.log('socket connected');
+	});
+						
+	socket.on('info', function (msg) {               
+		//console.log(msg);
+		console.log('receiving the real time message from server ', msg.room,msg.value,msg.type)
+		if(msg.type=='motion'){ 
+			var room = _.findWhere($scope.rooms, {name: msg.room});	
+			  if(room){
+				//console.log('room  object  becomes avaiable ',room);
+				room.available = true;
+			  room.time = new Date();
+			  }	
+		}
+	});
+  /***************   destory *************************/
+	$scope.$on('$destroy', function() {
+		if (angular.isDefined(checkTimer)) {
+			$interval.cancel(checkTimer);
+			checkTimer = undefined;
+		}
+		socket.removeAllListeners();		
+  });		
     });
 
 
@@ -828,7 +854,7 @@
           <header class="clearfix">
             <h1>Today's Itinerary</h1>
             <h2>{{room.displayname}}</h2>
-            <small><span class='temperature'>{{room.temperature}}</span> &#x2103;</small>
+			<small ng-if="room.t_enabled==true"><span class='temperature'>{{room.temperature}}</span> &#x2103;</small>
           </header>
           <section>
             <table class="tg-table-dark">
@@ -902,11 +928,6 @@
     <!-- START .itinerary .key -->
     </aside>
   </script>
-  <!-- 
-  1. css blink color transition    http://stackoverflow.com/questions/16344354/how-to-make-blinking-flashing-text-with-css3  http://stackoverflow.com/questions/19049484/blinking-a-div-with-background-color-in-jquery-using-setinterval  http://stackoverflow.com/questions/13955163/imitating-a-blink-tag-with-css3-animations   
-      http://stackoverflow.com/questions/4411306/css3-transition-of-background-color  
-  2. css time decrease , color descrese    http://css-tricks.com/almanac/properties/t/transition/
-  3. svg clock-->	
 
   <script src="js/plugins.js"></script>
 <script>
