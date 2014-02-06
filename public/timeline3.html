@@ -12,7 +12,7 @@
 	<body >
 	
 
-        <div id="graph" class="aGraph" style="position:absolute;top:0px;left:0; float:left; width:300px; height:60px;"></div>
+        <div id="graph" class="aGraph" style="position:absolute;top:0px;left:0; float:left; width:100px; height:60px;"></div>
 
     </body>
 	<script>
@@ -29,7 +29,7 @@ var y = d3.scale.linear().domain([  d3.min( data2, function(d){return d.v;  }) -
 
 var y_position = 100;						 
 	
-var graph = d3.select("#graph").append("svg").attr("width", "600px").attr("height", "300px");
+var graph = d3.select("#graph").append("svg").attr("width", "500px").attr("height", "300px");
 var statuslayer = graph.append("g").attr('id','statuslayer');
 
 var rooms = [{name:'aa'},{name:'bb'}]
@@ -39,6 +39,7 @@ rooms.forEach(function(room){
 })
 
 //http://snips.net/blog/posts/2014/01-10-fast-interactive_prototyping_with_d3_js.html
+//http://codepen.io/mginnard/pen/mkBEg
 function animateGrowingCircle(fromRadius, toRadius) {
         var animateFunction = function () {
             d3.select(this)
@@ -72,9 +73,10 @@ var inter = setInterval(function() {
                .attr("d", area)
                .attr("transform", null)				   
 			   .style("fill",function(){ return colors[index] })
-			   .transition()//.duration(400)
+			   .transition()			   
 			   .ease("linear")
-               .attr("transform", "translate(" + x(-0.1) + ")");
+			   .duration(1100)
+               .attr("transform", "translate(" + x(-1) + ")");
 		    index +=1;
 		})		
 		

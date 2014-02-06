@@ -112,11 +112,7 @@ function bootRealTimeServices(){
    //serviceBuilder.buildRTService('armhome', SensMLHandler);
 }
 	
-setTimeout(function(){
-    console.log('timeout  ');
-	bootApps(app,__dirname + '/apps');
-	bootRealTimeServices();
-}, 2000);	
+	
 
 
 
@@ -426,8 +422,7 @@ var catalog_filter = function(){
 					}									
 					results[key] = hash;
 				}else if(hash[CONTENT_TYPE] == IS_CATALOG){
-				    //console.log('not wanted, because it is catalog'.red, key);
-				
+				    //console.log('not wanted, because it is catalog'.red, key);			
 				}
 
                 callback();				
@@ -446,10 +441,216 @@ var catalog_filter = function(){
 			});
 		}	
 	}
+
+	function filterIntellisense(facts, _callback){
+		if (facts.length) {		
+		    console.log('facts length  '.green,facts.length);			
+			var groups = _.groupBy(facts, function(fact){ return fact.subject; });			
+			var array = Object.keys(groups);
+			console.log('group length '.green, array.length );
+            var results = {};			
+			async.forEach(array, function(key,callback){ 				 				 
+				var value = groups[key]; 				 
+				//console.log(key , value );
+                var hash = {};
+                _.map(value,function(item){
+				    if(item.predicate != 'urn:X-tsbiot:rels:hasDescription:en') 
+				    hash[item.predicate]  = item.object;			    
+				})				
+				if(hash[CONTENT_TYPE] == IS_SENML){
+				    //console.log( hash[SUPPORTS_QUERY], hash[SUPPORTS_MQTT] , hash[GEO_LAT], hash[GEO_LNG], hash[SAME_AS]);
+					var arr = key.split('/'), attribute = arr[arr.length-1], parent_key = key.substring(0, key.indexOf(attribute)-1);
+					//console.log( attribute , parent_key    );
+					if(results[parent_key] ==null)  results[parent_key] = {};
+									
+		            for(var index in hash) {
+			            //console.log(' '.green, index, hash[index]);					
+						if( index == "urn:X-senml:u"){
+							//results[parent_key][attribute+":unit"] = hash["urn:X-senml:u"];;
+						}else if(index == SUPPORTS_QUERY){
+							results[parent_key][attribute+":query"] = key;
+						}else if(index == SUPPORTS_MQTT){
+							//results[parent_key][attribute+":mqtt"] = hash[SUPPORTS_MQTT];
+						}
+						delete hash[index];
+					}
+				}else if(hash[CONTENT_TYPE] == IS_CATALOG){
+				    //console.log('not wanted, because it is catalog'.red, key);			
+				}
+
+                callback();				
+			 }, function(err) {      
+				if(err){
+					console.log(err);
+				}
+				else{
+				    var array = Object.keys(results);
+					//console.log('complete   filterSensors'.green, array.length);
+					if(_callback){
+					    _callback(results);
+					}
+				}
+				delete facts;								
+			});
+		}	
+	}	
+	
+	function filterEnlight(facts, _callback){
+	    var hasEnlightID = 'urn:X-tsbiot:rels:hasEnlightID';
+	    var hasHistory = 'urn:X-tsbiot:rels:hasHistory';
+		var hasLampType = 'urn:X-tsbiot:rels:hasLampType';
+		var hasVoltage = 'urn:X-tsbiot:rels:hasLampWattage';
+		var hasLocation = "urn:X-tsbiot:rels:hasLocation";
+
+	    var hasIDInShort = 'id';
+	    var hasHistoryInShort = '"history"';
+		var hasLampTypeInShort = 'lampTyp';
+		var hasVoltageInShort = 'lampWattag';
+		var hasLocationInshort = "location";
 		
+		if (facts.length) {		
+		    console.log('facts length  '.green,facts.length);			
+			var groups = _.groupBy(facts, function(fact){ return fact.subject; });			
+			var array = Object.keys(groups);
+			console.log('group length '.green, array.length );
+            var results = {};			
+			async.forEach(array, function(key,callback){ 				 				 
+				var value = groups[key]; 				 
+				//console.log(key , value );
+                var hash = {};
+                _.map(value,function(item){
+				    if(item.predicate != 'urn:X-tsbiot:rels:hasDescription:en') 
+				    hash[item.predicate]  = item.object;			    
+				})
+				
+				if(hash[CONTENT_TYPE] == IS_SENML){
+				    //console.log( hash[SUPPORTS_QUERY], hash[SUPPORTS_MQTT] , hash[GEO_LAT], hash[GEO_LNG], hash[SAME_AS]);
+					var arr = key.split('/'), attribute = arr[arr.length-1], parent_key = key.substring(0, key.indexOf(attribute)-1);
+					//console.log( attribute , parent_key    );
+					if(results[parent_key] ==null)  results[parent_key] = {};				
+		            for(var index in hash) {
+			            //console.log(' '.green, index, hash[index]);					
+						if( index == "urn:X-senml:u"){
+							//results[parent_key][attribute+":unit"] = hash["urn:X-senml:u"];;
+						}else if(index == SUPPORTS_QUERY){
+							results[parent_key][attribute+":query"] = key;
+						}else if(index == SUPPORTS_MQTT){
+							//results[parent_key][attribute+":mqtt"] = hash[SUPPORTS_MQTT];
+						}
+						delete hash[index];
+					}
+				}else if(hash[CONTENT_TYPE] == IS_CATALOG){
+				    //console.log('not wanted, because it is catalog'.red, key);	
+		            for(var index in hash) {
+			            console.log(' .. '.red, index, hash[index]);					
+						if( index == hasEnlightID){
+						    if(results[key]==null) results[key] = {};
+							results[key][hasIDInShort] = hash[hasEnlightID];
+							//console.log('catlaog id'.red, results[key][hasIDInShort]);
+						}else if(index == hasHistory){
+						    if(results[key]==null) results[key] = {};
+							results[key][hasHistoryInShort] = hash[hasHistory];
+							//console.log('catlaog history'.red, results[key][hasHistoryInShort]);
+						}else if(index == hasLampType){
+						    if(results[key]==null) results[key] = {};
+							results[key][hasLampTypeInShort] = hash[hasLampType];
+							//console.log('catlaog history'.red, results[key][hasLampTypeInShort]);
+						}else if(index == hasVoltage){
+						    if(results[key]==null) results[key] = {};
+							results[key][hasVoltageInShort] = hash[hasVoltageInShort];
+						}else if(index == hasLocation){
+						    if(results[key]==null) results[key] = {};
+							results[key][hasLocationInshort] = hash[hasLocation];
+							//console.log('catlaog history'.red, results[key][hasLocationInshort]);
+						}else if( index == GEO_LAT){
+						     if(results[key]==null) results[key] = {};
+							results[key][GEO_LAT_SHORT] = hash[GEO_LAT];
+							//console.log('catlaog history'.red, results[key][GEO_LAT_SHORT]);
+						}else if( index ==  GEO_LNG ){
+						     if(results[key]==null) results[key] = {};
+							results[key][GEO_LNG_SHORT] = hash[GEO_LNG];
+							//console.log('catlaog history'.red, results[key][GEO_LNG_SHORT]);
+						}
+						delete hash[index];
+					}					
+				}
+
+                callback();				
+			 }, function(err) {      
+				if(err){
+					console.log(err);
+				}
+				else{
+				    var array = Object.keys(results);
+					//console.log('complete   filterEnlight'.green, array.length);
+					if(_callback){
+					    _callback(results);
+					}
+				}
+				delete facts;								
+			});
+		}	
+	}
+
+	function filterHome(facts, _callback){
+		if (facts.length) {		
+		    console.log('facts length  '.green,facts.length);			
+			var groups = _.groupBy(facts, function(fact){ return fact.subject; });			
+			var array = Object.keys(groups);
+			console.log('group length '.green, array.length );
+            var results = {};			
+			async.forEach(array, function(key,callback){ 				 				 
+				var value = groups[key]; 				 
+				//console.log(key , value );
+                var hash = {};
+                _.map(value,function(item){
+				    if(item.predicate != 'urn:X-tsbiot:rels:hasDescription:en') 
+				    hash[item.predicate]  = item.object;			    
+				})
+				
+				if(hash[CONTENT_TYPE] == IS_SENML){
+				    //console.log( hash[SUPPORTS_QUERY], hash[SUPPORTS_MQTT] , hash[GEO_LAT], hash[GEO_LNG], hash[SAME_AS]);
+					var arr = key.split('/'), attribute = arr[arr.length-1], parent_key = key.substring(0, key.indexOf(attribute)-1);
+					//console.log( attribute , parent_key    );
+					if(results[parent_key] ==null)  results[parent_key] = {};				
+		            for(var index in hash) {
+			            //console.log(' '.green, index, hash[index]);					
+						if( index == "urn:X-senml:u"){
+							//results[parent_key][attribute+":unit"] = hash["urn:X-senml:u"];;
+						}else if(index == SUPPORTS_QUERY){
+							results[parent_key][attribute+":query"] = key;
+						}else if(index == SUPPORTS_MQTT){
+							//results[parent_key][attribute+":mqtt"] = hash[SUPPORTS_MQTT];
+						}
+						delete hash[index];
+					}
+				}else if(hash[CONTENT_TYPE] == IS_CATALOG){
+				    //console.log('not wanted, because it is catalog'.red, key);			
+				}
+
+                callback();				
+			 }, function(err) {      
+				if(err){
+					console.log(err);
+				}
+				else{
+				    var array = Object.keys(results);
+					//console.log('complete   filterSensors'.green, array.length);
+					if(_callback){
+					    _callback(results);
+					}
+				}
+				delete facts;								
+			});
+		}	
+	}
+	
 	return {
 	    filterRoom:filterRoom,
-        filterSensors:filterSensors		
+        filterSensors:filterSensors,
+        filterIntellisense:filterIntellisense,
+        filterEnlight:filterEnlight,
+        filterHome:filterHome		
 	}
 }
 
@@ -550,11 +751,12 @@ function updateResourceRepository(){
 		
 	function updateRes(){
 		async.series([
+			/*
 			function(callback){
 				crawler.startCrawl(armbuilding, function(facts){
 					filter.filterRoom(facts,function(results){
 						var key_array = Object.keys(results);
-						//console.log('complete   filterRoom'.green, key_array.length);				
+						console.log('complete   filterRoom'.green, key_array.length);				
 						async.forEach(key_array, 
 						  function(key,callback){
 							console.log(key , results[key]);						
@@ -581,10 +783,63 @@ function updateResourceRepository(){
 					});
 					callback(null, 'one'); 
 				});		
+			},
+			
+			// https://alertmeadaptor.appspot.com/traverse?traverseURI=https%3A//5.79.20.223%3A3000/cat/ARM6&traverseKey=d01fe91e8e249618d6c26d255f2a9d42
+			function(callback){
+				crawler = new catalog_crawler(intellisense);
+				crawler.startCrawl(intellisense, function(facts){
+					filter.filterIntellisense(facts,function(results){
+						var key_array = Object.keys(results);
+						console.log('complete   filterIntellisense'.green, key_array.length);				
+						async.forEach(key_array, function(key,callback){
+							console.log('hvac:'.green, key , results[key]);
+							//saveResource('res:hvac:'+key, results[key],function(){});
+						},function(err){
+							console.log('');
+						});				
+					});
+					callback(null, 'one'); 
+				});		
+			},
+			// https://alertmeadaptor.appspot.com/traverse?traverseURI=https%3A%2F%2Fgeras.1248.io%2Fcat%2Fenlight&traverseKey=1bfc8d081f5b1eed8359a7517fdb054a&Submit=Browse
+			function(callback){
+				crawler = new catalog_crawler(enlight);
+				crawler.startCrawl(enlight, function(facts){
+					filter.filterEnlight(facts,function(results){
+						var key_array = Object.keys(results);
+						console.log('complete   filterEnlight'.green, key_array.length);				
+						async.forEach(key_array, function(key,callback){
+							console.log(key ); // , results[key]
+							//saveResource('res:light:'+key, results[key],function(){});
+						},function(err){
+							console.log('');
+						});				
+					});
+					callback(null, 'one'); 
+				});						
 			}
+			/*
+			// https://alertmeadaptor.appspot.com/traverse?traverseURI=https%3A%2F%2Fgeras.1248.io%2Fcat%2Farmhome&traverseKey=924a7d4dbfab38c964f5545fd6186559&Submit=Browse
+			,function(callback){
+				crawler = new catalog_crawler(armhome);
+				crawler.startCrawl(armhome, function(facts){
+					filter.filterEnlight(facts,function(results){
+						var key_array = Object.keys(results);
+						console.log('complete   filterHome'.green, key_array.length);				
+						async.forEach(key_array, function(key,callback){
+							console.log(key , results[key]);
+							//saveResource('res:home:'+key, results[key],function(){});
+						},function(err){
+							console.log('');
+						});				
+					});
+					callback(null, 'one'); 
+				});		
+			}*/			
 		],function(err, results){
 			console.log('crawler  finished  .....  '.green, results);
-			integrate();
+			//integrate();
 			
 			
 		});	
@@ -697,23 +952,31 @@ function updateResourceRepository(){
 	}
 
 	//flushDB(function(){});
+	/*
 	checkDB(function(err,data){
-		if(err){
-		
+		if(err){		
 		}else if(data == 1){
 			console.log('semantic data right'.green);
 			integrate();
 		}else if(data ==0){
 			console.log('semantic data empty '.red);
 			updateRes();
-		}			
-	   
+		}
 	})
+	*/
+	
+	// test
+	updateRes();
 	
 }
 
 updateResourceRepository();
-
+/**/
+setTimeout(function(){
+    console.log('timeout  ');
+	bootApps(app,__dirname + '/apps');
+	bootRealTimeServices();
+}, 2000);
 
 
 app.get('/admin/repository/delete',function(req,res,next){

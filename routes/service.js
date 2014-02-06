@@ -147,11 +147,15 @@ var Service = function(obj) {
 		
 		//requestDataByURL(enlight,'enlight/Ballast00002916/dolFinTemperature','?interval=1h&rollup=avg',DataHandler);
         // https://geras.1248.io/series/armmeeting/1/MotionSensor/00-0D-6F-00-00-C1-2E-EF/temperature
-        function getResourceData(url, time,callback)	{
-		    var service = this.serviceObj;
-			var url ;
-			if(time == null) url = 'http://'+service.host+'/now'+ url;
-			else url  = 'http://'+service.host+'/series/'+ url +time;
+        function getResourceData(url, time,callback){
+		    var service = this.serviceObj;		
+			if (new RegExp('^(?:[a-z]+:)?//', 'i').test(url))
+			{
+			    url= url + time;
+			}else{
+				if(time == null) url = 'http://'+service.host+'/now'+ url;
+				else url  = 'http://'+service.host+'/series/'+ url +time;			
+			}			
             request.get({  
                 url: url,	
                 headers: {
@@ -169,7 +173,7 @@ var Service = function(obj) {
 		        }
 	            else
 	            { 	
-                    winston.debug('getResourceData'+url +"  "+body);				
+                    //winston.debug('getResourceData'+url +"  "+body);				
                     var obj ;				
                     try{				
 		                obj = JSON.parse(body);
@@ -183,8 +187,14 @@ var Service = function(obj) {
 
         function getResourceTag(url, callback)	{
 		    var service = this.serviceObj;
+			if (new RegExp('^(?:[a-z]+:)?//', 'i').test(url))
+			{
+			}else{
+				 url = 'http://'+service.host+'/tags/'+ url;			
+			}			
+			
             request.get({  
-                url: 'http://'+service.host+'/tags/'+ url,	
+                url: url,	
                 headers: {
 		            'Authorization': 'Basic ' + new Buffer(service.key+":").toString('base64')
 		            ,'content-type':'application/json'		
