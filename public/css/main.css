@@ -925,6 +925,13 @@
             .tg-table-dark tr td:first-child {text-align: center;}
             .tg-table-dark tr td:last-child {text-align: center;}
                 .tg-table-dark tr:nth-child(2) td:last-child {/* text-align: left; */}
+
+                .key .tg-table-dark tr:first-child {
+                    background-color: #092630;
+                    border-bottom: 1px #071D24 solid;
+                    padding-top: 0.40625em;
+                    padding-bottom: 0.40625em;
+                }
             
             .itinerary td:nth-child(2) {
                 width:3em; text-align: center;
@@ -959,13 +966,13 @@
 
         .itinerary.key h2 {
             font-size: 1.625em; line-height: 1.0833em;
-            margin-bottom: 0;
+            margin-bottom: 0; margin-top: 0.8125em;
             clear: both; float: left;
         }
 
         .itinerary.key h3 {
             font-size: 1em;
-            text-align: left;
+            text-align: left; clear: both;
             margin-top: 1.65em;
         }
 
