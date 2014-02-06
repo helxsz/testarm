@@ -461,12 +461,24 @@
         .available .ch-info-back {background: url('../img/hexagon_available-rear.png') no-repeat 50% 50% scroll;}
         .svg .available .ch-info-back {background: url('../img/svg/hexagon_available-rear.svg') no-repeat 50% 50% scroll;}
 
+            .key .available .ch-info-front,
+            .svg .key .available .ch-info-back {
+                height: 100%;
+                background-size: 100%;
+            }
+
         /* UNAVAILABLE - PINK */
         .unavailable .ch-info-front {background: url('../img/hexagon_unavailable.png') no-repeat 50% 50% scroll;}
         .svg .unavailable .ch-info-front {background: url('../img/svg/hexagon_unavailable.svg') no-repeat 50% 50% scroll;}
 
         .unavailable .ch-info-back {background: url('../img/hexagon_unavailable.png') no-repeat 50% 50% scroll;}
         .svg .unavailable .ch-info-back {background: url('../img/svg/hexagon_unavailable.svg') no-repeat 50% 50% scroll;}
+
+            .key .unavailable .ch-info-front,
+            .svg .key .unavailable .ch-info-back {
+                height: 100%;
+                background-size: 100%;
+            }
 
         /* UNKNOWN - GOLD */
         .unknown .ch-info-front {background: url('../img/hexagon_unknown.png') no-repeat 50% 50% scroll;}
@@ -475,6 +487,11 @@
         .unknown .ch-info-back {background: url('../img/hexagon_unknown-rear.png') no-repeat 50% 50% scroll;}
         .svg .unknown .ch-info-back {background: url('../img/svg/hexagon_unknown-rear.svg') no-repeat 50% 50% scroll;}
 
+            .key .unknown .ch-info-front,
+            .svg .key .unknown .ch-info-back {
+                height: 100%;
+                background-size: 100%;
+            }
 
         .coming-soon {
             opacity:0.5;
