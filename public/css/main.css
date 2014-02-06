@@ -333,9 +333,9 @@
     .button {
         text-decoration:none; background-color: #092630; padding: 0.8125em 1.625em;
         margin-bottom:1.625em;
-        -moz-box-shadow: 0px 1px 3px rgba(000,000,000,0.5), inset 0px 0px 2px rgba(255,255,255,0.6);
-        -webkit-box-shadow: 0px 1px 3px rgba(000,000,000,0.5), inset 0px 0px 2px rgba(255,255,255,0.6);
-        box-shadow: 0px 1px 3px rgba(000,000,000,0.5), inset 0px 0px 2px rgba(255,255,255,0.6);
+        -moz-box-shadow: 0px 1px 3px rgba(000,000,000,0.5), inset 0px 0px 2px rgba(255,255,255,0.2);
+        -webkit-box-shadow: 0px 1px 3px rgba(000,000,000,0.5), inset 0px 0px 2px rgba(255,255,255,0.2);
+        box-shadow: 0px 1px 3px rgba(000,000,000,0.5), inset 0px 0px 2px rgba(255,255,255,0.2);
         -moz-border-radius: 4px; -webkit-border-radius: 4px; border-radius: 4px;}
       
         .button:after {
@@ -416,6 +416,12 @@
 
     }   .svg .hexagon {background: url('../img/svg/hexagon_active.svg') no-repeat 50% 50% scroll;}
 
+        .key div.hexagon {
+            width: 80px; height: 70px;
+            float: left;
+            background-size: 100%;
+        }
+
         .hover {
             -webkit-touch-callout: none;
             -webkit-user-select: none;
@@ -455,12 +461,24 @@
         .available .ch-info-back {background: url('../img/hexagon_available-rear.png') no-repeat 50% 50% scroll;}
         .svg .available .ch-info-back {background: url('../img/svg/hexagon_available-rear.svg') no-repeat 50% 50% scroll;}
 
+            .key .available .ch-info-front,
+            .svg .key .available .ch-info-back {
+                height: 100%;
+                background-size: 100%;
+            }
+
         /* UNAVAILABLE - PINK */
         .unavailable .ch-info-front {background: url('../img/hexagon_unavailable.png') no-repeat 50% 50% scroll;}
         .svg .unavailable .ch-info-front {background: url('../img/svg/hexagon_unavailable.svg') no-repeat 50% 50% scroll;}
 
         .unavailable .ch-info-back {background: url('../img/hexagon_unavailable.png') no-repeat 50% 50% scroll;}
         .svg .unavailable .ch-info-back {background: url('../img/svg/hexagon_unavailable.svg') no-repeat 50% 50% scroll;}
+
+            .key .unavailable .ch-info-front,
+            .svg .key .unavailable .ch-info-back {
+                height: 100%;
+                background-size: 100%;
+            }
 
         /* UNKNOWN - GOLD */
         .unknown .ch-info-front {background: url('../img/hexagon_unknown.png') no-repeat 50% 50% scroll;}
@@ -469,6 +487,11 @@
         .unknown .ch-info-back {background: url('../img/hexagon_unknown-rear.png') no-repeat 50% 50% scroll;}
         .svg .unknown .ch-info-back {background: url('../img/svg/hexagon_unknown-rear.svg') no-repeat 50% 50% scroll;}
 
+            .key .unknown .ch-info-front,
+            .svg .key .unknown .ch-info-back {
+                height: 100%;
+                background-size: 100%;
+            }
 
         .coming-soon {
             opacity:0.5;
@@ -825,8 +848,8 @@
     }
 
     .modal-backdrop.in {
-      opacity: 0.5;
-      filter: alpha(opacity=50);
+      opacity: 0.8;
+      filter: alpha(opacity=80);
     }
 
     .modal-header {
@@ -919,16 +942,25 @@
             .tg-table-dark tr td:first-child {text-align: center;}
             .tg-table-dark tr td:last-child {text-align: center;}
                 .tg-table-dark tr:nth-child(2) td:last-child {/* text-align: left; */}
+
+                .key .tg-table-dark tr:first-child {
+                    background-color: #092630;
+                    border-bottom: 1px #071D24 solid;
+                    padding-top: 0.40625em;
+                    padding-bottom: 0.40625em;
+                }
             
             .itinerary td:nth-child(2) {
                 width:3em; text-align: center;
-            }  
+            }
                 .itinerary tr:nth-child(2) td:nth-child(1) {
                     width:3em; text-align: center;
                 }  
                 .itinerary tr:nth-child(2) td:nth-child(2) {
                     width:auto; text-align: center;
                 } 
+                .itinerary.key td:nth-child(2) {width: 70%;}
+
             .itinerary td:nth-child(3) {
                 font-size: 1.875em; font-weight: 700;
             }             
@@ -950,6 +982,20 @@
     .itinerary h3 { 
         font-size: 1.625em; text-align: center; margin-top: 1.65em; 
     }
+
+        .itinerary.key h2 {
+            font-size: 1.625em; line-height: 1.0833em;
+            margin-bottom: 0; margin-top: 0.8125em;
+            clear: both; float: left;
+        }
+        .itinerary.key header h2 {font-size: 4.5em; margin-top: 0;}
+
+        .itinerary.key h3 {
+            font-size: 1em;
+            text-align: left; clear: both;
+            margin-top: 1.65em;
+        }
+
     .itinerary small {
         float:right; padding:0;
         font-size: 1.875em; font-weight: bold; color: #134D61;
@@ -966,6 +1012,8 @@
         margin-left: 0.25em;
         margin-right: 0.25em;
     }
+
+
 
 
      /* V2 */

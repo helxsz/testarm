@@ -165,7 +165,7 @@
                       <li class="room" ng-repeat="room in rooms | filter:query " ng-cloak  ng-animate="{enter: 'animate-enter'}" > <!-- | orderBy:orderProp index wrong after orderby -->
                           <div class="ch-item" ng-click="room.front = !room.front;_gaq.push(['_trackEvent', 'Hexagon', 'Flipped', 'Hexagon - ID']);" ng-class="{'flipped': room.front}">              
                               <div class="ch-info-wrap">
-                                  <div class="ch-info " ng-class="{'unavailable':room.available, 'available':!room.available}"> <!-- 'unknownn':!room.m_enabled , -->
+                                  <div class="ch-info " ng-class="{'unavailable':room.available, 'available':!room.available, 'unknown':!room.m_enabled}"> <!-- 'unknown':!room.m_enabled , -->
                                   <!-- START .ch-info -->
 
                                       <div class="ch-info-front hexagon">
@@ -222,7 +222,7 @@
                   <!-- START #footer -->
 
                       <div>
-                          <small>v0.970 Design &amp; Coded by <a href="http://www.redninja.co.uk" title="Design and Coded by Red Ninja Studios" onClick="_gaq.push(['_trackEvent', 'Link', 'Red Ninja', 'Link - Red Ninja',, false]);">Red Ninja Studios</a></small>
+                          <small>v0.972 Design &amp; Coded by <a href="http://www.redninja.co.uk" title="Design and Coded by Red Ninja Studios" onClick="_gaq.push(['_trackEvent', 'Link', 'Red Ninja', 'Link - Red Ninja',, false]);">Red Ninja Studios</a></small>
                       </div>
 
                       <div>
@@ -864,35 +864,35 @@
           <table class="tg-table-dark">
             <tr>
               <td>
-                <div class="hexagon">
-                  <div class="ch-info-front available">&nbsp;</div>
-                </div>
-              </td>
-              <td>
-                <h1>AVAILABLE</h1>
-                <h2>No motion detected in room</h2>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <div class="hexagon">
-                  <div class="ch-info-front unavailable">&nbsp;</div>
-                </div>
-              </td>
-              <td>
-                <h1>NOT AVAILABLE</h1>
-                <h2>Motion activity in room</h2>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <div class="hexagon">
+                <div class="hexagon available">
                   <div class="ch-info-front">&nbsp;</div>
                 </div>
               </td>
               <td>
-                <h1>UNKNOWN</h1>
-                <h2>Sensor offline</h2>
+                <h2>AVAILABLE</h2>
+                <h3>No motion detected in room</h3>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <div class="hexagon unavailable">
+                  <div class="ch-info-front">&nbsp;</div>
+                </div>
+              </td>
+              <td>
+                <h2>NOT AVAILABLE</h2>
+                <h3>Motion activity in room</h3>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <div class="hexagon unknown">
+                  <div class="ch-info-front">&nbsp;</div>
+                </div>
+              </td>
+              <td>
+                <h2>UNKNOWN</h2>
+                <h3>Sensor offline</h3>
               </td>
             </tr>
           </table>
