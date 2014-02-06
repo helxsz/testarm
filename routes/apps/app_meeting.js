@@ -848,7 +848,7 @@ app.get('/test/sensor',function(req,res){
 })
 
 
- 
+  
 var schedule = require('node-schedule');
 var rule = new schedule.RecurrenceRule();
 rule.dayOfWeek = [0, new schedule.Range(0, 6)];

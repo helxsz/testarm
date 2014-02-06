@@ -293,7 +293,7 @@ var buildings =
       "room": "res:room:https://protected-sands-2667.herokuapp.com/rooms/Room.UKCCPC1-2Hertz"
     }
   ]
-} 
+}  
 
 // MQTT:   https://geras.1248.io/series/armmeeting/9/MotionSensor/00-0D-6F-00-00-C1-3F-4F/motion 100
 module.exports = {
