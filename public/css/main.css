@@ -339,7 +339,7 @@
         -moz-border-radius: 4px; -webkit-border-radius: 4px; border-radius: 4px;}
       
         .button:after {
-            content: "\BB"; padding-left:8px; text-decoration: none;
+            content: "\2754"; padding-left:8px; text-decoration: none;
         }
 
         input.button {width: 50%;}
