@@ -191,9 +191,9 @@
               													    <span class='ch-start'>{{dateformat(room.events[room.eventIndex].startDate)}}</span> <i class="icon-arrow_right" aria-hidden="true"></i> <span class='ch-end'>{{dateformat(room.events[room.eventIndex].endDate)}}</span>
               												    </h3>
               												    <h4>{{room.events[room.eventIndex].organizer}}</h4>
-                													<a href='{{getEmail(room.events[room.eventIndex].organizer)}}' ng-click="$event.stopPropagation();_gaq.push(['_trackEvent', 'Hexagon', 'Telephone', 'Hexagon - {{room.displayname}}',, false]);" title="Phone {{room.events[room.eventIndex].organizer}}" class="noSpin d-hide t-hide"><button class="maskCircle icon-telephone"><span>Telephone</span></button></a> 
-                													<a href='{{getEmail(room.events[room.eventIndex].organizer)}}' ng-click="$event.stopPropagation();_gaq.push(['_trackEvent', 'Hexagon', 'Email', 'Hexagon - {{room.displayname}}',, false]);" title="Email {{room.events[room.eventIndex].organizer}}" class="noSpin m-hide"><button class="maskCircle icon-email"><span>Email</span></button></a> 
-                													<a href="#popup-{{ room.name }}" ng-click="$event.stopPropagation();open($index);_gaq.push(['_trackEvent', 'Hexagon', 'Itinerary', 'Hexagon - {{room.displayname}}',, false]);" title="View Itinerary" class="noSpin open-popup-link"><button class="maskCircle icon-information"><span>Itinerary Information</span></button></a>													
+                													<a href='{{getEmail(room.events[room.eventIndex].organizer)}}' ng-click="$event.stopPropagation();_gaq.push(['_trackEvent', 'Hexagon', 'Telephone', 'Hexagon - {{room.displayname}}']);" title="Phone {{room.events[room.eventIndex].organizer}}" class="noSpin d-hide t-hide"><button class="maskCircle icon-telephone"><span>Telephone</span></button></a> 
+                													<a href='{{getEmail(room.events[room.eventIndex].organizer)}}' ng-click="$event.stopPropagation();_gaq.push(['_trackEvent', 'Hexagon', 'Email', 'Hexagon - {{room.displayname}}']);" title="Email {{room.events[room.eventIndex].organizer}}" class="noSpin m-hide"><button class="maskCircle icon-email"><span>Email</span></button></a> 
+                													<a href="#popup-{{ room.name }}" ng-click="$event.stopPropagation();open($index);_gaq.push(['_trackEvent', 'Hexagon', 'Itinerary', 'Hexagon - {{room.displayname}}']);" title="View Itinerary" class="noSpin open-popup-link"><button class="maskCircle icon-information"><span>Itinerary Information</span></button></a>													
                 												
                                         <!-- END .room.events.length -->
                                         </div>
@@ -213,6 +213,12 @@
                           </div>
                       </li>
                   </ul>
+
+                  <!-- Google Analytics
+                  _gaq.push(['_trackEvent', 'Hexagon', 'Flipped', 'Hexagon - ID']);
+
+
+                  -->
 
               <!-- END #app-meeting -->
               </section>
