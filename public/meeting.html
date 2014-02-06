@@ -162,7 +162,7 @@
                 <section id="app-meeting" class="app-content">				
                   <ul class="ch-grid">
                       <li class="room" ng-repeat="room in rooms | filter:query " ng-cloak  ng-animate="{enter: 'animate-enter'}" > <!-- | orderBy:orderProp index wrong after orderby -->
-                          <div class="ch-item" ng-click="room.front = !room.front;_gaq.push(['_trackEvent', 'Hexagon', 'Flipped', 'Hexagon - ID',, false]);" ng-class="{'flipped': room.front}">              
+                          <div class="ch-item" ng-click="room.front = !room.front;_gaq.push(['_trackEvent', 'Hexagon', 'Flipped', 'Hexagon - ID']);" ng-class="{'flipped': room.front}">              
                               <div class="ch-info-wrap">
                                   <div class="ch-info " ng-class="{'unavailable':room.available, 'available':!room.available}"> <!-- 'unknownn':!room.m_enabled , -->
                                   <!-- START .ch-info -->
