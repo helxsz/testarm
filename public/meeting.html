@@ -120,7 +120,7 @@
                     <header id="banner" class="d1-d9 t1-t4 m-all clearfix" >
                     <!-- START #banner -->
 
-                        <button id="trigger"><i class="icon-reorder icon2x"></i></button>
+                        <button id="trigger" onclick="_gaq.push(['_trackEvent', 'Menu', 'Toggle', 'Menu Toggle',, false]);"><i class="icon-reorder icon2x"></i></button>
 
                         <h1 ng-cloak>{{current_building}} <span class="blue" ng-cloak> {{current_floor}} FLOOR</span> <span class="pink">MEETING ROOM</span> AVAILABILITY</h1>
 
@@ -162,7 +162,7 @@
                 <section id="app-meeting" class="app-content">				
                   <ul class="ch-grid">
                       <li class="room" ng-repeat="room in rooms | filter:query " ng-cloak  ng-animate="{enter: 'animate-enter'}" > <!-- | orderBy:orderProp index wrong after orderby -->
-                          <div class="ch-item" ng-click="room.front = !room.front;_gaq.push(['_trackEvent', 'Hexagon', 'Flipped', 'Hexagon - {{room.displayname}}']);" ng-class="{'flipped': room.front}">              
+                          <div class="ch-item" ng-click="room.front = !room.front;_gaq.push(['_trackEvent', 'Hexagon', 'Flipped', 'Hexagon - ID',, false]);" ng-class="{'flipped': room.front}">              
                               <div class="ch-info-wrap">
                                   <div class="ch-info " ng-class="{'unavailable':room.available, 'available':!room.available}"> <!-- 'unknownn':!room.m_enabled , -->
                                   <!-- START .ch-info -->
@@ -191,9 +191,9 @@
               													    <span class='ch-start'>{{dateformat(room.events[room.eventIndex].startDate)}}</span> <i class="icon-arrow_right" aria-hidden="true"></i> <span class='ch-end'>{{dateformat(room.events[room.eventIndex].endDate)}}</span>
               												    </h3>
               												    <h4>{{room.events[room.eventIndex].organizer}}</h4>
-                													<a href='{{getEmail(room.events[room.eventIndex].organizer)}}' ng-click="$event.stopPropagation();_gaq.push(['_trackEvent', 'Hexagon', 'Telephone', 'Hexagon - {{room.displayname}}']);" title="Phone {{room.events[room.eventIndex].organizer}}" class="noSpin d-hide t-hide"><button class="maskCircle icon-telephone"><span>Telephone</span></button></a> 
-                													<a href='{{getEmail(room.events[room.eventIndex].organizer)}}' ng-click="$event.stopPropagation();_gaq.push(['_trackEvent', 'Hexagon', 'Email', 'Hexagon - {{room.displayname}}']);" title="Email {{room.events[room.eventIndex].organizer}}" class="noSpin m-hide"><button class="maskCircle icon-email"><span>Email</span></button></a> 
-                													<a href="#popup-{{ room.name }}" ng-click="$event.stopPropagation();open($index);_gaq.push(['_trackEvent', 'Hexagon', 'Itinerary', 'Hexagon - {{room.displayname}}']);" title="View Itinerary" class="noSpin open-popup-link"><button class="maskCircle icon-information"><span>Itinerary Information</span></button></a>													
+                													<a href='{{getEmail(room.events[room.eventIndex].organizer)}}' ng-click="$event.stopPropagation();_gaq.push(['_trackEvent', 'Hexagon', 'Telephone', 'Hexagon - {{room.displayname}}',, false]);" title="Phone {{room.events[room.eventIndex].organizer}}" class="noSpin d-hide t-hide"><button class="maskCircle icon-telephone"><span>Telephone</span></button></a> 
+                													<a href='{{getEmail(room.events[room.eventIndex].organizer)}}' ng-click="$event.stopPropagation();_gaq.push(['_trackEvent', 'Hexagon', 'Email', 'Hexagon - {{room.displayname}}',, false]);" title="Email {{room.events[room.eventIndex].organizer}}" class="noSpin m-hide"><button class="maskCircle icon-email"><span>Email</span></button></a> 
+                													<a href="#popup-{{ room.name }}" ng-click="$event.stopPropagation();open($index);_gaq.push(['_trackEvent', 'Hexagon', 'Itinerary', 'Hexagon - {{room.displayname}}',, false]);" title="View Itinerary" class="noSpin open-popup-link"><button class="maskCircle icon-information"><span>Itinerary Information</span></button></a>													
                 												
                                         <!-- END .room.events.length -->
                                         </div>
