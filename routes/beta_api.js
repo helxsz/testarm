@@ -751,7 +751,7 @@ function updateResourceRepository(){
 		
 	function updateRes(){
 		async.series([
-			/*
+			
 			function(callback){
 				crawler.startCrawl(armbuilding, function(facts){
 					filter.filterRoom(facts,function(results){
@@ -784,7 +784,7 @@ function updateResourceRepository(){
 					callback(null, 'one'); 
 				});		
 			},
-			
+			/*
 			// https://alertmeadaptor.appspot.com/traverse?traverseURI=https%3A//5.79.20.223%3A3000/cat/ARM6&traverseKey=d01fe91e8e249618d6c26d255f2a9d42
 			function(callback){
 				crawler = new catalog_crawler(intellisense);
@@ -839,7 +839,7 @@ function updateResourceRepository(){
 			}*/			
 		],function(err, results){
 			console.log('crawler  finished  .....  '.green, results);
-			//integrate();
+			integrate();
 			
 			
 		});	
@@ -952,7 +952,7 @@ function updateResourceRepository(){
 	}
 
 	//flushDB(function(){});
-	/*
+	/**/
 	checkDB(function(err,data){
 		if(err){		
 		}else if(data == 1){
@@ -963,10 +963,10 @@ function updateResourceRepository(){
 			updateRes();
 		}
 	})
-	*/
+	
 	
 	// test
-	updateRes();
+	//updateRes();
 	
 }
 

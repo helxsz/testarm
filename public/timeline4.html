@@ -398,7 +398,7 @@ SensormappingApp.factory('socket', function ($rootScope) {
 									color_index = next_index;
 							   }
 							}		
-                            //return colors[color_index];							
+                            //return colors[color_index];
 							return randomcolors(color_index);
 					  })
 					  .style("fill-opacity", function(d,i){
@@ -407,12 +407,25 @@ SensormappingApp.factory('socket', function ($rootScope) {
 					  .transition()
 					  .duration(800) 
 					  .attr('class', function(d) {
-						return 'motion at-'+data.url;
+					        var index = -1;
+					        for(var i=0;i<rooms.length;i++) {
+							    var room = rooms[i];
+    						    console.log(room.name);
+								if(room.name == data.room) { index = i; break;}
+							    //room.name, room.events.length
+							} 
+							if(index > 0 ){
+                                var events = rooms[index].events;
+								for(var i=0;i<events.length;i++){
+								    
+								}
+                            }							
+						    return 'motion room-at-'+data.room+' event-at-';
 					  })
 					  .attr('transform', function(d, i) {
 						  var x = xScale( new Date(d.t*1000)  ), y;	
                           y = layerHeight*index+layersTop;
-						  console.log(x,y, index);
+						  //console.log(x,y, index);
                           return 'translate(' + x + ',' + y + ')';
 					  });
 				
@@ -461,7 +474,8 @@ SensormappingApp.factory('socket', function ($rootScope) {
 					  .attr("height", function(d) { return d.values.length*4 })
 					  .attr('transform', function(d, i) {				
 						  var x = xScale( new Date(d.values[0].t*1000)  ), y;		
-                          y = layerHeight*index+layersTop;						  
+                          //y = layerHeight*index+layersTop;
+                          y = yAxisMapping[d.room];						  
 						  return 'translate(' + x + ',' + y + ')';					  
 						  
 					  })
@@ -500,6 +514,8 @@ SensormappingApp.factory('socket', function ($rootScope) {
 	                //motionData.push(data);
                     //renderMotionStatus();
                 //}				
+			}else if(data.type=='temperature'){
+			
 			}
 		}		
 		
@@ -585,12 +601,13 @@ SensormappingApp.factory('socket', function ($rootScope) {
 		var query = '?start='+start+'&end='+end;
 		query  = query || '';
 		
-		d3.json('/meetings/arm/now'+query)
+		d3.json('/arm/meeting/today')
           .header("X-Requested-With", "XMLHttpRequest")
           //.header("Authorization", auth_string)		
 		  .get( function(error , data) {
 		       if (!error) {			        				
 			   // loading the events
+			        console.log(data);
 					rooms = data.rooms;
 					data.rooms.forEach(function(room){
 						console.log(room.name,'   remaining events for room ', room.events.length);
@@ -603,14 +620,11 @@ SensormappingApp.factory('socket', function ($rootScope) {
 					
 					renderLayerLabels(data.rooms);					
 					buildEventsLayer(data.rooms);
-                    /*					
-					var margin_y=100;
-					data.rooms.forEach(function(room){
-						yAxisMapping[room.name] = margin_y;margin_y +=80;
-						lastUpdateMapping[room.name] = room.time;
-									
-					})
-					*/
+					
+				    
+					data.rooms.forEach(function(room,i){
+						yAxisMapping[room.name] =layerHeight*index+layersTop;
+					})					
 					setInterval(eventTimer, 1000*60);
 			    }else{
 				    console.log('error  ',error);

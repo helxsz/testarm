@@ -358,20 +358,15 @@
 
 
         
-        $scope.openkey = function () {
-
+        $scope.openkey = function(){
             var modalInstance = $modal.open({
                 templateUrl: 'keyModalTemplate.html',
                 backdrop: true,
                 windowClass: 'modal',
                 resolve: {
 
-                },        
-                controller: function ($scope, $modalInstance, room) {
-
-                } 
+                }
             });
-
            modalInstance.result.then(function (selectedItem) {
             $scope.selected = selectedItem;
             }, function () {
