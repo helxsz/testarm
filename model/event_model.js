@@ -11,13 +11,13 @@ var RoomEventsModel = function(collection, options){
     var readOption = options.read || 'primaryPreferred';
 	
     var schema = new mongoose.Schema({
-	    room: {type:String},
+	    name: {type:String},
 		day: {type: Date, index: true, required: true},	
 		url:{type:String, required:true},	    		
         events:  [    { startDate:Date,endDate:Date	} ]
-    },{ _id: false, strict: false, read: readOption, shardKey: { room: 1, day: 1 } });   //how to choose a sharding key for day 
+    },{ _id: false, strict: false, read: readOption, shardKey: { name: 1, day: 1 } });   //how to choose a sharding key for day 
 	
-    schema.index({ "room": 1, "sequence": 1 }, { unique: true });
+    schema.index({ "name": 1, "day": 1 }, { unique: true });
 
     var model;
 	var modelName = 'RoomEventsModel';
@@ -40,7 +40,7 @@ var RoomEventsModel = function(collection, options){
 	    var option = { upsert: true };
 				
 		if(_.isArray(events)){  // http://docs.mongodb.org/manual/reference/operator/update/sort/  
-			model.update({room:room, day:day, url:url},{'$addToSet':{'events':{'$each': events}}},option,function(err,data){
+			model.update({name:room, day:day, url:url},{'$addToSet':{'events':{'$each': events}}},option,function(err,data){
 		        if(err) callback(err);
 			    else callback(null,data)		
 		    });	
@@ -52,14 +52,14 @@ var RoomEventsModel = function(collection, options){
 	
 	//http://docs.mongodb.org/manual/reference/operator/projection/slice/
 	var getRoomEvents = function(room,day, callback){
- 		model.findOne({room:room,day:day}).exec( function(err, data){ 
+ 		model.findOne({name:room,day:day}).exec( function(err, data){ 
 		    if(err) callback(err);
 		    else callback(null,data);
 		})
 	}	
 
 	var getMultiRoomEvents = function(rooms,day, callback){
- 		model.find({room:{ '$in':rooms},day:day}).exec( function(err, data){ 
+ 		model.find({name:{ '$in':rooms},day:day}).exec( function(err, data){ 
 		    if(err) callback(err);
 		    else callback(null,data);
 		})	    

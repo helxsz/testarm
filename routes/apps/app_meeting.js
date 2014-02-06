@@ -191,8 +191,7 @@ app.get('/buildings/:name/:floor/2',function(req,res){
      				res.send(200,{rooms:rooms});
 					delete hash;
 					delete rooms_array;
-				}
-				
+				}				
 			})            			
 		}
 	})
@@ -379,7 +378,9 @@ function SensorRoomModel(){
 					var m_enabled = false, t_enabled = false;
 					if(room[3] !=null) m_enabled = true;
 					if(room[4]!=null) t_enabled = true;
-					
+					if(m_enabled)
+					rooms.push({url:url,name:short_name,event:room[0],time:time,temperature:temp, m_enabled:m_enabled, t_enabled:t_enabled, sensor: room[3]});
+					else 
 					rooms.push({url:url,name:short_name,event:room[0],time:time,temperature:temp, m_enabled:m_enabled, t_enabled:t_enabled});
 				}
 							
@@ -534,18 +535,21 @@ function SensorRoomModel(){
             else if(replies) { 
 			    redisClient.quit();				
 				var urls = [];
-				_.map(replies,function(url){   // res:sensor:
-				    url = url[0].substring(11,url[0].length);
-					console.log(url);
-					urls.push(url);
+				_.map(replies,function(url,i){   // res:sensor:
+				    console.log(url);
+					if(url[0]!=null){
+				        url = url[0].substring(11,url[0].length);					
+					    urls.push({url:url,room:rooms[i]});
+					}
 				})
 				
 				var sensors = [];
-				async.forEach(urls, function(url,callback){
+				async.forEach(urls, function(obj,callback){
                     //var range = "?start="+  ( -60*60*24 )+"&end="+ (-100);
                     var sensor = {};
-                    sensor.url = url;					
-				    meetingService.getResourceData(url, range, function(err,data){
+                    sensor.url = obj.url;
+					sensor.room = obj.room;
+				    meetingService.getResourceData(obj.url, range, function(err,data){
 						if(err)  {
 						   console.log(err);
 						   sensor.data = [];
@@ -681,10 +685,11 @@ app.get('/meetings/arm/now',function(req,res){
 })
 
 app.get('/arm/meeting/data/motion',function(req,res,next){
-    var rooms = [  'Room.UKCWillowA', 'Room.UKCFM10', 'Room.UKCARM66MR11' ,'Room.UKCWillowB','Room.UKCOak'] ;
-    _.map(rooms,function(room){	
+    var rooms = [  'Room.UKCWillowA', 'Room.UKCFM10', 'Room.UKCARM66MR11' ,'Room.UKCWillowB','Room.UKCOak','Room.UKCHolly','Room.UKCMaple',"Room.UKCBeech"] ;
+    rooms = _.map(rooms,function(room){	
 	    return "https://protected-sands-2667.herokuapp.com/rooms/"+room;
 	})
+	
     var now = new Date(), 
 	    default_start_day = new Date(now.getFullYear(),now.getMonth(),now.getDate(),0,0,0)
 	    default_end_day = new Date(now.getFullYear(),now.getMonth(),now.getDate(),23,59,59);
@@ -702,31 +707,26 @@ app.get('/arm/meeting/data/motion',function(req,res,next){
 
 app.get('/arm/meeting/today', getMultiRoomEvents);
 function getMultiRoomEvents(req,res,next){
-    var rooms = [  'Room.UKCWillowA', 'Room.UKCFM10', 'Room.UKCARM66MR11' ,'Room.UKCWillowB','Room.UKCOak'] ;
+
+    var rooms = [  'Room.UKCWillowA', 'Room.UKCFM10', 'Room.UKCARM66MR11' ,'Room.UKCWillowB','Room.UKCOak','Room.UKCHolly','Room.UKCMaple','Room.UKCBeech'] ;
     var now = new Date(), early_day = new Date(now.getFullYear(),now.getMonth(),now.getDate(),0,0,0);
-	// certain day	
-	var day_begin  = new Date(2014,1,27,8,0,0);
-	var day_end = new Date(2014,1,27,18,0,0);
-		
+	
 	eventModel.getMultiRoomEvents(rooms,early_day,function(err,data){
 		if(err){
 			console.log('getting events error '.red+err);
 		}
 		else{
-		    //_.map(data.events,function(event){  delete event._id; })
-			console.log('getting events  '.green);
-            res.send(data);				
+			console.log('getting events  '.green,{rooms:data});
+            res.send({rooms:data});				
 		}		
 	});		
 }
 
 app.get('/catchevents',function(req,res){
-
     sensorRoomModel.cacheEvents(function(err,rooms){
 	    if(err) res.send(500);
 		else res.send(200,rooms);
 	})
-	
 })
 
 // http://localhost/tempdata	
@@ -775,7 +775,7 @@ var schedule = require('node-schedule');
 var rule = new schedule.RecurrenceRule();
 rule.dayOfWeek = [0, new schedule.Range(0, 6)];
 rule.hour = 7;
-rule.minute = 11;
+rule.minute = 1;
 
 var j = schedule.scheduleJob(rule, function(){
     console.log('Today is recognized by Rebecca Black!');
