@@ -416,6 +416,12 @@
 
     }   .svg .hexagon {background: url('../img/svg/hexagon_active.svg') no-repeat 50% 50% scroll;}
 
+        div.hexagon .key {
+            width: 80px;
+            height: 70px;
+            background-size: 100%;
+        }
+
         .hover {
             -webkit-touch-callout: none;
             -webkit-user-select: none;
