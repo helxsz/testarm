@@ -988,7 +988,7 @@
             margin-bottom: 0; margin-top: 0.8125em;
             clear: both; float: left;
         }
-        .itinerary.key header h2 {font-size: 4.5em;}
+        .itinerary.key header h2 {font-size: 4.5em; margin-top: 0;}
 
         .itinerary.key h3 {
             font-size: 1em;
