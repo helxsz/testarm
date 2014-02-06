@@ -324,11 +324,8 @@
                     room: function () {
   				    var cloned = _.clone(roomObj);
   				    _.map(cloned.events, function(event){					
-    		                //event.startDate = $scope.dateformat(event.startDate);
-  						//event.endDate = $scope.dateformat(event.endDate);
   						return event;
     		            })
-  					//console.log('cloned',cloned);
                       return cloned;
                     }
                 },			  
@@ -417,7 +414,7 @@
 			    //console.log('loading ',data);
 				$scope.loading = true;
 				data.rooms.forEach(function(room){
-					//console.log(room.name,' ', room.events.length);
+					console.log(room.name,' ', room);
 					for(var i=0;i<room.events.length;i++){				
 						try
 						  {
@@ -430,7 +427,7 @@
 					}
 				})
 				
-				setTimeout(function(){
+				setTimeout(function(){			    
 					_.map(data.rooms,function(room){  
 						room.front = false;	
 						var svg = d3.select('#clock-'+room.displayname).append("svg")
@@ -446,12 +443,18 @@
 						.style("fill-opacity", 0.7)
 						.style('fill',color[1]).attr("d", arc.endAngle(twoPi * 0));
 						
-						foreground
-						.transition()        
-						.duration(1500)
-						.attr("d", arc.endAngle(twoPi * 1/3));
-						
-						console.log('#clock-'+room.displayname);				
+                        //foreground.transition().duration(1500).attr("d", arc.endAngle( twoPi * 1/3  )); 
+                        $scope.updateClock(room);
+                        /*						
+						if( room.eventIndex >=0 && room.events.length > 0){
+                            var event = room.events[room.eventIndex];	
+                            var startTime = new Date(event.startDate).getTime(),endTime = new Date(event.endDate).getTime();
+                            var per = (new Date().getTime()-startTime) / (endTime-startTime);
+                            if(per <0) {  per = 0;	console.log('event not start yet'); }						
+						    foreground.transition().duration(1500).attr("d", arc.endAngle(twoPi *  per  ));                            							
+						}
+                        */						
+						//console.log('#clock-'+room.displayname,room.events.length);				
 					} )
 
 				},1000);
@@ -466,9 +469,20 @@
 				$rootScope.$broadcast('mybroadcast');
 		}
 			
-		$scope.updateClock = function(id,percentage){
-            console.log('updateClock   ',id, percentage);	    
-			d3.select(id+'  .foreground').transition().duration(1500).attr("d", arc.endAngle(twoPi * percentage));
+		$scope.updateClock = function(room,percentage){
+            console.log('updateClock   ',room.displayname, percentage);	
+			if( room.eventIndex >=0 && room.events.length > 0){
+				var event = room.events[room.eventIndex];	
+				var startTime = new Date(event.startDate).getTime(),endTime = new Date(event.endDate).getTime();
+				var per = (new Date().getTime()-startTime) / (endTime-startTime);
+				if(per <0) {  per = 0;	console.log('event not start yet'); }						
+				d3.select('#clock-'+room.displayname+'  .foreground').transition().duration(1500).attr("d", arc.endAngle(twoPi *  per  ));                            							
+			}
+			//
+            //var minutes = new Date().getMinutes();			
+			//var per =(minutes/60); 
+			//console.log('per   ',per, minutes/60, minutes);
+			//d3.select('#clock-'+room.displayname+'  .foreground').transition().duration(1500).attr("d", arc.endAngle( twoPi * per )); 
 		} 		
 		
     	$scope.checkRoomAvailablity = function(){
@@ -492,12 +506,10 @@
                     				 
                  }	
 				///////////////////////////////////////////////
-                var minutes = new Date().getMinutes();
-                $scope.updateClock('#clock-'+room.displayname,minutes/60); 					
+                
+                $scope.updateClock(room); 					
     		    
-    		})			
-            
-            			
+    		})        			
     	}
     	
     	$scope.checkIntialEventIndex = function(){

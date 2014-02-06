@@ -11,9 +11,9 @@ var RoomEventsModel = function(collection, options){
     var readOption = options.read || 'primaryPreferred';
 	
     var schema = new mongoose.Schema({
-	    room: {type:String, unique:true},
+	    room: {type:String},
 		day: {type: Date, index: true, required: true},	
-		url:{type:String, unique:true, required:true},	    		
+		url:{type:String, required:true},	    		
         events:  [    { startDate:Date,endDate:Date	} ]
     },{ _id: false, strict: false, read: readOption, shardKey: { room: 1, day: 1 } });   //how to choose a sharding key for day 
 	

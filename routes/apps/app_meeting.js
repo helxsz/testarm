@@ -681,26 +681,22 @@ app.get('/meetings/arm/now',function(req,res){
 })
 
 app.get('/arm/meeting/data/motion',function(req,res,next){
-    var rooms = [
-	                "https://protected-sands-2667.herokuapp.com/rooms/Room.UKCWillowA",
-                    "https://protected-sands-2667.herokuapp.com/rooms/Room.UKCWillowB",
-                    "https://protected-sands-2667.herokuapp.com/rooms/Room.UKCOak",
-					"https://protected-sands-2667.herokuapp.com/rooms/Room.UKCElm"
-				];	
+    var rooms = [  'Room.UKCWillowA', 'Room.UKCFM10', 'Room.UKCARM66MR11' ,'Room.UKCWillowB','Room.UKCOak'] ;
+    _.map(rooms,function(room){	
+	    return "https://protected-sands-2667.herokuapp.com/rooms/"+room;
+	})
     var now = new Date(), 
 	    default_start_day = new Date(now.getFullYear(),now.getMonth(),now.getDate(),0,0,0)
 	    default_end_day = new Date(now.getFullYear(),now.getMonth(),now.getDate(),23,59,59);
-	
 	var day_begin  = new Date(req.query.start) || default_start_day;
 	var day_end = new Date(req.query.end) || default_end_day;
 	var range = "?start="+day_begin.getTime()/1000+"&end="+day_end.getTime()/1000;
-	
 	console.log(   day_begin, day_end);
     //var range = "?start="+  ( -60*60*24*2 )+"&end="+ (-100);
     sensorRoomModel.getSensorDataFromRoom(rooms,'motion',range, function(err,data){
 	    if(err) res.send(404);
 	    else res.send(200,data);
-	})	
+	})
 });
 
 
@@ -774,23 +770,41 @@ function getRoomEvents(req,res,next){
 }
 */
 
+
+var schedule = require('node-schedule');
+var rule = new schedule.RecurrenceRule();
+rule.dayOfWeek = [0, new schedule.Range(0, 6)];
+rule.hour = 7;
+rule.minute = 11;
+
+var j = schedule.scheduleJob(rule, function(){
+    console.log('Today is recognized by Rebecca Black!');
+	sensorRoomModel.cacheEvents(function(err,rooms){
+	    if(err)  console.log('err for catche the events');
+		else if(rooms)
+        console.log('finsh '.green,'cache all the room events');
+	})	
+});
+
+
 /*
 var agenda = new Agenda({db: { address: 'localhost:27017/agenda-example'}});
-agenda.define('cacheARMEvents', function(job, done) {
-    getArmMeetingSchedules(done)
-});
-agenda.schedule('today at 1pm', 'cacheARMEvents');
-//agenda.start();
+agenda.schedule('today at 8:47am', 'cacheARMEvents');
+agenda.start();
 agenda.on('complete', function(job) {
   console.log("Job %s finished", job.attrs.name);
 });
-agenda.once('success:request events for arm room', function(job) {
+agenda.once('success:cacheARMEvents', function(job) {
   console.log("success:request events for arm room: %s", job);
 });
-agenda.on('fail:request events for arm room', function(err, job) {
+agenda.on('fail:cacheARMEvents', function(err, job) {
   console.log("Job failed with error: %s", err.message);
 });
+
+agenda.define('cacheARMEvents', function(job, done) {
+    getArmMeetingSchedules(done)
+});
 function getArmMeetingSchedules(done){
-	done();
+
 }
 */
