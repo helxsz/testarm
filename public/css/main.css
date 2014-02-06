@@ -344,6 +344,16 @@
             content: "\BB"; padding-left:8px; text-decoration: none;
         }
 
+        #app-description .button:after {
+            font-family: 'mfg_labs_iconsetregular';
+            font-style: normal;
+            speak: none;
+            font-weight: normal;
+            font-size: 1em;
+            -webkit-font-smoothing: antialiased; 
+            content: "\f086"; padding-left:8px; text-decoration: none;
+        }
+
         input.button {width: 50%;}
 
 
