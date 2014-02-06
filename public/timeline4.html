@@ -334,8 +334,8 @@ SensormappingApp.factory('socket', function ($rootScope) {
 					  })
 					  .attr('transform', function(d, i) {
 						  var x = xScale( new Date(d.values[0].t*1000)  ), y;	                       ///
-						  var lasttime;					  
-                          y = layerHeight*index+layersTop;						  
+                          //y = layerHeight*index+layersTop;
+						  y = yAxisMapping[data.room];							  
 						  return 'translate(' + x + ',' + y + ')';
 					  })
 					  .attr('r', function(d) {
@@ -410,8 +410,8 @@ SensormappingApp.factory('socket', function ($rootScope) {
 					        var index = -1;
 					        for(var i=0;i<rooms.length;i++) {
 							    var room = rooms[i];
-    						    console.log(room.name);
-								if(room.name == data.room) { index = i; break;}
+    						    
+								if(room.name == data.room) { console.log(room.name);index = i; break;}
 							    //room.name, room.events.length
 							} 
 							if(index > 0 ){
@@ -424,7 +424,9 @@ SensormappingApp.factory('socket', function ($rootScope) {
 					  })
 					  .attr('transform', function(d, i) {
 						  var x = xScale( new Date(d.t*1000)  ), y;	
-                          y = layerHeight*index+layersTop;
+                          //y = layerHeight*index+layersTop;
+						  y = yAxisMapping[data.room];	
+						  //console.log(data.room, y, 'test');
 						  //console.log(x,y, index);
                           return 'translate(' + x + ',' + y + ')';
 					  });
@@ -475,7 +477,8 @@ SensormappingApp.factory('socket', function ($rootScope) {
 					  .attr('transform', function(d, i) {				
 						  var x = xScale( new Date(d.values[0].t*1000)  ), y;		
                           //y = layerHeight*index+layersTop;
-                          y = yAxisMapping[d.room];						  
+						  y = yAxisMapping[data.room];	
+                          console.log(d.room, y, 'test');						  
 						  return 'translate(' + x + ',' + y + ')';					  
 						  
 					  })
@@ -623,7 +626,9 @@ SensormappingApp.factory('socket', function ($rootScope) {
 					
 				    
 					data.rooms.forEach(function(room,i){
-						yAxisMapping[room.name] =layerHeight*index+layersTop;
+					    
+						yAxisMapping[room.url] =layerHeight*i+layersTop;
+						console.log(room.url   ,'y axis :' , yAxisMapping[room.url], room );
 					})					
 					setInterval(eventTimer, 1000*60);
 			    }else{
