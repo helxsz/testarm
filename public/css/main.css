@@ -898,6 +898,12 @@
       margin-left: 0;
     }
 
+    .itinerary header {
+        border-bottom: #071D24 10px solid;
+        margin-bottom: 0.8125em;
+        padding-bottom: 0.8125em;
+    }
+
 
 /*  ==========================================================================
     9. Tables

@@ -149,6 +149,7 @@
                         <article id="app-description" class="t-hide m-hide" role="article">
 
                           <p>Click a hexagon to view more information about the meeting room. Please email any feedback to <a href="mailto:arm@redninja.co.uk" title="Email Feedback">arm@redninja.co.uk</a>.</p>
+                          <p><a href="#popup-key" ng-click="openkey();" title="View Key" class="button-box">View Key</a></p>
 
                         </article>
                     
@@ -193,7 +194,7 @@
               												    <h4>{{room.events[room.eventIndex].organizer}}</h4>
                 													<a href='{{getEmail(room.events[room.eventIndex].organizer)}}' ng-click="$event.stopPropagation();_gaq.push(['_trackEvent', 'Hexagon', 'Telephone', 'Hexagon - {{room.displayname}}']);" title="Phone {{room.events[room.eventIndex].organizer}}" class="noSpin d-hide t-hide"><button class="maskCircle icon-telephone"><span>Telephone</span></button></a> 
                 													<a href='{{getEmail(room.events[room.eventIndex].organizer)}}' ng-click="$event.stopPropagation();_gaq.push(['_trackEvent', 'Hexagon', 'Email', 'Hexagon - {{room.displayname}}']);" title="Email {{room.events[room.eventIndex].organizer}}" class="noSpin m-hide"><button class="maskCircle icon-email"><span>Email</span></button></a> 
-                													<a href="#popup-{{ room.name }}" ng-click="$event.stopPropagation();open($index);_gaq.push(['_trackEvent', 'Hexagon', 'Itinerary', 'Hexagon - {{room.displayname}}']);" title="View Itinerary" class="noSpin open-popup-link"><button class="maskCircle icon-information"><span>Itinerary Information</span></button></a>													
+                													<a href="#popup-{{ room.name }}" ng-click="$event.stopPropagation();open($index);_gaq.push(['_trackEvent', 'Hexagon', 'Itinerary', 'Hexagon - {{room.displayname}}']);" title="View Itinerary" class="noSpin open-popup-link"><button class="maskCircle icon-information"><span>Itinerary Information</span></button></a>
                 												
                                         <!-- END .room.events.length -->
                                         </div>
@@ -213,12 +214,6 @@
                           </div>
                       </li>
                   </ul>
-
-                  <!-- Google Analytics
-                  
-
-
-                  -->
 
               <!-- END #app-meeting -->
               </section>
@@ -259,7 +254,6 @@
         </div>
     <!-- END .meeting-room -->
     </div>
-
 
   <script src="js/vendor/jquery-1.10.1.min.js"></script>
   <script src="js/vendor/classie.js"></script>
@@ -361,6 +355,28 @@
             }, function () {
             });
         }; 
+
+
+        
+        $scope.openkey = function () {
+
+            var modalInstance = $modal.open({
+                templateUrl: 'keyModalTemplate.html',
+                backdrop: true,
+                windowClass: 'modal',
+                resolve: {
+
+                },        
+                controller: function ($scope, $modalInstance, room) {
+
+                } 
+            });
+
+           modalInstance.result.then(function (selectedItem) {
+            $scope.selected = selectedItem;
+            }, function () {
+            });
+        };         
 
 		
         /*			
@@ -840,6 +856,57 @@
       </aside>
   </script>
 
+  <script type="text/ng-template" id="keyModalTemplate.html">
+    <aside class="itinerary key">
+    <!-- START .itinerary .key -->
+
+      <article>
+        <header class="clearfix">
+          <h1>Meeting App Availability</h1>
+          <h2>KEY</h2>
+        </header>
+        <section>
+          <table class="tg-table-dark">
+            <tr>
+              <td>
+                <div class="hexagon">
+                  <div class="ch-info-front available">&nbsp;</div>
+                </div>
+              </td>
+              <td>
+                <h1>AVAILABLE</h1>
+                <h2>No motion detected in room</h2>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <div class="hexagon">
+                  <div class="ch-info-front unavailable">&nbsp;</div>
+                </div>
+              </td>
+              <td>
+                <h1>NOT AVAILABLE</h1>
+                <h2>Motion activity in room</h2>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <div class="hexagon">
+                  <div class="ch-info-front">&nbsp;</div>
+                </div>
+              </td>
+              <td>
+                <h1>UNKNOWN</h1>
+                <h2>Sensor offline</h2>
+              </td>
+            </tr>
+          </table>
+        </section>
+      </article>
+
+    <!-- START .itinerary .key -->
+    </aside>
+  </script>
   <!-- 
   1. css blink color transition    http://stackoverflow.com/questions/16344354/how-to-make-blinking-flashing-text-with-css3  http://stackoverflow.com/questions/19049484/blinking-a-div-with-background-color-in-jquery-using-setinterval  http://stackoverflow.com/questions/13955163/imitating-a-blink-tag-with-css3-animations   
       http://stackoverflow.com/questions/4411306/css3-transition-of-background-color  
