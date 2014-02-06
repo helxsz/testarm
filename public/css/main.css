@@ -349,7 +349,7 @@
             font-weight: normal;
             font-size: 1em;
             -webkit-font-smoothing: antialiased; 
-            content: "\2754"; padding-left:8px; text-decoration: none;
+            content: "\f086"; padding-left:8px; text-decoration: none;
         }
 
         input.button {width: 50%;}
