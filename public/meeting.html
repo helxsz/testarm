@@ -436,11 +436,11 @@
 							.append("g")
 							.attr("transform", "translate(" + width/4 + "," + height/4 + ")");	
 							
-						var meter = svg.append("g").attr("class", "progress-meter").style("fill-opacity", 0.5).style('fill',color[1]);
+						var meter = svg.append("g").attr("class", "progress-meter").style("fill-opacity", 0).style('fill',color[1]);
 						meter.append("path").attr("d", arc.endAngle(twoPi));
 						var foreground = meter.append("path")
 						.attr("class", "foreground")
-						.style("fill-opacity", 0.1)
+						.style("fill-opacity", 0.3)
 						.style('fill',color[0]).attr("d", arc.endAngle(twoPi * 0));
 						
             //foreground.transition().duration(1500).attr("d", arc.endAngle( twoPi * 1/3  )); 
