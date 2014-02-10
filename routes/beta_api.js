@@ -947,11 +947,19 @@ function updateResourceRepository(){
 			}); 				
 			
 			delete sensors, rooms;
-            redisClient.quit();			
+            redisClient.quit();
+
+            setTimeout(function(){
+				console.log('now boot the applications  layer'.green);
+				bootApps(app,__dirname + '/apps');
+				bootRealTimeServices();
+			}, 2000);
+
+			
 		});			
 	}
 
-	//flushDB(function(){});
+	flushDB(function(){});
 	/**/
 	checkDB(function(err,data){
 		if(err){		
@@ -972,11 +980,7 @@ function updateResourceRepository(){
 
 updateResourceRepository();
 /**/
-setTimeout(function(){
-    console.log('timeout  ');
-	bootApps(app,__dirname + '/apps');
-	bootRealTimeServices();
-}, 2000);
+
 
 
 app.get('/admin/repository/delete',function(req,res,next){

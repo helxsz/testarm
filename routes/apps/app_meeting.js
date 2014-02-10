@@ -18,8 +18,8 @@ var errors = require('../../utils/errors'),
 	io = require('../websocket_api.js'),
 	appBuilder = require('../AppBuilder.js'),
 	db = require('../persistence_api.js'),
-	simulation = require('../simulation.js');
-
+	simulation = require('../simulation.js'),
+	sensorHandler = require('../sensorHandler.js');
 /****   experiment 2 ********/
 var meetingService = serviceCatalog.findByName('armmeeting'); 
 var buildingService = serviceCatalog.findByName('armbuilding');  
@@ -116,7 +116,7 @@ app.get('/buildings/:name/:floor',function(req,res){
 			async.forEach(rooms, 
 			  function(room, callback){        
 				room.displayname = displayname(room.name);
-				winston.debug('........................'+room.name+"       " +room.url);
+				//console.log('........................'+room.name+"       " +room.url);
 				var tomorrow = false;
 				buildingService.fetchResourceDetail(room.url+"/events",function(err,eventlist){
 					if(err){
@@ -126,9 +126,16 @@ app.get('/buildings/:name/:floor',function(req,res){
 						var now = new Date(), late_day = new Date(now.getFullYear(),now.getMonth(),now.getDate(),23,59,59);
 						// all events in this day
 						if(tomorrow)
-						eventlist = _.filter(eventlist, function(event){ var eventDate = new Date(event.endDate);   return eventDate.getTime() > late_day.getTime(); });
+						eventlist = _.filter(eventlist, function(event){ 
+						                                                var eventDate = new Date(event.endDate);  
+						                                               // console.log('end date'.green,eventDate); 
+                                                  						return eventDate.getTime() > late_day.getTime(); });
 						else
-						eventlist = _.filter(eventlist, function(event){ var eventDate = new Date(event.endDate);   return eventDate.getTime() <= late_day.getTime(); });
+						eventlist = _.filter(eventlist, function(event){  
+						                                                  var eventDate = new Date(event.endDate);  
+																		 //  console.log('end date'.green,eventDate); 
+						                                                  return eventDate.getTime() <= late_day.getTime(); 
+																	    });
                         _.map(eventlist,function(event){  delete event.url; })						
 						room.events = eventlist;
 						//winston.debug('filtered  ... '+room.events.length);				
@@ -207,7 +214,6 @@ appBuilder.createApp('meetingroom',new MeetingRoomMQTTHandler().handleMessage, f
 	})
 });
 	
-	
 function MeetingRoomMQTTHandler(){
 	this.handleMessage = handleMessage;
 	var getShortName = function(url){
@@ -218,8 +224,8 @@ function MeetingRoomMQTTHandler(){
 		try{
 		    var raw = JSON.parse(message);
 		    var msg = raw.e[0];  
-		    var url = msg.n, value = msg.v, time = msg.t;
-		    console.log('MQTT:  '.green,"https://geras.1248.io/series"+url, value);
+		    var url = msg.n, value = msg.v, time = new Date(msg.t*1000);
+		    console.log('MQTT:  '.green,"https://geras.1248.io/series"+url, value, time);
 			
             sensorRoomModel.queryRoomFromSensor( "res:sensor:"+"https://geras.1248.io/series"+url ,function(err,data){
 			    if(err) console.log('err  query room from sensor',err);
@@ -228,14 +234,16 @@ function MeetingRoomMQTTHandler(){
 				    //console.log('find the room '.green,data);
                     if(url.lastIndexOf('motion') >0){
 					    console.log('update motion'.green, data.name ,'--------------',data.url);        // "res:sensor:"+"https://geras.1248.io/series"+url,  ,"res:sensor:"+"https://geras.1248.io/series"+url
- 						sensorRoomModel.updateMotion(data.url,function(err,data){});
-						io.sockets.emit('info',{room:data.name,type:'motion', value:value});
+ 						sensorRoomModel.updateMotion(data.url,time,function(err,data){});
+						io.sockets.emit('info',{room:data.name,type:'motion', value:value, time: time});
 					}
 					else if(url.lastIndexOf('temperature') >0){
 					    console.log('update temperature '.yellow, data.name,'----------------', data.url); //  "res:sensor:"+"https://geras.1248.io/series"+url,						
 						sensorRoomModel.updateTempData(data.url,value,function(err,data){});
 						io.sockets.emit('info',{room:data.name,type:'temperature', value:value});
 					}
+					// store the sensor by me
+					sensorHandler.sensorPush({id:msg.n, value:msg.v,time:time});
 				}
 			})	
 			
@@ -301,7 +309,7 @@ function SensorRoomModel(){
 		});		
 	}
 	// name == room url
-	function updateMotion(name,callback){
+	function updateMotion(name,time,callback){
 		var redisClient;	
 		try{ 
 			redisClient = redis.createClient(redis_port,redis_ip);
@@ -312,7 +320,7 @@ function SensorRoomModel(){
 			return callback(error,null);
 		}	
 		
-		redisClient.hmset(name, 'time',new Date(), 'displayname',name,function(err, data){
+		redisClient.hmset(name, 'time',time, 'displayname',name,function(err, data){
 			redisClient.quit();
 			if(err) {return callback(err,null);}
 			else if(data) { return callback(null,data);}
@@ -373,7 +381,7 @@ function SensorRoomModel(){
 			    redisClient.quit();				
 				var rooms = [];
 				for(var i=0;i<replies.length;i++){
-				    console.log('get room data ',replies[i]);
+				    //console.log('get room data ',replies[i]);
 					var room = replies[i];
 					var short_name = getShortName(items[i]), time = room[1], temp = room[2];
 					if(time == null) time = new Date();
@@ -387,9 +395,8 @@ function SensorRoomModel(){
 					if(m_enabled)
 					rooms.push({url:url,name:short_name,event:room[0],time:time,temperature:temp, m_enabled:m_enabled, t_enabled:t_enabled, sensor: room[3].substring(11,room[3].length)});
 					else 
-					rooms.push({url:url,name:short_name,event:room[0],time:time,temperature:temp, m_enabled:m_enabled, t_enabled:t_enabled});
-					
-					console.log('^^^^^^^^^^^^^^^'.green,url, m_enabled, t_enabled);
+					rooms.push({url:url,name:short_name,event:room[0],time:time,temperature:temp, m_enabled:m_enabled, t_enabled:t_enabled});					
+					//console.log('^^^^^^^^^^^^^^^'.green,url, m_enabled, t_enabled);
 				}
 							
 				return callback(null,rooms);
@@ -445,7 +452,6 @@ function SensorRoomModel(){
 	}
 	
 	function cacheEvents( _callback){
-	
 		var redisClient;	
 		try{ 
 			redisClient = redis.createClient(redis_port,redis_ip);
@@ -478,12 +484,13 @@ function SensorRoomModel(){
 							}else{
 								var now = new Date(), late_day = new Date(now.getFullYear(),now.getMonth(),now.getDate(),23,59,59), early_day = new Date(now.getFullYear(),now.getMonth(),now.getDate(),0,0,0);
 								// all events in this day
+								//console.log('eventlist'.green,room.name, eventlist.length, late_day);
 								if(tomorrow)
 								eventlist = _.filter(eventlist, function(event){ var eventDate = new Date(event.endDate);   return eventDate.getTime() > late_day.getTime(); });
 								else
-								eventlist = _.filter(eventlist, function(event){ var eventDate = new Date(event.endDate);   return eventDate.getTime() <= late_day.getTime(); });				
+								eventlist = _.filter(eventlist, function(event){ var eventDate = new Date(event.endDate); return eventDate.getTime() <= late_day.getTime(); });				
 								room.events = eventlist;
-								winston.debug('filtered  ... '+room.events.length);
+								console.log('filtered  ... '+room.events.length);
 								_.map(room.events,function(event){
 									delete event.url;
 									delete event.location;							
@@ -652,7 +659,7 @@ function getRoomEvents(tomorrow, res){
 	async.forEach(rooms, 
 	  function(room, callback){        
 		url = simulation.rooms[room.name];
-		winston.debug('........................'+room.name+"       " +url);
+		console.log('........................'+room.name+"       " +url);
 		
 		buildingService.fetchResourceDetail(url+"/events",function(err,eventlist){
             if(err){
@@ -743,7 +750,7 @@ app.get('/arm/meeting/history/all',function(req,res,next){
 	    if(err) res.send(404);
 	    else{
 		    _.map(data,function(sensor){
-			    console.log('.................'.red,sensor.url, sensor.room,sensor.e.length);
+			    //console.log('......getSensorDataFromRoom......'.red,sensor.url, sensor.room, day_begin,day_end, sensor.e.length);
 			})
     		res.send(200,data);
 		}	
@@ -798,7 +805,7 @@ app.get('/catchevents',function(req,res){
 })
 
 
-
+/**   test **/
 app.get('/test/sensor',function(req,res){
     var sensor = req.query.sensor;
 
@@ -830,7 +837,7 @@ app.get('/test/sensor',function(req,res){
 							var e = data.e;
 							e.forEach(function(data){
 								//console.log(  moment(data.t*1000 ).fromNow() );	//   ,new Date(data.t*1000) ,  moment(data.t*1000 ).fromNow()
-								time.push( moment(data.t*1000 ).fromNow() );
+								//time.push( moment(data.t*1000 ).fromNow() );
 							})
 							console.log(sensor, 'what the fuck  '.red,e.length, moment(e[0].t *1000 ).fromNow(),  moment( e[e.length-1].t *1000 ).fromNow() );
                           							
@@ -847,19 +854,61 @@ app.get('/test/sensor',function(req,res){
 			);
 })
 
-
+// localhost/test/timeseries/now?id=/armmeeting/6/MotionSensor/00-0D-6F-00-00-C1-45-BA/motion
+// localhost/test/timeseries/now?id=/armmeeting/18/MotionSensor/00-0D-6F-00-00-C 1-3B-67/motion
+app.get('/test/timeseries/now',function(req,res,next){
+    var id = req.query.id;
+    var MS_PER_MINUTE = 60000;
+	var now = new Date();
+    sensorHandler.getSensorData(id, new Date(now.valueOf() - 50 * MS_PER_MINUTE) , now ,function(err,data){
+	    if(err) res.send(500,err);
+	    else if(data) res.send(200,data);
+		else if(!data) res.send(404);
+	})
+})
   
 var schedule = require('node-schedule');
 var rule = new schedule.RecurrenceRule();
-rule.dayOfWeek = [0, new schedule.Range(0, 6)];
-rule.hour = 0;
-rule.minute = 1;
+rule.dayOfWeek = [0, new schedule.Range(0, 4)];
+rule.hour = 20;
+rule.minute = 40;
 
 var j = schedule.scheduleJob(rule, function(){
-    console.log('Today is recognized by Rebecca Black!');
+    console.log('running the event schedule rule!');
 	sensorRoomModel.cacheEvents(function(err,rooms){
 	    if(err)  console.log('err for catche the events');
 		else if(rooms)
         console.log('finsh '.green,'cache all the room events');
+	})	
+});
+
+var rule2 = new schedule.RecurrenceRule();
+rule2.dayOfWeek = [0, new schedule.Range(0, 6)];
+rule2.hour = 21;
+rule2.minute = 40;
+
+var j = schedule.scheduleJob(rule2, function(){
+    console.log('running the event analytics rule!');
+	var array = getAllMajoryBuildingRooms();
+	
+	sensorRoomModel.getRoomData(array, function(err,rooms){
+		if(err) {  console.log('get room error '.red); res.send(500)}
+		else if(!rooms) { console.log('no data for room'.red); res.send(404);}
+		else{		   
+			//console.log('get rooms data '.green, rooms);
+			
+			var rooms_array = _.filter(rooms,function(room){
+			    if(room.m_enabled){
+			        var hours = (new Date().getTime() - new Date(room.time))/1000/60/60;
+				    //console.log(room.name, hours);
+                    return room.m_enabled == true && ( hours > 20);				    
+				}
+                return false;	     
+			})
+				
+	        console.log('these room motion might be not working ',rooms_array.length);
+
+            			
+		}
 	})	
 });

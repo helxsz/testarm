@@ -231,7 +231,10 @@ var buildings =
     },
     {
       "room": "res:room:https://protected-sands-2667.herokuapp.com/rooms/Room.UKCGM5"
-    }
+    },
+    {
+      "room": "res:room:https://protected-sands-2667.herokuapp.com/rooms/Room.UKCTrainingRoom"
+    }	
   ],
   "ARM1 1": [
     {
