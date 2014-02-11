@@ -833,7 +833,7 @@
     .modal-dialog {
         position: relative; z-index: 1050;
         width: 50%; max-width: 32.5em;
-        margin: 0 auto; margin-top: 15%;
+        margin: 0 auto; margin-top: 10%;
     }
 
     .modal-content {
