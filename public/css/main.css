@@ -1501,6 +1501,30 @@
 
     }
 
+
+    /* Glitch fixes for hexagons */
+
+    @media only screen and (min-width:1827px) and (max-width:2014px) {
+        .ch-grid {
+            width: 98%;
+            float: right;
+        }
+    }
+
+    @media only screen and (min-width:1451px) and (max-width:1638px) {
+        .ch-grid {
+            width: 98%;
+            float: right;
+        }
+    }
+
+    @media only screen and (min-width:1075px) and (max-width:1262px) {
+        .ch-grid {
+            width: 98%;
+            float: right;
+        }
+    }
+
     @media print,
         (-o-min-device-pixel-ratio: 5/4),
         (-webkit-min-device-pixel-ratio: 1.25),
