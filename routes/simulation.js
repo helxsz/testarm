@@ -178,6 +178,12 @@ var buildings =
     },
     {
       "room": "res:room:https://protected-sands-2667.herokuapp.com/rooms/Room.UKCAsh"
+    },
+    {
+      "room": "res:room:https://protected-sands-2667.herokuapp.com/rooms/Room.UKCTrainingRoomA"
+    },
+    {
+      "room": "res:room:https://protected-sands-2667.herokuapp.com/rooms/Room.UKCTrainingRoomB"
     }
   ],
   "ARM3 1": [
@@ -225,7 +231,10 @@ var buildings =
     },
     {
       "room": "res:room:https://protected-sands-2667.herokuapp.com/rooms/Room.UKCGM5"
-    }
+    },
+    {
+      "room": "res:room:https://protected-sands-2667.herokuapp.com/rooms/Room.UKCTrainingRoom"
+    }	
   ],
   "ARM1 1": [
     {
@@ -287,7 +296,7 @@ var buildings =
       "room": "res:room:https://protected-sands-2667.herokuapp.com/rooms/Room.UKCCPC1-2Hertz"
     }
   ]
-}
+}  
 
 // MQTT:   https://geras.1248.io/series/armmeeting/9/MotionSensor/00-0D-6F-00-00-C1-3F-4F/motion 100
 module.exports = {

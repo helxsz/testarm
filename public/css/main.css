@@ -1250,7 +1250,11 @@
 
         100% {
             -webkit-transform: rotate(360deg);
+<<<<<<< HEAD
         }
+=======
+        };
+>>>>>>> 836546790e33e3d3de6c636bf940ab64c0f23e94
     }
  
 
