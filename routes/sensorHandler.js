@@ -5,7 +5,7 @@ var util = require('util'),
     color = require('colors'),
     crypto = require('crypto'),
 	 _ = require('underscore');
-	
+	 
 var winston = require('../utils/logging.js'),
 	TimeSeriesModel = require('../model/time_series_model.js');		
 

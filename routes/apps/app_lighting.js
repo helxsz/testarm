@@ -96,7 +96,7 @@ app.get('/catalog/tag',function(req,res,next){
 		winston.error('service not found'); 
 		res.send(404);
 	}
-})
+}) 
 */   
    
 appBuilder.createApp('enlight',new EnlightingMQTTHandler().handleMessage, function(err,app){

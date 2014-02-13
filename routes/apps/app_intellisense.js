@@ -24,7 +24,7 @@ var errors = require('../../utils/errors'),
 var intellisense = serviceCatalog.findByName('intellisense');  // intellisense
 
 // https://5.79.20.223:3000/cat/ARM6/Cooling_System/Chilled_Water_Pump_1/inlet_pressure
-// 
+//  
 var systems = {
     'cooling system':[
 	    {'device': {url:'https://5.79.20.223:3000/cat/ARM6/Cooling_System/Chilled_Water_Pump_1'}, 'system':'Cooling System', 'type':'pump' },

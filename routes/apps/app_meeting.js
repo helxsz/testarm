@@ -722,7 +722,7 @@ app.get('/buildings/history/events/all',function(req,res){
 	})
 })
 
-// https://protected-sands-2667.herokuapp.com/people/Geraint%20Luff
+// https://protected-sands-2667.herokuapp.com/people/Geraint%20Luff 
 // http://localhost/arm/people?people=Geraint%20Luff
 app.get('/arm/people',function(req,res){
     var people = req.query.people;
