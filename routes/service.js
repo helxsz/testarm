@@ -72,6 +72,7 @@ var Service = function(obj) {
 		this.fetchResourceDetail = fetchResourceDetail;
 		this.getResourceData = getResourceData;
         this.getResourceTag = getResourceTag;
+		this.getOtherResource = getOtherResource;
 		
         function fetchResourceList( callback){
             var service = this.serviceObj;
@@ -178,12 +179,51 @@ var Service = function(obj) {
                     try{				
 		                obj = JSON.parse(body);
                     }catch(e){
+					    console.log('service request resrouce error ',e, body);
 					    return callback(e,null);
 					}					
 			        callback(null,obj);
 		        } 
              }); 
         }
+		
+        function getOtherResource(url,callback){
+		    var service = this.serviceObj;		
+			if (new RegExp('^(?:[a-z]+:)?//', 'i').test(url))
+			{
+			    url= url;
+			}else{
+				
+				 url  = 'http://'+service.host+url;			
+			}			
+            request.get({  
+                url: url,	
+                headers: {
+		            'Authorization': 'Basic ' + new Buffer(service.key+":").toString('base64')
+		            ,'content-type':'application/json'		
+                },
+	            rejectUnauthorized: false,
+                requestCert: true,
+                agent: false
+            }, function(error, response, body) {
+	            //console.log('requestDataByURL'.green, url);
+	            if(error){ 
+		            winston.error("error  ".red, error);
+			        callback(error,null);
+		        }
+	            else
+	            { 	
+                    console.log('getResourceData'+url +"  "+body);				
+                    var obj ;				
+                    try{				
+		                obj = JSON.parse(body);
+                    }catch(e){
+					    return callback(e,null);
+					}					
+			        callback(null,obj);
+		        } 
+             }); 
+        }		
 
         function getResourceTag(url, callback)	{
 		    var service = this.serviceObj;
@@ -222,7 +262,6 @@ var Service = function(obj) {
              }); 
         }		
 
-
 	function isAbsoluteURL(s) {
 		return s.charAt(0) != "#"
 		  && s.charAt(0) != "/"
@@ -235,9 +274,7 @@ var Service = function(obj) {
 	function extractRelativeURL(href,host){
 
 	   return href.replace("https://"+host,"");
-	}
-
-		
+	}		
 };
 
 module.exports = Service;

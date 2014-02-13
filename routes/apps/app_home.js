@@ -19,18 +19,18 @@ var errors = require('../../utils/errors'),
 	db = require('../persistence_api.js'),
 	simulation = require('../simulation.js');
 
+//https://alertmeadaptor.appspot.com/traverse?traverseURI=https%3A%2F%2Fgeras.1248.io%2Fcat%2Farmhome&traverseKey=924a7d4dbfab38c964f5545fd6186559&Submit=Browse
+var armhome = serviceCatalog.findByName('armhome');  // armhome
 
-var enlightService = serviceCatalog.findByName('enlight');  // enlight
-
-// ballastTemperature	dolFinTemperature   lampPower  light   mainsVoltage  psuCurrent   psuVoltage
-
-// http://localhost/light/home/test
-app.get('/arm/light/test',function(req, res, next){
+// http://localhost/arm/home/test
+// https://geras.1248.io/series/armhome/1/MeterReader/00-0D-6F-00-00-F2-6E-23/energy
+app.get('/arm/home/test',function(req, res, next){
     // var range = "?start="+  ( -60*60*24 )+"&end="+ (-100);
     var now = new Date(), 
 	    default_start_day = new Date(now.getFullYear(),now.getMonth(),now.getDate(),0,0,0)
 	    default_end_day = new Date(now.getFullYear(),now.getMonth(),now.getDate(),23,59,59);
-		
+	console.log(req.query.start,req.query.end);
+	var day_begin , day_end;
 	if(req.query.start == undefined && req.query.end == undefined){
 	    day_begin  = default_start_day;
 	    day_end = default_end_day;   
@@ -38,11 +38,10 @@ app.get('/arm/light/test',function(req, res, next){
 	    day_begin = new Date(req.query.start); 
 		day_end = new Date(req.query.end);
 	}
-	console.log('/arm/light/test    ',day_begin,day_end );
 	var range = "?start="+day_begin.getTime()/1000+"&end="+day_end.getTime()/1000;	
-	
-    enlightService.getResourceData('https://geras.1248.io/series/enlight/Ballast00002898/ballastTemperature',range,function(err,data){
-	    if(err) { res.send(500); console.log(err);}
+	console.log('/arm/home/test   ',day_begin,day_end);
+    armhome.getResourceData('https://geras.1248.io/series/armhome/1/MeterReader/00-0D-6F-00-00-F2-6E-23/energy',range,function(err,data){
+	    if(err) res.send(500);
 		else if(!data) res.send(404);
 		else if(data) {
 		    var s = [];
@@ -57,49 +56,16 @@ app.get('/arm/light/test',function(req, res, next){
 			console.log( 'what the fuck  '.red,e.length, moment(e[0].t *1000 ).fromNow(),  moment( e[e.length-1].t *1000 ).fromNow() );
                           							
 			s.push({e:data.e, 'time':time});			
-		    res.send(200,s);
+		    res.send(s);
 		}	
 	})
 	
 })
 
 
-//serviceCatalog.removeRTService('enlight');
 
-/*
-app.get('/catalog',function(req,res,next){   
-    var type = req.query.type;
-    var enlightService = serviceCatalog.findByName(type);
-    try{
-        enlightService.fetchResourceList(function(err,data){
-	            if(err) {  winston.error(err.name + ": " + err.message);  res.send(404,err);}
-	            else res.json(200,data);			
-		});		
-    }catch(e){  
-		winston.error('service not found'); 
-		res.send(404);
-	}
-})
 
-// http://localhost/catalog/tag?type=enlight&url=enlight/Ballast00002897
-// http://localhost/catalog/tag?type=armmeeting&url=armmeeting/1/MotionSensor/00-0D-6F-00-00-C1-2E-EF	   
-app.get('/catalog/tag',function(req,res,next){   
-    var type = req.query.type, url = req.query.url;
-    var enlightService = serviceCatalog.findByName(type);
-	
-    try{
-        enlightService.getResourceTag(url,function(err,data){
-	            if(err) {  winston.error(err.name + ": " + err.message);  res.send(404,err);}
-	            else res.json(200,data);			
-		});		
-    }catch(e){  
-		winston.error('service not found'); 
-		res.send(404);
-	}
-})
-*/   
-   
-appBuilder.createApp('enlight',new EnlightingMQTTHandler().handleMessage, function(err,app){
+appBuilder.createApp('armhome',new ArmhomeMQTTHandler().handleMessage, function(err,app){
     if(err) winston.error('error in create app');
 	else winston.info('app is created enlight '+app.id);  // 
 	app.subscribeService('enlight',function(err,success){
@@ -108,17 +74,16 @@ appBuilder.createApp('enlight',new EnlightingMQTTHandler().handleMessage, functi
 	})
 });
 
-function EnlightingMQTTHandler(){  
+function ArmhomeMQTTHandler(){  
 	this.handleMessage = handleMessage;
 	function handleMessage(pattern, channel, message){	    
 		try{
 		    var raw = JSON.parse(message);
 		    var msg = raw.e[0];  
 		    var url = msg.n, value = msg.v, time = msg.t;
-            //winston.debug("EnlightingMQTTHandler handle message  "+url+"   "+value+"   "+time);		   
+            //winston.debug("ArmhomeMQTTHandler handle message  "+url+"   "+value+"   "+time);		   
 		}catch(e){
 			winston.debug('some thing wrong   ......'.red+e);   
 		}
     }		
-}	
-
+}

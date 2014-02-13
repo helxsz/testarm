@@ -62,13 +62,35 @@ var getSensorData = function(id, from, to, callback){
 			    }
                 console.log(timeseries.length);	
                 callback(null,timeseries);				
-		    } else{
-		        console.log('length >1');
-		    }
-		
-
+		    } else if(doc.length>1){
+		        console.log('length >1'.red,doc.length, doc);
+                doc = doc[0];
+			    var timeseries = [];				
+				if(data){
+					var data = doc.data;			
+			        var hourkey = Object.keys(data), minutekey , secondkey;				
+					var year = doc.day.getFullYear(), month = doc.day.getMonth(), day = doc.day.getDate();
+					for(var i=0;i<23;i++){
+						for(var j=0;j<60;j++){
+							//console.log('second  key   ',i,j,data[i][j].toObject(),"-------------------------------");
+							var keys = Object.keys(data[i][j].toObject());
+							//console.log(   keys.length ,'-----------------------------');
+							if(keys.length ==0 ) continue;
+							for(var k=0;k<keys.length;k++){						
+								//console.log('key data', i,j,k, data[i][j][keys[k]]);						
+								timeseries.push({'v':data[i][j][keys[k]],'t': new Date(year,month,day,i,j,k)  });					
+							}
+						}
+					}
+					console.log(timeseries.length);	
+				}
+                callback(null,timeseries);				
+		    }else if(doc.length==0){
+			    callback(null,[]);
+			}
 	    }else if(!doc){
 	        console.log( 'no sensor data  found'.green );
+			
 			callback(null,[]);
 	    }	
     })

@@ -184,7 +184,13 @@ var buildings =
     },
     {
       "room": "res:room:https://protected-sands-2667.herokuapp.com/rooms/Room.UKCTrainingRoomB"
-    }
+    },
+    {
+      "room": "res:room:https://protected-sands-2667.herokuapp.com/rooms/Room.UKCBay"
+    },
+    {
+      "room": "res:room:https://protected-sands-2667.herokuapp.com/rooms/Room.UKCPine"
+    }	
   ],
   "ARM3 1": [
     {

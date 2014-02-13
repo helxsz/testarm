@@ -81,7 +81,7 @@ https://alertmeadaptor.appspot.com
 
 var serviceBuilder = new ServiceBuilder(serviceCatalog);
 // put the service into the service catalog, the catalog will be used by the app layer
-serviceBuilder.build([enlight,armhome,armmeeting,armbuilding]);
+serviceBuilder.build([enlight,armhome,armmeeting,armbuilding,intellisense]);
 serviceBus.startService();
 //serviceCatalog.removeRTService('armmeeting');
 // Bootstrap controllers
@@ -959,7 +959,7 @@ function updateResourceRepository(){
 		});			
 	}
 
-	flushDB(function(){});
+	//flushDB(function(){});
 	/**/
 	checkDB(function(err,data){
 		if(err){		
@@ -990,8 +990,6 @@ app.get('/admin/repository/delete',function(req,res,next){
 })
 
 app.get('/admin/repository/update',function(req,res,next){
-
     updateResourceRepository();
 	res.send(200);
-
 })

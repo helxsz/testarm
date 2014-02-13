@@ -162,8 +162,8 @@
                                       <div class="ch-info-front hexagon">
                                           <header>
                                             <h1 ng-style="styleFont(room.displayname)">{{ UpperCaseArray(room.displayname)}}</h1>
-                                            <!-- <small ><span class='temperature'>{{room.status}}</span> </small> -->
-											<!----><small ng-if="room.t_enabled==true"><span class='temperature'>{{room.temperature}}</span> &#x2103;</small>
+                                            <!-- --><small ><span class='temperature'>{{room.status}}</span> </small> 
+											<!--<small ng-if="room.t_enabled==true"><span class='temperature'>{{room.temperature}}</span> &#x2103;</small>-->
                                           </header>
                                           <div class="knockout">
                                             <div id="clock-{{room.displayname}}"></div>
@@ -453,7 +453,8 @@
 						.style("fill-opacity", 0.2)
 						.style('fill',color[0]).attr("d", arc.endAngle(twoPi * 0));		
 											
-						$scope.updateClock(room,true);						
+						$scope.updateClock(room,true);
+                        $scope.updateStatusOnMeeting(room);						
 					} )
 
 				},500);
@@ -470,7 +471,7 @@
 		$scope.updateClock = function(room,first){
             //console.log('updateClock   ',room.displayname, percentage);	
 			if( room.eventIndex >=0 && room.eventIndex < room.events.length ){
-			    console.log('index:',room.eventIndex ,'length:' , room.events.length, room.displayname);
+			    //console.log('index:',room.eventIndex ,'length:' , room.events.length, room.displayname);
 				var event = room.events[room.eventIndex];	
 				var startTime = new Date(event.startDate).getTime(),endTime = new Date(event.endDate).getTime();
 				var per = (new Date().getTime()-startTime) / (endTime-startTime);
@@ -536,7 +537,8 @@
 				 
 				///////////////////////////////////////////////
                 $scope.updateClock(room);
-                $scope.updateStatusOnMotion(room);				
+                //$scope.updateStatusOnMotion(room);
+                $scope.updateStatusOnMeeting(room);				
     		})        			
     	}
 		$scope.updateStatusOnMeeting = function(room){
@@ -544,13 +546,17 @@
 			if( room.eventIndex >=0 && room.eventIndex < room.events.length ){
 			    var event = room.events[room.eventIndex];	
 			    var startTime = new Date(event.startDate).getTime(),endTime = new Date(event.endDate).getTime(), nowTime = new Date().getTime();
-			    var seconds = (endTime-nowTime)/1000;
-				//console.log('-----------------------------------------   updateStatusOnMeeting',room.displayname, seconds,endTime,nowTime);
-				if(seconds > 0){
-				    if(seconds <= 60*60)
-				    room.status = Math.floor(seconds/60)+1+ ' MINS';
-					else if(seconds > 60*60)
-					room.status = Math.round( seconds/3600 * 10) / 10 +' HOURS';
+				if(startTime <= nowTime){
+					var seconds = (endTime-nowTime)/1000;
+					//console.log('-----------------------------------------   updateStatusOnMeeting',room.displayname, seconds,endTime,nowTime);
+					if(seconds > 0){
+						if(seconds <= 60*60)
+						room.status = Math.floor(seconds/60)+1+ ' MINS';
+						else if(seconds > 60*60)
+						room.status = Math.round( seconds/3600 * 10) / 10 +' HOURS';
+					}
+				}else{
+				    room.status = 'start at '+ $scope.dateformat(event.startDate);
 				}
 			}else{
 			    room.status = 'FREE';    
@@ -571,7 +577,7 @@
 					}				               
 				}else if(room.available == true){
 				    if(mins >5) { room.available = false; room.status = '';}		
-					else room.status = 'BUSY';    
+					//else room.status = 'BUSY';    
 				}
 			}
 		}			
@@ -588,7 +594,7 @@
     			    return  (nowTime>=startTime&& nowTime<=endTime) ||(nowTime <=startTime);  // 
     		    })
                 room.eventIndex = events.length - event_filtered.length;		    
-    		    console.log("remaining events   ",event_filtered, room.eventIndex);
+    		    //console.log("remaining events   ",event_filtered, room.eventIndex);
 				//$scope.updateStatusOnMotion(room);
     		})
     	}
@@ -775,7 +781,7 @@
 		if(msg.type=='motion'){ 
 			var room = _.findWhere($scope.rooms, {name: msg.room});	
 			  if(room){
-        		console.log('receiving the real time message from server ', msg.room,msg.value,msg.type, msg.time,room.time,msg.time.valueOf());
+        		console.log('receiving the real time message from server ', msg.room,msg.value,msg.type, msg.time,room.time);
 				
 				
 				

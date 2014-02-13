@@ -78,4 +78,86 @@ function getRoomEvents(req,res,next){
     })	
 	
 }
+
+
+
+
+function getRoomEvents(tomorrow, res){
+    var rooms = [
+    { 
+	  'name': 'Room.UKCWillowA',
+      'displayname':'WilA',	
+	  "url":"https://protected-sands-2667.herokuapp.com/rooms/Room.UKCWillowA",
+      'temperature': 23,
+	  'time':new Date()
+	},
+    {
+	  'name': 'Room.UKCWillowB',
+	  'displayname':'WilB',
+      "url":"https://protected-sands-2667.herokuapp.com/rooms/Room.UKCWillowB",
+	  'temperature': 22,
+	  'time':new Date()
+	},
+    {
+	  'name': 'Room.UKCElm',
+	  'displayname':'Elm',
+	  "url":"https://protected-sands-2667.herokuapp.com/rooms/Room.UKCElm",
+      'temperature': 23,
+	  'time':new Date()
+	},
+    {
+	  'name': 'Room.UKCOak',
+	  'displayname':'Oak',
+	  "url":"https://protected-sands-2667.herokuapp.com/rooms/Room.UKCOak",
+      'temperature': 21,
+	  'time':new Date()
+	}
+    ];
+	
+	async.forEach(rooms, 
+	  function(room, callback){        
+		url = simulation.rooms[room.name];
+		console.log('........................'+room.name+"       " +url);
+		
+		buildingService.fetchResourceDetail(url+"/events",function(err,eventlist){
+            if(err){
+	            winston.error('error    '+url+"/events");
+				room.events = [];	
+	        }else{
+                var now = new Date(), late_day = new Date(now.getFullYear(),now.getMonth(),now.getDate(),23,59,59);
+				// all events in this day
+				if(tomorrow)
+				eventlist = _.filter(eventlist, function(event){ var eventDate = new Date(event.endDate);   return eventDate.getTime() > late_day.getTime(); });
+                else
+				eventlist = _.filter(eventlist, function(event){ var eventDate = new Date(event.endDate);   return eventDate.getTime() <= late_day.getTime(); });				
+                room.events = eventlist;
+                //winston.debug('filtered  ... '+room.events.length);				
+	        }		
+            callback();			
+	    });		
+      },
+	  function(err){
+        //winston.debug('get all the messages ',util.inspect(events, false, null));
+		res.send(200,{rooms:rooms});
+	  } 
+	);
+}
+
+app.get('/meetings/arm/tomorrow',function(req,res){
+ 	getRoomEvents(true,res);
+})
+
+app.get('/meetings/arm/now',function(req,res){
+    var now = new Date(), 
+	    default_start_day = new Date(now.getFullYear(),now.getMonth(),now.getDate(),0,0,0)
+	    default_end_day = new Date(now.getFullYear(),now.getMonth(),now.getDate(),23,59,59);
+	
+	var day_begin  = new Date(req.query.start) || default_start_day;
+	var day_end = new Date(req.query.end) || default_end_day;
+	var range = "?start="+day_begin.getTime()/1000+"&end="+day_end.getTime()/1000;
+	
+ 	getRoomEvents(false,res);
+})
+
+
 */
