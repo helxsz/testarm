@@ -833,7 +833,7 @@
     .modal-dialog {
         position: relative; z-index: 1050;
         width: 50%; max-width: 32.5em;
-        margin: 0 auto; margin-top: 15%;
+        margin: 0 auto; margin-top: 10%;
     }
 
     .modal-content {
@@ -1212,7 +1212,7 @@
         100% {
             -moz-transform: rotate(-320deg);
             opacity: 0;
-        };
+        }
     }
 
     @-moz-keyframes spinoffPulse {
@@ -1222,7 +1222,7 @@
 
         100% {
             -moz-transform: rotate(360deg);
-        };
+        }
     }
 
     @-webkit-keyframes spinPulse {
@@ -1240,7 +1240,7 @@
         100% {
             -webkit-transform: rotate(-320deg);
             opacity: 0;
-        };
+        }
     }
 
     @-webkit-keyframes spinoffPulse {
@@ -1250,7 +1250,11 @@
 
         100% {
             -webkit-transform: rotate(360deg);
+<<<<<<< HEAD
+        }
+=======
         };
+>>>>>>> 836546790e33e3d3de6c636bf940ab64c0f23e94
     }
  
 
@@ -1495,6 +1499,30 @@
         }
       
 
+    }
+
+
+    /* Glitch fixes for hexagons */
+
+    @media only screen and (min-width:1827px) and (max-width:2014px) {
+        .ch-grid {
+            width: 98%;
+            float: right;
+        }
+    }
+
+    @media only screen and (min-width:1451px) and (max-width:1638px) {
+        .ch-grid {
+            width: 98%;
+            float: right;
+        }
+    }
+
+    @media only screen and (min-width:1075px) and (max-width:1262px) {
+        .ch-grid {
+            width: 98%;
+            float: right;
+        }
     }
 
     @media print,
