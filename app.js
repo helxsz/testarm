@@ -95,8 +95,7 @@ if (process.env.NODE_ENV == 'production'){
 
 app.configure('development',function(){
 	app.set('db-uri',config.mongodb_development);
-    app.use(express.static(__dirname+'/static'));
-    app.use(express.static(__dirname+'/weibo'));	
+    app.use(express.static(__dirname+'/public-alertme'));	
     app.use(express.static(__dirname+'/public'));
 	
 	app.use(webdir, 	express.static(__dirname+webdir));

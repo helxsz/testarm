@@ -2,7 +2,7 @@
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
 <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" ng-app="SensorMappingApp"> <!--<![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" ng-app="EnergyApp"> <!--<![endif]-->
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -20,11 +20,12 @@
     <link rel="stylesheet" href="css/main.css">
 
     <script src="js/vendor/socket.io.js"></script>
-    <script src="assets/js/d3.v3.min.js"></script>
+	<script src="js/vendor/d3.v3.min.js"></script>
     <script src="js/vendor/angular.min.js"></script>
+    <script src="js/vendor/angular-touch.min.js"></script>
     <script src="js/vendor/ui-bootstrap.min.js"></script>
     <script src="js/vendor/underscore-min.js"></script>
-    <script src="js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+    <script src="js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>	
 </head>
 <body>
 <!--[if lt IE 7]>
@@ -34,7 +35,7 @@
     <div class="energy">
     <!-- START .meeting-room -->
 
-        <div id="container" class="container" class="clearfix">
+        <div id="container" class="container" class="clearfix" ng-controller="energyCtrl">
         <!-- START #container -->
 
             <section class="mp-pusher" id="mp-pusher">
@@ -98,7 +99,7 @@
 	                	<aside id="app-description" class="d1-d3 t1-t3 m-all">
 
 	                        <img src="img/Energy_Icon_time.png" alt="Time" />
-	                        <h2>7 Days Remaining</h2>
+	                        <h2>{{ daysLeft }} Days Remaining</h2>
 
 	                    </aside>
 
@@ -148,6 +149,14 @@
                 <!-- end .scroller's -->
                 </div>
                 </div>
+				
+				<div id="loading" ng-class="{'loading': loading, 'loadComplete':!loading}" >
+				<div class="inner">
+						<div class="box">
+							<div class="circle"></div>
+							<div class="circle1"></div>
+						</div>
+				</div>				
 
             </section>
 
@@ -242,9 +251,134 @@
       ga('send', 'pageview');
 
     </script>
+	
+	
+<script>
+var energyApp = angular.module('EnergyApp', ['ui.bootstrap','ngTouch']);
+	
+energyApp.controller('energyCtrl', function ($rootScope,$scope, $http, $interval, $modal) {
+
+	$scope.loading = true;
+	$http.get('/buildings/ARM3/0').success(function(data) {
+		//$scope.loadRoomData(data);
+        $scope.daysLeft = $scope.getDayLeft();		
+        console.log('data loaded   ',$scope.daysLeft);		
+		$scope.loading = false;			
+	}).error(function(data, status, headers, config) {
+
+		$scope.loading = false;
+	});
+		
+  	/****************************  utiliy ***********************************/
+	function getNumberOfDays(year, month) {
+		var isLeap = ((year % 4) == 0 && ((year % 100) != 0 || (year % 400) == 0));
+		return [31, (isLeap ? 29 : 28), 31, 30, 31, 30, 31, 31, 30, 31, 30, 31][month];
+	}
+	
+	$scope.daysLeft = 0;
+	
+	$scope.getDayLeft = function(){
+	    var now = new Date();
+		console.log(now.getDate());
+	    return getNumberOfDays(now.getFullYear(),now.getMonth()) -  now.getDate();
+	}
+	
+	$scope.$on('mybroadcast', function(service){
+		//console.log('on my broadcast', service);
+	    touchScroll("bodyID");
+	    sizeContent();			
+    })
+
+	$scope.styleFont = function(elem) {
+		//console.log(elem ,  elem.length,'--------------------------------------------------------------------');
+		if(elem.length <= 5)
+		return { "font-size": '65px' };
+		else if(elem.length < 7)
+		return { "font-size": '48px', 'margin-top':'20px' };
+		else if(elem.length < 9)
+		return { "font-size": '42px', 'margin-top':'28px' };
+		else if(elem.length <=12)
+		return { "font-size": '34px', 'margin-top':'37px' };			
+		else if(elem.length <=17)
+		return { "font-size": '25px', 'margin-top':'50px' };			
+	}
+	
+    $scope.dateformat = function(date){
+		var date = new Date(date);	
+		var hour = date.getHours(), min = date.getMinutes();
+		if(hour < 10) hour = '0'+date.getHours();
+		if(min < 10) min = '0'+date.getMinutes();
+		return  hour+":"+min;		 
+	}
+	
+  	// touch device overflow fix
+  	function isTouchDevice() {
+  		try{
+  			document.createEvent("TouchEvent");
+  			return true;
+  		}catch(e){
+  			return false;
+  		}
+  	}
+
+  	function touchScroll(id) {
+  		if(isTouchDevice()){ //if touch events exist...
+  			var el=document.getElementById(id);
+  			var scrollStartPos=0;
+
+  			document.getElementById(id).addEventListener("touchstart", function(event) {
+  				scrollStartPos=this.scrollTop+event.touches[0].pageY;
+  				event.preventDefault();
+  			},false);
+
+  			document.getElementById(id).addEventListener("touchmove", function(event) {
+  				this.scrollTop=scrollStartPos-event.touches[0].pageY;
+  				event.preventDefault();
+  			},false);
+  		}
+  	}
+  	
+	function sizeContent() {
+		// fix height bug on .container as there was an annoying gap below
+		var bodyHeight = window.innerHeight;
+
+		var containerHeight = document.getElementById("container").style.height;
+        console.log('size content  body:',bodyHeight,'container', containerHeight);	
+    
+        var loadingHeight = document.getElementById("loading").style.height;
+        console.log('size content  body:',bodyHeight,'loading', loadingHeight);   
+
+		if (bodyHeight > 1100) {
+		  document.getElementById('container').style.height = bodyHeight+"px";
+          document.getElementById('loading').style.height = bodyHeight+"px";
+		}
+		else {
+		 // window.innerHeight = containerHeight;
+         //window.innerHeight = loadingHeight;
+		}
+		//console.log ('sizeContent working');
+	}			
+});
+	
+   function sizeContent() {
+      var bodyHeight = $('body').height();
+      var containerHeight = $("#container").height();
+      var loadingHeight = $("#loading").height();
+      //console.log('size contenter   ... ',bodyHeight, containerHeight);
+      if (bodyHeight > containerHeight) {
+        $('#container').css('height', bodyHeight );
+      } else if (containerHeight > loadingHeight) {
+        $('#loading').css('height', containerHeight );
+      }
+      else {
+        $('body').css('height', containerHeight);
+      }
+  }
+
+  //Every resize of window
+  $(window).resize(sizeContent); 
+
+</script>	
+	
 </body>
 </html>
-
-
-
-

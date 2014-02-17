@@ -101,10 +101,12 @@ var sensorPush = function(message){
         timeSeriesModel.push(message.id,message.value,message.time,function(err,data){
             if(err) winston.error('errror updaing '+err);
             else {
-		        if(data==1)
-		        winston.debug('time series model updating success'.green);
-			    else if(data ==0)
-			    winston.debug('time series model updating wrong  '.red+ err);
+		        if(data==1){
+		            //winston.debug('time series model updating success'.green);
+				}
+			    else if(data ==0){
+			        winston.debug('time series model updating wrong  '.red+ err);
+				}
 		    }
         });
 }

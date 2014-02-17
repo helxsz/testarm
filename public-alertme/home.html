@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"  ng-app="HomeEnergyApp"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>AlertMe - Smart energy monitoring for the home</title>
+        <meta name="description" content="AlertMe - Smart energy monitoring for the home">
+        <meta name="viewport" content="width=device-width">
+
+        <!-- Gridset CSS -->
+        <!--[if (!IE) | (gt IE 9)]><!--><link rel="stylesheet" href="./css/gridset.css" /><!--<![endif]-->
+        <!--[if IE 9]><link rel="stylesheet" href="./css/gridset-ie-9.css" /><![endif]-->
+        <!--[if lte IE 8]><link rel="stylesheet" href="./css/gridset-ie-lte8.css" /><![endif]-->
+        <link rel="stylesheet" href="css2/normalize.min.css">
+        <link rel="stylesheet" href="css2/formalize.css">
+        <link rel="stylesheet" href="css2/mfglabs_iconset.css">
+        <link rel="stylesheet" href="css2/main.css">
+
+		<script src="js/vendor/socket.io.js"></script>
+		<script src="js/vendor/d3.v3.min.js"></script>
+		<script src="js/vendor/angular.min.js"></script>
+		<script src="js/vendor/angular-touch.min.js"></script>
+		<script src="js/vendor/ui-bootstrap.min.js"></script>
+		<script src="js/vendor/underscore-min.js"></script>		
+        <script src="js/vendor/modernizr-2.6.2.min.js"></script>
+
+        <link rel="canonical" href="http://alertme.redninja.co.uk" />
+        <meta name="twitter:card" content="summary"/>
+        <meta name="twitter:site" content="@alertmesays"/>
+        <meta name="twitter:domain" content="AlertMe - Smart energy monitoring for the home"/>
+    </head>
+    <body ng-controller="homeEnergyCtrl">
+        <!--[if lt IE 7]>
+            <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+        <![endif]-->
+
+        <header id="banner" role="banner">
+        <!-- START - #banner -->
+
+          <div class="wrapper">
+          <!-- START - .wrapper -->
+          <div class="d3-d10 t-all m-all">
+
+            <a class="brand" rel="home" href="http://alertme.redninja.co.uk" title="AlertMe - Smart energy monitoring for the home"> 
+              <img src="img/AlertMe-Logo.png" alt="AlertMe - Smart energy monitoring for the home">
+            </a>
+
+            <h1>Save money whilst helping the environment</h1>
+            <p><a href="#main-content" title="View monthly leaderboard" class="buttonLink" ng-click="$event.stopPropagation();">View monthly leaderboard</a></p>
+
+            <nav id="primary-nav">
+            <!-- START - #primary-nav -->
+
+              <ul>
+                  <li><a href="#"><i class="icon-magnifying" aria-hidden="true"></i></a></li>      
+                  <li><a href="#">Signup for news</a></li>
+              </ul>
+
+            <!-- END - #primary-nav -->
+            </nav>
+
+          </div>
+          <!-- END - .wrapper -->
+          </div>
+
+        <!-- END - #banner -->
+        </header>
+
+        <div id="main-content" class="clearfix" role="main">
+        <!-- START - #main-content -->
+
+
+          <section class="whiteBG breakout clearfix">
+          <!-- START - .whiteBG -->
+
+            <article class="wrapper">
+            <!-- START - .wrapper -->
+            <div class="d-all t-all m-all">
+
+              <header>
+                <ul>
+                  <li><h1>Alert Me Monthly Leaderboard</h1></li>
+                  <li><h2>{{selectedYear}}</h2></li>
+                  <li><h3>{{month_Lables[selectedMonth]}}</h3></li>
+				  <li class="dropdown" >
+					  <a class="dropdown-toggle">
+						Click me for a dropdown, yo!
+					  </a>
+					  <ul class="dropdown-menu">
+						<li ng-repeat="choice in month_Lables">
+						  <a ng-click="$event.stopPropagation(); selectMonth($index)">>{{choice}}</a>
+						</li>
+					  </ul>
+				  </li>
+                </ul>
+              </header>
+              
+              <div id="leaderboard" class="greyBG clearfix">
+              <!-- START - #leaderboard -->
+
+                <table>
+                  <tr>
+                    <th>Rank</th>
+                    <th>ID</th>
+                    <th>USAGE</th>
+                    <th>SAVINGS</th>
+                    <th>CHANGE</th>
+                    <th></th>
+                  </tr>
+				    <tr class="room" ng-repeat="home in homes | limitTo:limtedNumber" ng-cloak "> 
+						<td ng-class="{'icon-star':$index<3,'lightPurpleText':$index==0}"  >{{home.rank}}</td>  <!--  lightPurpleText purpleText -->
+						<td>{{getHomeID(home)}}</td>
+						<td>{{home.energy}}</td>
+						<td>£{{getCost(home)}}</td><!---->
+						<td>-</td>
+						<td><a href="" ng-class="{'active': $index ==selectedHome}"  ng-click="$event.stopPropagation(); selectHomeDetail($index)"><i class="icon-information_black icon2x whiteText" aria-hidden="true"></i></a></td>					
+                    </tr>
+                 <!--  					
+                  <tr>
+                    <td>1</td>
+                    <td>68</td>
+                    <td>718.02</td>
+                    <td>£110</td>
+                    <td>-</td>
+                    <td><a href="#" class="active"><i class="icon-information_black icon2x whiteText" aria-hidden="true"></i></a></td>
+                  </tr>
+                  <tr>
+                    <td>2</td>
+                    <td>68</td>
+                    <td>718.02</td>
+                    <td>£110</td>
+                    <td class="positive">+1</td>
+                    <td><a href="#"><i class="icon-information_black icon2x whiteText" aria-hidden="true"></i></a></td>
+                  </tr>
+                  <tr>
+                    <td>3</td>
+                    <td>68</td>
+                    <td>718.02</td>
+                    <td>£110</td>
+                    <td class="negative">-1</td>
+                    <td><a href="#"><i class="icon-information_black icon2x whiteText" aria-hidden="true"></i></a></td>
+                  </tr>
+                  <tr>
+                    <td>4</td>
+                    <td>68</td>
+                    <td>718.02</td>
+                    <td>£110</td>
+                    <td>-</td>
+                    <td><a href="#"><i class="icon-information_black icon2x whiteText" aria-hidden="true"></i></a></td>
+                  </tr>
+                  <tr>
+                    <td>5</td>
+                    <td>68</td>
+                    <td>718.02</td>
+                    <td>£110</td>
+                    <td>-</td>
+                    <td><a href="#"><i class="icon-information_black icon2x whiteText" aria-hidden="true"></i></a></td>
+                  </tr>
+                  <tr>
+                    <td>6</td>
+                    <td>68</td>
+                    <td>718.02</td>
+                    <td>£110</td>
+                    <td>-</td>
+                    <td><a href="#"><i class="icon-information_black icon2x whiteText" aria-hidden="true"></i></a></td>
+                  </tr>
+                  <tr>
+                    <td>7</td>
+                    <td>68</td>
+                    <td>718.02</td>
+                    <td>£110</td>
+                    <td>-</td>
+                    <td><a href="#"><i class="icon-information_black icon2x whiteText" aria-hidden="true"></i></a></td>
+                  </tr>
+                  <tr>
+                    <td>8</td>
+                    <td>68</td>
+                    <td>718.02</td>
+                    <td>£110</td>
+                    <td>-</td>
+                    <td><a href="#"><i class="icon-information_black icon2x whiteText" aria-hidden="true"></i></a></td>
+                  </tr>
+                  <tr>
+                    <td>9</td>
+                    <td>68</td>
+                    <td>718.02</td>
+                    <td>£110</td>
+                    <td>-</td>
+                    <td><a href="#"><i class="icon-information_black icon2x whiteText" aria-hidden="true"></i></a></td>
+                  </tr>
+                  <tr>
+                    <td>10</td>
+                    <td>68</td>
+                    <td>718.02</td>
+                    <td>£110</td>
+                    <td>-</td>
+                    <td><a href="#"><i class="icon-information_black icon2x whiteText" aria-hidden="true"></i></a></td>
+                  </tr>
+				  -->
+                </table>
+
+                <aside class="home-info darkGreyBG clearfix">
+                <!-- START - .home-info -->
+
+                  <div class="circle"><p>{{homes[selectedHome].rank}}</p></div>
+
+                  <h1 ng-cloak >House #{{getHomeID(homes[selectedHome])}} has saved</h1>
+                  <h2 ng-cloak >£{{  getCost(homes[selectedHome])}}</h2>
+
+            <!--     END - .home-info -->
+					<div class="graph-wrapper">	
+						<p>
+							<div id="daylyGraph"></div>
+						</p>
+						<p>
+							<div id="monthlyGraph"></div>
+						</p>
+					</div>			
+			
+                </aside>
+
+              <!-- END - #leaderboard -->
+              </div>
+
+              <small class="textCenter"><em>* All energy usage readings and saving calculations are based on a flat rate of 13p per unit or kWh of electricity</em></small>
+
+            </div>
+            <!-- END - .wrapper -->
+            </article>
+
+          <!-- END - .whiteBG -->
+          </section>
+
+
+          <section id="search-bar" class="greenBG clearfix">
+          <!-- START - .greenBG -->
+
+            <div class="wrapper">
+            <!-- START - .wrapper -->
+            <div class="d-all t-all m-all">
+
+                <form action="" method="post" novalidate="">
+          
+                  <div id="field1" class="field">
+                    <i class="icon-magnifying icon2x whiteText" aria-hidden="true"></i>
+                    <input type="text" ng-model="selected" name="search" id="search" typeahead="state for state in states | filter:$viewValue | limitTo:8" required="required" placeholder="Search by House ID...">
+                  </div>
+                   
+                  <div id="form-submit" class="field">
+                    <input type="submit" value="SEARCH">
+                  </div>
+                </form>
+				
+				<div id="loading" ng-class="{'loading': loading, 'loadComplete':!loading}" >
+				<div class="inner">
+						<div class="box">
+							<div class="circle"></div>
+							<div class="circle1"></div>
+						</div>
+				</div>				
+
+            </div>
+            <!-- END - .wrapper -->
+            </div>
+
+          <!-- END - .greenBG -->
+          </section>
+
+
+        <!-- END - #main-content -->
+        </div>
+
+        <footer id="page-footer" class="purpleBG clearfix">
+        <!-- START - #page-footer -->
+
+          <div class="wrapper">
+          <!-- START - .wrapper -->
+          <div class="d1-d6 t1-t4 m-all">
+
+            <p>&copy; Copyright 2014 AlertMe.</p>
+
+          </div>
+          <div class="d7-d12 t5-t8 m-all">
+
+            <p><a href="http://www.redninja.co.uk" title="App and Website design by Red Ninja Studios">Mobile App and Website design</a> by Red Ninja Studios</p>
+
+          </div>
+          <!-- END - .wrapper -->
+          </div>
+
+        <!-- END - #page-footer -->
+        </footer>
+
+        <script src="js/vendor/jquery-1.10.1.min.js"></script>
+        <!--<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+        <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.10.1.min.js"><\/script>')</script>-->
+
+        <script src="js/plugins.js"></script>
+        <script src="js/main.js"></script>
+
+        <!-- Gridset overlay script - toggles grid overlay on and off - You can remove this if you want. -->
+        <script src="./js/gridset-overlay.js"></script> 
+
+<script>
+var homeEnergyApp = angular.module('HomeEnergyApp', ['ui.bootstrap','ngTouch']);
+homeEnergyApp.controller('homeEnergyCtrl', function ($rootScope,$scope, $http, $interval, $modal) {
+
+	$scope.loading = true;
+	
+	$scope.selectedHome = 0;
+	$scope.limtedNumber = 10;
+	
+	$scope.selectedYear = 2014;
+	$scope.selectedMonth = 0;
+	$scope.month_Lables = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+	
+	$scope.homes = [];
+
+	$scope.$watchCollection('homes', function(newVal, oldVal){
+		//console.log('changed  homes: ',newVal, oldVal);
+		var changeHooms = oldVal;
+		changeHooms.forEach(function(home){
+			//console.log(home);
+	
+		})
+	}, true);
+	
+	$scope.loadEnergyData = function(){
+		$http.get('/alert/home/test').success(function(data) {
+			$scope.loading = false;
+            extractData(data);			
+		}).error(function(data, status, headers, config) {
+			$scope.loading = false;
+		});	
+		
+		function extractData(data){
+			$scope.homes = data;
+			$scope.homes.forEach(function(home){
+				//console.log(home.url, home.energy, home.timeline);
+				home.energy = Math.floor(home.energy/3600/1000 *100)/100;
+				for(var i =1;i<home.timeline.length;i++){
+					var current = home.timeline[i-1], previous = home.timeline[i];
+					//console.log(  (previous.v - current.v), new Date(current.t), new Date(previous.t) );
+					home.timeline[i].v = Math.floor(home.timeline[i].v/3600/1000 *100)/100;
+					
+				}				
+				//////////////////////////////////////////////////////////////////
+				$scope.sortHomeRank();
+			})
+			
+	        showHistoryGraph("#monthlyGraph", month_timeline, $scope.homes[0].timeline);
+			console.log($scope.homes[0].timeline);
+	        showHistoryGraph("#daylyGraph", day_timeline, $scope.homes[1].timeline);
+            console.log($scope.homes[1].timeline);			
+		}
+	}
+	
+	$scope.loadEnergyData();
+
+	$scope.getEnergy = function(){
+	    
+	}
+	
+	$scope.sortHomeRank = function(){
+		$scope.homes = _.sortBy($scope.homes,function(home){
+		    return -home.energy;
+		})
+		_.map($scope.homes,function(home,index){
+            //console.log(home.energy,index);		
+            home.rank = index+1;		
+		})	
+	}
+	
+    $scope.getHomeID = function(home){
+	    if(home != null || home != undefined){   
+		     var arr = home.url.split('/');
+		    return arr[5];
+		}	
+	}	
+	
+	$scope.getCost = function(home){
+        if(home != null || home != undefined){ 
+            var rate = 1.2;		
+	        return Math.floor( home.energy * rate * 1000)/1000;
+		}
+	}
+	
+	$scope.selectHomeDetail = function(index){
+	    //console.log('select index  ',index);
+	    $scope.selectedHome = index;
+		
+        redrawHistoryGraph("#monthlyGraph", month_timeline, $scope.homes[$scope.selectedHome].timeline);	
+        redrawHistoryGraph("#daylyGraph", day_timeline,$scope.homes[$scope.selectedHome].timeline);		    
+	}
+	
+	$scope.selectMonth = function(index){
+	    //console.log( $scope.month_Lables[index] );
+	    $scope.selectedMonth = index;
+		
+        redrawHistoryGraph("#monthlyGraph", timeline2, dataTwo);		
+        redrawHistoryGraph("#daylyGraph", timeline1, dataOne);		
+	}
+	
+	$scope.selectYear = function(index){
+	    $scope.selectedYear = index;
+	}
+	
+	
+	
+    $scope.selected = undefined;
+    $scope.states = ['Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California', 'Colorado', 'Connecticut', 'Delaware', 'Florida', 'Georgia', 'Hawaii', 'Idaho', 'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky', 'Louisiana', 'Maine', 'Maryland', 'Massachusetts', 'Michigan', 'Minnesota', 'Mississippi', 'Missouri', 'Montana', 'Nebraska', 'Nevada', 'New Hampshire', 'New Jersey', 'New Mexico', 'New York', 'North Dakota', 'North Carolina', 'Ohio', 'Oklahoma', 'Oregon', 'Pennsylvania', 'Rhode Island', 'South Carolina', 'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont', 'Virginia', 'Washington', 'West Virginia', 'Wisconsin', 'Wyoming'];
+    // Any function returning a promise object can be used to load values asynchronously
+    $scope.getLocation = function(val) {
+        return $http.get('http://maps.googleapis.com/maps/api/geocode/json', {
+		  params: {
+			address: val,
+			sensor: false
+		    }
+		  }).then(function(res){
+		    var addresses = [];
+		    angular.forEach(res.data.results, function(item){
+			    addresses.push(item.formatted_address);
+		    });
+		    return addresses;
+		});
+	};	
+	
+	/***************************  ******************************************/
+	var width = 400, height = 100, interpolation = "basis", updateDelay =280, transitionDelay = 280;
+
+	/******************  tooltip ******************************/
+	var tooltip = d3.select("body").append("div")
+	                               .attr("class", "tooltip")
+								   .style("opacity", 0);	
+	var uktimeFormat = d3.time.format('%H:%M UK');
+	
+    var dataOne = [68, 16, 59, 38, 39, 50, 71, 22, 88, 31, 24, 3, 93, 2, 82, 6, 73, 96, 94, 68, 43, 20, 82, 62, 20, 51, 80, 18, 10, 94, 2, 66, 13, 47, 53, 65, 1, 15, 22, 30, 53, 64, 58, 34, 42, 93, 27, 77, 2, 88, 89, 81, 48, 95, 91, 64, 73, 38, 76, 79, 90, 94, 56, 37, 35, 99, 81, 19, 14, 14, 97, 74, 49, 81, 38, 5, 84, 19, 50, 72, 47, 2, 58, 8, 93, 85, 34, 38, 75, 54, 51, 39, 2, 38, 54, 13, 48, 58, 5, 90, 67, 40, 46, 67, 3, 96, 7, 11, 69, 42, 15, 52, 15, 40, 11, 70, 99, 87, 16, 23, 77, 18, 47, 7, 79, 69, 14, 60, 54, 15, 27, 93, 57, 56, 22, 88, 10, 24, 55, 77, 76, 94, 61, 84, 77, 89, 51, 99, 6, 99, 100, 35, 72, 13, 55, 80, 65, 18, 49, 33, 53, 31, 51, 52, 39, 71, 63, 80, 14, 39, 29, 3, 17, 86, 75, 42, 43, 5, 50, 40, 9, 82, 90, 85, 62, 5, 25, 34, 17, 76, 68, 27, 49, 13, 62, 34, 3, 4, 26, 21];	
+    var dataTwo = [33, 76, 67, 74, 32, 82, 62, 1, 78, 4, 13, 88, 61, 26, 58, 42, 79, 69, 3, 19, 10, 91, 94, 20, 27, 8, 51, 87, 85, 65, 17, 77, 35, 37, 93, 36, 60, 63, 39, 73, 43, 75, 9, 66, 25, 49, 97, 90, 47, 70, 18, 41, 50, 34, 53, 23, 30, 92, 14, 84, 16, 95, 28, 31, 96, 68, 80, 21, 72, 99, 15, 83, 6, 64, 59, 54, 86, 12, 55, 71, 7, 22, 52, 24, 5, 29, 56, 2, 100, 98, 48, 11, 40, 57, 45, 81, 89, 38, 46, 44];
+	var time = d3.scale.linear().domain([0, 48]).range([-5, width]);
+
+	var power = d3.scale.linear().domain([0, 5]).range([0, height]);
+
+
+	var now = new Date();
+	 
+	var now, mindate, maxdate; 
+    var dayScale = d3.time.scale().domain([ new Date( now.getFullYear (),now.getMonth(),now.getDate()-1,0)
+	                                      , new Date( now.getFullYear (),now.getMonth(),now.getDate()-1,24)
+										  ])
+	                              .range([-5, width]);
+	var monthScale = d3.time.scale().domain([new Date( now.getFullYear (),now.getMonth(),now.getDate(),0)
+	                                       , new Date( now.getFullYear (),now.getMonth()-3,now.getDate(),0)
+										   ])
+									.range([-5, width]);;
+	
+	var	day_timeline = d3.svg.line()
+			.x(function(d,i) { 
+				return dayScale(new Date(d.t)); 
+			})
+			.y(function(d) { 
+			    console.log(power(d.v)/1000);
+				return power(d.v)/1000-80; 
+			})
+			.interpolate("basis");
+          
+	var	month_timeline = d3.svg.line()
+			.x(function(d,i) { 
+				return monthScale(new Date(d.t)); 
+			})
+			.y(function(d) { 
+				return power(d.v); 
+			})
+			.interpolate("basis");
+
+			    
+	
+	function showHistoryGraph(id, timeline,data) {
+		var graph = d3.select(id).append("svg:svg").attr("width", "100%").attr("height", "100%");				         
+		graph.append("svg:path").attr("d", timeline(data));
+	}
+
+	function redrawHistoryGraph(id, timeline,data) {
+		d3.select(id).selectAll("path")
+			.data([data])
+			.attr("d", timeline)
+			.transition()
+			.ease("linear")
+			.duration(280);
+	}
+		
+  	/****************************  utiliy ***********************************/
+	function getNumberOfDays(year, month) {
+		var isLeap = ((year % 4) == 0 && ((year % 100) != 0 || (year % 400) == 0));
+		return [31, (isLeap ? 29 : 28), 31, 30, 31, 30, 31, 31, 30, 31, 30, 31][month];
+	}
+		
+	$scope.getDayLeft = function(){
+	    var now = new Date();
+		console.log(now.getDate());
+	    return getNumberOfDays(now.getFullYear(),now.getMonth()) -  now.getDate();
+	}
+	
+	$scope.$on('mybroadcast', function(service){
+		//console.log('on my broadcast', service);
+	    touchScroll("bodyID");
+	    sizeContent();			
+    })
+
+	$scope.styleFont = function(elem) {
+		//console.log(elem ,  elem.length,'--------------------------------------------------------------------');
+		if(elem.length <= 5)
+		return { "font-size": '65px' };
+		else if(elem.length < 7)
+		return { "font-size": '48px', 'margin-top':'20px' };
+		else if(elem.length < 9)
+		return { "font-size": '42px', 'margin-top':'28px' };
+		else if(elem.length <=12)
+		return { "font-size": '34px', 'margin-top':'37px' };			
+		else if(elem.length <=17)
+		return { "font-size": '25px', 'margin-top':'50px' };			
+	}
+	
+    $scope.dateformat = function(date){
+		var date = new Date(date);	
+		var hour = date.getHours(), min = date.getMinutes();
+		if(hour < 10) hour = '0'+date.getHours();
+		if(min < 10) min = '0'+date.getMinutes();
+		return  hour+":"+min;		 
+	}
+	
+  	// touch device overflow fix
+  	function isTouchDevice() {
+  		try{
+  			document.createEvent("TouchEvent");
+  			return true;
+  		}catch(e){
+  			return false;
+  		}
+  	}
+
+  	function touchScroll(id) {
+  		if(isTouchDevice()){ //if touch events exist...
+  			var el=document.getElementById(id);
+  			var scrollStartPos=0;
+
+  			document.getElementById(id).addEventListener("touchstart", function(event) {
+  				scrollStartPos=this.scrollTop+event.touches[0].pageY;
+  				event.preventDefault();
+  			},false);
+
+  			document.getElementById(id).addEventListener("touchmove", function(event) {
+  				this.scrollTop=scrollStartPos-event.touches[0].pageY;
+  				event.preventDefault();
+  			},false);
+  		}
+  	}
+  	
+	function sizeContent() {
+		// fix height bug on .container as there was an annoying gap below
+		var bodyHeight = window.innerHeight;
+
+		var containerHeight = document.getElementById("container").style.height;
+        console.log('size content  body:',bodyHeight,'container', containerHeight);	
+    
+        var loadingHeight = document.getElementById("loading").style.height;
+        console.log('size content  body:',bodyHeight,'loading', loadingHeight);   
+
+		if (bodyHeight > 1100) {
+		  document.getElementById('container').style.height = bodyHeight+"px";
+          document.getElementById('loading').style.height = bodyHeight+"px";
+		}
+		else {
+		 // window.innerHeight = containerHeight;
+         //window.innerHeight = loadingHeight;
+		}
+		//console.log ('sizeContent working');
+	}			
+});
+	
+   function sizeContent() {
+      var bodyHeight = $('body').height();
+      var containerHeight = $("#container").height();
+      var loadingHeight = $("#loading").height();
+      //console.log('size contenter   ... ',bodyHeight, containerHeight);
+      if (bodyHeight > containerHeight) {
+        $('#container').css('height', bodyHeight );
+      } else if (containerHeight > loadingHeight) {
+        $('#loading').css('height', containerHeight );
+      }
+      else {
+        $('body').css('height', containerHeight);
+      }
+  }
+
+  //Every resize of window
+  $(window).resize(sizeContent); 
+
+  
+</script>			
+
+<style>
+.graph-wrapper {
+	width: 320px;
+	margin: 20px auto;
+	border-left: 1px solid #0d2b53;
+  border-right: 1px solid #0d2b53;
+}
+#daylyGraph,
+#monthlyGraph {
+	height: 100px;
+	width:100%;
+	margin: 0 auto;
+
+}
+#daylyGraph path {
+   stroke: #1b70e0;
+   stroke-width: 1;
+   fill: none;
+}
+
+#monthlyGraph path {
+	stroke: #2ecc71;
+  stroke-width: 1;
+  fill: none;
+}
+</style>
+		
+        <!--<script>
+          (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+          (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+          })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+          ga('create', 'UA-47972011-1', 'inhand.org.uk');
+          ga('send', 'pageview');
+
+        </script>-->
+    </body>
+</html>

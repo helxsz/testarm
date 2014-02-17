@@ -1,0 +1,16 @@
+# humanstxt.org/
+# The humans responsible & technology colophon
+
+# TEAM
+
+	Lee Omar		CEO at Red Ninja Studios				@leeomar
+	Steven Hassall	Senior Designer	at Red Ninja Studios	@designfunction
+
+# THANKS
+
+    Louise Latter	FACT Liverpool							@Freehand_FACT
+
+# TECHNOLOGY COLOPHON
+
+    HTML5, CSS3
+    jQuery, Modernizr

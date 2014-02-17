@@ -409,18 +409,20 @@ var catalog_filter = function(){
 				if(hash[CONTENT_TYPE] == IS_SENML){
 				    //console.log( hash[SUPPORTS_QUERY], hash[SUPPORTS_MQTT] , hash[GEO_LAT], hash[GEO_LNG], hash[SAME_AS]);
 					// add key , hash
+					var arr = key.split('/'), attribute = arr[arr.length-1], parent_key = key.substring(0, key.indexOf(attribute)-1);                  
+					if(results[parent_key] ==null)  results[parent_key] = {};					
+					results[parent_key][attribute] = key;				
 		            for(var index in hash) {
 			            //console.log(' '.green, index, hash[index]);					
 						if( index == GEO_LAT){
-							hash[GEO_LAT_SHORT] = hash[GEO_LAT];
+							results[parent_key][GEO_LAT_SHORT] = hash[GEO_LAT];
 						}else if( index ==  GEO_LNG ){
-							hash[GEO_LNG_SHORT] = hash[GEO_LNG];
+							results[parent_key][GEO_LNG_SHORT] = hash[GEO_LNG];
 						}else if( index == SAME_AS ){
-							hash[SAME_AS_SHORT] = hash[SAME_AS];
+							results[parent_key][SAME_AS_SHORT] = hash[SAME_AS];
 						}
 						delete hash[index];
-					}									
-					results[key] = hash;
+					}	
 				}else if(hash[CONTENT_TYPE] == IS_CATALOG){
 				    //console.log('not wanted, because it is catalog'.red, key);			
 				}
@@ -442,6 +444,67 @@ var catalog_filter = function(){
 		}	
 	}
 
+	function filterHome(facts, _callback){
+		if (facts.length) {		
+		    console.log('facts length  '.green,facts.length);			
+			var groups = _.groupBy(facts, function(fact){ return fact.subject; });			
+			var array = Object.keys(groups);
+			console.log('group length '.green, array.length );
+            var results = {};			
+			async.forEach(array, function(key,callback){ 				 				 
+
+				var value = groups[key]; 				 
+				//console.log(key , value );
+                var hash = {};
+                _.map(value,function(item){
+				    if(item.predicate != 'urn:X-tsbiot:rels:hasDescription:en') 
+				    hash[item.predicate]  = item.object;			    
+				})				
+				if(hash[CONTENT_TYPE] == IS_SENML){
+				    //console.log( hash[SUPPORTS_QUERY], hash[SUPPORTS_MQTT] , hash[GEO_LAT], hash[GEO_LNG], hash[SAME_AS]);
+					var arr = key.split('/'), attribute = arr[arr.length-1], parent_key = key.substring(0, key.indexOf(attribute)-1);
+					//console.log( attribute , parent_key    );
+					if(results[parent_key] ==null)  results[parent_key] = {};				
+		            for(var index in hash) {
+			            //console.log(' '.green, index, hash[index]);					
+						if( index == "urn:X-senml:u"){
+							//results[parent_key][attribute+":unit"] = hash["urn:X-senml:u"];;
+						}else if(index == SUPPORTS_QUERY){
+							results[parent_key][attribute] = key;
+						}else if(index == SUPPORTS_MQTT){
+							//results[parent_key][attribute+":mqtt"] = hash[SUPPORTS_MQTT];
+						}else if( index == GEO_LAT){
+							results[parent_key][GEO_LAT_SHORT] = hash[GEO_LAT];
+						}else if( index ==  GEO_LNG ){
+							results[parent_key][GEO_LNG_SHORT] = hash[GEO_LNG];
+						}
+						delete hash[index];
+					}
+				}
+                else if(hash[CONTENT_TYPE] == IS_CATALOG){
+	                for(var index in hash) {
+			            console.log(' .. '.red, index, hash[index]);					
+
+						delete hash[index];				
+					}	               
+                }							
+                callback(); 				
+			 }, function(err) {      
+				if(err){
+					console.log(err);
+				}
+				else{
+				    var array = Object.keys(results);
+					//console.log('complete   filterSensors'.green, array.length);
+					if(_callback){
+					    _callback(results);
+					}
+				}
+				delete facts;								
+			});
+		}	
+	}	
+	
 	function filterIntellisense(facts, _callback){
 		if (facts.length) {		
 		    console.log('facts length  '.green,facts.length);			
@@ -591,59 +654,6 @@ var catalog_filter = function(){
 			});
 		}	
 	}
-
-	function filterHome(facts, _callback){
-		if (facts.length) {		
-		    console.log('facts length  '.green,facts.length);			
-			var groups = _.groupBy(facts, function(fact){ return fact.subject; });			
-			var array = Object.keys(groups);
-			console.log('group length '.green, array.length );
-            var results = {};			
-			async.forEach(array, function(key,callback){ 				 				 
-				var value = groups[key]; 				 
-				//console.log(key , value );
-                var hash = {};
-                _.map(value,function(item){
-				    if(item.predicate != 'urn:X-tsbiot:rels:hasDescription:en') 
-				    hash[item.predicate]  = item.object;			    
-				})
-				
-				if(hash[CONTENT_TYPE] == IS_SENML){
-				    //console.log( hash[SUPPORTS_QUERY], hash[SUPPORTS_MQTT] , hash[GEO_LAT], hash[GEO_LNG], hash[SAME_AS]);
-					var arr = key.split('/'), attribute = arr[arr.length-1], parent_key = key.substring(0, key.indexOf(attribute)-1);
-					//console.log( attribute , parent_key    );
-					if(results[parent_key] ==null)  results[parent_key] = {};				
-		            for(var index in hash) {
-			            //console.log(' '.green, index, hash[index]);					
-						if( index == "urn:X-senml:u"){
-							//results[parent_key][attribute+":unit"] = hash["urn:X-senml:u"];;
-						}else if(index == SUPPORTS_QUERY){
-							results[parent_key][attribute+":query"] = key;
-						}else if(index == SUPPORTS_MQTT){
-							//results[parent_key][attribute+":mqtt"] = hash[SUPPORTS_MQTT];
-						}
-						delete hash[index];
-					}
-				}else if(hash[CONTENT_TYPE] == IS_CATALOG){
-				    //console.log('not wanted, because it is catalog'.red, key);			
-				}
-
-                callback();				
-			 }, function(err) {      
-				if(err){
-					console.log(err);
-				}
-				else{
-				    var array = Object.keys(results);
-					//console.log('complete   filterSensors'.green, array.length);
-					if(_callback){
-					    _callback(results);
-					}
-				}
-				delete facts;								
-			});
-		}	
-	}
 	
 	return {
 	    filterRoom:filterRoom,
@@ -720,7 +730,11 @@ function updateResourceRepository(){
 		});       
 	}
 
-	function flushDB(callback){
+	// "res:sensor:*"
+	// "res:home:*"
+	// "res:room:*"
+	// "res:*"
+	function flushDB(key,callback){
 		var redisClient;
 		var redis_ip= config.redis.host;  
 		var redis_port= config.redis.port;	
@@ -732,18 +746,45 @@ function updateResourceRepository(){
 			redisClient.quit();
 			return callback(error,null);
 		}
-		// delete all keys 
-		redisClient.keys("res:*", function(err, keys) {
-		   console.log('res key',keys.length);
-		   keys.forEach(function(key){
-		       console.log(key);
-		       redisClient.del(key, function(err) {});		   
-		   })
-		});      
-		// flush the database
-	    redisClient.flushdb(function(err, key) {});	
-        redisClient.quit();
+		// delete all keys 		
+		redisClient.keys(key, function(err, keys) {
+		    if(err) redisClient.quit();
+			else{
+				console.log('res key',keys.length);		   
+				var mul = redisClient.multi();
+				keys.forEach(function(key){
+				   console.log('try to delete the key : '.red,key);
+				   //redisClient.del(key, function(err) {console.log(err);});	
+					mul.del(key);			   
+				})
+				mul.exec(function (err, replies) {
+					console.log("delete ".green + replies.length + " replies");
+					redisClient.quit();				
+				});			   
+		   }	   
+		});        
         return callback(null, 0); 		
+	}
+
+    function flushALL(callback){
+		var redisClient;
+		var redis_ip= config.redis.host;  
+		var redis_port= config.redis.port;	
+		try{ 
+			redisClient = redis.createClient(redis_port,redis_ip);
+		}
+		catch (error){
+			console.log('save Resource IntoCatalog  error' + error);
+			redisClient.quit();
+			return callback(error,null);
+		}
+    
+		// flush the database
+	    redisClient.flushdb(function(err, key) {
+		    redisClient.quit();
+		});	
+        	
+        return callback(null, 0); 	
 	}	
 	
 	var filter = new catalog_filter();
@@ -751,7 +792,7 @@ function updateResourceRepository(){
 		
 	function updateRes(){
 		async.series([
-			
+			// https://alertmeadaptor.appspot.com/traverse?traverseURI=https%3A%2F%2Fgeras.1248.io%2Fcat%2Farmhome&traverseKey=924a7d4dbfab38c964f5545fd6186559&Submit=Browse						
 			function(callback){
 				crawler.startCrawl(armbuilding, function(facts){
 					filter.filterRoom(facts,function(results){
@@ -768,6 +809,7 @@ function updateResourceRepository(){
 					callback(null, 'one'); 
 				});    
 			},
+
 			function(callback){
 				crawler = new catalog_crawler(armmeeting);
 				crawler.startCrawl(armmeeting, function(facts){
@@ -775,7 +817,7 @@ function updateResourceRepository(){
 						var key_array = Object.keys(results);
 						console.log('complete   filterSensor'.green, key_array.length);				
 						async.forEach(key_array, function(key,callback){
-							console.log(key , results[key]);
+							console.log('key:',key , 'value:',results[key]);
 							saveResource('res:sensor:'+key, results[key],function(){});
 						},function(err){
 							console.log('');
@@ -784,6 +826,7 @@ function updateResourceRepository(){
 					callback(null, 'one'); 
 				});		
 			},
+			
 			/*
 			// https://alertmeadaptor.appspot.com/traverse?traverseURI=https%3A//5.79.20.223%3A3000/cat/ARM6&traverseKey=d01fe91e8e249618d6c26d255f2a9d42
 			function(callback){
@@ -820,7 +863,7 @@ function updateResourceRepository(){
 				});						
 			}
 			/*
-			// https://alertmeadaptor.appspot.com/traverse?traverseURI=https%3A%2F%2Fgeras.1248.io%2Fcat%2Farmhome&traverseKey=924a7d4dbfab38c964f5545fd6186559&Submit=Browse
+            	
 			,function(callback){
 				crawler = new catalog_crawler(armhome);
 				crawler.startCrawl(armhome, function(facts){
@@ -836,155 +879,85 @@ function updateResourceRepository(){
 					});
 					callback(null, 'one'); 
 				});		
-			}*/			
+			}
+            */
 		],function(err, results){
 			console.log('crawler  finished  .....  '.green, results);
-			integrate();
-			
-			
-		});	
-	}
-
-	function integrate(){
-	    console.log('integate'.green);
-		var redisClient;
-		var redis_ip= config.redis.host;  
-		var redis_port= config.redis.port;	
-		try{ 
-			redisClient = redis.createClient(redis_port,redis_ip);
-		}
-		catch (error){
-			console.log('save Resource IntoCatalog  error' + error);
-			redisClient.quit();
-			return callback(error,null);
-		}
-		// get all keys 
-		var rooms  = [];      	
-		var sensors = [];
-
-		async.parallel([
-			function(callback){
-				redisClient.keys("res:room:*", function(err, keys) {
-					console.log('res key room',keys.length);
-					
-					var mul = redisClient.multi();
-					keys.forEach(function(key){		
-					   mul.hmget( key , 'sameAs');
-					})		           		
-					mul.exec(function (err, replies) {
-						console.log("res:room Resource ".green + replies.length + " replies");
-						//console.log("res:room Resource ".green + replies + " replies");
-						//console.log("res:room Resource ".green + keys + " keys");
-																	
-						for(var i=0;i<keys.length;i++){		
-							 rooms.push({'rid':keys[i],'sameas':replies[i]});							 
-						}					
-						callback();
-					});			
-					
-				});   
-			},
-			function(callback){
-				redisClient.keys("res:sensor:*", function(err, keys) {
-					console.log('res key sensor',keys.length);
-					var mul = redisClient.multi();
-					keys.forEach(function(key){		
-					   mul.hmget( key , 'sameAs');
-					})		           		
-					mul.exec(function (err, replies) {
-						console.log("res:sensor Resource ".green + replies.length + " replies");
-						//console.log("res:sensor Resource ".green + replies + " replies");
-						//console.log("res:sensor Resource ".green + keys + " keys");
-											
-						for(var i=0;i<keys.length;i++){		
-							 sensors.push({'sid':keys[i],'sameas':replies[i]});
-							 
-						}
-                        callback();						
-					});            
-				});	
-			}
-		],function(err, results){
-		    console.log('compare the resources    '.green, rooms.length, sensors.length);
-            console.log(rooms[0], sensors[0]);
-			var match = 0, matchs = [];
-            for(var i=0;i<sensors.length;i++){
-			    for(var j=0;j<rooms.length;j++){
-				    //console.log(sensors[i].sameas[0] , rooms[j].sameas[0]);
-				    if(sensors[i].sameas[0] == rooms[j].sameas[0]){
-					    console.log('find match   '.green, sensors[i].sid, rooms[j].rid);
-						match ++;
-						
-						//matchs.push({ 'sid':sensors[i].sid.substring(11, sensors[i].sid.length), 'rid': rooms[j].rid.substring(9, rooms[j].rid.length)})
-						matchs.push({ 'sid':sensors[i].sid, 'rid': rooms[j].rid})
-						continue;
-					}
-				}
-			}
-			console.log(' found match  number   '.green+matchs.length);
-			
-            var group = _.groupBy(matchs,function(match){			   
-			    return match.rid;
-			})
-            console.log('group ',group);
-			
-			var mul = redisClient.multi();
-			for(var i =0 ;i<matchs.length;i++){
-			    //console.log('-------------------',matchs[i]);
-                mul.hmset( matchs[i].sid , 'room', matchs[i].rid)  // link the sensor with room
-				
-				if( matchs[i].sid.lastIndexOf('temperature') >0){
-				    mul.hmset( matchs[i].rid , 'query:temperature',matchs[i].sid );
-					console.log('match temperature'.green,matchs[i].sid);
-				}
-				if( matchs[i].sid.lastIndexOf('motion') >0 ){
-				    mul.hmset( matchs[i].rid , 'query:motion',matchs[i].sid );
-					console.log('match motion'.green, matchs[i].sid);
-				}
-			}
-			mul.exec(function (err, replies) {
-				console.log("res:sensor Resource ".green + replies.length + " replies");								
-			}); 				
-			
-			delete sensors, rooms;
-            redisClient.quit();
+			//integrate();
 
             setTimeout(function(){
 				console.log('now boot the applications  layer'.green);
 				bootApps(app,__dirname + '/apps');
 				bootRealTimeServices();
 			}, 2000);
-
 			
-		});			
+		});	
 	}
 
-	//flushDB(function(){});
-	/**/
+
+	function testHome(){
+			console.log('test   .....'.red);
+			var filter = new catalog_filter();
+			var crawler = new catalog_crawler(armhome);
+			async.series([		
+				function(callback){
+					console.log('start crawl before   .....'.red);
+					crawler.startCrawl(armhome, function(facts){
+						filter.filterHome(facts,function(results){
+							var key_array = Object.keys(results);
+							console.log('complete   filterHome'.green, key_array.length);				
+							async.forEach(key_array, function(key,callback){
+								console.log(key , results[key]);
+								saveResource('res:home:'+key, results[key],function(){});
+							},function(err){
+								console.log('');
+							});				
+						});
+						callback(null, 'one'); 
+					});	
+				}		
+			],function(err, results){
+				console.log('crawler  finished  .....  '.green, results);						
+			});	
+	}	
+	
+	
+	flushALL(function(){});
 	checkDB(function(err,data){
 		if(err){		
 		}else if(data == 1){
 			console.log('semantic data right'.green);
-			integrate();
-		}else if(data ==0){
+			//testHome();
+            setTimeout(function(){
+				console.log('now boot the applications  layer'.green);
+				bootApps(app,__dirname + '/apps');
+				bootRealTimeServices();
+			}, 2000);			
+	
+	}else if(data ==0){
 			console.log('semantic data empty '.red);
 			updateRes();
+						
 		}
-	})
-	
-	
-	// test
-	//updateRes();
-	
+	})	
 }
 
+
 updateResourceRepository();
-/**/
 
 
-
-app.get('/admin/repository/delete',function(req,res,next){
-    flushDB(function(){
+// localhost/admin/repository//delete
+app.get('/admin/repository/:id/delete',function(req,res,next){
+    // res:room:*   res:home:*   res:sensor:*    res:*
+	var id = req.params.id;
+	if(id == 'room' ){
+	    id = 'res:room:*'
+	}else if(id == 'home'){
+	    id = 'res:home:*';
+	}else if(id == 'sensor'){
+	    id = 'res:sensor:*';
+	}
+    flushDB(id,function(){
         res.send(200);	
 	});
 })

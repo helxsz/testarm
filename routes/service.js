@@ -73,6 +73,7 @@ var Service = function(obj) {
 		this.getResourceData = getResourceData;
         this.getResourceTag = getResourceTag;
 		this.getOtherResource = getOtherResource;
+	    this.getResourceDataNow = getResourceDataNow;
 		
         function fetchResourceList( callback){
             var service = this.serviceObj;
@@ -186,7 +187,46 @@ var Service = function(obj) {
 		        } 
              }); 
         }
+
+        function getResourceDataNow(url, attribute, callback){
+		    var service = this.serviceObj;		
+			if (new RegExp('^(?:[a-z]+:)?//', 'i').test(url))
+			{
+			    url= url + time;
+			}else{
+				url = 'http://'+service.host+'/now'+ url+'/'+attribute;
+			}			
+            request.get({  
+                url: url,	
+                headers: {
+		            'Authorization': 'Basic ' + new Buffer(service.key+":").toString('base64')
+		            ,'content-type':'application/json'		
+                },
+	            rejectUnauthorized: false,
+                requestCert: true,
+                agent: false
+            }, function(error, response, body) {
+	            //console.log('requestDataByURL'.green, url);
+	            if(error){ 
+		            winston.error("error  ".red, error);
+			        callback(error,null);
+		        }
+	            else
+	            { 	
+                    //winston.debug('getResourceData'+url +"  "+body);				
+                    var obj ;				
+                    try{				
+		                obj = JSON.parse(body);
+                    }catch(e){
+					    console.log('service request resrouce error ',e, body);
+					    return callback(e,null);
+					}					
+			        callback(null,obj);
+		        } 
+             }); 
+        }		
 		
+		// no sensorml
         function getOtherResource(url,callback){
 		    var service = this.serviceObj;		
 			if (new RegExp('^(?:[a-z]+:)?//', 'i').test(url))
@@ -270,6 +310,8 @@ var Service = function(obj) {
 			|| s.indexOf("//") > s.indexOf("?")
 		);
 	}
+	
+
 
 	function extractRelativeURL(href,host){
 
