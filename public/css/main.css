@@ -1326,7 +1326,7 @@
 
     @media only screen and (min-width : 768px) and (max-width : 1024px) {
 
-        .meeting-room .wrapper {width: 100%;}
+        .wrapper {width: 768px;}
 
         .meeting-room #banner,
         .meeting-room #app-description {margin-left:4.875em;}
@@ -1357,7 +1357,7 @@
     @media only screen and (max-width:767px) {
 
         /*  Layout  */
-        .wrapper {width: 86%;}
+        .wrapper {width: 20em;}
 
         #banner {border: none;}
             nav {width: 70%;}
@@ -1523,35 +1523,35 @@
     /* Glitch fixes for hexagons */
 
     @media only screen and (min-width:2202px) and (max-width:2390px) {
-        .ch-grid {
+        .meeting-room .ch-grid {
             width: 120em;
             float: right;
         }
     }
 
     @media only screen and (min-width:1812px) and (max-width:2014px) {
-        .ch-grid {
+        .meeting-room .ch-grid {
             width: 100em;
             float: right;
         }
     }
 
     @media only screen and (min-width:1263px) and (max-width:1638px) {
-        .ch-grid {
+        .meeting-room .ch-grid {
             width: 80em;
             float: right;
         }
     }
 
     @media only screen and (min-width:919px) and (max-width:1262px) {
-        .ch-grid {
+        .meeting-room .ch-grid {
             width: 51em;
             float: right;
         }
     }
 
     @media only screen and (min-width:767px) and (max-width:918px) {
-        .ch-grid {
+        .meeting-room .ch-grid {
             width: 30em;
             float: right;
         }
