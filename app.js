@@ -60,7 +60,7 @@ var allowedHost = [
 //  allowed cross domain
 var allowCrossDomain = function(req, res, next) {
   // WARNING - Be careful with what origins you give access to
-    console.log('headers '  , req.ip);
+    //console.log('headers '  , req.ip);
     var allow = false;
     for(var i=0;i<allowedHost.length;i++){
         if(allowedHost[i].indexOf(req.ip)!=-1)
@@ -71,7 +71,7 @@ var allowCrossDomain = function(req, res, next) {
     }
   
     if(allow) {
-        console.log('allow access '.green);
+        //console.log('allow access '.green);
         next();
     } else {
 	    console.log('not allowed'.red);

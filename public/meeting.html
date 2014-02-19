@@ -48,7 +48,7 @@
                             <ul>
 
                                 <li>
-                                    <a href="#">ARM 1</a>
+                                    <a href="">ARM 1</a>
                                     <div class="mp-level">
                                         <h2><i class="icon icon-data_science_black blue"></i> ARM 1</h2>
                                         <a class="mp-back" href="#">back</a>
@@ -59,7 +59,7 @@
                                     </div>
                                 </li>
                                 <li>
-								    <a href="#">ARM 2</a>
+								    <a href="">ARM 2</a>
                                     <div class="mp-level">
                                         <h2><i class="icon icon-data_science_black blue"></i> ARM 2</h2>
                                         <a class="mp-back" href="#">back</a>
@@ -70,7 +70,7 @@
                                     </div>									
 								</li>
                                 <li>
-								    <a href="#">ARM 3</a>
+								    <a href="">ARM 3</a>
                                     <div class="mp-level">
                                         <h2><i class="icon icon-data_science_black blue"></i> ARM 3</h2>
                                         <a class="mp-back" href="#">back</a>
@@ -81,7 +81,7 @@
                                     </div>									
 								</li>
                                 <li>
-								    <a href="#">ARM 6</a>
+								    <a href="">ARM 6</a>
                                     <div class="mp-level">
                                         <h2><i class="icon icon-data_science_black blue"></i> ARM 6</h2>
                                         <a class="mp-back" href="#">back</a>
@@ -92,7 +92,7 @@
                                     </div>									
 								</li>
                                 <li>
-								    <a href="#">CPC1</a>
+								    <a href="">CPC1</a>
                                     <div class="mp-level">
                                         <h2><i class="icon icon-data_science_black blue"></i> CPC1 </h2>
                                         <a class="mp-back" href="#">back</a>
@@ -174,18 +174,20 @@
                                       <!-- START .ch-info-back -->
                                           												
                                         <div ng-if="room.events.length>0 &&  room.eventIndex >=0 && room.eventIndex < room.events.length ">
-                                        <!-- START .room.events.length    -->
+                                        <!-- START   -->
 
-              												    <div class="maskCircle bookerPhoto">
-                                            <img src="img/photos/john-biggs.jpg" alt="{{room.events[room.eventIndex].organizer}}">
-                                          </div>
+              								<div class="maskCircle bookerPhoto">
+                                                <img  ng-if="room.events[room.eventIndex].picture.length>0" src="{{room.events[room.eventIndex].picture}}" alt="{{room.events[room.eventIndex].organizer}}">  <!--  http://jsfiddle.net/hpP45/ -->
+                                                <img  ng-if="room.events[room.eventIndex].picture==null" src="img/photos/ARM-Employee-Icon.png" alt="{{room.events[room.eventIndex].organizer}}">
+											</div>
               												    <h3>
               													    <span class='ch-start'>{{dateformat(room.events[room.eventIndex].startDate)}}</span> <i class="icon-arrow_right" aria-hidden="true"></i> <span class='ch-end'>{{dateformat(room.events[room.eventIndex].endDate)}}</span>
               												    </h3>
               												    <h4>{{room.events[room.eventIndex].organizer}}</h4>
-                													<a href='{{getEmail(room.events[room.eventIndex].organizer)}}' ng-click="$event.stopPropagation();_gaq.push(['_trackEvent', 'Hexagon', 'Telephone', 'Hexagon - {{room.displayname}}']);" title="Phone {{room.events[room.eventIndex].organizer}}" class="noSpin d-hide t-hide"><button class="maskCircle icon-telephone"><span>Telephone</span></button></a> 
-                													<a href='{{getEmail(room.events[room.eventIndex].organizer)}}' ng-click="$event.stopPropagation();_gaq.push(['_trackEvent', 'Hexagon', 'Email', 'Hexagon - {{room.displayname}}']);" title="Email {{room.events[room.eventIndex].organizer}}" class="noSpin m-hide"><button class="maskCircle icon-email"><span>Email</span></button></a> 
-                													<a href="#popup-{{ room.name }}" ng-click="$event.stopPropagation();open($index);_gaq.push(['_trackEvent', 'Hexagon', 'Itinerary', 'Hexagon - {{room.displayname}}']);" title="View Itinerary" class="noSpin open-popup-link"><button class="maskCircle icon-information"><span>Itinerary Information</span></button></a>
+																    <!--   -->
+                													<a ng-if="room.events[room.eventIndex].telephone.length>0" href='' ng-click="$event.stopPropagation();_gaq.push(['_trackEvent', 'Hexagon', 'Telephone', 'Hexagon - {{room.displayname}}']);" title="Phone {{room.events[room.eventIndex].telephone[0]}}" class="noSpin d-hide t-hide"><button class="maskCircle icon-telephone"><span>Telephone</span></button></a> 
+                													<a ng-if="room.events[room.eventIndex].email.length>0" href='{{  getEmail(room.events[room.eventIndex].email)   }}' ng-click="$event.stopPropagation();_gaq.push(['_trackEvent', 'Hexagon', 'Email', 'Hexagon - {{room.displayname}}']);" title="Email {{room.events[room.eventIndex].email}}" class="noSpin m-hide"><button class="maskCircle icon-email"><span>Email</span></button></a> 
+                													<a href="" ng-click="$event.stopPropagation();open($index);_gaq.push(['_trackEvent', 'Hexagon', 'Itinerary', 'Hexagon - {{room.displayname}}']);" title="View Itinerary" class="noSpin open-popup-link"><button class="maskCircle icon-information"><span>Itinerary Information</span></button></a>
                 												
                                         <!-- END .room.events.length -->
                                         </div>
@@ -387,15 +389,14 @@
 			$scope.loading = false;
         });
     	
-        $scope.orderProp = 'temperature';
+        //$scope.orderProp = 'temperature';
     			  	
     	$scope.$on('$viewContentLoaded', function(){
     	    //console.log('view content loaded');
     	});
 		
 		$scope.getRoomInfo = function(href){
-		    //console.log('get room info',href);
-			
+		    //console.log('get room info',href);		
 			$scope.menu_open = false;
 			$scope.loading = true;
 			
@@ -461,11 +462,53 @@
 							
 				$scope.rooms = data.rooms;
 				//console.log(data.rooms);
-				$scope.checkRoomAvailablity();
 				$scope.checkIntialEventIndex();
-				checkTimer = $interval($scope.checkMeetingMotionTimer, 1000*60);
+				$scope.checkRoomAvailablity();
 				
-				$rootScope.$broadcast('mybroadcast');
+				checkTimer = $interval($scope.checkMeetingMotionTimer, 1000*60);				
+				$rootScope.$broadcast('mybroadcast');				
+				//$scope.loadBookerDetail('','Helen Black');
+		}
+		
+		$scope.$watchCollection('rooms', function(newVal, oldVal){
+			console.log('changed  rooms: ',newVal, oldVal);
+			var changeRooms = oldVal;
+			changeRooms.forEach(function(room){
+			    console.log(room.eventIndex);
+				if(room.events.length>0){
+			        var event = room.events[room.eventIndex];
+					if(event !=null){
+					    console.log('event ',event.organizer);
+						if(event.organizer!='unknown' || event.organizer!=''){
+						    $scope.loadBookerDetail(room,event.organizer,function(err,booker){
+							    
+								if(err) console.log('can not get booker info');
+								else if(booker!=null){
+								    console.log("room is booked by ",   booker.name, booker.email, booker.telephone, booker.picture);
+								    event.email = booker.email;
+								    event.telephone = booker.telephone;
+								    event.picture = booker.picture;
+								}
+							});
+						}
+					}
+				}
+			})
+		}, true);		
+		
+		$scope.loadBookerDetail = function(room,names,callback){
+		    //console.log('load booker detail');
+			$http.get('arm/people?people='+names).success(function(data) {
+				//console.log('booker detail',data);
+				var bookers = data;
+                bookers.forEach(function(booker){
+				    if(booker && callback)
+					callback(null,booker);
+				})				
+			}).error(function(data, status, headers, config) {
+				console.log('error loading the events');
+				callback('error',null);
+			});	
 		}
 				
 		$scope.updateClock = function(room,first){
@@ -526,15 +569,20 @@
 				 // room has no motion sensor
 				 if(!room.m_enabled) room.available = false;
 				 else{
-				    // room has motion sensor
-				     var leapsed = new Date().getTime() - lastupdate.getTime();
-                     if( leapsed > 5*60*1000){ 
-					    room.available = false;						
-					 }else {
-					    room.available = true;
-					 }                  				 
-                 }	
-				 
+				    if(!room.online) {
+    					room.available = false;
+						room.m_enabled = false;
+					}	
+					else{
+						// room has motion sensor
+						 var leapsed = new Date().getTime() - lastupdate.getTime();
+						 if( leapsed > 5*60*1000){ 
+							room.available = false;						
+						 }else {
+							room.available = true;
+						 }
+                    }					 
+                 }				 
 				///////////////////////////////////////////////
                 $scope.updateClock(room);
                 //$scope.updateStatusOnMotion(room);
@@ -559,7 +607,7 @@
 				    room.status = 'start at '+ $scope.dateformat(event.startDate);
 				}
 			}else{
-			    room.status = 'FREE';    
+			    room.status = 'No bookings';    
 			}
 		}
 
@@ -718,9 +766,8 @@
 		return  hour+":"+min;		 
 	}
 		
-	$scope.getEmail = function(name){
-	    var name = name.replace(' ','.');
-		return 'mailto:'+name+'@arm.com';
+	$scope.getEmail = function(email){
+		return 'mailto:'+email;
 	}
 	
   	// touch device overflow fix
@@ -782,15 +829,13 @@
 			var room = _.findWhere($scope.rooms, {name: msg.room});	
 			  if(room){
         		console.log('receiving the real time message from server ', msg.room,msg.value,msg.type, msg.time,room.time);
-				
-				
-				
+								
 				if( new Date(room.time).getTime() < new Date(msg.time).getTime()){
 			        room.time = msg.time;
                     room.available = true; 					
 				    $scope.alertMotionEvent(room);
 					$scope.updateStatusOnMotion(room);
-					console.log('turn red');
+					//console.log('turn red');
 				 }else{
 				    //console.log('room time',room.time.getTime());
 					//console.log('>', msg.time.getTime());
@@ -802,6 +847,14 @@
 			    console.log('receiving the real time message from server ', msg.room,msg.value,msg.type, msg.time,room.time)
 			    room.temperature = msg.value;
 			}
+		}else if(msg.type == 'online'){
+			if(room!=null){
+			    console.log('receiving the real time message from server online', msg.room,msg.value,msg.type);
+				if(msg.value==1)
+			    room.online = true;
+				else if(msg.value == 0)
+				room.online = false;
+			}		
 		}
 	});
   /***************   destory *************************/
@@ -811,7 +864,7 @@
 			checkTimer = undefined;
 		}
 		socket.removeAllListeners();		
-  });		
+     });		
     });
 
 
@@ -949,13 +1002,14 @@
                 <td>
                   <div class="wrapHexagon">
                     <div class="hexagon-in1">
-                      <div class="hexagon-in2" style="background-image: url(img/photos/john-biggs.jpg);"></div>
+					  <!-- ng-if="event.picture.length>0"  ng-if="event.telephone.length>0" -->
+					  <img  ng-if="event.picture.length>0" src="{{event.picture}}" > 
                     </div>
                   </div>
                 </td>
                 <td><i class="icon-clock" aria-hidden="true"></i></td>
                 <td><span>{{ dateformat(event.startDate)}}</span><i class="icon-arrow_right " aria-hidden="true"></i><span>{{dateformat(event.endDate)}}</span></td>
-                <td><a href="tel:01517076707" title="Phone Joe"><button class="maskCircle icon-telephone icon2x"><span>Telephone</span></button></a></td>
+                <td><a ng-if="event.telephone.length>0" href="tel:{{event.telephone[0]}}" title="Phone {{event.organizer}}"><button class="maskCircle icon-telephone icon2x"><span>Telephone</span></button></a></td>
               </tr>
             </table>
             <h3 class="darkBlue">No More Bookings Today</h3>
@@ -966,7 +1020,7 @@
 
   <script type="text/ng-template" id="keyModalTemplate.html">
     <aside class="itinerary key">
-    <!-- START .itinerary .key -->
+    <!-- START .itinerary .key    -->
 
       <article>
         <header class="clearfix">

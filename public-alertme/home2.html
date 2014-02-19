@@ -360,7 +360,7 @@ homeEnergyApp.controller('homeEnergyCtrl', function ($rootScope,$scope, $http, $
 	$scope.getCost = function(home){
         if(home != null || home != undefined){ 
             var rate = 0.13;		
-	        return  Math.floor( home.power * rate *100)/100;
+	        return  Math.floor( home.power * rate /1000 *100)/100;
 		}
 	}
 	

@@ -24,121 +24,7 @@ var errors = require('../../utils/errors'),
 var meetingService = serviceCatalog.findByName('armmeeting'); 
 var buildingService = serviceCatalog.findByName('armbuilding');  
 
-prepareData();
-
-function prepareData(){
-	console.log('integate'.green);
-	var redisClient;
-	var redis_ip= config.redis.host;  
-	var redis_port= config.redis.port;	
-	try{ 
-		redisClient = redis.createClient(redis_port,redis_ip);
-	}
-	catch (error){
-		console.log('save Resource IntoCatalog  error' + error);
-		redisClient.quit();
-		return callback(error,null);
-	}
-	// get all keys 
-	var rooms  = [];      	
-	var sensors = [];
-
-	async.parallel([
-		function(callback){
-			redisClient.keys("res:room:*", function(err, keys) {
-				console.log('res key room',keys.length);
-				
-				var mul = redisClient.multi();
-				keys.forEach(function(key){		
-				   mul.hmget( key , 'sameAs');
-				})		           		
-				mul.exec(function (err, replies) {
-					console.log("res:room Resource ".green + replies.length + " replies");
-					//console.log("res:room Resource ".green + replies + " replies");
-					//console.log("res:room Resource ".green + keys + " keys");
-																
-					for(var i=0;i<keys.length;i++){		
-						 rooms.push({'rid':keys[i],'sameas':replies[i][0]});							 
-					}					
-					callback();
-				});			
-				
-			});   
-		},
-		function(callback){
-			redisClient.keys("res:sensor:*", function(err, keys) {
-				console.log('res key sensor',keys.length);
-				var mul = redisClient.multi();
-				keys.forEach(function(key){		
-				   mul.hmget( key , 'sameAs','motion','temperature','online','lat','long');
-				})		           		
-				mul.exec(function (err, replies) {
-					console.log("res:sensor Resource ".green + replies.length + " replies");
-					//console.log("res:sensor Resource ".green + replies + " replies");
-					//console.log("res:sensor Resource ".green + keys + " keys");
-										
-					for(var i=0;i<keys.length;i++){		
-						 sensors.push({'sid':keys[i],'sameas':replies[i][0],'motion':replies[i][1],'temperature':replies[i][2],'online':replies[i][3],'lat':replies[i][4],'long':replies[i][5]});
-						 
-					}
-					callback();						
-				});            
-			});	
-		}
-	],function(err, results){
-		console.log('compare the resources    '.green, rooms.length, sensors.length);
-		//console.log(rooms[0], sensors[0]);
-		var match = 0, matchs = [];
-		for(var i=0;i<sensors.length;i++){
-			for(var j=0;j<rooms.length;j++){
-				//console.log(sensors[i].sameas[0] , rooms[j].sameas[0]);
-				if(sensors[i].sameas == rooms[j].sameas){
-					//console.log('find match   '.green, sensors[i].sid, rooms[j].rid);
-					match ++;					
-					matchs.push({ 'sid':sensors[i].sid, 'rid': rooms[j].rid,'motion':sensors[i].motion,'temperature':sensors[i].temperature,'online':sensors[i].online,'lat':sensors[i].lat,'long':sensors[i].long})
-					continue;
-				}
-			}
-		}
-		console.log(' found match  number   '.green+matchs.length);	
-        var mul = redisClient.multi();		
-		for(var i=0;i<matchs.length;i++){
-		    //console.log('---------------------------- mateched room and sensor pair:',matchs[i]);
-			mul.hmset( matchs[i].sid , 'room', matchs[i].rid)  // link the sensor with room
-			// link the room with sensor property
-			if( matchs[i].temperature){
-				mul.hmset( matchs[i].rid , 'query:temperature',matchs[i].temperature );
-				//console.log('match temperature'.green,matchs[i].temperature);
-			}
-			if( matchs[i].motion){
-				mul.hmset( matchs[i].rid , 'query:motion',matchs[i].motion );
-				//console.log('match motion'.green, matchs[i].motion);
-			}			
-			if( matchs[i].online){
-				mul.hmset( matchs[i].rid , 'query:online',matchs[i].online );
-				//console.log('match online'.green, matchs[i].online);
-			}
-			if( matchs[i].lat){
-				mul.hmset( matchs[i].rid , 'lat',matchs[i].lat );
-				//console.log('match lat'.green, matchs[i].lat);
-			}
-			if( matchs[i].long){
-				mul.hmset( matchs[i].rid , 'long',matchs[i].long );
-				//console.log('match long'.green, matchs[i].long);
-			}			
-		}
-		mul.exec(function (err, replies) {
-			console.log("res:sensor Resource ".green + replies.length + " replies");								
-		}); 		
-		delete sensors, rooms;
-		redisClient.quit();
-
-				
-		initApp();
-		
-	});			
-}
-
+initApp();
 function initApp(){
 
 	appBuilder.createApp('meetingroom',new MeetingRoomMQTTHandler().handleMessage, function(err,app){
@@ -852,7 +738,7 @@ app.get('/catchevents',function(req,res){
 var schedule = require('node-schedule');
 var rule = new schedule.RecurrenceRule();
 rule.dayOfWeek = [0, new schedule.Range(0, 4)];
-rule.hour = 20;
+rule.hour = 0;
 rule.minute = 40;
 
 var j = schedule.scheduleJob(rule, function(){
@@ -1000,7 +886,8 @@ app.get('/test/sensor/2',function(req,res){
 		'/armmeeting/22/MotionSensor/00-0D-6F-00-00-C1-45-B6',
         '/armmeeting/11/MotionSensor/00-0D-6F-00-00-C1-35-08',
         '/armmeeting/11/MotionSensor/00-0D-6F-00-00-C1-2D-F0',
-        '/armmeeting/11/MotionSensor/00-0D-6F-00-00-C1-46-10'		
+        '/armmeeting/11/MotionSensor/00-0D-6F-00-00-C1-46-10',
+        '/armmeeting/5/MotionSensor/00-0D-6F-00-00-C1-31-4D'		// birch
 	]; 
     var s = [];
     async.forEach(sensors,

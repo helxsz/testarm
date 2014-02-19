@@ -48,7 +48,7 @@ var YearAnalyticsSchema = function(args){
 		args.actor = args.actor || {type: String,required:true};
 		//schema.add({actor: {type: String, ref: 'Sensor'} });
         schema.add({actor: args.actor });
-        schema.index( {'actor':1,'year':1}, { unique: true });	
+        schema.index( {'actor':1,'year':1}, { unique: true });	//
 	}
 
 	var roundYear = function(d){
@@ -118,14 +118,16 @@ var YearAnalyticsSchema = function(args){
     })
 	
 	
-	schema.static('findData', function (id,date, callback) {
+	schema.static('findData', function (id,date, isMonth, callback) {
         //if( Object.keys(request.condition).length>0)  condition['$and'].push(request.condition);
         //console.log('find data condition'.green + id + date);
         if( !date ) date = new Date();
 		var condition = {};
 		var select = '';
-		
+		if(!isMonth)
 		select='data.'+date.getMonth()+"."+date.getDate()+"";
+		else
+		select = 'data.'+date.getMonth()+"";
 		select +=' actor';
         condition = {'year':date.getFullYear(),'actor':{'$in':id}};			
 		
