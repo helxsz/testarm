@@ -393,8 +393,10 @@
         */		
         var lastBuilding = $cookieStore.get('lastBuilding');
 		var lastFloor = $cookieStore.get('lastFloor');
-        if (!lastFloor && lastBuilding) {
+        if ((!lastFloor && !lastBuilding )|| (typeof lastFloor == undefined && typeof lastBuilding == undefined) ) {
 		    console.log('no last val');
+			$scope.current_building = 'ARM3';
+			$scope.current_floor_index = 0;
         } else {
 		    console.log('has last valu', lastBuilding, lastFloor);
 			$scope.current_building = lastBuilding;
