@@ -1102,8 +1102,8 @@ app.get('/admin/repository/update',function(req,res,next){
 var schedule = require('node-schedule');
 var rule2 = new schedule.RecurrenceRule();
 rule2.dayOfWeek = [0, new schedule.Range(0, 6)];
-rule2.hour = 20;
-rule2.minute = 44;
+rule2.hour = 1;
+rule2.minute = 34;
 
 var j = schedule.scheduleJob(rule2, function(){
     console.log('running the event analytics rule!'.red);
