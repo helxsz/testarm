@@ -1,0 +1,44 @@
+to do
+
+. meeting app, setTimer on clicked event, hightlight on the meeting app, tooltip for each room, 
+. history data for each sensor 
+
+
+/armmeeting/4/MotionSensor/00-0D-6F-00-00-C1-3B-84/motion    no sameas
+
+/armmeeting/9/MotionSensor/00-0D-6F-00-00-C1-3F-4F/temperature   no sameas
+/armmeeting/9/MotionSensor/00-0D-6F-00-00-C1-3F-4F/motion
+
+
+/armmeeting/20/MotionSensor/00-0D-6F-00-00-C1-30-1E/motion         no sameas
+/armmeeting/20/MotionSensor/00-0D-6F-00-00-C1-30-1E/temperature
+
+
+1. for diagonoise purpose
+each room add tooltip for last time updated ()
+
+timeline for each room for each day (event and sensor data mashup)
+alert for the other rooms ( frequency of used )
+show the available rooms  ( real time analysis of incoming room )
+search the available rooms (search box ,  filter and redis )
+
+
+2. cloud app 
+
+actuator
+sensinode
+
+
+
+2. meeting room (get the user's name and detail,  async and single)  1 hour
+3. home and enlight data   1 hour
+4. energy data, d3 api     1.5 hour
+5. slide 2 hour
+6. opencv 3 hours ()
+7. arm home (search by id)
+
+8. d3, timeline
+9. online / offline 
+
+
+

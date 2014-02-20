@@ -1,0 +1,1127 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" ng-app="meetingApp"> <!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>ARM Dashboard Meeting Room App</title>
+    <meta name="author" content="Steven Hassall and Sizhe Xi ">
+    <meta name="description" content="ARM Dashboard Sensor Monitoring Project">
+    <meta name="viewport" content="width=device-width, maximum-scale=1, minimum-scale=1, user-scalable=0, initial-scale=1">
+    <link rel="stylesheet" href="/css/normalize.min.css">
+    <!-- Gridset CSS -->
+    <!--[if (!IE) | (gt IE 9)]><!--><link rel="stylesheet" href="/css/gridset.css"><!--<![endif]-->
+    <!--[if IE 9]><link rel="stylesheet" href="./css/gridset-ie-9.css" /><![endif]-->
+    <!--[if lte IE 8]><link rel="stylesheet" href="./css/gridset-ie-lte8.css" /><![endif]-->
+    <link rel="stylesheet" href="/css/mfglabs_iconset.css">
+    <link rel="stylesheet" href="/css/menu-component.css">
+    <link rel="stylesheet" href="/css/main.css">
+    
+    <script src="/js/vendor/socket.io.js"></script>
+    <script src="/assets/js/d3.v3.min.js"></script>
+    <script src="/js/vendor/angular.min.js"></script>
+	<script src="/js/vendor/angular-cookies-1.0.0rc10.min.js"></script>
+    <script src="/js/vendor/angular-touch.min.js"></script>
+    <script src="/js/vendor/ui-bootstrap.min.js"></script>
+    <script src="/js/vendor/underscore-min.js"></script>
+    <script src="/js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>	
+    <script src="/js/vendor/jquery-1.10.1.min.js"></script>
+    <script src="/js/vendor/classie.js"></script>
+    <script src="/js/vendor/mlpushmenu.js"></script>	
+	<script src="/js/plugins.js"></script>	
+</head>
+<body>
+<!--[if lt IE 7]>
+    <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+<![endif]-->
+
+    <div class="meeting-room">
+    <!-- START .meeting-room -->
+
+        <div id="container" class="container" class="clearfix" ng-controller="meetingListCtrl">
+        <!-- START #container -->
+
+            <section class="mp-pusher" id="mp-pusher">
+
+                <!-- mp-menu -->
+                    <nav id="mp-menu" class="mp-menu" > 
+                        <div class="mp-level">
+                            <button id="triggerMobile" class="mp-close d-hide t-hide"><i class="icon-cancel_circle icon2x"></i></button>
+                            <h2><i class="icon-data_science blue"></i> ARM Buildings</h2>
+                            <ul>
+
+                                <li>
+                                    <a href="">ARM 1</a>
+                                    <div class="mp-level">
+                                        <h2><i class="icon icon-data_science_black blue"></i> ARM 1</h2>
+                                        <a class="mp-back" href="#">back</a>
+                                        <ul>
+                                            <li><a class='room_nav' ng-click="getRoomInfo($event.target.href);$event.preventDefault()" href="/buildings/ARM1/0">Ground</a></li>
+                                            <li><a class='room_nav' ng-click="getRoomInfo($event.target.href);$event.preventDefault()" href="/buildings/ARM1/1">Floor 1</a></li>
+                                        </ul>
+                                    </div>
+                                </li>
+                                <li>
+								    <a href="">ARM 2</a>
+                                    <div class="mp-level">
+                                        <h2><i class="icon icon-data_science_black blue"></i> ARM 2</h2>
+                                        <a class="mp-back" href="#">back</a>
+                                        <ul>
+                                            <li><a class='room_nav' ng-click="getRoomInfo($event.target.href);$event.preventDefault()" href="/buildings/ARM2/0">Ground</a></li>
+                                            <li><a class='room_nav' ng-click="getRoomInfo($event.target.href);$event.preventDefault()" href="/buildings/ARM2/1">Floor 1</a></li>
+                                        </ul>
+                                    </div>									
+								</li>
+                                <li>
+								    <a href="">ARM 3</a>
+                                    <div class="mp-level">
+                                        <h2><i class="icon icon-data_science_black blue"></i> ARM 3</h2>
+                                        <a class="mp-back" href="#">back</a>
+                                        <ul>
+                                            <li><a class='room_nav' ng-click="getRoomInfo($event.target.href);$event.preventDefault()" href="/buildings/ARM3/0">Ground</a></li>
+                                            <li><a class='room_nav' ng-click="getRoomInfo($event.target.href);$event.preventDefault()" href="/buildings/ARM3/1">Floor 1</a></li>
+                                        </ul>
+                                    </div>									
+								</li>
+                                <li>
+								    <a href="">ARM 6</a>
+                                    <div class="mp-level">
+                                        <h2><i class="icon icon-data_science_black blue"></i> ARM 6</h2>
+                                        <a class="mp-back" href="#">back</a>
+                                        <ul>
+                                            <li><a class='room_nav' ng-click="getRoomInfo($event.target.href);$event.preventDefault()" href="/buildings/ARM6/0">Ground</a></li>
+                                            <li><a class='room_nav' ng-click="getRoomInfo($event.target.href);$event.preventDefault()" href="/buildings/ARM6/1">Floor 1</a></li>
+                                        </ul>
+                                    </div>									
+								</li>
+                                <li>
+								    <a href="">CPC1</a>
+                                    <div class="mp-level">
+                                        <h2><i class="icon icon-data_science_black blue"></i> CPC1 </h2>
+                                        <a class="mp-back" href="#">back</a>
+                                        <ul>
+                                            <li><a class='room_nav' ng-click="getRoomInfo($event.target.href);$event.preventDefault()" href="/buildings/CPC1/0">Ground</a></li>
+                                            <li><a class='room_nav' ng-click="getRoomInfo($event.target.href);$event.preventDefault()" href="/buildings/CPC1/2">Floor 2</a></li>
+                                        </ul>
+                                    </div>									
+								</li>
+                                 								
+                            </ul>
+                                
+                        </div>
+                    </nav>
+                    <!-- /mp-menu -->
+
+                <div class="scroller">
+                <div class="scroller-inner">
+                <!-- start .scroller's -->
+                
+                <div class="wrapper" >
+                <!-- START .wrapper    ng-swipe-left="app.showMenu=true" ng-swipe-right="app.showMenu=false"    -->
+
+                    <header id="banner" class="d1-d9 t1-t4 m-all clearfix" >
+                    <!-- START #banner -->
+                        <button id="trigger" onclick="_gaq.push(['_trackEvent', 'Menu', 'Toggle', 'Menu Toggle',, false]);"><i class="icon-reorder icon2x"></i></button>
+                        <h1 ng-cloak>{{current_building}} <span class="blue" ng-cloak> {{current_floor}} FLOOR</span> <span class="pink">MEETING ROOM</span> AVAILABILITY</h1>
+                    <!-- END #banner -->
+                    </header>
+
+                    <article id="main" class="d1-d4 t1-t3 m-all clearfix">
+                    <!-- START #main -->
+                        <div id="app-brand" class="m-hide" ng-click="room.front = !room.front" ng-class="{'flipped': room.front}" ng-show="app.showMenu">
+                            <div class="ch-item" >
+                                <div class="ch-info-wrap">
+                                    <div class="ch-info meetings">
+                                        <div class="ch-info-front hexagon"></div>
+                                        <div class="ch-info-back hexagon">
+                                            <a href="http://arm.redninja.co.uk" title="Return to the Home">
+                                                <i class="icon-home icon3x" aria-hidden="true"></i>
+                                                <h3>Home</h3>
+                                            </a>
+                                        </div>  
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <article id="app-description" class="t-hide m-hide" role="article">
+                          <p>Click a hexagon to view more information about the meeting room. Please email any feedback to <a href="mailto:arm@redninja.co.uk" title="Email Feedback">arm@redninja.co.uk</a>.</p>
+                          <p><a href="#popup-key" ng-click="openkey();" title="View Key" class="button">View Key</a></p>
+                        </article>                   
+                    <!-- END #main -->
+                    </article>
+                <!-- END .wrapper -->
+                </div>
+				
+                <section id="app-meeting" class="app-content">				
+                  <ul class="ch-grid">
+                      <li class="room" ng-repeat="room in rooms | filter:query " ng-cloak  ng-animate="{enter: 'animate-enter'}">  					                   
+									   <!-- | orderBy:orderProp index wrong after orderby  tooltip="Some text" -->
+                          <div class="ch-item" ng-click="room.front = !room.front;_gaq.push(['_trackEvent', 'Hexagon', 'Flipped', 'Hexagon - ID']);" ng-class="{'flipped': room.front}">              
+                              <div class="ch-info-wrap">
+                                  <div class="ch-info " ng-class="{'unavailable':room.available, 'available':!room.available, 'unknown':!room.m_enabled}"> <!-- 'unknown':!room.m_enabled , -->
+                                  <!-- START .ch-info -->
+
+                                      <div class="ch-info-front hexagon">
+                                          <header>
+                                            <h1 ng-style="styleFont(UpperCaseArray(room.displayname))">{{ UpperCaseArray(room.displayname)}}</h1>
+                                            <!-- --><small ><span class='temperature'>{{room.status}}</span> </small> 
+											<!--<small ng-if="room.t_enabled==true"><span class='temperature'>{{room.temperature}}</span> &#x2103;</small>-->
+                                          </header>
+                                          <div class="knockout">
+                                            <div id="clock-{{room.displayname}}"></div>
+                                          </div>
+                                      </div> 
+
+                                      <div class="ch-info-back hexagon">
+                                      <!-- START .ch-info-back -->
+                                          												
+                                        <div ng-if="room.events.length>0 &&  room.eventIndex >=0 && room.eventIndex < room.events.length ">
+                                        <!-- START   -->
+
+              								<div class="maskCircle bookerPhoto">
+                                                <img  ng-if="room.events[room.eventIndex].picture.length>0" src="{{room.events[room.eventIndex].picture}}" alt="{{room.events[room.eventIndex].organizer}}">  <!--  http://jsfiddle.net/hpP45/ -->
+                                                <img  ng-if="room.events[room.eventIndex].picture==null" src="/img/photos/ARM-Employee-Icon.png" alt="{{room.events[room.eventIndex].organizer}}">
+											</div>
+              												    <h3>
+              													    <span class='ch-start'>{{dateformat(room.events[room.eventIndex].startDate)}}</span> <i class="icon-arrow_right" aria-hidden="true"></i> <span class='ch-end'>{{dateformat(room.events[room.eventIndex].endDate)}}</span>
+              												    </h3>
+              												    <h4>{{room.events[room.eventIndex].organizer}}</h4>
+																    <!--   -->
+                													<a ng-if="room.events[room.eventIndex].telephone.length>0" href='' ng-click="$event.stopPropagation();_gaq.push(['_trackEvent', 'Hexagon', 'Telephone', 'Hexagon - {{room.displayname}}']);" title="Phone {{room.events[room.eventIndex].telephone[0]}}" class="noSpin d-hide t-hide"><button class="maskCircle icon-telephone"><span>Telephone</span></button></a> 
+                													<a ng-if="room.events[room.eventIndex].email.length>0" href='{{  getEmail(room.events[room.eventIndex].email)   }}' ng-click="$event.stopPropagation();_gaq.push(['_trackEvent', 'Hexagon', 'Email', 'Hexagon - {{room.displayname}}']);" title="Email {{room.events[room.eventIndex].email}}" class="noSpin m-hide"><button class="maskCircle icon-email"><span>Email</span></button></a> 
+                													<a href="" ng-click="$event.stopPropagation();open($index);_gaq.push(['_trackEvent', 'Hexagon', 'Itinerary', 'Hexagon - {{room.displayname}}']);" title="View Itinerary" class="noSpin open-popup-link"><button class="maskCircle icon-information"><span>Itinerary Information</span></button></a>
+                												
+                                        <!-- END .room.events.length -->
+                                        </div>
+                						                                        
+										
+                                        <div class="noBooking" ng-if="room.events.length==0">
+              												    <div class="maskCircle bookerPhoto"><img src="/img/photos/ARM-Employee-Icon.png" alt="{{room.events[room.eventIndex].organizer}}"></div>
+              												    <h3>No bookings</h3>
+                						            </div>
+                                                                 											
+                											<!-- END .ch-info-back -->
+                                      </div>
+
+                                  <!-- END .ch-info -->
+                                  </div>
+                              </div>
+                          </div>
+                      </li>
+                  </ul>
+
+              <!-- END #app-meeting -->
+              </section>
+
+                  <footer id="footer" class="clearfix">
+                  <!-- START #footer -->
+
+                      <div>
+                          <small>v0.973 Design &amp; Coded by <a href="http://www.redninja.co.uk" title="Design and Coded by Red Ninja Studios" onClick="_gaq.push(['_trackEvent', 'Link', 'Red Ninja', 'Link - Red Ninja',, false]);">Red Ninja Studios</a></small>
+                      </div>
+
+                      <div>
+                          <a href="http://arm.com" class="logo-arm" title="ARM - Architecture for the digital world"><img src="/img/ARM-RGB.png" alt="ARM - Architecture for the digital world" class="logo" /></a>
+                      </div>
+                  
+                  <!-- END #footer -->
+                  </footer>
+
+                <!-- end .scroller's -->
+                </div>
+                </div>
+
+            </section>
+
+    			<!---->
+				
+			<div id="loading" ng-class="{'loading': loading, 'loadComplete':!loading}" >
+            <div class="inner">
+      				<div class="box">
+      					<div class="circle"></div>
+      					<div class="circle1"></div>
+      				</div>
+            </div>
+    			</div>			
+			
+			
+        <!-- END #container -->
+        </div>
+    <!-- END .meeting-room -->
+    </div>
+
+    
+  <script>
+
+    angular.module('meetingEventFilters', []).filter('filterEvent', function() {
+      return function(event) {
+        var now = new Date();
+        var eventDate = new Date(event.endDate);    
+    	return (eventDate.getTime() >= now.getTime())&&(eventDate.getDate()==now.getDate()); 
+      };
+    });
+
+
+    var meetingApp = angular.module('meetingApp', ['meetingEventFilters','ui.bootstrap','ngTouch','ngCookies']);	
+    /*
+	meetingApp.directive('a', function() {
+		return {
+			restrict: 'E',
+			link: function(scope, elem, attrs) {
+				if(attrs.ngClick){
+					elem.on('click', function(e){
+						e.preventDefault();
+						console.log('click   ',attrs.href);
+					});
+				}
+			}
+	   };
+	});
+    */	
+	
+    meetingApp.controller('meetingListCtrl', function ($rootScope,$scope, $http, $interval, socket, $modal,  $cookieStore ,$location) {
+
+		$scope.$on('$locationChangeStart',function(evt, absNewUrl, absOldUrl) {
+		   console.log('start', evt, absNewUrl, absOldUrl);
+		});
+		$scope.$on('$locationChangeSuccess',function(evt, absNewUrl, absOldUrl) {
+		   console.log('success', evt, absNewUrl, absOldUrl);
+		});	
+	
+	    console.log( 'path' , $location.path());
+			
+        var color = d3.scale.ordinal()
+            .range(["#CE1D6F", "#670F38"]);
+
+        var twoPi = 2 * Math.PI;	
+        var width = 400,
+            height = 400,
+            radius = Math.min(width, height) / 2;	
+
+        var arc = d3.svg.arc()
+            .outerRadius(radius - 10)
+            .innerRadius(0)
+			.startAngle(0);	
+			
+      $scope.app = {showMenu:true};
+	    $scope.loading = false;
+    	$scope.rooms = [];
+		$scope.buildings = [];
+		
+		$scope.current_building = "ARM3";
+		$scope.current_floor = "GROUND";
+		$scope.current_floor_index = 0;
+		
+		$scope.menu_open = false;
+    	var checkTimer ;		
+		
+        $scope.open = function ( index) {
+    	    var roomObj = $scope.rooms[index];
+    	    //console.log('open',roomObj.name, roomObj, index);
+            var modalInstance = $modal.open({
+                templateUrl: 'eventModalTemplate.html',
+    			  backdrop: true,
+                windowClass: 'modal',
+                resolve: {
+                    room: function () {
+  				    var cloned = _.clone(roomObj);
+  				    _.map(cloned.events, function(event){					
+  						return event;
+    		            })
+                      return cloned;
+                    }
+                },			  
+                controller: function ($scope, $modalInstance, room) {
+                    $scope.room = room;
+  				  $scope.dateformat = function(date){
+  					  var date = new Date(date);	
+  					  var hour = date.getHours(), min = date.getMinutes();
+  					  if(hour < 10) hour = '0'+date.getHours();
+  					  if(min < 10) min = '0'+date.getMinutes();
+  					  return  hour+":"+min;		 
+  				   }
+  				  
+  					/*
+  					$scope.ok = function () {
+  							 $modalInstance.close($scope.selected.item);
+  					  };
+  					  $scope.cancel = function () {
+  						  $modalInstance.dismiss('cancel');
+  					  };
+  					*/
+                }	
+            });
+
+           modalInstance.result.then(function (selectedItem) {
+            $scope.selected = selectedItem;
+            }, function () {
+            });
+        }; 
+
+
+        
+        $scope.openkey = function(){
+            var modalInstance = $modal.open({
+                templateUrl: 'keyModalTemplate.html',
+                backdrop: true,
+                windowClass: 'modal',
+                resolve: {
+
+                }
+            });
+           modalInstance.result.then(function (selectedItem) {
+            $scope.selected = selectedItem;
+            }, function () {
+            });
+        };         
+
+        /*			
+        $http.get('/buildinglist').success(function(data) {
+    	    data.buildings.forEach(function(building){
+    	        console.log(building.name,' ', building.floors.length);
+				for(var i=0;i<building.floors.length;i++){
+				    console.log(building.floors[i].name, building.floors[i].url);
+				}			
+    	    })	
+            $scope.buildings = data.buildings;			
+        }).error(function(data, status, headers, config) {
+
+        });
+        */		
+        var lastBuilding = $cookieStore.get('lastBuilding');
+		var lastFloor = $cookieStore.get('lastFloor');
+        if (!lastFloor && lastBuilding) {
+		    console.log('no last val');
+        } else {
+		    console.log('has last valu', lastBuilding, lastFloor);
+			$scope.current_building = lastBuilding;
+			$scope.current_floor_index = lastFloor;
+        }
+		
+		$scope.loadRecent = function(){
+			$scope.loading = true;
+			$http.get('/buildings/'+$scope.current_building+'/'+$scope.current_floor_index+'/cache').success(function(data) {
+				$scope.loadRoomData(data);    	
+				$scope.loading = false;			
+			}).error(function(data, status, headers, config) {
+				// called asynchronously if an error occurs
+				// or server returns response with an error status.
+				$scope.loading = false;
+			});				
+		}
+		$scope.loadRecent();
+
+    	
+        //$scope.orderProp = 'temperature';
+    			  	
+    	$scope.$on('$viewContentLoaded', function(){
+    	    //console.log('view content loaded');
+    	});
+		
+		$scope.getRoomInfo = function(href){
+		    //console.log('get room info',href);		
+			$scope.menu_open = false;
+			$scope.loading = true;
+			
+			var arr = href.split('/');
+			console.log(arr);
+			$scope.current_building = arr[4];
+			$scope.current_floor_index = arr[5];
+			
+			$cookieStore.put('lastBuilding', $scope.current_building);
+			$cookieStore.put('lastFloor', $scope.current_floor_index);
+			
+			if(arr[5] == 0) 
+			$scope.current_floor = 'GROUND';
+			else if(arr[5]==1)
+			$scope.current_floor = 'FIRST';
+			else if(arr[5]==2)
+			$scope.current_floor = 'SECOND';
+			
+			$http.get(href+'/cache').success(function(data) {			    
+				$scope.loadRoomData(data);
+                $scope.loading = false;				
+            }).error(function(data, status, headers, config) {
+                $scope.loading = false;
+            });
+		}   
+		
+		$scope.loadRoomData = function(data){
+			    //console.log('loading ',data);
+				console.log( 'path  ', $location.path()  );
+				$scope.loading = true;
+				data.rooms.forEach(function(room){
+				    if(room.m_enabled)
+					console.log(room.name,' ^^^: ', room.events, room.time);
+					/*
+					if(typeof room.events !== undefined || room.events !=null){
+						for(var i=0;i<room.events.length;i++){				
+							try
+							  {
+								 room.events[i].organizer = unescape(room.events[i].organizer.split('/')[2]);
+								 if(room.events[i].organizer.length > 18) room.events[i].organizer = 'unknown';
+							  }
+							catch(err)
+							  {
+								room.events[i].organizer = 'unknown ';
+							  }					
+						}
+					}
+					*/
+                    if(room.temperature == 0) room.temperature = 21.5;					
+				})
+				
+				setTimeout(function(){			    
+					_.map(data.rooms,function(room){  
+						room.front = false;												
+						var svg = d3.select('#clock-'+room.displayname).append("svg")
+							.attr("width", width)
+							.attr("height", height)
+							.append("g")
+							.attr("transform", "translate(" + width/4 + "," + height/4 + ")");	
+							
+						var meter = svg.append("g").attr("class", "progress-meter").style("fill-opacity", 0.05).style('fill',color[1]);
+						meter.append("path").attr("d", arc.endAngle(twoPi));
+						var foreground = meter.append("path")
+						.attr("class", "foreground")
+						.style("fill-opacity", 0.2)
+						.style('fill',color[0]).attr("d", arc.endAngle(twoPi * 0));		
+											
+						$scope.updateClock(room,true);
+                        $scope.updateStatusOnMeeting(room);						
+					} )
+
+				},500);
+							
+				$scope.rooms = data.rooms;
+				//console.log(data.rooms);
+				$scope.checkIntialEventIndex();
+				$scope.checkRoomAvailablity();
+				
+				checkTimer = $interval($scope.checkMeetingMotionTimer, 1000*60);				
+				$rootScope.$broadcast('mybroadcast');				
+				//$scope.loadBookerDetail('','Helen Black');
+		}
+		
+		$scope.$watchCollection('rooms', function(newVal, oldVal){
+			console.log('changed  rooms: ',newVal, oldVal);
+			var changeRooms = oldVal;
+			changeRooms.forEach(function(room){
+			    //console.log(room.eventIndex);
+				if(room.events!=null && room.events.length>0){
+			        var event = room.events[room.eventIndex];
+					if(event !=null){
+					    console.log('event ',event.organizer);
+						if(event.organizer!='unknown' || event.organizer!=''){
+						    $scope.loadBookerDetail(room,event.organizer,function(err,booker){
+							    
+								if(err) console.log('can not get booker info');
+								else if(booker!=null){
+								    console.log("room is booked by ",   booker.name, booker.email, booker.telephone, booker.picture);
+								    event.email = booker.email;
+								    event.telephone = booker.telephone;
+								    event.picture = booker.picture;
+								}
+							});
+						}
+					}
+				}
+			})
+		}, true);		
+		
+		$scope.loadBookerDetail = function(room,names,callback){
+		    //console.log('load booker detail');
+			$http.get('/arm/people?people='+names).success(function(data) {
+				//console.log('booker detail',data);
+				var bookers = data;
+                bookers.forEach(function(booker){
+				    if(booker && callback)
+					callback(null,booker);
+				})				
+			}).error(function(data, status, headers, config) {
+				console.log('error loading the events');
+				callback('error',null);
+			});	
+		}
+				
+		$scope.updateClock = function(room,first){
+            //console.log('updateClock   ',room.displayname, percentage);	
+			if( room.eventIndex >=0 && room.eventIndex < room.events.length ){
+			    //console.log('index:',room.eventIndex ,'length:' , room.events.length, room.displayname);
+				var event = room.events[room.eventIndex];	
+				var startTime = new Date(event.startDate).getTime(),endTime = new Date(event.endDate).getTime();
+				var per = (new Date().getTime()-startTime) / (endTime-startTime);
+				if(per <0) {  
+				    per = 0;	
+					console.log('event not start yet'); 
+				}else{
+				}
+                    try{				
+				        var forground = d3.select('#clock-'+room.displayname+'  .foreground').transition().duration(1500).style("fill-opacity", 0.2)
+                        if(first){
+							forground.attrTween("d",function arcTween() {
+								var i = d3.interpolate(0, twoPi * per);
+								return function(t) {
+									return arc.endAngle(i(t))();
+								};
+							});
+						}
+                        else{
+						    forground.transition().duration(1500).attr("d", arc.endAngle( twoPi * per ));
+						}						
+						d3.select('#clock-'+room.displayname+'  .progress-meter').transition().duration(1500).style("fill-opacity", 0.05);                                                                                                       																										 
+                    }catch(e){}					
+			}else{
+				        d3.select('#clock-'+room.displayname+'  .foreground').transition().duration(1500).style("fill-opacity", 0);							                                                                                 		    
+			            d3.select('#clock-'+room.displayname+'  .progress-meter').transition().duration(1500).style("fill-opacity", 0);
+			}
+			/*
+            var minutes = new Date().getMinutes();			
+			var per =(minutes/60); 
+			var forground = d3.select('#clock-'+room.displayname+'  .foreground');
+			if(first){
+			    forground.transition().duration(1500)
+					 .attrTween("d",function arcTween() {
+						var i = d3.interpolate(0, twoPi * per);
+						return function(t) {
+							return arc.endAngle(i(t))();
+						};
+					});
+            }else{
+			    forground.transition().duration(1500).attr("d", arc.endAngle( twoPi * per ));
+			}
+            */			
+		} 	
+		
+    	$scope.checkRoomAvailablity = function(){
+    	    //console.log('checkRoomAvailablity');
+    		_.map($scope.rooms, function(room){
+  		         //console.log('.............should  update the room to be available  ',room);
+				 /**/
+				 var lastupdate = new Date(room.time);
+				 // room has no motion sensor
+				 if(!room.m_enabled) room.available = false;
+				 else{
+				    if(!room.online) {
+    					room.available = false;
+						room.m_enabled = false;
+					}	
+					else{
+						// room has motion sensor
+						 var leapsed = new Date().getTime() - lastupdate.getTime();
+						 if( leapsed > 5*60*1000){ 
+							room.available = false;						
+						 }else {
+							room.available = true;
+						 }
+                    }					 
+                 }				 
+				///////////////////////////////////////////////
+                $scope.updateClock(room);
+                //$scope.updateStatusOnMotion(room);
+                $scope.updateStatusOnMeeting(room);				
+    		})        			
+    	}
+		$scope.updateStatusOnMeeting = function(room){
+		    //console.log('%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%',room.displayname, room.eventIndex);
+			if( room.eventIndex >=0 && room.eventIndex < room.events.length ){
+			    var event = room.events[room.eventIndex];	
+			    var startTime = new Date(event.startDate).getTime(),endTime = new Date(event.endDate).getTime(), nowTime = new Date().getTime();
+				if(startTime <= nowTime){
+					var seconds = (endTime-nowTime)/1000;
+					//console.log('-----------------------------------------   updateStatusOnMeeting',room.displayname, seconds,endTime,nowTime);
+					if(seconds > 0){
+						if(seconds <= 60*60)
+						room.status = Math.floor(seconds/60)+1+ ' MINS';
+						else if(seconds > 60*60)
+						room.status = Math.round( seconds/3600 * 10) / 10 +' HOURS';
+					}
+				}else{
+				    room.status = 'start at '+ $scope.dateformat(event.startDate);
+				}
+			}else{
+			    room.status = 'No bookings';    
+			}
+		}
+
+		$scope.updateStatusOnMotion = function(room){
+		    //console.log('%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%',room.displayname, room.eventIndex);
+			if(!room.m_enabled) room.available = false;
+			else{
+				 var lastupdate = new Date(room.time);
+				 var mins = (new Date().getTime() - lastupdate.getTime())/1000/60;			
+				 if( room.available == false){  // available	
+					if(mins < 60) { room.status = 'free for '+ Math.round(mins)+" mins";}
+					else if(mins < 60*24){room.status = 'free for '+ Math.round(mins/60)+' hours';}
+					else{
+						room.status = 'free for '+ Math.round(mins/60/24)+' days';
+					}				               
+				}else if(room.available == true){
+				    if(mins >5) { room.available = false; room.status = '';}		
+					//else room.status = 'BUSY';    
+				}
+			}
+		}			
+		
+		    	
+    	$scope.checkIntialEventIndex = function(){
+    	    var nowTime = new Date().getTime();
+    		$scope.rooms.forEach(function(room){
+    		    var events = room.events;
+    			//console.log("all events  ",events);
+				if(events!=null){
+					var event_filtered = _.filter(events, function(event){
+						var startTime = new Date(event.startDate).getTime(),endTime = new Date(event.endDate).getTime(); 				
+						//console.log('event  ',nowTime, startTime);				
+						return  (nowTime>=startTime&& nowTime<=endTime) ||(nowTime <=startTime);  // 
+					})
+					room.eventIndex = events.length - event_filtered.length;
+                }				
+    		    //console.log("remaining events   ",event_filtered, room.eventIndex);
+				//$scope.updateStatusOnMotion(room);
+    		})
+    	}
+    	
+    	$scope.checkNextEventAlert = function(){
+    	    var nowTime = new Date().getTime();
+    		$scope.rooms.forEach(function(room){
+    		    var events = room.events, index = room.eventIndex;
+                //console.log(room.name , events.length, index);			
+    		    
+    			if(events!=null && events.length>0){
+    			    var currentEvent = events[index], hasNextEvent = false;
+    			    var startTime = new Date(currentEvent.startDate).getTime(),endTime = new Date(currentEvent.endDate).getTime();
+    				
+    				if(index+1>=events.length){
+    				    //console.log('no more next events');
+    				}else{
+    				    //console.log('there is a next event');
+    					hasNextEvent = true;
+    				}  				
+    			    //console.log('checkNextEventAlert  ', currentEvent.startDate, currentEvent.endDate);
+    			    if(nowTime>startTime&&nowTime<endTime){
+    			        // if there is a event, just update the event clock
+    			        //console.log( ' in current event , next time  for  ' , $scope.dateformat(currentEvent.startDate)  );
+    				    var seconds = (endTime - nowTime)/1000;
+    				    if(seconds<60){
+    				    // setInterval  real timer 
+    				    }else if(seconds < 60 *5){
+    				        // show the alert  for room ( next event or event)
+                            if(hasNextEvent){
+    						
+    						}
+    				    }
+    		     	}else if(nowTime >= endTime){
+    				    if(hasNextEvent){
+    					    // show next event data and update the index
+    					    room.eventIndex ++;
+    					}
+    				}
+    			    else if(nowTime <=startTime){
+    			       // console.log( ' next event  ' , $scope.dateformat(currentEvent.startDate)  );
+    				    // if there is no event now, just show the remaining time left for the next event
+    				   if(seconds<60){
+    				    // setInterval  real timer 
+    				   }else if(seconds < 60 *5){
+    				    // show the alert
+    				   }else if(seconds < 60*60){
+    				
+    				   }else{
+    				
+    				   }				
+    			    }
+    			}else{
+    			     //console.log(' there is events in this day for this room ');			
+    			}
+    		})	
+    	}
+		
+		$scope.alertMotionEvent = function(room){
+			d3.select('#clock-'+room.displayname+'  .progress-meter')
+			  .transition().duration(300).style("fill-opacity", 0.2).transition().duration(300).style("fill-opacity", 0.05)
+			  .transition().duration(300).style("fill-opacity", 0.2).transition().duration(300).style("fill-opacity", 0.05);				
+		}
+    		
+    	$scope.checkMeetingMotionTimer = function(){
+    	    //console.log('check timer');
+    	    $scope.checkRoomAvailablity();
+    		///////////////////////////////////////////////////////////
+    		// give a alert for event transition 5 minutes before the next events
+    		$scope.checkNextEventAlert();
+    	}
+		
+  	/****************************  utiliy ***********************************/
+	$scope.$on('mybroadcast', function(service){
+		//console.log('on my broadcast', service);
+	    touchScroll("bodyID");
+	    sizeContent();			
+    })
+
+	$scope.styleFont = function(elem) {
+		//console.log(elem ,  elem.length,'--------------------------------------------------------------------');
+		if(elem.length <= 5)
+		return { "font-size": '65px' };
+		else if(elem.length < 7)
+		return { "font-size": '48px', 'margin-top':'20px' };
+		else if(elem.length < 9)
+		return { "font-size": '42px', 'margin-top':'28px' };
+		else if(elem.length <=12)
+		return { "font-size": '34px', 'margin-top':'37px' };			
+		else if(elem.length <=17)
+		return { "font-size": '25px', 'margin-top':'50px' };			
+	}
+
+	$scope.UpperCaseArray = function(input) {
+	
+		if (typeof String.prototype.startsWith != 'function') {
+		  String.prototype.startsWith = function (str){
+			return this.indexOf(str) == 0;
+		  };
+		}
+    
+        if(input.startsWith('ARM6')){
+		    return input.substring( 4 ,input.length);
+		}else if(input.startsWith('CPC1-0') || input.startsWith('CPC1-2')){
+		   return input.substring( 6,input.length);		
+		}else if(input.startsWith('om.ukccpc1-2')){
+		   return input.substring( 12,input.length);	
+		}
+		else	
+	    /*
+		var result = input.replace(/([A-Z]+)/g, ",$1").replace(/^,/, "");
+		var arr = result.split(" "), str = '';
+		for(var i=0;i<arr.length;i++)  str+=arr[i]+" ";
+		return str;
+        */
+        return input;		
+	}	
+	
+    $scope.dateformat = function(date){
+		var date = new Date(date);	
+		var hour = date.getHours(), min = date.getMinutes();
+		if(hour < 10) hour = '0'+date.getHours();
+		if(min < 10) min = '0'+date.getMinutes();
+		return  hour+":"+min;		 
+	}
+		
+	$scope.getEmail = function(email){
+		return 'mailto:'+email;
+	}
+	
+  	// touch device overflow fix
+  	function isTouchDevice() {
+  		try{
+  			document.createEvent("TouchEvent");
+  			return true;
+  		}catch(e){
+  			return false;
+  		}
+  	}
+
+  	function touchScroll(id) {
+  		if(isTouchDevice()){ //if touch events exist...
+  			var el=document.getElementById(id);
+  			var scrollStartPos=0;
+
+  			document.getElementById(id).addEventListener("touchstart", function(event) {
+  				scrollStartPos=this.scrollTop+event.touches[0].pageY;
+  				event.preventDefault();
+  			},false);
+
+  			document.getElementById(id).addEventListener("touchmove", function(event) {
+  				this.scrollTop=scrollStartPos-event.touches[0].pageY;
+  				event.preventDefault();
+  			},false);
+  		}
+  	}
+  	
+	function sizeContent() {
+		// fix height bug on .container as there was an annoying gap below
+		var bodyHeight = window.innerHeight;
+
+		var containerHeight = document.getElementById("container").style.height;
+        console.log('size content  body:',bodyHeight,'container', containerHeight);	
+    
+        var loadingHeight = document.getElementById("loading").style.height;
+        console.log('size content  body:',bodyHeight,'loading', loadingHeight);   
+
+		if (bodyHeight > 1100) {
+		  document.getElementById('container').style.height = bodyHeight+"px";
+          document.getElementById('loading').style.height = bodyHeight+"px";
+		}
+		else {
+		 // window.innerHeight = containerHeight;
+         //window.innerHeight = loadingHeight;
+		}
+		//console.log ('sizeContent working');
+	}	
+     	
+	/******************    socket  **********************/
+	socket.on('connect', function () {
+		console.log('socket connected');
+	});
+						
+	socket.on('info', function (msg) {               
+		//console.log(msg);
+		if(msg.type=='motion'){ 
+			var room = _.findWhere($scope.rooms, {name: msg.room});	
+			  if(room){
+        		console.log('receiving the real time message from server ', msg.room,msg.value,msg.type, msg.time,room.time);
+								
+				if( new Date(room.time).getTime() < new Date(msg.time).getTime()){
+			        room.time = msg.time;
+                    room.available = true; 					
+				    $scope.alertMotionEvent(room);
+					$scope.updateStatusOnMotion(room);
+					//console.log('turn red');
+				 }else{
+				    //console.log('room time',room.time.getTime());
+					//console.log('>', msg.time.getTime());
+				 }
+			  }	
+		}else if(msg.type =='temperature'){
+		    var room = _.findWhere($scope.rooms, {name: msg.room});	
+			if(room!=null){
+			    console.log('receiving the real time message from server ', msg.room,msg.value,msg.type, msg.time,room.time)
+			    room.temperature = msg.value;
+			}
+		}else if(msg.type == 'online'){
+			if(room!=null){
+			    console.log('receiving the real time message from server online', msg.room,msg.value,msg.type);
+				if(msg.value==1)
+			    room.online = true;
+				else if(msg.value == 0)
+				room.online = false;
+			}		
+		}
+	});
+  /***************   destory *************************/
+	$scope.$on('$destroy', function() {
+		if (angular.isDefined(checkTimer)) {
+			$interval.cancel(checkTimer);
+			checkTimer = undefined;
+		}
+		socket.removeAllListeners();		
+     });		
+    });
+
+
+    meetingApp.factory('socket', function ($rootScope) {
+        if (!window.location.origin)
+        window.location.origin = window.location.protocol+"//"+window.location.host;
+        var socket = io.connect(window.location.origin+":3000",{'force new connection': true});
+        return {
+            on: function (eventName, callback) {
+                socket.on(eventName, function () {  
+                var args = arguments;
+                $rootScope.$apply(function () {
+                    callback.apply(socket, args);
+                });
+            });
+        },
+            emit: function (eventName, data, callback) {
+                socket.emit(eventName, data, function () {
+                var args = arguments;
+                $rootScope.$apply(function () {
+                    if (callback) {
+                        callback.apply(socket, args);
+                    }
+                });
+            })
+        }
+      };
+    });
+
+   function sizeContent() {
+      var bodyHeight = $('body').height();
+      var containerHeight = $("#container").height();
+      var loadingHeight = $("#loading").height();
+      //console.log('size contenter   ... ',bodyHeight, containerHeight);
+      if (bodyHeight > containerHeight) {
+        $('#container').css('height', bodyHeight );
+      } else if (containerHeight > loadingHeight) {
+        $('#loading').css('height', containerHeight );
+      }
+      else {
+        $('body').css('height', containerHeight);
+      }
+  }
+
+  //Every resize of window
+  $(window).resize(sizeContent); 
+    
+    
+  angular
+      .module('loadingOnAJAX', [])
+      .config(function($httpProvider) {
+          var numLoadings = 0;
+          var loadingScreen = $('LOADING')
+              .appendTo($('body')).hide();
+          $httpProvider.responseInterceptors.push(function() {
+              return function(promise) {
+                  numLoadings++;
+                  loadingScreen.show();
+                  var hide = function(r) { if (!(--numLoadings)) loadingScreen.hide(); return r; };
+                  return promise.then(hide, hide);
+              };
+          });
+      });
+
+  angular
+    .module('globalErrors', [])
+    .config(function($provide, $httpProvider, $compileProvider) {
+        var elementsList = $();
+
+        var showMessage = function(content, cl, time) {
+            $('<div/>')
+                .addClass('message')
+                .addClass(cl)
+                .hide()
+                .fadeIn('fast')
+                .delay(time)
+                .fadeOut('fast', function() { $(this).remove(); })
+                .appendTo(elementsList)
+                .text(content);
+        };
+        
+        $httpProvider.responseInterceptors.push(function($timeout, $q) {
+            return function(promise) {
+                return promise.then(function(successResponse) {
+                    if (successResponse.config.method.toUpperCase() != 'GET')
+                        showMessage('Success', 'successMessage', 5000);
+                    return successResponse;
+
+                }, function(errorResponse) {
+                    switch (errorResponse.status) {
+                        case 401:
+                            showMessage('Wrong usename or password', 'errorMessage', 20000);
+                            break;
+                        case 403:
+                            showMessage('You don\'t have the right to do this', 'errorMessage', 20000);
+                            break;
+                        case 500:
+                            showMessage('Server internal error: ' + errorResponse.data, 'errorMessage', 20000);
+                            break;
+                        default:
+                            showMessage('Error ' + errorResponse.status + ': ' + errorResponse.data, 'errorMessage', 20000);
+                    }
+                    return $q.reject(errorResponse);
+                });
+            };
+        });
+
+        $compileProvider.directive('appMessages', function() {
+            var directiveDefinitionObject = {
+                link: function(scope, element, attrs) { elementsList.push($(element)); }
+            };
+            return directiveDefinitionObject;
+        });
+    });  
+  
+	
+    </script>
+
+    <!-- New Menu -->
+    <script>
+        new mlPushMenu( document.getElementById( 'mp-menu' ), document.getElementById( 'trigger' ) );
+    </script>
+
+  <script type="text/ng-template" id="eventModalTemplate.html">
+      <aside class="itinerary">
+        <article>
+          <header class="clearfix">
+            <h1>Today's Itinerary</h1>
+            <h2>{{room.displayname}}</h2>
+			<small ng-if="room.t_enabled==true"><span class='temperature'>{{room.temperature}}</span> &#x2103;</small>
+          </header>
+          <section>
+            <table class="tg-table-dark">
+              <tr ng-repeat="event in room.events">  <!--add a filter for the remaining room -->
+                <td>
+                  <div class="wrapHexagon">
+                    <div class="hexagon-in1">
+					  <!-- ng-if="event.picture.length>0"  ng-if="event.telephone.length>0" -->
+					  <img  ng-if="event.picture.length>0" src="{{event.picture}}" > 
+                    </div>
+                  </div>
+                </td>
+                <td><i class="icon-clock" aria-hidden="true"></i></td>
+                <td><span>{{ dateformat(event.startDate)}}</span><i class="icon-arrow_right " aria-hidden="true"></i><span>{{dateformat(event.endDate)}}</span></td>
+                <td><a ng-if="event.telephone.length>0" href="tel:{{event.telephone[0]}}" title="Phone {{event.organizer}}"><button class="maskCircle icon-telephone icon2x"><span>Telephone</span></button></a></td>
+              </tr>
+            </table>
+            <h3 class="darkBlue">No More Bookings Today</h3>
+          </section>
+        </article> 
+      </aside>
+  </script>
+
+  <script type="text/ng-template" id="keyModalTemplate.html">
+    <aside class="itinerary key">
+    <!-- START .itinerary .key    -->
+
+      <article>
+        <header class="clearfix">
+          <h1>Meeting App Availability</h1>
+          <h2>KEY</h2>
+        </header>
+        <section>
+          <table class="tg-table-dark">
+            <tr>
+              <td>
+                <div class="hexagon available">
+                  <div class="ch-info-front">&nbsp;</div>
+                </div>
+              </td>
+              <td>
+                <h2>AVAILABLE</h2>
+                <h3>No motion detected in room</h3>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <div class="hexagon unavailable">
+                  <div class="ch-info-front">&nbsp;</div>
+                </div>
+              </td>
+              <td>
+                <h2>NOT AVAILABLE</h2>
+                <h3>Motion activity in room</h3>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <div class="hexagon unknown">
+                  <div class="ch-info-front">&nbsp;</div>
+                </div>
+              </td>
+              <td>
+                <h2>UNKNOWN</h2>
+                <h3>Sensor offline</h3>
+              </td>
+            </tr>
+          </table>
+        </section>
+      </article>
+
+    <!-- START .itinerary .key -->
+    </aside>
+  </script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-46398255-2', '54.194.94.166:80');
+  ga('require', 'linkid', 'linkid.js');
+  ga('send', 'pageview');
+
+</script>
+
+</body>
+</html>
