@@ -738,7 +738,7 @@ app.get('/catchevents',function(req,res){
 var schedule = require('node-schedule');
 var rule = new schedule.RecurrenceRule();
 rule.dayOfWeek = [0, new schedule.Range(0, 4)];
-rule.hour = 1;
+rule.hour = 8;
 rule.minute = 40;
 
 var j = schedule.scheduleJob(rule, function(){
