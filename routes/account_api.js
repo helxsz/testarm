@@ -126,7 +126,10 @@ function signupUser(req,res,next){
     }
 	
 	var email, username, password;        
-    email = sanitize(req.body.email).trim(), email = sanitize(email).xss();  
+    //email = sanitize(req.body.email).trim(), email = sanitize(email).xss(); 
+    email = req.body.email; 	
+	username = req.body.username, password = req.body.password;
+	/*
 	try {
         check(email).isEmail();
         } catch (e) {
@@ -138,9 +141,9 @@ function signupUser(req,res,next){
 	if (!/^[a-zA-Z0-9\-\_]+$/.test(username)) {
 		return res.send(400, {status:"error", errors:[{"message":'Username only use letters, numbers, \'-\', \'_\''}]});
 	}
-	 
-    username = sanitize(req.body.username).trim(), username = sanitize(username).xss();  	   
-    password = sanitize(req.body.password).trim(), password = sanitize(password).xss();
+	*/ 
+    //username = sanitize(req.body.username).trim(), username = sanitize(username).xss();  	   
+    //password = sanitize(req.body.password).trim(), password = sanitize(password).xss();
 		
     userModel.createNewUser({'username':username,'email':email,'password':password},function(err,data){
 	    if(err) {
