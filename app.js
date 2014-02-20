@@ -8,9 +8,9 @@ var fs = require('fs'),
     ejs =  require('ejs'),
     path = require('path'),
 	colors = require('colors'),
-    mongoose = require('mongoose'),
+    mongoose = require('mongoose'),   
 	GridStore = mongoose.mongo.GridStore,
-    db = mongoose.connection.db;;
+    db = mongoose.connection.db;
 	
 var config = require('./conf/config.js'),
     app = express(),
