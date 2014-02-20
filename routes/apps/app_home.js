@@ -425,8 +425,8 @@ function queryDataFromGeras(array, day_begin,day_end, callback){
 var schedule = require('node-schedule');
 var rule2 = new schedule.RecurrenceRule();
 rule2.dayOfWeek = [0, new schedule.Range(0, 6)];
-rule2.hour = 1;
-rule2.minute = 40;
+rule2.hour = 8;
+rule2.minute = 30;
 
 var j = schedule.scheduleJob(rule2, function(){
     console.log('running the event analytics rule!');

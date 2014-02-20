@@ -788,7 +788,7 @@ function CatalogDB(){
 }
 
 
-function updateResourceRepository(){
+function RepositoryUpdater(){
 	
 	var filter = new catalog_filter();
 	var crawler = new catalog_crawler(armbuilding);
@@ -895,10 +895,8 @@ function updateResourceRepository(){
 		});						
 	}	
 
-	function updateIntellsenseCatalog(){	
-				/*
-			// https://alertmeadaptor.appspot.com/traverse?traverseURI=https%3A//5.79.20.223%3A3000/cat/ARM6&traverseKey=d01fe91e8e249618d6c26d255f2a9d42
-			
+	function updateIntellsenseCatalog(){			
+		// https://alertmeadaptor.appspot.com/traverse?traverseURI=https%3A//5.79.20.223%3A3000/cat/ARM6&traverseKey=d01fe91e8e249618d6c26d255f2a9d42			
 		var crawler = new catalog_crawler(intellisense);
 		crawler.startCrawl(intellisense, function(facts){
 			filter.filterIntellisense(facts,function(results){
@@ -912,11 +910,10 @@ function updateResourceRepository(){
 				});				
 			});
 			callback(null, 'one'); 
-		});		
-			
-            */
+		});		       
 	}
-	catalogDB.flushALL(function(){});
+	
+	//catalogDB.flushALL(function(){});
 	catalogDB.checkDB(function(err,data){
 		if(err){		
 		}else if(data == 1){
@@ -943,10 +940,17 @@ function updateResourceRepository(){
 			});			
 		}
 	})
+	
+	return {
+        updateIntellsenseCatalog:updateIntellsenseCatalog,
+        updateEnlightCatalog:updateEnlightCatalog,
+        updateHomeCatalog:updateHomeCatalog,
+		updateIntellsenseCatalog:updateIntellsenseCatalog
+	}	
 }
 
 
-updateResourceRepository();
+var repoUpdater = new RepositoryUpdater();
 
 
 function integrateMeetingRoom(_callback){
@@ -1098,10 +1102,11 @@ app.get('/admin/repository/update',function(req,res,next){
 var schedule = require('node-schedule');
 var rule2 = new schedule.RecurrenceRule();
 rule2.dayOfWeek = [0, new schedule.Range(0, 6)];
-rule2.hour = 1;
-rule2.minute = 40;
+rule2.hour = 20;
+rule2.minute = 44;
 
 var j = schedule.scheduleJob(rule2, function(){
-    console.log('running the event analytics rule!');
-	updateResourceRepository();
+    console.log('running the event analytics rule!'.red);
+	repoUpdater.updateMeetingRoomAndLocation();
+	repoUpdater.updateHomeCatalog();
 });
