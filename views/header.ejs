@@ -364,15 +364,15 @@ font-size: 12px;
     <div class="container-fluid">
       <ul id="global-nav" class="nav pull-left">
 	    <a href="/" class="brand">
-            <h1>Smart<span>parking<small><sup>&trade;</sup></small><span></h1>	  
+             
 	    </a>
 				
         <% if(locals.user) { %>
 		    <li class="">
-                <a href="/discover/parking_map" class="menu_item">Map</a>
+                
             </li>		
 		    <li class="">
-                <a href="/parkings/test"  class="menu_item">Parking Test</a>
+                
             </li>
 		<% } %>
 	  </ul>
@@ -439,11 +439,9 @@ font-size: 12px;
 	  <% } %>
 	  
 	  
-	  
 	  <% if(!locals.user) { %>
 	    <ul class="nav pull-right row">
             <li><a href="/login">Login</a></li>			
-            <li><a href="/signup">Signup</a></li>
         </ul>
 	  <% } %>
     </div>

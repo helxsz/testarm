@@ -250,7 +250,6 @@ background-color: #e5e5e5;	font-family: 'Open Sans', Arial, Helvetica, sans-seri
     -->   
    <script src="../assets/js/jquery-1.8.1.min.js"></script>   
    <script src="../assets/js/underscore.js"></script>
-   <script src="../assets/js/backbone-min.js"></script>
    <script src="../assets/js/jquery.tmpl.min.js"></script>
 
     <!-- Fav and touch icons -->
@@ -283,36 +282,6 @@ background-color: #e5e5e5;	font-family: 'Open Sans', Arial, Helvetica, sans-seri
         <div class="container-fluid  content">	
             <div id="signin" class="accounts-form row-fluid">	
 
-
-                <div class="span4 social offset2">
-				  <div >
-                    <h3>Sign up</h3>
-                    <p class="note"><small>By creating your account you agree to our 
-                    <a href="/terms/" target="blank">Terms of Use</a> and <a href="/privacy/" target="blank">Privacy Policy</a>.</small></p>        
-                  </div>
-                  <div>
-                    <form class="connect-button" name="login" method="get" action="/auth/twitter" id="twitter-connect-form">
-                        <input type="hidden" name="_csrf" value="<%= token %>"/>        
-                        <input type="hidden" name="next" value="/welcome/" />
-        	            <a class="twitter-before"><span class="fontawesome-twitter"></span></a>
-			            <button class="twitter">Login Using Twitter</button>
-		            </form>
-                    <form class="connect-button" name="login" method="get" action="/auth/facebook" id="facebook-connect-form">
-                        <input type="hidden" name="_csrf" value="<%= token %>"/>       
-                        <input type="hidden" name="next" value="/welcome/" />        
-			            <a class="facebook-before"><span class="fontawesome-facebook"></span></a>
-			            <button class="facebook">Login Using Facbook</button>        
-		            </form>
-                    <form class="connect-button" name="login" method="get" action="/auth/github" id="github-connect-form">
-                        <input type="hidden" name="_csrf" value="<%= token %>"/>       
-                        <input type="hidden" name="next" value="/welcome/" />        
-			            <a class="github-before"><span class="fontawesome-facebook"></span></a>
-			            <button class="github">Login Using Github</button>        
-		            </form>						
-                    <p><small>Already have an account? <a href="/login/">Log in</a></small></p>
-                   </div>
-                </div>
-
                 <div class="span5 offset1">   
                     <form action="/sessions" method="POST" autocomplete="on" class="clearfix" id="auth-form" enctype="application/x-www-form-urlencoded">
 		                <input type="hidden" name="_csrf" value="<%= token %>"/>
@@ -330,42 +299,20 @@ background-color: #e5e5e5;	font-family: 'Open Sans', Arial, Helvetica, sans-seri
                                  
                            <input type="submit" value="Log in" class="btn btn-green"/>
                         
-						<div><small><a href="#" id="forgot-password">Forgot Your Password? </a><a href="/signup" id="create-account">Login Account</a></small></div>
+						 <div class="btm-links">Any technique issues, please feedback to<a href="#" id="forgot-password"> arm@redninja.co.uk  </a> 01517076707</div>
 
                     </form>
                 </div>
              </div> 
         </div> 
 		
-	<% include footer %>
+
 
 		</div>
 	</div>		
   </body>
   
 
-
-
-	<script type="text/template" id="loginTemplate">
-	    <div id="login-container">
-            <form method="post" id="login-form" class="well span4 " action="/sessions" enctype="application/x-www-form-urlencoded">
-                <input type="hidden" name="_csrf" value="<%= token %>"/>
-                <h1>Hello!!!</h1>
-                <p class="subheading">Please Login To Your Account</p>
-                <input type="text" name="username" id="user-tf" class="span4 required" placeholder="Email ">
-                <input type="password" name="password" id="pass-tf" class="span4 required" placeholder="Password">
-	
-                <label id="remember-me" class="checkbox">Remember Me
-                    <input type="checkbox" checked="checked" name="remember_me" value="1">
-                </label>	
-                <button type="submit" id="btn-login" class="btn"><i class="icon-lock icon-white"></i>Sign in</button>
-                <div class="clear-fix"></div>
-                <hr>
-                <div class="btm-links"><a href="#" id="forgot-password">Forgot Your Password? </a><a href="/signup" id="create-account">Create An Account</a></div>
-            </form> 
-        </div>
-	</script>
-  
 <script>
 
 $( "input" ).focus(function() {
@@ -373,166 +320,5 @@ $( "input" ).focus(function() {
 }).focusout(function() {
     $( "body" ).removeClass('dim');
 });
-
-/*
-window.session;
-window.AppRouter = Backbone.Router.extend({	 
-    routes:{
-    	'':'home'
-    },
-    initialize:function () {
-    	console.log('init route');    	
-		session = new SessionModel();
-        //$('body').append( new HeaderView().render().el) ;
-        $('body .container').append( new LoginView().render().el) ; 	    
-    },
-    home:function(){
-    	console.log('home');
-    }
-});
-
-var SessionModel = Backbone.Model.extend({	
-	validate : function(attrs) { //新增，验证属性是否合法
-		
-		 if (attrs.username.length<6 || attrs.username.length>12) {
-		        return "Username contains 6-12 characters.";
-		  }
-		 var obj = $.ajax({
-		    url : "./rest/user/validate/" + attrs.username, 
-		    async : false,
-		 });
-		 if (obj.responseText == "false") {
-		      return "Username has been used.";
-		 }
-		 if (attrs.password.length<6 || attrs.password.length>12) {
-		      return "Password contains 6-12 characters.";
-		 }
-		 if (attrs.email.length == 0) {
-		      return "Please enter your email.";
-		 }
-		 if(!attrs.email.match(/^\w{3,}@\w+(\.\w+)+$/)){
-		       return "Invalid email format.";
-		  }
-		
-	},	
-	save: function(attrs, options) {
-	        options || (options = {});
-
-	        options.contentType = 'application/json';
-	        options.data = JSON.stringify(attrs);
-
-	        Backbone.Model.prototype.save.call(this, attrs, options);
-	},
-    urlRoot: '/sessions',
-    initialize: function () {
-      var that = this;
-      console.log("set up session model");
-      // Hook into jquery
-      // Use withCredentials to send the server cookies
-      // The server must allow this through response headers
-      $.ajaxPrefilter( function( options, originalOptions, jqXHR ) {
-        options.xhrFields = {
-          withCredentials: true
-        };
-        // If we have a csrf token send it through with the next request
-        if(typeof that.get('_csrf') !== 'undefined') {
-          jqXHR.setRequestHeader('X-CSRF-Token', that.get('_csrf'));
-          console.log('csrf  request  has');
-        }
-      });
-    },
-    login: function(creds) {
-      // Do a POST to /session and send the serialized form creds
-    	console.log("login the user     "+creds.username+"   "+creds.password);
-      this.save({username: "Teddy"}, {
-         success: function (responseText, status, xhr) {
-        	  console.log('user login success' +responseText);
-        	  console.log('user login success' +status);
-        	  console.log('user login success' +xhr);
-         },
-         error : function(m,error) { //显示错误信息
-        	 console.log('err login ');
-       	     //$(".error").html(error);
-         }
-      });
-    },
-    logout: function() {
-      // Do a DELETE to /session and clear the clientside data
-    	console.log("log out the user");
-      var that = this;
-      this.destroy({
-        success: function (model, resp) {
-          model.clear()
-          model.id = null;
-          // Set auth to false to trigger a change:auth event
-          // The server also returns a new csrf token so that
-          // the user can relogin without refreshing the page
-          that.set({auth: false, _csrf: resp._csrf});         
-        }
-      });      
-    },
-    getAuth: function(callback) {
-      // getAuth is wrapped around our router
-      // before we start any routers let us see if the user is valid
-      this.fetch({
-          success: callback
-      });
-    }    
- });
-
-
-window.LoginView = Backbone.View.extend({
-    template:_.template($("#loginTemplate").html()),
-    initialize: function () {    	
-    	session.on('change:auth', function (session) {
-    		  console.log("auth change");  	    
-    	});       
-    }
-	,
-    events:{
-    	//"submit form.form-signin"  : "login",
-        'click .logout': 'logout',
-        "click #submit"  : "login",
-    }
-,    
-    render: function () {
-    	//console.log(this.template);
-    	//this.$el.html(this.template); 
-    	if(session.get('auth')){
-    		  console.log('session get auth');
-    		  this.setElement(this.logoutTemplate({'username': Session.get('username')}));
-    	} else {
-    	  console.log("set up login page ......");
-      	  this.setElement(this.template());
-    	  //this.setElement(this.logoutTemplate({'username':'abcs'}));
-    	}
-        return this;
-    },
-    login: function (ev) {
-        // Disable the button
-    	console.log("login");
-        $('[type=submit]', ev.currentTarget).val('Logging in').attr('disabled', 'disabled');
-        // Serialize the form into an object using a jQuery plgin
-        //var creds = $(ev.currentTarget).serializeObject();
-        var email = $("input[name='email']").val();
-        var password = $("input[name='password']").val();          
-        var creds = {'username':email,'password':password};
-        console.log(email+'    '+password+"   "+creds.username+"    "+creds.password);
-        Session.login(creds);
-        return false;
-    },
-    logout: function (ev) {
-        // Disable the button
-        $(ev.currentTarget).text('Logging out').attr('disabled', 'disabled');
-        Session.logout();
-    }
-});
-
-$(function(){
-   //var app = new AppRouter();
-   //Backbone.history.start({pushState : true});
-})
-
-*/
 </script> 
 </html>

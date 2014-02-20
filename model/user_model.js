@@ -1,4 +1,4 @@
-var mongoose = require('../app').mongoose;
+var mongoose = require('mongoose');
 var ObjectId = mongoose.Schema.ObjectId;
 var crypto = require('crypto'), 
     Schema = mongoose.Schema,

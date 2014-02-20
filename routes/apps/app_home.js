@@ -335,8 +335,8 @@ function queryDataForMonth(array, date, callback){
 
 //http://localhost/alertme/home/visithistory
 app.get('/alertme/home/visithistory',function(req,res,next){
-    //var date = new Date(2013,9,1);
-	var date = new Date(2014,1,17);
+    var date = new Date(2013,9,1);
+	//var date = new Date(2014,1,17);
     visitHistory(date);
 	req.send(200);
 });
@@ -396,7 +396,7 @@ function queryDataFromGeras(array, day_begin,day_end, callback){
 			else if(data) {														
 				var e = data.e;
                 if(e.length>0){
-				    console.log( 'queryDataFromGeras  '.green,device,e.length, new Date(e[0].t *1000 ),  new Date( e[e.length-1].t *1000 ), "last hour: ",e[e.length-1].v, "first hour:", e[0].v, "difference:",(e[e.length-1].v - e[0].v), "adfaf:",(e[e.length-1].v - e[0].v)/(60*60*24)/1000 );				
+				    console.log( 'queryDataFromGeras  '.green,device,e.length, new Date(e[0].t *1000 ),  new Date( e[e.length-1].t *1000 ), "last hour: ",e[e.length-1].v, "first hour:", e[0].v, "difference:",(e[e.length-1].v - e[0].v), "adfaf:",(e[e.length-1].v - e[0].v)/(60*60)/1000 );				
                     var datapoints = [];
 					e.forEach(function(data){
 						delete data.n;
@@ -404,7 +404,7 @@ function queryDataFromGeras(array, day_begin,day_end, callback){
 						//console.log(  moment(data.t*1000 ).fromNow(), new Date(data.t*1000) );	//   ,new Date(data.t*1000) ,  moment(data.t*1000 ).fromNow()
 					})				    
 					
-					s.push({url:device,  power: (e[e.length-1].v - e[0].v)/(60*60*24)/1000 }); //,   timeline:datapoints transform into killwatts
+					s.push({url:device,  power: (e[e.length-1].v - e[0].v)/(60*60)/1000 }); //,   timeline:datapoints transform into killwatts
 				}
                 else{
                     s.push({url:device, power:0}  );
@@ -425,7 +425,7 @@ function queryDataFromGeras(array, day_begin,day_end, callback){
 var schedule = require('node-schedule');
 var rule2 = new schedule.RecurrenceRule();
 rule2.dayOfWeek = [0, new schedule.Range(0, 6)];
-rule2.hour = 8;
+rule2.hour = 9;
 rule2.minute = 30;
 
 var j = schedule.scheduleJob(rule2, function(){

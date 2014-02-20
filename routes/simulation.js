@@ -155,9 +155,10 @@ var buildings =
     {
       "room": "res:room:https://protected-sands-2667.herokuapp.com/rooms/Room.UKCAlder"
     },
+	/*
     {
       "room": "res:room:https://protected-sands-2667.herokuapp.com/rooms/Room.UKCHawthorn"
-    },
+    }*/
     {
       "room": "res:room:https://protected-sands-2667.herokuapp.com/rooms/Room.UKCMaple"
     },

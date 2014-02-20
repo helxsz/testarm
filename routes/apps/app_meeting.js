@@ -19,6 +19,7 @@ var errors = require('../../utils/errors'),
 	appBuilder = require('../AppBuilder.js'),
 	db = require('../persistence_api.js'),
 	simulation = require('../simulation.js'),
+	access_control = require('../access_control_api.js'),
 	sensorHandler = require('../sensorHandler.js');
 /****   experiment 2 ********/
 var meetingService = serviceCatalog.findByName('armmeeting'); 
@@ -90,11 +91,34 @@ https://alertmeadaptor.appspot.com/traverse?traverseURI=https%3A%2F%2Fprotected-
 http://schema.org/Place
 */
 
-app.get('/app/meetingroom',function(req,res){  
-    res.render('meeting.html');
+app.get('/',access_control.authUser,function(req,res){
+   res.render('index.html');
+})
+
+app.get('/app/meetingroom',access_control.authUser,function(req,res){  
+    var token = (Math.random() * 1e18).toString(36);
+	console.log('token   ',token);
+	
+	String.prototype.reverse = function() {
+       return this.split('').reverse().join('');
+    }
+	
+	token = token + token.reverse();
+	req.session.token = token;
+	res.redirect('/apps/'+token);
+    //res.render('meeting2.html');
+})
+
+app.get('/apps/:token',access_control.authUser, function(req,res){
+    
+    var url_token = req.params.token;
+    var token = req.session.token;
+	console.log('apps token  random   ', url_token, token);
+    if(token && url_token == token) res.render('meeting2.html');
+	else res.redirect('/');
 })
 	
-app.get('/buildings/test',function(req,res){
+app.get('/buildings/test',access_control.authUser,function(req,res){
     sensorRoomModel.getRoomByBuilding('abc',function(err,data){
 	    if(err) res.send(404);
 	    else if(!data){res.send(404);}
@@ -105,7 +129,7 @@ app.get('/buildings/test',function(req,res){
 	})
 })
 
-app.get('/buildinglist',function(req,res){
+app.get('/buildinglist',access_control.authUser,function(req,res){
     var list = [
 	    {name:'ARM 1', floors:[ {name:'Ground',url:'/buildings/ARM1/0'},{name:'Floor 1',url:'/buildings/ARM1/1'} ]},
         {name:'ARM 2', floors:[ {name:'Ground',url:'/buildings/ARM2/0'},{name:'Floor 1',url:'/buildings/ARM2/1'} ]},	
@@ -116,7 +140,7 @@ app.get('/buildinglist',function(req,res){
 	res.json(200,{buildings:list});
 })
 
-app.get('/buildings/:name/:floor',function(req,res){
+app.get('/buildings/:name/:floor',access_control.authUser,function(req,res){
     var name = req.params.name, floor = req.params.floor;
 	name = name || 'ARM1';
 	floor = floor || 0;
@@ -181,7 +205,7 @@ app.get('/buildings/:name/:floor',function(req,res){
 	})
 })
 
-app.get('/buildings/:name/:floor/cache',function(req,res){
+app.get('/buildings/:name/:floor/cache',access_control.authUser,function(req,res){
     var name = req.params.name, floor = req.params.floor;
 	name = name || 'ARM1';
 	floor = floor || 0;
@@ -641,7 +665,7 @@ function getAllMajoryBuildingRooms(){
 	return rooms;
 }
 // /arm/meeting/history/:name/:floor
-app.get('/arm/meeting/history/all',function(req,res,next){	
+app.get('/arm/meeting/history/all',access_control.authUser,function(req,res,next){	
 	var rooms = getAllMajoryBuildingRooms();
     var now = new Date(), 
 	    default_start_day = new Date(now.getFullYear(),now.getMonth(),now.getDate(),0,0,0)
@@ -663,7 +687,7 @@ app.get('/arm/meeting/history/all',function(req,res,next){
 });
 
 
-app.get('/buildings/history/events/all',function(req,res){
+app.get('/buildings/history/events/all',access_control.authUser,function(req,res){
 	var array = getAllMajoryBuildingRooms();
 	
 	sensorRoomModel.getRoomData(array, function(err,rooms){
@@ -703,7 +727,7 @@ app.get('/buildings/history/events/all',function(req,res){
 
 // https://protected-sands-2667.herokuapp.com/people/Geraint%20Luff 
 // http://localhost/arm/people?people=Geraint%20Luff
-app.get('/arm/people',function(req,res){
+app.get('/arm/people',access_control.authUser,function(req,res){
     var people = req.query.people;
 	console.log('people   ',people);
     var list = people.split(',');
@@ -727,7 +751,7 @@ app.get('/arm/people',function(req,res){
 })
 
 
-app.get('/catchevents',function(req,res){
+app.get('/catchevents',access_control.authUser,function(req,res){
     sensorRoomModel.cacheEvents(function(err,rooms){
 	    if(err) res.send(500);
 		else res.send(200,rooms);
@@ -738,7 +762,7 @@ app.get('/catchevents',function(req,res){
 var schedule = require('node-schedule');
 var rule = new schedule.RecurrenceRule();
 rule.dayOfWeek = [0, new schedule.Range(0, 4)];
-rule.hour = 8;
+rule.hour = 9;
 rule.minute = 40;
 
 var j = schedule.scheduleJob(rule, function(){
@@ -784,7 +808,7 @@ var j = schedule.scheduleJob(rule2, function(){
 // localhost/test/timeseries/now?id=/armmeeting/11/MotionSensor/00-0D-6F-00-00-C1-2D-F0/motion   lecture room
 // localhost/test/timeseries/now?id=/armmeeting/11/MotionSensor/00-0D-6F-00-00-C1-35-08/motion   box
 // localhost/test/timeseries/now?id=/armmeeting/11/MotionSensor/00-0D-6F-00-00-C1-46-10/motion   elm
-app.get('/test/timeseries/now',function(req,res,next){
+app.get('/test/timeseries/now',access_control.authUser,function(req,res,next){
     var id = req.query.id;
     var MS_PER_MINUTE = 60000;
 	var now = new Date();
@@ -797,7 +821,7 @@ app.get('/test/timeseries/now',function(req,res,next){
 
 /**   test **/
 
-app.get('/buildings/:name/:floor/test',function(req,res){
+app.get('/buildings/:name/:floor/test',access_control.authUser,function(req,res){
     var name = req.params.name, floor = req.params.floor;
 	name = name || 'ARM1';
 	floor = floor || 0;
@@ -827,7 +851,7 @@ app.get('/buildings/:name/:floor/test',function(req,res){
 	})
 })
 
-app.get('/test/sensor',function(req,res){
+app.get('/test/sensor',access_control.authUser,function(req,res){
     var sensor = req.query.sensor;
 
     var now = new Date(), early_day = new Date(now.getFullYear(),now.getMonth(),now.getDate(),0,0,0);	
@@ -876,7 +900,7 @@ app.get('/test/sensor',function(req,res){
 })
 
 
-app.get('/test/sensor/2',function(req,res){
+app.get('/test/sensor/2',access_control.authUser,function(req,res){
     var sensor = req.query.sensor;
       
     var sensors = [

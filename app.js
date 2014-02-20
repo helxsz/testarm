@@ -44,7 +44,7 @@ configLogging();
 
 
 var allowedHost = [
-'http://127.0.0.1',
+//'http://127.0.0.1',
 'http://213.123.189.97',  //us
 'http://195.88.101.44',   // us
 'http://146.90.110.143',// us steve
@@ -74,7 +74,6 @@ var allowCrossDomain = function(req, res, next) {
         //console.log('allow access '.green);
         next();
     } else {
-	    console.log('not allowed'.red);
         res.send(404);
     }
 };
@@ -147,7 +146,7 @@ app.configure(function(){
         });
     }
 	
-    app.use(allowCrossDomain);	
+    //app.use(allowCrossDomain);	
     //app.use(express.csrf()); 
 	app.use(conditionalCSRF);
     app.use(function(req, res, next){

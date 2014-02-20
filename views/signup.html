@@ -263,36 +263,6 @@ width: 400px;
         <div class="container-fluid content">	
             <div id="signup" class="accounts-form row-fluid">	
 
-                <div class="span4 social offset2">
-				  <div >
-                    <h3>Sign up</h3>
-                    <p class="note"><small>By creating your account you agree to our 
-                    <a href="/terms/" target="blank">Terms of Use</a> and <a href="/privacy/" target="blank">Privacy Policy</a>.</small></p>        
-                  </div>
-				
-                  <div>
-                    <form class="connect-button" name="login" method="get" action="/auth/twitter" id="twitter-connect-form">
-                        <input type="hidden" name="_csrf" value="<%= token %>"/>        
-                        <input type="hidden" name="next" value="/welcome/" />
-        	            <a class="twitter-before"><span class="fontawesome-twitter"></span></a>
-			            <button class="twitter">Login Using Twitter</button>
-		            </form>
-                    <form class="connect-button" name="login" method="get" action="/auth/facebook" id="facebook-connect-form">
-                        <input type="hidden" name="_csrf" value="<%= token %>"/>       
-                        <input type="hidden" name="next" value="/welcome/" />        
-			            <a class="facebook-before"><span class="fontawesome-facebook"></span></a>
-			            <button class="facebook">Login Using Facbook</button>        
-		            </form>
-                    <form class="connect-button" name="login" method="get" action="/auth/github" id="github-connect-form">
-                        <input type="hidden" name="_csrf" value="<%= token %>"/>       
-                        <input type="hidden" name="next" value="/welcome/" />        
-			            <a class="github-before"><span class="fontawesome-facebook"></span></a>
-			            <button class="github">Login Using Github</button>        
-		            </form>					
-                    <p><small>Already have an account? <a href="/login/">Log in</a></small></p>
-                   </div>
-                </div>
-
                 <div class="span5 offset1">   
                     <form action="/signup" method="POST" autocomplete="off" class="clearfix" id="auth-form" enctype="application/x-www-form-urlencoded">
 		                <input type="hidden" name="_csrf" value="<%= token %>"/>
@@ -319,7 +289,6 @@ width: 400px;
              </div> 
         </div> 
 		
-	    <% include footer %>
 	  </div>
 	</div>		
 </body>
