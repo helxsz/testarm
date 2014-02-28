@@ -52,9 +52,31 @@
 /*  ==========================================================================
     0.  IMPORTS
     =========================================================================== */
-    
-    @import url(http://fonts.googleapis.com/css?family=Roboto:300,700);
-    @import url(http://fonts.googleapis.com/css?family=Roboto+Slab:300);
+
+    /* Roboto */
+    @font-face {
+        font-family: "Roboto"; font-style: normal; font-weight: 300;
+        src: local('Roboto Light'), local('Roboto-Light');
+        src: url("../fonts/Roboto/Roboto-Light.ttf") format('truetype');
+    }
+    @font-face {
+        font-family: "Roboto"; font-style: normal; font-weight: 700;
+        src: local('Roboto Bold'), local('Roboto-Bold');
+        src: url("../fonts/Roboto/Roboto-Bold.ttf") format('truetype');
+    }
+
+    /* Roboto Slab */
+    @font-face {
+        font-family: "Roboto Slab"; font-style: normal; font-weight: 300;
+        src: local('Roboto Slab Light'), local('RobotoSlab-Light');
+        src: url("../fonts/Roboto_Slab/RobotoSlab-Light.ttf") format('truetype');
+    }
+    @font-face {
+        font-family: "Roboto Slab"; font-style: normal; font-weight: 700;
+        src: local('Roboto Slab Bold'), local('RobotoSlab-Bold');
+        src: url("../fonts/Roboto_Slab/Roboto-Bold.ttf") format('truetype');
+    }
+
 
 
 /*  ==========================================================================
@@ -62,8 +84,10 @@
     =========================================================================== */
 
     html {
-        height: 100%; font-size: 100%; 
+        height:100%;
+     min-height:100%; font-size: 100%; 
         -webkit-text-size-adjust: 100%;
+        -webkit-transform: translate3d(0,0,0);
     } /* Force scrollbar in non-IE and Remove iOS text size adjust without disabling user zoom */
 
     body {
@@ -87,10 +111,16 @@
     ========================================================================== */
 
     #banner {
-        height: 37.375em; padding-top: 6.5em;
-        text-align: center;
-        background: #f1f1f1 url('../img/Alert-Me_BG.jpg') scroll no-repeat 50% 50%;
+        height: 37.375em; margin: 0; padding: 0; text-align: center;
+        padding-top: 6.5em;
+        background: #222222 url('../img/Alert-Me_BG.jpg') no-repeat scroll 50% 0%;
         background-size: 100%;
+        
+        -webkit-background-size: cover;
+           -moz-background-size: cover;
+             -o-background-size: cover;
+             background-size: cover;
+                
     }
     #primary-nav {position: absolute; top: 3.25em; right: 3.25em}
     #main-content {}
@@ -98,9 +128,18 @@
             #main-content header ul {list-style: none;}
                 #main-content header ul li {
                     border: 1px #F2F2F2 solid; padding: 0.8125em 1.625em;
-                    margin-right:  1.625em;
+                    margin-right:  3.25em;
                     display: inline-block;
+                    position: relative;
                 }
+                    #main-content header ul li:after {
+                        content: '\00bb'; position: absolute;
+                        right: -2em; top: 0.8625em;
+                        color: #B3B3B3;
+                    }
+                    #main-content header ul li:last-child {margin-right: 0;}
+                    #main-content header ul li:last-child:after {content: none;}
+
         #leaderboard {
             width: 100%; padding: 1.625em; text-align: center;
             margin-bottom: 1.625em;
@@ -177,7 +216,7 @@
     ========================================================================== */
 
 
-    h1, h2, h3, h4, h5, h6 {font-family: 'Roboto', sans-serif; font-weight:300; margin: 0 0 26px 0;} 
+    h1, h2, h3, h4, h5, h6, th, td {font-family: 'Roboto', sans-serif; font-weight:300; margin: 0 0 26px 0;} 
 
         /* desired line-height / font-size */
 
@@ -189,7 +228,7 @@
         #main-content header h1,
         #main-content header h2,
         #main-content header h3 {
-            font-size: 1.75em; margin: 0;
+            font-size: 1.75em; margin: 0; color: #442E60;
         }
         #main-content header h1 {font-weight: 700;}
         h2 {font-size: 1.75em; line-height: 26px;}
@@ -204,6 +243,11 @@
 
     a {text-decoration:none; color:#333333; font-family: 'Roboto', sans-serif; font-weight:300; text-transform: uppercase;} a:hover {color:#F78633;}
         .logo {display: block;}
+
+
+    ul.brandLogos {list-style: none; padding: 0;}
+        ul.brandLogos li {display: inline-block; margin-right: 3.25em;}
+            ul.brandLogos li:last-child {margin-right: 0;}
 
     #page-footer p, #page-footer a {
         font-family: Arial, "Helvetica Neue", Helvetica, sans-serif; color: white; text-transform: none;
@@ -288,7 +332,7 @@
         font-size: 1.25em; float: left;
     }
         tr {
-            border-bottom: 1px #E6E6E6 solid; height: 3.25em;
+            border-bottom: 1px #E6E6E6 solid; height: 3.25em; 
         }
             td {/*border-right: 1px #E6E6E6 solid;*/ margin:0;}
                 td:nth-child(4n),
@@ -296,9 +340,51 @@
                     font-weight: bold;
                 }
                 td:nth-child(5n) {width: 3em;}
+                td:nth-child(6n) a i {font-size: 1.5em}
                 td:nth-child(6n) a.active i {color: #442E60;}
                 td:nth-child(6n) a:hover i {color: #A344CD;}
-            th {text-transform: uppercase; color: #442E60; }
+            th {text-transform: uppercase; color: #442E60; font-weight:700; padding-bottom: 0.8125em;}
+
+    /* MEDALS */
+    tr:nth-child(2) td:first-child,
+    tr:nth-child(3) td:first-child,
+    tr:nth-child(4) td:first-child { position: relative; font-size: 1.25em;}
+
+        td:first-child i {position: relative; font-size: 1.75em;}
+        td:first-child i span {
+            display: inline; position: absolute;
+            left: 0; right: 0; 
+            margin: 0; padding: 0;
+            color: white; font-size: 0.45em;
+        }
+
+
+    #leaderboard th span {
+        margin: 0 auto;
+        height: 66px; width:66px; display: block;
+        background: url('../img/table-icon_set1.png') scroll 0px 0px;
+        background-size: auto;
+    }
+        #leaderboard th:nth-child(2) span {background: url('../img/table-icon_set1.png') scroll -66px 0;}
+        #leaderboard th:nth-child(3) span {background: url('../img/table-icon_set1.png') scroll -132px 0;}
+        #leaderboard th:nth-child(4) span {background: url('../img/table-icon_set1.png') scroll -198px 0;}
+        #leaderboard th:nth-child(5) span {background: url('../img/table-icon_set1.png') scroll -264px 0;}
+            #leaderboard th:nth-child(2) span:hover {background: url('../img/table-icon_set1.png') scroll -66px -66px;}
+            #leaderboard th:nth-child(3) span:hover {background: url('../img/table-icon_set1.png') scroll -132px -66px;}
+            #leaderboard th:nth-child(4) span:hover {background: url('../img/table-icon_set1.png') scroll -198px -66px;}
+            #leaderboard th:nth-child(5) span:hover {background: url('../img/table-icon_set1.png') scroll -264px -66px;}
+
+            /* SVG */
+            .svg #leaderboard th span {background: url('../img/svg/table-icon_set1.svg') scroll 0px 0px;}
+
+                .svg #leaderboard th:nth-child(2) span {background: url('../img/svg/table-icon_set1.svg') scroll -66px 0;}
+                .svg #leaderboard th:nth-child(3) span {background: url('../img/svg/table-icon_set1.svg') scroll -132px 0;}
+                .svg #leaderboard th:nth-child(4) span {background: url('../img/svg/table-icon_set1.svg') scroll -198px 0;}
+                .svg #leaderboard th:nth-child(5) span {background: url('../img/svg/table-icon_set1.svg') scroll -264px 0;}
+                    .svg #leaderboard th:nth-child(2) span:hover {background: url('../img/svg/table-icon_set1.svg') scroll -66px -66px;}
+                    .svg #leaderboard th:nth-child(3) span:hover {background: url('../img/svg/table-icon_set1.svg') scroll -132px -66px;}
+                    .svg #leaderboard th:nth-child(4) span:hover {background: url('../img/svg/table-icon_set1.svg') scroll -198px -66px;}
+                    .svg #leaderboard th:nth-child(5) span:hover {background: url('../img/svg/table-icon_set1.svg') scroll -264px -66px;}
 
 
     .positive {color: #2E6030;}
@@ -306,7 +392,7 @@
 
     .home-info {
         color: #442E60;
-        width: 38%; height: 664px; float:left; display: block;
+        width: 38%; height: 714px; float:left; display: block;
         padding-top: 3.25em;
     }
 
@@ -424,6 +510,22 @@
 
     @media only screen and (min-width : 768px) and (max-width : 1024px) {
 
+        .wrapper {width: 90%;}
+
+        /* Typography */
+        #banner h1 {
+            margin-top: 3.25em;
+        }
+
+        #page-footer a {padding-bottom: 0.125em;}
+        #page-footer span {display: inline-block;}
+
+        /* Table */
+        #leaderboard {width: 96%; }
+
+        /* Images */
+        .brand {width: 20%; height: auto; position: absolute; top: 1.625em; left: 1.625em}
+            .brand img {width: 100%;}
 
     }
 
@@ -433,7 +535,74 @@
     @media only screen and (max-width:767px) {
 
         /*  Layout  */
-        .wrapper {width: 86%;}
+        .wrapper {width: 90%;}
+        #banner {height: 25em;}
+
+        #main-content header ul {padding: 0;}
+        #main-content header ul li {
+            margin-right: 0.5em;
+            padding: 0.5em;
+        }
+            #main-content header ul li:first-child {margin-bottom: 1em; }
+            #main-content header ul li:after {content: none;}
+
+        /* Typography */
+        #banner h1 {font-size: 2em;}
+        
+        #main-content header h1, 
+        #main-content header h2, 
+        #main-content header h3 {
+            font-size: 1em;
+        }
+
+        #page-footer {text-align: center;}
+        #page-footer a {padding-bottom: 0.125em;}
+        #page-footer span {display: inline-block;}
+
+        .buttonLink {font-size: 1em; font-weight: 700;}
+
+        ul.brandLogos li {margin-right: 0;}
+
+
+        /* Table */
+        #leaderboard {
+            width: 92%;
+            padding: 0.825em;
+            text-align: center;
+        }
+        table {width: 100%;}
+        th {font-size: 0.8em;}
+        th:nth-child(1n),
+        td:nth-child(1n) {width: 2em;}
+
+        th:nth-child(3n),
+        td:nth-child(3n),
+        th:nth-child(5n),
+        td:nth-child(5n) {display: none;}
+
+        th:nth-child(6n),
+        td:nth-child(6n) {display: table-cell;}
+
+        .home-info {display: none;}
+
+
+        /* Search */
+        #search-bar {
+            height: auto; padding-top: 2.4375em;
+        }
+        #search-bar input[type="text"] {
+            font-size: 1.5em;
+        }
+        #search-bar form div {
+            width: 100%; margin-bottom: 1.625em;
+        }
+        #search-bar form div:first-child {
+            width: 100%;
+        }
+
+        /* Images */
+        .brand {width: 50%; height: auto;}
+            .brand img {width: 100%;}
 
     }
 
