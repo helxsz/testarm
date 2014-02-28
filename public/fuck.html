@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script type="text/javascript" src="http://mbostock.github.com/d3/d3.js"></script>
+  </head>
+  <body>
+    <script type="text/javascript">
+        d3.xml("maps/energy.svg", "image/svg+xml", function(xml) {
+		//d3.xml("rect01.svg", "image/svg+xml", function(xml) {
+		  document.body.appendChild(xml.documentElement);
+		  console.log(xml);
+		  console.log(xml.documentElement);
+		});
+		
+		
+		var dataset = [ 5, 10, 13, 19];
+
+		//Width and height
+		var w = 300;
+		var h = 300;
+
+		//Create SVG Element
+		var svg = d3.select("body")
+			.append("svg")
+			.attr("width", w)
+			.attr("height", h);
+
+		//Import the plane
+		d3.xml("https://dl.dropboxusercontent.com/u/5525972/defaultPlaneIcon.svg", "image/svg+xml", function(xml) {  
+		  var importedNode = document.importNode(xml.documentElement, true);
+		  svg.selectAll("g")
+			.data(dataset)
+			.enter()
+			.append("g")
+			.attr("transform", function(d, i){ 
+				return "translate(" + (i * (w / dataset.length)) + "," 
+					+ (h - 30) + ")"
+					+"scale("+ 1 +")";
+			})
+			.each(function(d, i){ 
+				var plane = this.appendChild(importedNode.cloneNode(true)); 
+				d3.select(plane).select("path").attr("fill", "blue");
+			})
+			.transition()
+			.duration(2000)
+			.attr("transform", function(d, i){ 
+				return "translate(" + (i * (w / dataset.length)) + "," 
+					+ (h - d*4 - (w / dataset.length)) + ")"
+					+"scale("+ 1 +")";
+			});    
+		});		
+
+    </script>
+  </body>
+</html>

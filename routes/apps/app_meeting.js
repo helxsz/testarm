@@ -60,15 +60,19 @@ function MeetingRoomMQTTHandler(){
 					else if(data) {
 						//console.log('find the room '.green,data.url,data.name);
 						if(property == 'temperature'){
-						    //console.log('update temperature '.yellow, data.name,'----------------', data.url); 
+						    console.log('update temperature '.yellow, data.name,'----------------', data.url); 
 							sensorRoomModel.updateTempData(data.url,value,function(err,data){});
 							io.sockets.emit('info',{room:data.name,type:'temperature', value:value});						
 						}else if(property == 'motion'){
-						    //console.log('update motion'.green, data.name ,'--------------',data.url);
-							sensorRoomModel.updateMotion(data.url,time,function(err,data){});
-							io.sockets.emit('info',{room:data.name,type:'motion', value:value, time: time});						
+						    if( (new Date() - time.getTime())>1000*60*3)
+						    console.log('update motion'.red, data.name ,'--------------',data.url , time  );
+							else{ 
+								console.log('update motion'.green, data.name ,'--------------',data.url);
+								sensorRoomModel.updateMotion(data.url,time,function(err,data){});
+								io.sockets.emit('info',{room:data.name,type:'motion', value:value, time: time});
+                            }							
 						}else if(property == 'online'){
-						    //console.log('update online '.yellow, data.name,'----------------', data.url,value);
+						    console.log('update online '.yellow, data.name,'----------------', data.url,value);
 							if(value == 0) console.log('update offline '.red, data.name,'----------------', data.url);
 							sensorRoomModel.updateOnline(data.url,value,function(err,data){});
 							io.sockets.emit('info',{room:data.name,type:'online', value:value});							
@@ -553,6 +557,11 @@ function SensorRoomModel(){
 			}
 			else{
 				_.map(data.events,function(event){  delete event._id; })
+				var now = new Date(), late_day = new Date(now.getFullYear(),now.getMonth(),now.getDate(),23,59,59), early_day = new Date(now.getFullYear(),now.getMonth(),now.getDate(),0,0,0);
+				data.events = _.filter(data.events, function(event){  
+												  var eventDate = new Date(event.endDate);  
+												  return eventDate.getTime() <= late_day.getTime(); 
+												});
 				//console.log('getting events  '.green);
 				callback(null,data);				
 			}		
@@ -686,6 +695,32 @@ app.get('/arm/meeting/history/all',access_control.authUser,function(req,res,next
 	})
 });
 
+app.get('/buildings/map',access_control.authUser,function(req,res){
+    var building = req.query.building, floor = req.query.floor;
+	console.log('building  map'.green,building,floor);
+	var mappath = 'maps/ARM-MAP_Base.svg';
+	if(building == 'ARM0' && floor == 0){
+        mappath = 'maps/ARM-MAP_Base.svg';
+	}else if(building == 'ARM0' && floor == 1){
+        mappath = 'maps/ARM-MAP_Base.svg';	
+	}
+	else if(building == 'ARM1' && floor == 0){
+        mappath = 'maps/ARM-MAP_Base.svg';	
+	}else if(building == 'ARM1' && floor == 1){
+        mappath = 'maps/ARM-MAP_Base.svg';	
+	}
+	else if(building == 'ARM3' && floor == 0){
+        mappath = 'maps/ARM-MAP_Base.svg';	
+	}else if(building == 'ARM3' && floor == 1){
+        mappath = 'maps/ARM-MAP_Base.svg';	
+	}
+	else if(building == 'ARM6' && floor == 0){
+        mappath = 'maps/ARM-MAP_Base.svg';	
+	}else if(building == 'ARM6' && floor == 0){
+        mappath = 'maps/ARM-MAP_Base.svg';	
+	}
+    res.sendfile(mappath);	
+})
 
 app.get('/buildings/history/events/all',access_control.authUser,function(req,res){
 	var array = getAllMajoryBuildingRooms();

@@ -177,7 +177,12 @@
 
                                       <div class="ch-info-back hexagon">
                                       <!-- START .ch-info-back -->
-                                          												
+
+                                        <div class="noBooking" ng-if="room.events.length==0 || (room.events.length == room.eventIndex)">
+              												    <div class="maskCircle bookerPhoto"><img src="/img/photos/ARM-Employee-Icon.png" alt="{{room.events[room.eventIndex].organizer}}"></div>
+              												    <h3>No bookings</h3>
+                						</div>
+									  
                                         <div ng-if="room.events.length>0 &&  room.eventIndex >=0 && room.eventIndex < room.events.length ">
                                         <!-- START   -->
 
@@ -198,10 +203,7 @@
                                         </div>
                 						                                        
 										
-                                        <div class="noBooking" ng-if="room.events.length==0">
-              												    <div class="maskCircle bookerPhoto"><img src="/img/photos/ARM-Employee-Icon.png" alt="{{room.events[room.eventIndex].organizer}}"></div>
-              												    <h3>No bookings</h3>
-                						            </div>
+
                                                                  											
                 											<!-- END .ch-info-back -->
                                       </div>
@@ -458,8 +460,8 @@
 				data.rooms.forEach(function(room){
 				    if(room.m_enabled)
 					console.log(room.name,' ^^^: ', room.events, room.time);
-					/*
-					if(typeof room.events !== undefined || room.events !=null){
+					
+					try{
 						for(var i=0;i<room.events.length;i++){				
 							try
 							  {
@@ -470,9 +472,9 @@
 							  {
 								room.events[i].organizer = 'unknown ';
 							  }					
-						}
-					}
-					*/
+						}										
+					}catch(e){}
+					
                     if(room.temperature == 0) room.temperature = 21.5;					
 				})
 				
@@ -695,46 +697,50 @@
     		    
     			if(events!=null && events.length>0){
     			    var currentEvent = events[index], hasNextEvent = false;
-    			    var startTime = new Date(currentEvent.startDate).getTime(),endTime = new Date(currentEvent.endDate).getTime();
-    				
-    				if(index+1>=events.length){
-    				    //console.log('no more next events');
-    				}else{
-    				    //console.log('there is a next event');
-    					hasNextEvent = true;
-    				}  				
-    			    //console.log('checkNextEventAlert  ', currentEvent.startDate, currentEvent.endDate);
-    			    if(nowTime>startTime&&nowTime<endTime){
-    			        // if there is a event, just update the event clock
-    			        //console.log( ' in current event , next time  for  ' , $scope.dateformat(currentEvent.startDate)  );
-    				    var seconds = (endTime - nowTime)/1000;
-    				    if(seconds<60){
-    				    // setInterval  real timer 
-    				    }else if(seconds < 60 *5){
-    				        // show the alert  for room ( next event or event)
-                            if(hasNextEvent){
-    						
-    						}
-    				    }
-    		     	}else if(nowTime >= endTime){
-    				    if(hasNextEvent){
-    					    // show next event data and update the index
-    					    room.eventIndex ++;
-    					}
-    				}
-    			    else if(nowTime <=startTime){
-    			       // console.log( ' next event  ' , $scope.dateformat(currentEvent.startDate)  );
-    				    // if there is no event now, just show the remaining time left for the next event
-    				   if(seconds<60){
-    				    // setInterval  real timer 
-    				   }else if(seconds < 60 *5){
-    				    // show the alert
-    				   }else if(seconds < 60*60){
-    				
-    				   }else{
-    				
-    				   }				
-    			    }
+					if(currentEvent){
+						var startTime = new Date(currentEvent.startDate).getTime(),endTime = new Date(currentEvent.endDate).getTime();
+						
+						if(index+1>=events.length){
+							//console.log('no more next events');
+						}else{
+							//console.log('there is a next event');
+							hasNextEvent = true;
+						}  				
+						//console.log('checkNextEventAlert  ', currentEvent.startDate, currentEvent.endDate);
+						if(nowTime>startTime&&nowTime<endTime){
+							// if there is a event, just update the event clock
+							//console.log( ' in current event , next time  for  ' , $scope.dateformat(currentEvent.startDate)  );
+							var seconds = (endTime - nowTime)/1000;
+							if(seconds<60){
+							// setInterval  real timer 
+							}else if(seconds < 60 *5){
+								// show the alert  for room ( next event or event)
+								if(hasNextEvent){
+								
+								}
+							}
+						}else if(nowTime >= endTime){
+							if(hasNextEvent){
+								// show next event data and update the index
+								room.eventIndex ++;
+							}
+						}
+						else if(nowTime <=startTime){
+						   // console.log( ' next event  ' , $scope.dateformat(currentEvent.startDate)  );
+							// if there is no event now, just show the remaining time left for the next event
+						   if(seconds<60){
+							// setInterval  real timer 
+						   }else if(seconds < 60 *5){
+							// show the alert
+						   }else if(seconds < 60*60){
+						
+						   }else{
+						
+						   }				
+						}					
+					
+					}
+
     			}else{
     			     //console.log(' there is events in this day for this room ');			
     			}

@@ -358,7 +358,7 @@ var catalog_filter = function(){
 					////////////////////////////////////////////////////
 					buildingService.fetchResourceDetail(key,function(err,obj){
 						if(err){
-							winston.debug('error ',err);
+							console.log('error ',err);
 						}else{               
 							var address = JSON.stringify(obj.address),building = obj.building, floor = obj.floor;  
 							if(address) hash['address'] = address;
@@ -918,8 +918,8 @@ function RepositoryUpdater(){
 		if(err){		
 		}else if(data == 1){
 			console.log('semantic data right'.green);
-			updateMeetingRoomAndLocation();
-			updateHomeCatalog();			
+			//updateMeetingRoomAndLocation();
+			//updateHomeCatalog();			
             setTimeout(function(){
 				console.log('now boot the applications  layer'.green);
 				bootApps(app,__dirname + '/apps');
@@ -934,7 +934,7 @@ function RepositoryUpdater(){
 				bootApps(app,__dirname + '/apps');
 				bootRealTimeServices();
 
-				updateHomeCatalog();
+				//updateHomeCatalog();
                 //updateEnlightCatalog();
 				
 			});			

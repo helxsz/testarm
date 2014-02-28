@@ -17,7 +17,7 @@ var RoomEventsModel = function(collection, options){
         events:  [    { startDate:Date,endDate:Date,organizer:String	} ]
     },{ _id: false, strict: false, read: readOption, shardKey: { name: 1, day: 1 } });   //how to choose a sharding key for day 
 	
-    schema.index({ "name": 1, "day": 1 }, { unique: true });
+    schema.index({ "name": 1, "day": 1 , 'events.startDate':1}, { unique: true });
 
     var model;
 	var modelName = 'RoomEventsModel';

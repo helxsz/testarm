@@ -107,7 +107,7 @@ function ArmhomeMQTTHandler(){
 			
             }			
 		}catch(e){
-			winston.debug('some thing wrong   ......'.red+e);   
+			//console.log('some thing wrong   ......'.red+e);   
 		}
     }
 }
@@ -146,49 +146,72 @@ function getEnergyMeter(callback){
 
 
 //console.log('alert home test');
-app.get('/alert/home/test',function(req,res,next){
+app.get('/alert/home/discover',function(req,res,next){
     var now = new Date(), 
-	    default_start_day = new Date(now.getFullYear(),now.getMonth(),now.getDate()-1,0,0,0)
-	    default_end_day =   new Date(now.getFullYear(),now.getMonth(),now.getDate()-1,23,59,59);
+	    default_start_day = new Date(now.getFullYear(),now.getMonth(),now.getDate(),0,0,0)
+	    default_end_day =   new Date(now.getFullYear(),now.getMonth(),now.getDate(),23,59,59)
+		default_type = 'hour';
 		
 	//default_start_day = new Date(2014,0,1,0,0,0)
 	//    default_end_day =   new Date(2014,1,27,0,0,0);	
-	
-	if(req.query.start == undefined && req.query.end == undefined){
+	var day_begin, day_end, type;
+	if(req.query.start == undefined && req.query.end == undefined && req.query.type == undefined){
 	    day_begin  = default_start_day;
 	    day_end = default_end_day;   
+		type = default_type;
 	}else{
 	    day_begin = new Date(req.query.start); 
 		day_end = new Date(req.query.end);
+		type = req.query.type;
 	}
- 
-	getEnergyMeter(function(err, data){	
-        if(err) res.send(500);
-        else if(!data) {res.send(404);}
-        else if(data){
-		    //console.log('get meter data ',data);
-		    var array = [];
-			_.map(data,function(obj){
-			    var url = obj.energy;
-				var arr = url.split('/');
-				//console.log(arr[5],arr[4],arr[6]);
-				if(arr[6]=='MeterReader')
-			    array.push(obj.energy);
-			})
-			queryDataFromGeras(array,day_begin, day_end,function(err,data){
-			//queryDataFromGerasWithTime(array,day_begin, day_end,function(err,data){
-    			if(err){ res.send(500);}
-				else if(!data){res.send(404);}
-				else if(data){
-				    //console.log(data);
-				    data = _.sortBy(data,function(obj){
-						return obj.power;
-					})
-					res.send(data);
+	
+	var id = req.query.id;
+	if(id == undefined || id==null){
+	    res.send(404);
+		return;
+	}
+    var array = [];
+	array.push(id);
+	console.log('query  ',id, day_begin, day_end);
+	//queryDataFromGeras(array,day_begin, day_end,function(err,data){
+	
+			async.parallel([
+				function(callback){
+					queryDataFromGerasWithTime(array,day_begin, day_end,'hour',function(err,data){
+						if(err){ callback(err,null);}
+						else if(!data){ callback(null,[]); }
+						else if(data){
+							console.log(data);
+							data = _.sortBy(data,function(obj){
+								return obj.power;
+							})
+							data[0].type = 'hour';
+							callback(null,data[0]);
+						}
+					});		 
+				},
+				function(callback){
+					queryDataFromGerasWithTime(array,new Date(day_begin.getTime()-30*24*3600*1000), day_begin,'day',function(err,data){
+						if(err){ callback(err,null);}
+						else if(!data){ callback(null,[]); }
+						else if(data){
+							//console.log(data);
+							data = _.sortBy(data,function(obj){
+								return obj.power;
+							})
+							data[0].type = 'day';
+							callback(null,data[0]);
+						}
+					});			
 				}
-			});		    
-		}		
-	})
+			],function(err, results){
+			    if(err){ res.send(500);}
+			    else if(!results){res.send(404);}
+				else{
+				    //console.log('results'.red,results);
+				    res.send(results);				
+				}								
+			})			
 })
 
 app.get('/alert/home/day',function(req,res,next){
@@ -400,11 +423,11 @@ function queryDataFromGeras(array, day_begin,day_end, callback){
                     var datapoints = [];
 					e.forEach(function(data){
 						delete data.n;
-						datapoints.push({t:new Date(data.t*1000),v:data.v});
+						datapoints.push({t:new Date(data.t*1000),v:data.v/(60*60)/1000});
 						//console.log(  moment(data.t*1000 ).fromNow(), new Date(data.t*1000) );	//   ,new Date(data.t*1000) ,  moment(data.t*1000 ).fromNow()
 					})				    
 					
-					s.push({url:device,  power: (e[e.length-1].v - e[0].v)/(60*60)/1000 }); //,   timeline:datapoints transform into killwatts
+					s.push({url:device,  power: (e[e.length-1].v - e[0].v)/(60*60)/1000 , timeline:datapoints}); //,    transform into killwatts
 				}
                 else{
                     s.push({url:device, power:0}  );
@@ -413,7 +436,7 @@ function queryDataFromGeras(array, day_begin,day_end, callback){
             callback();			
 		})					
 	},function(err, results){
-		console.log('crawler  finished  .....  '.green, results);
+		//console.log('crawler  finished  .....  '.green, results);
         if(err){
 		    callback(err,null);
 		}else{
@@ -435,30 +458,33 @@ var j = schedule.scheduleJob(rule2, function(){
 
 
 
-/*
-function queryDataFromGerasWithTime(array, day_begin,day_end, callback){
-    
+
+function queryDataFromGerasWithTime(array, day_begin,day_end, type, callback){    
 	var range;
-	
+	if(type == 'month')
     range = "?start="+day_begin.getTime()/1000+"&end="+day_end.getTime()/1000+'&interval=1mo&rollup=avg';
+	else if(type == 'day')
+    range = "?start="+day_begin.getTime()/1000+"&end="+day_end.getTime()/1000+'&interval=1d&rollup=avg';	
+	else if(type == 'hour')
+    range = "?start="+day_begin.getTime()/1000+"&end="+day_end.getTime()/1000+'&interval=1h&rollup=avg';
+	
 	var s = [];	
 	async.forEach(array, function(device, callback){
-		//console.log('start .....'.red,device);
+		//console.log('queryDataFromGerasWithTime .....'.red,device,range,type);
 		armhome.getResourceData(device,range,function(err,data){
 			if(err){   }
 			else if(!data) {}  
 			else if(data) {														
 				var e = data.e;
                 if(e.length>0){
-				    console.log( 'queryDataFromGeras  '.green,device,e.length, moment(e[0].t *1000 ).fromNow(),  moment( e[e.length-1].t *1000 ).fromNow(), "last hour: ",e[e.length-1].v, "first hour:", e[0].v, "difference:",(e[e.length-1].v - e[0].v)/(60*60*24*30)/1000, e.length );				
+				    console.log( 'queryDataFromGerasWithTime  '.green,device,e.length, moment(e[0].t *1000 ).fromNow(),  moment( e[e.length-1].t *1000 ).fromNow(), "last hour: ",e[e.length-1].v, "first hour:", e[0].v, "difference:",(e[e.length-1].v - e[0].v)/(60*60)/1000, e.length );				
                     var datapoints = [];
 					e.forEach(function(data){
 						delete data.n;
-						datapoints.push({t:new Date(data.t*1000),v:data.v});
+						datapoints.push({t:new Date(data.t*1000),v:data.v/(60*60)/1000});
 						console.log(  moment(data.t*1000 ).fromNow(), new Date(data.t*1000) );	//   ,new Date(data.t*1000) ,  moment(data.t*1000 ).fromNow()
-					})				    
-					
-					s.push({url:device,  power: (e[e.length-1].v - e[0].v)/(60*60*24*30)/1000 }); //,   timeline:datapoints
+					})				    					
+					s.push({url:device,  power: (e[e.length-1].v - e[0].v)/(60*60)/1000, timeline:datapoints }); //,   timeline:datapoints
 				}
                 else{
                     s.push({url:device, power:0}  );
@@ -467,7 +493,7 @@ function queryDataFromGerasWithTime(array, day_begin,day_end, callback){
             callback();			
 		})					
 	},function(err, results){
-		console.log('crawler  finished  .....  '.green, results);
+		//console.log('crawler  finished  .....  '.green, results);
         if(err){
 		    callback(err,null);
 		}else{
@@ -475,4 +501,3 @@ function queryDataFromGerasWithTime(array, day_begin,day_end, callback){
 		}		
 	});
 }
-*/

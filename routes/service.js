@@ -151,6 +151,7 @@ var Service = function(obj) {
         // https://geras.1248.io/series/armmeeting/1/MotionSensor/00-0D-6F-00-00-C1-2E-EF/temperature
         function getResourceData(url, time,callback){
 		    var service = this.serviceObj;		
+			console.log('get resource data '.green,url ,time);
 			if (new RegExp('^(?:[a-z]+:)?//', 'i').test(url))
 			{
 			    url= url + time;
@@ -170,7 +171,7 @@ var Service = function(obj) {
             }, function(error, response, body) {
 	            //console.log('requestDataByURL'.green, url);
 	            if(error){ 
-		            winston.error("error  ".red, error);
+		            winston.error("error  ".red, url, time, error);
 			        callback(error,null);
 		        }
 	            else
@@ -290,7 +291,7 @@ var Service = function(obj) {
 		        }
 	            else
 	            {
-                    winston.debug('getResourceTag'+body);				
+                    //winston.debug('getResourceTag'+body);				
                     var obj ;				
                     try{				
 		                obj = JSON.parse(body);
