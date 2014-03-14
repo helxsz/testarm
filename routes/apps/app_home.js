@@ -21,8 +21,15 @@ var errors = require('../../utils/errors'),
 	energyRank = require('../energyRank.js');
 
 //https://alertmeadaptor.appspot.com/traverse?traverseURI=https%3A%2F%2Fgeras.1248.io%2Fcat%2Farmhome&traverseKey=924a7d4dbfab38c964f5545fd6186559&Submit=Browse
-var armhome = serviceCatalog.findByName('armhome');  // armhome
-
+var armhome;
+serviceCatalog.findByURL('https://geras.1248.io/cat/armhome',function(err,data){
+    if(err || !data){
+	    console.log('armhome catalog can not be found ',err);
+	}else {
+	    //console.log('find the service catalog '.green,data);
+        armhome = data; 		
+	}    
+});  
 // http://localhost/arm/home/test
 // https://geras.1248.io/series/armhome/1/MeterReader/00-0D-6F-00-00-F2-6E-23/energy
 app.get('/arm/home/test',function(req, res, next){

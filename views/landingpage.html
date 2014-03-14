@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" ng-app="meetingApp"> <!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>ARM Dashboard Meeting Room App</title>
+    <meta name="author" content="Steven Hassall and Sizhe Xi ">
+    <meta name="description" content="ARM Dashboard Sensor Monitoring Project">
+    <meta name="viewport" content="width=device-width, maximum-scale=1, minimum-scale=1, user-scalable=0, initial-scale=1">
+    <link rel="stylesheet" href="/css/normalize.min.css">
+    <!-- Gridset CSS -->
+    <!--[if (!IE) | (gt IE 9)]><!--><link rel="stylesheet" href="/css/gridset.css"><!--<![endif]-->
+    <!--[if IE 9]><link rel="stylesheet" href="./css/gridset-ie-9.css" /><![endif]-->
+    <!--[if lte IE 8]><link rel="stylesheet" href="./css/gridset-ie-lte8.css" /><![endif]-->
+    <link rel="stylesheet" href="/css/mfglabs_iconset.css">
+    <link rel="stylesheet" href="/css/menu-component.css">
+    <link rel="stylesheet" href="/css/main.css">
+    
+    <script src="/js/vendor/socket.io.js"></script>
+    <script src="/assets/js/d3.v3.min.js"></script>
+    <script src="/js/vendor/angular.min.js"></script>
+	<script src="/js/vendor/angular-cookies-1.0.0rc10.min.js"></script>
+    <script src="/js/vendor/angular-touch.min.js"></script>
+    <script src="/js/vendor/ui-bootstrap.min.js"></script>
+    <script src="/js/vendor/underscore-min.js"></script>
+    <script src="/js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>	
+    <script src="/js/vendor/jquery-1.10.1.min.js"></script>
+    <script src="/js/vendor/classie.js"></script>
+    <script src="/js/vendor/mlpushmenu.js"></script>	
+	<script src="/js/plugins.js"></script>	
+</head>
+<body>
+<!--[if lt IE 7]>
+    <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+<![endif]-->
+
+    <div class="meeting-room">
+    <!-- START .meeting-room -->
+
+        <div id="container" class="container" class="clearfix" ng-controller="meetingListCtrl">
+        <!-- START #container -->
+
+            <section class="mp-pusher" id="mp-pusher">
+
+                <!-- mp-menu -->
+                    <nav id="mp-menu" class="mp-menu" > 
+                        <div class="mp-level">
+                            <button id="triggerMobile" class="mp-close d-hide t-hide"><i class="icon-cancel_circle icon2x"></i></button>
+                            <h2><i class="icon-data_science blue"></i> ARM Buildings</h2>
+                            <ul>
+							    <% for(var i=0; i<locals.data.length; i++) {%>
+                                   <div> <%= locals.data[i].name %>  </div>
+								   <% for(var j=0; j<locals.data[i].buildings.length; j++) {%>
+								       <div> <%= locals.data[i].buildings[j].name %>  </div>
+									       <% for(var k=0; k<locals.data[i].buildings[j].floors.length; k++) {%>								               
+											   	<a class='room_nav' ng-click="getRoomInfo($event.target.href);$event.preventDefault()" href="<%= locals.data[i].buildings[j].floors[k].url %>"><%= locals.data[i].buildings[j].floors[k].name %></a>
+								           <% } %>									   
+								   <% } %>
+								<% } %>                           							  
+                            </ul>                               
+                        </div>
+                    </nav>
+                    <!-- /mp-menu -->
+
+                <div class="scroller">
+                <div class="scroller-inner">
+                <!-- start .scroller's -->
+                
+                <div class="wrapper" >
+                <!-- START .wrapper    ng-swipe-left="app.showMenu=true" ng-swipe-right="app.showMenu=false"    -->
+
+                    <header id="banner" class="d1-d9 t1-t4 m-all clearfix" >
+                    <!-- START #banner -->
+                        <button id="trigger" onclick="_gaq.push(['_trackEvent', 'Menu', 'Toggle', 'Menu Toggle',, false]);"><i class="icon-reorder icon2x"></i></button>
+                        <h1 ng-cloak>{{current_building}} <span class="blue" ng-cloak> {{current_floor}} FLOOR</span> <span class="pink">MEETING ROOM</span> AVAILABILITY</h1>
+                    <!-- END #banner -->
+                    </header>
+
+                    <article id="main" class="d1-d4 t1-t3 m-all clearfix">
+                    <!-- START #main -->
+                        <div id="app-brand" class="m-hide" ng-click="room.front = !room.front" ng-class="{'flipped': room.front}" ng-show="app.showMenu">
+                            <div class="ch-item" >
+                                <div class="ch-info-wrap">
+                                    <div class="ch-info meetings">
+                                        <div class="ch-info-front hexagon"></div>
+                                        <div class="ch-info-back hexagon">
+                                            <a href="http://arm.redninja.co.uk" title="Return to the Home">
+                                                <i class="icon-home icon3x" aria-hidden="true"></i>
+                                                <h3>Home</h3>
+                                            </a>
+                                        </div>  
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <article id="app-description" class="t-hide m-hide" role="article">
+                          <p>Click a hexagon to view more information about the meeting room. Please email any feedback to <a href="mailto:arm@redninja.co.uk" title="Email Feedback">arm@redninja.co.uk</a>.</p>
+                          <p><a href="#popup-key" ng-click="openkey();" title="View Key" class="button">View Key</a></p>
+                        </article>                   
+                    <!-- END #main -->
+                    </article>
+                <!-- END .wrapper -->
+                </div>
+				
+                <section id="app-meeting" class="app-content">				
+                  <ul class="ch-grid">
+			          <% for(var i=0; i<locals.data.length; i++) {%>
+                      <li class="room" >  					                   									   
+                          <div class="ch-item" >              
+                              <div class="ch-info-wrap">
+                                  <div class="ch-info " >
+                                  <!-- START .ch-info -->
+                                      <div class="ch-info-front hexagon">
+                                          <header>
+                                            <h1><%= locals.data[i].name %> </h1>
+                                          </header>
+                                          <div class="knockout">
+                                            <div></div>
+                                          </div>
+                                      </div> 
+                                  <!-- END .ch-info -->
+                                  </div>
+                              </div>
+                          </div>
+                      </li>
+					<% } %>  
+                  </ul>
+
+              <!-- END #app-meeting -->
+              </section>
+
+                  <footer id="footer" class="clearfix">
+                  <!-- START #footer -->
+
+                      <div>
+                          <small>v0.973 Design &amp; Coded by <a href="http://www.redninja.co.uk" title="Design and Coded by Red Ninja Studios" onClick="_gaq.push(['_trackEvent', 'Link', 'Red Ninja', 'Link - Red Ninja',, false]);">Red Ninja Studios</a></small>
+                      </div>
+
+                      <div>
+                          <a href="http://arm.com" class="logo-arm" title="ARM - Architecture for the digital world"><img src="/img/ARM-RGB.png" alt="ARM - Architecture for the digital world" class="logo" /></a>
+                      </div>
+                  
+                  <!-- END #footer -->
+                  </footer>
+
+                <!-- end .scroller's -->
+                </div>
+                </div>
+
+            </section>
+
+    			<!---->
+				
+			<div id="loading" ng-class="{'loading': loading, 'loadComplete':!loading}" >
+            <div class="inner">
+      				<div class="box">
+      					<div class="circle"></div>
+      					<div class="circle1"></div>
+      				</div>
+            </div>
+    			</div>			
+			
+			
+        <!-- END #container -->
+        </div>
+    <!-- END .meeting-room -->
+    </div>
+
+    
+  <script>
+
+    angular.module('meetingEventFilters', []).filter('filterEvent', function() {
+      return function(event) {
+        var now = new Date();
+        var eventDate = new Date(event.endDate);    
+    	return (eventDate.getTime() >= now.getTime())&&(eventDate.getDate()==now.getDate()); 
+      };
+    });
+
+
+    var meetingApp = angular.module('meetingApp', ['meetingEventFilters','ui.bootstrap','ngTouch','ngCookies']);		
+    meetingApp.controller('meetingListCtrl', function ($rootScope,$scope, $http, $interval, $modal,  $cookieStore ,$location) {
+			
+        $scope.app = {showMenu:true};
+	    $scope.loading = false;
+    	$scope.rooms = [];
+		$scope.buildings = [];
+		$scope.sites = [];
+		
+		$scope.current_building = "ARM3";
+		$scope.current_floor = "GROUND";
+		$scope.current_floor_index = 0;
+		
+		$scope.menu_open = false;
+		        		
+        var lastSite, lastBuilding, lastFloor;
+
+        $scope.checkCookie = function(){
+			lastSite = $cookieStore.get('lastSite');		
+			lastBuilding = $cookieStore.get('lastBuilding');
+			lastFloor = $cookieStore.get('lastFloor');
+			console.log('just test  -------------------', lastSite,lastBuilding, lastFloor);
+
+			if ((!lastSite && !lastFloor && !lastBuilding )|| (typeof lastSite == undefined && typeof lastFloor == undefined && typeof lastBuilding == undefined) ) {
+				console.log('no last val --------------------');
+				$scope.current_site = 'Peterhouse Technology Park';
+				$scope.current_building = 'ARM3';
+				$scope.current_floor_index = 0;
+			} else {
+				console.log('has last valu  -------------------', lastSite,lastBuilding, lastFloor);
+				$scope.current_site = lastSite;
+				$scope.current_building = lastBuilding;
+				$scope.current_floor_index = lastFloor;
+			}		    
+		}		
+		
+		$scope.loadMenu = function(){
+			//$scope.loading = true;
+			console.log('data loading  re');
+			$http.get('/meeting/sites/json').success(function(data) {
+              				
+                console.log(data);
+				$scope.sites = data;
+
+				//$scope.loading = false;			
+			}).error(function(data, status, headers, config) {
+				// called asynchronously if an error occurs
+				// or server returns response with an error status.
+				$scope.loading = false;
+			});				
+		}
+		
+		$scope.getRoomInfo = function(url){
+            scope.$apply(function() { $location.path(url); });		
+		}
+		
+		$scope.checkCookie();
+		$scope.loadMenu();
+		
+        $scope.openkey = function(){
+            var modalInstance = $modal.open({
+                templateUrl: 'keyModalTemplate.html',
+                backdrop: true,
+                windowClass: 'modal',
+                resolve: {
+
+                }
+            });
+           modalInstance.result.then(function (selectedItem) {
+            $scope.selected = selectedItem;
+            }, function () {
+            });
+        };    	
+		    			  	
+    	$scope.$on('$viewContentLoaded', function(){
+    	    //console.log('view content loaded');
+    	});  
+		
+		$scope.$watchCollection('rooms', function(newVal, oldVal){
+			console.log('changed  rooms: ',newVal, oldVal);
+			var changeRooms = oldVal;
+		}, true);			
+		
+  	/****************************  utiliy ***********************************/
+	$scope.$on('mybroadcast', function(service){
+		//console.log('on my broadcast', service);
+	    touchScroll("bodyID");
+	    sizeContent();			
+    })
+
+	$scope.styleFont = function(elem) {
+		//console.log(elem ,  elem.length,'--------------------------------------------------------------------');
+		if(elem.length <= 5)
+		return { "font-size": '65px' };
+		else if(elem.length < 7)
+		return { "font-size": '48px', 'margin-top':'20px' };
+		else if(elem.length < 9)
+		return { "font-size": '42px', 'margin-top':'28px' };
+		else if(elem.length <=12)
+		return { "font-size": '34px', 'margin-top':'37px' };			
+		else if(elem.length <=17)
+		return { "font-size": '25px', 'margin-top':'50px' };			
+	}
+
+	$scope.UpperCaseArray = function(input) {	
+		if (typeof String.prototype.startsWith != 'function') {
+		  String.prototype.startsWith = function (str){
+			return this.indexOf(str) == 0;
+		  };
+		}    
+        if(input.startsWith('ARM6')){
+		    return input.substring( 4 ,input.length);
+		}else if(input.startsWith('CPC1-0') || input.startsWith('CPC1-2')){
+		   return input.substring( 6,input.length);		
+		}else if(input.startsWith('om.ukccpc1-2')){
+		   return input.substring( 12,input.length);	
+		}
+        return input;		
+	}	
+	
+    $scope.dateformat = function(date){
+		var date = new Date(date);	
+		var hour = date.getHours(), min = date.getMinutes();
+		if(hour < 10) hour = '0'+date.getHours();
+		if(min < 10) min = '0'+date.getMinutes();
+		return  hour+":"+min;		 
+	}
+		
+  	// touch device overflow fix
+  	function isTouchDevice() {
+  		try{
+  			document.createEvent("TouchEvent");
+  			return true;
+  		}catch(e){
+  			return false;
+  		}
+  	}
+
+  	function touchScroll(id) {
+  		if(isTouchDevice()){ //if touch events exist...
+  			var el=document.getElementById(id);
+  			var scrollStartPos=0;
+
+  			document.getElementById(id).addEventListener("touchstart", function(event) {
+  				scrollStartPos=this.scrollTop+event.touches[0].pageY;
+  				event.preventDefault();
+  			},false);
+
+  			document.getElementById(id).addEventListener("touchmove", function(event) {
+  				this.scrollTop=scrollStartPos-event.touches[0].pageY;
+  				event.preventDefault();
+  			},false);
+  		}
+  	}
+  	
+	function sizeContent() {
+		// fix height bug on .container as there was an annoying gap below
+		var bodyHeight = window.innerHeight;
+
+		var containerHeight = document.getElementById("container").style.height;
+        console.log('size content  body:',bodyHeight,'container', containerHeight);	
+    
+        var loadingHeight = document.getElementById("loading").style.height;
+        console.log('size content  body:',bodyHeight,'loading', loadingHeight);   
+
+		if (bodyHeight > 1100) {
+		  document.getElementById('container').style.height = bodyHeight+"px";
+          document.getElementById('loading').style.height = bodyHeight+"px";
+		}
+		else {
+		 // window.innerHeight = containerHeight;
+         //window.innerHeight = loadingHeight;
+		}
+		//console.log ('sizeContent working');
+	}	
+     			
+    });
+
+   function sizeContent() {
+      var bodyHeight = $('body').height();
+      var containerHeight = $("#container").height();
+      var loadingHeight = $("#loading").height();
+      //console.log('size contenter   ... ',bodyHeight, containerHeight);
+      if (bodyHeight > containerHeight) {
+        $('#container').css('height', bodyHeight );
+      } else if (containerHeight > loadingHeight) {
+        $('#loading').css('height', containerHeight );
+      }
+      else {
+        $('body').css('height', containerHeight);
+      }
+  }
+
+	
+    </script>
+
+    <!-- New Menu -->
+    <script>
+        new mlPushMenu( document.getElementById( 'mp-menu' ), document.getElementById( 'trigger' ) );
+    </script>
+
+  <script type="text/ng-template" id="keyModalTemplate.html">
+    <aside class="itinerary key">
+    <!-- START .itinerary .key    -->
+
+      <article>
+        <header class="clearfix">
+          <h1>Meeting App Availability</h1>
+          <h2>KEY</h2>
+        </header>
+        <section>
+          <table class="tg-table-dark">
+            <tr>
+              <td>
+                <div class="hexagon available">
+                  <div class="ch-info-front">&nbsp;</div>
+                </div>
+              </td>
+              <td>
+                <h2>AVAILABLE</h2>
+                <h3>No motion detected in room</h3>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <div class="hexagon unavailable">
+                  <div class="ch-info-front">&nbsp;</div>
+                </div>
+              </td>
+              <td>
+                <h2>NOT AVAILABLE</h2>
+                <h3>Motion activity in room</h3>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <div class="hexagon unknown">
+                  <div class="ch-info-front">&nbsp;</div>
+                </div>
+              </td>
+              <td>
+                <h2>UNKNOWN</h2>
+                <h3>Sensor offline</h3>
+              </td>
+            </tr>
+          </table>
+        </section>
+      </article>
+
+    <!-- START .itinerary .key -->
+    </aside>
+  </script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-46398255-2', '54.194.94.166:80');
+  ga('require', 'linkid', 'linkid.js');
+  ga('send', 'pageview');
+
+</script>
+
+</body>
+</html>

@@ -64,16 +64,20 @@ var ServiceBuilder = function(serviceCatalog) {
 		mqttHandler = mqttHandler || new DefaultMQTTHandler();
 		var catalog = this.catalog;
 		if(catalog){
-		    var service = catalog.findByName(name); 
-			if(service.supportMQTT()){		    
-			    buildMQTT(service, new MQTTMonitor(catalog), mqttHandler,function(mqttService){
-                     winston.info('listen to the MQTT service succfully   - '+name);
-				    catalog.addRTService(name,mqttService);
-				})
-			}else{
-			    winston.error('service do not support MQTT');
-				delete mqttHandler;
-			}
+		    //var service = catalog.findByName(name);
+		    catalog.findByURL(name,function(err,service){
+			    if(service !=null && err == null){
+					if(service.supportMQTT()){		    
+						buildMQTT(service, new MQTTMonitor(catalog), mqttHandler,function(mqttService){
+							 winston.info('listen to the MQTT service succfully   - '+name);
+							catalog.addRTService(name,mqttService);
+						})
+					}else{
+						winston.error('service do not support MQTT');
+						delete mqttHandler;
+					}				    
+			    }
+			}); 
 		}	
 	    else{
 		    winston.error('catalog have no real time service');

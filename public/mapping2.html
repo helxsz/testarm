@@ -9,7 +9,29 @@
 	<body >
 <style type="text/css">
 
+div.tooltip {
+  position: absolute;
+  text-align: center;
+  width: 60px;
+  height: 12px;
+  padding: 8px;
+  font: 10px sans-serif;
+  background: #ddd;
+  border: solid 1px #aaa;
+  border-radius: 8px;
+  pointer-events: none;
+}
 
+path {
+	stroke: steelblue;
+	stroke-width: 1;
+	fill: none;
+}
+
+.area {
+    fill: lightsteelblue;
+    stroke-width: 0;
+}
 
 </style>
 		<section id="vis">
@@ -327,7 +349,7 @@ var BuildingMap = function() {
 		$scope.loadRecent = function(){
 			$scope.loading = true;
 			$http.get('/buildings/'+$scope.current_building+'/'+$scope.current_floor_index+'/cache').success(function(data) {
-				     $scope.loadRoomData(data);
+				$scope.loadRoomData(data);    	
 				$scope.loading = false;			
 			}).error(function(data, status, headers, config) {
 				$scope.loading = false;
@@ -336,9 +358,9 @@ var BuildingMap = function() {
 		
 		$scope.loadMapData =function(){
 				var building = new BuildingMap();
-				//building.addFloor($scope.current_building,$scope.current_floor_index);
-		        //building.addSensors();	
-		        //building.showLegend();			
+				building.addFloor($scope.current_building,$scope.current_floor_index);
+		        building.addSensors();	
+		        building.showLegend();			
 			//////////////////////////////////////////////////////////					
 				d3.xml("/buildings/map?building="+$scope.current_building+'&floor='+$scope.current_floor_index, "image/svg+xml", function(xml) {
 				//d3.xml("rect01.svg", "image/svg+xml", function(xml) {
@@ -351,7 +373,8 @@ var BuildingMap = function() {
                     $scope.loadRecent();
 					
 				});
-			/////////////////////////////////////////////////////////////			        				
+			/////////////////////////////////////////////////////////////	
+		        				
 		}
 		
 		$scope.getRoomInfo = function(href){
@@ -369,44 +392,54 @@ var BuildingMap = function() {
 			else if(arr[5]==2)
 			$scope.current_floor = 'SECOND';
 			
-			$http.get(href).success(function(data) {
-				     $scope.loadRoomData(data);
-		
-				
+			$http.get(href).success(function(data) {			    
+				$scope.loadRoomData(data);
                 $scope.loading = false;				
             }).error(function(data, status, headers, config) {
                 $scope.loading = false;
             });
 		}   
-		// ARM33G21BIRCH_1_
+		
 		$scope.loadRoomData = function(data){
 			    //console.log('loading ',data);
 				$scope.loading = true;
 				data.rooms.forEach(function(room){
 				    if(room.t_enabled)
-					console.log(room.name,' ^^^: ', room, room.time,room.sensor,room.temperature);
+					//console.log(room.name,' ^^^: ', room, room.time,room.sensor,room.temperature);
                     if(room.temperature == 0) room.temperature = 21.5;
-					var second_name = room.name.split('.')[1].toUpperCase();
+					var second_name = room.name.split('.')[1];
 					
-					console.log(second_name);					
-					d3.select('#floor').attr("transform","scale(0.5) ")
-					                   //.attr("transform", function(d) { return "translate(" + 100 + "," + 100 + ")"; }); ;
-					/*
-					d3.selectAll('#'+second_name).style('fill','red');
-					var circle = d3.selectAll('#'+second_name).append("circle").attr("cx", 25).attr("cy", 25).attr("r", 20 ).style("fill", '#f00');
- */					
-                    d3.select('#'+second_name).attr("fill", "red");	                                               
-                                                  						
-												  				
+					if(second_name == 'UKCAsh'){
+					    console.log(second_name+'    afafadfadfadf');
+						d3.select('#'+second_name)
+							.attr('fill','red')
+							//.attr("width", 680)
+							//.attr("height", 340)			
+							//.style("stroke", "#134D61")
+							;
+
+						d3.select('#UKCAsh').attr("transform", "translate(" + (20 ) + "," + (20) + ")")			
+							//.attr("width", 680)
+							//.attr("height", 340)			
+							.style("stroke", "#134D61")
+							.style("fill", "#092630")
+							.style('fill','blue');
+							
+							
+                    }						
 				})								
 				$scope.rooms = data.rooms;			
 		}		
-					
-		$scope.loadMapData();
-        //$scope.initGrapth();		
-		//checkTimer = $interval($scope.checkSensorTimer, 1000*60);
+		
+		
+		$scope.initGrapth();
+		$scope.loadMapData();	
+		checkTimer = $interval($scope.checkSensorTimer, 1000*60);
 		$rootScope.$broadcast('mybroadcast');	
-						
+			
+
+
+			
 		$scope.$on('mybroadcast', function(service){
 			console.log('on my broadcast', service);
 		})
@@ -515,7 +548,8 @@ SensormappingApp.factory('socket', function ($rootScope) {
 });
 	
 /*  color http://bl.ocks.org/mbostock/4241134   timeline http://bl.ocks.org/bunkat/1962173
-
+*/
+// plot map
 	
 		//Import the plane
 		var dataset = [ 5, 10, 13, 19];
@@ -544,8 +578,7 @@ SensormappingApp.factory('socket', function ($rootScope) {
 					+"scale("+ 1 +")";
 			});    
 		});	
-*/
-// plot map
+
 
 	
 

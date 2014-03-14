@@ -37,7 +37,7 @@ var App = function(id,description, messageCallback) {
 
         function remove(){
 		    if(redisClient){
-			    redisClient.end();
+			    redisClient.quit();
 			}
 		}
 
@@ -71,7 +71,7 @@ var App = function(id,description, messageCallback) {
             })
 	  
             redisClient.on('pmessage', messageCallback  );	  // this.callback   onDefaultMessage  messageCallback
-        }
+        }		
 		
 		function getServiceList(callback){
 		    return callback(null);
@@ -90,7 +90,13 @@ var App = function(id,description, messageCallback) {
 		    this.services[name] = null;
 			redisClient.punsubscribe(name);
 		    return callback(null,'success');
-		}		
+		}	
+
+        function filterCatalog(url,callback){
+		
+		
+		}
+		
         
 		function onDefaultMessage(pattern, channel, message){	    
 	        //winston.debug('message to the app  '+  pattern+"   "+channel+"    " );
@@ -110,6 +116,45 @@ var App = function(id,description, messageCallback) {
 			   
 			}
         }
+		
+		//////////////////////////////////////////////////////////////////////////
+		var notiClient;
+		this.subscribeCatalogNotification = subscribeCatalogNotification;
+		this.unsubscribeCatalogNotification = unsubscribeCatalogNotification;
+		
+		function subscribeCatalogNotification(name,notificationCallback){
+		    console.log('subscribeCatalogNotification   '.red);
+            var redis_ip= config.redis.host;  
+            var redis_port= config.redis.port;
+            if(!notiClient){			
+				notiClient = redis.createClient(redis_port,redis_ip); 
+				/*
+				redisClient.auth(config.opt.redis_auth, function(result) {
+					console.log("Redis authenticated.");  
+				})
+				*/ 
+				notiClient.psubscribe(name);
+				notiClient.on("error", function (err) {  
+					winston.error("redis Error " + err.red,err);  
+					return false;  
+				});    
+
+				notiClient.on('connect',function(err){
+					winston.info('App has subscribe to the catalog notification  success'.red);
+				})
+		  
+				notiClient.on('pmessage', notificationCallback  );	  // this.callback   onDefaultMessage  messageCallback		
+		    }
+		}
+
+        function unsubscribeCatalogNotification(name){
+		    if(notiClient){
+		        notiClient.punsubscribe(name);
+			    notiClient.end();
+			}	
+		}
+		
+		
 }
 
 module.exports = App;

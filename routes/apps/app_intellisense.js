@@ -24,7 +24,15 @@ var errors = require('../../utils/errors'),
 
 // catalog  https://alertmeadaptor.appspot.com/traverse?traverseURI=https%3A%2F%2F5.79.20.223%3A3000%2Fcat%2FARM6&traverseKey=d01fe91e8e249618d6c26d255f2a9d42&Submit=Browse
 // http://www.greywyvern.com/code/php/binary2base64
-var intellisense = serviceCatalog.findByName('intellisense');  // intellisense
+var intellisense;
+serviceCatalog.findByURL('http://5.79.20.223:4001/cat/ARM6',function(err,data){
+    if(err || !data){
+	    console.log('intellisense catalog can not be found ',err);
+	}else {
+	    //console.log('find the service catalog '.green,data);
+        enlightService = data; 		
+	}    
+});
 
 // https://5.79.20.223:3000/cat/ARM6/Cooling_System/Chilled_Water_Pump_1/inlet_pressure
 //  

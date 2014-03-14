@@ -21,7 +21,7 @@ function handleMessage(topic, message){
 	    var msg = data.e[0];  
 	    var url = msg.n, value = msg.v, time = msg.t;
 	    //winston.debug(url+value);
-		//winston.debug(topic);
+		//winston.info('topic        '+topic);
 		topic = topic.split('/')[1];
 		
 	    serviceBus.sendTopicMessage(topic,message);
@@ -31,5 +31,4 @@ function handleMessage(topic, message){
 }
 
 
-exports.handleMessage = handleMessage;	
-	
+exports.handleMessage = handleMessage;

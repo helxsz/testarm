@@ -1,4 +1,3 @@
-
 var _ = require("underscore"), 
    mongoose = require('mongoose'),
    ObjectId = mongoose.Schema.ObjectId,
@@ -35,16 +34,27 @@ var RoomEventsModel = function(collection, options){
     var getSchema = function(){
         return schema;
     }	
-	                     
+	
+    var removeRoomEvents = function(room,url,day , callback){
+	    model.remove({name:room,day:day, url:url},function(err,data){
+		    if(err) callback(err);
+			else callback(null,data);
+		})
+	}
+	
     var pushRoomEvents = function (room, url, day,  events, callback) {
 	    var option = { upsert: true };
 				
 		if(_.isArray(events)){  // http://docs.mongodb.org/manual/reference/operator/update/sort/  
-			model.update({name:room, day:day, url:url},{'$addToSet':{'events':{'$each': events}}},option,function(err,data){
+            model.update({name:room, day:day, url:url},{'$set':{'events':[]}},option,function(err,data){
 		        if(err) callback(err);
-			    else callback(null,data)		
+			    else {
+				    model.update({name:room, day:day, url:url},{'$addToSet':{'events':{'$each': events}}},option,function(err,data){
+		                 if(err) callback(err);
+			              else callback(null,data)		
+		            });
+                }					 
 		    });	
-		
 		}else if(_.isObject(events)){
 		
 		}

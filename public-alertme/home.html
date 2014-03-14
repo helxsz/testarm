@@ -44,9 +44,23 @@
           <!-- START - .wrapper -->
           <div class="d3-d10 t-all m-all">
 
-            <a class="brand" rel="home" href="http://alertme.redninja.co.uk" title="AlertMe - Smart energy monitoring for the home"> 
-              <img src="img/AlertMe-Logo.png" alt="AlertMe - Smart energy monitoring for the home">
-            </a>
+            <ul class="brandLogos">
+              <li>
+                <a class="t-hide m-hide" rel="home" href="http://www.arm.co.uk" title="ARM"> 
+                  <img src="img/Logo_ARM.png" alt="ARM">
+                </a>
+              </li>
+              <li>
+                <a class="brand" rel="home" href="http://alertme.redninja.co.uk" title="AlertMe - Smart energy monitoring for the home"> 
+                  <img src="img/AlertMe-Logo.png" alt="AlertMe - Smart energy monitoring for the home">
+                </a>
+              </li>
+              <li>
+                <a class="t-hide m-hide" rel="home" href="http://www.redninja.co.uk" title="Innovative Web and Mobile Applications"> 
+                  <img src="img/Logo_RedNinja.png" alt="Innovative Web and Mobile Applications">
+                </a>
+              </li>
+            </ul>
 
             <h1>Save money whilst helping the environment</h1>
             <p><a href="#main-content" title="View monthly leaderboard" class="buttonLink" ng-click="$event.stopPropagation();">View monthly leaderboard</a></p>
@@ -85,16 +99,18 @@
                   <li><h1>Alert Me Monthly Leaderboard</h1></li>
                   <li><h2>{{selectedYear}}</h2></li>
                   <li><h3>{{month_Lables[selectedMonth]}}</h3></li>
+				  <!---->
 				  <li class="dropdown" >
 					  <a class="dropdown-toggle">
 						Click me for a dropdown, yo!
 					  </a>
 					  <ul class="dropdown-menu">
 						<li ng-repeat="choice in month_Lables">
-						  <a ng-click="$event.stopPropagation(); selectMonth($index)">>{{choice}}</a>
+						  <a ng-show=" checkMonthLabel($index) "  ng-click="$event.stopPropagation(); selectMonth($index)">>{{choice}}</a>
 						</li>
 					  </ul>
 				  </li>
+				  
                 </ul>
               </header>
               
@@ -103,23 +119,37 @@
 
                 <table>
                   <tr>
-                    <th>Rank</th>
-                    <th>ID</th>
-                    <th>USAGE</th>
-                    <th>SAVINGS</th>
-                    <th>CHANGE</th>
+                    <th><span></span>Rank</th>
+                    <th><span></span>ID</th>
+                    <th><span></span>USAGE</th>
+                    <th><span></span>SAVINGS</th>
+                    <th><span></span>CHANGE</th>
                     <th></th>
                   </tr>
 				    <tr class="room" ng-repeat="home in homes | slice: start:end | limitTo:limtedNumber  " ng-cloak "> 
-						<td ng-class="{'icon-star':$index<3,'lightPurpleText':$index==0}"  >{{home.rank}}</td>  <!--  lightPurpleText purpleText -->
+						<td ng-if="home.rank<=3"> 
+						    <i ng-class="{'icon-star':home.rank<=3,'lightPurpleText':home.rank==1}"> 
+							    <span >{{home.rank}}</span> 
+							</i>	
+						</td>
+
+ 						<td ng-if="home.rank>3"> {{home.rank}}	</td> 
+						
 						<td>{{getHomeID(home)}}</td>
-						<td>{{home.power}}</td>
-						<td>£{{getCost(home)}}</td><!---->
-						<td ng-if=" (home.lastRank - home.rank ) >0 && home.lastRank >=0"> + {{ (home.lastRank - home.rank )}}</td>
-						<td ng-if=" (home.lastRank - home.rank ) <0 && home.lastRank >=0"> - {{ (home.rank - home.lastRank)}}</td>
+						<td>{{home.power}} KWH</td>
+						<td>£{{home.saving}}</td><!--getCost(home)-->
+						<td class = 'positive' ng-if="  home.percentage  >0 "> + {{ getPercentage( home.percentage )  }} %</td>
+						<td class = 'negetive' ng-if="  home.percentage  <0 "> - {{ -getPercentage( home.percentage )    }} %</td>
 						<td><a href="" ng-class="{'active': $index == (selectedHome - start)}"  ng-click="$event.stopPropagation(); selectHomeDetail(home)"><i class="icon-information_black icon2x whiteText" aria-hidden="true"></i></a></td>					
                     </tr>
-
+					 <!-- START - TABLE MENU -->
+					  <tr>
+						<td colspan="6">
+						  <a class="scroll-down"  title="Scroll down leaderboard" ng-click="direct(false)" ><span></span></a>
+						  <a class="scroll-up"  title="Scroll up leaderboard" ng-click="direct(true)" ><span></span></a>
+						</td>
+					  </tr>
+					  <!-- END - TABLE MENU -->
                 </table>
 
                 <aside class="home-info darkGreyBG clearfix">
@@ -128,7 +158,7 @@
                   <div class="circle"><p>{{homes[selectedHome].rank}}</p></div>
 
                   <h1 ng-cloak >House #{{getHomeID(homes[selectedHome])}} has saved</h1>
-                  <h2 ng-cloak >£{{  getCost(homes[selectedHome])}}</h2>
+                  <h2 ng-cloak >£{{  homes[selectedHome].saving}}</h2>
 
             <!--     END - .home-info -->
 					<div class="graph-wrapper">	
@@ -138,10 +168,8 @@
 						<p>
 							<div id="monthlyGraph"></div>
 						</p>
-					</div>			
-			
+					</div>						
                 </aside>
-
               <!-- END - #leaderboard -->
               </div>
 
@@ -170,18 +198,18 @@
                   </div>
                    
                   <div id="form-submit" class="field">
-                    <input type="submit" value="SEARCH">
+                    <input type="submit" value="SEARCH" ng-click="searchHome()">
                   </div>
                 </form>
 				
-				<div id="loading" ng-class="{'loading': loading, 'loadComplete':!loading}" >
+				<!-- <div id="loading" ng-class="{'loading': loading, 'loadComplete':!loading}" >
 				<div class="inner">
 						<div class="box">
 							<div class="circle"></div>
 							<div class="circle1"></div>
 						</div>
 				</div>				
-
+                 -->
             </div>
             <!-- END - .wrapper -->
             </div>
@@ -236,13 +264,14 @@ homeEnergyApp.filter('slice', function() {
 homeEnergyApp.controller('homeEnergyCtrl', function ($rootScope,$scope, $http, $interval, $modal) {
 
 	$scope.loading = true;
-	$scope.start = 7;
+	$scope.start = 0;
 	$scope.end = 45;
 	$scope.selectedHome = 0;
 	$scope.limtedNumber = 10;
 	
 	$scope.selectedYear = 2014;
 	$scope.selectedMonth = 0;
+	$scope.year_Lables = [2013,2014];
 	$scope.month_Lables = ['January','February','March','April','May','June','July','August','September','October','November','December'];
 	
 	$scope.homes = [];
@@ -254,13 +283,14 @@ homeEnergyApp.controller('homeEnergyCtrl', function ($rootScope,$scope, $http, $
 		var changeHooms = oldVal;
 		changeHooms.forEach(function(home){
 			//console.log(home);
-	
+	        home.name = $scope.getHomeID(home);
 		})
 	}, true);
 	
-	$scope.loadEnergyData = function(home){
-		$http.get('/alert/home/discover'+'?id='+home.id).success(function(data) {
+	$scope.loadEnergyData = function(id){
+		$http.get('/alert/home/discover'+'?id='+id).success(function(data) {
 			$scope.loading = false;
+			console.log('loadEnergyData success  on id',id, data);
             extractData(data);			
 		}).error(function(data, status, headers, config) {
 			$scope.loading = false;
@@ -271,15 +301,15 @@ homeEnergyApp.controller('homeEnergyCtrl', function ($rootScope,$scope, $http, $
 			$scope.dayConsumption = [];
             $scope.monthConsumption = [];			
 			data.forEach(function(home){
-				//console.log(home.url, home.energy, home.timeline);
-				if(home.type == 'hour'){
+				console.log(home.url, home.energy, home.timeline);
+				if(home.type == 'hour' && home.timeline != null){
 					for(var i =1;i<home.timeline.length;i++){
 						var previous = home.timeline[i-1], current = home.timeline[i];
 						//console.log(  (previous.v - current.v), new Date(current.t), new Date(previous.t) );
 						$scope.dayConsumption.push({t:new Date(current.t), v:current.v-previous.v});
 					}
                     console.log('daily consumption ',$scope.dayConsumption);	
- 					//showDayGraph('#daylyGraph', $scope.dayConsumption);
+ 					showDayGraph('#daylyGraph', $scope.dayConsumption);
 				}else if(home.type == 'day'){
 					for(var i =1;i<home.timeline.length;i++){
 						var previous = home.timeline[i-1], current = home.timeline[i];
@@ -294,40 +324,63 @@ homeEnergyApp.controller('homeEnergyCtrl', function ($rootScope,$scope, $http, $
 	}
 		
 	$scope.loadMonthlyData = function(){
-		$http.get('/alert/home/month').success(function(results) {
+		$http.get('/alert/home/month?start='+new Date($scope.selectedYear,$scope.selectedMonth-1,1)+"&end="+new Date($scope.selectedYear,$scope.selectedMonth,1)).success(function(results) {
 			$scope.loading = false;
-			console.log(results);
+			console.log('loadMonthlyData   ', new Date($scope.selectedYear,$scope.selectedMonth-1,1), new Date($scope.selectedYear,$scope.selectedMonth,1), results);
 			var keys = Object.keys(results);
 			//console.log(keys[0],  results [ keys[0] ].values );
-			//console.log(keys[1],  results [ keys[1] ].values );			
-			results [ keys[0] ].values = _.sortBy(results[ keys[0] ].values,function(value){return value.power;})
-			results [ keys[1] ].values = _.sortBy(results[ keys[1] ].values,function(value){return value.power;})
-			
-			results [ keys[0] ].values = setRank( results [ keys[0] ].values );
-			results [ keys[1] ].values = setRank( results [ keys[1] ].values );
-			
-			console.log(results [ keys[0] ].values);
-			console.log(results [ keys[1] ].values);
-			
-			$scope.homes = results [ keys[0] ].values;
+			//console.log(keys[1],  results [ keys[1] ].values );									
+			$scope.homes = results [ keys[1] ].values;
 			$scope.homes.forEach(function(home){
 			    var id = home.id;
-				var arr = results [ keys[1] ].values;
+				var new_energy = home.power;
+				var arr = results [ keys[0] ].values;
 			    for(var i=0;i<arr.length;i++){
 				    if(id == arr[i].id)
 					{
-					    home.lastRank = i; break;
+					    var old_energy = arr[i].power;
+                        var pers =(new_energy-old_energy)/old_energy* 100;
+						var saving = (new_energy-old_energy);
+                        //console.log('percentage change  ',pers, new_energy, old_energy);
+                        home.percentage = pers;		
+						home.bad = false;
+						home.saving = Math.floor(  saving * 0.13 *100 ) /100;
+                        if( isNaN(home.percentage) ) home.bad = true;
+                        if( home.percentage == Number.POSITIVE_INFINITY || home.percentage == Number.NEGATIVE_INFINITY ) home.bad = true;						
 					}	
 				}
-			})			
-            /*
-			var results = _.union(results[keys[0]].values, results[keys[1]].values);
-            results = _.groupBy(results,function(item){return item.id;});
-            console.log(results);
-            */			
+			})
+         
+		    //var arrays= _.filter(results[ keys[1] ].values,function(value){return !isNaN(value.percentage)|| value.percentage != Number.POSITIVE_INFINITY || value.percentage != Number.NEGATIVE_INFINITY })
+			//console.log(arrays);
+			var arrays = _.filter(results[ keys[1] ].values,function(value){return value.bad == false; })
+			$scope.homes  =  _.sortBy(arrays,function(value){return -value.saving;});
+			console.log( $scope.homes );
+			setRank( $scope.homes );
+			
+			$scope.loadEnergyData($scope.homes[0].id);
+			
 		}).error(function(data, status, headers, config) {
 			$scope.loading = false;
 		});
+	}
+	
+	$scope.checkMonthLabel = function(index){
+	    //console.log('checkMonthLabel  ',index,new Date().getTime());
+	    return new Date().getTime() >= new Date($scope.selectedYear,index,1).getTime();
+	}
+	
+	$scope.direct = function(up){
+	    if(up){
+		    if($scope.start >= 0 ){
+			    if($scope.start >=10)
+			    $scope.start-=10;
+                else 
+                $scope.start =0;				
+			}	
+		}else{
+		    if($scope.start < $scope.homes.length -10)$scope.start+=10;
+		}
 	}
 	
 	function setRank(array){
@@ -338,10 +391,10 @@ homeEnergyApp.controller('homeEnergyCtrl', function ($rootScope,$scope, $http, $
 	}
 	
 	$scope.loadMonthlyData();
-    //showHistoryGraph("#daylyGraph", 'day', []);
-    //showHistoryGraph("#monthlyGraph", 'month', []);
-	$scope.getEnergy = function(){
-	    
+
+	$scope.getPercentage = function(value){
+	    //console.log('------------pencentage   ',value);
+	    return Math.floor(value);
 	}
 	
 	$scope.sortHomeRank = function(){
@@ -374,7 +427,7 @@ homeEnergyApp.controller('homeEnergyCtrl', function ($rootScope,$scope, $http, $
 		    if($scope.homes[i].id == home.id)
 	        {
 			    $scope.selectedHome = i; 
-				$scope.loadEnergyData(home);
+				$scope.loadEnergyData(home.id);
 				
 				break;
 			}
@@ -383,7 +436,10 @@ homeEnergyApp.controller('homeEnergyCtrl', function ($rootScope,$scope, $http, $
 	
 	$scope.selectMonth = function(index){
 	    //console.log( $scope.month_Lables[index] );
-	    $scope.selectedMonth = index;		
+		if($scope.selectedMonth!=index){
+	       $scope.selectedMonth = index;
+		   $scope.loadMonthlyData();	
+		}     	
 	}
 	
 	$scope.selectYear = function(index){
@@ -410,6 +466,26 @@ homeEnergyApp.controller('homeEnergyCtrl', function ($rootScope,$scope, $http, $
 		});
 	};	
 	
+	$scope.searchHome = function(){
+	    var position = -1, url ;
+		var id = $scope.selected;
+		console.log('search home  ',id);
+		if(id == null) return;
+	    $scope.homes.forEach(function(home){
+		    if(home.name == id){
+				console.log('found home  ',home.name , home.id, home.rank);
+				position = home.rank-1;
+				url = home.id;
+			    return false;
+			}
+		})
+		if(position >= 0 ){
+		    $scope.selectedHome = position;
+		    $scope.start = position;
+			$scope.loadEnergyData(url);
+		}
+	}
+	
 	/***************************  ******************************************/
 	var width = 400, height = 100, interpolation = "basis", updateDelay =280, transitionDelay = 280;
 
@@ -419,8 +495,7 @@ homeEnergyApp.controller('homeEnergyCtrl', function ($rootScope,$scope, $http, $
 								   .style("opacity", 0);	
 	var uktimeFormat = d3.time.format('%H:%M UK');
 	var colors = [	"#CDFADB","#75B8C1","#DD8BB9","#BA97C1","#ff6600"];
-    var dataOne = [68, 16, 59, 38, 39, 50, 71, 22, 88, 31, 24, 3, 93, 2, 82, 6, 73, 96, 94, 68, 43, 20, 82, 62, 20, 51, 80, 18, 10, 94, 2, 66, 13, 47, 53, 65, 1, 15, 22, 30, 53, 64, 58, 34, 42, 93, 27, 77, 2, 88, 89, 81, 48, 95, 91, 64, 73, 38, 76, 79, 90, 94, 56, 37, 35, 99, 81, 19, 14, 14, 97, 74, 49, 81, 38, 5, 84, 19, 50, 72, 47, 2, 58, 8, 93, 85, 34, 38, 75, 54, 51, 39, 2, 38, 54, 13, 48, 58, 5, 90, 67, 40, 46, 67, 3, 96, 7, 11, 69, 42, 15, 52, 15, 40, 11, 70, 99, 87, 16, 23, 77, 18, 47, 7, 79, 69, 14, 60, 54, 15, 27, 93, 57, 56, 22, 88, 10, 24, 55, 77, 76, 94, 61, 84, 77, 89, 51, 99, 6, 99, 100, 35, 72, 13, 55, 80, 65, 18, 49, 33, 53, 31, 51, 52, 39, 71, 63, 80, 14, 39, 29, 3, 17, 86, 75, 42, 43, 5, 50, 40, 9, 82, 90, 85, 62, 5, 25, 34, 17, 76, 68, 27, 49, 13, 62, 34, 3, 4, 26, 21];	
-    var dataTwo = [33, 76, 67, 74, 32, 82, 62, 1, 78, 4, 13, 88, 61, 26, 58, 42, 79, 69, 3, 19, 10, 91, 94, 20, 27, 8, 51, 87, 85, 65, 17, 77, 35, 37, 93, 36, 60, 63, 39, 73, 43, 75, 9, 66, 25, 49, 97, 90, 47, 70, 18, 41, 50, 34, 53, 23, 30, 92, 14, 84, 16, 95, 28, 31, 96, 68, 80, 21, 72, 99, 15, 83, 6, 64, 59, 54, 86, 12, 55, 71, 7, 22, 52, 24, 5, 29, 56, 2, 100, 98, 48, 11, 40, 57, 45, 81, 89, 38, 46, 44];
+
 	var time = d3.scale.linear().domain([0, 48]).range([-5, width]);
     //http://www.d3noob.org/2013/01/filling-area-under-graph.html
 	var power = d3.scale.linear().range([height,0]);
@@ -434,18 +509,12 @@ homeEnergyApp.controller('homeEnergyCtrl', function ($rootScope,$scope, $http, $
 	var monthScale = d3.time.scale().domain([new Date( now.getFullYear (),now.getMonth(),now.getDate(),0)
 	                                       , new Date( now.getFullYear (),now.getMonth()-3,now.getDate(),0)
 										   ])
-									.range([-5, width]);;
-    
-	var day_area = d3.svg.area()
-		.interpolate("basis")
-		.x(function(d,i) { return dayScale(new Date(d.t));  })
-		.y0(function(d,i) { return height; })
-		.y1(function(d,i) { return power(d.v) ; });
-
-				
+									.range([-5, width]);
+									
 	var	day_timeline = d3.svg.line()
 			.x(function(d,i) { 
-				return dayScale(new Date(d.t)); 
+				return dayScale(new Date(d.t));
+                //  return i+1;				
 			})
 			.y(function(d) { 
 			    console.log(d.v, power(d.v));
@@ -465,59 +534,84 @@ homeEnergyApp.controller('homeEnergyCtrl', function ($rootScope,$scope, $http, $
 			
     var vis = d3.select("#monthlyGraph").append("svg").attr("width", width).attr("height", height);
 	var monthDataLayer = vis.append("g").attr('id','monthDataLayer');
-	var dayDataLayer = vis.append('g').attr('id','dayDataLayer');
-	var dayGraph = null, monthGraph = null;
+	
+	var vis2= d3.select('#daylyGraph').append("svg").attr("width",width).attr("height",height);
+	var dayDataLayer = vis2.append('g').attr('id','dayDataLayer');
+	var dayGraph = dayDataLayer.append('svg:path').attr("class","day");
 	//http://bl.ocks.org/mbostock/3883195
 	function showDayGraph(id, data){
-		//power = d3.scale.linear().domain(d3.extent(data, function(d) { return d.v; })).range([0, height]);	
-        power = d3.scale.linear().domain( [0, d3.max(data, function(d) { return d.v; })] );		
-		/*
-		if( dayGraph==null ){
-		    
-		    dayGraph = vis.select(id).append("svg:path").attr("d", day_area(data)).attr('class','day').style("fill",function(){ return colors[0] });			           				
-			showTimeControl(dayGraph);
-	    }else {
-			d3.select(id).selectAll("path")
-				.data([data])
-				//.attr("d", day_timeline)
-				
-				.attr('d',day_area)
-				.style("fill",function(){ return colors[0] })
-				.transition()
-				.ease("linear")
-				.duration(280);			
-		}*/
-        var dayly = dayDataLayer.selectAll('path').data[data];
-		//dayly.exit().remove();
-		dayly.enter().append("path")
-		        .attr('d',day_area)
-				.style("fill",function(){ return colors[0] })
-				.transition()
-				.ease("linear")
-				.duration(280);	
-        		
+        var power = d3.scale.linear().domain( [0, d3.max(data, function(d) { return d.v; })] ).rangeRound([0,height ]);;		
+		var day_area = d3.svg.area()
+		    .interpolate("basis")
+		    .x(function(d,i) { //console.log(d.t , dayScale(new Date(d.t)));  
+			                  return dayScale(new Date(d.t));  })
+		    .y0(function(d,i) { //console.log('height  ', 0);  
+			                    return height; })
+		    .y1(function(d,i) { //console.log("real value ",d.v,power(d.v));    
+			                   return height - power(d.v) });	
+
+         d3.select('.day')
+			   .datum(data)
+               .attr("d", day_area).style("fill",function(){ return colors[1] })		
 	}
   //https://github.com/rschmukler/agenda/graphs/contributors?from=2013-12-11&to=2014-02-12&type=c
 	function showMonthGraph(id, data){		
-        //var power = d3.scale.linear().domain( [0, d3.max(data, function(d) { return d.v; })] ).range([0, height]);		
-            console.log('monthly consumption haha',data);
-		    var monthly = monthDataLayer.selectAll('rect.motion').data(data);//.append("svg:svg").attr("width", "100%").attr("height", "100%");
+            console.log('showMonthGraph monthly consumption haha',data);
+		    var monthly = monthDataLayer.selectAll('.motion').data(data);
+			var height = 100;
+			var yscale = d3.scale.linear().domain([0, d3.max(data, function(datum) { return datum.v; })]).rangeRound([0, height]);		
 			monthly.exit().remove();				
 			monthly.enter()
 			    .append('rect')
 				.attr('class', function(d) {
 						return 'motion';
-					  })				
-				.style("fill",function(){ return colors[0] })
+					  })
+				.attr('transform', function(d, i) {				
+				    var x = i * 11, y = height - yscale(d.v);				    
+				    return 'translate(' + x + ',' + y + ')';					  
+			    })	  
+                .transition()
+				.duration(800) 					  
+				.style("fill",function(){ return colors[1] })
 			    .attr("width", 5)
-			    .attr("height", function(d) { console.log('what is this ',d,d.v, d.t);return d.v*8 })
-			    .attr('transform', function(d, i) {				
-				  var x = i * 15, y = 80;
-				  return 'translate(' + x + ',' + y + ')';					  
-			    })
+			    .attr("height", function(d) { //console.log('what is this ',d,d.v, d.t);
+				                              return  yscale(d.v);
+											})
 			    .style("fill-opacity", function(d,i){
 				     return 0.8;                                        
-			    });			
+			    });
+
+			monthly.on("mouseover", function(d) {					
+					tooltip.transition()        
+						.duration(200)      
+						.style("opacity", .9);      
+					tooltip.html("<br/>"+ Math.floor(d.v*10)/10+"<br/>")  
+						.style("left", (d3.event.pageX) + "px")     
+						.style("top", (d3.event.pageY - 28) + "px");    
+					})                  
+				.on("mouseout", function(d) {       
+					tooltip.transition()        
+						.duration(500)      
+						.style("opacity", 0);   
+				});
+        //////////////////////////////////////////////
+		/**/
+		console.log('  axix  x   ',new Date( data[0].t) , new Date(data[data.length-1].t));
+		var xScale = d3.time.scale().domain([20, 200]).range([new Date(data[0].t), new Date(data[data.length-1].t)]);
+		var formatDay = d3.time.format("%a %d");
+        var xAxis = d3.svg.axis().orient("up")
+	                         .scale(xScale)
+	                         .orient("bottom")
+				             .ticks(d3.time.day, 7)
+				             .tickFormat(formatDay);		
+	    var time_control = monthDataLayer.append('g').attr('class','time_control'); 
+      	
+        time_control.append("g").attr("class", "xaxis")              
+            //.attr("transform", "translate(0," + (height - padding) + ")")
+            .call(xAxis); 
+        monthDataLayer.selectAll(".xaxis text").attr("transform", function(d) {          
+              return "translate(" + this.getBBox().height*-2 + "," + this.getBBox().height + ")rotate(-45)";
+        });	
 				
 	}
 	
@@ -657,8 +751,7 @@ homeEnergyApp.controller('homeEnergyCtrl', function ($rootScope,$scope, $http, $
 .graph-wrapper {
 	width: 320px;
 	margin: 20px auto;
-	border-left: 1px solid #0d2b53;
-  border-right: 1px solid #0d2b53;
+
 }
 #daylyGraph,
 #monthlyGraph {
@@ -677,6 +770,19 @@ homeEnergyApp.controller('homeEnergyCtrl', function ($rootScope,$scope, $http, $
 	stroke: #2ecc71;
   stroke-width: 1;
   fill: none;
+}
+
+div.tooltip {   
+  position: absolute;           
+  text-align: center;           
+  width: 60px;                  
+  height: 28px;                 
+  padding: 2px;             
+  font: 12px sans-serif;        
+  background: lightsteelblue;   
+  border: 0px;      
+  border-radius: 8px;           
+  pointer-events: none;         
 }
 </style>
 		

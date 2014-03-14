@@ -104,6 +104,7 @@ function sendTopicMessage(channel,data, type){
     type = type || 'redis';
 	if(type == 'redis'){
         if(redisClient){
+		    //console.log('publish  channel  '.red,channel, data);
             redisClient.publish(channel,data);	
 	    }else{
             winston.error('redis client are not available');	

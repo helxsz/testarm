@@ -211,11 +211,13 @@
 		// DRAW CITY
 		var cityGeometry = new THREE.Geometry();
 		// --------------------------------------------------------------------------------------------------------- use my geometry
+		console.log('world city geometry   ',world.cityGeometry.geometry);
 		$.each(world.cityGeometry.geometry, function(i, polygon)
 		{
 					geometry = [];
 					$.each(polygon, function(index, coordinate) 
 					{
+					    //console.log('coordinate   ',coordinate[0],"      ",coordinate[1]);
 						geometry.push( new THREE.Vector2 (coordinate[0], coordinate[1]));
 					});
 					// https://github.com/mrdoob/three.js/issues/1824
@@ -438,7 +440,7 @@
 						//get value and total
 						var km = (key in model.currentWeek().data)? model.currentWeek().data[key][scopeKey][constants.KEY_KM] : 0;
 						heightCube = world.heightScale((km==0)?1:km); //avoid zero values for the log scale
-						console.log(heightCube);
+						//console.log(heightCube);
 						//world.bars[lng][lat][0][scopeKey].userData["heightCube"] = heightCube;
 						
 					    //check if need to hide the bar

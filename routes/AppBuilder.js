@@ -13,8 +13,7 @@ var errors = require('../utils/errors'),
 	catalog = require('./serviceCatalog.js'),
 	winston = require('../utils/logging.js'),
 	App = require('./app.js');
-	
-	
+		
 var AppBuilder = function() {
 
 		if (AppBuilder.prototype._singletonInstance) {

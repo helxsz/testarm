@@ -20,7 +20,15 @@ var errors = require('../../utils/errors'),
 	simulation = require('../simulation.js');
 
 
-var enlightService = serviceCatalog.findByName('enlight');  // enlight
+var enlightService; 
+serviceCatalog.findByURL('https://geras.1248.io/cat/enlight',function(err,data){
+    if(err || !data){
+	    console.log('enlight catalog can not be found ',err);
+	}else {
+	    //console.log('find the service catalog '.green,data);
+        enlightService = data; 		
+	}    
+});   // enlight
 
 // ballastTemperature	dolFinTemperature   lampPower  light   mainsVoltage  psuCurrent   psuVoltage
 

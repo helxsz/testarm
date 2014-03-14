@@ -14,20 +14,41 @@ var errors = require('../../utils/errors'),
     serviceCatalog = require('../serviceCatalog.js'),
 	config = require('../../conf/config'),
 	winston = require('../../utils/logging.js'),
-	eventModel = require('../../model/event_model.js')
 	io = require('../websocket_api.js'),
 	appBuilder = require('../AppBuilder.js'),
 	db = require('../persistence_api.js'),
 	simulation = require('../simulation.js'),
 	access_control = require('../access_control_api.js'),
-	sensorHandler = require('../sensorHandler.js');
+	sensorHandler = require('../sensorHandler.js'),
+	catalogFactsModel = require('../../model/catalog_fact_model.js'),
+	roomModel = require('../../model/room_model.js'),
+	catalogFilter = require('../catalog_filter.js'),
+	catalogDB = require('../catalog_db.js'),
+	sensorRoomModel = require('./SensorRoomModel.js');
 /****   experiment 2 ********/
-var meetingService = serviceCatalog.findByName('armmeeting'); 
-var buildingService = serviceCatalog.findByName('armbuilding');  
+var meetingService; 
+var buildingService;
+serviceCatalog.findByURL('https://geras.1248.io/cat/armmeeting',function(err,service){
+    if(err || !service){
+	    console.log(' catalog can not be found ',err);
+	}else {
+	    console.log('find the service catalog '.green,service.serviceObj.url);
+        meetingService = service;		
+	}    
+}); 
 
+serviceCatalog.findByURL('https://protected-sands-2667.herokuapp.com/cat',function(err,service){
+    if(err || !service){
+	    console.log(' catalog can not be found ',err);
+	}else if(!service){  console.log('no data in the catalog ');}
+	else{
+	    console.log('find the service catalog '.green,service.serviceObj.url);
+        buildingService = service;		
+	}    
+});   
+var filter = new catalogFilter();
 initApp();
 function initApp(){
-
 	appBuilder.createApp('meetingroom',new MeetingRoomMQTTHandler().handleMessage, function(err,app){
 		if(err) winston.error('error in create app');
 		else winston.info('app is created  meetingroom   '+app.id);  // 
@@ -35,8 +56,200 @@ function initApp(){
 			if(err) winston.error('errro in subscrption ');
 			else winston.info('subscribe success');
 		})
-	});
+		
+		app.subscribeCatalogNotification('catalog',function(pattern,channel,message){
+		    console.log('meeting app receive catalog notification   '.yellow, message);			
+            try{
+		        var catalogs = JSON.parse(message);
+				async.forEach(catalogs, function(catalog,callback){
+					//console.log(catalog ); 
+					checkCatalogUpdate(catalog);
+					callback();
+				},function(err){
+					console.log('');
+				});
 
+            }catch(e){
+			    console.log(' message   pattern   error  '.red,e);
+			} 				
+		})
+	});
+}
+
+function checkCatalogUpdate(catalog){
+	//console.log('subscribeCatalogNotification   '.green,catalog.url, catalog.profile, catalog.types);
+	if(catalog.profile == 'sensor' && catalog.types.motion ==1 ){   //_.contains(catalog.types, 'motion')
+ 		catalogFactsModel.getCatalogFacts( catalog.url,function(err,data){
+			if(err) console.log('catalog facts  store error '.red,catalog.url, err);
+			else if(!data){console.log('no data in the catalog ');}
+			else {
+				//console.log('catalog sensor facts  get  data'.green, catalog.url, data.facts.length);							
+				filter.filterStandard(data.facts,function(results,category){
+					var key_array = Object.keys(results);								
+					console.log('complete checkCatalogUpdate sensor in application  '.yellow, key_array.length, category);																							
+					async.forEach(key_array, function(key,callback){
+						//console.log(key , results[key]);
+						catalogDB.saveResource('res:sensor:'+key, results[key],function(){callback();});
+					},function(err){
+						console.log('complete sensor in redis'.yellow);
+					});							
+				});							
+			}	
+		});				
+	}else if(catalog.profile =='room'){
+		catalogFactsModel.getCatalogFacts( 'https://protected-sands-2667.herokuapp.com/cat',function(err,data){
+			if(err) console.log('catalog facts  store error '.red,catalog.url, err);
+			else if(!data){console.log('no data in the catalog ');}
+			else {
+				filter.filterStandard(data.facts,function(results,category){
+					var key_array = Object.keys(results);								
+					console.log('complete checkCatalogUpdate room data  '.yellow, key_array.length, category);																							
+					async.forEach(key_array, function(key,callback){
+						//console.log(key , results[key]);
+						catalogDB.saveResource('res:room:'+key, results[key],function(){  callback(); });
+					},function(err){
+						console.log('complete room in redis '.yellow);
+						roomModel.clearRooms({},function(){})
+						sensorRoomModel.getAllRooms(function(err,data){
+							if(err) {console.log('get all rooms  error '.red, err);}
+							else if(!data){console.log('get all rooms   ',data);}
+							else{
+							    console.log('-------------------------------------------------');
+								console.log(data.length);
+                                //sensorRoomModel.saveAllSites(data,function(){});
+								data.forEach(function(room){
+								    if(room.floor == 'Ground') room.floor = 0;
+									else if(room.floor == '1st')  room.floor = 1;
+								    roomModel.pushRoom(room,function(err,data1){
+									    console.log(err,data1,room);
+									});									
+								})
+                                							
+							}
+						})						
+					});							
+				});							
+			}	
+		});								
+	}
+}
+
+
+// http://localhost/meeting/integrate
+app.get('/meeting/integrate',function(req,res,next){
+    integrateMeetingRoom(function(err,data){
+	    res.send(200);
+	})
+})
+
+function integrateMeetingRoom(_callback){
+	console.log('integate'.green);
+	var redisClient;
+	var redis_ip= config.redis.host;  
+	var redis_port= config.redis.port;	
+	try{ 
+		redisClient = redis.createClient(redis_port,redis_ip);
+	}
+	catch (error){
+		console.log('save Resource IntoCatalog  error' + error);
+		redisClient.quit();
+		return callback(error,null);
+	}
+	// get all keys 
+	var rooms  = [];      	
+	var sensors = [];
+
+	async.parallel([
+		function(callback){
+			redisClient.keys("res:room:*", function(err, keys) {
+				console.log('res key room',keys.length);			
+				var mul = redisClient.multi();
+				keys.forEach(function(key){		
+				   mul.hmget( key , 'sameAs');
+				})		           		
+				mul.exec(function (err, replies) {
+					console.log("res:room Resource ".green + replies.length + " replies");
+					//console.log("res:room Resource ".green + replies + " replies");
+					//console.log("res:room Resource ".green + keys + " keys");
+																
+					for(var i=0;i<keys.length;i++){		
+						 rooms.push({'rid':keys[i],'sameas':replies[i][0]});							 
+					}					
+					callback();
+				});					
+			});   
+		},
+		function(callback){
+			redisClient.keys("res:sensor:*", function(err, keys) {
+				console.log('res key sensor',keys.length);
+				var mul = redisClient.multi();
+				keys.forEach(function(key){		
+				   mul.hmget( key , 'sameAs','motion','temperature','online','lat','long');
+				})		           		
+				mul.exec(function (err, replies) {
+					console.log("res:sensor Resource ".green + replies.length + " replies");
+					//console.log("res:sensor Resource ".green + replies + " replies");
+					//console.log("res:sensor Resource ".green + keys + " keys");
+										
+					for(var i=0;i<keys.length;i++){		
+						 sensors.push({'sid':keys[i],'sameas':replies[i][0],'motion':replies[i][1],'temperature':replies[i][2],'online':replies[i][3],'lat':replies[i][4],'long':replies[i][5]});
+						 
+					}
+					callback();						
+				});            
+			});	
+		}
+	],function(err, results){
+		console.log('compare the resources    '.green, rooms.length, sensors.length);
+		//console.log(rooms[0], sensors[0]);
+		var match = 0, matchs = [];
+		for(var i=0;i<sensors.length;i++){
+			for(var j=0;j<rooms.length;j++){
+				//console.log(sensors[i].sameas[0] , rooms[j].sameas[0]);
+				if(sensors[i].sameas == rooms[j].sameas){
+					//console.log('find match   '.green, sensors[i].sid, rooms[j].rid);
+					match ++;					
+					matchs.push({ 'sid':sensors[i].sid, 'rid': rooms[j].rid,'motion':sensors[i].motion,'temperature':sensors[i].temperature,'online':sensors[i].online,'lat':sensors[i].lat,'long':sensors[i].long})
+					continue;
+				}
+			}
+		}
+		console.log(' found match  number   '.green+matchs.length);	
+		var mul = redisClient.multi();		
+		for(var i=0;i<matchs.length;i++){
+			//console.log('---------------------------- mateched room and sensor pair:',matchs[i]);
+			mul.hmset( matchs[i].sid , 'room', matchs[i].rid)  // link the sensor with room
+			// link the room with sensor property
+			if( matchs[i].temperature){
+				mul.hmset( matchs[i].rid , 'query:temperature',matchs[i].temperature );
+				//console.log('match temperature'.green,matchs[i].temperature);
+			}
+			if( matchs[i].motion){
+				mul.hmset( matchs[i].rid , 'query:motion',matchs[i].motion );
+				//console.log('match motion'.green, matchs[i].motion);
+			}			
+			if( matchs[i].online){
+				mul.hmset( matchs[i].rid , 'query:online',matchs[i].online );
+				//console.log('match online'.green, matchs[i].online);
+			}
+			if( matchs[i].lat){
+				mul.hmset( matchs[i].rid , 'lat',matchs[i].lat );
+				//console.log('match lat'.green, matchs[i].lat);
+			}
+			if( matchs[i].long){
+				mul.hmset( matchs[i].rid , 'long',matchs[i].long );
+				//console.log('match long'.green, matchs[i].long);
+			}			
+		}
+		mul.exec(function (err, replies) {
+			console.log("res:sensor Resource ".green + replies.length + " replies");								
+		}); 		
+		delete sensors, rooms;
+		redisClient.quit();	
+
+        if(_callback) _callback();
+		
+	});			
 }
 
 
@@ -52,7 +265,7 @@ function MeetingRoomMQTTHandler(){
 		    var raw = JSON.parse(message);
 		    var msg = raw.e[0];  
 		    var url = msg.n, value = msg.v, time = new Date(msg.t*1000);
-		    //console.log('MQTT:  '.green,"https://geras.1248.io/series"+url, value, time);			
+		    //console.log('MQTT:  '.green,"https://geras.1248.io/series"+url, pattern,channel);			
             var attrs = url.split('/'); var property = attrs[attrs.length-1];var parent_url = url.substring(0, url.indexOf(property)-1);			
 				sensorRoomModel.queryRoomFromSensor( "res:sensor:"+"https://geras.1248.io/series"+parent_url ,function(err,data){
 					if(err) console.log('err  query room from sensor',err);
@@ -60,19 +273,21 @@ function MeetingRoomMQTTHandler(){
 					else if(data) {
 						//console.log('find the room '.green,data.url,data.name);
 						if(property == 'temperature'){
-						    console.log('update temperature '.yellow, data.name,'----------------', data.url); 
+						    //console.log('update temperature '.yellow, data.name,'----------------', data.url); 
 							sensorRoomModel.updateTempData(data.url,value,function(err,data){});
 							io.sockets.emit('info',{room:data.name,type:'temperature', value:value});						
 						}else if(property == 'motion'){
-						    if( (new Date() - time.getTime())>1000*60*3)
-						    console.log('update motion'.red, data.name ,'--------------',data.url , time  );
+						    if( (new Date() - time.getTime())>1000*60*3){
+						        console.log('no need to update motion'.red, data.name ,'--------------',data.url , time  );
+								sensorRoomModel.updateMotion(data.url,time,function(err,data){});
+							}
 							else{ 
 								console.log('update motion'.green, data.name ,'--------------',data.url);
 								sensorRoomModel.updateMotion(data.url,time,function(err,data){});
 								io.sockets.emit('info',{room:data.name,type:'motion', value:value, time: time});
                             }							
 						}else if(property == 'online'){
-						    console.log('update online '.yellow, data.name,'----------------', data.url,value);
+						    //console.log('update online '.yellow, data.name,'----------------', data.url,value);
 							if(value == 0) console.log('update offline '.red, data.name,'----------------', data.url);
 							sensorRoomModel.updateOnline(data.url,value,function(err,data){});
 							io.sockets.emit('info',{room:data.name,type:'online', value:value});							
@@ -86,7 +301,7 @@ function MeetingRoomMQTTHandler(){
 }
 
 
-var sensorRoomModel = new SensorRoomModel();
+
 
 
  /*
@@ -99,7 +314,7 @@ app.get('/',access_control.authUser,function(req,res){
    res.render('index.html');
 })
 
-app.get('/app/meetingroom',access_control.authUser,function(req,res){  
+app.get('/app/meetingroom',access_control.authUser,function(req,res, next){  
     var token = (Math.random() * 1e18).toString(36);
 	console.log('token   ',token);
 	
@@ -110,10 +325,9 @@ app.get('/app/meetingroom',access_control.authUser,function(req,res){
 	token = token + token.reverse();
 	req.session.token = token;
 	res.redirect('/apps/'+token);
-    //res.render('meeting2.html');
 })
 
-app.get('/apps/:token',access_control.authUser, function(req,res){
+app.get('/apps/:token',access_control.authUser, function(req,res,next){
     
     var url_token = req.params.token;
     var token = req.session.token;
@@ -121,7 +335,283 @@ app.get('/apps/:token',access_control.authUser, function(req,res){
     if(token && url_token == token) res.render('meeting2.html');
 	else res.redirect('/');
 })
-	
+
+function escapeRegExp(str) {
+   return str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
+}
+function replaceAll(find, replace, str) {
+   return str.replace(new RegExp(escapeRegExp(find), 'g'), replace);
+}
+
+app.get('/meeting/sites/json',access_control.authUser,function(req,res,next){
+	roomModel.searchRooms({},function(err,data){
+	    if(err) res.send(500);
+		else if(!data) res.send(400);
+		else if(data){
+		    //res.send(200,getSiteRooms(data));
+			
+			var names = ['Ground floor','First floor','Second floor','Third floor','Fourth floor','Fifth floor','Sixth floor','Seventh floor','Eighth floor','Nighth floor'];
+			var locals = {};
+			locals.data = getSiteRooms(data);
+			var  url ; 
+			for(var i=0; i<locals.data.length; i++) {
+			   for(var j=0; j<locals.data[i].buildings.length; j++) {
+					   for(var k=0; k<locals.data[i].buildings[j].floors.length; k++) {
+						   //console.log(locals.data[i].buildings[j].floors[k] );
+						   var name = '';
+						   url =  "/meeting/site/"+locals.data[i].name+"/building/"+locals.data[i].buildings[j].name+"/floor/"+k;
+						   //url =  "/buildings/"+locals.data[i].buildings[j].name+"/"+k;
+						   locals.data[i].buildings[j].floors[k] = {url:url, name:names[locals.data[i].buildings[j].floors[k]]};
+					   }									   
+			   }
+			}        
+     		return res.send(200,locals.data);          			
+		}
+	})
+})
+
+app.get('/meeting/sites',access_control.authUser,function(req,res,next){
+	roomModel.searchRooms({},function(err,data){
+	    if(err) res.send(500);
+		else if(!data) res.send(400);
+		else if(data){
+		    //res.send(200,getSiteRooms(data));
+			
+			var names = ['Ground floor','First floor','Second floor','Third floor','Fourth floor','Fifth floor','Sixth floor','Seventh floor','Eighth floor','Nighth floor'];
+			var locals = {};
+			locals.data = getSiteRooms(data);
+			var  url ; 
+			for(var i=0; i<locals.data.length; i++) {
+			   for(var j=0; j<locals.data[i].buildings.length; j++) {
+					   for(var k=0; k<locals.data[i].buildings[j].floors.length; k++) {
+						   //console.log(locals.data[i].buildings[j].floors[k] );
+						   var name = '';
+
+						   url =  "/meeting/site/"+locals.data[i].name+"/building/"+locals.data[i].buildings[j].name+"/floor/"+k;
+						   //url =  "/buildings/"+locals.data[i].buildings[j].name+"/"+k;
+						   locals.data[i].buildings[j].floors[k] = {url:url, name:names[locals.data[i].buildings[j].floors[k]]};
+					   }									   
+			   }
+			}
+            if(req.xhr) {
+			    console.log(' ajax');
+     			return res.send(200,locals.data);
+            }				
+			else {
+			    console.log('not ajax');
+			    res.render('landingpage.html', locals);
+            }				
+		}
+	})
+})
+
+function getSiteRooms(data){
+	var sites = [];
+
+	for(var i=0,l=data.length;i<l;i++) {
+		var row = data[i];
+		var site = false;
+		var building = false;
+		var floor = false;
+
+	//  search for existing site
+		for(var j=0,k=sites.length;j<k;j++) {
+			if(sites[j].name == row.site) {
+				site = j;
+				break;
+			}
+		}
+
+		if(site === false) {
+			site = sites.length;
+			sites[site] = {
+				name: row.site,
+				buildings: []
+			};
+		}
+
+	//  search for existing building
+		for(var j=0,k=sites[site].buildings.length;j<k;j++) {
+			if(sites[site].buildings[j].name == row.building) {
+				building = j;
+				break;
+			}
+		}
+
+		if(building === false) {
+			building = sites[site].buildings.length;
+			sites[site].buildings[building] = {
+				name: row.building,
+				floors: []
+			};
+		}
+
+	//  search for existing floor
+		for(var j=0,k=sites[site].buildings[building].floors.length;j<k;j++) {
+			if(sites[site].buildings[building].floors[j] == row.floor) {
+				floor = j;
+				break;
+			}
+		}
+
+		if(floor === false) {
+			floor = sites[site].buildings[building].floors.length;
+			sites[site].buildings[building].floors[floor] = row.floor;
+		}
+	}
+	return sites;
+}
+
+
+function getMenus(site, res){
+	roomModel.searchRooms({site:site},function(err,data){
+	    if(err) res.send(500);
+		else if(!data) res.send(400);
+		else if(data){
+		    //res.render('meeting2.html');
+			/*
+			data = _.map(data,function(room){
+			   delete room.__v;
+			   delete room._id;
+			})
+			
+							    < for(var i=0; i<locals.menus.length; i++) {>
+								    <li>
+										<a class='room_nav' ng-click="getRoomInfo($event.target.href);$event.preventDefault()" href="<%= locals.menus[i].url %>"><%= locals.menus[i].name %></a>
+                                    </li>
+								<} >			
+			
+			*/
+            var groups = _.groupBy(data,function(room){
+				return (room.site+","+room.building+","+room.floor);		
+			})
+			var sites = [];
+			var key_array = Object.keys(groups);
+			var locals = {};
+			var menus = [];
+			key_array.forEach(function(key){
+			    var subkeys = key.split(',');
+			    var site_key = subkeys[0], building_key = subkeys[1], floor_key = subkeys[2];
+				console.log(site_key, building_key, floor_key);
+				var name = '';
+				if(floor_key == 0) name = building_key+"  Ground";
+				else if(floor_key > 0) name = building_key+"  Floor"+floor_key;
+                menus.push({name: name, url: "/buildings/"+building_key+"/"+floor_key});				
+			})
+			locals.menus = menus;
+			res.render('meeting3.html', locals);
+		}
+	})
+}
+
+function getFlatMenus(site, res){
+    //site:site
+	roomModel.searchRooms({},function(err,data){
+	    if(err) res.send(500);
+		else if(!data) res.send(400);
+		else if(data){
+			/*
+			data = _.map(data,function(room){
+			   delete room.__v;
+			   delete room._id;
+			})
+			*/
+			var names = ['Ground floor','First floor','Second floor','Third floor','Fourth floor','Fifth floor','Sixth floor','Seventh floor','Eighth floor','Nighth floor'];
+			var locals = {};
+			locals.data = getSiteRooms(data);
+			var  url ; 
+			for(var i=0; i<locals.data.length; i++) {
+			   for(var j=0; j<locals.data[i].buildings.length; j++) {
+					   for(var k=0; k<locals.data[i].buildings[j].floors.length; k++) {
+						   //console.log(locals.data[i].buildings[j].floors[k] );
+						   var name = '';
+                           // meeting/site/Peterhouse_Technology_Park/building/CPC1/floor/1
+						    url =  "/buildings/"+locals.data[i].buildings[j].name+"/"+k;
+						   //url =  "/meeting/site/"+locals.data[i].name+"/building/"+locals.data[i].buildings[j].name+"/floor/"+k;
+						   locals.data[i].buildings[j].floors[k] = {url:url, name:names[locals.data[i].buildings[j].floors[k]]};
+					   }									   
+			   }
+			}		
+						
+			console.log(locals.data[0].buildings[0].floors[0]);
+            //res.send(200,getSiteRooms(data));
+			res.render('meeting3.html', locals);
+		}
+	})
+}
+
+function getMenus(site, res){
+	roomModel.searchRooms({site:site},function(err,data){
+	    if(err) res.send(500);
+		else if(!data) res.send(400);
+		else if(data){
+		    //res.render('meeting2.html');
+			/*
+			data = _.map(data,function(room){
+			   delete room.__v;
+			   delete room._id;
+			})
+			*/
+            var groups = _.groupBy(data,function(room){
+				return (room.site+","+room.building+","+room.floor);		
+			})
+			var sites = [];
+			var key_array = Object.keys(groups);
+			var locals = {};
+			var menus = [];
+			key_array.forEach(function(key){
+			    var subkeys = key.split(',');
+			    var site_key = subkeys[0], building_key = subkeys[1], floor_key = subkeys[2];
+				console.log(site_key, building_key, floor_key);
+				var name = '';
+				if(floor_key == 0) name = building_key+"  Ground";
+				else if(floor_key > 0) name = building_key+"  Floor"+floor_key;
+                menus.push({name: name, url: "/buildings/"+building_key+"/"+floor_key});				
+			})
+			locals.menus = menus;
+			res.render('meeting3.html', locals);
+		}
+	})
+}
+// http://localhost/meeting/site/Peterhouse_Technology_Park/building/ARM3/floor/0
+app.get('/meeting/site/:site/building/:building/floor/:floor',access_control.authUser,function(req,res,next){
+    var site = req.params.site, building = req.params.building, floor = req.params.floor;
+	var  site = replaceAll("_"," ",site);
+	console.log("site:"+site+":"+building+":*   floor");
+    getFlatMenus(site, res);
+	//res.send(200,getSiteRooms(data));
+})
+
+app.get('/meeting/site/:site/building/:building',access_control.authUser,function(req,res,next){
+    var site = req.params.site, building = req.params.building;	
+	var site = replaceAll("_"," ",site);
+	console.log("fuck fuck  fuck  site:"+site+":"+building+":*");
+    getFlatMenus(site, res);
+})
+
+// http://localhost/meeting/site/Capital_Park
+// http://localhost/meeting/site/Peterhouse_Technology_Park
+app.get('/meeting/site/:site',access_control.authUser,function(req,res,next){
+    var site = req.params.site;	
+	var site = replaceAll("_"," ",site);
+	console.log("site:"+site+":");
+    getFlatMenus(site, res);
+})
+
+
+
+
+/*
+	sensorRoomModel.searchSite("site:"+site+":"+building+":*",function(err,rooms){
+		res.send(rooms);
+	})
+*/
+
+/************************************
+
+
+*************************************/
+
 app.get('/buildings/test',access_control.authUser,function(req,res){
     sensorRoomModel.getRoomByBuilding('abc',function(err,data){
 	    if(err) res.send(404);
@@ -143,6 +633,9 @@ app.get('/buildinglist',access_control.authUser,function(req,res){
 	];
 	res.json(200,{buildings:list});
 })
+
+
+
 
 app.get('/buildings/:name/:floor',access_control.authUser,function(req,res){
     var name = req.params.name, floor = req.params.floor;
@@ -209,451 +702,66 @@ app.get('/buildings/:name/:floor',access_control.authUser,function(req,res){
 	})
 })
 
-app.get('/buildings/:name/:floor/cache',access_control.authUser,function(req,res){
-    var name = req.params.name, floor = req.params.floor;
-	name = name || 'ARM1';
+app.get('/buildings/:building/:floor/cache',access_control.authUser,function(req,res){
+    var building = req.params.building, floor = req.params.floor;
+	building = building || 'ARM1';
 	floor = floor || 0;
-	var rooms = simulation.buildings[name+" "+floor];
-	console.log(rooms);
+	//var rooms = simulation.buildings[name+" "+floor];
+	//console.log(rooms);
 	
 	var array = [];
-	for(var i=0;i<rooms.length;i++){
-	   array.push(rooms[i].room)
-	}
+	
+	roomModel.searchRooms({building:building,floor:floor},function(err,data){
+	    if(err) res.send(500);
+		else if(!data) res.send(400);
+		else if(data){
+			for(var i=0;i<data.length;i++){
+				array.push(data[i].room)
+			}			
+			sensorRoomModel.getRoomData(array, function(err,rooms){
+				if(err) {  console.log('get room error '.red); res.send(500)}
+				else if(!rooms) { console.log('no data for room'.red); res.send(404);}
+				else{		   
+					//console.log('get rooms data '.green, rooms);
+					var rooms_array = [];
+					_.map(rooms,function(room){
+						rooms_array.push(room.name);
+					})
+					
+					var now = new Date(), early_day = new Date(now.getFullYear(),now.getMonth(),now.getDate(),0,0,0);			
+					sensorRoomModel.getCachedEvents(rooms_array,early_day,function(err,data){				
+						if(err) res.send(500);
+						else{
+							//console.log(data);					
+							var hash = {};
+							_.map(data,function(room_event){
+								hash[room_event.url] = room_event.events;
+							})
+							
+							_.map(rooms,function(room){
+								room.events = hash[room.url];
+								 room.displayname = displayname(room.name);						
+							})
+							res.send(200,{rooms:rooms});
+							delete hash;
+							delete rooms_array;
+						}				
+					})            			
+				}
+			})			
+		}
+	})	
 	
 	var displayname = function(name){
 		var temp_name = name;
 		temp_name = temp_name.substring( temp_name.indexOf('UKC')+3,temp_name.length);
 		return temp_name;
 	}
-	
-	sensorRoomModel.getRoomData(array, function(err,rooms){
-		if(err) {  console.log('get room error '.red); res.send(500)}
-		else if(!rooms) { console.log('no data for room'.red); res.send(404);}
-		else{		   
-			//console.log('get rooms data '.green, rooms);
-			var rooms_array = [];
-			_.map(rooms,function(room){
-			    rooms_array.push(room.name);
-			})
-			
-    	    var now = new Date(), early_day = new Date(now.getFullYear(),now.getMonth(),now.getDate(),0,0,0);			
-			sensorRoomModel.getCachedEvents(rooms_array,early_day,function(err,data){				
-			    if(err) res.send(500);
-			    else{
-					//console.log(data);					
-					var hash = {};
-					_.map(data,function(room_event){
-						hash[room_event.url] = room_event.events;
-					})
-					
-					_.map(rooms,function(room){
-						room.events = hash[room.url];
-                         room.displayname = displayname(room.name);						
-					})
-     				res.send(200,{rooms:rooms});
-					delete hash;
-					delete rooms_array;
-				}				
-			})            			
-		}
-	})
 })
 
 /**********************************************   ********************************************************/
 
-function SensorRoomModel(){
-	var redis_ip= config.redis.host;  
-	var redis_port= config.redis.port;
-	
-	// name == building name
-	function getRoomByBuilding(name,callback){
-		var rooms = [];
-		var redisClient;	
-		try{ 
-			redisClient = redis.createClient(redis_port,redis_ip);
-		}
-		catch (error){
-			console.log('get room by building  error' + error);
-			redisClient.quit();
-			return callback(error,null);
-		}		
-		redisClient.keys("res:room:*", function(err, keys) {
-			console.log('res key room',keys.length);
-			
-			var mul = redisClient.multi();
-			keys.forEach(function(key){		
-			   mul.hmget( key , 'building','floor');
-			})		           		
-			mul.exec(function (err, replies) {
-				console.log("res:room Resource ".green + replies.length + " replies");
 
-			    if(err) { redisClient.quit(); return callback(err,null);}			    
-			    else if(!replies){ redisClient.quit(); return callback(null,null);}					
-				else{											
-					for(var i=0;i<keys.length;i++){
-                         if(replies[i][0] != null)					
-						 rooms.push({'room':keys[i],'building':replies[i][0], 'floor':replies[i][1]});                        						 
-					}
-
-					var groups = _.groupBy(rooms,function(room){
-						return (room.building+" "+room.floor);		
-					})
-					
-					_.map(groups,function(group){
-					    console.log(group.length);
-						console.log('--------------------------------------------------------');
-						var array = _.map(group,function(room){
-						    delete room.building; delete room.floor;
-						    return room.room;
-						})
-					    return [];
-					})
-					redisClient.quit();
-                    return callback(null,groups);					
-                }									
-			});						
-		});		
-	}
-	// name == room url
-	function updateMotion(name,time,callback){
-		var redisClient;	
-		try{ 
-			redisClient = redis.createClient(redis_port,redis_ip);
-		}
-		catch (error){
-			console.log('updateMotion  error' + error);
-			redisClient.quit();
-			return callback(error,null);
-		}	
-		
-		redisClient.hmset(name, 'time',time, 'displayname',name,function(err, data){
-			redisClient.quit();
-			if(err) {return callback(err,null);}
-			else if(data) { return callback(null,data);}
-			else { return callback(null,null);}	
-		});
-
-		redisClient.quit();
-	}
-	
-	function updateOnline(name,online,callback){
-		var redisClient;	
-		try{ 
-			redisClient = redis.createClient(redis_port,redis_ip);
-		}
-		catch (error){
-			console.log('updateOnline  error' + error);
-			redisClient.quit();
-			return callback(error,null);
-		}	
-		
-		redisClient.hmset(name, 'online',online, function(err, data){
-			redisClient.quit();
-			if(err) {return callback(err,null);}
-			else if(data) { return callback(null,data);}
-			else { return callback(null,null);}	
-		});
-
-		redisClient.quit();
-	}
-	
-    // room url
-	function updateTempData(name,temp,callback){
-		var redisClient;	
-		try{ 
-			redisClient = redis.createClient(redis_port,redis_ip);
-		}
-		catch (error){
-			console.log('updateTempData' + error);
-			redisClient.quit();
-			return callback(error,null);
-		}	
-		
-		redisClient.hmset(name, 'temp',temp, function(err, data){
-			redisClient.quit();
-			if(err) {return callback(err,null);}
-			else if(data) { return callback(null,data);}
-			else { return callback(null,null);}	
-		});		
-	}
- 
-	// items == room urls
-	function getRoomData( items, callback ){
-		var redisClient;	
-		try{ 
-			redisClient = redis.createClient(redis_port,redis_ip);
-		}
-		catch (error){
-			console.log('getSensorData  error' + error);
-			redisClient.quit();
-			return callback(error,null);
-		}	
-        
-		items = _.map(items,function(item){
-            var begin = item.lastIndexOf('http');
-		    if(begin==0) return 'res:room:'+item;
-            else return item;		    
-		})
-		
-		var mul = redisClient.multi();
-		for(var i=0;i<items.length;i++){
-		   //mul.hgetall(items[i]);
-		   mul.hmget(items[i], 'event', 'time', 'temp','query:motion','query:temperature','online');  //,'name','diaplayname','temperature','time'
-		}
-		mul.exec(function (err, replies) {            
-			redisClient.quit();
-			if(err) {redisClient.quit();return callback(err,null);}			
-			else if(!replies){ redisClient.quit(); return callback(null,null);}
-            else if(replies) { 
-			    redisClient.quit();				
-				var rooms = [];
-				for(var i=0;i<replies.length;i++){
-				    //console.log('get room data ',replies[i]);
-					var room = replies[i];
-					var short_name = getShortName(items[i]), time = room[1], temp = room[2];
-					if(time == null) time = new Date();
-					if(temp == null || temp ==0) temp = 22.5 ;
-				    //rooms.push({url:items[i],name:short_name,event:room[0],time:room[1],temperature:room[2]});
-					var url = getURLFromKey(items[i]);
-					
-					var m_enabled = false, t_enabled = false, online=false ;
-					if(room[3] !=null) m_enabled = true;
-					if(room[4]!=null) t_enabled = true;
-					if(room[5]!=null) {
-					    if(room[5]==1) online = true;
-						else if(room[5]==0) online = false;
-					}
-					if(m_enabled)
-					rooms.push({url:url,name:short_name,event:room[0],time:time,temperature:temp, m_enabled:m_enabled, t_enabled:t_enabled, sensor: room[3], online:online});
-					else 
-					rooms.push({url:url,name:short_name,event:room[0],time:time,temperature:temp, m_enabled:m_enabled, t_enabled:t_enabled, online: online});					
-					//console.log('^^^^^^^^^^^^^^^'.green,url, m_enabled, t_enabled);
-				}
-							
-				return callback(null,rooms);
-			}			
-		});			
-	}
-
-    var getURLFromKey = function(key){
-	    var begin = key.lastIndexOf('http');
-		//console.log(';;;   ',key);
-		if(begin==0) return key;
-		else{
-	        var url = key.substring(9,key.length);
-		    return url;
-		}
-	}
-	
-	// url == sensor url
-	function queryRoomFromSensor( url, callback){
-		var redisClient;	
-		try{ 
-			redisClient = redis.createClient(redis_port,redis_ip);
-		}
-		catch (error){
-			//console.log('queryRoomFromSensor' + error);
-			redisClient.quit();
-			return callback(error,null);
-		}	
-		
-		redisClient.hmget(url, 'room', function(err, data){			
-			if(err) { redisClient.quit();	 return callback(err,null);}
-			else if(!data) { redisClient.quit();	 return callback(null,null);}
-			else { 
-			    var room_id = data;				
-				//redisClient.hgetall(room_id,function(err,room){
-				redisClient.hmget(room_id,'event', 'time', 'temp',function(err,room){
-                    //console.log('room Data: ' + room_id);
-					redisClient.quit();
-					if(err) {return callback(err,null);}
-					else if(!room[0]) { return callback(null,null);}
-					else {					    
-						var short_name = getShortName(room_id[0]);					    
-					    return callback(null,{url:room_id[0],name:short_name,event:room[0],time:room[1],temperature:room[2]});
-					}	
-                })
-			}	
-		});		
-	}
-
-	var getShortName = function(url){
-	   var array = url.split('/');
-	   return array[array.length-1];
-	}
-	
-	function cacheEvents( _callback){
-		var redisClient;	
-		try{ 
-			redisClient = redis.createClient(redis_port,redis_ip);
-		}
-		catch (error){
-			console.log('get room by building  error' + error);
-			redisClient.quit();
-			return callback(error,null);
-		}		
-		redisClient.keys("res:room:*", function(err, keys) {
-			console.log('res key room',keys);			
-            redisClient.quit();
-
-            if(keys!=null){
-			    var rooms = [];
-			    _.map(keys,function(key){
-				    key = key.substring(9,key.length);
-					var arr = key.split('/');
-					rooms.push({url:key, name: arr[arr.length-1]});
-				})
-				//console.log(rooms);	
-				var tomorrow = false;		
-				async.forEach(rooms, 
-				  function(room, callback){ 
-						console.log('update room events  ', room.url, room.name);		  
-						buildingService.fetchResourceDetail(room.url+"/events",function(err,eventlist){
-							if(err){
-								winston.error('error    '+room.url+"/events");
-								room.events = [];	
-							}else{
-								var now = new Date(), late_day = new Date(now.getFullYear(),now.getMonth(),now.getDate(),23,59,59), early_day = new Date(now.getFullYear(),now.getMonth(),now.getDate(),0,0,0);
-								// all events in this day
-								//console.log('eventlist'.green,room.name, eventlist.length, late_day);
-								if(tomorrow)
-								eventlist = _.filter(eventlist, function(event){ var eventDate = new Date(event.endDate);   return eventDate.getTime() > late_day.getTime(); });
-								else
-								eventlist = _.filter(eventlist, function(event){ var eventDate = new Date(event.endDate); return eventDate.getTime() <= late_day.getTime(); });				
-								room.events = eventlist;
-								console.log('filtered  ... '+room.events.length);
-								_.map(room.events,function(event){
-									delete event.url;
-									delete event.location;							
-								})
-								eventModel.pushRoomEvents(room.name,room.url,early_day,room.events,function(err,data){
-									if(err){
-										console.log('events updated error '.red+err);
-									}
-									else{
-										console.log('events updated  '.green,room.url);				
-									}
-								});
-								callback();
-							}
-						})
-				  },
-				  function(err){
-					//winston.debug('get all the messages ',util.inspect(events, false, null));
-					if(err) _callback(err,null);
-					else _callback(null,rooms);
-				  } 
-				);						
-			}			
-		});	
-	}
-	
-	function getCachedEvents(rooms, early_day, callback){
-		eventModel.getMultiRoomEvents(rooms,early_day,function(err,data){
-			if(err){
-				console.log('getting events error '.red+err);
-				callback(err,null);
-			}
-			else{
-				_.map(data.events,function(event){  delete event._id; })
-				var now = new Date(), late_day = new Date(now.getFullYear(),now.getMonth(),now.getDate(),23,59,59), early_day = new Date(now.getFullYear(),now.getMonth(),now.getDate(),0,0,0);
-				data.events = _.filter(data.events, function(event){  
-												  var eventDate = new Date(event.endDate);  
-												  return eventDate.getTime() <= late_day.getTime(); 
-												});
-				//console.log('getting events  '.green);
-				callback(null,data);				
-			}		
-		});        
-	}
-	
-	function getSensorDataFromRoom(rooms, option, range, _callback){
-		var redisClient;	
-		try{ 
-			redisClient = redis.createClient(redis_port,redis_ip);
-		}
-		catch (error){
-			console.log('get room by building  error' + error);
-			redisClient.quit();
-			return callback(error,null);
-		}	    
-		var mul = redisClient.multi();
-		for(var i=0;i<rooms.length;i++){
-		   mul.hmget("res:room:"+rooms[i], 'query:'+option); 
-		}
-		mul.exec(function (err, replies) {            
-			redisClient.quit();
-			if(err) {redisClient.quit();return _callback(err,null);}			
-			else if(!replies){ redisClient.quit(); return _callback(null,null);}
-            else if(replies) { 
-			    redisClient.quit();				
-				var urls = [];
-				_.map(replies,function(url,i){   // res:sensor:
-				    //console.log(url);
-					if(url[0]!=null){
-				        //url = url[0].substring(11,url[0].length);					
-					    urls.push({url:url,room:rooms[i]});
-					}
-				})
-				
-				var sensors = [];
-				async.forEach(urls, function(obj,callback){
-                    //var range = "?start="+  ( -60*60*24 )+"&end="+ (-100);
-                    var sensor = {};
-                    sensor.url = obj.url;
-					sensor.room = obj.room;
-				    meetingService.getResourceData(obj.url, range, function(err,data){
-						if(err)  {
-						   console.log(err);
-						   sensor.data = [];
-						}   
-						else {
-							//console.log('data   ------------------'.green,url, data.e.length);			
-							var senmlParse = function(data){			
-								var e = data.e;
-								e.forEach(function(data){
-								    delete data.n;
-									//console.log(  moment(data.t*1000 ).fromNow() );	//   ,new Date(data.t*1000) ,  moment(data.t*1000 ).fromNow()
-								})			
-							}						
-							senmlParse(data);
-                            sensor.e = data.e;							
-						}
-						sensors.push(sensor);
-                        callback();						
-					})							
-				},function(err) {      
-				    if(err){
-					   console.log(err);
-					   _callback(err,null);
-				    }
-				    else{
-					    _callback(null,sensors);
-				    }
-			    })              
-			}			
-		});
-	}
-	
-    return {
-	    // update the sensor data for the room model
-	    updateMotion:updateMotion,        // update room model with sensor data
-		updateTempData:updateTempData,    // update room model with sensor data
-		updateOnline:updateOnline,
-		// know which room this sensor belongs to
-		queryRoomFromSensor:queryRoomFromSensor, // find room from the sensor url
-		// get all the meetings for building
-		getRoomByBuilding:getRoomByBuilding,  // get rooms by filtering the building and floor
-		getRoomData:getRoomData,       // get room info including room name and room sensor data
-		
-		/////////////////////////////////// events /////////////////////////////////////////////
-		cacheEvents:cacheEvents,
-		getCachedEvents:getCachedEvents,
-		//////////////////////////////////
-        getSensorDataFromRoom:getSensorDataFromRoom		
-	}
-}
 /********************88   *********************/
 
 // http://localhost/room/event?url=https://protected-sands-2667.herokuapp.com/rooms/Room.UKCGM4
@@ -684,7 +792,7 @@ app.get('/arm/meeting/history/all',access_control.authUser,function(req,res,next
 	var range = "?start="+day_begin.getTime()/1000+"&end="+day_end.getTime()/1000;
 	console.log(   day_begin, day_end);
     //var range = "?start="+  ( -60*60*24*2 )+"&end="+ (-100);
-    sensorRoomModel.getSensorDataFromRoom(rooms,'motion',range, function(err,data){
+    sensorRoomModel.getSensorDataFromRoom(meetingService,rooms,'motion',range, function(err,data){
 	    if(err) res.send(404);
 	    else{
 		    _.map(data,function(sensor){
@@ -699,25 +807,25 @@ app.get('/buildings/map',access_control.authUser,function(req,res){
     var building = req.query.building, floor = req.query.floor;
 	console.log('building  map'.green,building,floor);
 	var mappath = 'maps/ARM-MAP_Base.svg';
-	if(building == 'ARM0' && floor == 0){
-        mappath = 'maps/ARM-MAP_Base.svg';
-	}else if(building == 'ARM0' && floor == 1){
-        mappath = 'maps/ARM-MAP_Base.svg';	
-	}
-	else if(building == 'ARM1' && floor == 0){
-        mappath = 'maps/ARM-MAP_Base.svg';	
+	if(building == 'ARM1' && floor == 0){
+        mappath = 'maps/ARM1-FIRST-FLOOR.svg';
 	}else if(building == 'ARM1' && floor == 1){
-        mappath = 'maps/ARM-MAP_Base.svg';	
+        mappath = 'maps/ARM1-FIRST-FLOOR.svg';	
+	}
+	else if(building == 'ARM2' && floor == 0){
+        mappath = 'maps/ARM2-GROUND-FLOOR.svg';	
+	}else if(building == 'ARM2' && floor == 1){
+        mappath = 'maps/ARM2-FIRST-FLOOR.svg';	
 	}
 	else if(building == 'ARM3' && floor == 0){
-        mappath = 'maps/ARM-MAP_Base.svg';	
+        mappath = 'maps/ARM3-GROUND-FLOOR.svg';	
 	}else if(building == 'ARM3' && floor == 1){
-        mappath = 'maps/ARM-MAP_Base.svg';	
+        mappath = 'maps/ARM3-FIRST-FLOOR.svg';	
 	}
 	else if(building == 'ARM6' && floor == 0){
-        mappath = 'maps/ARM-MAP_Base.svg';	
+        mappath = 'maps/ARM6-GROUND-FLOOR.svg';	
 	}else if(building == 'ARM6' && floor == 0){
-        mappath = 'maps/ARM-MAP_Base.svg';	
+        mappath = 'maps/ARM6-FIRST-FLOOR.svg';	
 	}
     res.sendfile(mappath);	
 })
@@ -734,8 +842,7 @@ app.get('/buildings/history/events/all',access_control.authUser,function(req,res
 			_.map(rooms,function(room){
 			    rooms_array.push(room.name);
 			})
-			
-	
+				
 	        var day_begin  = new Date(req.query.start);
     	    var early_day = new Date(day_begin.getFullYear(),day_begin.getMonth(),day_begin.getDate(),0,0,0);
 			
@@ -786,7 +893,7 @@ app.get('/arm/people',access_control.authUser,function(req,res){
 })
 
 
-app.get('/catchevents',access_control.authUser,function(req,res){
+app.get('/cacheevents',access_control.authUser,function(req,res){
     sensorRoomModel.cacheEvents(function(err,rooms){
 	    if(err) res.send(500);
 		else res.send(200,rooms);
@@ -797,7 +904,7 @@ app.get('/catchevents',access_control.authUser,function(req,res){
 var schedule = require('node-schedule');
 var rule = new schedule.RecurrenceRule();
 rule.dayOfWeek = [0, new schedule.Range(0, 4)];
-rule.hour = 1;
+rule.hour = 3;
 rule.minute = 40;
 
 var j = schedule.scheduleJob(rule, function(){
