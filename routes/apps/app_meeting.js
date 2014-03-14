@@ -37,7 +37,7 @@ serviceCatalog.findByURL('https://geras.1248.io/cat/armmeeting',function(err,ser
 	}    
 }); 
 
-serviceCatalog.findByURL('https://protected-sands-2667.herokuapp.com/cat',function(err,service){
+serviceCatalog.findByURL('https://protected-sands-2667.herokuapp.com/cat-1',function(err,service){
     if(err || !service){
 	    console.log(' catalog can not be found ',err);
 	}else if(!service){  console.log('no data in the catalog ');}
@@ -46,6 +46,7 @@ serviceCatalog.findByURL('https://protected-sands-2667.herokuapp.com/cat',functi
         buildingService = service;		
 	}    
 });   
+
 var filter = new catalogFilter();
 initApp();
 function initApp(){
@@ -55,8 +56,7 @@ function initApp(){
 		app.subscribeService('armmeeting',function(err,success){
 			if(err) winston.error('errro in subscrption ');
 			else winston.info('subscribe success');
-		})
-		
+		})		
 		app.subscribeCatalogNotification('catalog',function(pattern,channel,message){
 		    console.log('meeting app receive catalog notification   '.yellow, message);			
             try{
@@ -68,7 +68,6 @@ function initApp(){
 				},function(err){
 					console.log('');
 				});
-
             }catch(e){
 			    console.log(' message   pattern   error  '.red,e);
 			} 				
@@ -109,24 +108,31 @@ function checkCatalogUpdate(catalog){
 						catalogDB.saveResource('res:room:'+key, results[key],function(){  callback(); });
 					},function(err){
 						console.log('complete room in redis '.yellow);
-						roomModel.clearRooms({},function(){})
-						sensorRoomModel.getAllRooms(function(err,data){
-							if(err) {console.log('get all rooms  error '.red, err);}
-							else if(!data){console.log('get all rooms   ',data);}
-							else{
-							    console.log('-------------------------------------------------');
-								console.log(data.length);
-                                //sensorRoomModel.saveAllSites(data,function(){});
-								data.forEach(function(room){
-								    if(room.floor == 'Ground') room.floor = 0;
-									else if(room.floor == '1st')  room.floor = 1;
-								    roomModel.pushRoom(room,function(err,data1){
-									    console.log(err,data1,room);
-									});									
-								})
-                                							
-							}
-						})						
+						roomModel.clearRooms({},function(){
+						
+							sensorRoomModel.getAllRooms(function(err,data){
+								if(err) {console.log('get all rooms  error '.red, err);}
+								else if(!data){console.log('get all rooms   ',data);}
+								else{
+									console.log('-------------------------------------------------');
+									console.log(data.length);
+									//sensorRoomModel.saveAllSites(data,function(){});
+									data.forEach(function(room){
+										if(room.floor == 'Ground') room.floor = 0;
+										else if(room.floor == '1st')  room.floor = 1;
+										roomModel.pushRoom(room,function(err,data1){
+											if(err) console.log('update error  '.red,err);
+											else if(!data1) console.log('push room data empty  '.rred);
+											else if (data1)
+											{
+												console.log('save the room    '.green,catalog.url);
+											}  
+										});									
+									})                              							
+								}
+							})
+							
+                        })						
 					});							
 				});							
 			}	
@@ -299,10 +305,6 @@ function MeetingRoomMQTTHandler(){
 		}
     }		
 }
-
-
-
-
 
  /*
 https://alertmeadaptor.appspot.com/traverse?traverseURI=https%3A//geras.1248.io/cat/armmeeting/17/MotionSensor/00-0D-6F-00-00-C1-34-EB&traverseKey=924a7d4dbfab38c964f5545fd6186559
@@ -722,7 +724,7 @@ app.get('/buildings/:building/:floor/cache',access_control.authUser,function(req
 				if(err) {  console.log('get room error '.red); res.send(500)}
 				else if(!rooms) { console.log('no data for room'.red); res.send(404);}
 				else{		   
-					//console.log('get rooms data '.green, rooms);
+					//console.log('get rooms data ----------------------'.green, rooms);
 					var rooms_array = [];
 					_.map(rooms,function(room){
 						rooms_array.push(room.name);

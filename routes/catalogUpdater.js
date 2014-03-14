@@ -115,8 +115,8 @@ function CatalogUpdater(){
 				var catalog_profiles = [];
 				async.eachSeries(catalogs,function(catalog, callback){
 				    //console.log('get one catalog '.green, catalog.url,catalog.key);	
-					//   https://geras.1248.io/cat/armhome    
-					if( catalog.url=='https://geras.1248.io/cat/armmeeting' || catalog.url == 'https://protected-sands-2667.herokuapp.com/cat-1' ||  catalog.url == 'https://protected-sands-2667.herokuapp.com/cat-2'){
+					//   https://geras.1248.io/cat/armhome  catalog.url=='https://geras.1248.io/cat/armmeeting' ||    ||  catalog.url == 'https://protected-sands-2667.herokuapp.com/cat-2'
+					if(  catalog.url == 'https://protected-sands-2667.herokuapp.com/cat-1' ){
                         var crawler = new catalog_crawler(catalog);					
 						crawler.startCrawl(catalog, function(facts){
 							catalogFactsModel.storeCatalogFacts( catalog.url,facts,function(err,data){
@@ -141,6 +141,28 @@ function CatalogUpdater(){
 				    _callback(err,catalog_profiles);    
 				})
 	}
+
+	function crawlSingleCatalog(catalog,_callback){
+	    //console.log('success get catalogs '.green, catalogs);
+		var catalog_profiles = [];					
+		var crawler = new catalog_crawler(catalog);					
+		crawler.startCrawl(catalog, function(facts){
+			catalogFactsModel.storeCatalogFacts( catalog.url,facts,function(err,data){
+				if(err) console.log('catalog  facts  store error '.red,err);
+				else {
+					console.log('catalog  facts  store  data  '.green,catalog.url, data);
+				}
+				/////////////////////////////////////////////////////////
+				filter.filterStandard(facts,function(results,category){
+					var key_array = Object.keys(results);								
+					console.log('complete   filterStandard'.green, key_array.length, category);
+					catalog_profiles.push({url:catalog.url, profile:category.profile, types : category.types});	
+					_callback(err,catalog_profiles);									
+				}); 								
+			});	
+		});
+	}
+
 	
 	function updateMeetingRoomAndLocation( _callback){
 		async.series([
@@ -266,12 +288,14 @@ function CatalogUpdater(){
 	return {
         //updateIntellsenseCatalog:updateIntellsenseCatalog,
         //updateEnlightCatalog:updateEnlightCatalog,
+		
         updateHomeCatalog:updateHomeCatalog,
 		updateMeetingRoomAndLocation:updateMeetingRoomAndLocation,
 		
 		
 		crawlRoot:crawlRoot,
-		crawlSubCatalogs:crawlSubCatalogs
+		crawlSubCatalogs:crawlSubCatalogs,
+		crawlSingleCatalog:crawlSingleCatalog
 	}	
 }
 

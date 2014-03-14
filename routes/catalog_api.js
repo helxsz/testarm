@@ -79,10 +79,7 @@ catalogDB.checkDB(function(err,data){
 	}
 })
 
-
 // 1. crawl Root catalogs
-/**/
-
 function crawlRoot(_callback){
 	catalogUpdater.crawlRoot(function(err,data){
 		console.log('crawel root '.green,data.items);
@@ -131,14 +128,12 @@ function startUP(){
 		else{
 			//  2. build the services
 			serviceBuilder.build(catalogs);
-				
 			//console.log('now boot the applications  layer'.green);
 			// 4. build the applications
 			bootApps(app,__dirname + '/apps');
 			// boot real time services 
 			// 5. build the real time services
-			bootRealTimeServices(catalogs); 		
-		
+			bootRealTimeServices(catalogs);		
 		}
 	})
 }
@@ -174,11 +169,107 @@ app.get('/admin/catalogs/:id/delete',function(req,res,next){
 	});
 })
 // http://localhost/admin/catalogs/update
-app.get('/admin/catalogs/update',function(req,res,next){
+app.get('/admin/catalogs/all/update',function(req,res,next){
     crawlRoot(function(){
 	    res.send(200);
 	})
 })
+
+// get catalog pages
+app.get('/admin/catalogs',function(req,res,next){
+    res.render('catalogs.html');
+})
+
+
+// http://localhost:8080/admin/catalogs/remote
+app.get('/admin/catalogs/remote',function(req,res,next){
+    var update = false;
+	if( req.query.update !=null )
+	update = req.query.update;
+	catalogUpdater.crawlRoot(function(err,data){
+		if(err) { console.log('getCatalogs   ---  get catalog remote data '.red); res.send(500);}
+		else if(!data){  console.log(' no catalogs found');  res.send(404); }
+		else{
+		    console.log('crawel root '.green,data.items);
+		    var subcatalogs = data.items;
+			var catalogs = []; 
+			async.forEach(subcatalogs, 
+				function (e, callback){ 
+					console.log(e.href); // print the key
+					var metadatas = e['i-object-metadata'];
+					var description='', key='', url;
+					url = e.href;
+					metadatas.forEach(function(meta){
+						//console.log(meta.rel, meta.val);
+						if(meta.rel == 'urn:X-tsbiot:rels:isContentType'){			
+						}else if(meta.rel == 'urn:X-tsbiot:rels:hasDescription:en'){
+							description = meta.val;
+						}else if(meta.rel == 'urn:X-tsbiot:rels:hasKey'){
+							key = meta.val;
+						}
+					})			
+					var arr = url.split('/');			
+					console.log('subcatalog in the root  '.green,url, key ); //description ,
+					catalogs.push({url:url,key:key, name:arr[arr.length-1], description:description});
+					if(update){
+					    console.log('update ....');
+                        serviceCatalog.addService({url:url,key:key, name:arr[arr.length-1], description:description});
+                    } 					
+					callback(); 
+			},  function(err) {
+				console.log('finish crawl the root catalog '.green); 
+				res.send(200,catalogs);				
+			});	
+		}			
+	})
+})
+
+// http://localhost:8080/admin/catalogs/local
+app.get('/admin/catalogs/local',function(req,res,next){
+    console.log('get all the local catalogs  ');
+	catalogModel.getCatalogs(function(err,catalogs){
+		if(err) { console.log('getCatalogs   ---  get local catalog data '.red); res.send(500);}
+		else if(!catalogs){  console.log(' no catalogs found');  res.send(404); }
+		else{
+            res.send(200,catalogs);		
+		}
+	})
+})
+
+// get 
+app.post('/admin/catalogs/update',function(req,res,next){    
+    var url = req.query.url, key = req.query.key;
+	if(url !=null && key !=null){
+	    console.log('crawl single catalog   ',url, key);
+	    catalogUpdater.crawlSingleCatalog({url:url,key:key},function(err,data){
+            if(err) req.send(500,err);
+            else if(!data) req.send(404);
+            else if(data){			
+			    console.log('finish crawl the catalogs .....................'.green,data,url);
+			    serviceBus.sendTopicMessage('catalog',JSON.stringify(data));				
+			    res.send(200,data);
+		    }
+	    })
+	}   
+	else 
+	res.send(200,{error:'url is wrong'});
+})
+
+app.del('/admin/catalogs/remove',function(req,res,next){
+    var url = req.query.url;
+	if(url !=null){
+	    catalogModel.removeCatalog({url:url},function(err,data){
+            if(err) req.send(500,err);
+            else if(!data) req.send(404);
+            else if(data){			
+			    req.send(200,data);
+		    }
+		})    
+	} 
+	else 
+	res.send(200,{error:'url is wrong'});
+})
+
 // http://localhost/admin/catalogs/empty
 app.get('/admin/catalogs/empty',function(req,res,next){
     catalogDB.flushALL(function(){

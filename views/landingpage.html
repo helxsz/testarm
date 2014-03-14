@@ -37,30 +37,37 @@
     <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
 <![endif]-->
 
-    <div class="meeting-room">
+    <div class="meeting-room meeting-room-v2 landing-page">
     <!-- START .meeting-room -->
 
         <div id="container" class="container" class="clearfix" ng-controller="meetingListCtrl">
         <!-- START #container -->
 
-            <section class="mp-pusher" id="mp-pusher">
+            <section id="mp-pusher" class="mp-pusher">
 
                 <!-- mp-menu -->
                     <nav id="mp-menu" class="mp-menu" > 
                         <div class="mp-level">
                             <button id="triggerMobile" class="mp-close d-hide t-hide"><i class="icon-cancel_circle icon2x"></i></button>
-                            <h2><i class="icon-data_science blue"></i> ARM Buildings</h2>
-                            <ul>
-							    <% for(var i=0; i<locals.data.length; i++) {%>
-                                   <div> <%= locals.data[i].name %>  </div>
-								   <% for(var j=0; j<locals.data[i].buildings.length; j++) {%>
-								       <div> <%= locals.data[i].buildings[j].name %>  </div>
-									       <% for(var k=0; k<locals.data[i].buildings[j].floors.length; k++) {%>								               
-											   	<a class='room_nav' ng-click="getRoomInfo($event.target.href);$event.preventDefault()" href="<%= locals.data[i].buildings[j].floors[k].url %>"><%= locals.data[i].buildings[j].floors[k].name %></a>
-								           <% } %>									   
-								   <% } %>
-								<% } %>                           							  
-                            </ul>                               
+                            <% for(var i=0; i<locals.data.length; i++) {%>
+
+                              <h2><i class="icon-data_science blue"></i> <%= locals.data[i].name %></h2>
+                              <ul>
+
+                                <li>
+            								    <% for(var j=0; j<locals.data[i].buildings.length; j++) {%>
+            								      <span class="mp-back"> <%= locals.data[i].buildings[j].name %></span>
+
+            									    <% for(var k=0; k<locals.data[i].buildings[j].floors.length; k++) {%>								               
+            											<a class='room_nav' ng-click="getRoomInfo($event.target.href);$event.preventDefault()" href="<%= locals.data[i].buildings[j].floors[k].url %>"><%= locals.data[i].buildings[j].floors[k].name %></a>
+
+          								        <% } %>									   
+            								    <% } %>
+                                </li>
+
+                              </ul>  
+
+                            <% } %>                              
                         </div>
                     </nav>
                     <!-- /mp-menu -->
@@ -75,7 +82,7 @@
                     <header id="banner" class="d1-d9 t1-t4 m-all clearfix" >
                     <!-- START #banner -->
                         <button id="trigger" onclick="_gaq.push(['_trackEvent', 'Menu', 'Toggle', 'Menu Toggle',, false]);"><i class="icon-reorder icon2x"></i></button>
-                        <h1 ng-cloak>{{current_building}} <span class="blue" ng-cloak> {{current_floor}} FLOOR</span> <span class="pink">MEETING ROOM</span> AVAILABILITY</h1>
+                        <h1>ARM <span class="blue">MEETING ROOM</span> LOCATIONS</h1>
                     <!-- END #banner -->
                     </header>
 
@@ -116,7 +123,7 @@
                                   <!-- START .ch-info -->
                                       <div class="ch-info-front hexagon">
                                           <header>
-                                            <h1><%= locals.data[i].name %> </h1>
+                                            <h1><i class="icon-data_science blue"></i> <%= locals.data[i].name %> </h1>
                                           </header>
                                           <div class="knockout">
                                             <div></div>
@@ -137,7 +144,7 @@
                   <!-- START #footer -->
 
                       <div>
-                          <small>v0.973 Design &amp; Coded by <a href="http://www.redninja.co.uk" title="Design and Coded by Red Ninja Studios" onClick="_gaq.push(['_trackEvent', 'Link', 'Red Ninja', 'Link - Red Ninja',, false]);">Red Ninja Studios</a></small>
+                          <small>v0.23 Design &amp; Coded by <a href="http://www.redninja.co.uk" title="Design and Coded by Red Ninja Studios" onClick="_gaq.push(['_trackEvent', 'Link', 'Red Ninja', 'Link - Red Ninja',, false]);">Red Ninja Studios</a></small>
                       </div>
 
                       <div>
@@ -153,7 +160,7 @@
 
             </section>
 
-    			<!---->
+    			<!--
 				
 			<div id="loading" ng-class="{'loading': loading, 'loadComplete':!loading}" >
             <div class="inner">
@@ -162,7 +169,7 @@
       					<div class="circle1"></div>
       				</div>
             </div>
-    			</div>			
+    			</div>		-->	
 			
 			
         <!-- END #container -->
@@ -181,6 +188,27 @@
       };
     });
 
+    // Attempt to try and use the height fix from AlertMe Website
+    function getDocHeight() {
+    var D = document;
+      return Math.max(
+          D.body.scrollHeight, D.documentElement.scrollHeight,
+          D.body.offsetHeight, D.documentElement.offsetHeight,
+          D.body.clientHeight, D.documentElement.clientHeight
+      );
+    } 
+     
+    $scope.sizeContent = function() {
+      // fix height bug on .container as there was an annoying gap below
+      var bodyHeight = window.outerHeight; 
+
+      document.getElementById('container').style.height = getDocHeight()+"px";
+      document.getElementById('mp-pusher').style.height = getDocHeight()+"px";
+
+      console.log('change to new   '+bodyHeight, getDocHeight());
+
+    }
+
 
     var meetingApp = angular.module('meetingApp', ['meetingEventFilters','ui.bootstrap','ngTouch','ngCookies']);		
     meetingApp.controller('meetingListCtrl', function ($rootScope,$scope, $http, $interval, $modal,  $cookieStore ,$location) {
@@ -196,6 +224,8 @@
 		$scope.current_floor_index = 0;
 		
 		$scope.menu_open = false;
+    // run height resize script
+      $scope.sizeContent();  
 		        		
         var lastSite, lastBuilding, lastFloor;
 
@@ -215,7 +245,8 @@
 				$scope.current_site = lastSite;
 				$scope.current_building = lastBuilding;
 				$scope.current_floor_index = lastFloor;
-			}		    
+			}		 
+
 		}		 
 		
 		$scope.loadMenu = function(){
@@ -231,16 +262,18 @@
 				// called asynchronously if an error occurs
 				// or server returns response with an error status.
 				$scope.loading = false;
-			});				
+			});	
+
+      		
 		}
 		
 		$scope.getRoomInfo = function(url){
-            scope.$apply(function() { $location.path(url); });		
+      scope.$apply(function() { $location.path(url); });		
 		}
 		
 		$scope.checkCookie();
 		$scope.loadMenu();
-		
+
         $scope.openkey = function(){
             var modalInstance = $modal.open({
                 templateUrl: 'keyModalTemplate.html',
@@ -336,46 +369,7 @@
   			},false);
   		}
   	}
-  	
-	function sizeContent() {
-		// fix height bug on .container as there was an annoying gap below
-		var bodyHeight = window.innerHeight;
-
-		var containerHeight = document.getElementById("container").style.height;
-        console.log('size content  body:',bodyHeight,'container', containerHeight);	
-    
-        var loadingHeight = document.getElementById("loading").style.height;
-        console.log('size content  body:',bodyHeight,'loading', loadingHeight);   
-
-		if (bodyHeight > 1100) {
-		  document.getElementById('container').style.height = bodyHeight+"px";
-          document.getElementById('loading').style.height = bodyHeight+"px";
-		}
-		else {
-		 // window.innerHeight = containerHeight;
-         //window.innerHeight = loadingHeight;
-		}
-		//console.log ('sizeContent working');
-	}	
-     			
-    });
-
-   function sizeContent() {
-      var bodyHeight = $('body').height();
-      var containerHeight = $("#container").height();
-      var loadingHeight = $("#loading").height();
-      //console.log('size contenter   ... ',bodyHeight, containerHeight);
-      if (bodyHeight > containerHeight) {
-        $('#container').css('height', bodyHeight );
-      } else if (containerHeight > loadingHeight) {
-        $('#loading').css('height', containerHeight );
-      }
-      else {
-        $('body').css('height', containerHeight);
-      }
-  }
-
-	
+  		
     </script>
 
     <!-- New Menu -->

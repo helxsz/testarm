@@ -37,7 +37,7 @@
     <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
 <![endif]-->
 
-    <div class="meeting-room">
+    <div class="meeting-room meeting-room-v2">
     <!-- START .meeting-room -->
 
         <div id="container" class="container" class="clearfix" ng-controller="meetingListCtrl">
@@ -49,18 +49,25 @@
                     <nav id="mp-menu" class="mp-menu" > 
                         <div class="mp-level">
                             <button id="triggerMobile" class="mp-close d-hide t-hide"><i class="icon-cancel_circle icon2x"></i></button>
-                            <h2><i class="icon-data_science blue"></i> ARM Buildings</h2>
-                            <ul>
-							    <% for(var i=0; i<locals.data.length; i++) {%>
-                                   <div> <%= locals.data[i].name %>  </div>
-								   <% for(var j=0; j<locals.data[i].buildings.length; j++) {%>
-								       <div> <%= locals.data[i].buildings[j].name %>  </div>
-									       <% for(var k=0; k<locals.data[i].buildings[j].floors.length; k++) {%>								               
-											   	<a class='room_nav' ng-click="getRoomInfo($event.target.href);$event.preventDefault()" href="<%= locals.data[i].buildings[j].floors[k].url %>"><%= locals.data[i].buildings[j].floors[k].name %></a>
-								           <% } %>									   
-								   <% } %>
-								<% } %>                                   								
-                            </ul>                                
+                            <% for(var i=0; i<locals.data.length; i++) {%>
+
+                              <h2><i class="icon-data_science blue"></i> <%= locals.data[i].name %></h2>
+                              <ul>
+
+                                <li>
+                                <% for(var j=0; j<locals.data[i].buildings.length; j++) {%>
+                                  <span class="mp-back"> <%= locals.data[i].buildings[j].name %></span>
+
+                                  <% for(var k=0; k<locals.data[i].buildings[j].floors.length; k++) {%>                              
+                                  <a class='room_nav' ng-click="getRoomInfo($event.target.href);$event.preventDefault()" href="<%= locals.data[i].buildings[j].floors[k].url %>"><%= locals.data[i].buildings[j].floors[k].name %></a>
+
+                                  <% } %>                    
+                                <% } %>
+                                </li>
+
+                              </ul>  
+
+                            <% } %>                              
                         </div>
                     </nav>
                     <!-- /mp-menu -->
@@ -100,7 +107,6 @@
                         <article id="app-description" class="t-hide m-hide" role="article">
                           <p>Click a hexagon to view more information about the meeting room. Please email any feedback to <a href="mailto:arm@redninja.co.uk" title="Email Feedback">arm@redninja.co.uk</a>.</p>
                           <p><a href="#popup-key" ng-click="openkey();" title="View Key" class="button">View Key</a></p>
-						  <p><a href="#popup-key" ng-click="saveCookie();" title="Save default page" class="button">Save default page</a></p>
                         </article>                   
                     <!-- END #main -->
                     </article>
@@ -174,7 +180,8 @@
                   <!-- START #footer -->
 
                       <div>
-                          <small>v0.973 Design &amp; Coded by <a href="http://www.redninja.co.uk" title="Design and Coded by Red Ninja Studios" onClick="_gaq.push(['_trackEvent', 'Link', 'Red Ninja', 'Link - Red Ninja',, false]);">Red Ninja Studios</a></small>
+                          <p><a href="#" ng-click="saveCookie();" title="Save default page" class="button cookie">Make Default Page</a>
+                          <small>v0.973 Design &amp; Coded by <a href="http://www.redninja.co.uk" title="Design and Coded by Red Ninja Studios" onClick="_gaq.push(['_trackEvent', 'Link', 'Red Ninja', 'Link - Red Ninja',, false]);">Red Ninja Studios</a></small></p>
                       </div>
 
                       <div>
@@ -235,6 +242,7 @@
 	   };
 	});
     */	
+
 	
     meetingApp.controller('meetingListCtrl', function ($rootScope,$scope, $http, $interval, socket, $modal,  $cookieStore ,$location) {
 

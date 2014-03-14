@@ -101,7 +101,7 @@ app.configure('development',function(){
 	app.use(mobiledir,	express.static(__dirname+mobiledir));
 	winston.info('app on development'.yellow,config.port);
     app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
-	config.port = 80;
+	config.port = 8080;
 });
 
 app.configure('production',function(){

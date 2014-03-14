@@ -152,10 +152,15 @@
                 padding: 0; margin: 0 auto;
                 margin-bottom: 0; padding-top: 3.75em;
             }
-
-            #app-meeting {}
+            
             #app-energy {padding-top: 28em;}
-            #app-heating {}
+
+
+        /* MEETING */
+
+        .landing-page #app-meeting {padding-top: 21em; padding-bottom: 21em;}
+        #app-meeting {padding-bottom: 21em;}
+
 
         /* ENERGY */
 
@@ -187,6 +192,11 @@
         }
             .svg .energyDial {background: url('../img/svg/Energy-Dial.svg') no-repeat 50% 50%; }
 
+        /* HEATMAP */
+        .tooltip {
+            background-color: rgb(255, 192, 203);
+            position: absolute;
+        }
 
 
 
@@ -373,6 +383,9 @@
 
         input.button {width: 50%;}
 
+    .cookie {}
+    .cookie:after {content: "\2606";}
+
 
     .buttonBig { 
         font-family: 'Roboto Condensed', sans-serif; font-size: 1.125em;
@@ -429,8 +442,11 @@
         color:white;
         } #trigger:hover {color: #CE1D6F;}
 
+    .meeting-room-v2 .mp-menu ul li a::before {
+        content: "\f006"; left: 0.5em;
+    }
 
-
+    .mp-menu h2 {line-height: 1em;}
 
 /*  ==========================================================================
     7. Hexagons
@@ -529,7 +545,7 @@
 
         /* FLIP ANIMATION */
         .ch-grid {
-            margin: 0;
+            margin: 0;   
             padding: 0;
             list-style: none;
             display: block;
@@ -688,6 +704,10 @@
                 font-size: 100%; padding-top:1em; 
                 border-bottom: none !important;
             }
+            .landing-page .hexagon h1 {
+                font-size: 1.75em;
+                padding-top: 1.75em;
+            }
 
         .ch-info-back h2 {font-size:3.25em; margin-bottom:0.25em; padding-top:1.625em; }
         .ch-info-back h3 {
@@ -708,6 +728,8 @@
         #app-brand .ch-info-back i,
         .app-brand .ch-info-back i {display: block; padding-top: 1.625em; margin-bottom:0.25em;}
         .ch-info-back a {text-decoration: none; border: none; z-index: 10;}
+
+        .landing-page .ch-info-front i {display: block;}
         
 
         /* hex buttons */
@@ -1303,7 +1325,7 @@
     
     /*  DESKTOP - DEFAULT  */
 
-    @media only screen and (min-width:1057px) and (max-width:1920px) {
+    @media only screen and (min-width:990px) and (max-width:1920px) {
 
         /* HOVER INTERACTIVITY */
         .ch-info:hover {
@@ -1324,10 +1346,10 @@
 
     /*  TABLETS  */
 
-    @media only screen and (min-width : 768px) and (max-width : 1024px) {
+    @media only screen and (min-width: 768px) and (max-width: 989px) {
 
         .wrapper {width: 768px;}
-
+        .meeting-room .ch-grid {margin-bottom: 13em;}
         .meeting-room #banner,
         .meeting-room #app-description {margin-left:4.875em;}
 
@@ -1351,6 +1373,20 @@
 
     }
 
+    @media only screen and (min-device-width : 768px) and (max-device-width : 1024px) and (orientation : landscape) { 
+
+        .wrapper {width: 768px;}
+        .meeting-room .ch-grid {margin-bottom: 13em;}
+        .meeting-room #app-description {display: none;}
+
+            #app-meeting {
+                padding-top: 21em;
+            }
+
+        /*  Typography  */
+        h1 {font-size: 2.75em; line-height: 1em;} 
+    }
+
 
     /*  MOBILE  */
 
@@ -1358,6 +1394,7 @@
 
         /*  Layout  */
         .wrapper {width: 20em;}
+        .meeting-room .ch-grid {margin-bottom: 13em;}
 
         #banner {border: none;}
             nav {width: 70%;}

@@ -1,829 +1,386 @@
-{"level":"info","message":"\u001b[33mapp on development\u001b[39m","timestamp":"2014-03-13T17:04:19.088Z"}
-{"level":"info","message":"\u001b[33mthe port used \u001b[39m","timestamp":"2014-03-13T17:04:19.176Z"}
-{"level":"info","message":"\u001b[33mExpress started on port\u001b[39m","timestamp":"2014-03-13T17:04:19.195Z"}
-{"level":"info","message":"mongodb connect success","timestamp":"2014-03-13T17:04:21.559Z"}
-{"level":"info","message":"connection opening","timestamp":"2014-03-13T17:04:21.559Z"}
-{"level":"info","message":"app is created enlight 73b42c72uy8s","timestamp":"2014-03-13T17:04:21.625Z"}
-{"level":"info","message":"\u001b[32msubscribe success  enlight  \u001b[39m","timestamp":"2014-03-13T17:04:21.626Z"}
-{"level":"info","message":"app is created enlight yqth28y6tlw","timestamp":"2014-03-13T17:04:21.637Z"}
-{"level":"info","message":"\u001b[32msubscribe success  enlight  \u001b[39m","timestamp":"2014-03-13T17:04:21.637Z"}
-{"level":"info","message":"app is created  meetingroom   25n5c6afc2u8","timestamp":"2014-03-13T17:04:21.652Z"}
-{"level":"info","message":"subscribe success","timestamp":"2014-03-13T17:04:21.652Z"}
-{"level":"info","message":"App has subscribe to the channel success","timestamp":"2014-03-13T17:04:21.662Z"}
-{"level":"info","message":"App has subscribe to the channel success","timestamp":"2014-03-13T17:04:21.664Z"}
-{"level":"info","message":"App has subscribe to the channel success","timestamp":"2014-03-13T17:04:21.665Z"}
-{"level":"info","message":"\u001b[31mApp has subscribe to the catalog notification  success\u001b[39m","timestamp":"2014-03-13T17:04:21.667Z"}
-{"level":"info","message":"listen to the MQTT service succfully   - https://geras.1248.io/cat/armmeeting","timestamp":"2014-03-13T17:04:21.677Z"}
-{"level":"info","message":"add new RT SERVICE https://geras.1248.io/cat/armmeeting","timestamp":"2014-03-13T17:04:21.677Z"}
-{"level":"info","message":"\u001b[32mMQTT Connected\u001b[39m","timestamp":"2014-03-13T17:04:23.574Z"}
-{"0":"Thu Mar 13 2014 17:11:17 GMT+0000 (GMT 标准时间)","1":"SIGINT","level":"info","message":"%s: Received %s - terminating Node server ...","timestamp":"2014-03-13T17:11:17.698Z"}
-{"level":"info","message":"\u001b[33mapp on development\u001b[39m","timestamp":"2014-03-13T17:11:19.637Z"}
-{"level":"info","message":"\u001b[33mthe port used \u001b[39m","timestamp":"2014-03-13T17:11:19.725Z"}
-{"level":"info","message":"\u001b[33mExpress started on port\u001b[39m","timestamp":"2014-03-13T17:11:19.742Z"}
-{"level":"info","message":"mongodb connect success","timestamp":"2014-03-13T17:11:22.123Z"}
-{"level":"info","message":"connection opening","timestamp":"2014-03-13T17:11:22.123Z"}
-{"level":"info","message":"app is created enlight 5ruji57izlkw","timestamp":"2014-03-13T17:11:22.207Z"}
-{"level":"info","message":"\u001b[32msubscribe success  enlight  \u001b[39m","timestamp":"2014-03-13T17:11:22.208Z"}
-{"level":"info","message":"app is created enlight 6ij9f02ogn40","timestamp":"2014-03-13T17:11:22.220Z"}
-{"level":"info","message":"\u001b[32msubscribe success  enlight  \u001b[39m","timestamp":"2014-03-13T17:11:22.221Z"}
-{"level":"info","message":"app is created  meetingroom   6apbzn58rgw8","timestamp":"2014-03-13T17:11:22.237Z"}
-{"level":"info","message":"subscribe success","timestamp":"2014-03-13T17:11:22.237Z"}
-{"level":"info","message":"App has subscribe to the channel success","timestamp":"2014-03-13T17:11:22.244Z"}
-{"level":"info","message":"App has subscribe to the channel success","timestamp":"2014-03-13T17:11:22.245Z"}
-{"level":"info","message":"App has subscribe to the channel success","timestamp":"2014-03-13T17:11:22.245Z"}
-{"level":"info","message":"listen to the MQTT service succfully   - https://geras.1248.io/cat/armmeeting","timestamp":"2014-03-13T17:11:22.249Z"}
-{"level":"info","message":"add new RT SERVICE https://geras.1248.io/cat/armmeeting","timestamp":"2014-03-13T17:11:22.249Z"}
-{"level":"info","message":"\u001b[31mApp has subscribe to the catalog notification  success\u001b[39m","timestamp":"2014-03-13T17:11:22.250Z"}
-{"level":"info","message":"\u001b[32mMQTT Connected\u001b[39m","timestamp":"2014-03-13T17:11:23.478Z"}
-{"level":"error","message":"Thu Mar 13 2014 17:11:31 GMT+0000 (GMT 标准时间):(H:\\Dropbox\\node\\testarm\\app.js:340:ReferenceError: locals is not defined\n    at H:\\Dropbox\\node\\testarm\\routes\\apps\\app_meeting.js:489:32\n    at Promise.<anonymous> (H:\\Dropbox\\node\\testarm\\model\\room_model.js:42:12)\n    at Promise.<anonymous> (H:\\Dropbox\\node\\node_modules\\mongoose\\node_modules\\mpromise\\lib\\promise.js:171:8)\n    at Promise.EventEmitter.emit (events.js:95:17)\n    at Promise.emit (H:\\Dropbox\\node\\node_modules\\mongoose\\node_modules\\mpromise\\lib\\promise.js:88:38)\n    at Promise.fulfill (H:\\Dropbox\\node\\node_modules\\mongoose\\node_modules\\mpromise\\lib\\promise.js:101:20)\n    at Promise.resolve (H:\\Dropbox\\node\\node_modules\\mongoose\\lib\\promise.js:108:15)\n    at Promise.<anonymous> (H:\\Dropbox\\node\\node_modules\\mongoose\\node_modules\\mpromise\\lib\\promise.js:171:8)\n    at Promise.EventEmitter.emit (events.js:95:17)\n    at Promise.emit (H:\\Dropbox\\node\\node_modules\\mongoose\\node_modules\\mpromise\\lib\\promise.js:88:38)","timestamp":"2014-03-13T17:11:31.963Z"}
-{"0":"Thu Mar 13 2014 17:11:45 GMT+0000 (GMT 标准时间)","1":"SIGINT","level":"info","message":"%s: Received %s - terminating Node server ...","timestamp":"2014-03-13T17:11:45.761Z"}
-{"level":"info","message":"\u001b[33mapp on development\u001b[39m","timestamp":"2014-03-13T17:11:46.754Z"}
-{"level":"info","message":"\u001b[33mthe port used \u001b[39m","timestamp":"2014-03-13T17:11:46.844Z"}
-{"level":"info","message":"\u001b[33mExpress started on port\u001b[39m","timestamp":"2014-03-13T17:11:46.861Z"}
-{"level":"info","message":"mongodb connect success","timestamp":"2014-03-13T17:11:49.370Z"}
-{"level":"info","message":"connection opening","timestamp":"2014-03-13T17:11:49.371Z"}
-{"level":"info","message":"app is created enlight 5nykkci8x44k","timestamp":"2014-03-13T17:11:49.448Z"}
-{"level":"info","message":"\u001b[32msubscribe success  enlight  \u001b[39m","timestamp":"2014-03-13T17:11:49.449Z"}
-{"level":"info","message":"app is created enlight 3c7txyryr7qc","timestamp":"2014-03-13T17:11:49.457Z"}
-{"level":"info","message":"\u001b[32msubscribe success  enlight  \u001b[39m","timestamp":"2014-03-13T17:11:49.458Z"}
-{"level":"info","message":"app is created  meetingroom   5et4wolzmy04","timestamp":"2014-03-13T17:11:49.479Z"}
-{"level":"info","message":"subscribe success","timestamp":"2014-03-13T17:11:49.479Z"}
-{"level":"info","message":"App has subscribe to the channel success","timestamp":"2014-03-13T17:11:49.491Z"}
-{"level":"info","message":"App has subscribe to the channel success","timestamp":"2014-03-13T17:11:49.493Z"}
-{"level":"info","message":"App has subscribe to the channel success","timestamp":"2014-03-13T17:11:49.495Z"}
-{"level":"info","message":"\u001b[31mApp has subscribe to the catalog notification  success\u001b[39m","timestamp":"2014-03-13T17:11:49.496Z"}
-{"level":"info","message":"listen to the MQTT service succfully   - https://geras.1248.io/cat/armmeeting","timestamp":"2014-03-13T17:11:49.507Z"}
-{"level":"info","message":"add new RT SERVICE https://geras.1248.io/cat/armmeeting","timestamp":"2014-03-13T17:11:49.508Z"}
-{"level":"info","message":"\u001b[32mMQTT Connected\u001b[39m","timestamp":"2014-03-13T17:11:50.688Z"}
-{"level":"error","message":"Thu Mar 13 2014 17:11:58 GMT+0000 (GMT 标准时间):(H:\\Dropbox\\node\\testarm\\app.js:242:TypeError: H:\\Dropbox\\node\\testarm\\views\\meeting3.html:57\n    55|                             <h2><i class=\"icon-data_science blue\"></i> ARM Buildings</h2>\r\n    56|                             <ul>\r\n >> 57| \t\t\t\t\t\t\t    <% for(var i=0; i<locals.menus.length; i++) {%>\r\n    58| \t\t\t\t\t\t\t\t    <li>\r\n    59| \t\t\t\t\t\t\t\t\t\t<a class='room_nav' ng-click=\"getRoomInfo($event.target.href);$event.preventDefault()\" href=\"<%= locals.menus[i].url %>\"><%= locals.menus[i].name %></a>\r\n    60|                                     </li>\r\n\nCannot read property 'length' of undefined\n    at eval (eval at <anonymous> (H:\\Dropbox\\node\\node_modules\\ejs\\lib\\ejs.js:236:14), <anonymous>:29:3117)\n    at eval (eval at <anonymous> (H:\\Dropbox\\node\\node_modules\\ejs\\lib\\ejs.js:236:14), <anonymous>:29:45476)\n    at H:\\Dropbox\\node\\node_modules\\ejs\\lib\\ejs.js:249:15\n    at Object.exports.render (H:\\Dropbox\\node\\node_modules\\ejs\\lib\\ejs.js:287:13)\n    at View.exports.renderFile [as engine] (H:\\Dropbox\\node\\node_modules\\ejs\\lib\\ejs.js:317:20)\n    at View.render (H:\\Dropbox\\node\\node_modules\\express\\lib\\view.js:75:8)\n    at Function.app.render (H:\\Dropbox\\node\\node_modules\\express\\lib\\application.js:504:10)\n    at ServerResponse.res.render (H:\\Dropbox\\node\\node_modules\\express\\lib\\response.js:753:7)\n    at H:\\Dropbox\\node\\testarm\\routes\\apps\\app_meeting.js:489:8\n    at Promise.<anonymous> (H:\\Dropbox\\node\\testarm\\model\\room_model.js:42:12)","timestamp":"2014-03-13T17:11:58.528Z"}
-{"level":"error","message":"Thu Mar 13 2014 17:12:52 GMT+0000 (GMT 标准时间):(H:\\Dropbox\\node\\testarm\\app.js:242:ReferenceError: H:\\Dropbox\\node\\testarm\\views\\meeting3.html:57\n    55|                             <h2><i class=\"icon-data_science blue\"></i> ARM Buildings</h2>\r\n    56|                             <ul>\r\n >> 57| \t\t\t\t\t\t\t    <% for(var i=0; i<data.length; i++) {%>\r\n    58| \r\n    59| \t\t\t\t\t\t\t\t<% } %>\t\t\t\t\t\t\t\r\n    60| \t\t\t\t\t\t\t  <!--\r\n\ndata is not defined\n    at eval (eval at <anonymous> (H:\\Dropbox\\node\\node_modules\\ejs\\lib\\ejs.js:236:14), <anonymous>:29:3105)\n    at eval (eval at <anonymous> (H:\\Dropbox\\node\\node_modules\\ejs\\lib\\ejs.js:236:14), <anonymous>:29:45183)\n    at H:\\Dropbox\\node\\node_modules\\ejs\\lib\\ejs.js:249:15\n    at Object.exports.render (H:\\Dropbox\\node\\node_modules\\ejs\\lib\\ejs.js:287:13)\n    at View.exports.renderFile [as engine] (H:\\Dropbox\\node\\node_modules\\ejs\\lib\\ejs.js:317:20)\n    at View.render (H:\\Dropbox\\node\\node_modules\\express\\lib\\view.js:75:8)\n    at Function.app.render (H:\\Dropbox\\node\\node_modules\\express\\lib\\application.js:504:10)\n    at ServerResponse.res.render (H:\\Dropbox\\node\\node_modules\\express\\lib\\response.js:753:7)\n    at H:\\Dropbox\\node\\testarm\\routes\\apps\\app_meeting.js:489:8\n    at Promise.<anonymous> (H:\\Dropbox\\node\\testarm\\model\\room_model.js:42:12)","timestamp":"2014-03-13T17:12:52.460Z"}
-{"0":"Thu Mar 13 2014 17:13:15 GMT+0000 (GMT 标准时间)","1":"SIGINT","level":"info","message":"%s: Received %s - terminating Node server ...","timestamp":"2014-03-13T17:13:15.746Z"}
-{"level":"info","message":"\u001b[33mapp on development\u001b[39m","timestamp":"2014-03-13T17:13:16.657Z"}
-{"level":"info","message":"\u001b[33mthe port used \u001b[39m","timestamp":"2014-03-13T17:13:16.751Z"}
-{"level":"info","message":"\u001b[33mExpress started on port\u001b[39m","timestamp":"2014-03-13T17:13:16.770Z"}
-{"level":"info","message":"mongodb connect success","timestamp":"2014-03-13T17:13:19.184Z"}
-{"level":"info","message":"connection opening","timestamp":"2014-03-13T17:13:19.185Z"}
-{"level":"info","message":"app is created enlight zmm30y842g0","timestamp":"2014-03-13T17:13:19.252Z"}
-{"level":"info","message":"\u001b[32msubscribe success  enlight  \u001b[39m","timestamp":"2014-03-13T17:13:19.253Z"}
-{"level":"info","message":"app is created enlight 740xny0o09cs","timestamp":"2014-03-13T17:13:19.260Z"}
-{"level":"info","message":"\u001b[32msubscribe success  enlight  \u001b[39m","timestamp":"2014-03-13T17:13:19.261Z"}
-{"level":"info","message":"app is created  meetingroom   4j22wb7b37cw","timestamp":"2014-03-13T17:13:19.275Z"}
-{"level":"info","message":"subscribe success","timestamp":"2014-03-13T17:13:19.275Z"}
-{"level":"info","message":"App has subscribe to the channel success","timestamp":"2014-03-13T17:13:19.283Z"}
-{"level":"info","message":"App has subscribe to the channel success","timestamp":"2014-03-13T17:13:19.284Z"}
-{"level":"info","message":"App has subscribe to the channel success","timestamp":"2014-03-13T17:13:19.285Z"}
-{"level":"info","message":"\u001b[31mApp has subscribe to the catalog notification  success\u001b[39m","timestamp":"2014-03-13T17:13:19.286Z"}
-{"level":"info","message":"listen to the MQTT service succfully   - https://geras.1248.io/cat/armmeeting","timestamp":"2014-03-13T17:13:19.291Z"}
-{"level":"info","message":"add new RT SERVICE https://geras.1248.io/cat/armmeeting","timestamp":"2014-03-13T17:13:19.292Z"}
-{"level":"info","message":"\u001b[32mMQTT Connected\u001b[39m","timestamp":"2014-03-13T17:13:20.480Z"}
-{"level":"error","message":"Thu Mar 13 2014 17:13:27 GMT+0000 (GMT 标准时间):(H:\\Dropbox\\node\\testarm\\app.js:242:TypeError: H:\\Dropbox\\node\\testarm\\views\\meeting3.html:57\n    55|                             <h2><i class=\"icon-data_science blue\"></i> ARM Buildings</h2>\r\n    56|                             <ul>\r\n >> 57| \t\t\t\t\t\t\t    <% for(var i=0; i<locals.data.length; i++) {%>\r\n    58| \r\n    59| \t\t\t\t\t\t\t\t<% } %>\t\t\t\t\t\t\t\r\n    60| \t\t\t\t\t\t\t  <!--\r\n\nCannot read property 'length' of undefined\n    at eval (eval at <anonymous> (H:\\Dropbox\\node\\node_modules\\ejs\\lib\\ejs.js:236:14), <anonymous>:29:3116)\n    at eval (eval at <anonymous> (H:\\Dropbox\\node\\node_modules\\ejs\\lib\\ejs.js:236:14), <anonymous>:29:45190)\n    at H:\\Dropbox\\node\\node_modules\\ejs\\lib\\ejs.js:249:15\n    at Object.exports.render (H:\\Dropbox\\node\\node_modules\\ejs\\lib\\ejs.js:287:13)\n    at View.exports.renderFile [as engine] (H:\\Dropbox\\node\\node_modules\\ejs\\lib\\ejs.js:317:20)\n    at View.render (H:\\Dropbox\\node\\node_modules\\express\\lib\\view.js:75:8)\n    at Function.app.render (H:\\Dropbox\\node\\node_modules\\express\\lib\\application.js:504:10)\n    at ServerResponse.res.render (H:\\Dropbox\\node\\node_modules\\express\\lib\\response.js:753:7)\n    at H:\\Dropbox\\node\\testarm\\routes\\apps\\app_meeting.js:491:8\n    at Promise.<anonymous> (H:\\Dropbox\\node\\testarm\\model\\room_model.js:42:12)","timestamp":"2014-03-13T17:13:27.368Z"}
-{"0":"Thu Mar 13 2014 17:13:47 GMT+0000 (GMT 标准时间)","1":"SIGINT","level":"info","message":"%s: Received %s - terminating Node server ...","timestamp":"2014-03-13T17:13:47.619Z"}
-{"level":"info","message":"\u001b[33mapp on development\u001b[39m","timestamp":"2014-03-13T17:13:48.682Z"}
-{"level":"info","message":"\u001b[33mthe port used \u001b[39m","timestamp":"2014-03-13T17:13:48.777Z"}
-{"level":"info","message":"\u001b[33mExpress started on port\u001b[39m","timestamp":"2014-03-13T17:13:48.802Z"}
-{"level":"info","message":"mongodb connect success","timestamp":"2014-03-13T17:13:51.215Z"}
-{"level":"info","message":"connection opening","timestamp":"2014-03-13T17:13:51.215Z"}
-{"level":"info","message":"app is created enlight 5lesbv1dhdcs","timestamp":"2014-03-13T17:13:51.283Z"}
-{"level":"info","message":"\u001b[32msubscribe success  enlight  \u001b[39m","timestamp":"2014-03-13T17:13:51.284Z"}
-{"level":"info","message":"app is created enlight 63sdga7ucdss","timestamp":"2014-03-13T17:13:51.292Z"}
-{"level":"info","message":"\u001b[32msubscribe success  enlight  \u001b[39m","timestamp":"2014-03-13T17:13:51.292Z"}
-{"level":"info","message":"app is created  meetingroom   76yagyqx7l0k","timestamp":"2014-03-13T17:13:51.307Z"}
-{"level":"info","message":"subscribe success","timestamp":"2014-03-13T17:13:51.308Z"}
-{"level":"info","message":"App has subscribe to the channel success","timestamp":"2014-03-13T17:13:51.317Z"}
-{"level":"info","message":"App has subscribe to the channel success","timestamp":"2014-03-13T17:13:51.318Z"}
-{"level":"info","message":"App has subscribe to the channel success","timestamp":"2014-03-13T17:13:51.319Z"}
-{"level":"info","message":"listen to the MQTT service succfully   - https://geras.1248.io/cat/armmeeting","timestamp":"2014-03-13T17:13:51.323Z"}
-{"level":"info","message":"add new RT SERVICE https://geras.1248.io/cat/armmeeting","timestamp":"2014-03-13T17:13:51.324Z"}
-{"level":"info","message":"\u001b[31mApp has subscribe to the catalog notification  success\u001b[39m","timestamp":"2014-03-13T17:13:51.325Z"}
-{"level":"info","message":"\u001b[32mMQTT Connected\u001b[39m","timestamp":"2014-03-13T17:13:52.083Z"}
-{"level":"error","message":"Thu Mar 13 2014 17:14:48 GMT+0000 (GMT 标准时间):(H:\\Dropbox\\node\\testarm\\app.js:242:TypeError: H:\\Dropbox\\node\\testarm\\views\\meeting3.html:61\n    59| \t\t\t\t\t\t\t\t<% } %>\t\t\t\t\t\t\t\r\n    60| \t\t\t\t\t\t\t  <!--\r\n >> 61| \t\t\t\t\t\t\t    <% for(var i=0; i<locals.menus.length; i++) {%>\r\n    62| \t\t\t\t\t\t\t\t    <li>\r\n    63| \t\t\t\t\t\t\t\t\t\t<a class='room_nav' ng-click=\"getRoomInfo($event.target.href);$event.preventDefault()\" href=\"<%= locals.menus[i].url %>\"><%= locals.menus[i].name %></a>\r\n    64|                                     </li>\r\n\nCannot read property 'length' of undefined\n    at eval (eval at <anonymous> (H:\\Dropbox\\node\\node_modules\\ejs\\lib\\ejs.js:236:14), <anonymous>:29:3275)\n    at eval (eval at <anonymous> (H:\\Dropbox\\node\\node_modules\\ejs\\lib\\ejs.js:236:14), <anonymous>:29:45190)\n    at H:\\Dropbox\\node\\node_modules\\ejs\\lib\\ejs.js:249:15\n    at Object.exports.render (H:\\Dropbox\\node\\node_modules\\ejs\\lib\\ejs.js:287:13)\n    at View.exports.renderFile [as engine] (H:\\Dropbox\\node\\node_modules\\ejs\\lib\\ejs.js:317:20)\n    at View.render (H:\\Dropbox\\node\\node_modules\\express\\lib\\view.js:75:8)\n    at Function.app.render (H:\\Dropbox\\node\\node_modules\\express\\lib\\application.js:504:10)\n    at ServerResponse.res.render (H:\\Dropbox\\node\\node_modules\\express\\lib\\response.js:753:7)\n    at H:\\Dropbox\\node\\testarm\\routes\\apps\\app_meeting.js:491:8\n    at Promise.<anonymous> (H:\\Dropbox\\node\\testarm\\model\\room_model.js:42:12)","timestamp":"2014-03-13T17:14:48.800Z"}
-{"0":"Thu Mar 13 2014 17:20:52 GMT+0000 (GMT 标准时间)","1":"SIGINT","level":"info","message":"%s: Received %s - terminating Node server ...","timestamp":"2014-03-13T17:20:52.902Z"}
-{"level":"info","message":"\u001b[33mapp on development\u001b[39m","timestamp":"2014-03-13T17:20:53.917Z"}
-{"level":"info","message":"\u001b[33mthe port used \u001b[39m","timestamp":"2014-03-13T17:20:54.008Z"}
-{"level":"info","message":"\u001b[33mExpress started on port\u001b[39m","timestamp":"2014-03-13T17:20:54.024Z"}
-{"level":"info","message":"mongodb connect success","timestamp":"2014-03-13T17:20:56.425Z"}
-{"level":"info","message":"connection opening","timestamp":"2014-03-13T17:20:56.426Z"}
-{"level":"info","message":"app is created enlight 5odhjx5272ww","timestamp":"2014-03-13T17:20:56.500Z"}
-{"level":"info","message":"\u001b[32msubscribe success  enlight  \u001b[39m","timestamp":"2014-03-13T17:20:56.501Z"}
-{"level":"info","message":"app is created enlight 3vzgcayy6ig4","timestamp":"2014-03-13T17:20:56.509Z"}
-{"level":"info","message":"\u001b[32msubscribe success  enlight  \u001b[39m","timestamp":"2014-03-13T17:20:56.510Z"}
-{"level":"info","message":"app is created  meetingroom   1wq64eg5l4g0","timestamp":"2014-03-13T17:20:56.529Z"}
-{"level":"info","message":"subscribe success","timestamp":"2014-03-13T17:20:56.529Z"}
-{"level":"info","message":"App has subscribe to the channel success","timestamp":"2014-03-13T17:20:56.545Z"}
-{"level":"info","message":"App has subscribe to the channel success","timestamp":"2014-03-13T17:20:56.546Z"}
-{"level":"info","message":"App has subscribe to the channel success","timestamp":"2014-03-13T17:20:56.547Z"}
-{"level":"info","message":"\u001b[31mApp has subscribe to the catalog notification  success\u001b[39m","timestamp":"2014-03-13T17:20:56.549Z"}
-{"level":"info","message":"listen to the MQTT service succfully   - https://geras.1248.io/cat/armmeeting","timestamp":"2014-03-13T17:20:56.560Z"}
-{"level":"info","message":"add new RT SERVICE https://geras.1248.io/cat/armmeeting","timestamp":"2014-03-13T17:20:56.560Z"}
-{"level":"info","message":"\u001b[32mMQTT Connected\u001b[39m","timestamp":"2014-03-13T17:20:58.350Z"}
-{"0":"Thu Mar 13 2014 17:22:17 GMT+0000 (GMT 标准时间)","1":"SIGINT","level":"info","message":"%s: Received %s - terminating Node server ...","timestamp":"2014-03-13T17:22:17.645Z"}
-{"level":"info","message":"\u001b[33mapp on development\u001b[39m","timestamp":"2014-03-13T17:22:18.516Z"}
-{"level":"info","message":"\u001b[33mthe port used \u001b[39m","timestamp":"2014-03-13T17:22:18.607Z"}
-{"level":"info","message":"\u001b[33mExpress started on port\u001b[39m","timestamp":"2014-03-13T17:22:18.628Z"}
-{"level":"info","message":"mongodb connect success","timestamp":"2014-03-13T17:22:20.974Z"}
-{"level":"info","message":"connection opening","timestamp":"2014-03-13T17:22:20.975Z"}
-{"level":"info","message":"app is created enlight j3upzl8o59.r","timestamp":"2014-03-13T17:22:21.042Z"}
-{"level":"info","message":"\u001b[32msubscribe success  enlight  \u001b[39m","timestamp":"2014-03-13T17:22:21.042Z"}
-{"level":"info","message":"app is created enlight 1f6jbravsyo0","timestamp":"2014-03-13T17:22:21.050Z"}
-{"level":"info","message":"\u001b[32msubscribe success  enlight  \u001b[39m","timestamp":"2014-03-13T17:22:21.050Z"}
-{"level":"info","message":"app is created  meetingroom   74q4ahnw0xcs","timestamp":"2014-03-13T17:22:21.064Z"}
-{"level":"info","message":"subscribe success","timestamp":"2014-03-13T17:22:21.065Z"}
-{"level":"info","message":"App has subscribe to the channel success","timestamp":"2014-03-13T17:22:21.076Z"}
-{"level":"info","message":"App has subscribe to the channel success","timestamp":"2014-03-13T17:22:21.077Z"}
-{"level":"info","message":"App has subscribe to the channel success","timestamp":"2014-03-13T17:22:21.078Z"}
-{"level":"info","message":"\u001b[31mApp has subscribe to the catalog notification  success\u001b[39m","timestamp":"2014-03-13T17:22:21.079Z"}
-{"level":"info","message":"listen to the MQTT service succfully   - https://geras.1248.io/cat/armmeeting","timestamp":"2014-03-13T17:22:21.090Z"}
-{"level":"info","message":"add new RT SERVICE https://geras.1248.io/cat/armmeeting","timestamp":"2014-03-13T17:22:21.090Z"}
-{"level":"info","message":"\u001b[32mMQTT Connected\u001b[39m","timestamp":"2014-03-13T17:22:22.066Z"}
-{"0":"Thu Mar 13 2014 17:23:11 GMT+0000 (GMT 标准时间)","1":"SIGINT","level":"info","message":"%s: Received %s - terminating Node server ...","timestamp":"2014-03-13T17:23:11.239Z"}
-{"level":"info","message":"\u001b[33mapp on development\u001b[39m","timestamp":"2014-03-13T17:23:12.215Z"}
-{"level":"info","message":"\u001b[33mthe port used \u001b[39m","timestamp":"2014-03-13T17:23:12.310Z"}
-{"level":"info","message":"\u001b[33mExpress started on port\u001b[39m","timestamp":"2014-03-13T17:23:12.330Z"}
-{"level":"info","message":"mongodb connect success","timestamp":"2014-03-13T17:23:14.665Z"}
-{"level":"info","message":"connection opening","timestamp":"2014-03-13T17:23:14.666Z"}
-{"level":"info","message":"app is created enlight 3a6igwlddomc","timestamp":"2014-03-13T17:23:14.747Z"}
-{"level":"info","message":"\u001b[32msubscribe success  enlight  \u001b[39m","timestamp":"2014-03-13T17:23:14.747Z"}
-{"level":"info","message":"app is created enlight 73z3c1iy0qk","timestamp":"2014-03-13T17:23:14.754Z"}
-{"level":"info","message":"\u001b[32msubscribe success  enlight  \u001b[39m","timestamp":"2014-03-13T17:23:14.754Z"}
-{"level":"info","message":"app is created  meetingroom   3kfv3lu4v76s","timestamp":"2014-03-13T17:23:14.774Z"}
-{"level":"info","message":"subscribe success","timestamp":"2014-03-13T17:23:14.775Z"}
-{"level":"info","message":"App has subscribe to the channel success","timestamp":"2014-03-13T17:23:14.783Z"}
-{"level":"info","message":"App has subscribe to the channel success","timestamp":"2014-03-13T17:23:14.784Z"}
-{"level":"info","message":"App has subscribe to the channel success","timestamp":"2014-03-13T17:23:14.784Z"}
-{"level":"info","message":"\u001b[31mApp has subscribe to the catalog notification  success\u001b[39m","timestamp":"2014-03-13T17:23:14.785Z"}
-{"level":"info","message":"listen to the MQTT service succfully   - https://geras.1248.io/cat/armmeeting","timestamp":"2014-03-13T17:23:14.789Z"}
-{"level":"info","message":"add new RT SERVICE https://geras.1248.io/cat/armmeeting","timestamp":"2014-03-13T17:23:14.790Z"}
-{"level":"info","message":"\u001b[32mMQTT Connected\u001b[39m","timestamp":"2014-03-13T17:23:15.980Z"}
-{"0":"Thu Mar 13 2014 17:34:48 GMT+0000 (GMT 标准时间)","1":"SIGINT","level":"info","message":"%s: Received %s - terminating Node server ...","timestamp":"2014-03-13T17:34:48.611Z"}
-{"level":"info","message":"\u001b[33mapp on development\u001b[39m","timestamp":"2014-03-13T17:34:49.668Z"}
-{"level":"info","message":"\u001b[33mthe port used \u001b[39m","timestamp":"2014-03-13T17:34:49.762Z"}
-{"level":"info","message":"\u001b[33mExpress started on port\u001b[39m","timestamp":"2014-03-13T17:34:49.783Z"}
-{"level":"info","message":"mongodb connect success","timestamp":"2014-03-13T17:34:52.105Z"}
-{"level":"info","message":"connection opening","timestamp":"2014-03-13T17:34:52.105Z"}
-{"level":"info","message":"app is created enlight 5d30kaxgoygw","timestamp":"2014-03-13T17:34:52.175Z"}
-{"level":"info","message":"\u001b[32msubscribe success  enlight  \u001b[39m","timestamp":"2014-03-13T17:34:52.175Z"}
-{"level":"info","message":"app is created enlight 3fih2b1xync4","timestamp":"2014-03-13T17:34:52.181Z"}
-{"level":"info","message":"\u001b[32msubscribe success  enlight  \u001b[39m","timestamp":"2014-03-13T17:34:52.182Z"}
-{"level":"info","message":"app is created  meetingroom   1dj5x9kycd6s","timestamp":"2014-03-13T17:34:52.196Z"}
-{"level":"info","message":"subscribe success","timestamp":"2014-03-13T17:34:52.196Z"}
-{"level":"info","message":"App has subscribe to the channel success","timestamp":"2014-03-13T17:34:52.210Z"}
-{"level":"info","message":"App has subscribe to the channel success","timestamp":"2014-03-13T17:34:52.212Z"}
-{"level":"info","message":"App has subscribe to the channel success","timestamp":"2014-03-13T17:34:52.212Z"}
-{"level":"info","message":"\u001b[31mApp has subscribe to the catalog notification  success\u001b[39m","timestamp":"2014-03-13T17:34:52.213Z"}
-{"level":"info","message":"listen to the MQTT service succfully   - https://geras.1248.io/cat/armmeeting","timestamp":"2014-03-13T17:34:52.223Z"}
-{"level":"info","message":"add new RT SERVICE https://geras.1248.io/cat/armmeeting","timestamp":"2014-03-13T17:34:52.223Z"}
-{"level":"info","message":"\u001b[32mMQTT Connected\u001b[39m","timestamp":"2014-03-13T17:34:53.803Z"}
-{"level":"error","message":"Thu Mar 13 2014 17:35:01 GMT+0000 (GMT 标准时间):(H:\\Dropbox\\node\\testarm\\app.js:340:TypeError: Cannot set property 'floor' of undefined\n    at getSiteRooms (H:\\Dropbox\\node\\testarm\\routes\\apps\\app_meeting.js:436:56)\n    at H:\\Dropbox\\node\\testarm\\routes\\apps\\app_meeting.js:490:18\n    at Promise.<anonymous> (H:\\Dropbox\\node\\testarm\\model\\room_model.js:42:12)\n    at Promise.<anonymous> (H:\\Dropbox\\node\\node_modules\\mongoose\\node_modules\\mpromise\\lib\\promise.js:171:8)\n    at Promise.EventEmitter.emit (events.js:95:17)\n    at Promise.emit (H:\\Dropbox\\node\\node_modules\\mongoose\\node_modules\\mpromise\\lib\\promise.js:88:38)\n    at Promise.fulfill (H:\\Dropbox\\node\\node_modules\\mongoose\\node_modules\\mpromise\\lib\\promise.js:101:20)\n    at Promise.resolve (H:\\Dropbox\\node\\node_modules\\mongoose\\lib\\promise.js:108:15)\n    at Promise.<anonymous> (H:\\Dropbox\\node\\node_modules\\mongoose\\node_modules\\mpromise\\lib\\promise.js:171:8)\n    at Promise.EventEmitter.emit (events.js:95:17)","timestamp":"2014-03-13T17:35:01.092Z"}
-{"0":"Thu Mar 13 2014 17:35:42 GMT+0000 (GMT 标准时间)","1":"SIGINT","level":"info","message":"%s: Received %s - terminating Node server ...","timestamp":"2014-03-13T17:35:42.605Z"}
-{"level":"info","message":"\u001b[33mapp on development\u001b[39m","timestamp":"2014-03-13T17:35:45.298Z"}
-{"level":"info","message":"\u001b[33mthe port used \u001b[39m","timestamp":"2014-03-13T17:35:45.617Z"}
-{"level":"info","message":"\u001b[33mExpress started on port\u001b[39m","timestamp":"2014-03-13T17:35:45.644Z"}
-{"level":"info","message":"app is created enlight 4af1pbmgjmyo","timestamp":"2014-03-13T17:35:51.567Z"}
-{"level":"info","message":"\u001b[32msubscribe success  enlight  \u001b[39m","timestamp":"2014-03-13T17:35:51.568Z"}
-{"level":"info","message":"app is created enlight 1ub3jytana00","timestamp":"2014-03-13T17:35:51.605Z"}
-{"level":"info","message":"\u001b[32msubscribe success  enlight  \u001b[39m","timestamp":"2014-03-13T17:35:51.606Z"}
-{"level":"info","message":"app is created  meetingroom   4qcx64mxiqas","timestamp":"2014-03-13T17:35:51.636Z"}
-{"level":"info","message":"subscribe success","timestamp":"2014-03-13T17:35:51.636Z"}
-{"level":"info","message":"App has subscribe to the channel success","timestamp":"2014-03-13T17:35:51.650Z"}
-{"level":"info","message":"App has subscribe to the channel success","timestamp":"2014-03-13T17:35:51.650Z"}
-{"level":"info","message":"App has subscribe to the channel success","timestamp":"2014-03-13T17:35:51.651Z"}
-{"level":"info","message":"\u001b[31mApp has subscribe to the catalog notification  success\u001b[39m","timestamp":"2014-03-13T17:35:51.652Z"}
-{"level":"info","message":"listen to the MQTT service succfully   - https://geras.1248.io/cat/armmeeting","timestamp":"2014-03-13T17:35:51.659Z"}
-{"level":"info","message":"add new RT SERVICE https://geras.1248.io/cat/armmeeting","timestamp":"2014-03-13T17:35:51.660Z"}
-{"level":"info","message":"\u001b[32mMQTT Connected\u001b[39m","timestamp":"2014-03-13T17:35:53.425Z"}
-{"level":"error","message":"Thu Mar 13 2014 17:35:56 GMT+0000 (GMT 标准时间):(H:\\Dropbox\\node\\testarm\\app.js:242:TypeError: H:\\Dropbox\\node\\testarm\\views\\meeting3.html:69\n    67| \t\t\t\t\t\t\t    < for(var i=0; i<locals.menus.length; i++) {>\r\n    68| \t\t\t\t\t\t\t\t    <li>\r\n >> 69| \t\t\t\t\t\t\t\t\t\t<a class='room_nav' ng-click=\"getRoomInfo($event.target.href);$event.preventDefault()\" href=\"<%= locals.menus[i].url %>\"><%= locals.menus[i].name %></a>\r\n    70|                                     </li>\r\n    71| \t\t\t\t\t\t\t\t<} >\r\n    72|                               -->\r\n\nCannot read property '3' of undefined\n    at eval (eval at <anonymous> (H:\\Dropbox\\node\\node_modules\\ejs\\lib\\ejs.js:236:14), <anonymous>:29:4092)\n    at eval (eval at <anonymous> (H:\\Dropbox\\node\\node_modules\\ejs\\lib\\ejs.js:236:14), <anonymous>:29:45780)\n    at H:\\Dropbox\\node\\node_modules\\ejs\\lib\\ejs.js:249:15\n    at Object.exports.render (H:\\Dropbox\\node\\node_modules\\ejs\\lib\\ejs.js:287:13)\n    at View.exports.renderFile [as engine] (H:\\Dropbox\\node\\node_modules\\ejs\\lib\\ejs.js:317:20)\n    at View.render (H:\\Dropbox\\node\\node_modules\\express\\lib\\view.js:75:8)\n    at Function.app.render (H:\\Dropbox\\node\\node_modules\\express\\lib\\application.js:504:10)\n    at ServerResponse.res.render (H:\\Dropbox\\node\\node_modules\\express\\lib\\response.js:753:7)\n    at H:\\Dropbox\\node\\testarm\\routes\\apps\\app_meeting.js:492:8\n    at Promise.<anonymous> (H:\\Dropbox\\node\\testarm\\model\\room_model.js:42:12)","timestamp":"2014-03-13T17:35:56.629Z"}
-{"0":"Thu Mar 13 2014 17:36:43 GMT+0000 (GMT 标准时间)","1":"SIGINT","level":"info","message":"%s: Received %s - terminating Node server ...","timestamp":"2014-03-13T17:36:43.147Z"}
-{"level":"info","message":"\u001b[33mapp on development\u001b[39m","timestamp":"2014-03-13T17:36:44.035Z"}
-{"level":"info","message":"\u001b[33mthe port used \u001b[39m","timestamp":"2014-03-13T17:36:44.126Z"}
-{"level":"info","message":"\u001b[33mExpress started on port\u001b[39m","timestamp":"2014-03-13T17:36:44.143Z"}
-{"level":"info","message":"mongodb connect success","timestamp":"2014-03-13T17:36:46.532Z"}
-{"level":"info","message":"connection opening","timestamp":"2014-03-13T17:36:46.532Z"}
-{"level":"info","message":"app is created enlight 3051h49o3fsw","timestamp":"2014-03-13T17:36:46.604Z"}
-{"level":"info","message":"\u001b[32msubscribe success  enlight  \u001b[39m","timestamp":"2014-03-13T17:36:46.605Z"}
-{"level":"info","message":"app is created enlight 2p29ltnukge8","timestamp":"2014-03-13T17:36:46.612Z"}
-{"level":"info","message":"\u001b[32msubscribe success  enlight  \u001b[39m","timestamp":"2014-03-13T17:36:46.612Z"}
-{"level":"info","message":"app is created  meetingroom   3jmlro3flhwk","timestamp":"2014-03-13T17:36:46.628Z"}
-{"level":"info","message":"subscribe success","timestamp":"2014-03-13T17:36:46.628Z"}
-{"level":"info","message":"App has subscribe to the channel success","timestamp":"2014-03-13T17:36:46.636Z"}
-{"level":"info","message":"App has subscribe to the channel success","timestamp":"2014-03-13T17:36:46.637Z"}
-{"level":"info","message":"App has subscribe to the channel success","timestamp":"2014-03-13T17:36:46.637Z"}
-{"level":"info","message":"\u001b[31mApp has subscribe to the catalog notification  success\u001b[39m","timestamp":"2014-03-13T17:36:46.638Z"}
-{"level":"info","message":"listen to the MQTT service succfully   - https://geras.1248.io/cat/armmeeting","timestamp":"2014-03-13T17:36:46.641Z"}
-{"level":"info","message":"add new RT SERVICE https://geras.1248.io/cat/armmeeting","timestamp":"2014-03-13T17:36:46.642Z"}
-{"level":"info","message":"\u001b[32mMQTT Connected\u001b[39m","timestamp":"2014-03-13T17:36:47.963Z"}
-{"0":"Thu Mar 13 2014 17:41:05 GMT+0000 (GMT 标准时间)","1":"SIGINT","level":"info","message":"%s: Received %s - terminating Node server ...","timestamp":"2014-03-13T17:41:05.737Z"}
-{"level":"info","message":"\u001b[33mapp on development\u001b[39m","timestamp":"2014-03-13T17:41:06.703Z"}
-{"level":"info","message":"\u001b[33mthe port used \u001b[39m","timestamp":"2014-03-13T17:41:06.798Z"}
-{"level":"info","message":"\u001b[33mExpress started on port\u001b[39m","timestamp":"2014-03-13T17:41:06.815Z"}
-{"level":"info","message":"mongodb connect success","timestamp":"2014-03-13T17:41:09.208Z"}
-{"level":"info","message":"connection opening","timestamp":"2014-03-13T17:41:09.208Z"}
-{"level":"info","message":"app is created enlight 2nerez15r88w","timestamp":"2014-03-13T17:41:09.272Z"}
-{"level":"info","message":"\u001b[32msubscribe success  enlight  \u001b[39m","timestamp":"2014-03-13T17:41:09.273Z"}
-{"level":"info","message":"app is created enlight 52zfxfj2n78c","timestamp":"2014-03-13T17:41:09.291Z"}
-{"level":"info","message":"\u001b[32msubscribe success  enlight  \u001b[39m","timestamp":"2014-03-13T17:41:09.292Z"}
-{"level":"info","message":"app is created  meetingroom   2nsxe3s8g12c","timestamp":"2014-03-13T17:41:09.313Z"}
-{"level":"info","message":"subscribe success","timestamp":"2014-03-13T17:41:09.314Z"}
-{"level":"info","message":"App has subscribe to the channel success","timestamp":"2014-03-13T17:41:09.325Z"}
-{"level":"info","message":"App has subscribe to the channel success","timestamp":"2014-03-13T17:41:09.325Z"}
-{"level":"info","message":"App has subscribe to the channel success","timestamp":"2014-03-13T17:41:09.326Z"}
-{"level":"info","message":"\u001b[31mApp has subscribe to the catalog notification  success\u001b[39m","timestamp":"2014-03-13T17:41:09.327Z"}
-{"level":"info","message":"listen to the MQTT service succfully   - https://geras.1248.io/cat/armmeeting","timestamp":"2014-03-13T17:41:09.345Z"}
-{"level":"info","message":"add new RT SERVICE https://geras.1248.io/cat/armmeeting","timestamp":"2014-03-13T17:41:09.346Z"}
-{"level":"info","message":"\u001b[32mMQTT Connected\u001b[39m","timestamp":"2014-03-13T17:41:10.281Z"}
-{"0":"Thu Mar 13 2014 17:41:53 GMT+0000 (GMT 标准时间)","1":"SIGINT","level":"info","message":"%s: Received %s - terminating Node server ...","timestamp":"2014-03-13T17:41:53.827Z"}
-{"level":"info","message":"\u001b[33mapp on development\u001b[39m","timestamp":"2014-03-13T17:41:55.493Z"}
-{"level":"info","message":"\u001b[33mthe port used \u001b[39m","timestamp":"2014-03-13T17:41:55.582Z"}
-{"level":"info","message":"\u001b[33mExpress started on port\u001b[39m","timestamp":"2014-03-13T17:41:55.601Z"}
-{"level":"info","message":"mongodb connect success","timestamp":"2014-03-13T17:41:57.885Z"}
-{"level":"info","message":"connection opening","timestamp":"2014-03-13T17:41:57.885Z"}
-{"level":"info","message":"app is created enlight 3okt9j7yfv40","timestamp":"2014-03-13T17:41:57.958Z"}
-{"level":"info","message":"\u001b[32msubscribe success  enlight  \u001b[39m","timestamp":"2014-03-13T17:41:57.958Z"}
-{"level":"info","message":"app is created enlight 3xanzacxzg4k","timestamp":"2014-03-13T17:41:57.971Z"}
-{"level":"info","message":"\u001b[32msubscribe success  enlight  \u001b[39m","timestamp":"2014-03-13T17:41:57.972Z"}
-{"level":"info","message":"app is created  meetingroom   62e1u3005q80","timestamp":"2014-03-13T17:41:57.990Z"}
-{"level":"info","message":"subscribe success","timestamp":"2014-03-13T17:41:57.991Z"}
-{"level":"info","message":"App has subscribe to the channel success","timestamp":"2014-03-13T17:41:58.000Z"}
-{"level":"info","message":"App has subscribe to the channel success","timestamp":"2014-03-13T17:41:58.002Z"}
-{"level":"info","message":"App has subscribe to the channel success","timestamp":"2014-03-13T17:41:58.003Z"}
-{"level":"info","message":"\u001b[31mApp has subscribe to the catalog notification  success\u001b[39m","timestamp":"2014-03-13T17:41:58.003Z"}
-{"level":"info","message":"listen to the MQTT service succfully   - https://geras.1248.io/cat/armmeeting","timestamp":"2014-03-13T17:41:58.008Z"}
-{"level":"info","message":"add new RT SERVICE https://geras.1248.io/cat/armmeeting","timestamp":"2014-03-13T17:41:58.009Z"}
-{"level":"info","message":"\u001b[32mMQTT Connected\u001b[39m","timestamp":"2014-03-13T17:41:58.824Z"}
-{"0":"Thu Mar 13 2014 17:45:41 GMT+0000 (GMT 标准时间)","1":"SIGINT","level":"info","message":"%s: Received %s - terminating Node server ...","timestamp":"2014-03-13T17:45:41.862Z"}
-{"level":"info","message":"\u001b[33mapp on development\u001b[39m","timestamp":"2014-03-13T17:45:42.883Z"}
-{"level":"info","message":"\u001b[33mthe port used \u001b[39m","timestamp":"2014-03-13T17:45:43.001Z"}
-{"level":"info","message":"\u001b[33mExpress started on port\u001b[39m","timestamp":"2014-03-13T17:45:43.036Z"}
-{"level":"info","message":"mongodb connect success","timestamp":"2014-03-13T17:45:45.372Z"}
-{"level":"info","message":"connection opening","timestamp":"2014-03-13T17:45:45.373Z"}
-{"level":"info","message":"app is created enlight 5gpdmhpg5xwc","timestamp":"2014-03-13T17:45:45.439Z"}
-{"level":"info","message":"\u001b[32msubscribe success  enlight  \u001b[39m","timestamp":"2014-03-13T17:45:45.439Z"}
-{"level":"info","message":"app is created enlight iweb6e7bg7k","timestamp":"2014-03-13T17:45:45.448Z"}
-{"level":"info","message":"\u001b[32msubscribe success  enlight  \u001b[39m","timestamp":"2014-03-13T17:45:45.449Z"}
-{"level":"info","message":"app is created  meetingroom   6o9suojwuxkw","timestamp":"2014-03-13T17:45:45.465Z"}
-{"level":"info","message":"subscribe success","timestamp":"2014-03-13T17:45:45.465Z"}
-{"level":"info","message":"App has subscribe to the channel success","timestamp":"2014-03-13T17:45:45.472Z"}
-{"level":"info","message":"App has subscribe to the channel success","timestamp":"2014-03-13T17:45:45.472Z"}
-{"level":"info","message":"App has subscribe to the channel success","timestamp":"2014-03-13T17:45:45.473Z"}
-{"level":"info","message":"listen to the MQTT service succfully   - https://geras.1248.io/cat/armmeeting","timestamp":"2014-03-13T17:45:45.480Z"}
-{"level":"info","message":"add new RT SERVICE https://geras.1248.io/cat/armmeeting","timestamp":"2014-03-13T17:45:45.480Z"}
-{"level":"info","message":"\u001b[31mApp has subscribe to the catalog notification  success\u001b[39m","timestamp":"2014-03-13T17:45:45.481Z"}
-{"level":"info","message":"\u001b[32mMQTT Connected\u001b[39m","timestamp":"2014-03-13T17:45:46.821Z"}
-{"level":"error","message":"Thu Mar 13 2014 17:45:51 GMT+0000 (GMT 标准时间):(H:\\Dropbox\\node\\testarm\\app.js:242:TypeError: H:\\Dropbox\\node\\testarm\\views\\meeting3.html:69\n    67| \t\t\t\t\t\t\t    < for(var i=0; i<locals.menus.length; i++) {>\r\n    68| \t\t\t\t\t\t\t\t    <li>\r\n >> 69| \t\t\t\t\t\t\t\t\t\t<a class='room_nav' ng-click=\"getRoomInfo($event.target.href);$event.preventDefault()\" href=\"<%= locals.menus[i].url %>\"><%= locals.menus[i].name %></a>\r\n    70|                                     </li>\r\n    71| \t\t\t\t\t\t\t\t<} >\r\n    72|                               -->\r\n\nCannot read property '3' of undefined\n    at eval (eval at <anonymous> (H:\\Dropbox\\node\\node_modules\\ejs\\lib\\ejs.js:236:14), <anonymous>:29:4092)\n    at eval (eval at <anonymous> (H:\\Dropbox\\node\\node_modules\\ejs\\lib\\ejs.js:236:14), <anonymous>:29:45780)\n    at H:\\Dropbox\\node\\node_modules\\ejs\\lib\\ejs.js:249:15\n    at Object.exports.render (H:\\Dropbox\\node\\node_modules\\ejs\\lib\\ejs.js:287:13)\n    at View.exports.renderFile [as engine] (H:\\Dropbox\\node\\node_modules\\ejs\\lib\\ejs.js:317:20)\n    at View.render (H:\\Dropbox\\node\\node_modules\\express\\lib\\view.js:75:8)\n    at Function.app.render (H:\\Dropbox\\node\\node_modules\\express\\lib\\application.js:504:10)\n    at ServerResponse.res.render (H:\\Dropbox\\node\\node_modules\\express\\lib\\response.js:753:7)\n    at H:\\Dropbox\\node\\testarm\\routes\\apps\\app_meeting.js:503:8\n    at Promise.<anonymous> (H:\\Dropbox\\node\\testarm\\model\\room_model.js:42:12)","timestamp":"2014-03-13T17:45:51.705Z"}
-{"0":"Thu Mar 13 2014 17:46:34 GMT+0000 (GMT 标准时间)","1":"SIGINT","level":"info","message":"%s: Received %s - terminating Node server ...","timestamp":"2014-03-13T17:46:34.019Z"}
-{"level":"info","message":"\u001b[33mapp on development\u001b[39m","timestamp":"2014-03-13T17:46:35.120Z"}
-{"level":"info","message":"\u001b[33mthe port used \u001b[39m","timestamp":"2014-03-13T17:46:35.211Z"}
-{"level":"info","message":"\u001b[33mExpress started on port\u001b[39m","timestamp":"2014-03-13T17:46:35.228Z"}
-{"level":"info","message":"mongodb connect success","timestamp":"2014-03-13T17:46:37.504Z"}
-{"level":"info","message":"connection opening","timestamp":"2014-03-13T17:46:37.505Z"}
-{"level":"info","message":"app is created enlight 2uek0quo6rk0","timestamp":"2014-03-13T17:46:37.573Z"}
-{"level":"info","message":"\u001b[32msubscribe success  enlight  \u001b[39m","timestamp":"2014-03-13T17:46:37.574Z"}
-{"level":"info","message":"app is created enlight 5twev9m6c8kc","timestamp":"2014-03-13T17:46:37.582Z"}
-{"level":"info","message":"\u001b[32msubscribe success  enlight  \u001b[39m","timestamp":"2014-03-13T17:46:37.583Z"}
-{"level":"info","message":"app is created  meetingroom   3m3nrkhczzms","timestamp":"2014-03-13T17:46:37.599Z"}
-{"level":"info","message":"subscribe success","timestamp":"2014-03-13T17:46:37.599Z"}
-{"level":"info","message":"App has subscribe to the channel success","timestamp":"2014-03-13T17:46:37.607Z"}
-{"level":"info","message":"App has subscribe to the channel success","timestamp":"2014-03-13T17:46:37.608Z"}
-{"level":"info","message":"App has subscribe to the channel success","timestamp":"2014-03-13T17:46:37.608Z"}
-{"level":"info","message":"\u001b[31mApp has subscribe to the catalog notification  success\u001b[39m","timestamp":"2014-03-13T17:46:37.609Z"}
-{"level":"info","message":"listen to the MQTT service succfully   - https://geras.1248.io/cat/armmeeting","timestamp":"2014-03-13T17:46:37.615Z"}
-{"level":"info","message":"add new RT SERVICE https://geras.1248.io/cat/armmeeting","timestamp":"2014-03-13T17:46:37.616Z"}
-{"level":"info","message":"\u001b[32mMQTT Connected\u001b[39m","timestamp":"2014-03-13T17:46:39.497Z"}
-{"level":"error","message":"Thu Mar 13 2014 17:47:33 GMT+0000 (GMT 标准时间):(H:\\Dropbox\\node\\testarm\\app.js:242:TypeError: H:\\Dropbox\\node\\testarm\\views\\meeting3.html:69\n    67| \t\t\t\t\t\t\t    < for(var i=0; i<locals.menus.length; i++) {>\r\n    68| \t\t\t\t\t\t\t\t    <li>\r\n >> 69| \t\t\t\t\t\t\t\t\t\t<a class='room_nav' ng-click=\"getRoomInfo($event.target.href);$event.preventDefault()\" href=\"<%= locals.menus[i].url %>\"><%= locals.menus[i].name %></a>\r\n    70|                                     </li>\r\n    71| \t\t\t\t\t\t\t\t<} >\r\n    72|                               -->\r\n\nCannot read property '3' of undefined\n    at eval (eval at <anonymous> (H:\\Dropbox\\node\\node_modules\\ejs\\lib\\ejs.js:236:14), <anonymous>:29:4004)\n    at eval (eval at <anonymous> (H:\\Dropbox\\node\\node_modules\\ejs\\lib\\ejs.js:236:14), <anonymous>:29:45692)\n    at H:\\Dropbox\\node\\node_modules\\ejs\\lib\\ejs.js:249:15\n    at Object.exports.render (H:\\Dropbox\\node\\node_modules\\ejs\\lib\\ejs.js:287:13)\n    at View.exports.renderFile [as engine] (H:\\Dropbox\\node\\node_modules\\ejs\\lib\\ejs.js:317:20)\n    at View.render (H:\\Dropbox\\node\\node_modules\\express\\lib\\view.js:75:8)\n    at Function.app.render (H:\\Dropbox\\node\\node_modules\\express\\lib\\application.js:504:10)\n    at ServerResponse.res.render (H:\\Dropbox\\node\\node_modules\\express\\lib\\response.js:753:7)\n    at H:\\Dropbox\\node\\testarm\\routes\\apps\\app_meeting.js:503:8\n    at Promise.<anonymous> (H:\\Dropbox\\node\\testarm\\model\\room_model.js:42:12)","timestamp":"2014-03-13T17:47:33.858Z"}
-{"0":"Thu Mar 13 2014 17:54:40 GMT+0000 (GMT 标准时间)","1":"SIGINT","level":"info","message":"%s: Received %s - terminating Node server ...","timestamp":"2014-03-13T17:54:40.397Z"}
-{"level":"info","message":"\u001b[33mapp on development\u001b[39m","timestamp":"2014-03-13T17:54:41.361Z"}
-{"level":"info","message":"\u001b[33mthe port used \u001b[39m","timestamp":"2014-03-13T17:54:41.450Z"}
-{"level":"info","message":"\u001b[33mExpress started on port\u001b[39m","timestamp":"2014-03-13T17:54:41.468Z"}
-{"level":"info","message":"mongodb connect success","timestamp":"2014-03-13T17:54:43.790Z"}
-{"level":"info","message":"connection opening","timestamp":"2014-03-13T17:54:43.790Z"}
-{"level":"info","message":"app is created enlight peuvhzcpz5.i","timestamp":"2014-03-13T17:54:43.857Z"}
-{"level":"info","message":"\u001b[32msubscribe success  enlight  \u001b[39m","timestamp":"2014-03-13T17:54:43.858Z"}
-{"level":"info","message":"app is created enlight 2u1k3r7bx30g","timestamp":"2014-03-13T17:54:43.864Z"}
-{"level":"info","message":"\u001b[32msubscribe success  enlight  \u001b[39m","timestamp":"2014-03-13T17:54:43.865Z"}
-{"level":"info","message":"app is created  meetingroom   5ynvengy5j8k","timestamp":"2014-03-13T17:54:43.879Z"}
-{"level":"info","message":"subscribe success","timestamp":"2014-03-13T17:54:43.880Z"}
-{"level":"info","message":"App has subscribe to the channel success","timestamp":"2014-03-13T17:54:43.887Z"}
-{"level":"info","message":"App has subscribe to the channel success","timestamp":"2014-03-13T17:54:43.888Z"}
-{"level":"info","message":"App has subscribe to the channel success","timestamp":"2014-03-13T17:54:43.888Z"}
-{"level":"info","message":"\u001b[31mApp has subscribe to the catalog notification  success\u001b[39m","timestamp":"2014-03-13T17:54:43.889Z"}
-{"level":"info","message":"listen to the MQTT service succfully   - https://geras.1248.io/cat/armmeeting","timestamp":"2014-03-13T17:54:43.892Z"}
-{"level":"info","message":"add new RT SERVICE https://geras.1248.io/cat/armmeeting","timestamp":"2014-03-13T17:54:43.893Z"}
-{"level":"info","message":"\u001b[32mMQTT Connected\u001b[39m","timestamp":"2014-03-13T17:54:44.995Z"}
-{"0":"Thu Mar 13 2014 17:59:05 GMT+0000 (GMT 标准时间)","1":"SIGINT","level":"info","message":"%s: Received %s - terminating Node server ...","timestamp":"2014-03-13T17:59:05.018Z"}
-{"level":"info","message":"\u001b[33mapp on development\u001b[39m","timestamp":"2014-03-13T17:59:05.972Z"}
-{"level":"info","message":"\u001b[33mthe port used \u001b[39m","timestamp":"2014-03-13T17:59:06.063Z"}
-{"level":"info","message":"\u001b[33mExpress started on port\u001b[39m","timestamp":"2014-03-13T17:59:06.084Z"}
-{"level":"info","message":"mongodb connect success","timestamp":"2014-03-13T17:59:08.425Z"}
-{"level":"info","message":"connection opening","timestamp":"2014-03-13T17:59:08.426Z"}
-{"level":"info","message":"app is created enlight 12oapbvkjjjk","timestamp":"2014-03-13T17:59:08.491Z"}
-{"level":"info","message":"\u001b[32msubscribe success  enlight  \u001b[39m","timestamp":"2014-03-13T17:59:08.491Z"}
-{"level":"info","message":"app is created enlight 2cirqupka6kg","timestamp":"2014-03-13T17:59:08.500Z"}
-{"level":"info","message":"\u001b[32msubscribe success  enlight  \u001b[39m","timestamp":"2014-03-13T17:59:08.500Z"}
-{"level":"info","message":"app is created  meetingroom   40zgk1feqaec","timestamp":"2014-03-13T17:59:08.515Z"}
-{"level":"info","message":"subscribe success","timestamp":"2014-03-13T17:59:08.516Z"}
-{"level":"info","message":"App has subscribe to the channel success","timestamp":"2014-03-13T17:59:08.523Z"}
-{"level":"info","message":"App has subscribe to the channel success","timestamp":"2014-03-13T17:59:08.524Z"}
-{"level":"info","message":"App has subscribe to the channel success","timestamp":"2014-03-13T17:59:08.524Z"}
-{"level":"info","message":"\u001b[31mApp has subscribe to the catalog notification  success\u001b[39m","timestamp":"2014-03-13T17:59:08.525Z"}
-{"level":"info","message":"listen to the MQTT service succfully   - https://geras.1248.io/cat/armmeeting","timestamp":"2014-03-13T17:59:08.530Z"}
-{"level":"info","message":"add new RT SERVICE https://geras.1248.io/cat/armmeeting","timestamp":"2014-03-13T17:59:08.531Z"}
-{"level":"info","message":"\u001b[32mMQTT Connected\u001b[39m","timestamp":"2014-03-13T17:59:10.549Z"}
-{"0":"Thu Mar 13 2014 17:59:42 GMT+0000 (GMT 标准时间)","1":"SIGINT","level":"info","message":"%s: Received %s - terminating Node server ...","timestamp":"2014-03-13T17:59:42.342Z"}
-{"level":"info","message":"\u001b[33mapp on development\u001b[39m","timestamp":"2014-03-13T17:59:43.221Z"}
-{"level":"info","message":"\u001b[33mthe port used \u001b[39m","timestamp":"2014-03-13T17:59:43.317Z"}
-{"level":"info","message":"\u001b[33mExpress started on port\u001b[39m","timestamp":"2014-03-13T17:59:43.335Z"}
-{"level":"info","message":"mongodb connect success","timestamp":"2014-03-13T17:59:45.677Z"}
-{"level":"info","message":"connection opening","timestamp":"2014-03-13T17:59:45.678Z"}
-{"level":"info","message":"app is created enlight 3v5mn8eomyg4","timestamp":"2014-03-13T17:59:45.750Z"}
-{"level":"info","message":"\u001b[32msubscribe success  enlight  \u001b[39m","timestamp":"2014-03-13T17:59:45.751Z"}
-{"level":"info","message":"app is created enlight 6gc8oi23rz8k","timestamp":"2014-03-13T17:59:45.758Z"}
-{"level":"info","message":"\u001b[32msubscribe success  enlight  \u001b[39m","timestamp":"2014-03-13T17:59:45.758Z"}
-{"level":"info","message":"app is created  meetingroom   2bv7r5rsvp34","timestamp":"2014-03-13T17:59:45.775Z"}
-{"level":"info","message":"subscribe success","timestamp":"2014-03-13T17:59:45.775Z"}
-{"level":"info","message":"App has subscribe to the channel success","timestamp":"2014-03-13T17:59:45.783Z"}
-{"level":"info","message":"App has subscribe to the channel success","timestamp":"2014-03-13T17:59:45.785Z"}
-{"level":"info","message":"listen to the MQTT service succfully   - https://geras.1248.io/cat/armmeeting","timestamp":"2014-03-13T17:59:45.790Z"}
-{"level":"info","message":"add new RT SERVICE https://geras.1248.io/cat/armmeeting","timestamp":"2014-03-13T17:59:45.790Z"}
-{"level":"info","message":"App has subscribe to the channel success","timestamp":"2014-03-13T17:59:45.791Z"}
-{"level":"info","message":"\u001b[31mApp has subscribe to the catalog notification  success\u001b[39m","timestamp":"2014-03-13T17:59:45.792Z"}
-{"level":"info","message":"\u001b[32mMQTT Connected\u001b[39m","timestamp":"2014-03-13T17:59:46.996Z"}
-{"0":"Thu Mar 13 2014 18:00:45 GMT+0000 (GMT 标准时间)","1":"SIGINT","level":"info","message":"%s: Received %s - terminating Node server ...","timestamp":"2014-03-13T18:00:45.214Z"}
-{"level":"info","message":"\u001b[33mapp on development\u001b[39m","timestamp":"2014-03-13T18:00:46.270Z"}
-{"level":"info","message":"\u001b[33mthe port used \u001b[39m","timestamp":"2014-03-13T18:00:46.364Z"}
-{"level":"info","message":"\u001b[33mExpress started on port\u001b[39m","timestamp":"2014-03-13T18:00:46.383Z"}
-{"level":"info","message":"mongodb connect success","timestamp":"2014-03-13T18:00:48.749Z"}
-{"level":"info","message":"connection opening","timestamp":"2014-03-13T18:00:48.750Z"}
-{"level":"info","message":"app is created enlight 4k8o162fkzac","timestamp":"2014-03-13T18:00:48.827Z"}
-{"level":"info","message":"\u001b[32msubscribe success  enlight  \u001b[39m","timestamp":"2014-03-13T18:00:48.828Z"}
-{"level":"info","message":"app is created enlight faetm72fpy0","timestamp":"2014-03-13T18:00:48.835Z"}
-{"level":"info","message":"\u001b[32msubscribe success  enlight  \u001b[39m","timestamp":"2014-03-13T18:00:48.835Z"}
-{"level":"info","message":"app is created  meetingroom   1oa113z6n4zo","timestamp":"2014-03-13T18:00:48.853Z"}
-{"level":"info","message":"subscribe success","timestamp":"2014-03-13T18:00:48.854Z"}
-{"level":"info","message":"App has subscribe to the channel success","timestamp":"2014-03-13T18:00:48.863Z"}
-{"level":"info","message":"App has subscribe to the channel success","timestamp":"2014-03-13T18:00:48.863Z"}
-{"level":"info","message":"App has subscribe to the channel success","timestamp":"2014-03-13T18:00:48.864Z"}
-{"level":"info","message":"\u001b[31mApp has subscribe to the catalog notification  success\u001b[39m","timestamp":"2014-03-13T18:00:48.864Z"}
-{"level":"info","message":"listen to the MQTT service succfully   - https://geras.1248.io/cat/armmeeting","timestamp":"2014-03-13T18:00:48.868Z"}
-{"level":"info","message":"add new RT SERVICE https://geras.1248.io/cat/armmeeting","timestamp":"2014-03-13T18:00:48.869Z"}
-{"level":"info","message":"\u001b[32mMQTT Connected\u001b[39m","timestamp":"2014-03-13T18:00:50.109Z"}
-{"0":"Thu Mar 13 2014 18:03:23 GMT+0000 (GMT 标准时间)","1":"SIGINT","level":"info","message":"%s: Received %s - terminating Node server ...","timestamp":"2014-03-13T18:03:23.541Z"}
-{"level":"info","message":"\u001b[33mapp on development\u001b[39m","timestamp":"2014-03-13T18:03:24.531Z"}
-{"level":"info","message":"\u001b[33mthe port used \u001b[39m","timestamp":"2014-03-13T18:03:24.637Z"}
-{"level":"info","message":"\u001b[33mExpress started on port\u001b[39m","timestamp":"2014-03-13T18:03:24.656Z"}
-{"level":"info","message":"mongodb connect success","timestamp":"2014-03-13T18:03:26.959Z"}
-{"level":"info","message":"connection opening","timestamp":"2014-03-13T18:03:26.960Z"}
-{"level":"info","message":"app is created enlight 32s24hytbry8","timestamp":"2014-03-13T18:03:27.029Z"}
-{"level":"info","message":"\u001b[32msubscribe success  enlight  \u001b[39m","timestamp":"2014-03-13T18:03:27.030Z"}
-{"level":"info","message":"app is created enlight 5knqphbwh10c","timestamp":"2014-03-13T18:03:27.039Z"}
-{"level":"info","message":"\u001b[32msubscribe success  enlight  \u001b[39m","timestamp":"2014-03-13T18:03:27.039Z"}
-{"level":"info","message":"app is created  meetingroom   3pfyc48nsp44","timestamp":"2014-03-13T18:03:27.058Z"}
-{"level":"info","message":"subscribe success","timestamp":"2014-03-13T18:03:27.058Z"}
-{"level":"info","message":"App has subscribe to the channel success","timestamp":"2014-03-13T18:03:27.068Z"}
-{"level":"info","message":"App has subscribe to the channel success","timestamp":"2014-03-13T18:03:27.068Z"}
-{"level":"info","message":"App has subscribe to the channel success","timestamp":"2014-03-13T18:03:27.069Z"}
-{"level":"info","message":"\u001b[31mApp has subscribe to the catalog notification  success\u001b[39m","timestamp":"2014-03-13T18:03:27.070Z"}
-{"level":"info","message":"listen to the MQTT service succfully   - https://geras.1248.io/cat/armmeeting","timestamp":"2014-03-13T18:03:27.074Z"}
-{"level":"info","message":"add new RT SERVICE https://geras.1248.io/cat/armmeeting","timestamp":"2014-03-13T18:03:27.074Z"}
-{"level":"info","message":"\u001b[32mMQTT Connected\u001b[39m","timestamp":"2014-03-13T18:03:28.069Z"}
-{"0":"Thu Mar 13 2014 18:06:04 GMT+0000 (GMT 标准时间)","1":"SIGINT","level":"info","message":"%s: Received %s - terminating Node server ...","timestamp":"2014-03-13T18:06:04.266Z"}
-{"level":"info","message":"\u001b[33mapp on development\u001b[39m","timestamp":"2014-03-13T18:06:05.220Z"}
-{"level":"info","message":"\u001b[33mthe port used \u001b[39m","timestamp":"2014-03-13T18:06:05.331Z"}
-{"level":"info","message":"\u001b[33mExpress started on port\u001b[39m","timestamp":"2014-03-13T18:06:05.348Z"}
-{"level":"info","message":"mongodb connect success","timestamp":"2014-03-13T18:06:07.494Z"}
-{"level":"info","message":"connection opening","timestamp":"2014-03-13T18:06:07.494Z"}
-{"level":"info","message":"app is created enlight 18aoswg9jxc0","timestamp":"2014-03-13T18:06:07.558Z"}
-{"level":"info","message":"\u001b[32msubscribe success  enlight  \u001b[39m","timestamp":"2014-03-13T18:06:07.559Z"}
-{"level":"info","message":"app is created enlight 385hewijyx8g","timestamp":"2014-03-13T18:06:07.565Z"}
-{"level":"info","message":"\u001b[32msubscribe success  enlight  \u001b[39m","timestamp":"2014-03-13T18:06:07.565Z"}
-{"level":"info","message":"app is created  meetingroom   2zkhevz7bow0","timestamp":"2014-03-13T18:06:07.582Z"}
-{"level":"info","message":"subscribe success","timestamp":"2014-03-13T18:06:07.583Z"}
-{"level":"info","message":"App has subscribe to the channel success","timestamp":"2014-03-13T18:06:07.592Z"}
-{"level":"info","message":"App has subscribe to the channel success","timestamp":"2014-03-13T18:06:07.593Z"}
-{"level":"info","message":"App has subscribe to the channel success","timestamp":"2014-03-13T18:06:07.593Z"}
-{"level":"info","message":"\u001b[31mApp has subscribe to the catalog notification  success\u001b[39m","timestamp":"2014-03-13T18:06:07.594Z"}
-{"level":"info","message":"listen to the MQTT service succfully   - https://geras.1248.io/cat/armmeeting","timestamp":"2014-03-13T18:06:07.600Z"}
-{"level":"info","message":"add new RT SERVICE https://geras.1248.io/cat/armmeeting","timestamp":"2014-03-13T18:06:07.601Z"}
-{"level":"info","message":"\u001b[32mMQTT Connected\u001b[39m","timestamp":"2014-03-13T18:06:08.963Z"}
-{"0":"Thu Mar 13 2014 18:08:39 GMT+0000 (GMT 标准时间)","1":"SIGINT","level":"info","message":"%s: Received %s - terminating Node server ...","timestamp":"2014-03-13T18:08:39.884Z"}
-{"level":"info","message":"\u001b[33mapp on development\u001b[39m","timestamp":"2014-03-13T18:08:41.121Z"}
-{"level":"info","message":"\u001b[33mthe port used \u001b[39m","timestamp":"2014-03-13T18:08:41.208Z"}
-{"level":"info","message":"\u001b[33mExpress started on port\u001b[39m","timestamp":"2014-03-13T18:08:41.226Z"}
-{"level":"info","message":"mongodb connect success","timestamp":"2014-03-13T18:08:43.605Z"}
-{"level":"info","message":"connection opening","timestamp":"2014-03-13T18:08:43.607Z"}
-{"level":"info","message":"app is created enlight 72ntzplwi6o8","timestamp":"2014-03-13T18:08:43.673Z"}
-{"level":"info","message":"\u001b[32msubscribe success  enlight  \u001b[39m","timestamp":"2014-03-13T18:08:43.673Z"}
-{"level":"info","message":"app is created enlight 31dhj6j9ok4","timestamp":"2014-03-13T18:08:43.679Z"}
-{"level":"info","message":"\u001b[32msubscribe success  enlight  \u001b[39m","timestamp":"2014-03-13T18:08:43.680Z"}
-{"level":"info","message":"app is created  meetingroom   215u3cdqh42s","timestamp":"2014-03-13T18:08:43.697Z"}
-{"level":"info","message":"subscribe success","timestamp":"2014-03-13T18:08:43.697Z"}
-{"level":"info","message":"App has subscribe to the channel success","timestamp":"2014-03-13T18:08:43.705Z"}
-{"level":"info","message":"App has subscribe to the channel success","timestamp":"2014-03-13T18:08:43.705Z"}
-{"level":"info","message":"App has subscribe to the channel success","timestamp":"2014-03-13T18:08:43.706Z"}
-{"level":"info","message":"listen to the MQTT service succfully   - https://geras.1248.io/cat/armmeeting","timestamp":"2014-03-13T18:08:43.709Z"}
-{"level":"info","message":"add new RT SERVICE https://geras.1248.io/cat/armmeeting","timestamp":"2014-03-13T18:08:43.709Z"}
-{"level":"info","message":"\u001b[31mApp has subscribe to the catalog notification  success\u001b[39m","timestamp":"2014-03-13T18:08:43.710Z"}
-{"level":"info","message":"\u001b[32mMQTT Connected\u001b[39m","timestamp":"2014-03-13T18:08:44.860Z"}
-{"0":"Thu Mar 13 2014 18:18:06 GMT+0000 (GMT 标准时间)","1":"SIGINT","level":"info","message":"%s: Received %s - terminating Node server ...","timestamp":"2014-03-13T18:18:06.146Z"}
-{"level":"info","message":"\u001b[33mapp on development\u001b[39m","timestamp":"2014-03-13T18:18:08.281Z"}
-{"level":"info","message":"\u001b[33mthe port used \u001b[39m","timestamp":"2014-03-13T18:18:08.409Z"}
-{"level":"info","message":"\u001b[33mExpress started on port\u001b[39m","timestamp":"2014-03-13T18:18:08.430Z"}
-{"level":"info","message":"mongodb connect success","timestamp":"2014-03-13T18:18:10.730Z"}
-{"level":"info","message":"connection opening","timestamp":"2014-03-13T18:18:10.730Z"}
-{"level":"info","message":"app is created enlight 24d1xpk4418g","timestamp":"2014-03-13T18:18:10.801Z"}
-{"level":"info","message":"\u001b[32msubscribe success  enlight  \u001b[39m","timestamp":"2014-03-13T18:18:10.802Z"}
-{"level":"info","message":"app is created enlight 4cl00ytgkfi8","timestamp":"2014-03-13T18:18:10.808Z"}
-{"level":"info","message":"\u001b[32msubscribe success  enlight  \u001b[39m","timestamp":"2014-03-13T18:18:10.808Z"}
-{"level":"info","message":"app is created  meetingroom   1m2iksc838m8","timestamp":"2014-03-13T18:18:10.824Z"}
-{"level":"info","message":"subscribe success","timestamp":"2014-03-13T18:18:10.825Z"}
-{"level":"info","message":"App has subscribe to the channel success","timestamp":"2014-03-13T18:18:10.832Z"}
-{"level":"info","message":"App has subscribe to the channel success","timestamp":"2014-03-13T18:18:10.833Z"}
-{"level":"info","message":"App has subscribe to the channel success","timestamp":"2014-03-13T18:18:10.834Z"}
-{"level":"info","message":"listen to the MQTT service succfully   - https://geras.1248.io/cat/armmeeting","timestamp":"2014-03-13T18:18:10.837Z"}
-{"level":"info","message":"add new RT SERVICE https://geras.1248.io/cat/armmeeting","timestamp":"2014-03-13T18:18:10.837Z"}
-{"level":"info","message":"\u001b[31mApp has subscribe to the catalog notification  success\u001b[39m","timestamp":"2014-03-13T18:18:10.838Z"}
-{"level":"info","message":"\u001b[32mMQTT Connected\u001b[39m","timestamp":"2014-03-13T18:18:13.756Z"}
-{"0":"Thu Mar 13 2014 18:18:56 GMT+0000 (GMT 标准时间)","1":"SIGINT","level":"info","message":"%s: Received %s - terminating Node server ...","timestamp":"2014-03-13T18:18:56.212Z"}
-{"level":"info","message":"\u001b[33mapp on development\u001b[39m","timestamp":"2014-03-13T18:18:57.996Z"}
-{"level":"info","message":"\u001b[33mthe port used \u001b[39m","timestamp":"2014-03-13T18:18:58.088Z"}
-{"level":"info","message":"\u001b[33mExpress started on port\u001b[39m","timestamp":"2014-03-13T18:18:58.104Z"}
-{"level":"info","message":"mongodb connect success","timestamp":"2014-03-13T18:19:00.430Z"}
-{"level":"info","message":"connection opening","timestamp":"2014-03-13T18:19:00.431Z"}
-{"level":"info","message":"app is created enlight 413gvesijqio","timestamp":"2014-03-13T18:19:00.501Z"}
-{"level":"info","message":"\u001b[32msubscribe success  enlight  \u001b[39m","timestamp":"2014-03-13T18:19:00.502Z"}
-{"level":"info","message":"app is created enlight 1h9fo2l53jy8","timestamp":"2014-03-13T18:19:00.508Z"}
-{"level":"info","message":"\u001b[32msubscribe success  enlight  \u001b[39m","timestamp":"2014-03-13T18:19:00.508Z"}
-{"level":"info","message":"app is created  meetingroom   5jzcb665so4k","timestamp":"2014-03-13T18:19:00.523Z"}
-{"level":"info","message":"subscribe success","timestamp":"2014-03-13T18:19:00.523Z"}
-{"level":"info","message":"App has subscribe to the channel success","timestamp":"2014-03-13T18:19:00.532Z"}
-{"level":"info","message":"App has subscribe to the channel success","timestamp":"2014-03-13T18:19:00.533Z"}
-{"level":"info","message":"App has subscribe to the channel success","timestamp":"2014-03-13T18:19:00.533Z"}
-{"level":"info","message":"listen to the MQTT service succfully   - https://geras.1248.io/cat/armmeeting","timestamp":"2014-03-13T18:19:00.539Z"}
-{"level":"info","message":"add new RT SERVICE https://geras.1248.io/cat/armmeeting","timestamp":"2014-03-13T18:19:00.539Z"}
-{"level":"info","message":"\u001b[31mApp has subscribe to the catalog notification  success\u001b[39m","timestamp":"2014-03-13T18:19:00.541Z"}
-{"level":"info","message":"\u001b[32mMQTT Connected\u001b[39m","timestamp":"2014-03-13T18:19:01.578Z"}
-{"0":"Thu Mar 13 2014 18:19:56 GMT+0000 (GMT 标准时间)","1":"SIGINT","level":"info","message":"%s: Received %s - terminating Node server ...","timestamp":"2014-03-13T18:19:56.104Z"}
-{"level":"info","message":"\u001b[33mapp on development\u001b[39m","timestamp":"2014-03-13T18:19:57.076Z"}
-{"level":"info","message":"\u001b[33mthe port used \u001b[39m","timestamp":"2014-03-13T18:19:57.165Z"}
-{"level":"info","message":"\u001b[33mExpress started on port\u001b[39m","timestamp":"2014-03-13T18:19:57.187Z"}
-{"level":"info","message":"mongodb connect success","timestamp":"2014-03-13T18:19:59.526Z"}
-{"level":"info","message":"connection opening","timestamp":"2014-03-13T18:19:59.527Z"}
-{"level":"info","message":"app is created enlight 2gzzwigly884","timestamp":"2014-03-13T18:19:59.594Z"}
-{"level":"info","message":"\u001b[32msubscribe success  enlight  \u001b[39m","timestamp":"2014-03-13T18:19:59.595Z"}
-{"level":"info","message":"app is created enlight 4icsj1mn114w","timestamp":"2014-03-13T18:19:59.603Z"}
-{"level":"info","message":"\u001b[32msubscribe success  enlight  \u001b[39m","timestamp":"2014-03-13T18:19:59.604Z"}
-{"level":"info","message":"app is created  meetingroom   5b8oesh2qoow","timestamp":"2014-03-13T18:19:59.619Z"}
-{"level":"info","message":"subscribe success","timestamp":"2014-03-13T18:19:59.619Z"}
-{"level":"info","message":"App has subscribe to the channel success","timestamp":"2014-03-13T18:19:59.628Z"}
-{"level":"info","message":"App has subscribe to the channel success","timestamp":"2014-03-13T18:19:59.629Z"}
-{"level":"info","message":"App has subscribe to the channel success","timestamp":"2014-03-13T18:19:59.629Z"}
-{"level":"info","message":"\u001b[31mApp has subscribe to the catalog notification  success\u001b[39m","timestamp":"2014-03-13T18:19:59.631Z"}
-{"level":"info","message":"listen to the MQTT service succfully   - https://geras.1248.io/cat/armmeeting","timestamp":"2014-03-13T18:19:59.635Z"}
-{"level":"info","message":"add new RT SERVICE https://geras.1248.io/cat/armmeeting","timestamp":"2014-03-13T18:19:59.636Z"}
-{"level":"info","message":"\u001b[32mMQTT Connected\u001b[39m","timestamp":"2014-03-13T18:20:00.984Z"}
-{"level":"error","message":"Fri Mar 14 2014 01:35:34 GMT+0000 (GMT 标准时间):(H:\\Dropbox\\node\\testarm\\app.js:340:ReferenceError: integrateMeetingRoom is not defined\n    at H:\\Dropbox\\node\\testarm\\routes\\catalogUpdater.js:195:4\n    at H:\\Dropbox\\node\\node_modules\\async\\lib\\async.js:229:13\n    at H:\\Dropbox\\node\\node_modules\\async\\lib\\async.js:139:25\n    at H:\\Dropbox\\node\\node_modules\\async\\lib\\async.js:226:17\n    at H:\\Dropbox\\node\\node_modules\\async\\lib\\async.js:553:34\n    at H:\\Dropbox\\node\\testarm\\routes\\catalogUpdater.js:190:6\n    at H:\\Dropbox\\node\\testarm\\routes\\catalog_crawler.js:173:4\n    at crawl (H:\\Dropbox\\node\\testarm\\routes\\catalog_crawler.js:134:4)\n    at H:\\Dropbox\\node\\testarm\\routes\\catalog_crawler.js:123:7\n    at Request._callback (H:\\Dropbox\\node\\testarm\\routes\\catalog_crawler.js:50:7)","timestamp":"2014-03-14T01:35:34.861Z"}
-{"0":"Fri Mar 14 2014 04:42:48 GMT+0000 (GMT 标准时间)","1":"SIGINT","level":"info","message":"%s: Received %s - terminating Node server ...","timestamp":"2014-03-14T04:42:48.912Z"}
-{"level":"info","message":"\u001b[33mapp on development\u001b[39m","timestamp":"2014-03-14T04:42:50.581Z"}
-{"level":"info","message":"\u001b[33mthe port used \u001b[39m","timestamp":"2014-03-14T04:42:50.671Z"}
-{"level":"info","message":"\u001b[33mExpress started on port\u001b[39m","timestamp":"2014-03-14T04:42:50.689Z"}
-{"level":"info","message":"mongodb connect success","timestamp":"2014-03-14T04:42:53.095Z"}
-{"level":"info","message":"connection opening","timestamp":"2014-03-14T04:42:53.095Z"}
-{"level":"info","message":"app is created enlight 568grez6ncgs","timestamp":"2014-03-14T04:42:53.163Z"}
-{"level":"info","message":"\u001b[32msubscribe success  enlight  \u001b[39m","timestamp":"2014-03-14T04:42:53.163Z"}
-{"level":"info","message":"app is created enlight enirf7w9vh4","timestamp":"2014-03-14T04:42:53.170Z"}
-{"level":"info","message":"\u001b[32msubscribe success  enlight  \u001b[39m","timestamp":"2014-03-14T04:42:53.171Z"}
-{"level":"info","message":"app is created  meetingroom   1908bykx97es","timestamp":"2014-03-14T04:42:53.188Z"}
-{"level":"info","message":"subscribe success","timestamp":"2014-03-14T04:42:53.189Z"}
-{"level":"info","message":"App has subscribe to the channel success","timestamp":"2014-03-14T04:42:53.196Z"}
-{"level":"info","message":"App has subscribe to the channel success","timestamp":"2014-03-14T04:42:53.197Z"}
-{"level":"info","message":"App has subscribe to the channel success","timestamp":"2014-03-14T04:42:53.198Z"}
-{"level":"info","message":"listen to the MQTT service succfully   - https://geras.1248.io/cat/armmeeting","timestamp":"2014-03-14T04:42:53.202Z"}
-{"level":"info","message":"add new RT SERVICE https://geras.1248.io/cat/armmeeting","timestamp":"2014-03-14T04:42:53.203Z"}
-{"level":"info","message":"\u001b[31mApp has subscribe to the catalog notification  success\u001b[39m","timestamp":"2014-03-14T04:42:53.204Z"}
-{"level":"info","message":"\u001b[32mMQTT Connected\u001b[39m","timestamp":"2014-03-14T04:42:53.447Z"}
-{"level":"error","message":"Fri Mar 14 2014 04:43:55 GMT+0000 (GMT 标准时间):(H:\\Dropbox\\node\\testarm\\app.js:242:TypeError: H:\\Dropbox\\node\\testarm\\views\\landingpage.html:54\n    52|                             <h2><i class=\"icon-data_science blue\"></i> ARM Buildings</h2>\r\n    53|                             <ul>\r\n >> 54| \t\t\t\t\t\t\t    <% for(var i=0; i<locals.data.length; i++) {%>\r\n    55|                                    <div> <%= locals.data[i].name %>  </div>\r\n    56| \t\t\t\t\t\t\t\t   <% for(var j=0; j<locals.data[i].buildings.length; j++) {%>\r\n    57| \t\t\t\t\t\t\t\t       <div> <%= locals.data[i].buildings[j].name %>  </div>\r\n\nCannot read property 'length' of undefined\n    at eval (eval at <anonymous> (H:\\Dropbox\\node\\node_modules\\ejs\\lib\\ejs.js:236:14), <anonymous>:29:3041)\n    at eval (eval at <anonymous> (H:\\Dropbox\\node\\node_modules\\ejs\\lib\\ejs.js:236:14), <anonymous>:29:18253)\n    at H:\\Dropbox\\node\\node_modules\\ejs\\lib\\ejs.js:249:15\n    at Object.exports.render (H:\\Dropbox\\node\\node_modules\\ejs\\lib\\ejs.js:287:13)\n    at View.exports.renderFile [as engine] (H:\\Dropbox\\node\\node_modules\\ejs\\lib\\ejs.js:317:20)\n    at View.render (H:\\Dropbox\\node\\node_modules\\express\\lib\\view.js:75:8)\n    at Function.app.render (H:\\Dropbox\\node\\node_modules\\express\\lib\\application.js:504:10)\n    at ServerResponse.res.render (H:\\Dropbox\\node\\node_modules\\express\\lib\\response.js:753:7)\n    at H:\\Dropbox\\node\\testarm\\routes\\apps\\app_meeting.js:370:8\n    at Promise.<anonymous> (H:\\Dropbox\\node\\testarm\\model\\room_model.js:42:12)","timestamp":"2014-03-14T04:43:55.507Z"}
-{"0":"Fri Mar 14 2014 04:44:28 GMT+0000 (GMT 标准时间)","1":"SIGINT","level":"info","message":"%s: Received %s - terminating Node server ...","timestamp":"2014-03-14T04:44:28.020Z"}
-{"level":"info","message":"\u001b[33mapp on development\u001b[39m","timestamp":"2014-03-14T04:44:29.277Z"}
-{"level":"info","message":"\u001b[33mthe port used \u001b[39m","timestamp":"2014-03-14T04:44:29.366Z"}
-{"level":"info","message":"\u001b[33mExpress started on port\u001b[39m","timestamp":"2014-03-14T04:44:29.382Z"}
-{"level":"info","message":"mongodb connect success","timestamp":"2014-03-14T04:44:31.662Z"}
-{"level":"info","message":"connection opening","timestamp":"2014-03-14T04:44:31.663Z"}
-{"level":"info","message":"app is created enlight 7kkht1efub8c","timestamp":"2014-03-14T04:44:31.725Z"}
-{"level":"info","message":"\u001b[32msubscribe success  enlight  \u001b[39m","timestamp":"2014-03-14T04:44:31.725Z"}
-{"level":"info","message":"app is created enlight 1zj4xemgb7ok","timestamp":"2014-03-14T04:44:31.731Z"}
-{"level":"info","message":"\u001b[32msubscribe success  enlight  \u001b[39m","timestamp":"2014-03-14T04:44:31.732Z"}
-{"level":"info","message":"app is created  meetingroom   4xx1fzzxvtkw","timestamp":"2014-03-14T04:44:31.746Z"}
-{"level":"info","message":"subscribe success","timestamp":"2014-03-14T04:44:31.747Z"}
-{"level":"info","message":"App has subscribe to the channel success","timestamp":"2014-03-14T04:44:31.754Z"}
-{"level":"info","message":"App has subscribe to the channel success","timestamp":"2014-03-14T04:44:31.754Z"}
-{"level":"info","message":"App has subscribe to the channel success","timestamp":"2014-03-14T04:44:31.755Z"}
-{"level":"info","message":"listen to the MQTT service succfully   - https://geras.1248.io/cat/armmeeting","timestamp":"2014-03-14T04:44:31.760Z"}
-{"level":"info","message":"add new RT SERVICE https://geras.1248.io/cat/armmeeting","timestamp":"2014-03-14T04:44:31.760Z"}
-{"level":"info","message":"\u001b[31mApp has subscribe to the catalog notification  success\u001b[39m","timestamp":"2014-03-14T04:44:31.761Z"}
-{"level":"info","message":"\u001b[32mMQTT Connected\u001b[39m","timestamp":"2014-03-14T04:44:31.829Z"}
-{"0":"Fri Mar 14 2014 06:34:37 GMT+0000 (GMT 标准时间)","1":"SIGINT","level":"info","message":"%s: Received %s - terminating Node server ...","timestamp":"2014-03-14T06:34:37.264Z"}
-{"level":"info","message":"\u001b[33mapp on development\u001b[39m","timestamp":"2014-03-14T06:34:38.536Z"}
-{"level":"info","message":"\u001b[33mthe port used \u001b[39m","timestamp":"2014-03-14T06:34:38.621Z"}
-{"level":"info","message":"\u001b[33mExpress started on port\u001b[39m","timestamp":"2014-03-14T06:34:38.639Z"}
-{"level":"info","message":"mongodb connect success","timestamp":"2014-03-14T06:34:40.824Z"}
-{"level":"info","message":"connection opening","timestamp":"2014-03-14T06:34:40.824Z"}
-{"level":"info","message":"app is created enlight 1bpz5l2qw8bo","timestamp":"2014-03-14T06:34:40.886Z"}
-{"level":"info","message":"\u001b[32msubscribe success  enlight  \u001b[39m","timestamp":"2014-03-14T06:34:40.886Z"}
-{"level":"info","message":"app is created enlight 7bdwcnw8bdwk","timestamp":"2014-03-14T06:34:40.892Z"}
-{"level":"info","message":"\u001b[32msubscribe success  enlight  \u001b[39m","timestamp":"2014-03-14T06:34:40.893Z"}
-{"level":"info","message":"app is created  meetingroom   6t3fljytjd8o","timestamp":"2014-03-14T06:34:40.907Z"}
-{"level":"info","message":"subscribe success","timestamp":"2014-03-14T06:34:40.907Z"}
-{"level":"info","message":"App has subscribe to the channel success","timestamp":"2014-03-14T06:34:40.914Z"}
-{"level":"info","message":"App has subscribe to the channel success","timestamp":"2014-03-14T06:34:40.915Z"}
-{"level":"info","message":"App has subscribe to the channel success","timestamp":"2014-03-14T06:34:40.916Z"}
-{"level":"info","message":"listen to the MQTT service succfully   - https://geras.1248.io/cat/armmeeting","timestamp":"2014-03-14T06:34:40.919Z"}
-{"level":"info","message":"add new RT SERVICE https://geras.1248.io/cat/armmeeting","timestamp":"2014-03-14T06:34:40.920Z"}
-{"level":"info","message":"\u001b[31mApp has subscribe to the catalog notification  success\u001b[39m","timestamp":"2014-03-14T06:34:40.921Z"}
-{"level":"info","message":"\u001b[32mMQTT Connected\u001b[39m","timestamp":"2014-03-14T06:34:40.986Z"}
-{"0":"Fri Mar 14 2014 06:38:15 GMT+0000 (GMT 标准时间)","1":"SIGINT","level":"info","message":"%s: Received %s - terminating Node server ...","timestamp":"2014-03-14T06:38:15.358Z"}
-{"level":"info","message":"\u001b[33mapp on development\u001b[39m","timestamp":"2014-03-14T06:38:16.615Z"}
-{"level":"info","message":"\u001b[33mthe port used \u001b[39m","timestamp":"2014-03-14T06:38:16.705Z"}
-{"level":"info","message":"\u001b[33mExpress started on port\u001b[39m","timestamp":"2014-03-14T06:38:16.722Z"}
-{"level":"info","message":"mongodb connect success","timestamp":"2014-03-14T06:38:18.995Z"}
-{"level":"info","message":"connection opening","timestamp":"2014-03-14T06:38:18.995Z"}
-{"level":"info","message":"app is created enlight m944p3weeio","timestamp":"2014-03-14T06:38:19.062Z"}
-{"level":"info","message":"\u001b[32msubscribe success  enlight  \u001b[39m","timestamp":"2014-03-14T06:38:19.063Z"}
-{"level":"info","message":"app is created enlight 3qebkerlpzuo","timestamp":"2014-03-14T06:38:19.071Z"}
-{"level":"info","message":"\u001b[32msubscribe success  enlight  \u001b[39m","timestamp":"2014-03-14T06:38:19.071Z"}
-{"level":"info","message":"app is created  meetingroom   596bty1ut50k","timestamp":"2014-03-14T06:38:19.086Z"}
-{"level":"info","message":"subscribe success","timestamp":"2014-03-14T06:38:19.087Z"}
-{"level":"info","message":"App has subscribe to the channel success","timestamp":"2014-03-14T06:38:19.097Z"}
-{"level":"info","message":"App has subscribe to the channel success","timestamp":"2014-03-14T06:38:19.098Z"}
-{"level":"info","message":"App has subscribe to the channel success","timestamp":"2014-03-14T06:38:19.098Z"}
-{"level":"info","message":"\u001b[31mApp has subscribe to the catalog notification  success\u001b[39m","timestamp":"2014-03-14T06:38:19.099Z"}
-{"level":"info","message":"listen to the MQTT service succfully   - https://geras.1248.io/cat/armmeeting","timestamp":"2014-03-14T06:38:19.103Z"}
-{"level":"info","message":"add new RT SERVICE https://geras.1248.io/cat/armmeeting","timestamp":"2014-03-14T06:38:19.103Z"}
-{"level":"info","message":"\u001b[32mMQTT Connected\u001b[39m","timestamp":"2014-03-14T06:38:19.168Z"}
-{"level":"error","message":"Fri Mar 14 2014 06:48:57 GMT+0000 (GMT 标准时间):H:\\Dropbox\\node\\testarm\\routes\\apps\\app_meeting.js:639:error    https://protected-sands-2667.herokuapp.com/rooms/Room.UKCWillowB/events","timestamp":"2014-03-14T06:49:11.179Z"}
-{"level":"error","message":"Fri Mar 14 2014 06:49:11 GMT+0000 (GMT 标准时间):H:\\Dropbox\\node\\testarm\\routes\\apps\\app_meeting.js:639:error    https://protected-sands-2667.herokuapp.com/rooms/Room.UKCWillowA/events","timestamp":"2014-03-14T06:49:11.183Z"}
-{"level":"error","message":"Fri Mar 14 2014 06:49:11 GMT+0000 (GMT 标准时间):H:\\Dropbox\\node\\testarm\\routes\\apps\\app_meeting.js:639:error    https://protected-sands-2667.herokuapp.com/rooms/Room.UKCBox/events","timestamp":"2014-03-14T06:49:11.186Z"}
-{"level":"error","message":"Fri Mar 14 2014 06:49:11 GMT+0000 (GMT 标准时间):H:\\Dropbox\\node\\testarm\\routes\\apps\\app_meeting.js:639:error    https://protected-sands-2667.herokuapp.com/rooms/Room.UKCLectureTheatre/events","timestamp":"2014-03-14T06:49:11.189Z"}
-{"level":"error","message":"Fri Mar 14 2014 06:49:11 GMT+0000 (GMT 标准时间):H:\\Dropbox\\node\\testarm\\routes\\apps\\app_meeting.js:639:error    https://protected-sands-2667.herokuapp.com/rooms/Room.UKCYew/events","timestamp":"2014-03-14T06:49:11.193Z"}
-{"level":"error","message":"Fri Mar 14 2014 06:49:41 GMT+0000 (GMT 标准时间):H:\\Dropbox\\node\\testarm\\routes\\apps\\app_meeting.js:639:error    https://protected-sands-2667.herokuapp.com/rooms/Room.UKCAspen/events","timestamp":"2014-03-14T06:49:41.305Z"}
-{"0":"Fri Mar 14 2014 06:56:25 GMT+0000 (GMT 标准时间)","1":"SIGINT","level":"info","message":"%s: Received %s - terminating Node server ...","timestamp":"2014-03-14T06:56:25.595Z"}
-{"level":"info","message":"\u001b[33mapp on development\u001b[39m","timestamp":"2014-03-14T06:56:26.572Z"}
-{"level":"info","message":"\u001b[33mthe port used \u001b[39m","timestamp":"2014-03-14T06:56:26.664Z"}
-{"level":"info","message":"\u001b[33mExpress started on port\u001b[39m","timestamp":"2014-03-14T06:56:26.682Z"}
-{"level":"info","message":"mongodb connect success","timestamp":"2014-03-14T06:56:29.000Z"}
-{"level":"info","message":"connection opening","timestamp":"2014-03-14T06:56:29.002Z"}
-{"level":"info","message":"app is created enlight jev8zuyj6h4","timestamp":"2014-03-14T06:56:29.075Z"}
-{"level":"info","message":"\u001b[32msubscribe success  enlight  \u001b[39m","timestamp":"2014-03-14T06:56:29.076Z"}
-{"level":"info","message":"app is created enlight 4z0byr5twx8o","timestamp":"2014-03-14T06:56:29.083Z"}
-{"level":"info","message":"\u001b[32msubscribe success  enlight  \u001b[39m","timestamp":"2014-03-14T06:56:29.083Z"}
-{"level":"info","message":"app is created  meetingroom   6ur6reylfvok","timestamp":"2014-03-14T06:56:29.103Z"}
-{"level":"info","message":"subscribe success","timestamp":"2014-03-14T06:56:29.104Z"}
-{"level":"info","message":"App has subscribe to the channel success","timestamp":"2014-03-14T06:56:29.113Z"}
-{"level":"info","message":"App has subscribe to the channel success","timestamp":"2014-03-14T06:56:29.114Z"}
-{"level":"info","message":"App has subscribe to the channel success","timestamp":"2014-03-14T06:56:29.115Z"}
-{"level":"info","message":"\u001b[31mApp has subscribe to the catalog notification  success\u001b[39m","timestamp":"2014-03-14T06:56:29.122Z"}
-{"level":"info","message":"listen to the MQTT service succfully   - https://geras.1248.io/cat/armmeeting","timestamp":"2014-03-14T06:56:29.128Z"}
-{"level":"info","message":"add new RT SERVICE https://geras.1248.io/cat/armmeeting","timestamp":"2014-03-14T06:56:29.128Z"}
-{"level":"info","message":"\u001b[32mMQTT Connected\u001b[39m","timestamp":"2014-03-14T06:56:29.198Z"}
-{"0":"Fri Mar 14 2014 06:57:06 GMT+0000 (GMT 标准时间)","1":"SIGINT","level":"info","message":"%s: Received %s - terminating Node server ...","timestamp":"2014-03-14T06:57:06.941Z"}
-{"level":"info","message":"\u001b[33mapp on development\u001b[39m","timestamp":"2014-03-14T06:57:08.291Z"}
-{"level":"info","message":"\u001b[33mthe port used \u001b[39m","timestamp":"2014-03-14T06:57:08.377Z"}
-{"level":"info","message":"\u001b[33mExpress started on port\u001b[39m","timestamp":"2014-03-14T06:57:08.392Z"}
-{"level":"info","message":"mongodb connect success","timestamp":"2014-03-14T06:57:10.678Z"}
-{"level":"info","message":"connection opening","timestamp":"2014-03-14T06:57:10.678Z"}
-{"level":"info","message":"app is created enlight 2mjhfn4db5c0","timestamp":"2014-03-14T06:57:10.759Z"}
-{"level":"info","message":"\u001b[32msubscribe success  enlight  \u001b[39m","timestamp":"2014-03-14T06:57:10.760Z"}
-{"level":"info","message":"app is created enlight 2gheyn3p0sro","timestamp":"2014-03-14T06:57:10.766Z"}
-{"level":"info","message":"\u001b[32msubscribe success  enlight  \u001b[39m","timestamp":"2014-03-14T06:57:10.766Z"}
-{"level":"info","message":"app is created  meetingroom   25vqovhd0aas","timestamp":"2014-03-14T06:57:10.780Z"}
-{"level":"info","message":"subscribe success","timestamp":"2014-03-14T06:57:10.781Z"}
-{"level":"info","message":"App has subscribe to the channel success","timestamp":"2014-03-14T06:57:10.789Z"}
-{"level":"info","message":"App has subscribe to the channel success","timestamp":"2014-03-14T06:57:10.790Z"}
-{"level":"info","message":"App has subscribe to the channel success","timestamp":"2014-03-14T06:57:10.790Z"}
-{"level":"info","message":"\u001b[31mApp has subscribe to the catalog notification  success\u001b[39m","timestamp":"2014-03-14T06:57:10.791Z"}
-{"level":"info","message":"listen to the MQTT service succfully   - https://geras.1248.io/cat/armmeeting","timestamp":"2014-03-14T06:57:10.796Z"}
-{"level":"info","message":"add new RT SERVICE https://geras.1248.io/cat/armmeeting","timestamp":"2014-03-14T06:57:10.796Z"}
-{"level":"info","message":"\u001b[32mMQTT Connected\u001b[39m","timestamp":"2014-03-14T06:57:10.860Z"}
-{"0":"Fri Mar 14 2014 07:06:49 GMT+0000 (GMT 标准时间)","1":"SIGINT","level":"info","message":"%s: Received %s - terminating Node server ...","timestamp":"2014-03-14T07:06:49.303Z"}
-{"level":"info","message":"\u001b[33mapp on development\u001b[39m","timestamp":"2014-03-14T07:06:50.351Z"}
-{"level":"info","message":"\u001b[33mthe port used \u001b[39m","timestamp":"2014-03-14T07:06:50.437Z"}
-{"level":"info","message":"\u001b[33mExpress started on port\u001b[39m","timestamp":"2014-03-14T07:06:50.458Z"}
-{"level":"info","message":"mongodb connect success","timestamp":"2014-03-14T07:06:52.707Z"}
-{"level":"info","message":"connection opening","timestamp":"2014-03-14T07:06:52.707Z"}
-{"level":"info","message":"app is created enlight 72ipoc8rj04c","timestamp":"2014-03-14T07:06:52.773Z"}
-{"level":"info","message":"\u001b[32msubscribe success  enlight  \u001b[39m","timestamp":"2014-03-14T07:06:52.773Z"}
-{"level":"info","message":"app is created enlight 5tyu5w00qgsg","timestamp":"2014-03-14T07:06:52.780Z"}
-{"level":"info","message":"\u001b[32msubscribe success  enlight  \u001b[39m","timestamp":"2014-03-14T07:06:52.781Z"}
-{"level":"info","message":"app is created  meetingroom   6iuocd2fk44c","timestamp":"2014-03-14T07:06:52.795Z"}
-{"level":"info","message":"subscribe success","timestamp":"2014-03-14T07:06:52.795Z"}
-{"level":"info","message":"App has subscribe to the channel success","timestamp":"2014-03-14T07:06:52.803Z"}
-{"level":"info","message":"App has subscribe to the channel success","timestamp":"2014-03-14T07:06:52.804Z"}
-{"level":"info","message":"App has subscribe to the channel success","timestamp":"2014-03-14T07:06:52.804Z"}
-{"level":"info","message":"\u001b[31mApp has subscribe to the catalog notification  success\u001b[39m","timestamp":"2014-03-14T07:06:52.805Z"}
-{"level":"info","message":"listen to the MQTT service succfully   - https://geras.1248.io/cat/armmeeting","timestamp":"2014-03-14T07:06:52.811Z"}
-{"level":"info","message":"add new RT SERVICE https://geras.1248.io/cat/armmeeting","timestamp":"2014-03-14T07:06:52.812Z"}
-{"level":"info","message":"\u001b[32mMQTT Connected\u001b[39m","timestamp":"2014-03-14T07:06:52.877Z"}
-{"0":"Fri Mar 14 2014 07:23:18 GMT+0000 (GMT 标准时间)","1":"SIGINT","level":"info","message":"%s: Received %s - terminating Node server ...","timestamp":"2014-03-14T07:23:18.263Z"}
-{"level":"info","message":"\u001b[33mapp on development\u001b[39m","timestamp":"2014-03-14T07:23:19.415Z"}
-{"level":"info","message":"\u001b[33mthe port used \u001b[39m","timestamp":"2014-03-14T07:23:19.497Z"}
-{"level":"info","message":"\u001b[33mExpress started on port\u001b[39m","timestamp":"2014-03-14T07:23:19.512Z"}
-{"level":"info","message":"mongodb connect success","timestamp":"2014-03-14T07:23:21.769Z"}
-{"level":"info","message":"connection opening","timestamp":"2014-03-14T07:23:21.770Z"}
-{"level":"info","message":"app is created enlight 112u4uzjywo0","timestamp":"2014-03-14T07:23:21.838Z"}
-{"level":"info","message":"\u001b[32msubscribe success  enlight  \u001b[39m","timestamp":"2014-03-14T07:23:21.838Z"}
-{"level":"info","message":"app is created enlight 50y72tba8mck","timestamp":"2014-03-14T07:23:21.845Z"}
-{"level":"info","message":"\u001b[32msubscribe success  enlight  \u001b[39m","timestamp":"2014-03-14T07:23:21.845Z"}
-{"level":"info","message":"app is created  meetingroom   2rm32kyespc0","timestamp":"2014-03-14T07:23:21.859Z"}
-{"level":"info","message":"subscribe success","timestamp":"2014-03-14T07:23:21.859Z"}
-{"level":"info","message":"App has subscribe to the channel success","timestamp":"2014-03-14T07:23:21.867Z"}
-{"level":"info","message":"App has subscribe to the channel success","timestamp":"2014-03-14T07:23:21.868Z"}
-{"level":"info","message":"App has subscribe to the channel success","timestamp":"2014-03-14T07:23:21.869Z"}
-{"level":"info","message":"\u001b[31mApp has subscribe to the catalog notification  success\u001b[39m","timestamp":"2014-03-14T07:23:21.869Z"}
-{"level":"info","message":"listen to the MQTT service succfully   - https://geras.1248.io/cat/armmeeting","timestamp":"2014-03-14T07:23:21.874Z"}
-{"level":"info","message":"add new RT SERVICE https://geras.1248.io/cat/armmeeting","timestamp":"2014-03-14T07:23:21.875Z"}
-{"level":"info","message":"\u001b[32mMQTT Connected\u001b[39m","timestamp":"2014-03-14T07:23:21.941Z"}
-{"level":"error","message":"Fri Mar 14 2014 07:28:52 GMT+0000 (GMT 标准时间):H:\\Dropbox\\node\\testarm\\routes\\apps\\app_meeting.js:640:error    https://protected-sands-2667.herokuapp.com/rooms/Room.UKCARM6F3Studio/events","timestamp":"2014-03-14T07:28:52.223Z"}
-{"0":"Fri Mar 14 2014 07:50:34 GMT+0000 (GMT 标准时间)","1":"SIGINT","level":"info","message":"%s: Received %s - terminating Node server ...","timestamp":"2014-03-14T07:50:34.698Z"}
-{"level":"info","message":"\u001b[33mapp on development\u001b[39m","timestamp":"2014-03-14T07:50:35.591Z"}
-{"level":"info","message":"\u001b[33mthe port used \u001b[39m","timestamp":"2014-03-14T07:50:35.677Z"}
-{"level":"info","message":"\u001b[33mExpress started on port\u001b[39m","timestamp":"2014-03-14T07:50:35.694Z"}
-{"level":"info","message":"mongodb connect success","timestamp":"2014-03-14T07:50:37.834Z"}
-{"level":"info","message":"connection opening","timestamp":"2014-03-14T07:50:37.834Z"}
-{"level":"info","message":"app is created enlight 28zlussnwt5w","timestamp":"2014-03-14T07:50:37.902Z"}
-{"level":"info","message":"\u001b[32msubscribe success  enlight  \u001b[39m","timestamp":"2014-03-14T07:50:37.902Z"}
-{"level":"info","message":"app is created enlight 3kvkzss8xo4k","timestamp":"2014-03-14T07:50:37.909Z"}
-{"level":"info","message":"\u001b[32msubscribe success  enlight  \u001b[39m","timestamp":"2014-03-14T07:50:37.909Z"}
-{"level":"info","message":"app is created  meetingroom   3rd08xoxznwg","timestamp":"2014-03-14T07:50:37.924Z"}
-{"level":"info","message":"subscribe success","timestamp":"2014-03-14T07:50:37.924Z"}
-{"level":"info","message":"App has subscribe to the channel success","timestamp":"2014-03-14T07:50:37.933Z"}
-{"level":"info","message":"App has subscribe to the channel success","timestamp":"2014-03-14T07:50:37.934Z"}
-{"level":"info","message":"App has subscribe to the channel success","timestamp":"2014-03-14T07:50:37.935Z"}
-{"level":"info","message":"\u001b[31mApp has subscribe to the catalog notification  success\u001b[39m","timestamp":"2014-03-14T07:50:37.936Z"}
-{"level":"info","message":"listen to the MQTT service succfully   - https://geras.1248.io/cat/armmeeting","timestamp":"2014-03-14T07:50:37.941Z"}
-{"level":"info","message":"add new RT SERVICE https://geras.1248.io/cat/armmeeting","timestamp":"2014-03-14T07:50:37.942Z"}
-{"level":"info","message":"\u001b[32mMQTT Connected\u001b[39m","timestamp":"2014-03-14T07:50:38.012Z"}
-{"0":"Fri Mar 14 2014 08:23:28 GMT+0000 (GMT 标准时间)","1":"SIGINT","level":"info","message":"%s: Received %s - terminating Node server ...","timestamp":"2014-03-14T08:23:28.819Z"}
-{"level":"info","message":"\u001b[33mapp on development\u001b[39m","timestamp":"2014-03-14T08:23:30.298Z"}
-{"level":"info","message":"\u001b[33mthe port used \u001b[39m","timestamp":"2014-03-14T08:23:30.397Z"}
-{"level":"info","message":"\u001b[33mExpress started on port\u001b[39m","timestamp":"2014-03-14T08:23:30.418Z"}
-{"level":"info","message":"mongodb connect success","timestamp":"2014-03-14T08:23:32.586Z"}
-{"level":"info","message":"connection opening","timestamp":"2014-03-14T08:23:32.586Z"}
-{"level":"info","message":"app is created enlight qrem53091qs","timestamp":"2014-03-14T08:23:32.648Z"}
-{"level":"info","message":"\u001b[32msubscribe success  enlight  \u001b[39m","timestamp":"2014-03-14T08:23:32.649Z"}
-{"level":"info","message":"app is created enlight udegftmvjfk","timestamp":"2014-03-14T08:23:32.655Z"}
-{"level":"info","message":"\u001b[32msubscribe success  enlight  \u001b[39m","timestamp":"2014-03-14T08:23:32.656Z"}
-{"level":"info","message":"app is created  meetingroom   quxkktlmttc","timestamp":"2014-03-14T08:23:32.669Z"}
-{"level":"info","message":"subscribe success","timestamp":"2014-03-14T08:23:32.670Z"}
-{"level":"info","message":"App has subscribe to the channel success","timestamp":"2014-03-14T08:23:32.678Z"}
-{"level":"info","message":"App has subscribe to the channel success","timestamp":"2014-03-14T08:23:32.679Z"}
-{"level":"info","message":"App has subscribe to the channel success","timestamp":"2014-03-14T08:23:32.680Z"}
-{"level":"info","message":"\u001b[31mApp has subscribe to the catalog notification  success\u001b[39m","timestamp":"2014-03-14T08:23:32.681Z"}
-{"level":"info","message":"listen to the MQTT service succfully   - https://geras.1248.io/cat/armmeeting","timestamp":"2014-03-14T08:23:32.686Z"}
-{"level":"info","message":"add new RT SERVICE https://geras.1248.io/cat/armmeeting","timestamp":"2014-03-14T08:23:32.687Z"}
-{"level":"info","message":"\u001b[32mMQTT Connected\u001b[39m","timestamp":"2014-03-14T08:23:32.820Z"}
-{"0":"Fri Mar 14 2014 08:24:41 GMT+0000 (GMT 标准时间)","1":"SIGINT","level":"info","message":"%s: Received %s - terminating Node server ...","timestamp":"2014-03-14T08:24:41.352Z"}
-{"level":"info","message":"\u001b[33mapp on development\u001b[39m","timestamp":"2014-03-14T08:24:42.544Z"}
-{"level":"info","message":"\u001b[33mthe port used \u001b[39m","timestamp":"2014-03-14T08:24:42.629Z"}
-{"level":"info","message":"\u001b[33mExpress started on port\u001b[39m","timestamp":"2014-03-14T08:24:42.646Z"}
-{"level":"info","message":"mongodb connect success","timestamp":"2014-03-14T08:24:44.874Z"}
-{"level":"info","message":"connection opening","timestamp":"2014-03-14T08:24:44.875Z"}
-{"level":"info","message":"app is created enlight 4tfvc3vf6pa8","timestamp":"2014-03-14T08:24:44.939Z"}
-{"level":"info","message":"\u001b[32msubscribe success  enlight  \u001b[39m","timestamp":"2014-03-14T08:24:44.940Z"}
-{"level":"info","message":"app is created enlight 6hemgb4mnfcw","timestamp":"2014-03-14T08:24:44.947Z"}
-{"level":"info","message":"\u001b[32msubscribe success  enlight  \u001b[39m","timestamp":"2014-03-14T08:24:44.948Z"}
-{"level":"info","message":"app is created  meetingroom   6esajgi7wmo","timestamp":"2014-03-14T08:24:44.962Z"}
-{"level":"info","message":"subscribe success","timestamp":"2014-03-14T08:24:44.963Z"}
-{"level":"info","message":"App has subscribe to the channel success","timestamp":"2014-03-14T08:24:44.970Z"}
-{"level":"info","message":"App has subscribe to the channel success","timestamp":"2014-03-14T08:24:44.971Z"}
-{"level":"info","message":"App has subscribe to the channel success","timestamp":"2014-03-14T08:24:44.972Z"}
-{"level":"info","message":"\u001b[31mApp has subscribe to the catalog notification  success\u001b[39m","timestamp":"2014-03-14T08:24:44.974Z"}
-{"level":"info","message":"listen to the MQTT service succfully   - https://geras.1248.io/cat/armmeeting","timestamp":"2014-03-14T08:24:44.980Z"}
-{"level":"info","message":"add new RT SERVICE https://geras.1248.io/cat/armmeeting","timestamp":"2014-03-14T08:24:44.982Z"}
-{"level":"info","message":"\u001b[32mMQTT Connected\u001b[39m","timestamp":"2014-03-14T08:24:45.714Z"}
-{"0":"Fri Mar 14 2014 08:26:21 GMT+0000 (GMT 标准时间)","1":"SIGINT","level":"info","message":"%s: Received %s - terminating Node server ...","timestamp":"2014-03-14T08:26:21.268Z"}
-{"level":"info","message":"\u001b[33mapp on development\u001b[39m","timestamp":"2014-03-14T08:26:22.162Z"}
-{"level":"info","message":"\u001b[33mthe port used \u001b[39m","timestamp":"2014-03-14T08:26:22.243Z"}
-{"level":"info","message":"\u001b[33mExpress started on port\u001b[39m","timestamp":"2014-03-14T08:26:22.258Z"}
-{"level":"info","message":"mongodb connect success","timestamp":"2014-03-14T08:26:24.432Z"}
-{"level":"info","message":"connection opening","timestamp":"2014-03-14T08:26:24.432Z"}
-{"level":"info","message":"app is created enlight 77x4t6dodt8o","timestamp":"2014-03-14T08:26:24.494Z"}
-{"level":"info","message":"\u001b[32msubscribe success  enlight  \u001b[39m","timestamp":"2014-03-14T08:26:24.495Z"}
-{"level":"info","message":"app is created enlight 1nsntlxdlfno","timestamp":"2014-03-14T08:26:24.502Z"}
-{"level":"info","message":"\u001b[32msubscribe success  enlight  \u001b[39m","timestamp":"2014-03-14T08:26:24.502Z"}
-{"level":"error","message":"Fri Mar 14 2014 08:26:24 GMT+0000 (GMT 标准时间):(H:\\Dropbox\\node\\testarm\\app.js:340:SyntaxError: Unexpected identifier\n    at Module._compile (module.js:439:25)\n    at Object.Module._extensions..js (module.js:474:10)\n    at Module.load (module.js:356:32)\n    at Function.Module._load (module.js:312:12)\n    at Module.require (module.js:364:17)\n    at require (module.js:380:17)\n    at bootApp (H:\\Dropbox\\node\\testarm\\routes\\catalog_api.js:150:2)\n    at H:\\Dropbox\\node\\testarm\\routes\\catalog_api.js:44:4\n    at Array.forEach (native)\n    at H:\\Dropbox\\node\\testarm\\routes\\catalog_api.js:40:12","timestamp":"2014-03-14T08:26:24.516Z"}
-{"level":"info","message":"App has subscribe to the channel success","timestamp":"2014-03-14T08:26:24.519Z"}
-{"level":"info","message":"App has subscribe to the channel success","timestamp":"2014-03-14T08:26:24.520Z"}
-{"level":"info","message":"listen to the MQTT service succfully   - https://geras.1248.io/cat/armmeeting","timestamp":"2014-03-14T08:26:24.524Z"}
-{"level":"info","message":"add new RT SERVICE https://geras.1248.io/cat/armmeeting","timestamp":"2014-03-14T08:26:24.524Z"}
-{"level":"info","message":"\u001b[32mMQTT Connected\u001b[39m","timestamp":"2014-03-14T08:26:24.602Z"}
-{"0":"Fri Mar 14 2014 08:26:58 GMT+0000 (GMT 标准时间)","1":"SIGINT","level":"info","message":"%s: Received %s - terminating Node server ...","timestamp":"2014-03-14T08:26:58.230Z"}
-{"level":"info","message":"\u001b[33mapp on development\u001b[39m","timestamp":"2014-03-14T08:26:59.186Z"}
-{"level":"info","message":"\u001b[33mthe port used \u001b[39m","timestamp":"2014-03-14T08:26:59.269Z"}
-{"level":"info","message":"\u001b[33mExpress started on port\u001b[39m","timestamp":"2014-03-14T08:26:59.285Z"}
-{"level":"info","message":"mongodb connect success","timestamp":"2014-03-14T08:27:01.678Z"}
-{"level":"info","message":"connection opening","timestamp":"2014-03-14T08:27:01.679Z"}
-{"level":"info","message":"app is created enlight mgu4kf9wre8","timestamp":"2014-03-14T08:27:01.757Z"}
-{"level":"info","message":"\u001b[32msubscribe success  enlight  \u001b[39m","timestamp":"2014-03-14T08:27:01.757Z"}
-{"level":"info","message":"app is created enlight 2ng22wcagyw4","timestamp":"2014-03-14T08:27:01.767Z"}
-{"level":"info","message":"\u001b[32msubscribe success  enlight  \u001b[39m","timestamp":"2014-03-14T08:27:01.767Z"}
-{"level":"info","message":"app is created  meetingroom   6fompctfft8o","timestamp":"2014-03-14T08:27:01.790Z"}
-{"level":"info","message":"subscribe success","timestamp":"2014-03-14T08:27:01.790Z"}
-{"level":"info","message":"App has subscribe to the channel success","timestamp":"2014-03-14T08:27:01.801Z"}
-{"level":"info","message":"App has subscribe to the channel success","timestamp":"2014-03-14T08:27:01.801Z"}
-{"level":"info","message":"App has subscribe to the channel success","timestamp":"2014-03-14T08:27:01.802Z"}
-{"level":"info","message":"\u001b[31mApp has subscribe to the catalog notification  success\u001b[39m","timestamp":"2014-03-14T08:27:01.803Z"}
-{"level":"info","message":"listen to the MQTT service succfully   - https://geras.1248.io/cat/armmeeting","timestamp":"2014-03-14T08:27:01.809Z"}
-{"level":"info","message":"add new RT SERVICE https://geras.1248.io/cat/armmeeting","timestamp":"2014-03-14T08:27:01.809Z"}
-{"level":"info","message":"\u001b[32mMQTT Connected\u001b[39m","timestamp":"2014-03-14T08:27:01.886Z"}
-{"0":"Fri Mar 14 2014 08:28:24 GMT+0000 (GMT 标准时间)","1":"SIGINT","level":"info","message":"%s: Received %s - terminating Node server ...","timestamp":"2014-03-14T08:28:24.568Z"}
-{"level":"info","message":"\u001b[33mapp on development\u001b[39m","timestamp":"2014-03-14T08:28:48.349Z"}
-{"level":"info","message":"\u001b[33mthe port used \u001b[39m","timestamp":"2014-03-14T08:28:48.432Z"}
-{"level":"info","message":"\u001b[33mExpress started on port\u001b[39m","timestamp":"2014-03-14T08:28:48.449Z"}
-{"level":"info","message":"mongodb connect success","timestamp":"2014-03-14T08:28:50.580Z"}
-{"level":"info","message":"connection opening","timestamp":"2014-03-14T08:28:50.580Z"}
-{"level":"info","message":"app is created enlight 3wy9d62ngles","timestamp":"2014-03-14T08:28:50.643Z"}
-{"level":"info","message":"\u001b[32msubscribe success  enlight  \u001b[39m","timestamp":"2014-03-14T08:28:50.644Z"}
-{"level":"info","message":"app is created enlight 91mksz0dos0","timestamp":"2014-03-14T08:28:50.650Z"}
-{"level":"info","message":"\u001b[32msubscribe success  enlight  \u001b[39m","timestamp":"2014-03-14T08:28:50.651Z"}
-{"level":"info","message":"app is created  meetingroom   6l5bg0mnedoo","timestamp":"2014-03-14T08:28:50.664Z"}
-{"level":"info","message":"subscribe success","timestamp":"2014-03-14T08:28:50.665Z"}
-{"level":"info","message":"App has subscribe to the channel success","timestamp":"2014-03-14T08:28:50.675Z"}
-{"level":"info","message":"App has subscribe to the channel success","timestamp":"2014-03-14T08:28:50.676Z"}
-{"level":"info","message":"App has subscribe to the channel success","timestamp":"2014-03-14T08:28:50.677Z"}
-{"level":"info","message":"\u001b[31mApp has subscribe to the catalog notification  success\u001b[39m","timestamp":"2014-03-14T08:28:50.678Z"}
-{"level":"info","message":"listen to the MQTT service succfully   - https://geras.1248.io/cat/armmeeting","timestamp":"2014-03-14T08:28:50.683Z"}
-{"level":"info","message":"add new RT SERVICE https://geras.1248.io/cat/armmeeting","timestamp":"2014-03-14T08:28:50.683Z"}
-{"level":"info","message":"\u001b[32mMQTT Connected\u001b[39m","timestamp":"2014-03-14T08:28:50.755Z"}
-{"0":"Fri Mar 14 2014 08:29:21 GMT+0000 (GMT 标准时间)","1":"SIGINT","level":"info","message":"%s: Received %s - terminating Node server ...","timestamp":"2014-03-14T08:29:21.236Z"}
-{"level":"info","message":"\u001b[33mapp on development\u001b[39m","timestamp":"2014-03-14T08:29:22.044Z"}
-{"level":"info","message":"\u001b[33mthe port used \u001b[39m","timestamp":"2014-03-14T08:29:22.133Z"}
-{"level":"info","message":"\u001b[33mExpress started on port\u001b[39m","timestamp":"2014-03-14T08:29:22.150Z"}
-{"level":"info","message":"mongodb connect success","timestamp":"2014-03-14T08:29:24.393Z"}
-{"level":"info","message":"connection opening","timestamp":"2014-03-14T08:29:24.394Z"}
-{"level":"info","message":"app is created enlight 5d6ytxuedj8k","timestamp":"2014-03-14T08:29:24.458Z"}
-{"level":"info","message":"\u001b[32msubscribe success  enlight  \u001b[39m","timestamp":"2014-03-14T08:29:24.459Z"}
-{"level":"info","message":"app is created enlight 3dmco196oi68","timestamp":"2014-03-14T08:29:24.465Z"}
-{"level":"info","message":"\u001b[32msubscribe success  enlight  \u001b[39m","timestamp":"2014-03-14T08:29:24.466Z"}
-{"level":"info","message":"app is created  meetingroom   3ofzdor4zcg","timestamp":"2014-03-14T08:29:24.482Z"}
-{"level":"info","message":"subscribe success","timestamp":"2014-03-14T08:29:24.482Z"}
-{"level":"info","message":"App has subscribe to the channel success","timestamp":"2014-03-14T08:29:24.491Z"}
-{"level":"info","message":"App has subscribe to the channel success","timestamp":"2014-03-14T08:29:24.491Z"}
-{"level":"info","message":"App has subscribe to the channel success","timestamp":"2014-03-14T08:29:24.492Z"}
-{"level":"info","message":"\u001b[31mApp has subscribe to the catalog notification  success\u001b[39m","timestamp":"2014-03-14T08:29:24.493Z"}
-{"level":"info","message":"listen to the MQTT service succfully   - https://geras.1248.io/cat/armmeeting","timestamp":"2014-03-14T08:29:24.498Z"}
-{"level":"info","message":"add new RT SERVICE https://geras.1248.io/cat/armmeeting","timestamp":"2014-03-14T08:29:24.499Z"}
-{"level":"info","message":"\u001b[32mMQTT Connected\u001b[39m","timestamp":"2014-03-14T08:29:24.587Z"}
-{"0":"Fri Mar 14 2014 08:29:45 GMT+0000 (GMT 标准时间)","1":"SIGINT","level":"info","message":"%s: Received %s - terminating Node server ...","timestamp":"2014-03-14T08:29:45.685Z"}
-{"level":"info","message":"\u001b[33mapp on development\u001b[39m","timestamp":"2014-03-14T08:29:46.601Z"}
-{"level":"info","message":"\u001b[33mthe port used \u001b[39m","timestamp":"2014-03-14T08:29:46.684Z"}
-{"level":"info","message":"\u001b[33mExpress started on port\u001b[39m","timestamp":"2014-03-14T08:29:46.701Z"}
-{"level":"info","message":"mongodb connect success","timestamp":"2014-03-14T08:29:48.911Z"}
-{"level":"info","message":"connection opening","timestamp":"2014-03-14T08:29:48.911Z"}
-{"level":"info","message":"app is created enlight 4nbxkq2w3o8w","timestamp":"2014-03-14T08:29:48.973Z"}
-{"level":"info","message":"\u001b[32msubscribe success  enlight  \u001b[39m","timestamp":"2014-03-14T08:29:48.974Z"}
-{"level":"info","message":"app is created enlight 5x35b1l9g3wo","timestamp":"2014-03-14T08:29:48.980Z"}
-{"level":"info","message":"\u001b[32msubscribe success  enlight  \u001b[39m","timestamp":"2014-03-14T08:29:48.980Z"}
-{"level":"info","message":"app is created  meetingroom   5c6poe1vuo4k","timestamp":"2014-03-14T08:29:48.994Z"}
-{"level":"info","message":"subscribe success","timestamp":"2014-03-14T08:29:48.995Z"}
-{"level":"info","message":"App has subscribe to the channel success","timestamp":"2014-03-14T08:29:49.003Z"}
-{"level":"info","message":"App has subscribe to the channel success","timestamp":"2014-03-14T08:29:49.003Z"}
-{"level":"info","message":"App has subscribe to the channel success","timestamp":"2014-03-14T08:29:49.004Z"}
-{"level":"info","message":"\u001b[31mApp has subscribe to the catalog notification  success\u001b[39m","timestamp":"2014-03-14T08:29:49.004Z"}
-{"level":"info","message":"listen to the MQTT service succfully   - https://geras.1248.io/cat/armmeeting","timestamp":"2014-03-14T08:29:49.010Z"}
-{"level":"info","message":"add new RT SERVICE https://geras.1248.io/cat/armmeeting","timestamp":"2014-03-14T08:29:49.011Z"}
-{"level":"info","message":"\u001b[32mMQTT Connected\u001b[39m","timestamp":"2014-03-14T08:29:49.086Z"}
-{"0":"Fri Mar 14 2014 08:30:08 GMT+0000 (GMT 标准时间)","1":"SIGINT","level":"info","message":"%s: Received %s - terminating Node server ...","timestamp":"2014-03-14T08:30:08.365Z"}
-{"level":"info","message":"\u001b[33mapp on development\u001b[39m","timestamp":"2014-03-14T08:30:09.439Z"}
-{"level":"info","message":"\u001b[33mthe port used \u001b[39m","timestamp":"2014-03-14T08:30:09.533Z"}
-{"level":"info","message":"\u001b[33mExpress started on port\u001b[39m","timestamp":"2014-03-14T08:30:09.556Z"}
-{"level":"info","message":"mongodb connect success","timestamp":"2014-03-14T08:30:11.871Z"}
-{"level":"info","message":"connection opening","timestamp":"2014-03-14T08:30:11.871Z"}
-{"level":"info","message":"app is created enlight 5bt2bkjfj7ok","timestamp":"2014-03-14T08:30:11.933Z"}
-{"level":"info","message":"\u001b[32msubscribe success  enlight  \u001b[39m","timestamp":"2014-03-14T08:30:11.934Z"}
-{"level":"info","message":"app is created enlight 2p5zacd2ly0w","timestamp":"2014-03-14T08:30:11.941Z"}
-{"level":"info","message":"\u001b[32msubscribe success  enlight  \u001b[39m","timestamp":"2014-03-14T08:30:11.941Z"}
-{"level":"info","message":"app is created  meetingroom   2kbab3il27uo","timestamp":"2014-03-14T08:30:11.956Z"}
-{"level":"info","message":"subscribe success","timestamp":"2014-03-14T08:30:11.957Z"}
-{"level":"info","message":"App has subscribe to the channel success","timestamp":"2014-03-14T08:30:11.964Z"}
-{"level":"info","message":"App has subscribe to the channel success","timestamp":"2014-03-14T08:30:11.965Z"}
-{"level":"info","message":"App has subscribe to the channel success","timestamp":"2014-03-14T08:30:11.965Z"}
-{"level":"info","message":"\u001b[31mApp has subscribe to the catalog notification  success\u001b[39m","timestamp":"2014-03-14T08:30:11.966Z"}
-{"level":"info","message":"listen to the MQTT service succfully   - https://geras.1248.io/cat/armmeeting","timestamp":"2014-03-14T08:30:11.971Z"}
-{"level":"info","message":"add new RT SERVICE https://geras.1248.io/cat/armmeeting","timestamp":"2014-03-14T08:30:11.972Z"}
-{"level":"info","message":"\u001b[32mMQTT Connected\u001b[39m","timestamp":"2014-03-14T08:30:12.037Z"}
-{"0":"Fri Mar 14 2014 08:47:04 GMT+0000 (GMT 标准时间)","1":"SIGINT","level":"info","message":"%s: Received %s - terminating Node server ...","timestamp":"2014-03-14T08:47:04.479Z"}
-{"level":"info","message":"\u001b[33mapp on development\u001b[39m","timestamp":"2014-03-14T08:47:05.322Z"}
-{"level":"info","message":"\u001b[33mthe port used \u001b[39m","timestamp":"2014-03-14T08:47:05.406Z"}
-{"level":"info","message":"\u001b[33mExpress started on port\u001b[39m","timestamp":"2014-03-14T08:47:05.423Z"}
-{"level":"info","message":"mongodb connect success","timestamp":"2014-03-14T08:47:07.858Z"}
-{"level":"info","message":"connection opening","timestamp":"2014-03-14T08:47:07.859Z"}
-{"level":"info","message":"app is created enlight 2vtzjaq0icis","timestamp":"2014-03-14T08:47:07.926Z"}
-{"level":"info","message":"\u001b[32msubscribe success  enlight  \u001b[39m","timestamp":"2014-03-14T08:47:07.927Z"}
-{"level":"info","message":"app is created enlight 5yw1f2zbu78k","timestamp":"2014-03-14T08:47:07.967Z"}
-{"level":"info","message":"\u001b[32msubscribe success  enlight  \u001b[39m","timestamp":"2014-03-14T08:47:07.968Z"}
-{"level":"info","message":"app is created  meetingroom   5g63spgiutwc","timestamp":"2014-03-14T08:47:07.988Z"}
-{"level":"info","message":"subscribe success","timestamp":"2014-03-14T08:47:07.989Z"}
-{"level":"info","message":"App has subscribe to the channel success","timestamp":"2014-03-14T08:47:07.997Z"}
-{"level":"info","message":"App has subscribe to the channel success","timestamp":"2014-03-14T08:47:07.998Z"}
-{"level":"info","message":"App has subscribe to the channel success","timestamp":"2014-03-14T08:47:07.998Z"}
-{"level":"info","message":"\u001b[31mApp has subscribe to the catalog notification  success\u001b[39m","timestamp":"2014-03-14T08:47:07.999Z"}
-{"level":"info","message":"listen to the MQTT service succfully   - https://geras.1248.io/cat/armmeeting","timestamp":"2014-03-14T08:47:08.006Z"}
-{"level":"info","message":"add new RT SERVICE https://geras.1248.io/cat/armmeeting","timestamp":"2014-03-14T08:47:08.007Z"}
-{"level":"info","message":"\u001b[32mMQTT Connected\u001b[39m","timestamp":"2014-03-14T08:47:08.094Z"}
+{"level":"info","message":"\u001b[33mapp on development\u001b[39m","timestamp":"2014-03-14T11:02:46.616Z"}
+{"level":"info","message":"\u001b[33mthe port used \u001b[39m","timestamp":"2014-03-14T11:02:46.699Z"}
+{"level":"info","message":"\u001b[33mExpress started on port\u001b[39m","timestamp":"2014-03-14T11:02:46.717Z"}
+{"level":"info","message":"mongodb connect success","timestamp":"2014-03-14T11:02:48.911Z"}
+{"level":"info","message":"connection opening","timestamp":"2014-03-14T11:02:48.911Z"}
+{"level":"info","message":"app is created enlight 4kaxho6buc6c","timestamp":"2014-03-14T11:02:48.974Z"}
+{"level":"info","message":"\u001b[32msubscribe success  enlight  \u001b[39m","timestamp":"2014-03-14T11:02:48.975Z"}
+{"level":"info","message":"app is created enlight 6rwbgu0iogg8","timestamp":"2014-03-14T11:02:48.981Z"}
+{"level":"info","message":"\u001b[32msubscribe success  enlight  \u001b[39m","timestamp":"2014-03-14T11:02:48.982Z"}
+{"level":"info","message":"app is created  meetingroom   1y1r66k4vuzo","timestamp":"2014-03-14T11:02:48.996Z"}
+{"level":"info","message":"subscribe success","timestamp":"2014-03-14T11:02:48.996Z"}
+{"level":"info","message":"App has subscribe to the channel success","timestamp":"2014-03-14T11:02:49.004Z"}
+{"level":"info","message":"App has subscribe to the channel success","timestamp":"2014-03-14T11:02:49.005Z"}
+{"level":"info","message":"App has subscribe to the channel success","timestamp":"2014-03-14T11:02:49.005Z"}
+{"level":"info","message":"listen to the MQTT service succfully   - https://geras.1248.io/cat/armmeeting","timestamp":"2014-03-14T11:02:49.008Z"}
+{"level":"info","message":"add new RT SERVICE https://geras.1248.io/cat/armmeeting","timestamp":"2014-03-14T11:02:49.009Z"}
+{"level":"info","message":"\u001b[31mApp has subscribe to the catalog notification  success\u001b[39m","timestamp":"2014-03-14T11:02:49.010Z"}
+{"level":"info","message":"\u001b[32mMQTT Connected\u001b[39m","timestamp":"2014-03-14T11:02:49.122Z"}
+{"0":"Fri Mar 14 2014 11:02:59 GMT+0000 (GMT 标准时间)","1":"SIGINT","level":"info","message":"%s: Received %s - terminating Node server ...","timestamp":"2014-03-14T11:02:59.466Z"}
+{"level":"info","message":"\u001b[33mapp on development\u001b[39m","timestamp":"2014-03-14T11:03:01.137Z"}
+{"level":"info","message":"\u001b[33mthe port used \u001b[39m","timestamp":"2014-03-14T11:03:01.225Z"}
+{"level":"info","message":"\u001b[33mExpress started on port\u001b[39m","timestamp":"2014-03-14T11:03:01.240Z"}
+{"level":"info","message":"mongodb connect success","timestamp":"2014-03-14T11:03:03.399Z"}
+{"level":"info","message":"connection opening","timestamp":"2014-03-14T11:03:03.400Z"}
+{"level":"info","message":"app is created enlight 1b7fyo7wg9wg","timestamp":"2014-03-14T11:03:03.462Z"}
+{"level":"info","message":"\u001b[32msubscribe success  enlight  \u001b[39m","timestamp":"2014-03-14T11:03:03.462Z"}
+{"level":"info","message":"app is created enlight 1hxl3bghhzq8","timestamp":"2014-03-14T11:03:03.469Z"}
+{"level":"info","message":"\u001b[32msubscribe success  enlight  \u001b[39m","timestamp":"2014-03-14T11:03:03.469Z"}
+{"level":"info","message":"app is created  meetingroom   7563ptuk3lgc","timestamp":"2014-03-14T11:03:03.484Z"}
+{"level":"info","message":"subscribe success","timestamp":"2014-03-14T11:03:03.484Z"}
+{"level":"info","message":"App has subscribe to the channel success","timestamp":"2014-03-14T11:03:03.492Z"}
+{"level":"info","message":"App has subscribe to the channel success","timestamp":"2014-03-14T11:03:03.493Z"}
+{"level":"info","message":"App has subscribe to the channel success","timestamp":"2014-03-14T11:03:03.493Z"}
+{"level":"info","message":"\u001b[31mApp has subscribe to the catalog notification  success\u001b[39m","timestamp":"2014-03-14T11:03:03.493Z"}
+{"level":"info","message":"listen to the MQTT service succfully   - https://geras.1248.io/cat/armmeeting","timestamp":"2014-03-14T11:03:03.499Z"}
+{"level":"info","message":"add new RT SERVICE https://geras.1248.io/cat/armmeeting","timestamp":"2014-03-14T11:03:03.499Z"}
+{"level":"info","message":"\u001b[32mMQTT Connected\u001b[39m","timestamp":"2014-03-14T11:03:03.567Z"}
+{"0":"Fri Mar 14 2014 11:03:44 GMT+0000 (GMT 标准时间)","1":"SIGINT","level":"info","message":"%s: Received %s - terminating Node server ...","timestamp":"2014-03-14T11:03:44.143Z"}
+{"level":"info","message":"\u001b[33mapp on development\u001b[39m","timestamp":"2014-03-14T11:03:58.752Z"}
+{"level":"info","message":"\u001b[33mthe port used \u001b[39m","timestamp":"2014-03-14T11:03:58.835Z"}
+{"level":"info","message":"\u001b[33mExpress started on port\u001b[39m","timestamp":"2014-03-14T11:03:58.851Z"}
+{"level":"info","message":"mongodb connect success","timestamp":"2014-03-14T11:04:00.922Z"}
+{"level":"info","message":"connection opening","timestamp":"2014-03-14T11:04:00.922Z"}
+{"level":"info","message":"app is created enlight ohj5y4x8wf4","timestamp":"2014-03-14T11:04:00.986Z"}
+{"level":"info","message":"\u001b[32msubscribe success  enlight  \u001b[39m","timestamp":"2014-03-14T11:04:00.987Z"}
+{"level":"info","message":"app is created enlight 5w80qhpt34g8","timestamp":"2014-03-14T11:04:00.993Z"}
+{"level":"info","message":"\u001b[32msubscribe success  enlight  \u001b[39m","timestamp":"2014-03-14T11:04:00.994Z"}
+{"level":"info","message":"app is created  meetingroom   2huir5uv4yio","timestamp":"2014-03-14T11:04:01.008Z"}
+{"level":"info","message":"subscribe success","timestamp":"2014-03-14T11:04:01.008Z"}
+{"level":"info","message":"App has subscribe to the channel success","timestamp":"2014-03-14T11:04:01.018Z"}
+{"level":"info","message":"App has subscribe to the channel success","timestamp":"2014-03-14T11:04:01.019Z"}
+{"level":"info","message":"App has subscribe to the channel success","timestamp":"2014-03-14T11:04:01.019Z"}
+{"level":"info","message":"\u001b[31mApp has subscribe to the catalog notification  success\u001b[39m","timestamp":"2014-03-14T11:04:01.020Z"}
+{"level":"info","message":"listen to the MQTT service succfully   - https://geras.1248.io/cat/armmeeting","timestamp":"2014-03-14T11:04:01.026Z"}
+{"level":"info","message":"add new RT SERVICE https://geras.1248.io/cat/armmeeting","timestamp":"2014-03-14T11:04:01.027Z"}
+{"level":"info","message":"\u001b[32mMQTT Connected\u001b[39m","timestamp":"2014-03-14T11:04:01.210Z"}
+{"0":"Fri Mar 14 2014 11:37:36 GMT+0000 (GMT 标准时间)","1":"SIGINT","level":"info","message":"%s: Received %s - terminating Node server ...","timestamp":"2014-03-14T11:37:36.041Z"}
+{"level":"info","message":"\u001b[33mapp on development\u001b[39m","timestamp":"2014-03-14T11:37:37.356Z"}
+{"level":"info","message":"\u001b[33mthe port used \u001b[39m","timestamp":"2014-03-14T11:37:37.435Z"}
+{"level":"info","message":"\u001b[33mExpress started on port\u001b[39m","timestamp":"2014-03-14T11:37:37.450Z"}
+{"level":"info","message":"mongodb connect success","timestamp":"2014-03-14T11:37:39.603Z"}
+{"level":"info","message":"connection opening","timestamp":"2014-03-14T11:37:39.604Z"}
+{"level":"info","message":"app is created enlight 3hrffprwc3s4","timestamp":"2014-03-14T11:37:39.669Z"}
+{"level":"info","message":"\u001b[32msubscribe success  enlight  \u001b[39m","timestamp":"2014-03-14T11:37:39.669Z"}
+{"level":"info","message":"app is created enlight cymo4wwzdgg","timestamp":"2014-03-14T11:37:39.676Z"}
+{"level":"info","message":"\u001b[32msubscribe success  enlight  \u001b[39m","timestamp":"2014-03-14T11:37:39.677Z"}
+{"level":"info","message":"app is created  meetingroom   4jercig6tkao","timestamp":"2014-03-14T11:37:39.691Z"}
+{"level":"info","message":"subscribe success","timestamp":"2014-03-14T11:37:39.691Z"}
+{"level":"info","message":"App has subscribe to the channel success","timestamp":"2014-03-14T11:37:39.699Z"}
+{"level":"info","message":"App has subscribe to the channel success","timestamp":"2014-03-14T11:37:39.699Z"}
+{"level":"info","message":"App has subscribe to the channel success","timestamp":"2014-03-14T11:37:39.700Z"}
+{"level":"info","message":"\u001b[31mApp has subscribe to the catalog notification  success\u001b[39m","timestamp":"2014-03-14T11:37:39.701Z"}
+{"level":"info","message":"listen to the MQTT service succfully   - https://geras.1248.io/cat/armmeeting","timestamp":"2014-03-14T11:37:39.706Z"}
+{"level":"info","message":"add new RT SERVICE https://geras.1248.io/cat/armmeeting","timestamp":"2014-03-14T11:37:39.706Z"}
+{"level":"info","message":"\u001b[32mMQTT Connected\u001b[39m","timestamp":"2014-03-14T11:37:39.773Z"}
+{"0":"Fri Mar 14 2014 11:38:58 GMT+0000 (GMT 标准时间)","1":"SIGINT","level":"info","message":"%s: Received %s - terminating Node server ...","timestamp":"2014-03-14T11:38:58.591Z"}
+{"level":"info","message":"\u001b[33mapp on development\u001b[39m","timestamp":"2014-03-14T11:38:59.695Z"}
+{"level":"info","message":"\u001b[33mthe port used \u001b[39m","timestamp":"2014-03-14T11:38:59.790Z"}
+{"level":"info","message":"\u001b[33mExpress started on port\u001b[39m","timestamp":"2014-03-14T11:38:59.811Z"}
+{"level":"info","message":"mongodb connect success","timestamp":"2014-03-14T11:39:01.927Z"}
+{"level":"info","message":"connection opening","timestamp":"2014-03-14T11:39:01.928Z"}
+{"level":"info","message":"app is created enlight 716mw3mde4g0","timestamp":"2014-03-14T11:39:01.990Z"}
+{"level":"info","message":"\u001b[32msubscribe success  enlight  \u001b[39m","timestamp":"2014-03-14T11:39:01.990Z"}
+{"level":"info","message":"app is created enlight 4nx1213kkh6o","timestamp":"2014-03-14T11:39:01.997Z"}
+{"level":"info","message":"\u001b[32msubscribe success  enlight  \u001b[39m","timestamp":"2014-03-14T11:39:01.997Z"}
+{"level":"info","message":"app is created  meetingroom   1g0x10vdmja8","timestamp":"2014-03-14T11:39:02.011Z"}
+{"level":"info","message":"subscribe success","timestamp":"2014-03-14T11:39:02.012Z"}
+{"level":"info","message":"App has subscribe to the channel success","timestamp":"2014-03-14T11:39:02.020Z"}
+{"level":"info","message":"App has subscribe to the channel success","timestamp":"2014-03-14T11:39:02.021Z"}
+{"level":"info","message":"App has subscribe to the channel success","timestamp":"2014-03-14T11:39:02.021Z"}
+{"level":"info","message":"\u001b[31mApp has subscribe to the catalog notification  success\u001b[39m","timestamp":"2014-03-14T11:39:02.022Z"}
+{"level":"info","message":"listen to the MQTT service succfully   - https://geras.1248.io/cat/armmeeting","timestamp":"2014-03-14T11:39:02.027Z"}
+{"level":"info","message":"add new RT SERVICE https://geras.1248.io/cat/armmeeting","timestamp":"2014-03-14T11:39:02.027Z"}
+{"level":"info","message":"\u001b[32mMQTT Connected\u001b[39m","timestamp":"2014-03-14T11:39:02.146Z"}
+{"level":"error","message":"Fri Mar 14 2014 11:46:30 GMT+0000 (GMT 标准时间):(H:\\Dropbox\\node\\testarm\\app.js:340:TypeError: Object #<IncomingMessage> has no method 'send'\n    at H:\\Dropbox\\node\\testarm\\routes\\catalog_api.js:223:32\n    at Promise.<anonymous> (H:\\Dropbox\\node\\testarm\\model\\catalog_model.js:72:12)\n    at Promise.<anonymous> (H:\\Dropbox\\node\\node_modules\\mongoose\\node_modules\\mpromise\\lib\\promise.js:171:8)\n    at Promise.EventEmitter.emit (events.js:95:17)\n    at Promise.emit (H:\\Dropbox\\node\\node_modules\\mongoose\\node_modules\\mpromise\\lib\\promise.js:88:38)\n    at Promise.fulfill (H:\\Dropbox\\node\\node_modules\\mongoose\\node_modules\\mpromise\\lib\\promise.js:101:20)\n    at Promise.resolve (H:\\Dropbox\\node\\node_modules\\mongoose\\lib\\promise.js:108:15)\n    at Object._onImmediate (H:\\Dropbox\\node\\node_modules\\mongoose\\node_modules\\mquery\\lib\\utils.js:126:16)\n    at processImmediate [as _immediateCallback] (timers.js:317:15)","timestamp":"2014-03-14T11:46:31.000Z"}
+{"level":"error","message":"Fri Mar 14 2014 11:48:31 GMT+0000 (GMT 标准时间):(H:\\Dropbox\\node\\testarm\\app.js:340:TypeError: Object #<IncomingMessage> has no method 'send'\n    at H:\\Dropbox\\node\\testarm\\routes\\catalog_api.js:223:32\n    at Promise.<anonymous> (H:\\Dropbox\\node\\testarm\\model\\catalog_model.js:72:12)\n    at Promise.<anonymous> (H:\\Dropbox\\node\\node_modules\\mongoose\\node_modules\\mpromise\\lib\\promise.js:171:8)\n    at Promise.EventEmitter.emit (events.js:95:17)\n    at Promise.emit (H:\\Dropbox\\node\\node_modules\\mongoose\\node_modules\\mpromise\\lib\\promise.js:88:38)\n    at Promise.fulfill (H:\\Dropbox\\node\\node_modules\\mongoose\\node_modules\\mpromise\\lib\\promise.js:101:20)\n    at Promise.resolve (H:\\Dropbox\\node\\node_modules\\mongoose\\lib\\promise.js:108:15)\n    at Object._onImmediate (H:\\Dropbox\\node\\node_modules\\mongoose\\node_modules\\mquery\\lib\\utils.js:126:16)\n    at processImmediate [as _immediateCallback] (timers.js:317:15)","timestamp":"2014-03-14T11:48:31.002Z"}
+{"level":"error","message":"Fri Mar 14 2014 11:50:31 GMT+0000 (GMT 标准时间):(H:\\Dropbox\\node\\testarm\\app.js:340:TypeError: Object #<IncomingMessage> has no method 'send'\n    at H:\\Dropbox\\node\\testarm\\routes\\catalog_api.js:223:32\n    at Promise.<anonymous> (H:\\Dropbox\\node\\testarm\\model\\catalog_model.js:72:12)\n    at Promise.<anonymous> (H:\\Dropbox\\node\\node_modules\\mongoose\\node_modules\\mpromise\\lib\\promise.js:171:8)\n    at Promise.EventEmitter.emit (events.js:95:17)\n    at Promise.emit (H:\\Dropbox\\node\\node_modules\\mongoose\\node_modules\\mpromise\\lib\\promise.js:88:38)\n    at Promise.fulfill (H:\\Dropbox\\node\\node_modules\\mongoose\\node_modules\\mpromise\\lib\\promise.js:101:20)\n    at Promise.resolve (H:\\Dropbox\\node\\node_modules\\mongoose\\lib\\promise.js:108:15)\n    at Object._onImmediate (H:\\Dropbox\\node\\node_modules\\mongoose\\node_modules\\mquery\\lib\\utils.js:126:16)\n    at processImmediate [as _immediateCallback] (timers.js:317:15)","timestamp":"2014-03-14T11:50:31.313Z"}
+{"0":"Fri Mar 14 2014 11:51:45 GMT+0000 (GMT 标准时间)","1":"SIGINT","level":"info","message":"%s: Received %s - terminating Node server ...","timestamp":"2014-03-14T11:51:45.898Z"}
+{"level":"info","message":"\u001b[33mapp on development\u001b[39m","timestamp":"2014-03-14T11:51:46.807Z"}
+{"level":"info","message":"\u001b[33mthe port used \u001b[39m","timestamp":"2014-03-14T11:51:46.889Z"}
+{"level":"info","message":"\u001b[33mExpress started on port\u001b[39m","timestamp":"2014-03-14T11:51:46.906Z"}
+{"level":"info","message":"mongodb connect success","timestamp":"2014-03-14T11:51:48.955Z"}
+{"level":"info","message":"connection opening","timestamp":"2014-03-14T11:51:48.956Z"}
+{"level":"info","message":"app is created enlight 1uq8ydnin71c","timestamp":"2014-03-14T11:51:49.030Z"}
+{"level":"info","message":"\u001b[32msubscribe success  enlight  \u001b[39m","timestamp":"2014-03-14T11:51:49.031Z"}
+{"level":"info","message":"app is created enlight 1p6b94vzssw0","timestamp":"2014-03-14T11:51:49.037Z"}
+{"level":"info","message":"\u001b[32msubscribe success  enlight  \u001b[39m","timestamp":"2014-03-14T11:51:49.038Z"}
+{"level":"info","message":"app is created  meetingroom   7l2gqsjtds4k","timestamp":"2014-03-14T11:51:49.052Z"}
+{"level":"info","message":"subscribe success","timestamp":"2014-03-14T11:51:49.052Z"}
+{"level":"info","message":"App has subscribe to the channel success","timestamp":"2014-03-14T11:51:49.060Z"}
+{"level":"info","message":"App has subscribe to the channel success","timestamp":"2014-03-14T11:51:49.060Z"}
+{"level":"info","message":"App has subscribe to the channel success","timestamp":"2014-03-14T11:51:49.062Z"}
+{"level":"info","message":"\u001b[31mApp has subscribe to the catalog notification  success\u001b[39m","timestamp":"2014-03-14T11:51:49.062Z"}
+{"level":"info","message":"listen to the MQTT service succfully   - https://geras.1248.io/cat/armmeeting","timestamp":"2014-03-14T11:51:49.068Z"}
+{"level":"info","message":"add new RT SERVICE https://geras.1248.io/cat/armmeeting","timestamp":"2014-03-14T11:51:49.068Z"}
+{"level":"info","message":"\u001b[32mMQTT Connected\u001b[39m","timestamp":"2014-03-14T11:51:49.214Z"}
+{"0":"Fri Mar 14 2014 11:52:58 GMT+0000 (GMT 标准时间)","1":"SIGINT","level":"info","message":"%s: Received %s - terminating Node server ...","timestamp":"2014-03-14T11:52:58.183Z"}
+{"level":"info","message":"\u001b[33mapp on development\u001b[39m","timestamp":"2014-03-14T11:52:59.070Z"}
+{"level":"info","message":"\u001b[33mthe port used \u001b[39m","timestamp":"2014-03-14T11:52:59.153Z"}
+{"level":"info","message":"\u001b[33mExpress started on port\u001b[39m","timestamp":"2014-03-14T11:52:59.169Z"}
+{"level":"info","message":"mongodb connect success","timestamp":"2014-03-14T11:53:01.341Z"}
+{"level":"info","message":"connection opening","timestamp":"2014-03-14T11:53:01.341Z"}
+{"level":"info","message":"app is created enlight 5e9lv3e813c4","timestamp":"2014-03-14T11:53:01.404Z"}
+{"level":"info","message":"\u001b[32msubscribe success  enlight  \u001b[39m","timestamp":"2014-03-14T11:53:01.404Z"}
+{"level":"info","message":"app is created enlight snk5exy7pw0","timestamp":"2014-03-14T11:53:01.411Z"}
+{"level":"info","message":"\u001b[32msubscribe success  enlight  \u001b[39m","timestamp":"2014-03-14T11:53:01.411Z"}
+{"level":"info","message":"app is created  meetingroom   1efofrw7bf0g","timestamp":"2014-03-14T11:53:01.426Z"}
+{"level":"info","message":"subscribe success","timestamp":"2014-03-14T11:53:01.426Z"}
+{"level":"info","message":"App has subscribe to the channel success","timestamp":"2014-03-14T11:53:01.434Z"}
+{"level":"info","message":"App has subscribe to the channel success","timestamp":"2014-03-14T11:53:01.435Z"}
+{"level":"info","message":"App has subscribe to the channel success","timestamp":"2014-03-14T11:53:01.435Z"}
+{"level":"info","message":"\u001b[31mApp has subscribe to the catalog notification  success\u001b[39m","timestamp":"2014-03-14T11:53:01.437Z"}
+{"level":"info","message":"listen to the MQTT service succfully   - https://geras.1248.io/cat/armmeeting","timestamp":"2014-03-14T11:53:01.441Z"}
+{"level":"info","message":"add new RT SERVICE https://geras.1248.io/cat/armmeeting","timestamp":"2014-03-14T11:53:01.441Z"}
+{"level":"info","message":"\u001b[32mMQTT Connected\u001b[39m","timestamp":"2014-03-14T11:53:01.632Z"}
+{"0":"Fri Mar 14 2014 11:55:54 GMT+0000 (GMT 标准时间)","1":"SIGINT","level":"info","message":"%s: Received %s - terminating Node server ...","timestamp":"2014-03-14T11:55:54.940Z"}
+{"level":"info","message":"\u001b[33mapp on development\u001b[39m","timestamp":"2014-03-14T11:55:55.931Z"}
+{"level":"info","message":"\u001b[33mthe port used \u001b[39m","timestamp":"2014-03-14T11:55:56.014Z"}
+{"level":"info","message":"\u001b[33mExpress started on port\u001b[39m","timestamp":"2014-03-14T11:55:56.028Z"}
+{"level":"info","message":"mongodb connect success","timestamp":"2014-03-14T11:55:58.238Z"}
+{"level":"info","message":"connection opening","timestamp":"2014-03-14T11:55:58.239Z"}
+{"level":"info","message":"app is created enlight 57hjiij8x00s","timestamp":"2014-03-14T11:55:58.302Z"}
+{"level":"info","message":"\u001b[32msubscribe success  enlight  \u001b[39m","timestamp":"2014-03-14T11:55:58.303Z"}
+{"level":"info","message":"app is created enlight 6qaj3n627nwo","timestamp":"2014-03-14T11:55:58.310Z"}
+{"level":"info","message":"\u001b[32msubscribe success  enlight  \u001b[39m","timestamp":"2014-03-14T11:55:58.311Z"}
+{"level":"info","message":"app is created  meetingroom   4953qp458bs4","timestamp":"2014-03-14T11:55:58.325Z"}
+{"level":"info","message":"subscribe success","timestamp":"2014-03-14T11:55:58.325Z"}
+{"level":"info","message":"App has subscribe to the channel success","timestamp":"2014-03-14T11:55:58.333Z"}
+{"level":"info","message":"App has subscribe to the channel success","timestamp":"2014-03-14T11:55:58.333Z"}
+{"level":"info","message":"App has subscribe to the channel success","timestamp":"2014-03-14T11:55:58.334Z"}
+{"level":"info","message":"\u001b[31mApp has subscribe to the catalog notification  success\u001b[39m","timestamp":"2014-03-14T11:55:58.335Z"}
+{"level":"info","message":"listen to the MQTT service succfully   - https://geras.1248.io/cat/armmeeting","timestamp":"2014-03-14T11:55:58.340Z"}
+{"level":"info","message":"add new RT SERVICE https://geras.1248.io/cat/armmeeting","timestamp":"2014-03-14T11:55:58.340Z"}
+{"level":"info","message":"\u001b[32mMQTT Connected\u001b[39m","timestamp":"2014-03-14T11:55:58.506Z"}
+{"level":"error","message":"Fri Mar 14 2014 11:58:27 GMT+0000 (GMT 标准时间):(H:\\Dropbox\\node\\testarm\\app.js:242:TypeError: Object #<Object> has no method 'crawlSingleCatalog'\n    at app.del.url (H:\\Dropbox\\node\\testarm\\routes\\catalog_api.js:204:19)\n    at callbacks (H:\\Dropbox\\node\\node_modules\\express\\lib\\router\\index.js:161:37)\n    at param (H:\\Dropbox\\node\\node_modules\\express\\lib\\router\\index.js:135:11)\n    at pass (H:\\Dropbox\\node\\node_modules\\express\\lib\\router\\index.js:142:5)\n    at Router._dispatch (H:\\Dropbox\\node\\node_modules\\express\\lib\\router\\index.js:170:5)\n    at Object.router (H:\\Dropbox\\node\\node_modules\\express\\lib\\router\\index.js:33:10)\n    at Context.next (H:\\Dropbox\\node\\node_modules\\express\\node_modules\\connect\\lib\\proto.js:199:15)\n    at Context.actions.pass (H:\\Dropbox\\node\\node_modules\\passport\\lib\\passport\\context\\http\\actions.js:77:8)\n    at SessionStrategy.authenticate (H:\\Dropbox\\node\\node_modules\\passport\\lib\\passport\\strategies\\session.js:67:10)\n    at attempt (H:\\Dropbox\\node\\node_modules\\passport\\lib\\passport\\middleware\\authenticate.js:243:16)","timestamp":"2014-03-14T11:58:27.684Z"}
+{"0":"Fri Mar 14 2014 12:03:50 GMT+0000 (GMT 标准时间)","1":"SIGINT","level":"info","message":"%s: Received %s - terminating Node server ...","timestamp":"2014-03-14T12:03:50.218Z"}
+{"level":"info","message":"\u001b[33mapp on development\u001b[39m","timestamp":"2014-03-14T12:03:51.373Z"}
+{"level":"info","message":"\u001b[33mthe port used \u001b[39m","timestamp":"2014-03-14T12:03:51.471Z"}
+{"level":"info","message":"\u001b[33mExpress started on port\u001b[39m","timestamp":"2014-03-14T12:03:51.487Z"}
+{"level":"info","message":"mongodb connect success","timestamp":"2014-03-14T12:03:53.682Z"}
+{"level":"info","message":"connection opening","timestamp":"2014-03-14T12:03:53.683Z"}
+{"level":"info","message":"app is created enlight 75jbgdv273c4","timestamp":"2014-03-14T12:03:53.747Z"}
+{"level":"info","message":"\u001b[32msubscribe success  enlight  \u001b[39m","timestamp":"2014-03-14T12:03:53.748Z"}
+{"level":"info","message":"app is created enlight 3ajpsv025800","timestamp":"2014-03-14T12:03:53.755Z"}
+{"level":"info","message":"\u001b[32msubscribe success  enlight  \u001b[39m","timestamp":"2014-03-14T12:03:53.756Z"}
+{"level":"info","message":"app is created  meetingroom   3x5ygcxcp8u8","timestamp":"2014-03-14T12:03:53.770Z"}
+{"level":"info","message":"subscribe success","timestamp":"2014-03-14T12:03:53.770Z"}
+{"level":"info","message":"App has subscribe to the channel success","timestamp":"2014-03-14T12:03:53.778Z"}
+{"level":"info","message":"App has subscribe to the channel success","timestamp":"2014-03-14T12:03:53.779Z"}
+{"level":"info","message":"App has subscribe to the channel success","timestamp":"2014-03-14T12:03:53.780Z"}
+{"level":"info","message":"\u001b[31mApp has subscribe to the catalog notification  success\u001b[39m","timestamp":"2014-03-14T12:03:53.781Z"}
+{"level":"info","message":"listen to the MQTT service succfully   - https://geras.1248.io/cat/armmeeting","timestamp":"2014-03-14T12:03:53.787Z"}
+{"level":"info","message":"add new RT SERVICE https://geras.1248.io/cat/armmeeting","timestamp":"2014-03-14T12:03:53.787Z"}
+{"level":"info","message":"\u001b[32mMQTT Connected\u001b[39m","timestamp":"2014-03-14T12:03:55.890Z"}
+{"0":"Fri Mar 14 2014 12:10:46 GMT+0000 (GMT 标准时间)","1":"SIGINT","level":"info","message":"%s: Received %s - terminating Node server ...","timestamp":"2014-03-14T12:10:46.301Z"}
+{"level":"info","message":"\u001b[33mapp on development\u001b[39m","timestamp":"2014-03-14T12:10:48.228Z"}
+{"level":"info","message":"\u001b[33mthe port used \u001b[39m","timestamp":"2014-03-14T12:10:48.320Z"}
+{"level":"info","message":"\u001b[33mExpress started on port\u001b[39m","timestamp":"2014-03-14T12:10:48.336Z"}
+{"level":"info","message":"mongodb connect success","timestamp":"2014-03-14T12:10:50.466Z"}
+{"level":"info","message":"connection opening","timestamp":"2014-03-14T12:10:50.466Z"}
+{"level":"info","message":"app is created enlight 65hir0vam40s","timestamp":"2014-03-14T12:10:50.527Z"}
+{"level":"info","message":"\u001b[32msubscribe success  enlight  \u001b[39m","timestamp":"2014-03-14T12:10:50.528Z"}
+{"level":"info","message":"app is created enlight 61om5477qgw0","timestamp":"2014-03-14T12:10:50.534Z"}
+{"level":"info","message":"\u001b[32msubscribe success  enlight  \u001b[39m","timestamp":"2014-03-14T12:10:50.535Z"}
+{"level":"info","message":"app is created  meetingroom   1r5odi5rdnwg","timestamp":"2014-03-14T12:10:50.549Z"}
+{"level":"info","message":"subscribe success","timestamp":"2014-03-14T12:10:50.549Z"}
+{"level":"info","message":"App has subscribe to the channel success","timestamp":"2014-03-14T12:10:50.557Z"}
+{"level":"info","message":"App has subscribe to the channel success","timestamp":"2014-03-14T12:10:50.558Z"}
+{"level":"info","message":"App has subscribe to the channel success","timestamp":"2014-03-14T12:10:50.559Z"}
+{"level":"info","message":"\u001b[31mApp has subscribe to the catalog notification  success\u001b[39m","timestamp":"2014-03-14T12:10:50.559Z"}
+{"level":"info","message":"listen to the MQTT service succfully   - https://geras.1248.io/cat/armmeeting","timestamp":"2014-03-14T12:10:50.567Z"}
+{"level":"info","message":"add new RT SERVICE https://geras.1248.io/cat/armmeeting","timestamp":"2014-03-14T12:10:50.568Z"}
+{"level":"info","message":"\u001b[32mMQTT Connected\u001b[39m","timestamp":"2014-03-14T12:10:52.761Z"}
+{"level":"error","message":"Fri Mar 14 2014 12:11:52 GMT+0000 (GMT 标准时间):(H:\\Dropbox\\node\\testarm\\app.js:340:TypeError: Object #<IncomingMessage> has no method 'send'\n    at H:\\Dropbox\\node\\testarm\\routes\\catalog_api.js:213:12\n    at H:\\Dropbox\\node\\testarm\\routes\\catalogUpdater.js:160:6\n    at H:\\Dropbox\\node\\testarm\\routes\\catalog_filter.js:492:10\n    at H:\\Dropbox\\node\\node_modules\\async\\lib\\async.js:116:25\n    at H:\\Dropbox\\node\\node_modules\\async\\lib\\async.js:24:16\n    at H:\\Dropbox\\node\\testarm\\routes\\catalog_filter.js:485:17\n    at H:\\Dropbox\\node\\node_modules\\async\\lib\\async.js:108:13\n    at Array.forEach (native)\n    at _each (H:\\Dropbox\\node\\node_modules\\async\\lib\\async.js:32:24)\n    at Object.async.each (H:\\Dropbox\\node\\node_modules\\async\\lib\\async.js:107:9)","timestamp":"2014-03-14T12:11:52.501Z"}
+{"0":"Fri Mar 14 2014 12:12:35 GMT+0000 (GMT 标准时间)","1":"SIGINT","level":"info","message":"%s: Received %s - terminating Node server ...","timestamp":"2014-03-14T12:12:35.545Z"}
+{"level":"info","message":"\u001b[33mapp on development\u001b[39m","timestamp":"2014-03-14T12:12:37.142Z"}
+{"level":"info","message":"\u001b[33mthe port used \u001b[39m","timestamp":"2014-03-14T12:12:37.223Z"}
+{"level":"info","message":"\u001b[33mExpress started on port\u001b[39m","timestamp":"2014-03-14T12:12:37.238Z"}
+{"level":"info","message":"mongodb connect success","timestamp":"2014-03-14T12:12:39.362Z"}
+{"level":"info","message":"connection opening","timestamp":"2014-03-14T12:12:39.362Z"}
+{"level":"info","message":"app is created enlight 5477oc4wmm0w","timestamp":"2014-03-14T12:12:39.426Z"}
+{"level":"info","message":"\u001b[32msubscribe success  enlight  \u001b[39m","timestamp":"2014-03-14T12:12:39.427Z"}
+{"level":"info","message":"app is created enlight 5ipbod0lec08","timestamp":"2014-03-14T12:12:39.433Z"}
+{"level":"info","message":"\u001b[32msubscribe success  enlight  \u001b[39m","timestamp":"2014-03-14T12:12:39.434Z"}
+{"level":"info","message":"app is created  meetingroom   4z4vw2864u0w","timestamp":"2014-03-14T12:12:39.448Z"}
+{"level":"info","message":"subscribe success","timestamp":"2014-03-14T12:12:39.449Z"}
+{"level":"info","message":"App has subscribe to the channel success","timestamp":"2014-03-14T12:12:39.456Z"}
+{"level":"info","message":"App has subscribe to the channel success","timestamp":"2014-03-14T12:12:39.457Z"}
+{"level":"info","message":"App has subscribe to the channel success","timestamp":"2014-03-14T12:12:39.458Z"}
+{"level":"info","message":"\u001b[31mApp has subscribe to the catalog notification  success\u001b[39m","timestamp":"2014-03-14T12:12:39.459Z"}
+{"level":"info","message":"listen to the MQTT service succfully   - https://geras.1248.io/cat/armmeeting","timestamp":"2014-03-14T12:12:39.465Z"}
+{"level":"info","message":"add new RT SERVICE https://geras.1248.io/cat/armmeeting","timestamp":"2014-03-14T12:12:39.465Z"}
+{"level":"info","message":"\u001b[32mMQTT Connected\u001b[39m","timestamp":"2014-03-14T12:12:40.058Z"}
+{"0":"Fri Mar 14 2014 12:15:04 GMT+0000 (GMT 标准时间)","1":"SIGINT","level":"info","message":"%s: Received %s - terminating Node server ...","timestamp":"2014-03-14T12:15:04.265Z"}
+{"level":"info","message":"\u001b[33mapp on development\u001b[39m","timestamp":"2014-03-14T12:15:05.233Z"}
+{"level":"info","message":"\u001b[33mthe port used \u001b[39m","timestamp":"2014-03-14T12:15:05.321Z"}
+{"level":"info","message":"\u001b[33mExpress started on port\u001b[39m","timestamp":"2014-03-14T12:15:05.339Z"}
+{"level":"info","message":"mongodb connect success","timestamp":"2014-03-14T12:15:07.509Z"}
+{"level":"info","message":"connection opening","timestamp":"2014-03-14T12:15:07.510Z"}
+{"level":"info","message":"app is created enlight 7c2dx6ybozk0","timestamp":"2014-03-14T12:15:07.571Z"}
+{"level":"info","message":"\u001b[32msubscribe success  enlight  \u001b[39m","timestamp":"2014-03-14T12:15:07.572Z"}
+{"level":"info","message":"app is created enlight 4km946injpq8","timestamp":"2014-03-14T12:15:07.578Z"}
+{"level":"info","message":"\u001b[32msubscribe success  enlight  \u001b[39m","timestamp":"2014-03-14T12:15:07.579Z"}
+{"level":"info","message":"app is created  meetingroom   5hap57kpge0w","timestamp":"2014-03-14T12:15:07.593Z"}
+{"level":"info","message":"subscribe success","timestamp":"2014-03-14T12:15:07.593Z"}
+{"level":"info","message":"App has subscribe to the channel success","timestamp":"2014-03-14T12:15:07.601Z"}
+{"level":"info","message":"App has subscribe to the channel success","timestamp":"2014-03-14T12:15:07.602Z"}
+{"level":"info","message":"App has subscribe to the channel success","timestamp":"2014-03-14T12:15:07.602Z"}
+{"level":"info","message":"\u001b[31mApp has subscribe to the catalog notification  success\u001b[39m","timestamp":"2014-03-14T12:15:07.603Z"}
+{"level":"info","message":"listen to the MQTT service succfully   - https://geras.1248.io/cat/armmeeting","timestamp":"2014-03-14T12:15:07.608Z"}
+{"level":"info","message":"add new RT SERVICE https://geras.1248.io/cat/armmeeting","timestamp":"2014-03-14T12:15:07.609Z"}
+{"level":"info","message":"\u001b[32mMQTT Connected\u001b[39m","timestamp":"2014-03-14T12:15:09.623Z"}
+{"0":"Fri Mar 14 2014 12:35:35 GMT+0000 (GMT 标准时间)","1":"SIGINT","level":"info","message":"%s: Received %s - terminating Node server ...","timestamp":"2014-03-14T12:35:35.402Z"}
+{"level":"info","message":"\u001b[33mapp on development\u001b[39m","timestamp":"2014-03-14T12:35:36.392Z"}
+{"level":"info","message":"\u001b[33mthe port used \u001b[39m","timestamp":"2014-03-14T12:35:36.476Z"}
+{"level":"info","message":"\u001b[33mExpress started on port\u001b[39m","timestamp":"2014-03-14T12:35:36.493Z"}
+{"level":"info","message":"mongodb connect success","timestamp":"2014-03-14T12:35:38.627Z"}
+{"level":"info","message":"connection opening","timestamp":"2014-03-14T12:35:38.627Z"}
+{"level":"info","message":"app is created enlight 6ap3i9t4ncsg","timestamp":"2014-03-14T12:35:38.703Z"}
+{"level":"info","message":"\u001b[32msubscribe success  enlight  \u001b[39m","timestamp":"2014-03-14T12:35:38.704Z"}
+{"level":"info","message":"app is created enlight 3xmahcz39wqo","timestamp":"2014-03-14T12:35:38.711Z"}
+{"level":"info","message":"\u001b[32msubscribe success  enlight  \u001b[39m","timestamp":"2014-03-14T12:35:38.712Z"}
+{"level":"info","message":"app is created  meetingroom   28gezlrro11c","timestamp":"2014-03-14T12:35:38.727Z"}
+{"level":"info","message":"subscribe success","timestamp":"2014-03-14T12:35:38.728Z"}
+{"level":"info","message":"App has subscribe to the channel success","timestamp":"2014-03-14T12:35:38.736Z"}
+{"level":"info","message":"App has subscribe to the channel success","timestamp":"2014-03-14T12:35:38.737Z"}
+{"level":"info","message":"App has subscribe to the channel success","timestamp":"2014-03-14T12:35:38.738Z"}
+{"level":"info","message":"\u001b[31mApp has subscribe to the catalog notification  success\u001b[39m","timestamp":"2014-03-14T12:35:38.739Z"}
+{"level":"info","message":"listen to the MQTT service succfully   - https://geras.1248.io/cat/armmeeting","timestamp":"2014-03-14T12:35:38.745Z"}
+{"level":"info","message":"add new RT SERVICE https://geras.1248.io/cat/armmeeting","timestamp":"2014-03-14T12:35:38.746Z"}
+{"level":"info","message":"\u001b[32mMQTT Connected\u001b[39m","timestamp":"2014-03-14T12:35:39.489Z"}
+{"level":"error","message":"Fri Mar 14 2014 12:36:15 GMT+0000 (GMT 标准时间):(H:\\Dropbox\\node\\testarm\\app.js:340:ReferenceError: catalogs is not defined\n    at H:\\Dropbox\\node\\testarm\\routes\\catalog_api.js:190:12\n    at Request._callback (H:\\Dropbox\\node\\testarm\\routes\\catalogUpdater.js:108:12)\n    at Request.self.callback (H:\\Dropbox\\node\\node_modules\\request\\index.js:148:22)\n    at Request.EventEmitter.emit (events.js:98:17)\n    at Request.<anonymous> (H:\\Dropbox\\node\\node_modules\\request\\index.js:876:14)\n    at Request.EventEmitter.emit (events.js:117:20)\n    at IncomingMessage.<anonymous> (H:\\Dropbox\\node\\node_modules\\request\\index.js:827:12)\n    at IncomingMessage.EventEmitter.emit (events.js:117:20)\n    at _stream_readable.js:883:14\n    at process._tickDomainCallback (node.js:459:13)","timestamp":"2014-03-14T12:36:15.102Z"}
+{"level":"error","message":"Fri Mar 14 2014 13:13:45 GMT+0000 (GMT 标准时间):(H:\\Dropbox\\node\\testarm\\app.js:340:ReferenceError: catalogs is not defined\n    at H:\\Dropbox\\node\\testarm\\routes\\catalog_api.js:190:12\n    at Request._callback (H:\\Dropbox\\node\\testarm\\routes\\catalogUpdater.js:108:12)\n    at Request.self.callback (H:\\Dropbox\\node\\node_modules\\request\\index.js:148:22)\n    at Request.EventEmitter.emit (events.js:98:17)\n    at Request.<anonymous> (H:\\Dropbox\\node\\node_modules\\request\\index.js:876:14)\n    at Request.EventEmitter.emit (events.js:117:20)\n    at IncomingMessage.<anonymous> (H:\\Dropbox\\node\\node_modules\\request\\index.js:827:12)\n    at IncomingMessage.EventEmitter.emit (events.js:117:20)\n    at _stream_readable.js:883:14\n    at process._tickDomainCallback (node.js:459:13)","timestamp":"2014-03-14T13:13:45.500Z"}
+{"0":"Fri Mar 14 2014 13:14:10 GMT+0000 (GMT 标准时间)","1":"SIGINT","level":"info","message":"%s: Received %s - terminating Node server ...","timestamp":"2014-03-14T13:14:10.039Z"}
+{"level":"info","message":"\u001b[33mapp on development\u001b[39m","timestamp":"2014-03-14T13:14:11.637Z"}
+{"level":"info","message":"\u001b[33mthe port used \u001b[39m","timestamp":"2014-03-14T13:14:11.721Z"}
+{"level":"info","message":"\u001b[33mExpress started on port\u001b[39m","timestamp":"2014-03-14T13:14:11.736Z"}
+{"level":"info","message":"mongodb connect success","timestamp":"2014-03-14T13:14:14.004Z"}
+{"level":"info","message":"connection opening","timestamp":"2014-03-14T13:14:14.005Z"}
+{"level":"info","message":"app is created enlight 4g5ybnuwjrms","timestamp":"2014-03-14T13:14:14.072Z"}
+{"level":"info","message":"\u001b[32msubscribe success  enlight  \u001b[39m","timestamp":"2014-03-14T13:14:14.073Z"}
+{"level":"info","message":"app is created enlight e3objrpxjjk","timestamp":"2014-03-14T13:14:14.079Z"}
+{"level":"info","message":"\u001b[32msubscribe success  enlight  \u001b[39m","timestamp":"2014-03-14T13:14:14.079Z"}
+{"level":"info","message":"app is created  meetingroom   327ixjfuayck","timestamp":"2014-03-14T13:14:14.094Z"}
+{"level":"info","message":"subscribe success","timestamp":"2014-03-14T13:14:14.094Z"}
+{"level":"info","message":"App has subscribe to the channel success","timestamp":"2014-03-14T13:14:14.103Z"}
+{"level":"info","message":"App has subscribe to the channel success","timestamp":"2014-03-14T13:14:14.103Z"}
+{"level":"info","message":"App has subscribe to the channel success","timestamp":"2014-03-14T13:14:14.104Z"}
+{"level":"info","message":"\u001b[31mApp has subscribe to the catalog notification  success\u001b[39m","timestamp":"2014-03-14T13:14:14.105Z"}
+{"level":"info","message":"listen to the MQTT service succfully   - https://geras.1248.io/cat/armmeeting","timestamp":"2014-03-14T13:14:14.110Z"}
+{"level":"info","message":"add new RT SERVICE https://geras.1248.io/cat/armmeeting","timestamp":"2014-03-14T13:14:14.111Z"}
+{"level":"info","message":"\u001b[32mMQTT Connected\u001b[39m","timestamp":"2014-03-14T13:14:14.196Z"}
+{"0":"Fri Mar 14 2014 13:15:39 GMT+0000 (GMT 标准时间)","1":"SIGINT","level":"info","message":"%s: Received %s - terminating Node server ...","timestamp":"2014-03-14T13:15:39.151Z"}
+{"level":"info","message":"\u001b[33mapp on development\u001b[39m","timestamp":"2014-03-14T13:15:40.559Z"}
+{"level":"info","message":"\u001b[33mthe port used \u001b[39m","timestamp":"2014-03-14T13:15:40.649Z"}
+{"level":"info","message":"\u001b[33mExpress started on port\u001b[39m","timestamp":"2014-03-14T13:15:40.672Z"}
+{"level":"info","message":"mongodb connect success","timestamp":"2014-03-14T13:15:42.909Z"}
+{"level":"info","message":"connection opening","timestamp":"2014-03-14T13:15:42.910Z"}
+{"level":"info","message":"app is created enlight 1gttynl2v874","timestamp":"2014-03-14T13:15:42.978Z"}
+{"level":"info","message":"\u001b[32msubscribe success  enlight  \u001b[39m","timestamp":"2014-03-14T13:15:42.979Z"}
+{"level":"info","message":"app is created enlight 3ltj0jsxg32","timestamp":"2014-03-14T13:15:42.985Z"}
+{"level":"info","message":"\u001b[32msubscribe success  enlight  \u001b[39m","timestamp":"2014-03-14T13:15:42.986Z"}
+{"level":"info","message":"app is created  meetingroom   6qvlfcb18pog","timestamp":"2014-03-14T13:15:43.003Z"}
+{"level":"info","message":"subscribe success","timestamp":"2014-03-14T13:15:43.004Z"}
+{"level":"info","message":"App has subscribe to the channel success","timestamp":"2014-03-14T13:15:43.013Z"}
+{"level":"info","message":"App has subscribe to the channel success","timestamp":"2014-03-14T13:15:43.013Z"}
+{"level":"info","message":"App has subscribe to the channel success","timestamp":"2014-03-14T13:15:43.014Z"}
+{"level":"info","message":"\u001b[31mApp has subscribe to the catalog notification  success\u001b[39m","timestamp":"2014-03-14T13:15:43.015Z"}
+{"level":"info","message":"listen to the MQTT service succfully   - https://geras.1248.io/cat/armmeeting","timestamp":"2014-03-14T13:15:43.021Z"}
+{"level":"info","message":"add new RT SERVICE https://geras.1248.io/cat/armmeeting","timestamp":"2014-03-14T13:15:43.021Z"}
+{"level":"info","message":"\u001b[32mMQTT Connected\u001b[39m","timestamp":"2014-03-14T13:15:43.085Z"}
+{"0":"Fri Mar 14 2014 13:50:32 GMT+0000 (GMT 标准时间)","1":"SIGINT","level":"info","message":"%s: Received %s - terminating Node server ...","timestamp":"2014-03-14T13:50:32.252Z"}
+{"level":"info","message":"\u001b[33mapp on development\u001b[39m","timestamp":"2014-03-14T13:50:33.577Z"}
+{"level":"info","message":"\u001b[33mthe port used \u001b[39m","timestamp":"2014-03-14T13:50:33.659Z"}
+{"level":"info","message":"\u001b[33mExpress started on port\u001b[39m","timestamp":"2014-03-14T13:50:33.674Z"}
+{"level":"info","message":"mongodb connect success","timestamp":"2014-03-14T13:50:35.796Z"}
+{"level":"info","message":"connection opening","timestamp":"2014-03-14T13:50:35.797Z"}
+{"level":"info","message":"app is created enlight 6tsl5hz4xfwo","timestamp":"2014-03-14T13:50:35.860Z"}
+{"level":"info","message":"\u001b[32msubscribe success  enlight  \u001b[39m","timestamp":"2014-03-14T13:50:35.861Z"}
+{"level":"info","message":"app is created enlight 4vvkc4zerm2o","timestamp":"2014-03-14T13:50:35.866Z"}
+{"level":"info","message":"\u001b[32msubscribe success  enlight  \u001b[39m","timestamp":"2014-03-14T13:50:35.867Z"}
+{"level":"info","message":"app is created  meetingroom   7d5sm9wtqk08","timestamp":"2014-03-14T13:50:35.881Z"}
+{"level":"info","message":"subscribe success","timestamp":"2014-03-14T13:50:35.881Z"}
+{"level":"info","message":"App has subscribe to the channel success","timestamp":"2014-03-14T13:50:35.890Z"}
+{"level":"info","message":"App has subscribe to the channel success","timestamp":"2014-03-14T13:50:35.890Z"}
+{"level":"info","message":"App has subscribe to the channel success","timestamp":"2014-03-14T13:50:35.891Z"}
+{"level":"info","message":"\u001b[31mApp has subscribe to the catalog notification  success\u001b[39m","timestamp":"2014-03-14T13:50:35.892Z"}
+{"level":"info","message":"listen to the MQTT service succfully   - https://geras.1248.io/cat/armmeeting","timestamp":"2014-03-14T13:50:35.897Z"}
+{"level":"info","message":"add new RT SERVICE https://geras.1248.io/cat/armmeeting","timestamp":"2014-03-14T13:50:35.898Z"}
+{"level":"info","message":"\u001b[32mMQTT Connected\u001b[39m","timestamp":"2014-03-14T13:50:35.959Z"}
+{"0":"Fri Mar 14 2014 14:04:59 GMT+0000 (GMT 标准时间)","1":"SIGINT","level":"info","message":"%s: Received %s - terminating Node server ...","timestamp":"2014-03-14T14:04:59.087Z"}
+{"level":"info","message":"\u001b[33mapp on development\u001b[39m","timestamp":"2014-03-14T14:05:00.044Z"}
+{"level":"info","message":"\u001b[33mthe port used \u001b[39m","timestamp":"2014-03-14T14:05:00.129Z"}
+{"level":"info","message":"\u001b[33mExpress started on port\u001b[39m","timestamp":"2014-03-14T14:05:00.145Z"}
+{"level":"info","message":"mongodb connect success","timestamp":"2014-03-14T14:05:02.396Z"}
+{"level":"info","message":"connection opening","timestamp":"2014-03-14T14:05:02.397Z"}
+{"level":"info","message":"app is created enlight 517ona25lxoo","timestamp":"2014-03-14T14:05:02.460Z"}
+{"level":"info","message":"\u001b[32msubscribe success  enlight  \u001b[39m","timestamp":"2014-03-14T14:05:02.461Z"}
+{"level":"info","message":"app is created enlight ogq6ygum59w","timestamp":"2014-03-14T14:05:02.467Z"}
+{"level":"info","message":"\u001b[32msubscribe success  enlight  \u001b[39m","timestamp":"2014-03-14T14:05:02.467Z"}
+{"level":"info","message":"app is created  meetingroom   42awr61yzqg4","timestamp":"2014-03-14T14:05:02.481Z"}
+{"level":"info","message":"subscribe success","timestamp":"2014-03-14T14:05:02.482Z"}
+{"level":"info","message":"App has subscribe to the channel success","timestamp":"2014-03-14T14:05:02.490Z"}
+{"level":"info","message":"App has subscribe to the channel success","timestamp":"2014-03-14T14:05:02.491Z"}
+{"level":"info","message":"App has subscribe to the channel success","timestamp":"2014-03-14T14:05:02.491Z"}
+{"level":"info","message":"\u001b[31mApp has subscribe to the catalog notification  success\u001b[39m","timestamp":"2014-03-14T14:05:02.492Z"}
+{"level":"info","message":"listen to the MQTT service succfully   - https://geras.1248.io/cat/armmeeting","timestamp":"2014-03-14T14:05:02.498Z"}
+{"level":"info","message":"add new RT SERVICE https://geras.1248.io/cat/armmeeting","timestamp":"2014-03-14T14:05:02.499Z"}
+{"level":"info","message":"\u001b[32mMQTT Connected\u001b[39m","timestamp":"2014-03-14T14:05:02.573Z"}
+{"0":"Fri Mar 14 2014 14:27:27 GMT+0000 (GMT 标准时间)","1":"SIGINT","level":"info","message":"%s: Received %s - terminating Node server ...","timestamp":"2014-03-14T14:27:27.722Z"}
+{"level":"info","message":"\u001b[33mapp on development\u001b[39m","timestamp":"2014-03-14T14:27:29.216Z"}
+{"level":"info","message":"\u001b[33mthe port used \u001b[39m","timestamp":"2014-03-14T14:27:29.309Z"}
+{"level":"info","message":"\u001b[33mExpress started on port\u001b[39m","timestamp":"2014-03-14T14:27:29.329Z"}
+{"level":"info","message":"mongodb connect success","timestamp":"2014-03-14T14:27:31.421Z"}
+{"level":"info","message":"connection opening","timestamp":"2014-03-14T14:27:31.422Z"}
+{"level":"info","message":"app is created enlight 48erpkcovv40","timestamp":"2014-03-14T14:27:31.487Z"}
+{"level":"info","message":"\u001b[32msubscribe success  enlight  \u001b[39m","timestamp":"2014-03-14T14:27:31.487Z"}
+{"level":"info","message":"app is created enlight 5hlo58n1sdc0","timestamp":"2014-03-14T14:27:31.493Z"}
+{"level":"info","message":"\u001b[32msubscribe success  enlight  \u001b[39m","timestamp":"2014-03-14T14:27:31.494Z"}
+{"level":"info","message":"app is created  meetingroom   2qvxjbu3jvk0","timestamp":"2014-03-14T14:27:31.507Z"}
+{"level":"info","message":"subscribe success","timestamp":"2014-03-14T14:27:31.508Z"}
+{"level":"info","message":"App has subscribe to the channel success","timestamp":"2014-03-14T14:27:31.516Z"}
+{"level":"info","message":"App has subscribe to the channel success","timestamp":"2014-03-14T14:27:31.517Z"}
+{"level":"info","message":"App has subscribe to the channel success","timestamp":"2014-03-14T14:27:31.517Z"}
+{"level":"info","message":"\u001b[31mApp has subscribe to the catalog notification  success\u001b[39m","timestamp":"2014-03-14T14:27:31.518Z"}
+{"level":"info","message":"listen to the MQTT service succfully   - https://geras.1248.io/cat/armmeeting","timestamp":"2014-03-14T14:27:31.523Z"}
+{"level":"info","message":"add new RT SERVICE https://geras.1248.io/cat/armmeeting","timestamp":"2014-03-14T14:27:31.524Z"}
+{"level":"info","message":"\u001b[32mMQTT Connected\u001b[39m","timestamp":"2014-03-14T14:27:31.596Z"}
+{"0":"Fri Mar 14 2014 14:27:55 GMT+0000 (GMT 标准时间)","1":"SIGINT","level":"info","message":"%s: Received %s - terminating Node server ...","timestamp":"2014-03-14T14:27:55.642Z"}
+{"level":"info","message":"\u001b[33mapp on development\u001b[39m","timestamp":"2014-03-14T14:27:57.144Z"}
+{"level":"info","message":"\u001b[33mthe port used \u001b[39m","timestamp":"2014-03-14T14:27:57.242Z"}
+{"level":"info","message":"\u001b[33mExpress started on port\u001b[39m","timestamp":"2014-03-14T14:27:57.259Z"}
+{"level":"info","message":"mongodb connect success","timestamp":"2014-03-14T14:27:59.393Z"}
+{"level":"info","message":"connection opening","timestamp":"2014-03-14T14:27:59.393Z"}
+{"level":"info","message":"app is created enlight 1mo9ukroy9b4","timestamp":"2014-03-14T14:27:59.455Z"}
+{"level":"info","message":"\u001b[32msubscribe success  enlight  \u001b[39m","timestamp":"2014-03-14T14:27:59.455Z"}
+{"level":"info","message":"app is created enlight 29kpy8o9gok","timestamp":"2014-03-14T14:27:59.461Z"}
+{"level":"info","message":"\u001b[32msubscribe success  enlight  \u001b[39m","timestamp":"2014-03-14T14:27:59.461Z"}
+{"level":"info","message":"app is created  meetingroom   1wy0jfvi9ask","timestamp":"2014-03-14T14:27:59.475Z"}
+{"level":"info","message":"subscribe success","timestamp":"2014-03-14T14:27:59.475Z"}
+{"level":"info","message":"App has subscribe to the channel success","timestamp":"2014-03-14T14:27:59.484Z"}
+{"level":"info","message":"App has subscribe to the channel success","timestamp":"2014-03-14T14:27:59.485Z"}
+{"level":"info","message":"App has subscribe to the channel success","timestamp":"2014-03-14T14:27:59.486Z"}
+{"level":"info","message":"\u001b[31mApp has subscribe to the catalog notification  success\u001b[39m","timestamp":"2014-03-14T14:27:59.487Z"}
+{"level":"info","message":"listen to the MQTT service succfully   - https://geras.1248.io/cat/armmeeting","timestamp":"2014-03-14T14:27:59.493Z"}
+{"level":"info","message":"add new RT SERVICE https://geras.1248.io/cat/armmeeting","timestamp":"2014-03-14T14:27:59.493Z"}
+{"level":"info","message":"\u001b[32mMQTT Connected\u001b[39m","timestamp":"2014-03-14T14:27:59.559Z"}
+{"0":"Fri Mar 14 2014 14:32:45 GMT+0000 (GMT 标准时间)","1":"SIGINT","level":"info","message":"%s: Received %s - terminating Node server ...","timestamp":"2014-03-14T14:32:45.495Z"}
+{"level":"info","message":"\u001b[33mapp on development\u001b[39m","timestamp":"2014-03-14T14:32:47.214Z"}
+{"level":"info","message":"\u001b[33mthe port used \u001b[39m","timestamp":"2014-03-14T14:32:47.320Z"}
+{"level":"info","message":"\u001b[33mExpress started on port\u001b[39m","timestamp":"2014-03-14T14:32:47.340Z"}
+{"level":"info","message":"mongodb connect success","timestamp":"2014-03-14T14:32:49.417Z"}
+{"level":"info","message":"connection opening","timestamp":"2014-03-14T14:32:49.417Z"}
+{"level":"info","message":"app is created enlight 5fhy0f4xc0ow","timestamp":"2014-03-14T14:32:49.479Z"}
+{"level":"info","message":"\u001b[32msubscribe success  enlight  \u001b[39m","timestamp":"2014-03-14T14:32:49.480Z"}
+{"level":"info","message":"app is created enlight 3p7yg0f0li0w","timestamp":"2014-03-14T14:32:49.486Z"}
+{"level":"info","message":"\u001b[32msubscribe success  enlight  \u001b[39m","timestamp":"2014-03-14T14:32:49.487Z"}
+{"level":"info","message":"app is created  meetingroom   2coikubvtfgg","timestamp":"2014-03-14T14:32:49.501Z"}
+{"level":"info","message":"subscribe success","timestamp":"2014-03-14T14:32:49.501Z"}
+{"level":"info","message":"App has subscribe to the channel success","timestamp":"2014-03-14T14:32:49.510Z"}
+{"level":"info","message":"App has subscribe to the channel success","timestamp":"2014-03-14T14:32:49.511Z"}
+{"level":"info","message":"App has subscribe to the channel success","timestamp":"2014-03-14T14:32:49.511Z"}
+{"level":"info","message":"\u001b[31mApp has subscribe to the catalog notification  success\u001b[39m","timestamp":"2014-03-14T14:32:49.512Z"}
+{"level":"info","message":"listen to the MQTT service succfully   - https://geras.1248.io/cat/armmeeting","timestamp":"2014-03-14T14:32:49.518Z"}
+{"level":"info","message":"add new RT SERVICE https://geras.1248.io/cat/armmeeting","timestamp":"2014-03-14T14:32:49.518Z"}
+{"level":"info","message":"\u001b[32mMQTT Connected\u001b[39m","timestamp":"2014-03-14T14:32:49.582Z"}

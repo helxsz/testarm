@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html ng-app="catalogApp">
+  <head>
+    <meta charset="utf-8">
+    <title>Catalog Test</title>
+    <link rel="stylesheet" href="/assets/css/loading.css">
+    <link href="/assets/css/animate.min.css" rel="stylesheet"> 	
+    <link href="/assets/css/bootstrap.css" rel="stylesheet">
+    <link href="/assets/css/bootstrap-responsive.css" rel="stylesheet">  
+	
+	<script src="/assets/js/jquery/jquery-1.8.1.min.js"></script>
+	<script src="/assets/js/underscore.js"></script>
+	<script src="/assets/js/angular.min.js"></script>
+	<script src="/js/vendor/ui-bootstrap.min.js"></script>	
+  <body>
+  
+  <body>
+    <div class="messagesList" app-messages></div>
+    <div class="wrapper" ng-controller="catalogCtrl">
+	    <div class="inner-wrapper row" style="margin:0px auto;margin-top:100px; ">
+				                                  
+            <div class="span3">
+                <nav class="nav-sidebar">
+                    <ul class="nav">
+					    <!--
+                        <li class="active"><a href="#" ng-click="getCatalogAll()"  >Try to get messages </a></li>
+						<li class="active"><a href="#" ng-click="" >Try to get messages count</a></li>
+                        <li class="nav-divider"></li>
+						<li class="active"><a href="#" ng-click="getUnreadMessages()" >Try to get unread messages </a></li>
+						<li class="active"><a href="#" ng-click="getMessageWhoRequest()" >Try to get who request</a>  <input id = "sender" name="sender" value="helxsz" /></li>
+                        -->
+					</ul>
+                </nav>
+             </div>
+		
+            <div class='span5' >
+                <form class="" ng-click="updateCatalogAll()" method="get" >
+				    <!--
+                    <input name="from" value="helxsz" ng-model="formData.from" required ng-minlength="3"/>
+					<input name="to" value="helxsz" ng-model="formData.to" required ng-minlength="3"/>
+                    <input name="msg" value="I want to meet you" ng-model="formData.msg" required ng-minlength="3" ng-maxlength="118"/>					
+			        -->
+					<button class="button" >Update All Catalogs </button>        
+		        </form>
+				
+				<table class="table table-condensed table-hover">
+                    <thead>
+                        <tr> 
+                            <th class="span3">NAME</th>						
+                            <th class="span3">URL</th>                           
+                            <th class="span3">KEY</th>
+							<th class="span3">DESCRIPTION</th>
+	                        <th class="span1"><input type="checkbox"></th>
+                        </tr>
+                    </thead>
+					
+                    <tbody class="messagelist" ng-repeat="catalog in catalogs_local">                  
+                        <tr data-id={{catalog._id}} ">
+                            <td><strong>{{catalog.name}}</strong></td>
+                            <td><strong>{{catalog.url}}</strong></td>
+                            <td><strong>{{catalog.key}}</strong></td>
+							<td><strong>{{catalog.description}}</strong></td>
+                            <td><input type="checkbox"> <a href="#"><i class="icon-star-empty"></i></a></td>	  
+	                        <td>
+                                <a href="#editModal"  ng-click="updateCatalog(catalog.url,catalog.key)" class='edit-modal' data-toggle="modal" data-id={{catalog._id}}><i class="icon-pencil"></i></a>
+                                <a href="#deleteModal" ng-click="deleteCatalog(catalog.url)" class='delete-modal' role="button" data-toggle="modal" data-id={{catalog._id}}><i class="icon-remove"></i></a>
+                            </td>
+                        </tr>                   	
+                    </tbody>					
+                </table>
+
+
+				<table class="table table-condensed table-hover">
+                    <thead>
+                        <tr> 
+                            <th class="span3">NAME</th>						
+                            <th class="span3">URL</th>                           
+                            <th class="span3">KEY</th>
+							<th class="span3">DESCRIPTION</th>
+                        </tr>
+                    </thead>
+					
+                    <tbody class="messagelist" ng-repeat="catalog in catalogs_remote">                  
+                        <tr >
+                            <td><strong>{{catalog.name}}</strong></td>
+                            <td><strong>{{catalog.url}}</strong></td>
+                            <td><strong>{{catalog.key}}</strong></td>
+							<td><strong>{{catalog.description}}</strong></td>
+                        </tr>                   	
+                    </tbody>
+                </table>	
+
+                <form class="" ng-click="saveAllRemote()()" method="get" >
+				    <!--
+                    <input name="from" value="helxsz" ng-model="formData.from" required ng-minlength="3"/>
+					<input name="to" value="helxsz" ng-model="formData.to" required ng-minlength="3"/>
+                    <input name="msg" value="I want to meet you" ng-model="formData.msg" required ng-minlength="3" ng-maxlength="118"/>					
+			        -->
+					<button class="button" >Save All Catalogs </button>        
+		        </form>				
+				
+				
+            </div>			
+		</div>
+	</div>
+
+<div class="modal small hide fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
+        <h3 id="myModalLabel">Delete Confirmation</h3>
+    </div>
+    <div class="modal-body">
+        <p class="error-text">Are you sure you want to delete the key?</p>
+		<div id="key"> </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
+        <button class="btn btn-danger" data-dismiss="modal" id="deleteKey">Delete</button>
+    </div>
+</div>
+
+
+<div class="modal small hide fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
+        <h3 id="myModalLabel">Edit Box</h3>
+    </div>
+    <div class="modal-body">
+      <div class="row-fluid">
+        <div class="span12">
+            <div class="span6">
+            <div class="logowrapper">
+                <img class="logoicon" src="http://placehold.it/300x300/bbb/&text=Your%20Logo" alt="App Logo"/>
+            </div>
+            </div>
+            <div class="span6">
+			    <form id="admin-form">
+					<select id="role" name="role" >
+                        <option value="admin">admin</option>
+                        <option value="none">none</option>
+                    </select>
+				</form>	
+            </div>
+			<input id="userID" type="hidden"> </input>
+        </div>
+      </div>    
+	</div>
+    <div class="modal-footer">
+        <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
+        <button class="btn btn-danger" data-dismiss="modal" id="updateUser">Edit</button>
+    </div>
+</div>
+
+	
+  </body>
+
+<script>  
+var catalogApp = angular.module('catalogApp', ['ui.bootstrap']);  // ,'NgSwitchery'  https://github.com/servergrove/NgSwitchery
+catalogApp.controller('catalogCtrl', function ($rootScope,$scope, $http, $interval, $modal) {
+    
+	var baseURL = 'http://localhost', username = 'helxsz';
+	$scope.catalogs_local = [];
+	$scope.catalogs_remote = [];
+	$scope.formData = {from:'helxsz', to:'helxsz', msg:'who are you indeed'};
+	
+	$scope.getCatalogLocal = function(){
+	    console.log('get Catalog Local  ');
+		var url = "/admin/catalogs/local"; 
+	    $scope.getCatalogByURL(url,function(data){
+		    $scope.catalogs_local = data; 
+		});
+	}
+	
+	$scope.getCatalogRemote = function(){
+	    console.log('get catalogs remote');
+		var url = '/admin/catalogs/remote';
+		$scope.getCatalogByURL(url,function(data){
+		    $scope.catalogs_remote = data; 
+		});
+	}
+	
+	$scope.saveAllRemote = function(url,key){
+		var url = '/admin/catalogs/remote?update=true';
+		$scope.getCatalogByURL(url,function(data){
+		    $scope.catalogs_remote = data; 
+		});      	    
+	}	
+	
+	$scope.updateCatalogAll = function(){
+	    console.log('update catalog all  ');
+		var url = "/admin/catalogs/update"; 
+	    
+		$http.get(url)
+	        .success(function(data) {
+	            
+	        })
+			.error(function(){
+	            console.log('get messages by url error',status);	
+	        })
+	}	
+	
+	$scope.getCatalogByURL = function(url,success){
+	    $http.get(url)
+	         .success(success).error(function(){
+	            console.log('get messages by url error',status);
+	
+	        })		
+	}
+	
+	$scope.updateCatalog = function(url,key){
+        if ($scope.formData.$valid) {
+			alert('our form is amazing');
+			return;
+		}	
+        console.log('update the catalog ',url);
+      		
+        $http({
+            url: "/admin/catalogs/update?url="+url+"&key="+key,
+            method: "POST",
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+        }).success(function (data, status, headers, config) {
+                 console.log('updateCatalog  ',status,data);
+        }).error(function (data, status, headers, config) {
+            console.log('updateCatalog error',data, status, headers);      
+        });       	    
+	}	
+
+	$scope.deleteCatalog = function(url){
+	    console.log('delete catalog ... ', url);
+	  
+		  $http({
+				url: "/admin/catalogs/remove?url="+url,
+				method: "DELETE",
+			}).success(function (data, status, headers, config) {
+				   console.log('deleteCatalog  ',status,data);
+			}).error(function (data, status, headers, config) {
+				console.log('deleteCatalog error',status); 
+			});
+      	    
+	}	
+	
+	$scope.getCatalogLocal();
+	$scope.getCatalogRemote();
+})
+
+angular.element(document).ready(function() {
+    //Fixing facebook bug with redirect
+    if (window.location.hash === '#_=_') window.location.hash = '#!';
+
+    //Then init the app
+    //angular.bootstrap(document, ['mean']);
+});  
+    	
+</script>  
+
+  </body>

@@ -4,7 +4,6 @@ var _ = require("underscore"),
    Schema = mongoose.Schema,
    Mixed = mongoose.Schema.Types.Mixed,
    winston = require('../utils/logging.js');
-   
  /*
 	    'name': 'enlight',
 		'description': 'Streetlight data',
@@ -82,4 +81,4 @@ var CatalogModel = function(collection, options){
 		getCatalogs:getCatalogs
 	}
 }
-module.exports = new CatalogModel('Catalog', {read:'primary'});   
+module.exports = new CatalogModel('Catalog', {read:'primary'});
