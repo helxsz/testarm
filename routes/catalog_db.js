@@ -6,7 +6,7 @@ var async = require('async'),
 	 path = require('path'),
 	request = require('request'),
 	redis = require('redis');	
-	
+ 	
 var errors = require('../utils/errors'),
 	config = require('../conf/config'),
 	winston = require('../utils/logging.js');	

@@ -13,7 +13,7 @@ var errors = require('../utils/errors'),
 	winston = require('../utils/logging.js'),
 	Service = require('./service.js'),
 	catalogModel = require('../model/catalog_model.js');
-
+ 
 /*	
 catalogModel.storeCatalog(enlight.url,  enlight.key, enlight.name, enlight.description, function(err,data){
     if(err) console.log('storing the data wrong'.red, data);

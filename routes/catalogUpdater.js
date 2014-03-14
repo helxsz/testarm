@@ -129,7 +129,7 @@ function CatalogUpdater(){
 									var key_array = Object.keys(results);								
 									console.log('complete   filterStandard'.green, key_array.length, category);
 									catalog_profiles.push({url:catalog.url, profile:category.profile, types : category.types});
-									callback();								
+									callback();		 						
 								}); 								
 							});	
 						});  

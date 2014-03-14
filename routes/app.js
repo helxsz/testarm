@@ -1,5 +1,5 @@
 var async = require('async'),
-    fs = require('fs'),
+     fs = require('fs'),
     colors = require('colors'),
     check = require('validator').check,
     sanitize = require('validator').sanitize;

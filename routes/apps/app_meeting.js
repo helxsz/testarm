@@ -97,7 +97,7 @@ function checkCatalogUpdate(catalog){
 			}	
 		});				
 	}else if(catalog.profile =='room'){
-		catalogFactsModel.getCatalogFacts( 'https://protected-sands-2667.herokuapp.com/cat',function(err,data){
+		catalogFactsModel.getCatalogFacts( catalog.url,function(err,data){
 			if(err) console.log('catalog facts  store error '.red,catalog.url, err);
 			else if(!data){console.log('no data in the catalog ');}
 			else {

@@ -13,7 +13,7 @@ var errors = require('../utils/errors'),
 	config = require('../conf/config'),
 	winston = require('../utils/logging.js'),
 	serviceBus = require('./serviceBusService.js');
-
+ 
   	
 function handleMessage(topic, message){
 	try{

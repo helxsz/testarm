@@ -1,4 +1,4 @@
-var async = require('async'),
+ var async = require('async'),
     fs = require('fs'),
     colors = require('colors'),
     check = require('validator').check,

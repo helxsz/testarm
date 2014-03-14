@@ -12,7 +12,7 @@ var async = require('async'),
 	
 var errors = require('../../utils/errors'),
 	config = require('../../conf/config'),
-	serviceCatalog = require('../serviceCatalog.js'),
+	serviceCatalog = require('../serviceCatalog.js'), 
 	winston = require('../../utils/logging.js'),
 	io = require('../websocket_api.js'),
 	appBuilder = require('../AppBuilder.js'),

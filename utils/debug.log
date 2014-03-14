@@ -808,3 +808,22 @@
 {"level":"info","message":"listen to the MQTT service succfully   - https://geras.1248.io/cat/armmeeting","timestamp":"2014-03-14T08:30:11.971Z"}
 {"level":"info","message":"add new RT SERVICE https://geras.1248.io/cat/armmeeting","timestamp":"2014-03-14T08:30:11.972Z"}
 {"level":"info","message":"\u001b[32mMQTT Connected\u001b[39m","timestamp":"2014-03-14T08:30:12.037Z"}
+{"0":"Fri Mar 14 2014 08:47:04 GMT+0000 (GMT 标准时间)","1":"SIGINT","level":"info","message":"%s: Received %s - terminating Node server ...","timestamp":"2014-03-14T08:47:04.479Z"}
+{"level":"info","message":"\u001b[33mapp on development\u001b[39m","timestamp":"2014-03-14T08:47:05.322Z"}
+{"level":"info","message":"\u001b[33mthe port used \u001b[39m","timestamp":"2014-03-14T08:47:05.406Z"}
+{"level":"info","message":"\u001b[33mExpress started on port\u001b[39m","timestamp":"2014-03-14T08:47:05.423Z"}
+{"level":"info","message":"mongodb connect success","timestamp":"2014-03-14T08:47:07.858Z"}
+{"level":"info","message":"connection opening","timestamp":"2014-03-14T08:47:07.859Z"}
+{"level":"info","message":"app is created enlight 2vtzjaq0icis","timestamp":"2014-03-14T08:47:07.926Z"}
+{"level":"info","message":"\u001b[32msubscribe success  enlight  \u001b[39m","timestamp":"2014-03-14T08:47:07.927Z"}
+{"level":"info","message":"app is created enlight 5yw1f2zbu78k","timestamp":"2014-03-14T08:47:07.967Z"}
+{"level":"info","message":"\u001b[32msubscribe success  enlight  \u001b[39m","timestamp":"2014-03-14T08:47:07.968Z"}
+{"level":"info","message":"app is created  meetingroom   5g63spgiutwc","timestamp":"2014-03-14T08:47:07.988Z"}
+{"level":"info","message":"subscribe success","timestamp":"2014-03-14T08:47:07.989Z"}
+{"level":"info","message":"App has subscribe to the channel success","timestamp":"2014-03-14T08:47:07.997Z"}
+{"level":"info","message":"App has subscribe to the channel success","timestamp":"2014-03-14T08:47:07.998Z"}
+{"level":"info","message":"App has subscribe to the channel success","timestamp":"2014-03-14T08:47:07.998Z"}
+{"level":"info","message":"\u001b[31mApp has subscribe to the catalog notification  success\u001b[39m","timestamp":"2014-03-14T08:47:07.999Z"}
+{"level":"info","message":"listen to the MQTT service succfully   - https://geras.1248.io/cat/armmeeting","timestamp":"2014-03-14T08:47:08.006Z"}
+{"level":"info","message":"add new RT SERVICE https://geras.1248.io/cat/armmeeting","timestamp":"2014-03-14T08:47:08.007Z"}
+{"level":"info","message":"\u001b[32mMQTT Connected\u001b[39m","timestamp":"2014-03-14T08:47:08.094Z"}
