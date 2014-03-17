@@ -23,7 +23,8 @@ var errors = require('../utils/errors'),
 	catalogDB = require('./catalog_db.js'),
 	catalogFactsModel = require('../model/catalog_fact_model.js'),
 	catalogFilter = require('./catalog_filter.js'),
-	catalogUpdater = require('./catalogUpdater.js');
+	catalogUpdater = require('./catalogUpdater.js'),
+	appModel = require('../model/app_model.js');
 // http://sailsjs.org/#!documentation/policies	
 // http://schema.org/Event
 // https://github.com/indexzero/node-schema-org
@@ -66,7 +67,7 @@ catalogDB.checkDB(function(err,data){
 	}else if(data == 1){
 		console.log('semantic data right'.green);
 		//catalogUpdater.updateMeetingRoomAndLocation();
-		catalogUpdater.updateHomeCatalog();			
+		//catalogUpdater.updateHomeCatalog();			
 }else if(data ==0){
 		console.log('semantic data empty '.red);
 		/*
@@ -227,6 +228,7 @@ app.get('/admin/catalogs/remote',function(req,res,next){
 // http://localhost:8080/admin/catalogs/local
 app.get('/admin/catalogs/local',function(req,res,next){
     console.log('get all the local catalogs  ');
+	
 	catalogModel.getCatalogs(function(err,catalogs){
 		if(err) { console.log('getCatalogs   ---  get local catalog data '.red); res.send(500);}
 		else if(!catalogs){  console.log(' no catalogs found');  res.send(404); }
@@ -236,8 +238,23 @@ app.get('/admin/catalogs/local',function(req,res,next){
 	})
 })
 
+app.get('/admin/catalogs/resources',function(req,res,next){
+    if( req.query.url !=null ){
+		catalogModel.getCatalogResoures(req.query.url,function(err,data){
+			if(err) { console.log('getCatalogResoures   ---  get local catalog data '.red);res.send(500,err); }
+			else if(!data){  console.log(' no catalogs found'); res.send(404); }
+			else{
+				//console.log('0-----------------------------------'.yellow,data);
+				res.send(200,data);
+			}
+		})
+	}else{
+	    res.send(404);
+	}	
+})
+
 // get 
-app.post('/admin/catalogs/update',function(req,res,next){    
+app.post('/admin/catalogs/local/update',function(req,res,next){    
     var url = req.query.url, key = req.query.key;
 	if(url !=null && key !=null){
 	    console.log('crawl single catalog   ',url, key);
@@ -259,10 +276,12 @@ app.del('/admin/catalogs/remove',function(req,res,next){
     var url = req.query.url;
 	if(url !=null){
 	    catalogModel.removeCatalog({url:url},function(err,data){
-            if(err) req.send(500,err);
-            else if(!data) req.send(404);
-            else if(data){			
-			    req.send(200,data);
+            if(err) res.send(500,err);
+            else if(!data) res.send(404);
+            else if(data){
+                console.log('try to delete the things  ',data);
+                if(data == 1) res.send(200);
+				else if(data==0) res.send(404);
 		    }
 		})    
 	} 
@@ -271,11 +290,31 @@ app.del('/admin/catalogs/remove',function(req,res,next){
 })
 
 // http://localhost/admin/catalogs/empty
-app.get('/admin/catalogs/empty',function(req,res,next){
+app.get('/admin/data/empty',function(req,res,next){
     catalogDB.flushALL(function(){
         res.send(200);
     });
 })
+
+
+/*
+	appModel.getApps({},function(err,data){
+		if(err) console.log('wrong get apps '.red);
+		else if(!data || data.length==0){  
+		    console.log(' no apps found');  
+		    appModel.createApp({name:'meetingapp'},function(){
+			    console.log('created meeting app');
+			}) 
+		}
+		else if(data){
+		    console.log('find apps '.green,data);
+
+		}
+	})
+*/
+
+/*******************************************************
+********************************************************/
 
 var schedule = require('node-schedule');
 var rule2 = new schedule.RecurrenceRule();

@@ -12,7 +12,8 @@ var CatalogFactModel = function(collection, options){
     var schema = new mongoose.Schema({
 		url:{type:String, required:true, unique: true},
         createdAt:{ type: Date, expires: 3600*10 },		
-        facts: []
+        facts: [],
+		filter:[]
     },{ _id: false, strict: false, read: readOption, shardKey: { url: 1 } });   //how to choose a sharding key for day 
 	
     schema.index({ "url": 1}, { unique: true });
@@ -35,9 +36,8 @@ var CatalogFactModel = function(collection, options){
     }	
 	                     
     var storeCatalogFacts = function (url, facts, callback) {
-	    var option = { upsert: true };
-		
-		model.update({url:url},{'$set':{'facts':[]}},option,function(err,data){
+	    var option = { upsert: true };		
+		model.update({url:url},{'$set':{'facts':[],'filter':[]}},option,function(err,data){
 			if(err) callback(err);
 			else {
 				model.update({url:url},{'$set':{'createdAt':new Date()},'$addToSet':{'facts':{'$each': facts}}},option,function(err,data){
@@ -49,7 +49,7 @@ var CatalogFactModel = function(collection, options){
     }
 
 	var getCatalogFacts = function(url,callback){
- 		model.findOne({url:url}).exec( function(err, data){ 
+ 		model.findOne({url:url}).select('facts').exec( function(err, data){ 
 		    if(err) callback(err);
 		    else callback(null,data);
 		})	    

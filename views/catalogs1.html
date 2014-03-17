@@ -5,112 +5,51 @@
     <title>Catalog Test</title>
     <link rel="stylesheet" href="/assets/css/loading.css">
     <link href="/assets/css/animate.min.css" rel="stylesheet"> 	
-    <link href="/css/bootstrap.min.css" rel="stylesheet"> 
-    <!-- Custom styles for this template -->
-    <link href="http://getbootstrap.com/examples/dashboard/dashboard.css" rel="stylesheet">	
+    <link href="/css/bootstrap.css" rel="stylesheet"> 
+	
+	<script src="/assets/js/jquery/jquery-1.8.1.min.js"></script>
 	<script src="/assets/js/underscore.js"></script>
 	<script src="/assets/js/angular.min.js"></script>
 	<script src="/js/vendor/ui-bootstrap.min.js"></script>	
-
-  <body ng-controller="catalogCtrl">  
-    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-      <div class="container-fluid">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="#">OPEN IOT</a>
-        </div>
-        <div class="navbar-collapse collapse">
-          <ul class="nav navbar-nav navbar-right">
-            <li><a href="#">Dashboard</a></li>
-            <li><a href="#">Settings</a></li>
-            <li><a href="#">Profile</a></li>
-            <li><a href="#">Help</a></li>
-          </ul>
-          <form class="navbar-form navbar-right">
-            <input type="text" class="form-control" placeholder="Search...">
-          </form>
-        </div>
-      </div>
-    </div>
-
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-sm-3 col-md-2 sidebar">
-          <ul class="nav nav-sidebar">
-		    <li> CATALOG </li>
-			<li><a href="#" ng-click="getCatalogRemote()" >Get remote catalogs</a>  
-			<li><a href="#" ng-click="getCatalogLocal()" >Get local catalogs</a>
-			<li class="nav-divider"></li>		
-          </ul>
-          <ul class="nav nav-sidebar">
-		    <li> APPLICATIONS </li>
-			<li class="active"><a href="#" ng-click="getApps()" >get applications</a>	
-			<li class="nav-divider"></li>			
-          </ul>
-          <ul class="nav nav-sidebar">
-            <li> MEETING ROOM APP </li>		  
-			<li><a href="#" ng-click="clearAppliationData()" >Clear Application Data </a></li>
-			<li><a href="#" ng-click="integrateSensorAndRoom()" >Map sensor and room</a>	
-			<li><a href="#" ng-click="cacheMeetingEvents()" >Cache meeting events</a>
-          </ul>		  
-        </div>
-        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-            <h1 class="page-header">Dashboard</h1>
-		    <!--
-			<div class="alert alert-success"></div>
-			<div class="alert alert-danger"></div>
-			-->
-			<ul class="row placeholders" ng-repeat="app in applications">		
-				<li class="col-xs-6 col-sm-3 placeholder">	
-					<h2><i class="icon-data_science blue"></i>{{app.name}}</h2>
-					<span class="text-muted">{{app.updated}}</span>
-					
-					<div class="dropdown">
-					  <button class="btn dropdown-toggle sr-only" type="button" id="dropdownMenu1" data-toggle="dropdown">
-						Dropdown
-						<span class="caret"></span>
-					  </button>
-					  <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-						<li role="presentation"><a role="menuitem" tabindex="-1" href="#">Action</a></li>
-						<li role="presentation"><a role="menuitem" tabindex="-1" href="#">Another action</a></li>
-						<li role="presentation"><a role="menuitem" tabindex="-1" href="#">Something else here</a></li>
-						<li role="presentation" class="divider"></li>
-						<li role="presentation"><a role="menuitem" tabindex="-1" href="#">Separated link</a></li>
-					  </ul>
-					</div>					
-					
-					
-					<table class="table table-condensed table-hover">
-						<thead>
-							<tr> 
-								<th class="span3">URL</th>                           
-								<th class="span3">KEY</th>
-								<th class="span3">PROFILE</th>
-								<th class="span3">UPDATE TIME</th>
-							</tr>
-						</thead>					
-						<tbody class="messagelist" ng-repeat="catalog in app.catalogs">                  
-							<tr >
-								<td><strong>{{catalog.url}}</strong></td>
-								<td><strong>{{catalog.key}}</strong></td>
-								<td><strong>{{catalog.profile}}</strong></td>
-								<td><strong>{{catalog.updated}}</strong></td>
-							</tr>
-							<td>
-								<a href="#deleteModal" ng-click="deleteAppCatalog(app.name,catalog.url)" class='delete-modal' role="button" data-toggle="modal"  ><i class="glyphicon glyphicon-remove"></i></a>
-							</td>							
-						</tbody>
-					</table>						
-				</li>
-			</ul> 		  
-
-          <h2 class="sub-header">Local catalog</h2>
-          <div class="table-responsive">
+  <body>
+  
+  <body>  
+  
+    <div class="wrapper" ng-controller="catalogCtrl">
+	    <div class="inner-wrapper row" style="margin:0px auto;margin-top:100px; ">
+				                                  
+            <div class="span3">
+                <nav class="nav-sidebar">
+                    <ul class="nav">
+					    <!--
+						http://tympanus.net/Development/SidebarTransitions/
+						http://tympanus.net/Tutorials/TiltedContentSlideshow/
+						
+                        <li class="active"><a href="#" ng-click="getCatalogAll()"  >Try to get messages </a></li>
+						<li class="active"><a href="#" ng-click="" >Try to get messages count</a></li>-->
+                       						
+						<li class="active"><a href="#" ng-click="getCatalogRemote()" >Get remote catalogs</a>  
+                        <li class="active"><a href="#" ng-click="getCatalogLocal()" >Get local catalogs</a>
+						<li class="nav-divider"></li>
+						<li class="active"><a href="#" ng-click="clearAppliationData()" >Clear Application Data </a></li>
+                        <li class="active"><a href="#" ng-click="integrateSensorAndRoom()" >Map sensor and room</a>	
+                        <li class="active"><a href="#" ng-click="cacheMeetingEvents()" >Cache meeting events</a>
+                        <li class="nav-divider"></li>
+                        <li class="active"><a href="#" ng-click="getApps()" >get applications</a>						
+					</ul>
+                </nav>
+             </div>
+		
+            <div class='span5' >
+                <form class="" ng-click="updateCatalogAll()" method="get" >
+				    <!--
+                    <input name="from" value="helxsz" ng-model="formData.from" required ng-minlength="3"/>
+					<input name="to" value="helxsz" ng-model="formData.to" required ng-minlength="3"/>
+                    <input name="msg" value="I want to meet you" ng-model="formData.msg" required ng-minlength="3" ng-maxlength="118"/>					
+			        -->
+					<button class="button" >Update All Catalogs </button>        
+		        </form>
+				
 				<table class="table table-condensed table-hover">
                     <thead>
                         <tr> 
@@ -131,15 +70,15 @@
 							<td><strong>{{catalog.description}}</strong></td>
 							<td><strong>{{catalog.updated}}</strong></td>
 	                        <td>
-                                <a href="#editModal"  ng-click="updateCatalog(catalog.url,catalog.key)" class='edit-modal' data-toggle="modal" data-id={{catalog._id}}  ng-disabled="catalog.updating"><i class="glyphicon glyphicon-refresh"></i></a>
-                                <a href="#deleteModal" ng-click="deleteCatalog(catalog.url)" class='delete-modal' role="button" data-toggle="modal" data-id={{catalog._id}}  ng-disabled="catalog.updating"><i class="glyphicon glyphicon-remove"></i></a>
-								<a href="#deleteModal" ng-click="getCatalogResource(catalog.url)" class='delete-modal' role="button" data-toggle="modal" data-id={{catalog._id}}  ng-disabled="catalog.updating"><i class="glyphicon glyphicon-list"></i></a>
+                                <a href="#editModal"  ng-click="updateCatalog(catalog.url,catalog.key)" class='edit-modal' data-toggle="modal" data-id={{catalog._id}}  ng-disabled="catalog.updating"><i class="icon-pencil"></i></a>
+                                <a href="#deleteModal" ng-click="deleteCatalog(catalog.url)" class='delete-modal' role="button" data-toggle="modal" data-id={{catalog._id}}  ng-disabled="catalog.updating"><i class="icon-remove"></i></a>
+								<a href="#deleteModal" ng-click="getCatalogResource(catalog.url)" class='delete-modal' role="button" data-toggle="modal" data-id={{catalog._id}}  ng-disabled="catalog.updating"><i class="icon-remove"></i></a>
                             </td>
                         </tr>                   	
                     </tbody>			  		
                 </table>
 
-                <h2 class="sub-header">Remote catalog</h2>
+
 				<table class="table table-condensed table-hover">
                     <thead>
                         <tr> 
@@ -158,13 +97,90 @@
 							<td><strong>{{catalog.description}}</strong></td>
                         </tr>                   	
                     </tbody>
-                </table>
-		  
-		  
-          </div>
+                </table>	
+
+                <form class="" ng-click="saveAllRemote()()" method="get" >
+				    <!--
+                    <input name="from" value="helxsz" ng-model="formData.from" required ng-minlength="3"/>
+					<input name="to" value="helxsz" ng-model="formData.to" required ng-minlength="3"/>
+                    <input name="msg" value="I want to meet you" ng-model="formData.msg" required ng-minlength="3" ng-maxlength="118"/>					
+			        -->
+					<button class="button" >Save All Catalogs </button>        
+		        </form>	
+				
+				
+				<ul ng-repeat="app in applications">		
+					<li>	
+					  <h2><i class="icon-data_science blue"></i>{{app.name}}</h2>
+					  <table class="table table-condensed table-hover">
+						<tbody class="messagelist" ng-repeat="catalog in app.catalogs">                  
+							<tr >
+								<td><strong>{{catalog.url}}</strong></td>
+								<td><strong>{{catalog.key}}</strong></td>
+								<td><strong>{{catalog.profile}}</strong></td>
+								<td><strong>{{catalog.updated}}</strong></td>
+							</tr>
+	                        <td>
+                                <a href="#editModal"  class='edit-modal' data-toggle="modal"  ><i class="icon-pencil"></i></a>
+                                <a href="#deleteModal" ng-click="deleteAppCatalog(app.name,catalog.url)" class='delete-modal' role="button" data-toggle="modal"  ><i class="icon-remove"></i></a>
+                            </td>							
+						</tbody>
+                      </table>						
+					</li>
+				</ul> 			
+            </div>			
+		</div>
+	</div>
+
+<div class="modal small hide fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
+        <h3 id="myModalLabel">Delete Confirmation</h3>
+    </div>
+    <div class="modal-body">
+        <p class="error-text">Are you sure you want to delete the key?</p>
+		<div id="key"> </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
+        <button class="btn btn-danger" data-dismiss="modal" id="deleteKey">Delete</button>
+    </div>
+</div>
+
+
+<div class="modal small hide fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
+        <h3 id="myModalLabel">Edit Box</h3>
+    </div>
+    <div class="modal-body">
+      <div class="row-fluid">
+        <div class="span12">
+            <div class="span6">
+            <div class="logowrapper">
+                <img class="logoicon" src="http://placehold.it/300x300/bbb/&text=Your%20Logo" alt="App Logo"/>
+            </div>
+            </div>
+            <div class="span6">
+			    <form id="admin-form">
+					<select id="role" name="role" >
+                        <option value="admin">admin</option>
+                        <option value="none">none</option>
+                    </select>
+				</form>	
+            </div>
+			<input id="userID" type="hidden"> </input>
         </div>
-      </div>
-    </div>   
+      </div>    
+	</div>
+    <div class="modal-footer">
+        <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
+        <button class="btn btn-danger" data-dismiss="modal" id="updateUser">Edit</button>
+    </div>
+</div>
+
+	
+  </body>
 
 <script>  
 var catalogApp = angular.module('catalogApp', ['ui.bootstrap']);  // ,'NgSwitchery'  https://github.com/servergrove/NgSwitchery
@@ -346,10 +362,5 @@ angular.element(document).ready(function() {
 });  
     	
 </script>  
-
-	
-  </body>
-
-
 
   </body>

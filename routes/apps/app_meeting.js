@@ -16,36 +16,61 @@ var errors = require('../../utils/errors'),
 	winston = require('../../utils/logging.js'),
 	io = require('../websocket_api.js'),
 	appBuilder = require('../AppBuilder.js'),
-	db = require('../persistence_api.js'),
 	simulation = require('../simulation.js'),
 	access_control = require('../access_control_api.js'),
 	sensorHandler = require('../sensorHandler.js'),
 	catalogFactsModel = require('../../model/catalog_fact_model.js'),
+	catalogModel = require('../../model/catalog_model.js'),
 	roomModel = require('../../model/room_model.js'),
 	catalogFilter = require('../catalog_filter.js'),
 	catalogDB = require('../catalog_db.js'),
-	sensorRoomModel = require('./SensorRoomModel.js');
+	sensorRoomModel = require('./SensorRoomModel.js'),
+	appModel = require('../../model/app_model.js');
 /****   experiment 2 ********/
-var meetingService; 
-var buildingService;
-serviceCatalog.findByURL('https://geras.1248.io/cat/armmeeting',function(err,service){
-    if(err || !service){
-	    console.log(' catalog can not be found ',err);
-	}else {
-	    console.log('find the service catalog '.green,service.serviceObj.url);
-        meetingService = service;		
-	}    
-}); 
+appModel.searchApp('meetingapp',function(err,data){
+    if(err)  console.log('app not found with err'.red,err);
+	else if(!data){
+    	console.log('app not found '.red);
+		appModel.createApp({name:'meetingapp'},function(){
+			console.log('created meeting app');
+		})		
+	}else if(data){
+	    //console.log('found the app '.green, data);
+		/*		test
+		appModel.updateAppCatalog('meetingapp',{'url':'https://geras.1248.io/cat/armmeeting',key:'sensor111','profile':'sensor'},function(err,data){
+			console.log('update ',data);
+		})
+		
+		appModel.updateAppCatalog('meetingapp',{'url':'https://protected-sands-2667.herokuapp.com/cat-1',key:'room111','profile':'room'},function(err,data){
+			console.log('update ',data);
+		})
 
-serviceCatalog.findByURL('https://protected-sands-2667.herokuapp.com/cat-1',function(err,service){
-    if(err || !service){
-	    console.log(' catalog can not be found ',err);
-	}else if(!service){  console.log('no data in the catalog ');}
-	else{
-	    console.log('find the service catalog '.green,service.serviceObj.url);
-        buildingService = service;		
-	}    
-});   
+		appModel.updateAppCatalog('meetingapp',{'url':'https://protected-sands-2667.herokuapp.com/cat-2',key:'room232','profile':'room'},function(err,data){
+			console.log('remove ',data);
+		})
+		
+
+		appModel.removeAppCatalog('meetingapp',{'url':'https://protected-sands-2667.herokuapp.com/cat-2'},function(err,data){
+			console.log('update ',data);
+		})
+		*/
+        			
+        //appModel.findAppCatalogsByProfile('meetingapp','room',function(err,data){
+		appModel.searchCatalogProfiles('meetingapp','room',function(err,catalogs){
+		    console.log('??????????????????????? catalog app'.yellow,catalogs);
+			if(catalogs && catalogs.length>0){
+               
+                catalogModel.searchCatalogResource(catalogs[0].url,'https://protected-sands-2667.herokuapp.com/rooms/Room.UKCBox',function(err,data){
+					if(err) { console.log('getCatalogResoures   ---  get local catalog data '.red); }
+					else if(!data){  console.log(' no catalogs found');  }
+					else{
+						console.log('0-----------------------------------'.yellow,data);
+					}
+				})
+			}
+		})
+	}
+})
 
 var filter = new catalogFilter();
 initApp();
@@ -75,76 +100,85 @@ function initApp(){
 	});
 }
 
+
+app.get('/admin/meeting/data/empty',function(req,res,next){
+    console.log('clear rooms ...... rquest');
+    catalogDB.flushDB('res:sensor:*',function(){
+        catalogDB.flushDB('res:room:*',function(){
+            roomModel.clearRooms({},function(){
+			    console.log('clear rooms ');
+			    res.send(200);
+			})	
+	    });
+	});
+})
+
+
 function checkCatalogUpdate(catalog){
 	//console.log('subscribeCatalogNotification   '.green,catalog.url, catalog.profile, catalog.types);
-	if(catalog.profile == 'sensor' && catalog.types.motion ==1 ){   //_.contains(catalog.types, 'motion')
- 		catalogFactsModel.getCatalogFacts( catalog.url,function(err,data){
+	if(catalog.profile == 'sensor' && catalog.types.motion ==1 ){   //_.contains(catalog.types, 'motion')	
+		catalogModel.getCatalogResoures(catalog.url,function(err,data){
 			if(err) console.log('catalog facts  store error '.red,catalog.url, err);
 			else if(!data){console.log('no data in the catalog ');}
-			else {
-				//console.log('catalog sensor facts  get  data'.green, catalog.url, data.facts.length);							
-				filter.filterStandard(data.facts,function(results,category){
-					var key_array = Object.keys(results);								
-					console.log('complete checkCatalogUpdate sensor in application  '.yellow, key_array.length, category);																							
-					async.forEach(key_array, function(key,callback){
-						//console.log(key , results[key]);
-						catalogDB.saveResource('res:sensor:'+key, results[key],function(){callback();});
-					},function(err){
-						console.log('complete sensor in redis'.yellow);
-					});							
-				});							
-			}	
-		});				
+			else if(data){
+			    /**/
+			    appModel.updateAppCatalog('meetingapp',{'url':catalog.url,key:catalog.key,'profile':catalog.profile},function(err,data){
+			           console.log('update ',data);
+		        })
+				
+			
+				 console.log('-------------------------------------------',data.url,data.res.length);
+				 async.forEach(data.res, function(obj,callback){
+					catalogDB.saveResource('res:sensor:'+obj.url, obj,function(){callback();});
+				 })
+			}
+		})
 	}else if(catalog.profile =='room'){
-		catalogFactsModel.getCatalogFacts( catalog.url,function(err,data){
+		catalogModel.getCatalogResoures(catalog.url,function(err,data){
 			if(err) console.log('catalog facts  store error '.red,catalog.url, err);
 			else if(!data){console.log('no data in the catalog ');}
-			else {
-				filter.filterStandard(data.facts,function(results,category){
-					var key_array = Object.keys(results);								
-					console.log('complete checkCatalogUpdate room data  '.yellow, key_array.length, category);																							
-					async.forEach(key_array, function(key,callback){
-						//console.log(key , results[key]);
-						catalogDB.saveResource('res:room:'+key, results[key],function(){  callback(); });
-					},function(err){
-						console.log('complete room in redis '.yellow);
-						roomModel.clearRooms({},function(){
-						
-							sensorRoomModel.getAllRooms(function(err,data){
-								if(err) {console.log('get all rooms  error '.red, err);}
-								else if(!data){console.log('get all rooms   ',data);}
-								else{
-									console.log('-------------------------------------------------');
-									console.log(data.length);
-									//sensorRoomModel.saveAllSites(data,function(){});
-									data.forEach(function(room){
-										if(room.floor == 'Ground') room.floor = 0;
-										else if(room.floor == '1st')  room.floor = 1;
-										roomModel.pushRoom(room,function(err,data1){
-											if(err) console.log('update error  '.red,err);
-											else if(!data1) console.log('push room data empty  '.rred);
-											else if (data1)
-											{
-												console.log('save the room    '.green,catalog.url);
-											}  
-										});									
-									})                              							
-								}
-							})
-							
-                        })						
-					});							
-				});							
-			}	
-		});								
+			else if(data){
+				console.log('-------------------------------------------',data.url,data.res.length);
+			    appModel.updateAppCatalog('meetingapp',{'url':catalog.url,key:catalog.key,'profile':catalog.profile},function(err,data){
+			           console.log('update ',data);
+		        })				
+				
+				async.forEach(data.res, function(obj,callback){
+								console.log('.,,,,,,,,',obj.url);
+								catalogDB.saveResource('res:room:'+obj.url, obj,function(){  callback(); });
+							},function(err){
+								console.log('complete room in redis '.yellow);
+								sensorRoomModel.getAllRooms(function(err,rooms){
+										if(err) {console.log('get all rooms  error '.red, err);}
+										else if(!rooms){console.log('get all rooms   ',rooms);}
+										else{
+											console.log('-------------------------------------------------');
+											console.log(rooms.length);
+											rooms.forEach(function(room){
+												if(room.floor == 'Ground') room.floor = 0;
+												else if(room.floor == '1st')  room.floor = 1;
+												roomModel.pushRoom(room,function(err,data1){
+													if(err) console.log('update error  '.red,err);
+													else if(!data1) console.log('push room data empty  '.rred);
+													else if (data1)
+													{
+														console.log('save the room    '.green,catalog.url);
+													}  
+												});									
+											})                              							
+										}
+								})                       						
+					});				 
+			}
+		})		
 	}
 }
 
 
 // http://localhost/meeting/integrate
-app.get('/meeting/integrate',function(req,res,next){
-    integrateMeetingRoom(function(err,data){
-	    res.send(200);
+app.get('/meeting/catalog/integrate',function(req,res,next){
+    integrateMeetingRoom(function(data){
+	    res.send(200,data);
 	})
 })
 
@@ -253,7 +287,7 @@ function integrateMeetingRoom(_callback){
 		delete sensors, rooms;
 		redisClient.quit();	
 
-        if(_callback) _callback();
+        if(_callback) _callback(matchs);
 		
 	});			
 }
@@ -338,306 +372,296 @@ app.get('/apps/:token',access_control.authUser, function(req,res,next){
 	else res.redirect('/');
 })
 
-function escapeRegExp(str) {
-   return str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
-}
-function replaceAll(find, replace, str) {
-   return str.replace(new RegExp(escapeRegExp(find), 'g'), replace);
-}
-
-app.get('/meeting/sites/json',access_control.authUser,function(req,res,next){
-	roomModel.searchRooms({},function(err,data){
+app.get('/buildings/:building/:floor/cache',access_control.authUser,function(req,res){
+    var building = req.params.building, floor = req.params.floor;
+	building = building || 'ARM1';
+	floor = floor || 0;
+	//var rooms = simulation.buildings[name+" "+floor];
+	//console.log(rooms);
+	
+	var array = [];
+	
+	roomModel.searchRooms({building:building,floor:floor},function(err,data){
 	    if(err) res.send(500);
 		else if(!data) res.send(400);
 		else if(data){
-		    //res.send(200,getSiteRooms(data));
-			
-			var names = ['Ground floor','First floor','Second floor','Third floor','Fourth floor','Fifth floor','Sixth floor','Seventh floor','Eighth floor','Nighth floor'];
-			var locals = {};
-			locals.data = getSiteRooms(data);
-			var  url ; 
-			for(var i=0; i<locals.data.length; i++) {
-			   for(var j=0; j<locals.data[i].buildings.length; j++) {
-					   for(var k=0; k<locals.data[i].buildings[j].floors.length; k++) {
-						   //console.log(locals.data[i].buildings[j].floors[k] );
-						   var name = '';
-						   url =  "/meeting/site/"+locals.data[i].name+"/building/"+locals.data[i].buildings[j].name+"/floor/"+k;
-						   //url =  "/buildings/"+locals.data[i].buildings[j].name+"/"+k;
-						   locals.data[i].buildings[j].floors[k] = {url:url, name:names[locals.data[i].buildings[j].floors[k]]};
-					   }									   
-			   }
-			}        
-     		return res.send(200,locals.data);          			
+			for(var i=0;i<data.length;i++){
+				array.push(data[i].room)
+			}			
+			sensorRoomModel.getRoomData(array, function(err,rooms){
+				if(err) {  console.log('get room error '.red); res.send(500)}
+				else if(!rooms) { console.log('no data for room'.red); res.send(404);}
+				else{		   
+					//console.log('get rooms data ----------------------'.green, rooms);
+					var rooms_array = [];
+					_.map(rooms,function(room){
+						rooms_array.push(room.name);
+					})
+					
+					var now = new Date(), early_day = new Date(now.getFullYear(),now.getMonth(),now.getDate(),0,0,0);			
+					sensorRoomModel.getCachedEvents(rooms_array,early_day,function(err,data){				
+						if(err) res.send(500);
+						else{
+							//console.log(data);					
+							var hash = {};
+							_.map(data,function(room_event){
+								hash[room_event.url] = room_event.events;
+							})
+							
+							_.map(rooms,function(room){
+								room.events = hash[room.url];
+								 room.displayname = displayname(room.name);						
+							})
+							res.send(200,{rooms:rooms});
+							delete hash;
+							delete rooms_array;
+						}				
+					})            			
+				}
+			})			
 		}
-	})
-})
-
-app.get('/meeting/sites',access_control.authUser,function(req,res,next){
-	roomModel.searchRooms({},function(err,data){
-	    if(err) res.send(500);
-		else if(!data) res.send(400);
-		else if(data){
-		    //res.send(200,getSiteRooms(data));
-			
-			var names = ['Ground floor','First floor','Second floor','Third floor','Fourth floor','Fifth floor','Sixth floor','Seventh floor','Eighth floor','Nighth floor'];
-			var locals = {};
-			locals.data = getSiteRooms(data);
-			var  url ; 
-			for(var i=0; i<locals.data.length; i++) {
-			   for(var j=0; j<locals.data[i].buildings.length; j++) {
-					   for(var k=0; k<locals.data[i].buildings[j].floors.length; k++) {
-						   //console.log(locals.data[i].buildings[j].floors[k] );
-						   var name = '';
-
-						   url =  "/meeting/site/"+locals.data[i].name+"/building/"+locals.data[i].buildings[j].name+"/floor/"+k;
-						   //url =  "/buildings/"+locals.data[i].buildings[j].name+"/"+k;
-						   locals.data[i].buildings[j].floors[k] = {url:url, name:names[locals.data[i].buildings[j].floors[k]]};
-					   }									   
-			   }
-			}
-            if(req.xhr) {
-			    console.log(' ajax');
-     			return res.send(200,locals.data);
-            }				
-			else {
-			    console.log('not ajax');
-			    res.render('landingpage.html', locals);
-            }				
-		}
-	})
-})
-
-function getSiteRooms(data){
-	var sites = [];
-
-	for(var i=0,l=data.length;i<l;i++) {
-		var row = data[i];
-		var site = false;
-		var building = false;
-		var floor = false;
-
-	//  search for existing site
-		for(var j=0,k=sites.length;j<k;j++) {
-			if(sites[j].name == row.site) {
-				site = j;
-				break;
-			}
-		}
-
-		if(site === false) {
-			site = sites.length;
-			sites[site] = {
-				name: row.site,
-				buildings: []
-			};
-		}
-
-	//  search for existing building
-		for(var j=0,k=sites[site].buildings.length;j<k;j++) {
-			if(sites[site].buildings[j].name == row.building) {
-				building = j;
-				break;
-			}
-		}
-
-		if(building === false) {
-			building = sites[site].buildings.length;
-			sites[site].buildings[building] = {
-				name: row.building,
-				floors: []
-			};
-		}
-
-	//  search for existing floor
-		for(var j=0,k=sites[site].buildings[building].floors.length;j<k;j++) {
-			if(sites[site].buildings[building].floors[j] == row.floor) {
-				floor = j;
-				break;
-			}
-		}
-
-		if(floor === false) {
-			floor = sites[site].buildings[building].floors.length;
-			sites[site].buildings[building].floors[floor] = row.floor;
-		}
+	})	
+	
+	var displayname = function(name){
+		var temp_name = name;
+		temp_name = temp_name.substring( temp_name.indexOf('UKC')+3,temp_name.length);
+		return temp_name;
 	}
-	return sites;
-}
-
-
-function getMenus(site, res){
-	roomModel.searchRooms({site:site},function(err,data){
-	    if(err) res.send(500);
-		else if(!data) res.send(400);
-		else if(data){
-		    //res.render('meeting2.html');
-			/*
-			data = _.map(data,function(room){
-			   delete room.__v;
-			   delete room._id;
-			})
-			
-							    < for(var i=0; i<locals.menus.length; i++) {>
-								    <li>
-										<a class='room_nav' ng-click="getRoomInfo($event.target.href);$event.preventDefault()" href="<%= locals.menus[i].url %>"><%= locals.menus[i].name %></a>
-                                    </li>
-								<} >			
-			
-			*/
-            var groups = _.groupBy(data,function(room){
-				return (room.site+","+room.building+","+room.floor);		
-			})
-			var sites = [];
-			var key_array = Object.keys(groups);
-			var locals = {};
-			var menus = [];
-			key_array.forEach(function(key){
-			    var subkeys = key.split(',');
-			    var site_key = subkeys[0], building_key = subkeys[1], floor_key = subkeys[2];
-				console.log(site_key, building_key, floor_key);
-				var name = '';
-				if(floor_key == 0) name = building_key+"  Ground";
-				else if(floor_key > 0) name = building_key+"  Floor"+floor_key;
-                menus.push({name: name, url: "/buildings/"+building_key+"/"+floor_key});				
-			})
-			locals.menus = menus;
-			res.render('meeting3.html', locals);
-		}
-	})
-}
-
-function getFlatMenus(site, res){
-    //site:site
-	roomModel.searchRooms({},function(err,data){
-	    if(err) res.send(500);
-		else if(!data) res.send(400);
-		else if(data){
-			/*
-			data = _.map(data,function(room){
-			   delete room.__v;
-			   delete room._id;
-			})
-			*/
-			var names = ['Ground floor','First floor','Second floor','Third floor','Fourth floor','Fifth floor','Sixth floor','Seventh floor','Eighth floor','Nighth floor'];
-			var locals = {};
-			locals.data = getSiteRooms(data);
-			var  url ; 
-			for(var i=0; i<locals.data.length; i++) {
-			   for(var j=0; j<locals.data[i].buildings.length; j++) {
-					   for(var k=0; k<locals.data[i].buildings[j].floors.length; k++) {
-						   //console.log(locals.data[i].buildings[j].floors[k] );
-						   var name = '';
-                           // meeting/site/Peterhouse_Technology_Park/building/CPC1/floor/1
-						    url =  "/buildings/"+locals.data[i].buildings[j].name+"/"+k;
-						   //url =  "/meeting/site/"+locals.data[i].name+"/building/"+locals.data[i].buildings[j].name+"/floor/"+k;
-						   locals.data[i].buildings[j].floors[k] = {url:url, name:names[locals.data[i].buildings[j].floors[k]]};
-					   }									   
-			   }
-			}		
-						
-			console.log(locals.data[0].buildings[0].floors[0]);
-            //res.send(200,getSiteRooms(data));
-			res.render('meeting3.html', locals);
-		}
-	})
-}
-
-function getMenus(site, res){
-	roomModel.searchRooms({site:site},function(err,data){
-	    if(err) res.send(500);
-		else if(!data) res.send(400);
-		else if(data){
-		    //res.render('meeting2.html');
-			/*
-			data = _.map(data,function(room){
-			   delete room.__v;
-			   delete room._id;
-			})
-			*/
-            var groups = _.groupBy(data,function(room){
-				return (room.site+","+room.building+","+room.floor);		
-			})
-			var sites = [];
-			var key_array = Object.keys(groups);
-			var locals = {};
-			var menus = [];
-			key_array.forEach(function(key){
-			    var subkeys = key.split(',');
-			    var site_key = subkeys[0], building_key = subkeys[1], floor_key = subkeys[2];
-				console.log(site_key, building_key, floor_key);
-				var name = '';
-				if(floor_key == 0) name = building_key+"  Ground";
-				else if(floor_key > 0) name = building_key+"  Floor"+floor_key;
-                menus.push({name: name, url: "/buildings/"+building_key+"/"+floor_key});				
-			})
-			locals.menus = menus;
-			res.render('meeting3.html', locals);
-		}
-	})
-}
-// http://localhost/meeting/site/Peterhouse_Technology_Park/building/ARM3/floor/0
-app.get('/meeting/site/:site/building/:building/floor/:floor',access_control.authUser,function(req,res,next){
-    var site = req.params.site, building = req.params.building, floor = req.params.floor;
-	var  site = replaceAll("_"," ",site);
-	console.log("site:"+site+":"+building+":*   floor");
-    getFlatMenus(site, res);
-	//res.send(200,getSiteRooms(data));
 })
 
-app.get('/meeting/site/:site/building/:building',access_control.authUser,function(req,res,next){
-    var site = req.params.site, building = req.params.building;	
-	var site = replaceAll("_"," ",site);
-	console.log("fuck fuck  fuck  site:"+site+":"+building+":*");
-    getFlatMenus(site, res);
-})
+/**********************************************   ********************************************************/
 
-// http://localhost/meeting/site/Capital_Park
-// http://localhost/meeting/site/Peterhouse_Technology_Park
-app.get('/meeting/site/:site',access_control.authUser,function(req,res,next){
-    var site = req.params.site;	
-	var site = replaceAll("_"," ",site);
-	console.log("site:"+site+":");
-    getFlatMenus(site, res);
-})
+/********************
+// http://localhost/room/event?url=https://protected-sands-2667.herokuapp.com/rooms/Room.UKCGM4
+// http://localhost/room/event?url=Room.UKCMaple   Room.UKCBeech  Room.UKCWillowA  Room.UKCWillowB  Room.UKCFM10  Room.UKCFM7  Room.UKCFM9
+// https://alertmeadaptor.appspot.com/traverse?traverseURI=https%3A//geras.1248.io/cat/armmeeting/1/MotionSensor/00-0D-6F-00-00-C1-2E-EF&traverseKey=924a7d4dbfab38c964f5545fd6186559
+// http://localhost/room/events?url=Room.UKCMaple,Room.UKCBeech,Room.UKCWillowA 
 
+get simulated rooms 
+meeting service
 
+		appModel.searchCatalogProfiles('meetingapp','sensor',function(err,catalogs){
+		    console.log('??????????????????????? catalog app'.yellow,catalogs);
+			if(catalogs && catalogs.length>0){
+                catalogModel.searchCatalogResource(catalogs[0].url,'https://protected-sands-2667.herokuapp.com/rooms/Room.UKCBox',function(err,data){
+					if(err) { console.log('getCatalogResoures   ---  get local catalog data '.red); }
+					else if(!data){  console.log(' no catalogs found');  }
+					else{
+						console.log('0-----------------------------------'.yellow,data);
+					}
+				})
+			}
+		})
 
+ *********************/
+var meetingService; 
 
-/*
-	sensorRoomModel.searchSite("site:"+site+":"+building+":*",function(err,rooms){
-		res.send(rooms);
+serviceCatalog.findByURL('https://geras.1248.io/cat/armmeeting',function(err,service){
+    if(err || !service){
+	    console.log(' catalog can not be found ',err);
+	}else {
+	    console.log('find the service catalog '.green,service.serviceObj.url);
+        meetingService = service;
+	}
+});
+
+function getAllMajoryBuildingRooms(){
+    var ss = ["ARM6 0","ARM6 1","ARM3 0","ARM3 1","ARM2 0","ARM2 1","ARM1 0","ARM1 1"];
+	var rooms = [];
+    ss.forEach(function(e){
+	    var roomarray = simulation.buildings[e];
+		for(var i=0;i<roomarray.length;i++){
+		   var arr = roomarray[i].room.split('/');
+		   rooms.push( "https://protected-sands-2667.herokuapp.com/rooms/"+arr[arr.length-1])
+		}	    
 	})
-*/
-
-/************************************
-
-
-*************************************/
-
-app.get('/buildings/test',access_control.authUser,function(req,res){
-    sensorRoomModel.getRoomByBuilding('abc',function(err,data){
+	return rooms;
+}
+// /arm/meeting/history/:name/:floor
+app.get('/arm/meeting/history/all',access_control.authUser,function(req,res,next){	
+	var rooms = getAllMajoryBuildingRooms();
+    var now = new Date(), 
+	    default_start_day = new Date(now.getFullYear(),now.getMonth(),now.getDate(),0,0,0)
+	    default_end_day = new Date(now.getFullYear(),now.getMonth(),now.getDate(),23,59,59);
+	var day_begin  = new Date(req.query.start) || default_start_day;
+	var day_end = new Date(req.query.end) || default_end_day;
+	var range = "?start="+day_begin.getTime()/1000+"&end="+day_end.getTime()/1000;
+	console.log(   day_begin, day_end);
+    //var range = "?start="+  ( -60*60*24*2 )+"&end="+ (-100);
+    sensorRoomModel.getSensorDataFromRoom(meetingService,rooms,'motion',range, function(err,data){
 	    if(err) res.send(404);
-	    else if(!data){res.send(404);}
-		else{
-		    //console.log(data);
-		    res.send(data);
+	    else{
+		    _.map(data,function(sensor){
+			    //console.log('......getSensorDataFromRoom......'.red,sensor.url, sensor.room, day_begin,day_end, sensor.e.length);
+			})
+    		res.send(200,data);
+		}	
+	})
+});
+
+app.get('/buildings/history/events/all',access_control.authUser,function(req,res){
+	var array = getAllMajoryBuildingRooms();
+	
+	sensorRoomModel.getRoomData(array, function(err,rooms){
+		if(err) {  console.log('get room error '.red); res.send(500)}
+		else if(!rooms) { console.log('no data for room'.red); res.send(404);}
+		else{		   
+			//console.log('get rooms data '.green, rooms);
+			var rooms_array = [];
+			_.map(rooms,function(room){
+			    rooms_array.push(room.name);
+			})
+				
+	        var day_begin  = new Date(req.query.start);
+    	    var early_day = new Date(day_begin.getFullYear(),day_begin.getMonth(),day_begin.getDate(),0,0,0);
+			
+			sensorRoomModel.getCachedEvents(rooms_array,early_day,function(err,data){				
+			    if(err) res.send(500);
+			    else{					
+					var hash = {};
+					_.map(data,function(room_event){
+						hash[room_event.url] = room_event.events;
+					})
+					
+					_.map(rooms,function(room){
+						room.events = hash[room.url];						
+					})
+					//console.log(rooms);
+     				res.send(200,{rooms:rooms});
+					delete hash;
+					delete rooms_array;
+				}				
+			})            			
 		}
 	})
 })
 
-app.get('/buildinglist',access_control.authUser,function(req,res){
-    var list = [
-	    {name:'ARM 1', floors:[ {name:'Ground',url:'/buildings/ARM1/0'},{name:'Floor 1',url:'/buildings/ARM1/1'} ]},
-        {name:'ARM 2', floors:[ {name:'Ground',url:'/buildings/ARM2/0'},{name:'Floor 1',url:'/buildings/ARM2/1'} ]},	
-        {name:'ARM 3', floors:[ {name:'Ground',url:'/buildings/ARM3/0'},{name:'Floor 1',url:'/buildings/ARM3/1'} ]},	
-        {name:'ARM 6', floors:[ {name:'Ground',url:'/buildings/ARM6/0'},{name:'Floor 1',url:'/buildings/ARM6/1'} ]},
-        {name:'CPC1',  floors:[ {name:'Ground',url:'/buildings/CPC1/0'},{name:'Floor 1',url:'/buildings/CPC1/1'} ]}		
-	];
-	res.json(200,{buildings:list});
+
+app.get('/meeting/cacheevents',access_control.authUser,function(req,res){
+    sensorRoomModel.cacheEvents(function(err,rooms){
+	    if(err) res.send(500);
+		else res.send(200,rooms);
+	})
 })
 
+/******************************************************************************
+building service might not be used
+
+		appModel.searchCatalogProfiles('meetingapp','room',function(err,catalogs){
+		    console.log('??????????????????????? catalog app'.yellow,catalogs);
+			if(catalogs && catalogs.length>0){
+                catalogModel.searchCatalogResource(catalogs[0].url,'https://protected-sands-2667.herokuapp.com/rooms/Room.UKCBox',function(err,data){
+					if(err) { console.log('getCatalogResoures   ---  get local catalog data '.red); }
+					else if(!data){  console.log(' no catalogs found');  }
+					else{
+						console.log('0-----------------------------------'.yellow,data);
+					}
+				})
+			}
+		})
+
+******************************************************************************/
+var buildingService;
+serviceCatalog.findByURL('https://protected-sands-2667.herokuapp.com/cat-1',function(err,service){
+    if(err || !service){
+	    console.log(' catalog can not be found ',err);
+	}else if(!service){  console.log('no data in the catalog ');}
+	else{
+	    console.log('find the service catalog '.green,service.serviceObj.url);
+        buildingService = service;		
+	}    
+});
+
+// https://protected-sands-2667.herokuapp.com/people/Geraint%20Luff 
+app.get('/arm/people',access_control.authUser,function(req,res){
+    var people = req.query.people;
+	console.log('people   ',people);
+    var list = people.split(',');
+	var info = [];
+	async.forEach(list, 
+		  function(person, callback){
+				buildingService.getOtherResource('https://protected-sands-2667.herokuapp.com/people/'+person,function(err,data){
+					if(err)  console.log(err);
+					else {
+						//console.log('data   ------------------'.green,data);
+						if(data.length>0) info.push(data[0]);							   
+					}
+					callback();						
+				})
+		  },			  
+		  function(err){
+			//winston.debug('get all the messages ',util.inspect(events, false, null));
+			res.send(200,info);
+		  } 
+	);  
+})
+
+/***********************************************************************
+        schedule
+************************************************************************/
+  
+var schedule = require('node-schedule');
+var rule = new schedule.RecurrenceRule();
+rule.dayOfWeek = [0, new schedule.Range(0, 4)];
+rule.hour = 3;
+rule.minute = 40;
+
+var j = schedule.scheduleJob(rule, function(){
+    console.log('running the event schedule rule!');
+	sensorRoomModel.cacheEvents(function(err,rooms){
+	    if(err)  console.log('err for catche the events');
+		else if(rooms)
+        console.log('finsh '.green,'cache all the room events');
+	})	
+});
+
+var rule2 = new schedule.RecurrenceRule();
+rule2.dayOfWeek = [0, new schedule.Range(0, 6)];
+rule2.hour = 20;
+rule2.minute = 54;
+
+var j = schedule.scheduleJob(rule2, function(){
+    console.log('running the event analytics rule!');
+	var array = getAllMajoryBuildingRooms();
+	
+	sensorRoomModel.getRoomData(array, function(err,rooms){
+		if(err) {  console.log('get room error '.red); res.send(500)}
+		else if(!rooms) { console.log('no data for room'.red); res.send(404);}
+		else{		   
+			//console.log('get rooms data '.green, rooms);
+			
+			var rooms_array = _.filter(rooms,function(room){
+			    if(room.m_enabled){
+			        var hours = (new Date().getTime() - new Date(room.time))/1000/60/60;
+				    //console.log(room.name, hours);
+                    return room.m_enabled == true && ( hours > 20);				    
+				}
+                return false;	     
+			})				
+	        console.log('these room motion might be not working ',rooms_array.length);          			
+		}
+	})	
+});
 
 
+/***************************************************
+****************************************************
+   test 
+****************************************************   
+****************************************************/
+// localhost/test/timeseries/now?id=/armmeeting/11/MotionSensor/00-0D-6F-00-00-C1-2D-F0/motion   lecture room
+// localhost/test/timeseries/now?id=/armmeeting/11/MotionSensor/00-0D-6F-00-00-C1-35-08/motion   box
+// localhost/test/timeseries/now?id=/armmeeting/11/MotionSensor/00-0D-6F-00-00-C1-46-10/motion   elm
+app.get('/test/timeseries/now',access_control.authUser,function(req,res,next){
+    var id = req.query.id;
+    var MS_PER_MINUTE = 60000;
+	var now = new Date();
+    sensorHandler.getSensorData(id, new Date(now.valueOf() - 10*60 * MS_PER_MINUTE) , now ,function(err,data){
+	    if(err) res.send(500,err);
+	    else if(data) res.send(200,data);
+		else if(!data) res.send(404);
+	})
+})
 
 app.get('/buildings/:name/:floor',access_control.authUser,function(req,res){
     var name = req.params.name, floor = req.params.floor;
@@ -703,267 +727,6 @@ app.get('/buildings/:name/:floor',access_control.authUser,function(req,res){
 		}
 	})
 })
-
-app.get('/buildings/:building/:floor/cache',access_control.authUser,function(req,res){
-    var building = req.params.building, floor = req.params.floor;
-	building = building || 'ARM1';
-	floor = floor || 0;
-	//var rooms = simulation.buildings[name+" "+floor];
-	//console.log(rooms);
-	
-	var array = [];
-	
-	roomModel.searchRooms({building:building,floor:floor},function(err,data){
-	    if(err) res.send(500);
-		else if(!data) res.send(400);
-		else if(data){
-			for(var i=0;i<data.length;i++){
-				array.push(data[i].room)
-			}			
-			sensorRoomModel.getRoomData(array, function(err,rooms){
-				if(err) {  console.log('get room error '.red); res.send(500)}
-				else if(!rooms) { console.log('no data for room'.red); res.send(404);}
-				else{		   
-					//console.log('get rooms data ----------------------'.green, rooms);
-					var rooms_array = [];
-					_.map(rooms,function(room){
-						rooms_array.push(room.name);
-					})
-					
-					var now = new Date(), early_day = new Date(now.getFullYear(),now.getMonth(),now.getDate(),0,0,0);			
-					sensorRoomModel.getCachedEvents(rooms_array,early_day,function(err,data){				
-						if(err) res.send(500);
-						else{
-							//console.log(data);					
-							var hash = {};
-							_.map(data,function(room_event){
-								hash[room_event.url] = room_event.events;
-							})
-							
-							_.map(rooms,function(room){
-								room.events = hash[room.url];
-								 room.displayname = displayname(room.name);						
-							})
-							res.send(200,{rooms:rooms});
-							delete hash;
-							delete rooms_array;
-						}				
-					})            			
-				}
-			})			
-		}
-	})	
-	
-	var displayname = function(name){
-		var temp_name = name;
-		temp_name = temp_name.substring( temp_name.indexOf('UKC')+3,temp_name.length);
-		return temp_name;
-	}
-})
-
-/**********************************************   ********************************************************/
-
-
-/********************88   *********************/
-
-// http://localhost/room/event?url=https://protected-sands-2667.herokuapp.com/rooms/Room.UKCGM4
-// http://localhost/room/event?url=Room.UKCMaple   Room.UKCBeech  Room.UKCWillowA  Room.UKCWillowB  Room.UKCFM10  Room.UKCFM7  Room.UKCFM9
-// https://alertmeadaptor.appspot.com/traverse?traverseURI=https%3A//geras.1248.io/cat/armmeeting/1/MotionSensor/00-0D-6F-00-00-C1-2E-EF&traverseKey=924a7d4dbfab38c964f5545fd6186559
-
-// http://localhost/room/events?url=Room.UKCMaple,Room.UKCBeech,Room.UKCWillowA 
-function getAllMajoryBuildingRooms(){
-    var ss = ["ARM6 0","ARM6 1","ARM3 0","ARM3 1","ARM2 0","ARM2 1","ARM1 0","ARM1 1"];
-	var rooms = [];
-    ss.forEach(function(e){
-	    var roomarray = simulation.buildings[e];
-		for(var i=0;i<roomarray.length;i++){
-		   var arr = roomarray[i].room.split('/');
-		   rooms.push( "https://protected-sands-2667.herokuapp.com/rooms/"+arr[arr.length-1])
-		}	    
-	})
-	return rooms;
-}
-// /arm/meeting/history/:name/:floor
-app.get('/arm/meeting/history/all',access_control.authUser,function(req,res,next){	
-	var rooms = getAllMajoryBuildingRooms();
-    var now = new Date(), 
-	    default_start_day = new Date(now.getFullYear(),now.getMonth(),now.getDate(),0,0,0)
-	    default_end_day = new Date(now.getFullYear(),now.getMonth(),now.getDate(),23,59,59);
-	var day_begin  = new Date(req.query.start) || default_start_day;
-	var day_end = new Date(req.query.end) || default_end_day;
-	var range = "?start="+day_begin.getTime()/1000+"&end="+day_end.getTime()/1000;
-	console.log(   day_begin, day_end);
-    //var range = "?start="+  ( -60*60*24*2 )+"&end="+ (-100);
-    sensorRoomModel.getSensorDataFromRoom(meetingService,rooms,'motion',range, function(err,data){
-	    if(err) res.send(404);
-	    else{
-		    _.map(data,function(sensor){
-			    //console.log('......getSensorDataFromRoom......'.red,sensor.url, sensor.room, day_begin,day_end, sensor.e.length);
-			})
-    		res.send(200,data);
-		}	
-	})
-});
-
-app.get('/buildings/map',access_control.authUser,function(req,res){
-    var building = req.query.building, floor = req.query.floor;
-	console.log('building  map'.green,building,floor);
-	var mappath = 'maps/ARM-MAP_Base.svg';
-	if(building == 'ARM1' && floor == 0){
-        mappath = 'maps/ARM1-FIRST-FLOOR.svg';
-	}else if(building == 'ARM1' && floor == 1){
-        mappath = 'maps/ARM1-FIRST-FLOOR.svg';	
-	}
-	else if(building == 'ARM2' && floor == 0){
-        mappath = 'maps/ARM2-GROUND-FLOOR.svg';	
-	}else if(building == 'ARM2' && floor == 1){
-        mappath = 'maps/ARM2-FIRST-FLOOR.svg';	
-	}
-	else if(building == 'ARM3' && floor == 0){
-        mappath = 'maps/ARM3-GROUND-FLOOR.svg';	
-	}else if(building == 'ARM3' && floor == 1){
-        mappath = 'maps/ARM3-FIRST-FLOOR.svg';	
-	}
-	else if(building == 'ARM6' && floor == 0){
-        mappath = 'maps/ARM6-GROUND-FLOOR.svg';	
-	}else if(building == 'ARM6' && floor == 0){
-        mappath = 'maps/ARM6-FIRST-FLOOR.svg';	
-	}
-    res.sendfile(mappath);	
-})
-
-app.get('/buildings/history/events/all',access_control.authUser,function(req,res){
-	var array = getAllMajoryBuildingRooms();
-	
-	sensorRoomModel.getRoomData(array, function(err,rooms){
-		if(err) {  console.log('get room error '.red); res.send(500)}
-		else if(!rooms) { console.log('no data for room'.red); res.send(404);}
-		else{		   
-			//console.log('get rooms data '.green, rooms);
-			var rooms_array = [];
-			_.map(rooms,function(room){
-			    rooms_array.push(room.name);
-			})
-				
-	        var day_begin  = new Date(req.query.start);
-    	    var early_day = new Date(day_begin.getFullYear(),day_begin.getMonth(),day_begin.getDate(),0,0,0);
-			
-			sensorRoomModel.getCachedEvents(rooms_array,early_day,function(err,data){				
-			    if(err) res.send(500);
-			    else{					
-					var hash = {};
-					_.map(data,function(room_event){
-						hash[room_event.url] = room_event.events;
-					})
-					
-					_.map(rooms,function(room){
-						room.events = hash[room.url];						
-					})
-					//console.log(rooms);
-     				res.send(200,{rooms:rooms});
-					delete hash;
-					delete rooms_array;
-				}				
-			})            			
-		}
-	})
-})
-
-// https://protected-sands-2667.herokuapp.com/people/Geraint%20Luff 
-// http://localhost/arm/people?people=Geraint%20Luff
-app.get('/arm/people',access_control.authUser,function(req,res){
-    var people = req.query.people;
-	console.log('people   ',people);
-    var list = people.split(',');
-	var info = [];
-	async.forEach(list, 
-		  function(person, callback){
-				buildingService.getOtherResource('https://protected-sands-2667.herokuapp.com/people/'+person,function(err,data){
-					if(err)  console.log(err);
-					else {
-						//console.log('data   ------------------'.green,data);
-						if(data.length>0) info.push(data[0]);							   
-					}
-					callback();						
-				})			  
-		  },			  
-		  function(err){
-			//winston.debug('get all the messages ',util.inspect(events, false, null));
-			res.send(200,info);
-		  } 
-	);  
-})
-
-
-app.get('/cacheevents',access_control.authUser,function(req,res){
-    sensorRoomModel.cacheEvents(function(err,rooms){
-	    if(err) res.send(500);
-		else res.send(200,rooms);
-	})
-})
-
-  
-var schedule = require('node-schedule');
-var rule = new schedule.RecurrenceRule();
-rule.dayOfWeek = [0, new schedule.Range(0, 4)];
-rule.hour = 3;
-rule.minute = 40;
-
-var j = schedule.scheduleJob(rule, function(){
-    console.log('running the event schedule rule!');
-	sensorRoomModel.cacheEvents(function(err,rooms){
-	    if(err)  console.log('err for catche the events');
-		else if(rooms)
-        console.log('finsh '.green,'cache all the room events');
-	})	
-});
-
-var rule2 = new schedule.RecurrenceRule();
-rule2.dayOfWeek = [0, new schedule.Range(0, 6)];
-rule2.hour = 20;
-rule2.minute = 54;
-
-var j = schedule.scheduleJob(rule2, function(){
-    console.log('running the event analytics rule!');
-	var array = getAllMajoryBuildingRooms();
-	
-	sensorRoomModel.getRoomData(array, function(err,rooms){
-		if(err) {  console.log('get room error '.red); res.send(500)}
-		else if(!rooms) { console.log('no data for room'.red); res.send(404);}
-		else{		   
-			//console.log('get rooms data '.green, rooms);
-			
-			var rooms_array = _.filter(rooms,function(room){
-			    if(room.m_enabled){
-			        var hours = (new Date().getTime() - new Date(room.time))/1000/60/60;
-				    //console.log(room.name, hours);
-                    return room.m_enabled == true && ( hours > 20);				    
-				}
-                return false;	     
-			})
-				
-	        console.log('these room motion might be not working ',rooms_array.length);          			
-		}
-	})	
-});
-
-
-
-// localhost/test/timeseries/now?id=/armmeeting/11/MotionSensor/00-0D-6F-00-00-C1-2D-F0/motion   lecture room
-// localhost/test/timeseries/now?id=/armmeeting/11/MotionSensor/00-0D-6F-00-00-C1-35-08/motion   box
-// localhost/test/timeseries/now?id=/armmeeting/11/MotionSensor/00-0D-6F-00-00-C1-46-10/motion   elm
-app.get('/test/timeseries/now',access_control.authUser,function(req,res,next){
-    var id = req.query.id;
-    var MS_PER_MINUTE = 60000;
-	var now = new Date();
-    sensorHandler.getSensorData(id, new Date(now.valueOf() - 10*60 * MS_PER_MINUTE) , now ,function(err,data){
-	    if(err) res.send(500,err);
-	    else if(data) res.send(200,data);
-		else if(!data) res.send(404);
-	})
-})
-
-/**   test **/
 
 app.get('/buildings/:name/:floor/test',access_control.authUser,function(req,res){
     var name = req.params.name, floor = req.params.floor;

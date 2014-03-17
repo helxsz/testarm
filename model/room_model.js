@@ -17,7 +17,7 @@ var RoomModel = function(collection, options){
 		address:{type:String}
     },{ _id: true, strict: false, read: readOption });   //how to choose a sharding key for day 
 	
-    schema.index({ "site": 1, "building": 1,'floor':1 }, { unique: true });
+    schema.index({ "site": 1, "building": 1,'floor':1, 'room':1 }, { unique: true });
 
     var model;
 	var modelName = 'RoomModel';

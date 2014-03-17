@@ -124,14 +124,15 @@ function CatalogUpdater(){
 								else {
 								    console.log('catalog  facts  store  data  '.green,catalog.url, data);
                                 }
-								/////////////////////////////////////////////////////////
-								filter.filterStandard(facts,function(results,category){
-									var key_array = Object.keys(results);								
-									console.log('complete   filterStandard'.green, key_array.length, category);
-									catalog_profiles.push({url:catalog.url, profile:category.profile, types : category.types});
-									callback();		 						
-								}); 								
-							});	
+							});
+							/////////////////////////////////////////////////////////
+							filter.filterStandard(facts,function(results,category){
+								var key_array = Object.keys(results);								
+								console.log('complete   filterStandard'.green, key_array.length, category);
+								catalog_profiles.push({url:catalog.url, profile:category.profile, types : category.types});
+								callback();	
+							}); 								
+								
 						});  
                     }else {
 					    callback();
@@ -156,8 +157,22 @@ function CatalogUpdater(){
 				filter.filterStandard(facts,function(results,category){
 					var key_array = Object.keys(results);								
 					console.log('complete   filterStandard'.green, key_array.length, category);
-					catalog_profiles.push({url:catalog.url, profile:category.profile, types : category.types});	
-					_callback(err,catalog_profiles);									
+                    var list = [];					
+					async.forEach(key_array, function(key,callback){
+						//console.log('---------------------------',key , results[key]);
+						results[key].url = key;
+						list.push(results[key]);
+						callback();
+					},function(err){
+					    catalogModel.updateCatalogResource(catalog.url,list,function(err,data){
+						    if(err) console.log('failed to update catalog resource '.red,err);
+							else if(data && data==1) console.log('update the resource success'.green);
+							else if(data && data==0) console.log('failed to update catalog resource'.red);
+							
+						    catalog_profiles.push({url:catalog.url,key:catalog.key, profile:category.profile, types : category.types});	
+					        _callback(err,catalog_profiles);
+						})					
+					});														
 				}); 								
 			});	
 		});
