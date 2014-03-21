@@ -2,7 +2,11 @@
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
 <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" ng-app="SensorMappingApp"> <!--<![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" ng-app="SensorMappingApp"> <!--<![endif]
+
+http://stackoverflow.com/questions/20987535/plotting-points-on-a-map-with-d3
+
+-->
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -21,7 +25,6 @@
     <link rel="stylesheet" href="css/main.css">
 
 	<script src="js/vendor/underscore-min.js"></script>			
-	<script src="/assets/js/heatmap.js"></script>
     <script src="/assets/js/socket.io.js"></script>
     <script src="/assets/js/d3.v3.min.js"></script>
 	<script src="/assets/js/angular.min.js"></script>
@@ -114,7 +117,7 @@
                 <div class="scroller-inner">
                 <!-- start .scroller's -->
                 
-                <div class="wrapper">
+                <div class="wrapper" style="width: 1590px">
                 <!-- START .wrapper -->
 
                     <header id="banner" class="d1-d9 t1-t4 m-all clearfix" >
@@ -154,25 +157,50 @@
 	                <!-- START #app-energy -->
 
 	                	<aside id="app-description" class="d1-d3 t1-t3 m-all">
-
+                            <h2 ng-click="showBigOverview()"> big </h2>
+							<h2 ng-click="showSmallOverview()"> small </h2>
 	                        <ul>
 	                        	<li>22 +</li>
 	                        	<li>19 - 21</li>
 	                        	<li>- 18</li>
 	                        </ul>
 							
-							<section id="vis">
+							<ul ng-repeat='selected_building in selected_buildings'> 
+							    <li ng-click="findBuildingInfo(selected_building.floor)">
+                                    {{selected_building.name}}	
+                                    {{selected_building.floor}}										
+								</li>
+							</ul>
+							
+							<section >
 								<div class="content" >
 									<div id="stations">
 										<div id="map-wrapper"><svg class="map"></svg> <div id="map"> </div></div>
-										<!--<div id="tiles-wrapper"><svg class="tiles"></svg></div></div>-->
 									</div>			
 								</div>
 							</section>
-							
-
 	                    </aside>
-
+						
+						<div> {{currentSite}} </div>
+						<div> {{currentBuilding}} </div>
+						<div> {{currentFloor}} </div>
+						
+						<table id="table">
+						    <!--
+							<tr>
+								<th><span></span>Rank</th>
+								<th><span></span>ID</th>
+								<th><span></span>USAGE</th>
+								<th><span></span>SAVINGS</th>
+								<th><span></span>CHANGE</th>
+								<th></th>
+							</tr>
+							-->
+							<tr class="room" ng-repeat="sensor in floor_sensors   " ng-cloak id="" ng-click="$event.stopPropagation();"> 
+								<td> {{sensor.name}}	</td> 	
+							</tr>
+						</table>						
+						
 					<!-- END #app-energy -->
 					</section>
 
@@ -217,11 +245,14 @@ SensormappingApp.controller('mappingListCtrl', function ($rootScope,$scope, $htt
 		$scope.rooms = [];
 		$scope.buildings = [];
 		
+		$scope.current_site = "";
 		$scope.current_building = "ARM3";
 		$scope.current_floor = "GROUND";   
-        $scope.current_floor_index = 0;
+        $scope.current_floor_index = 1;
 		
 		$scope.sensors = [];
+		
+		$scope.selected_buildings = [];
 		var checkTimer ;
 		
 		var legend;
@@ -235,272 +266,33 @@ SensormappingApp.controller('mappingListCtrl', function ($rootScope,$scope, $htt
 			legend = d3.select('svg.map').append('g').attr('class','legend').attr('transform', 'translate(450, 200)');
 			//render();	
 		}
-			
-		$scope.loadSensorData = function(){
-			$http.get('/sensors/arm/').success(function(data) {
-				$scope.sensors = data.sensors;
-				//console.log(data.sensors);
-				data.sensors.forEach(function(sensor){
-					//console.log(sensor.name);
-				})
-				
-			}).error(function(data, status, headers, config) {
-					// called asynchronously if an error occurs
-					// or server returns response with an error status.
-			});
-		}
+	
+    // http://tympanus.net/codrops/2012/11/29/simple-effects-for-drop-down-lists/
+	// http://tympanus.net/codrops/2013/08/28/transitions-for-off-canvas-navigations/
+	// http://tympanus.net/codrops/2014/03/13/tilted-content-slideshow/
+	
+	// http://www.delimited.io/blog/2014/3/14/d3js-threejs-and-css-3d-transforms 3d
+	// http://stackoverflow.com/questions/14265112/d3-js-map-svg-auto-fit-into-parent-container-and-resize-with-window
+	
 	var svg = d3.select('svg.map');	
-	var offset_x = 550, offset_y = 250;
     var floor = svg.append("svg:g").attr('id','floor');
 	var sensorLayer = svg.append('svg:g').attr('id','sensorLayer');
-
+	var sketchLayer = svg.append('svg:g').attr('id','sketchLayer');
+	var siteLayer = svg.append('svg:g').attr('id','siteLayer');
+	siteLayer.append("rect").attr('class','site_rect');
+						   
 	/******************  tooltip ******************************/
-	var tooltip = d3.select("body").append("div")
-	                               .attr("class", "tooltip")
-								   .style("opacity", 0);
-	var offsety = 200;
-	
-var BuildingMap = function() {
-	var map = {};
-
-	var color = d3.scale.linear()
-		.domain([95, 115, 135, 155, 175, 195])
-		.range(["#0a0", "#6c0", "#ee0", "#eb4", "#eb9", "#fff"]);	
+	var tooltip = d3.select("body").append("div").attr("class", "tooltip").style("opacity", 0);
+	                               
+	    var floor_offset_y = 300;
+		var floor_offset_x = 800;
+		$scope.floor_sensors = []; 		
+		$scope.indoor_sensors = [];		
 		
-
-
-	////////////////////////////////////////
-	function addFloor(building,floor){
-		
-		svg.append("svg:g")
-		   .attr("transform", "translate(" + (offset_x/2 ) + "," + (offset_y/2) + ")")  //
-		   .append("svg:rect")
-			.attr("width", 680)
-			.attr("height", 340)
-			.style("stroke", "#134D61")
-			.style("fill", "#092630")
-			.on("mouseover", mouseover)
-			.on("mousemove", mousemove)
-			.on("mouseout", mouseout)
-			.on("click", click)
-			
-		var div = d3.select("body").append("div").attr("class", "tooltip").style("opacity", 1e-6);
-		function mouseover() {
-		  div.transition()
-			  .duration(500)
-			  .style("opacity", 1);
-		}
-
-		function mousemove() {
-		  div.text(d3.event.pageX + ", " + d3.event.pageY)
-			 .style("left", (d3.event.pageX - 34) + "px")
-			 .style("top", (d3.event.pageY - 12) + "px");
-		}
-
-		function mouseout() {
-		  div.transition()
-			 .duration(500)
-			 .style("opacity", 1e-6);
-		}	
-
-		function click(){
-		  // Ignore the click event if it was suppressed
-		  if (d3.event.defaultPrevented) return;
-		  
-		  // Extract the click location\    
-		  var point = d3.mouse(this) , p = {x: point[0], y: point[1] };
-		 
-		  console.log(p.x, p.y);
-		  // Append a new point
-		  svg.append("circle")
-			  .attr("transform", "translate(" + (offset_x +p.x) + "," + (offset_y +p.y) + ")")  //scale(2)
-			  .attr("r", "5")
-			  .attr("class", "dot")
-			  .style("cursor", "pointer")
-			  .call(drag);
-		  d3.event.stopPropagation();	  
-		}
-			
-		// Define drag beavior
-		var drag = d3.behavior.drag()
-			.on("drag", dragmove);
-
-		function dragmove(d) {
-		   var x = d3.event.x;
-		   var y = d3.event.y;
-		   d3.select(this).attr("transform", "translate(" + x + "," + y + ")");
-		}
-	}	
-
-	function addSensors(){
-		/*
-		Primary Blue:       #2599C1;
-		Mid Blue:           #134D61;
-		Dark Blue:          #092630;
-
-		Primary Pink:       #CE1D6F;
-		Mid Pink:           #9B1653;
-		Dark Pink:          ;	
-		
-		*/
-		  // Append a sensor point
-		var sensors = [
-			{x:170 , y:140  , t:18},
-			{x:10 , y:240 , t:4},
-			{x:60 , y:150 , t:27},
-			{x:30 , y:120 , t:27}		
-		]; 	  
-			
-		svg.selectAll('circle111').attr("transform", "translate(" + (offset_x ) + "," + (offset_y) + ")rotate(-15)")
-			.data(sensors)
-			.enter()		
-			.append('circle')
-			.on( "mousedown", function() {
-				if( !d3.event.ctrlKey) d3.selectAll( '.selected').classed( "selected", false);
-				console.log("mouse down");
-				var p = d3.mouse( this);
-				svg.append( "rect")
-					.attr({
-						rx      : 6,
-						ry      : 6,
-						class   : "selection",
-						x       : p[0],
-						y       : p[1],
-						width   : 0,
-						height  : 0
-					})
-			})		
-			.attr('cx',function(e,i){return offset_x +e.x})
-			.attr('cy',function(e,i){ return offset_y+e.y})
-			.attr('r',function(e){
-				return e.t * 2
-			})
-			.on( "mouseup", function() { 
-				svg.selectAll( "rect.selection").remove();
-				d3.selectAll( '.selection').classed( "selection", false);
-			})
-			.style('fill', function(e,i) {
-				return "#620F3a" ;
-			})
-
-		var sensor = svg.selectAll('circle111').attr("transform", "translate(" + (offset_x ) + "," + (offset_y) + ")rotate(-15)")
-			.data(sensors)
-			.enter()
-			.append('circle')
-			.attr('cx',function(e,i){return offset_x +e.x})
-			.attr('cy',function(e,i){ return offset_y+e.y})
-			.attr('r',function(e){
-				return e.t
-			})
-			.attr("class", "dot")
-			.on('mouseover', function(d) { 
-				d3.select(this)
-				  .attr('fill', function(d) { return d3.rgb(d.color).brighter() })
-				  .transition()
-				  .attr('r', 24*2)
-			  })
-			.on('mouseout', function(d) {
-				d3.select(this)
-				  //.attr('fill', 'white')
-				  .transition()
-				  .attr('r', 24)
-			  })    		  
-			.style("cursor", "pointer")
-			.transition()
-			.style('fill', function(e,i) {
-				if(e.t<=15) 
-				return "#670F38" ;
-				else if(e.t>=16 && e.t<=22)
-				return "#9B1653";
-				else if(e.t> 23)
-				return "#CE1D6F";
-			})
-			.style("opacity",0.6);
-	}
-
-
-		// draw legend
-	function showLegend() {
-	  var dy = 36;
-	  var mapLegend = d3.select('svg.map')
-		.append('g')
-		  .attr('class', 'legend')
-		  .attr('transform', 'translate(150, 500)');
-	  var legendData = [
-		{
-		  value: 19,
-		  desc: '23 - 30',
-		  color: ' #CE1D6F'
-		},
-		{
-		  value: 17,
-		  desc: '15 -22',
-		  color: ' #9B1653'
-		},
-		{
-		  value: 15,
-		  desc: '1 - 14',
-		  color: ' #670F38'
-		}
-	  ];
-	  mapLegend.selectAll('circle.legend-element')
-		.data(legendData)
-		.enter().append('circle')
-		  .attr('class', 'legend-element')
-		  .attr('cx', 0)
-		  .attr('cy', function(d, i) {
-			return i * dy;
-		  })
-		  .attr('r', function(d) {
-			return d.value;
-		  })
-		  .style('fill', function(e,i) {
-				return e.color;
-		  });
-	  mapLegend.selectAll('text.legend-element')
-		.data(legendData)
-		.enter().append('text')
-		  .attr('class', 'legend-element')
-		  .attr('x', 20)
-		  .attr('y', function(d, i) {
-			return i * dy;
-		  })
-		  .attr('dy', '.375em')
-		  .text(function(d) {
-			return d.desc;
-		  })
-		  .style("stroke", "#134D61");
-	};
-
-
-    return {
-	    addFloor:addFloor,
-		addSensors:addSensors,
-		showLegend:showLegend
-	};
-};
-		
-		$scope.loadRecent = function(){
-			$scope.loading = true;
-			$http.get('/buildings/'+$scope.current_building+'/'+$scope.current_floor_index+'/cache').success(function(data) {
-				$scope.loadRoomData(data);
-				$scope.loading = false;			
-			}).error(function(data, status, headers, config) {
-				$scope.loading = false;
-			});				
-		}		
-		
-		$scope.loadMapData =function(){
-				var building = new BuildingMap();
-				//building.addFloor($scope.current_building,$scope.current_floor_index);   not used
-		        //building.addSensors();	
-		        //building.showLegend();			
-			//////////////////////////////////////////////////////////					
+		$scope.loadFloorMap =function(){					
 				d3.xml("/buildings/map?building="+$scope.current_building+'&floor='+$scope.current_floor_index, "image/svg+xml", function(xml) {
-				//d3.xml("rect01.svg", "image/svg+xml", function(xml) {
 					var importedNode = document.importNode(xml.documentElement, true);		   
-					document.getElementById('floor').appendChild(importedNode.cloneNode(true));
-					
+					document.getElementById('floor').appendChild(importedNode.cloneNode(true));					
 					//d3.select('#rect1').attr('fill','blue');
                     // make map smaller					
 					d3.select('#floor')
@@ -508,93 +300,35 @@ var BuildingMap = function() {
 					    .transition()
 					    .ease("elastic")
 				        .duration(800)
-						.attr("transform","scale(0.5) rotate(-5) translate(0,"+offsety+")")
-                    $scope.loadRecent();					
-				});
-			/////////////////////////////////////////////////////////////	
+						.attr("transform","scale(0.5) rotate(-5) translate("+floor_offset_x+","+floor_offset_y+")")					
+				});				
 		}
+		  		
+		$scope.sites = [];
+		var siteprojection;
+		var site_geojson = null;
+		var site_width  = 500;
+        var site_height = 400;
+		var site_offset_x = 0, site_offset_y = 300;
 		
-		$scope.getRoomInfo = function(href){
-		    //console.log('get room info',href);		
-			$scope.menu_open = false;
-			$scope.loading = true;
-			
-			var arr = href.split('/');
-			console.log(arr);
-			$scope.current_building = arr[4];
-			if(arr[5] == 0) 
-			$scope.current_floor = 'GROUND';
-			else if(arr[5]==1)
-			$scope.current_floor = 'FIRST';
-			else if(arr[5]==2)
-			$scope.current_floor = 'SECOND';
-			
-			$http.get(href).success(function(data) {
-				     $scope.loadRoomData(data);
-		
-				
-                $scope.loading = false;				
-            }).error(function(data, status, headers, config) {
-                $scope.loading = false;
-            });
-		}   
-		// ARM33G21BIRCH_1_
-		$scope.loadRoomData = function(data){
-			    //console.log('loading ',data);
-				$scope.loading = true;
-				
-				var sensors1 = [				
-				]; 
-				
-				data.rooms.forEach(function(room){
-				    if(room.t_enabled){
-					    console.log(room.name,' ^^^: ', room, room.time,room.sensor,room.temperature);
-					}
-                    if(room.temperature == 0) room.temperature = 21.5;
-					var second_name = room.name.split('.')[1].toUpperCase();			
-					//console.log(room.name,second_name);							
-					var circle = d3.selectAll('#'+second_name).append("circle").attr("cx", 725).attr("cy", 725).attr("r", 20 ).style("fill", '#f00');
-					try{
-					        var roomsvg = d3.select('#'+second_name);
-							var x = roomsvg.attr('x'), y = roomsvg.attr('y'), width = roomsvg.attr('width'), height = roomsvg.attr('height');
-							if(x !=null && y != null){
-                                console.log('second_name  location ---------',d3.select('#'+second_name).attr('x'),d3.select('#'+second_name).attr('y'), width, height);
-                                var posx = Number(x)+Number(width)/2, posy = Number(y)+Number(height)/2;	
-                                sensors1.push({x:(posx),y:(posy),t:room.temperature,name:second_name, time:room.time});								
-							}else {
-							    var points = d3.select('#'+second_name).attr('points');
-							    if(points !=null){
-								    console.log('second_name  location points ',points);
-									var temps = [], posx = 0, posy = 0;
-									temps = points.split(' ');
-									console.log('..................................',temps);
-									temps.forEach(function(e){
-									   // console.log(e);
-										var arr = e.split(',');
-										posx += Number(arr[0]), posy +=Number(arr[1]);
-									})
-									posx = posx/temps.length , posy = posy/temps.length;
-									sensors1.push({x:(posx),y:(posy),t:room.temperature,name:second_name, time:room.time});
-                                }								
-							}
-                            //d3.select('#'+second_name).attr("fill", "red");	                                               
-                       }catch(e){
-					        //console.error(e);
-						}						  				
-				})
-                var offset_x = 0, offset_y = 0;
-	
-	           //var room_sensor = sensorLayer.append('svg:g').data(sensors1).attr('id',function(d,i){return d.name;}).attr("transform", "translate(" + (offset_x ) + "," + (offset_y) + ")");
-	
-                var place = sensorLayer.selectAll('.place').attr("transform", "translate(" + (offset_x ) + "," + (offset_y) + ")")
-					.data(sensors1)
-				place.exit().remove();	
-				place.enter()		
-					.append('circle')
-                    .attr('class',function(d,i){  return 'place place-'+d.name;})						
-					.attr('cx',function(e,i){ console.log('senosr  ',e.x,e.y);  return offset_x +e.x/2})
+		function showFloorMap(){
+		        d3.selectAll('#sensorLayer').html('');
+		        console.log(' ------------------------------------------------- floor sensors',$scope.floor_sensors.length);
+                var offset_x = 0, offset_y = 0;	     		 
+                var placegroup = sensorLayer.selectAll('.placegroup')
+				    .attr('pointer-events', 'all')
+					.attr("transform", "translate(" + (offset_x ) + "," + (offset_y) + ")")
+					.attr('width', function(e){	return e.t *2})
+                    .attr('height', function(e){return e.t *2})
+					.data($scope.floor_sensors);
+		        placegroup.exit().remove();
+				placegroup.enter().append('svg:g').attr('class',function(d,i){  return 'placegroup placegroup-'+d.name;})	
+				                  				  
+				var place = placegroup.append('circle'); 
+                place.attr('class',function(d,i){  return 'place place-'+d.name;})						
+					.attr('cx',function(e,i){   return offset_x +e.x/2})
 					.attr('cy',function(e,i){ return offset_y+e.y/2})
-					.attr("transform", "rotate(-5) translate(0,"+offsety/2+")")
+					.attr("transform", "rotate(-5) translate("+floor_offset_x/2+","+floor_offset_y/2+")")
 					.transition()
 					.delay(1000)
 					.ease("elastic")
@@ -607,105 +341,408 @@ var BuildingMap = function() {
 			        })
 					.style('fill', function(e,i) {
 						return "#620F3a" ;
-					})
-
-				place.on("mouseover", function(d) {
-                    console.log('on mouse over ---- ',d.name,  (d3.event.pageX)/2,  (d3.event.pageY - 28)/2 , d.x/2, d.y/2);
-                    d3.selectAll('.motion-'+d.name)
-					        .transition()
-					        .delay(800)
-					        .ease("elastic").attr('r',function(e){
-						        return Number(e.t) +2; 
-					        })					
-                }).on("mouseout", function(d) { 
-                    console.log('on mouse out  ---',d.name);
-                    d3.selectAll('.motion-'+d.name)
-					        .transition()
-					        .delay(800)
-					        .ease("elastic").attr('r',function(e){
-						        return Number(e.t)-4; 
-					        })                    
-				});					
+					});				
 					
-				/////////////////////////////////////////////////////////////////////
+				var sensor = placegroup.append('circle');  //console.log('senosr  ',e.x,e.y); 
+				sensor.attr('class',function(d,i){  return 'motion motion-'+d.name;})					
+						.attr('cx',function(e,i){   return offset_x +e.x/2})
+						.attr('cy',function(e,i){ return offset_y+e.y/2})
+						.attr("transform", "rotate(-5) translate("+floor_offset_x/2+","+floor_offset_y/2+")")
+						.transition()
+						.delay(1000)
+						.ease("elastic")
+						.duration(800) 
+						.attr('r',function(e){
+							return Number(e.t) -4
+						})
+						.style('fill', function(e,i) {
+							if(e.t<=15) 
+							return "#670F38" ;
+							else if(e.t>=16 && e.t<=22)
+							return "#9B1653";
+							else if(e.t> 23)
+							return "#CE1D6F";
+						})
+						.style("fill-opacity", function(d,i){
+							return 0.8;                                        
+						});	
 				
-				var sensor = sensorLayer.selectAll('.motion').attr("transform", "translate(" + (offset_x ) + "," + (offset_y) + ")")
-					.data(sensors1)
-				sensor.exit().remove();	
-				sensor.enter()		
-					.append('circle') 
-                    .attr('class',function(d,i){  return 'motion motion-'+d.name;})					
-					.attr('cx',function(e,i){ console.log('senosr  ',e.x,e.y);  return offset_x +e.x/2})
-					.attr('cy',function(e,i){ return offset_y+e.y/2})
-					.attr("transform", "rotate(-5) translate(0,"+offsety/2+")")
-					.transition()
-					.delay(1000)
-					.ease("elastic")
-				    .duration(800) 
-					.attr('r',function(e){
-						return Number(e.t) -4
-					})
-					.style('fill', function(e,i) {
-						if(e.t<=15) 
-						return "#670F38" ;
-						else if(e.t>=16 && e.t<=22)
-						return "#9B1653";
-						else if(e.t> 23)
-						return "#CE1D6F";
-					})
-					.style("fill-opacity", function(d,i){
-				        return 0.8;                                        
-			        });
-				/*					
-				sensor.on("mouseover", function(d) {
-                    console.log('on mouse over ',d.name,  (d3.event.pageX)/2,  (d3.event.pageY - 28)/2 , d.x/2, d.y/2);				
-					tooltip.transition()        
-						.duration(200)      
-						.style("opacity", .9);      
-					tooltip.html("<br/>"+ d.name+"<br/>")  
-						.style("left", (d3.event.pageX)/2 + "px")     
-						.style("top", (d3.event.pageY - 28)/2 + "px");    
-					})                  
-				.on("mouseout", function(d) { 
-                    console.log('on mouse out  ',d.name);				
-					tooltip.transition()        
-						.duration(500)      
-						.style("opacity", 0);   
-				});
-				*/
-				//////////////////////////////////////////////////////
-				var label = sensorLayer.selectAll('.label').attr("transform", "translate(" + (offset_x ) + "," + (offset_y) + ")")
-					.data(sensors1)
-				label.exit().remove();	
-				label.enter()		
-					.append('text') 
-                    .attr('class','label')					
-					.attr('x',function(e,i){ console.log('label  ',e.x,e.y);  return offset_x +e.x/2+20})
+				var label= 	placegroup.append('text'); 
+                label.attr('class','label')	//console.log('label  ',e.x,e.y);				
+					.attr('x',function(e,i){   return offset_x +e.x/2+20})
 					.attr('y',function(e,i){ return offset_y+e.y/2})
-					.attr("transform", "rotate(-5) translate(0,"+offsety/2+")")
+					.attr("transform", "rotate(-5) translate("+floor_offset_x/2+","+floor_offset_y/2+")")
 					.transition()
 					.delay(1000)
 					.ease("elastic")
 				    .duration(800) 
                     .attr("dy", ".55em")
-					.text(function(d) { return d.name; });;			
-				
-				
-				$scope.rooms = data.rooms;			
+					.text(function(d) { return d.name; });;	
+				// http://stackoverflow.com/questions/17494930/d3-onmouseover-event-does-not-work-with-nested-svg-elements
+                // http://stackoverflow.com/questions/20465096/d3-mouseover-and-mouseout-event-not-working-properly
+                // http://scottcheng.github.io/bj-air-vis/  http://shimz.me/example/d3js/geo_example2/geo3/index.html
+                // http://scottcheng.github.io/weibo-time-vis/				  http://bl.ocks.org/mbostock/4699541
+				sensor.on("mouseover",onMouseOver)                  
+				          .on("mouseout", onMouseOut)
+						  //.on("mousemove",onMouseMove);
+				function onMouseMove(d){
+                    tooltip.html("<br/>"+ d.name+"<br/>")  
+						.style("left", (d3.event.pageX) + "px")     
+						.style("top", (d3.event.pageY - 28) + "px");				
+				}		  
+                function onMouseOver(d) {
+                    console.log('on mouse over ',d.name,  (d3.event.pageX)/2,  (d3.event.pageY - 28)/2 , d.x/2, d.y/2);				
+					tooltip.transition()        
+						.style("opacity", .9);      
+					tooltip.html("<br/>"+ d.name+"<br/>")  
+						.style("left", (d3.event.pageX) + "px")     
+						.style("top", (d3.event.pageY - 28) + "px");    
+				}
+
+                function onMouseOut(d) { 
+                    console.log('on mouse out  ',d.name);				
+					tooltip.transition()        
+						.duration(500)      
+						.style("opacity", 0);   
+				}		
+		}
+		
+		$scope.parseFloorSensorData = function(data,callback){
+			    //console.log('loading ',data.rooms.length);
+				$scope.loading = true;
+                $scope.floor_sensors = [];	
+				svg.selectAll(".placegroup").data([]).exit().remove()
+				//d3.selectAll('#sensorLayer').html('');
+				data.rooms.forEach(function(room){
+					try{
+					        var second_name = room.name.split('.')[1].toUpperCase();			
+					        //console.log(room.name,second_name);					        													
+							var roomsvg = d3.select('#'+second_name);
+							if(!roomsvg.empty()){
+								var x = roomsvg.attr('x'), y = roomsvg.attr('y'), width = roomsvg.attr('width'), height = roomsvg.attr('height');
+								if(x !=null && y != null){
+									console.log('second_name  location ---------',d3.select('#'+second_name).attr('x'),d3.select('#'+second_name).attr('y'), width, height);
+									var posx = Number(x)+Number(width)/2, posy = Number(y)+Number(height)/2;	
+									$scope.floor_sensors.push({x:(posx),y:(posy),t:room.temperature,name:second_name, time:room.time,cood:[room.lng,room.lat]});								
+								}else {
+									var points = d3.select('#'+second_name).attr('points');
+									if(points !=null){
+										console.log('second_name  location points ',points);
+										var temps = [], posx = 0, posy = 0;
+										temps = points.split(' ');
+										console.log('..................................',temps);
+										temps.forEach(function(e){
+										   // console.log(e);
+											var arr = e.split(',');
+											posx += Number(arr[0]), posy +=Number(arr[1]);
+										})
+										posx = posx/temps.length , posy = posy/temps.length;
+										$scope.floor_sensors.push({x:(posx),y:(posy),t:room.temperature,name:second_name, time:room.time,cood:[room.lng,room.lat]});
+									}								
+								}
+							}							
+                            //d3.select('#'+second_name).attr("fill", "red");	                                               
+                       }catch(e){
+					        console.error('room ',room.name,e, room);
+						}						  				
+				})				       				
+				//$scope.rooms = data.rooms;	
+                // http://css.dzone.com/articles/render-geographic-information
+                return callback();
+		}
+		
+		$scope.loadBuildingIndoorData = function(){
+			$http.get('/sites/'+$scope.current_site+'/'+$scope.current_building+'/'+$scope.current_floor_index).success(function(data) {
+				console.log('loading sensors floor',$scope.current_site,$scope.current_building,$scope.current_floor_index,data);
+				$scope.parseFloorSensorData(data,function(){
+				    showFloorMap();				
+				});
+				$scope.loading = false;	               				
+			}).error(function(data, status, headers, config) {
+				$scope.loading = false;
+				console.error('error loading the page');
+			});		
 		}		
-					
-		$scope.loadMapData();
-        //$scope.initGrapth();		
-		//checkTimer = $interval($scope.checkSensorTimer, 1000*60);
+
+ /************************************************************************
+
+
+
+**************************************************************************/ 
+				
+		function showSiteMap(){
+		          
+				  var center = d3.geo.centroid(site_geojson);
+				  //console.log('showSiteMap   center  ',center);
+				  var scale  = 150;
+				  var offset = [site_width/2, site_height/2];
+				  siteprojection = d3.geo.mercator().scale(scale).center(center).translate(offset);
+
+				  // create the path
+				  var path = d3.geo.path().projection(siteprojection);
+
+				  var bounds  = path.bounds(site_geojson);
+				  var hscale  = scale*site_width  / (bounds[1][0] - bounds[0][0]);
+				  var vscale  = scale*site_height / (bounds[1][1] - bounds[0][1]);
+				  //console.log(bounds[1][0],bounds[0][0],bounds[1][1],bounds[0][1]);
+				  var scale   = (hscale < vscale) ? hscale : vscale;
+				  var offset  = [site_width - (bounds[0][0] + bounds[1][0])/2 + 40, site_height - (bounds[0][1] + bounds[1][1])/2];
+				  // new projection
+				  scale = scale * 0.9;
+				  siteprojection = d3.geo.mercator().center([center[0],center[1]]).scale(scale).translate(offset);					
+				  path = path.projection(siteprojection);
+				  console.log('--------------------------------now  ',center[0],center[1],'scale   ',scale, offset);
+				  // add a rectangle to see the bound of the svg	  
+						   
+				  siteLayer.selectAll('.site_rect').attr('width', site_width).attr('height', site_height).style('stroke', 'black').style('fill', 'none')
+				                                   .attr("transform", "translate(" + (site_offset_x ) + "," + (site_offset_y) + ")");
+				           
+				  var sites = siteLayer.selectAll("path").data(site_geojson.features)
+				  sites.enter().append("path")
+				    .attr("transform", "translate(" + (site_offset_x ) + "," + (site_offset_y) + ")")
+					.attr("id",function(d){return d.properties.name;})
+					.attr("d", path)
+					.style("fill", "black")
+					.style('fill-opacity',0.4)
+					.transition()
+					.delay(1000)
+					.ease("elastic")
+					.duration(800) 
+					.style("fill-opacity", function(d,i){
+						return 0.8;                                        
+					})
+					.style('fill', function(e,i) {
+						return "#090900" ;
+					});	
+				   sites.exit().remove();
+                    				   
+				   sites.on("mouseover",function(d){
+							d3.select(this)
+							  .transition()
+							  .duration(800)
+							  .ease("elastic").style('fill',function(e){
+									return '#620F3a'; 
+							  })
+                            							  
+						})                  
+					  .on("mouseout", function(d){
+							d3.select(this)
+							  .transition()
+							  .duration(1200)
+							  .ease("elastic").style('fill',function(e){
+									return "#090900"; 
+							  })
+							  
+					  })
+					  .on("click", function(d){
+							//console.log('click   ',d.properties.name);	
+                            d3.select('.selected-building')
+							   .attr('text-anchor', 'middle')
+			                   .text( function(d,i){   return d.properties.name;} )
+								.attr('transform', function (d,i){ return "translate( "+ i*40 +" , 1100)rotate(-45)";  })	
+								.style("fill-opacity", 0.7)
+								.style("fill",function(d,i){ 
+									return 'red';
+								})
+								.style("font-size","22px");	
+
+							$scope.current_building = d.properties.name;	
+                            var building_name = d.properties.name;
+                            $scope.findFloorMenu(building_name);
+					  })
+		}
+
+        $scope.findFloorMenu = function(building_name){
+			var found = false;
+			var floors = [];
+			for(var i=0; i<$scope.sites.length;i++){
+				for(var j=0;j<$scope.sites[i].buildings.length;j++){
+					if($scope.sites[i].buildings[j].name == building_name){
+						found = true;
+						console.log('found floors   ',$scope.sites[i].buildings[j].floors);
+						floors = $scope.sites[i].buildings[j].floors;
+						break;
+					}
+				}
+			}
+			$scope.selected_buildings = [];							
+			for(var i=0;i<floors.length;i++){
+			   //console.log(floors[i].name,floors[i].url);
+			   $scope.selected_buildings.push({name:floors[i].name,floor:i});
+			}                            
+			console.log($scope.selected_buildings);	
+			$scope.$apply();		
+		}		
+		
+		$scope.loadSiteMap = function(site){
+		    if(site_geojson == null){		
+				d3.json("/sites/map?site="+site, function(json) {
+					  // create a first guess for the projection
+					  console.log(json);
+					  site_geojson = json;  
+					  showSiteMap();
+				});
+            }
+			else showSiteMap();
+		}
+				
+		$scope.showBigOverview = function(){
+		    site_offset_x = 200, 
+			site_offset_y = 200,
+			site_width = 1000,
+            site_height  = 800,
+		    $scope.showSensorDataOnSiteMap();
+		    showSiteMap();		
+		}
+	
+		$scope.showSmallOverview =function(){
+		    site_offset_x = 0, 
+			site_offset_y = 300,
+			site_width = 500,
+            site_height  = 400,
+		    $scope.showSensorDataOnSiteMap();
+		    showSiteMap();				
+		}
+		
+		// ARM33G21BIRCH_1_		
+		$scope.parseIndoorSensorData = function(data, callback){
+			    console.log('loading ',data.rooms.length);
+				$scope.loading = true;				
+				data.rooms.forEach(function(room){
+					try{
+					        var second_name = room.name.split('.')[1].toUpperCase();			
+					        //console.log(room.name,second_name);					        						
+							if(room.lng !=null && room.lat !=null)
+							$scope.indoor_sensors.push({t:room.temperature,name:second_name, time:room.time,cood:[room.lng,room.lat], m_enabled:room.m_enabled, t_enabled:room.t_enabled, online:room.online });														
+                       }catch(e){
+					        console.error('room ',room.name,e, room);
+						}						  				
+				})				
+				$scope.rooms = data.rooms;	
+                // http://css.dzone.com/articles/render-geographic-information
+                return callback();
+                ////////////////////////////////////////////////////////////			
+		}		
+		
+		$scope.showSensorDataOnSiteMap = function(){
+			console.log('indoor_sensors    length   ',$scope.indoor_sensors.length);
+			var cell = siteLayer.selectAll(".cell")
+			.data($scope.indoor_sensors)
+			//.enter()
+			//.append("svg:g");
+			cell.enter().append("svg:circle")
+			      .style('fill','black')
+			      .attr("transform", "translate(" + (site_offset_x ) + "," + (site_offset_y) + ")")
+			      .attr('class',function(d){ return 'cell cell-'+d.name  ;})
+				  .attr({  //console.log(d.name,d.cood[0],d.cood[1], siteprojection(d.cood)[0], siteprojection(d.cood)[1]); 
+					 "cx":function(d, i) { return siteprojection(d.cood)[0];},
+					 "cy":function(d, i) { return siteprojection(d.cood)[1];},                                 								 
+					  "r":4								 
+				  })
+				  .transition()
+					.delay(1000)
+					.ease("elastic")
+					.duration(800) 
+				  .style('fill', function(e,i) {
+					  if(e.m_enabled && e.online)
+					  return "#0066FF";
+					  else 
+					  return "#1f3134"  
+				  });
+
+			cell.on("mouseover", function(d) {
+				console.log('on mouse over ',d.name,  (d3.event.pageX)/2,  (d3.event.pageY - 28)/2 , d.x/2, d.y/2);				
+				tooltip.transition()        
+					//.duration(200)      
+					.style("opacity", .9);      
+				tooltip.html("<br/>"+ d.name+"<br/>")  
+					.style("left", (d3.event.pageX) + "px")     
+					.style("top", (d3.event.pageY - 28) + "px");    
+				})                  
+			.on("mouseout", function(d) { 
+				console.log('on mouse out  ',d.name);				
+				tooltip.transition()        
+					.duration(500)      
+					.style("opacity", 0);
+			})		
+		}
+		
+		$scope.loadSiteIndoorData = function(){
+			$http.get('/sites/'+$scope.current_site).success(function(data) {
+				console.log('sensors ',data);
+				$scope.parseIndoorSensorData(data,function(){
+				    $scope.showSensorDataOnSiteMap();				
+				});
+				$scope.loading = false;	               				
+			}).error(function(data, status, headers, config) {
+				$scope.loading = false;
+				console.error('error loading the page');
+			});		
+		}
+		//////////////////////////////////////////////////////////
+		$scope.parseOutdoorSensorData = function(data, callback){
+			    console.log('loading ',data.length);
+				$scope.loading = true;				
+				data.forEach(function(sensor){
+					try{				        						
+							if(sensor.lng !=null && sensor.lat !=null)
+							$scope.indoor_sensors.push({t:sensor.temperature, time:sensor.time,cood:[sensor.lng,sensor.lat]});														
+                       }catch(e){
+					        console.error('sensor outdoor ',e);
+						}						  				
+				})				
+                return callback();
+		}	
+		
+		$scope.loadOutdoorData = function(){
+			$http.get('/arm/enlight').success(function(data) {
+				console.log('out door sensors .....',data);
+				$scope.parseOutdoorSensorData(data,function(){
+				    $scope.showSensorDataOnSiteMap();				
+				});
+				$scope.loading = false;	               				
+			}).error(function(data, status, headers, config) {
+				$scope.loading = false;
+				console.error('error loading the page');
+			});		
+		}		
+		
+		$scope.loadMenu = function(){
+		    d3.json("/meeting/sites/json", function(json) {
+				$scope.sites = _.filter(json,function(e){
+				    return e.name !=null;
+				})
+				console.log('load the menu  ',$scope.sites);			
+				$scope.loading = true;				
+				$scope.current_site = $scope.sites[1].name;
+				console.log($scope.current_site);
+
+                $scope.findFloorMenu($scope.current_building);				
+				$scope.loadSiteMap($scope.current_site);
+				$scope.loadSiteIndoorData();
+				//////////////////////////////////
+				$scope.loadFloorMap();
+				/////////////////////////////////
+				$scope.loadBuildingIndoorData();
+				$scope.loadOutdoorData();
+		    }) 
+		}
+		
+		$scope.findBuildingInfo = function(floor){
+		    console.log('findBuildingInfo    ',$scope.current_building);
+			$scope.current_floor_index = floor;
+			$scope.menu_open = false;
+			$scope.loading = true;
+			$scope.loadFloorMap();
+			$scope.loadBuildingIndoorData();	
+		}
+		
+		$scope.loadMenu();
 		$rootScope.$broadcast('mybroadcast');	
 						
 		$scope.$on('mybroadcast', function(service){
 			console.log('on my broadcast', service);
 		})
-				
-		$scope.checkSensorTimer = function(){
-			//console.log('check timer');
-		}
 
 		$scope.dateformat = function(date){
 			var date = new Date(date);	
@@ -734,25 +771,37 @@ var BuildingMap = function() {
 					if( new Date(room.time).getTime() < new Date(msg.time).getTime()){
 						room.time = msg.time;
 						room.available = true; 					
-						//console.log('turn red');
-						var name = msg.room.split('.')[1];						
-						d3.selectAll('motion-'+name)
+						var name = msg.room.split('.')[1].toUpperCase();
+                        console.log('turn red--------------------------------------------------------------',name);						
+						d3.selectAll('.motion-'+name)
 						    .transition()
-					        .delay(800)
-					        .ease("elastic")
-							.attr('fill',function(e){
+							.delay(3800).duration(1000).ease("elastic")
+					        
+							.style('fill',function(e){
 						        return "#670F38" ;
 					        })
-							
-					
+											
 						d3.selectAll('.motion-'+name)
 							.transition()
-							.delay(800)
-						    .ease("elastic").attr('fill',function(e){
+							.delay(800).duration(600).ease("elastic")
+						    .style('fill',function(e){
 								return "#9B1653";	 
-							}) 						
-						
-						
+							}) 
+                        
+						d3.selectAll('.cell-'+name)
+						    .transition()
+							.delay(800).duration(600).ease("elastic")
+							.style('fill',function(e){
+						        return "#670F38" ;
+					        })
+											
+						d3.selectAll('.cell-'+name)
+							.transition()
+							.delay(3800).duration(1000).ease("elastic")
+						    .style('fill',function(e){
+								return "#0066FF";	 
+							})
+                        							
 					 }else{
 						//console.log('room time',room.time.getTime());
 						//console.log('>', msg.time.getTime());
@@ -775,20 +824,6 @@ var BuildingMap = function() {
 			}
 		});
 
-/*
-    function render(){	
-	    console.log('render  ...');	      	
-	    legend.selectAll('text11').data(data.states).enter().append('text')
-	        .attr('class', 'legend-element')
-	        .attr('x',15)
-	        .attr('y',function(e,i){return dy*i})      
-	        .attr('dy', '.375em')	      
-		    .transition()
-            .duration(2500)
-            .delay(function(d, i) { return i * 400; })
-		    .text(function(e,i){  return e.desc;   });    	
-	}
-*/
 	$scope.$on('$destroy', function() {
         if (angular.isDefined(checkTimer)) {
             $interval.cancel(checkTimer);

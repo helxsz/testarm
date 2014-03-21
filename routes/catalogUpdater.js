@@ -160,8 +160,10 @@ function CatalogUpdater(){
                     var list = [];					
 					async.forEach(key_array, function(key,callback){
 						//console.log('---------------------------',key , results[key]);
-						results[key].url = key;
-						list.push(results[key]);
+						if(!_.isEmpty(results[key])){
+						    results[key].url = key;
+						    list.push(results[key]);
+						}
 						callback();
 					},function(err){
 					    catalogModel.updateCatalogResource(catalog.url,list,function(err,data){

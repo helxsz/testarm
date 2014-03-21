@@ -277,6 +277,16 @@ app.get('/meeting/site/:site',access_control.authUser,function(req,res,next){
     getFlatMenus(site, res);
 })
 
+app.get('/sites/map',access_control.authUser,function(req,res){
+    var site = req.query.site;
+	var sitepath = '';
+	if(site == 'Peterhouse Technology Park')
+	sitepath = 'maps/map2.geojson';
+    else if(site == 'Capital Park')
+	sitepath = 'maps/map3.geojson';
+    res.sendfile(sitepath);	
+})
+
 app.get('/buildings/map',access_control.authUser,function(req,res){
     var building = req.query.building, floor = req.query.floor;
 	console.log('building  map'.green,building,floor);
@@ -298,7 +308,7 @@ app.get('/buildings/map',access_control.authUser,function(req,res){
 	}
 	else if(building == 'ARM6' && floor == 0){
         mappath = 'maps/ARM6-GROUND-FLOOR.svg';	
-	}else if(building == 'ARM6' && floor == 0){
+	}else if(building == 'ARM6' && floor == 1){
         mappath = 'maps/ARM6-FIRST-FLOOR.svg';	
 	}
     res.sendfile(mappath);	

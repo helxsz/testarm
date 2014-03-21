@@ -178,8 +178,7 @@ var catalog_filter = function(){
 							results[parent_key][SAME_AS_SHORT] = hash[SAME_AS];
 						}else if( index == IS_SENSOR_TYPE){
 						    results[parent_key][IS_SENSOR_TYPE_SHORT] = hash[IS_SENSOR_TYPE];
-							category.sensor[hash[IS_SENSOR_TYPE]] = 1;
-							
+							category.sensor[hash[IS_SENSOR_TYPE]] = 1;							
 							results[parent_key][hash[IS_SENSOR_TYPE]] = key.split('?')[0];	
 						}
 						delete hash[index];
@@ -438,9 +437,21 @@ var catalog_filter = function(){
 				    //console.log( hash[SUPPORTS_QUERY], hash[SUPPORTS_MQTT] , hash[GEO_LAT], hash[GEO_LNG], hash[SAME_AS]);
 					var arr = key.split('/'), attribute = arr[arr.length-1].split('?')[0], parent_key = key.substring(0, key.indexOf(attribute)-1);                  
 					if(results[parent_key] ==null)  results[parent_key] = {};					
-					//results[parent_key][attribute] = key;							
+					//results[parent_key][attribute] = key;	
+
+					//console.log('how to get the attibute  ...  ', attribute);
+                    // manuual work					
 					if(attribute == 'online')
-					results[parent_key][attribute] = key.split('?')[0];					
+					results[parent_key][attribute] = key.split('?')[0];	
+                    else if(attribute == 'dolFinTemperature')
+					results[parent_key][attribute] = key.split('?')[0];	
+					else if(attribute == 'light'){
+					   //console.log('FIND THE LIGHT  ',key.split('?')[0]);
+					   results[parent_key][attribute] = key.split('?')[0];
+                    }					
+					// manual work
+					
+					
 		            for(var index in hash) {
 						//console.log(' .......................................  '.green, index, hash[index]);					
 						if( index == GEO_LAT){
@@ -459,7 +470,18 @@ var catalog_filter = function(){
 					}
                     category.profile= 'sensor' ;					
 				}else if(hash[CONTENT_TYPE] == IS_CATALOG){
-				    //console.log('not wanted, because it is catalog'.red, key);			
+				    console.log('not wanted, because it is catalog'.red, key, key.replace("cat","series"));
+                    var parent_key = key.replace("cat","series");	
+                    if(results[parent_key] ==null)  results[parent_key] = {};					
+		            for(var index in hash) {
+						//console.log(' .......................................  '.green, index, hash[index]);					
+						if( index == GEO_LAT){
+							results[parent_key][GEO_LAT_SHORT] = hash[GEO_LAT];
+						}else if( index ==  GEO_LNG ){
+							results[parent_key][GEO_LNG_SHORT] = hash[GEO_LNG];
+						}
+						delete hash[index];
+					}
 				}else if(hash[CONTENT_TYPE] == IS_APPLICATIONTYPE_ROOM){
 					//console.log( hash[SCHEMA_EVENT], hash[SCHEMA_ADDRESS] );
 					results[key] = {};
@@ -480,7 +502,7 @@ var catalog_filter = function(){
 						}					
 						delete  hash[index] ;						
 					}
-                    category.profile = 'room';  						
+                    category.profile = 'room';					
 				}
                 callback();				
 			 }, function(err) {      

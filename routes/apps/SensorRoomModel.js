@@ -246,7 +246,7 @@ function SensorRoomModel(){
 		var mul = redisClient.multi();
 		for(var i=0;i<items.length;i++){
 		   //mul.hgetall(items[i]);
-		   mul.hmget(items[i], 'event', 'time', 'temp','query:motion','query:temperature','online');  //,'name','diaplayname','temperature','time'
+		   mul.hmget(items[i], 'event', 'time', 'temp','query:motion','query:temperature','online','lat','long');  //,'name','diaplayname','temperature','time'
 		}
 		mul.exec(function (err, replies) {            
 			redisClient.quit();
@@ -271,10 +271,11 @@ function SensorRoomModel(){
 					    if(room[5]==1) online = true;
 						else if(room[5]==0) online = false;
 					}
+					var lat = room[6], lng = room[7];
 					if(m_enabled)
-					rooms.push({url:url,name:short_name,event:room[0],time:time,temperature:temp, m_enabled:m_enabled, t_enabled:t_enabled, sensor: room[3], online:online});
+					rooms.push({url:url,name:short_name,event:room[0],time:time,temperature:temp, m_enabled:m_enabled, t_enabled:t_enabled, sensor: room[3], online:online, lat:lat, lng:lng});
 					else 
-					rooms.push({url:url,name:short_name,event:room[0],time:time,temperature:temp, m_enabled:m_enabled, t_enabled:t_enabled, online: online});					
+					rooms.push({url:url,name:short_name,event:room[0],time:time,temperature:temp, m_enabled:m_enabled, t_enabled:t_enabled, online: online, lat:lat, lng:lng});					
 					//console.log('^^^^^^^^^^^^^^^'.green,url, m_enabled, t_enabled);
 				}
 							

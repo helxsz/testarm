@@ -58,8 +58,7 @@ appModel.searchApp('meetingapp',function(err,data){
         //appModel.findAppCatalogsByProfile('meetingapp','room',function(err,data){
 		appModel.searchCatalogProfiles('meetingapp','room',function(err,catalogs){
 		    console.log('??????????????????????? catalog app'.yellow,catalogs);
-			if(catalogs && catalogs.length>0){
-               
+			if(catalogs && catalogs.length>0){          
                 catalogModel.searchCatalogResource(catalogs[0].url,'https://protected-sands-2667.herokuapp.com/rooms/Room.UKCBox',function(err,data){
 					if(err) { console.log('getCatalogResoures   ---  get local catalog data '.red); }
 					else if(!data){  console.log(' no catalogs found');  }
@@ -372,6 +371,76 @@ app.get('/apps/:token',access_control.authUser, function(req,res,next){
 	else res.redirect('/');
 })
 
+
+function escapeRegExp(str) {
+   return str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
+}
+function replaceAll(find, replace, str) {
+   return str.replace(new RegExp(escapeRegExp(find), 'g'), replace);
+}
+
+// 
+app.get('/sites/:site/:building?/:floor?',access_control.authUser,function(req,res){
+    var building = req.params.building, floor = req.params.floor, site = req.params.site;
+	var query = {};
+	if(building !=null) query['building'] = building;
+	if(floor !=null) query['floor'] = floor;
+	if(site !=null) query['site'] = replaceAll("_"," ",site);;
+	var array = [];
+	if(query['site']==null){ return res.send(404,{error:'parameter wrong'})};
+
+	console.log('query site ',site,building, floor , query);
+	
+	roomModel.searchRooms(query,function(err,data){
+	    if(err) { console.log('search room error  ');res.send(500); }
+		else if(!data) {  console.log('search room empty' ); res.send(400); }
+		else if(data){
+		    //console.log('query  ',data);
+			for(var i=0;i<data.length;i++){
+				array.push(data[i].room)
+			}			
+			sensorRoomModel.getRoomData(array, function(err,rooms){
+				if(err) {  console.log('get room error '.red); res.send(500)}
+				else if(!rooms) { console.log('no data for room'.red); res.send(404);}
+				else{		   
+					//console.log('get rooms data ----------------------'.green, rooms);
+					var rooms_array = [];
+					_.map(rooms,function(room){
+						rooms_array.push(room.name);
+					})
+					
+					var now = new Date(), early_day = new Date(now.getFullYear(),now.getMonth(),now.getDate(),0,0,0);			
+					sensorRoomModel.getCachedEvents(rooms_array,early_day,function(err,data){				
+						if(err) res.send(500);
+						else{
+							//console.log(data);					
+							var hash = {};
+							_.map(data,function(room_event){
+								hash[room_event.url] = room_event.events;
+							})
+							
+							_.map(rooms,function(room){
+								room.events = hash[room.url];
+								 room.displayname = displayname(room.name);						
+							})
+							res.send(200,{rooms:rooms});
+							delete hash;
+							delete rooms_array;
+						}				
+					})            			
+				}
+			})			
+		}
+	})	
+	
+	var displayname = function(name){
+		var temp_name = name;
+		temp_name = temp_name.substring( temp_name.indexOf('UKC')+3,temp_name.length);
+		return temp_name;
+	}
+})
+
+
 app.get('/buildings/:building/:floor/cache',access_control.authUser,function(req,res){
     var building = req.params.building, floor = req.params.floor;
 	building = building || 'ARM1';
@@ -428,6 +497,8 @@ app.get('/buildings/:building/:floor/cache',access_control.authUser,function(req
 		return temp_name;
 	}
 })
+/**/
+
 
 /**********************************************   ********************************************************/
 
