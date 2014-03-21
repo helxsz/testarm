@@ -447,8 +447,17 @@ app.get('/buildings/:building/:floor/cache',access_control.authUser,function(req
 	floor = floor || 0;
 	//var rooms = simulation.buildings[name+" "+floor];
 	//console.log(rooms);
-	
+	console.log('get buildings and floor ',building, floor);
 	var array = [];
+	
+	function escapeRegExp(str) {
+	   return str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
+	}
+	function replaceAll(find, replace, str) {
+	   return str.replace(new RegExp(escapeRegExp(find), 'g'), replace);
+	}	
+	
+	var building = replaceAll("_"," ",building);
 	
 	roomModel.searchRooms({building:building,floor:floor},function(err,data){
 	    if(err) res.send(500);

@@ -148,7 +148,7 @@ function bootApp(app, file) {
 
 function bootRealTimeServices(catalogs){
     catalogs.forEach(function(catalog){
-        if( catalog.url=='https://geras.1248.io/cat/armmeeting')
+        if( catalog.url=='https://geras.1248.io/cat/armmeeting' || catalog.url=='https://geras.1248.io/cat/enlight')
         serviceBuilder.buildRTService(catalog.url, SensMLHandler);	
 	})
 }

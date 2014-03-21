@@ -185,8 +185,9 @@ function getMenus(site, res){
 	})
 }
 
-function getFlatMenus(site, res){
+function getFlatMenus(site, res, json){
     //site:site
+	if(json == null) json = false;
 	roomModel.searchRooms({},function(err,data){
 	    if(err) res.send(500);
 		else if(!data) res.send(400);
@@ -197,6 +198,7 @@ function getFlatMenus(site, res){
 			   delete room._id;
 			})
 			*/
+			console.log();
 			var names = ['Ground floor','First floor','Second floor','Third floor','Fourth floor','Fifth floor','Sixth floor','Seventh floor','Eighth floor','Nighth floor'];
 			var locals = {};
 			locals.data = getSiteRooms(data);
@@ -213,7 +215,9 @@ function getFlatMenus(site, res){
 					   }									   
 			   }
 			}						
-            //res.send(200,getSiteRooms(data));
+			if(json)
+            res.send(200,getSiteRooms(data));
+			else
 			res.render('meeting3.html', locals);
 		}
 	})
@@ -261,6 +265,14 @@ app.get('/meeting/site/:site/building/:building/floor/:floor',access_control.aut
 	//res.send(200,getSiteRooms(data));
 })
 
+app.get('/meeting/site/:site/building/:building/floor/:floor/test2',access_control.authUser,function(req,res,next){
+    var site = req.params.site, building = req.params.building, floor = req.params.floor;
+	var  site = replaceAll("_"," ",site);
+	console.log("site:"+site+":"+building+":*   floor");
+    getFlatMenus(site, res,true);
+	//res.send(200,getSiteRooms(data));
+})
+
 app.get('/meeting/site/:site/building/:building',access_control.authUser,function(req,res,next){
     var site = req.params.site, building = req.params.building;	
 	var site = replaceAll("_"," ",site);
@@ -281,35 +293,43 @@ app.get('/sites/map',access_control.authUser,function(req,res){
     var site = req.query.site;
 	var sitepath = '';
 	if(site == 'Peterhouse Technology Park')
-	sitepath = 'maps/map2.geojson';
+	sitepath = 'public/maps/map2.geojson';
     else if(site == 'Capital Park')
-	sitepath = 'maps/map3.geojson';
+	sitepath = 'public/maps/map3.geojson';
     res.sendfile(sitepath);	
 })
 
 app.get('/buildings/map',access_control.authUser,function(req,res){
     var building = req.query.building, floor = req.query.floor;
-	console.log('building  map'.green,building,floor);
+	console.log('building  map'.green,building);
 	var mappath = 'maps/ARM-MAP_Base.svg';
 	if(building == 'ARM1' && floor == 0){
-        mappath = 'maps/ARM1-FIRST-FLOOR.svg';
+        //mappath = 'maps/ARM1-GROUND-FLOOR.svg';
+		mappath = 'public/maps/ARM1-GROUND-FLOOR.svg';
 	}else if(building == 'ARM1' && floor == 1){
-        mappath = 'maps/ARM1-FIRST-FLOOR.svg';	
+        //mappath = 'maps/ARM1-FIRST-FLOOR.svg';
+        mappath = 'public/maps/ARM1-FIRST-FLOOR.svg';		
 	}
 	else if(building == 'ARM2' && floor == 0){
-        mappath = 'maps/ARM2-GROUND-FLOOR.svg';	
+        //mappath = 'maps/ARM2-GROUND-FLOOR.svg';
+         mappath = 'public/maps/ARM2-GROUND-FLOOR.svg';		
 	}else if(building == 'ARM2' && floor == 1){
-        mappath = 'maps/ARM2-FIRST-FLOOR.svg';	
+        //mappath = 'maps/ARM2-FIRST-FLOOR.svg';
+        mappath = 'public/maps/ARM2-FIRST-FLOOR.svg'; 		
 	}
 	else if(building == 'ARM3' && floor == 0){
-        mappath = 'maps/ARM3-GROUND-FLOOR.svg';	
+        //mappath = 'maps/ARM3-GROUND-FLOOR.svg';
+         mappath = 'public/maps/ARM3-GROUND-FLOOR.svg';		
 	}else if(building == 'ARM3' && floor == 1){
-        mappath = 'maps/ARM3-FIRST-FLOOR.svg';	
+        //mappath = 'maps/ARM3-FIRST-FLOOR.svg';	
+        mappath = 'public/maps/ARM3-FIRST-FLOOR.svg';		
 	}
 	else if(building == 'ARM6' && floor == 0){
-        mappath = 'maps/ARM6-GROUND-FLOOR.svg';	
+        //mappath = 'maps/ARM6-GROUND-FLOOR.svg';
+		mappath = 'public/maps/ARM6-GROUND-FLOOR.svg';
 	}else if(building == 'ARM6' && floor == 1){
-        mappath = 'maps/ARM6-FIRST-FLOOR.svg';	
+        //mappath = 'maps/ARM6-FIRST-FLOOR.svg';
+        mappath = 'public/maps/ARM6-FIRST-FLOOR.svg';		
 	}
     res.sendfile(mappath);	
 })

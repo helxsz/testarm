@@ -371,6 +371,7 @@
 		
 		$scope.loadRecent = function(){
 			$scope.loading = true;
+			console.log('-------------------------------------------   load recent  ','/buildings/'+$scope.current_building+'/'+$scope.current_floor_index+'/cache');
 			$http.get('/buildings/'+$scope.current_building+'/'+$scope.current_floor_index+'/cache').success(function(data) {
 				$scope.loadRoomData(data);    	
 				$scope.loading = false;			
@@ -410,7 +411,7 @@
 			$scope.current_floor = 'SECOND';
 			
 			$http.get(href+'/cache').success(function(data) {
-
+                 //console.log('---------------------------------------------get data 0------------');
             try{
 				    history.pushState(null, null, '/meeting/site/'+ $scope.current_site +'/building/'+$scope.current_building +'/floor/'+$scope.current_floor_index);
 			}catch(e){}	

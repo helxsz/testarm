@@ -169,12 +169,20 @@ function LightSensorModel(){
 
 function EnlightingMQTTHandler(){  
 	this.handleMessage = handleMessage;
+	var caches = [];
+	var lastUpdateTime;
 	function handleMessage(pattern, channel, message){	    
 		try{
 		    var raw = JSON.parse(message);
 		    var msg = raw.e[0];  
-		    var url = msg.n, value = msg.v, time = msg.t;
-            //winston.debug("EnlightingMQTTHandler handle message  "+url+"   "+value+"   "+time);		   
+		    var url = msg.n, value = msg.v, time = new Date(msg.t*1000);   //+value+"   "+time+"   "
+            
+			var attr = url.split('/');
+			
+			var attribute = attr[attr.length-1]; var id = attr[attr.length-2];
+			winston.info("EnlightingMQTTHandler handle message  "+url+"   "+ attribute + id);
+			//if(attribute == 'light' || attribute == 'dolFinTemperature')
+            //caches.push();
 		}catch(e){
 			winston.debug('some thing wrong   ......'.red+e);   
 		}

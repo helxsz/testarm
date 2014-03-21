@@ -15,20 +15,20 @@ http://stackoverflow.com/questions/20987535/plotting-points-on-a-map-with-d3
 	<meta name="description" content="ARM Dashboard Sensor Monitoring Project">
     <meta name="viewport" content="width=device-width, maximum-scale=1, minimum-scale=1, user-scalable=0, initial-scale=1">
     
-    <!-- Gridset CSS   <link rel="stylesheet" href="css/gridset.css"> -->
-    <!--[if (!IE) | (gt IE 9)]><!--><!--<![endif]-->
+    <link rel="stylesheet" href="/css/normalize.min.css">
+    <!-- Gridset CSS -->
+    <!--[if (!IE) | (gt IE 9)]><!--><link rel="stylesheet" href="/css/gridset.css"><!--<![endif]-->
     <!--[if IE 9]><link rel="stylesheet" href="./css/gridset-ie-9.css" /><![endif]-->
-    <!--[if lte IE 8]><link rel="stylesheet" href="./css/gridset-ie-lte8.css" /><![endif]       -->
+    <!--[if lte IE 8]><link rel="stylesheet" href="./css/gridset-ie-lte8.css" /><![endif]-->
     <link rel="stylesheet" href="css/mfglabs_iconset.css">
     <link rel="stylesheet" href="css/menu-component.css">
-    <link rel="stylesheet" href="css/normalize.min.css">
     <link rel="stylesheet" href="css/main.css">
 
 	<script src="js/vendor/underscore-min.js"></script>			
     <script src="/assets/js/socket.io.js"></script>
     <script src="/assets/js/d3.v3.min.js"></script>
 	<script src="/assets/js/angular.min.js"></script>
-	<script src="/js/underscore-min.js"></script>
+	<script src="js/vendor/underscore-min.js"></script>
     <script src="js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
 </head>
 <body>
@@ -117,7 +117,7 @@ http://stackoverflow.com/questions/20987535/plotting-points-on-a-map-with-d3
                 <div class="scroller-inner">
                 <!-- start .scroller's -->
                 
-                <div class="wrapper" style="width: 1590px">
+                <div class="wrapper">
                 <!-- START .wrapper -->
 
                     <header id="banner" class="d1-d9 t1-t4 m-all clearfix" >
@@ -147,6 +147,7 @@ http://stackoverflow.com/questions/20987535/plotting-points-on-a-map-with-d3
 
                         <article id="app-description" class="t-hide m-hide" role="article">
                           <p>Please email any feedback to <a href="mailto:arm@redninja.co.uk" title="Email Feedback">arm@redninja.co.uk</a>.</p>
+                          <h3>Temporary Menu</h3>
                           <!-- <p><a href="#popup-key" ng-click="openkey();" title="View Key" class="button">View Key</a></p> -->
                         </article>   
                     
@@ -154,58 +155,61 @@ http://stackoverflow.com/questions/20987535/plotting-points-on-a-map-with-d3
                     </article>
 
                     <section id="app-heat" class="app-content clearfix">				
-	                <!-- START #app-energy -->
+	                <!-- START #app-heat -->
 
-	                	<aside id="app-description" class="d1-d3 t1-t3 m-all">
-                            <h2 ng-click="showBigOverview()"> big </h2>
-							<h2 ng-click="showSmallOverview()"> small </h2>
-	                        <ul>
-	                        	<li>22 +</li>
-	                        	<li>19 - 21</li>
-	                        	<li>- 18</li>
-	                        </ul>
-							
-							<ul ng-repeat='selected_building in selected_buildings'> 
-							    <li ng-click="findBuildingInfo(selected_building.floor)">
-                                    {{selected_building.name}}	
-                                    {{selected_building.floor}}										
-								</li>
-							</ul>
-							
-							<section >
-								<div class="content" >
-									<div id="stations">
-										<div id="map-wrapper"><svg class="map"></svg> <div id="map"> </div></div>
-									</div>			
-								</div>
-							</section>
-	                    </aside>
+	                	<section>
+
+	                		<div class="d1-d4 t1-t3 m-all">
+	                            <!--<h2 ng-click="showBigOverview()"> big </h2>
+								<h2 ng-click="showSmallOverview()"> small </h2>
+		                        <ul>
+		                        	<li>22 +</li>
+		                        	<li>19 - 21</li>
+		                        	<li>- 18</li>
+		                        </ul>
+
+								<div>{{currentSite}}</div>
+								<div>{{currentBuilding}}</div>
+								<div>{{currentFloor}}</div>
+		                    -->
+								
+								<ul ng-repeat='selected_building in selected_buildings'> 
+								    <li ng-click="findBuildingInfo(selected_building.floor)">
+	                                    {{selected_building.name}} {{selected_building.floor}}
+									</li>
+								</ul>
+							</div>
+
+							<div class="d8-d12 t5-t8 m-all">
+								<table id="table">				 
+									<tr>
+										<th>Room</th>
+										<th>Temperature</th>
+									</tr>							
+									<tr class="room" ng-repeat="sensor in floor_sensors   " ng-cloak  ng-mouseover="highlightRoom($index)">
+										<td><span>{{sensor.name}}</span></td>
+		                            	<td><span>{{sensor.temperature}}</span></td> 								
+									</tr>
+								</table>	
+
+							</div>
+
+	                    </section>
 						
-						<div> {{currentSite}} </div>
-						<div> {{currentBuilding}} </div>
-						<div> {{currentFloor}} </div>
-						
-						<table id="table">
-						    <!--
-							<tr>
-								<th><span></span>Rank</th>
-								<th><span></span>ID</th>
-								<th><span></span>USAGE</th>
-								<th><span></span>SAVINGS</th>
-								<th><span></span>CHANGE</th>
-								<th></th>
-							</tr>
-							-->
-							<tr class="room" ng-repeat="sensor in floor_sensors   " ng-cloak id="" ng-click="$event.stopPropagation();"> 
-								<td> {{sensor.name}}	</td> 	
-							</tr>
-						</table>						
-						
-					<!-- END #app-energy -->
+					<!-- END #app-heat -->
 					</section>
 
                 <!-- END .wrapper -->
                 </div>
+
+				<section class="map-content">
+					<div class="content" >
+						<div id="stations">
+							<div id="map-wrapper">
+								<svg class="map"></svg> <div id="map"></div></div>
+						</div>			
+					</div>
+				</section>
                 
 
 				<footer id="footer" class="clearfix">
@@ -282,14 +286,14 @@ SensormappingApp.controller('mappingListCtrl', function ($rootScope,$scope, $htt
 	siteLayer.append("rect").attr('class','site_rect');
 						   
 	/******************  tooltip ******************************/
-	var tooltip = d3.select("body").append("div").attr("class", "tooltip").style("opacity", 0);
+	var tooltip = d3.select("body").append("div").attr("class", "hint hint--top").style("opacity", 0);
 	                               
 	    var floor_offset_y = 300;
 		var floor_offset_x = 800;
 		$scope.floor_sensors = []; 		
 		$scope.indoor_sensors = [];		
 		
-		$scope.loadFloorMap =function(){					
+		$scope.loadFloorMap =function(callback){					
 				d3.xml("/buildings/map?building="+$scope.current_building+'&floor='+$scope.current_floor_index, "image/svg+xml", function(xml) {
 					var importedNode = document.importNode(xml.documentElement, true);		   
 					document.getElementById('floor').appendChild(importedNode.cloneNode(true));					
@@ -300,7 +304,9 @@ SensormappingApp.controller('mappingListCtrl', function ($rootScope,$scope, $htt
 					    .transition()
 					    .ease("elastic")
 				        .duration(800)
-						.attr("transform","scale(0.5) rotate(-5) translate("+floor_offset_x+","+floor_offset_y+")")					
+						.attr("transform","scale(0.5) rotate(-5) translate("+floor_offset_x+","+floor_offset_y+")")	;
+
+                    if(callback) callback();						
 				});				
 		}
 		  		
@@ -310,7 +316,7 @@ SensormappingApp.controller('mappingListCtrl', function ($rootScope,$scope, $htt
 		var site_width  = 500;
         var site_height = 400;
 		var site_offset_x = 0, site_offset_y = 300;
-		
+				
 		function showFloorMap(){
 		        d3.selectAll('#sensorLayer').html('');
 		        console.log(' ------------------------------------------------- floor sensors',$scope.floor_sensors.length);
@@ -334,7 +340,7 @@ SensormappingApp.controller('mappingListCtrl', function ($rootScope,$scope, $htt
 					.ease("elastic")
 				    .duration(800) 
 					.attr('r',function(e){
-						return e.t *2
+						return e.temperature *2
 					})
 					.style("fill-opacity", function(d,i){
 				        return 0.8;                                        
@@ -353,21 +359,23 @@ SensormappingApp.controller('mappingListCtrl', function ($rootScope,$scope, $htt
 						.ease("elastic")
 						.duration(800) 
 						.attr('r',function(e){
-							return Number(e.t) -4
+							return Number(e.temperature) -4
 						})
 						.style('fill', function(e,i) {
-							if(e.t<=15) 
+							if(e.temperature<=15) 
 							return "#670F38" ;
-							else if(e.t>=16 && e.t<=22)
+							else if( e.temperature<=22)
 							return "#9B1653";
-							else if(e.t> 23)
+							else if(e.temperature> 23)
 							return "#CE1D6F";
+							else
+							return '#CE1D6F';
 						})
 						.style("fill-opacity", function(d,i){
 							return 0.8;                                        
 						});	
 				
-				var label= 	placegroup.append('text'); 
+				/*var label= 	placegroup.append('text'); 
                 label.attr('class','label')	//console.log('label  ',e.x,e.y);				
 					.attr('x',function(e,i){   return offset_x +e.x/2+20})
 					.attr('y',function(e,i){ return offset_y+e.y/2})
@@ -377,7 +385,7 @@ SensormappingApp.controller('mappingListCtrl', function ($rootScope,$scope, $htt
 					.ease("elastic")
 				    .duration(800) 
                     .attr("dy", ".55em")
-					.text(function(d) { return d.name; });;	
+					.text(function(d) { return d.name; });*/	
 				// http://stackoverflow.com/questions/17494930/d3-onmouseover-event-does-not-work-with-nested-svg-elements
                 // http://stackoverflow.com/questions/20465096/d3-mouseover-and-mouseout-event-not-working-properly
                 // http://scottcheng.github.io/bj-air-vis/  http://shimz.me/example/d3js/geo_example2/geo3/index.html
@@ -386,7 +394,7 @@ SensormappingApp.controller('mappingListCtrl', function ($rootScope,$scope, $htt
 				          .on("mouseout", onMouseOut)
 						  //.on("mousemove",onMouseMove);
 				function onMouseMove(d){
-                    tooltip.html("<br/>"+ d.name+"<br/>")  
+                    tooltip.html(d.name)  
 						.style("left", (d3.event.pageX) + "px")     
 						.style("top", (d3.event.pageY - 28) + "px");				
 				}		  
@@ -394,7 +402,8 @@ SensormappingApp.controller('mappingListCtrl', function ($rootScope,$scope, $htt
                     console.log('on mouse over ',d.name,  (d3.event.pageX)/2,  (d3.event.pageY - 28)/2 , d.x/2, d.y/2);				
 					tooltip.transition()        
 						.style("opacity", .9);      
-					tooltip.html("<br/>"+ d.name+"<br/>")  
+					tooltip.html(d.name)
+					    .attr('data-hint',d.name)  
 						.style("left", (d3.event.pageX) + "px")     
 						.style("top", (d3.event.pageY - 28) + "px");    
 				}
@@ -423,7 +432,7 @@ SensormappingApp.controller('mappingListCtrl', function ($rootScope,$scope, $htt
 								if(x !=null && y != null){
 									console.log('second_name  location ---------',d3.select('#'+second_name).attr('x'),d3.select('#'+second_name).attr('y'), width, height);
 									var posx = Number(x)+Number(width)/2, posy = Number(y)+Number(height)/2;	
-									$scope.floor_sensors.push({x:(posx),y:(posy),t:room.temperature,name:second_name, time:room.time,cood:[room.lng,room.lat]});								
+									$scope.floor_sensors.push({x:(posx),y:(posy),temperature:room.temperature,name:second_name, time:room.time,cood:[room.lng,room.lat]});								
 								}else {
 									var points = d3.select('#'+second_name).attr('points');
 									if(points !=null){
@@ -437,7 +446,7 @@ SensormappingApp.controller('mappingListCtrl', function ($rootScope,$scope, $htt
 											posx += Number(arr[0]), posy +=Number(arr[1]);
 										})
 										posx = posx/temps.length , posy = posy/temps.length;
-										$scope.floor_sensors.push({x:(posx),y:(posy),t:room.temperature,name:second_name, time:room.time,cood:[room.lng,room.lat]});
+										$scope.floor_sensors.push({x:(posx),y:(posy),temperature:room.temperature,name:second_name, time:room.time,cood:[room.lng,room.lat]});
 									}								
 								}
 							}							
@@ -496,11 +505,13 @@ SensormappingApp.controller('mappingListCtrl', function ($rootScope,$scope, $htt
 						   
 				  siteLayer.selectAll('.site_rect').attr('width', site_width).attr('height', site_height).style('stroke', 'black').style('fill', 'none')
 				                                   .attr("transform", "translate(" + (site_offset_x ) + "," + (site_offset_y) + ")");
-				           
+				  
+				  
 				  var sites = siteLayer.selectAll("path").data(site_geojson.features)
 				  sites.enter().append("path")
 				    .attr("transform", "translate(" + (site_offset_x ) + "," + (site_offset_y) + ")")
 					.attr("id",function(d){return d.properties.name;})
+					.attr('class','site')
 					.attr("d", path)
 					.style("fill", "black")
 					.style('fill-opacity',0.4)
@@ -512,7 +523,11 @@ SensormappingApp.controller('mappingListCtrl', function ($rootScope,$scope, $htt
 						return 0.8;                                        
 					})
 					.style('fill', function(e,i) {
-						return "#090900" ;
+					     console.log('fill in the building   ',$scope.current_building, e.properties.name);  // 
+					    if($scope.current_building == e.properties.name)
+						return "#5C1F3D";
+						else
+						return "#090900";
 					});	
 				   sites.exit().remove();
                     				   
@@ -530,9 +545,11 @@ SensormappingApp.controller('mappingListCtrl', function ($rootScope,$scope, $htt
 							  .transition()
 							  .duration(1200)
 							  .ease("elastic").style('fill',function(e){
+									if($scope.current_building == e.properties.name)
+									return "#5C1F3D";
+									else
 									return "#090900"; 
-							  })
-							  
+							  })							  
 					  })
 					  .on("click", function(d){
 							//console.log('click   ',d.properties.name);	
@@ -575,10 +592,11 @@ SensormappingApp.controller('mappingListCtrl', function ($rootScope,$scope, $htt
 		}		
 		
 		$scope.loadSiteMap = function(site){
-		    if(site_geojson == null){		
+		    if(site_geojson == null){
+                console.log('loadsitemap  ',"/sites/map?site="+site);			
 				d3.json("/sites/map?site="+site, function(json) {
 					  // create a first guess for the projection
-					  console.log(json);
+					  console.log('finish loading site map, geo json ',json);
 					  site_geojson = json;  
 					  showSiteMap();
 				});
@@ -644,10 +662,14 @@ SensormappingApp.controller('mappingListCtrl', function ($rootScope,$scope, $htt
 					.ease("elastic")
 					.duration(800) 
 				  .style('fill', function(e,i) {
-					  if(e.m_enabled && e.online)
-					  return "#0066FF";
-					  else 
-					  return "#1f3134"  
+				      if(e.outdoor) return '#2599c1';
+					  else{
+						  if(e.m_enabled && e.online)
+						  return "#0066FF";
+						  else 
+						  return "#1f3134"  
+					  }
+					  
 				  });
 
 			cell.on("mouseover", function(d) {
@@ -686,7 +708,7 @@ SensormappingApp.controller('mappingListCtrl', function ($rootScope,$scope, $htt
 				data.forEach(function(sensor){
 					try{				        						
 							if(sensor.lng !=null && sensor.lat !=null)
-							$scope.indoor_sensors.push({t:sensor.temperature, time:sensor.time,cood:[sensor.lng,sensor.lat]});														
+							$scope.indoor_sensors.push({t:sensor.temperature, time:sensor.time,cood:[sensor.lng,sensor.lat],outdoor:true});														
                        }catch(e){
 					        console.error('sensor outdoor ',e);
 						}						  				
@@ -713,18 +735,26 @@ SensormappingApp.controller('mappingListCtrl', function ($rootScope,$scope, $htt
 				    return e.name !=null;
 				})
 				console.log('load the menu  ',$scope.sites);			
-				$scope.loading = true;				
-				$scope.current_site = $scope.sites[1].name;
+				$scope.loading = true;
+                //////////////////////
+				var j = 0;
+                for(var i=0;i<$scope.sites.length ;i++){
+				    if($scope.sites[i].name == 'Peterhouse Technology Park'){ 
+					    j= i;
+						break;
+					}
+				}
+				///////////////////////
+				$scope.current_site = $scope.sites[j].name;
 				console.log($scope.current_site);
 
                 $scope.findFloorMenu($scope.current_building);				
 				$scope.loadSiteMap($scope.current_site);
 				$scope.loadSiteIndoorData();
-				//////////////////////////////////
-				$scope.loadFloorMap();
-				/////////////////////////////////
-				$scope.loadBuildingIndoorData();
 				$scope.loadOutdoorData();
+				//////////////////////////////////
+				$scope.loadFloorMap($scope.loadBuildingIndoorData());
+								
 		    }) 
 		}
 		
@@ -733,8 +763,27 @@ SensormappingApp.controller('mappingListCtrl', function ($rootScope,$scope, $htt
 			$scope.current_floor_index = floor;
 			$scope.menu_open = false;
 			$scope.loading = true;
-			$scope.loadFloorMap();
-			$scope.loadBuildingIndoorData();	
+			$scope.loadFloorMap($scope.loadBuildingIndoorData());
+            siteLayer.selectAll('.site').style('fill',"#090900");
+		    siteLayer.selectAll('#'+$scope.current_building).style('fill',"#5C1F3D");			
+		}
+		
+		$scope.highlightRoom = function(index){
+		    console.log('highlight room  ',$scope.floor_sensors[index].name, index);
+			var select_name = $scope.floor_sensors[index].name;
+            $scope.floor_sensors.forEach(function(e){
+			    //console.log('fuck  fuck ',e.name, e.temperature);
+				sensorLayer.selectAll('.place-'+e.name).transition()
+							.ease("elastic")
+							.duration(800) 
+							.attr('r',function(e){
+							    console.log('hightliver  ',e.name, e.temperature);
+							    if(select_name == e.name)
+								return e.temperature * 3;
+								else
+								return e.temperature *2
+							})			
+			})
 		}
 		
 		$scope.loadMenu();
