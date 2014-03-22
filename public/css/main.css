@@ -193,11 +193,20 @@
             .svg .energyDial {background: url('../img/svg/Energy-Dial.svg') no-repeat 50% 50%; }
 
         /* HEATMAP */
-        .tooltip {
-            background-color: rgb(255, 192, 203);
-            position: absolute;
+        .map-content {
+            text-align: center;
+            margin: 0 auto; padding-left: 3em;
+            left: 0; right: 0;
         }
 
+        .heatmap-sidemenu {
+            width: 22em; margin-top: 3em;
+            position: absolute; right: 3em; 
+            background-color: rgba(9, 38, 48, 0.6);
+                  background: rgba(9, 38, 48, 0.6);
+        } .heatmap-sidemenu .accordian {
+            display: none; margin-top: 0; padding: 1.625em; padding-top: 0;
+        } .heatmap-sidemenu .active {display: block;}
 
 
     /* LOADING */
@@ -274,6 +283,9 @@
                 text-align: center; margin-top:3.5em;
             }
             .energy section aside h2 {margin-top: 0.8125em;}
+            .heatmap-sidemenu h3 {font-size: 1.25em; color: #134D61; margin-bottom: 0;}
+                .heatmap-sidemenu a {padding: 1.625em;}
+                .heatmap-sidemenu a:hover h3 {color: white;}   
         h4 {font-size: 1em; line-height: 26px;} 
         h5 {font-size: 1em; line-height: 26px;} 
 
@@ -312,6 +324,14 @@
                 margin-left: -44px;
                 margin-bottom: -90px;
             }
+            .heatmap .app-content ul li {
+                margin-left: 0; margin-bottom: 1em; 
+                background-color: #092630;
+                padding: 0.5em 1em; cursor: pointer;
+            } 
+                .heatmap .app-content ul li:hover {background-color: #134D61;}
+            
+            .heatmap-sidemenu ul {display: inline;}
             
     
     /*  Navigation  */
@@ -350,6 +370,141 @@
 
     .alignRight {text-align: right;}
     .alignCentre {text-align: center;}
+
+
+    /* TOOLTIP */
+    /**
+     * HINT- A CSS tooltip library
+     */
+
+    .hint { position: absolute; display: block; }
+
+    .hint:before, 
+    .hint:after {
+        position: absolute;
+        opacity: 0;
+        z-index: 1000000;
+        -webkit-transition: 0.3s ease;
+        -moz-transition: 0.3s ease;
+        pointer-events: none;
+    }
+
+            
+    .hint:hover:before, 
+    .hint:hover:after {
+        opacity: 1;
+    }
+
+    .hint:before {
+        content: '';
+        position: absolute;
+        background: transparent;
+        border: 6px solid transparent;
+        position: absolute;
+    }
+            
+    .hint:after {
+        content: attr(data-hint);
+        background: rgba(0, 0, 0, 0.8);
+                color: white;
+                padding: 8px 10px;
+                font-size: 12px;
+        white-space: nowrap;
+        box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.3);
+    }
+
+
+    /* top */
+
+    .hint--top:before {
+        bottom: 100%;
+        left: 50%;
+        margin: 0 0 -18px 0;
+        border-top-color: rgba(0, 0, 0, 0.8);
+    }
+            
+    .hint--top:after {
+        bottom: 100%;
+        left: 50%;
+        margin: 0 0 -6px -10px;
+    }
+
+    .hint--top:hover:before {
+        margin-bottom: -10px;
+    }
+
+    .hint--top:hover:after {
+        margin-bottom: 2px;
+    }
+
+    /* default: bottom */
+
+    .hint--bottom:before {
+        top: 100%;
+        left: 50%;
+        margin: -14px 0 0 0;
+        border-bottom-color: rgba(0, 0, 0, 0.8);
+    }
+            
+    .hint--bottom:after {
+        top: 100%;
+        left: 50%;
+        margin: -2px 0 0 -10px;
+    }
+
+    .hint--bottom:hover:before {
+        margin-top: -6px;
+    }
+
+    .hint--bottom:hover:after {
+        margin-top: 6px;
+    }
+
+    /* right */
+
+    .hint--right:before {
+        left: 100%;
+        bottom: 50%;
+        margin: 0 0 -4px -8px;
+        border-right-color: rgba(0,0,0,0.8);
+    }
+            
+    .hint--right:after {
+        left: 100%;
+        bottom: 50%;
+        margin: 0 0 -13px 4px;
+    }
+
+    .hint--right:hover:before {
+        margin: 0 0 -4px -0;
+    }
+
+    .hint--right:hover:after {
+        margin: 0 0 -13px 12px;
+    }
+
+    /* left */
+
+    .hint--left:before {
+        right: 100%;
+        bottom: 50%;
+        margin: 0 -8px -4px 0;
+        border-left-color: rgba(0,0,0,0.8);
+    }
+            
+    .hint--left:after {
+        right: 100%;
+        bottom: 50%;
+        margin: 0 4px -13px 0;
+    }
+
+    .hint--left:hover:before {
+        margin: 0 0 -4px 0;
+    }
+
+    .hint--left:hover:after {
+        margin: 0 12px -13px 0;
+    }
 
 
 /*  ==========================================================================
@@ -429,6 +584,8 @@
 
     /* Icons */
 
+    .heatmap-sidemenu h3 i {float: right;}
+
     /* Sidebar */
 
 
@@ -447,6 +604,7 @@
     }
 
     .mp-menu h2 {line-height: 1em;}
+
 
 /*  ==========================================================================
     7. Hexagons
@@ -1018,6 +1176,21 @@
             .tg-table-dark tr:hover { color: #FFF; background-color: #071D24; }
                 .tg-table-dark tr:first-child:hover,
                 .tg-table-dark tr:nth-child(2):hover { color: #FFF; background-color: transparent; }
+
+
+    /* HEATMAP TABLE */
+    .heatmap #table {
+        width: 100%; margin-bottom: 0;
+    }
+    .heatmap #table th {text-align: left; color: #134D61;}
+    .heatmap #table tr {width: 48%; padding: 0.5em 1em; cursor: pointer;} 
+        .heatmap #table tr:hover span {color: #CE1D6F;}
+    .heatmap #table tr td:first-child {font-weight: bold;} 
+    .heatmap-sidemenu a {display: block; text-decoration: none; border: none;} 
+        .heatmap-sidemenu a:hover {color: white; background-color: #134D61;} 
+    .heatmap #table tr td:after {content: "\00B0";}  
+    .heatmap #table tr td:first-child:after {content: none;}  
+
 
     
     /* Typography */

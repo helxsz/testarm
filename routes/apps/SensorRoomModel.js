@@ -331,7 +331,7 @@ function SensorRoomModel(){
 	   return array[array.length-1];
 	}
 	
-	function cacheEvents( _callback){
+	function cacheEvents(buildingService, _callback){
 		var redisClient;	
 		try{ 
 			redisClient = redis.createClient(redis_port,redis_ip);

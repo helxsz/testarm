@@ -289,19 +289,22 @@ app.get('/meeting/site/:site',access_control.authUser,function(req,res,next){
     getFlatMenus(site, res);
 })
 
+//http://stackoverflow.com/questions/22573085/why-i-cant-sendfile-in-node-js-express-when-deployed-to-aws/22573742?noredirect=1#22573742
 app.get('/sites/map',access_control.authUser,function(req,res){
     var site = req.query.site;
 	var sitepath = '';
 	if(site == 'Peterhouse Technology Park')
 	sitepath = 'public/maps/map2.geojson';
     else if(site == 'Capital Park')
-	sitepath = 'public/maps/map3.geojson';
-    res.sendfile(sitepath);	
+	sitepath = 'maps/map3.geojson';
+    res.sendfile(sitepath);
+	//console.log('get site path'.red, __dirname + '/../../' + sitepath );
+    //res.sendfile(__dirname + '/../../' + sitepath);	
 })
 
 app.get('/buildings/map',access_control.authUser,function(req,res){
     var building = req.query.building, floor = req.query.floor;
-	console.log('building  map'.green,building);
+	console.log('building  map'.green,building,__dirname+'/'+mappath );
 	var mappath = 'maps/ARM-MAP_Base.svg';
 	if(building == 'ARM1' && floor == 0){
         //mappath = 'maps/ARM1-GROUND-FLOOR.svg';

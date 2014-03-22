@@ -379,7 +379,7 @@ function replaceAll(find, replace, str) {
    return str.replace(new RegExp(escapeRegExp(find), 'g'), replace);
 }
 
-// 
+// the room data  API
 app.get('/sites/:site/:building?/:floor?',access_control.authUser,function(req,res){
     var building = req.params.building, floor = req.params.floor, site = req.params.site;
 	var query = {};
@@ -440,7 +440,7 @@ app.get('/sites/:site/:building?/:floor?',access_control.authUser,function(req,r
 	}
 })
 
-
+// old API
 app.get('/buildings/:building/:floor/cache',access_control.authUser,function(req,res){
     var building = req.params.building, floor = req.params.floor;
 	building = building || 'ARM1';
@@ -506,8 +506,69 @@ app.get('/buildings/:building/:floor/cache',access_control.authUser,function(req
 		return temp_name;
 	}
 })
-/**/
 
+app.get('/sensors/history',function(req,res,next){
+    var ids = req.query.urls;
+	var urls = ids.split(',');
+    var now = new Date(), 
+	    default_start_day = new Date(now.getFullYear(),now.getMonth(),now.getDate(),0,0,0)
+	    default_end_day = new Date(now.getFullYear(),now.getMonth(),now.getDate(),23,59,59);
+	var day_begin = default_start_day;
+	var day_end = default_end_day;
+	if(req.query.start != null) day_begin  = new Date(req.query.start);
+    if(req.query.end != null) day_end = new Date(req.query.end);	
+	
+	var range = "?start="+day_begin.getTime()/1000+"&end="+day_end.getTime()/1000;
+    console.log(  urls, day_begin, day_end);
+    
+    searchMotionHistory( urls, range, function(err,data){
+	    if(err) res.send(404);
+	    else{
+		    _.map(data,function(sensor){
+			    //console.log('......getSensorDataFromRoom......'.red,sensor.url, sensor.room, day_begin,day_end, sensor.e.length);
+			})
+    		res.send(200,data);
+		}	
+	})	
+
+})
+
+function searchMotionHistory( urls, range, _callback){
+	var sensors = [];
+	async.forEach(urls, function(url,callback){
+		//var range = "?start="+  ( -60*60*24 )+"&end="+ (-100);
+		var sensor = {};
+		sensor.url = url;
+		meetingService.getResourceData(url, range, function(err,data){
+			if(err)  {
+			   console.log(err);
+			   sensor.data = [];
+			}   
+			else {
+				//console.log('data   ------------------'.green,url, data.e.length);			
+				var senmlParse = function(data){			
+					var e = data.e;
+					e.forEach(function(data){
+						delete data.n;
+						//console.log(  moment(data.t*1000 ).fromNow() );	//   ,new Date(data.t*1000) ,  moment(data.t*1000 ).fromNow()
+					})
+				}	
+				senmlParse(data);
+				sensor.e = data.e;
+			}
+			sensors.push(sensor);
+			callback();
+		})							
+	},function(err) {      
+		if(err){
+		   console.log(err);
+		   _callback(err,null);
+		}
+		else{
+			_callback(null,sensors);
+		}
+	})  
+}
 
 /**********************************************   ********************************************************/
 
@@ -568,6 +629,7 @@ app.get('/arm/meeting/history/all',access_control.authUser,function(req,res,next
 	var range = "?start="+day_begin.getTime()/1000+"&end="+day_end.getTime()/1000;
 	console.log(   day_begin, day_end);
     //var range = "?start="+  ( -60*60*24*2 )+"&end="+ (-100);
+	console.log(rooms);
     sensorRoomModel.getSensorDataFromRoom(meetingService,rooms,'motion',range, function(err,data){
 	    if(err) res.send(404);
 	    else{
@@ -618,7 +680,7 @@ app.get('/buildings/history/events/all',access_control.authUser,function(req,res
 
 
 app.get('/meeting/cacheevents',access_control.authUser,function(req,res){
-    sensorRoomModel.cacheEvents(function(err,rooms){
+    sensorRoomModel.cacheEvents(buildingService,function(err,rooms){
 	    if(err) res.send(500);
 		else res.send(200,rooms);
 	})
@@ -688,7 +750,7 @@ rule.minute = 40;
 
 var j = schedule.scheduleJob(rule, function(){
     console.log('running the event schedule rule!');
-	sensorRoomModel.cacheEvents(function(err,rooms){
+	sensorRoomModel.cacheEvents(buildingService,function(err,rooms){
 	    if(err)  console.log('err for catche the events');
 		else if(rooms)
         console.log('finsh '.green,'cache all the room events');
@@ -705,8 +767,8 @@ var j = schedule.scheduleJob(rule2, function(){
 	var array = getAllMajoryBuildingRooms();
 	
 	sensorRoomModel.getRoomData(array, function(err,rooms){
-		if(err) {  console.log('get room error '.red); res.send(500)}
-		else if(!rooms) { console.log('no data for room'.red); res.send(404);}
+		if(err) {  console.log('get room error '.red); }
+		else if(!rooms) { console.log('no data for room'.red); }
 		else{		   
 			//console.log('get rooms data '.green, rooms);
 			
@@ -743,6 +805,7 @@ app.get('/test/timeseries/now',access_control.authUser,function(req,res,next){
 	})
 })
 
+// old API
 app.get('/buildings/:name/:floor',access_control.authUser,function(req,res){
     var name = req.params.name, floor = req.params.floor;
 	name = name || 'ARM1';

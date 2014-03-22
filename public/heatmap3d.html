@@ -347,7 +347,7 @@ SensormappingApp.controller('mappingListCtrl', function ($rootScope,$scope, $htt
 			
         $scope.showMenuTrigger = function(){
             $scope.showMenu = !$scope.showMenu;
-            $scope.loadFloorMapSensorHistory();
+
         }
 
 		function showFloorMap(){
@@ -467,11 +467,11 @@ SensormappingApp.controller('mappingListCtrl', function ($rootScope,$scope, $htt
 								if(x !=null && y != null){
 									//console.log('second_name  location ---------',d3.select('#'+second_name).attr('x'),d3.select('#'+second_name).attr('y'), width, height);
 									var posx = Number(x)+Number(width)/2, posy = Number(y)+Number(height)/2;	
-									$scope.floor_sensors.push({x:(posx),y:(posy),temperature:room.temperature,name:second_name, time:room.time,cood:[room.lng,room.lat],size:width*height,sensor:room.sensor});								
+									$scope.floor_sensors.push({x:(posx),y:(posy),temperature:room.temperature,name:second_name, time:room.time,cood:[room.lng,room.lat],size:width*height});								
 								}else {
 									var box = d3.select('#'+second_name).node().getBBox();
-									//console.log('polygon   ',box.x, box.y, box.width, box.height);	
-									$scope.floor_sensors.push({x:(box.x),y:(box.y),temperature:room.temperature,name:second_name, time:room.time,cood:[room.lng,room.lat],size:box.width*box.height,sensor:room.sensor});                                   									
+									console.log('polygon   ',box.x, box.y, box.width, box.height);	
+									$scope.floor_sensors.push({x:(box.x),y:(box.y),temperature:room.temperature,name:second_name, time:room.time,cood:[room.lng,room.lat],size:box.width*box.height});                                   									
 								    /*
 									var points = d3.select('#'+second_name).attr('points'); 									
 									if(points !=null){
@@ -767,19 +767,6 @@ SensormappingApp.controller('mappingListCtrl', function ($rootScope,$scope, $htt
 				$scope.loading = false;
 				console.error('error loading the page');
 			});		
-		}
-
-        $scope.loadFloorMapSensorHistory = function(){
-		    var ids = "";
-			for(var i=0;i<$scope.floor_sensors.length-1;i++){
-			    if($scope.floor_sensors[i].sensor != null)
-			    ids += $scope.floor_sensors[i].sensor +',';
-			}
-			ids += $scope.floor_sensors[$scope.floor_sensors.length-1];
-			console.log('loadFloorMapSensorHistory ',ids);
-		    d3.json("/sensors/history?urls="+ids,function(json){
-			    console.log(json);			
-			})
 		}		
 		
 		$scope.loadMenu = function(){

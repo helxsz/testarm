@@ -27,7 +27,6 @@ https://alertmeadaptor.appspot.com
 	
 function CatalogUpdater(){
 
-
     var enlight = {
 	    'name': 'enlight',
 		'description': 'Streetlight data',
