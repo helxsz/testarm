@@ -1,7 +1,4 @@
-// http://blog.mongodb.org/post/65517193370/schema-design-for-time-series-data-in-mongodb
-// https://github.com/jupe/mongoose-timeseries/blob/master/lib/schema.js
-// http://blog.objectrocket.com/2013/11/12/appboy-scales-horizontally-with-objectrocket-mongodb/
-var _ = require("underscore"), 
+
    mongoose = require('mongoose'),
    ObjectId = mongoose.Schema.ObjectId,
    Schema = mongoose.Schema,
