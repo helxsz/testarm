@@ -1,4 +1,4 @@
-
+var _ = require("underscore"), 
    mongoose = require('mongoose'),
    ObjectId = mongoose.Schema.ObjectId,
    Schema = mongoose.Schema,
